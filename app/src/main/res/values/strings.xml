@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Expense Tracker</string>
+    <string name="welcometitle">Welcome To Expense Tracker</string>
+    <string name="termpolicytext"><![CDATA[Accept Terms of Service & Privacy Policy]]></string>
+    <string name="fb_signin_text">SIGN IN WITH FACEBOOK</string>
+    <string name="gmail_signin_text">SIGN IN WITH GMAIL</string>
+    <string name="noaccounttext">Don\'t Have Any Acoount?</string>
+    <string name="signup_button_text">SIGN UP HERE</string>
 </resources>
