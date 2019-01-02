@@ -1,13 +1,11 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.remotearth.expensetracker"
+        applicationId "com.remotearthsolutions.expensetracker"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
@@ -18,6 +16,20 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    signingConfigs {
+        debug {
+            storeFile file("../keystores/remotearth.jks")
+            storePassword "alliswell"
+            keyAlias "remotearth"
+            keyPassword "alliswell"
+        }
+        release {
+            storeFile file("../ketstores/remotearth.jks")
+            storePassword "alliswell"
+            keyAlias "remotearth"
+            keyPassword "alliswell"
         }
     }
 }
