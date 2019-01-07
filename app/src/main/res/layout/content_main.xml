@@ -1,15 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
               xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               tools:context=".activities.MainActivity"
-              tools:showIn="@layout/app_bar_main"
-              android:layout_above="@+id/bottombar"
-              android:gravity="center">
+              app:layout_behavior="@string/appbar_scrolling_view_behavior"
+              tools:showIn="@layout/app_bar_main">
+
+    <LinearLayout
+            android:id="@+id/aaa"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+
+        <LinearLayout
+                android:id="@+id/monthcontainer"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center"
+                android:background="@color/colorPrimary"
+                android:weightSum="2">
+
+            <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="0.3"
+                    android:src="@drawable/ic_previous"
+                    android:layout_height="35dp"/>
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1.4"
+                    android:text="MONTH NAME"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="@color/textcolorwhite"
+                    android:textSize="18sp"
+                    android:layout_height="match_parent"/>
+
+            <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="0.3"
+                    android:src="@drawable/ic_next"
+                    android:layout_height="35dp"/>
+
+        </LinearLayout>
+
+        <FrameLayout
+                android:id="@+id/fragmentcontainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+
+    </LinearLayout>
 
 
 
+    <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_alignParentBottom="true"
+            android:background="?android:attr/windowBackground"
+            app:menu="@menu/navigation" />
 
-</LinearLayout>
+</RelativeLayout>

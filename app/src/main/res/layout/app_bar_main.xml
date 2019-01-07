@@ -23,8 +23,5 @@
 
     <include layout="@layout/content_main" />
 
-    <include layout="@layout/bottom_navigation"/>
-
-
 </android.support.design.widget.CoordinatorLayout>
 
