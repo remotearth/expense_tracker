@@ -6,4 +6,8 @@
     <string name="gmail_signin_text">SIGN IN WITH GMAIL</string>
     <string name="noaccounttext">Don\'t Have Any Acoount?</string>
     <string name="signup_button_text">SIGN UP HERE</string>
+
+    <string name="facebook_app_id" translatable="false">379539602796909</string>
+    <string name="fb_login_protocol_scheme">fb379539602796909</string>
+
 </resources>
