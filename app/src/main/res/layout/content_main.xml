@@ -11,6 +11,7 @@
             android:id="@+id/aaa"
             android:layout_width="match_parent"
             android:orientation="vertical"
+            android:layout_above="@+id/navigation"
             android:layout_height="match_parent">
 
 
@@ -31,7 +32,7 @@
             <TextView
                     android:layout_width="0dp"
                     android:layout_weight="1.4"
-                    android:text="MONTH NAME"
+                    tools:text="MONTH NAME"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:textColor="@color/textcolorwhite"
@@ -46,14 +47,345 @@
 
         </LinearLayout>
 
-        <FrameLayout
-                android:id="@+id/fragmentcontainer"
+
+
+    <LinearLayout
+            android:id="@+id/cat_container"
+            android:weightSum="4"
+            android:layout_below="@+id/monthcontainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/navigation"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_weight="0.8"
+                android:orientation="horizontal"
+                android:layout_height="0dp">
+
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        tools:text="Medical"/>
+
+                <ImageView
+                        android:layout_width="50dp"
+                        android:src="@drawable/ic_medical"
+                        android:padding="3dp"
+                        android:layout_gravity="center"
+                        android:layout_height="50dp"/>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        tools:text="Medical"/>
+
+                <ImageView
+                        android:layout_width="50dp"
+                        android:src="@drawable/ic_medical"
+                        android:padding="3dp"
+                        android:layout_gravity="center"
+                        android:layout_height="50dp"/>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        tools:text="Medical"/>
+
+                <ImageView
+                        android:layout_width="50dp"
+                        android:src="@drawable/ic_medical"
+                        android:padding="3dp"
+                        android:layout_gravity="center"
+                        android:layout_height="50dp"/>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="0.8"
+                android:layout_height="0dp">
+
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        tools:text="Medical"/>
+
+                <ImageView
+                        android:layout_width="50dp"
+                        android:src="@drawable/ic_medical"
+                        android:padding="3dp"
+                        android:layout_gravity="center"
+                        android:layout_height="50dp"/>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        tools:text="Medical"/>
+
+                <ImageView
+                        android:layout_width="50dp"
+                        android:src="@drawable/ic_medical"
+                        android:padding="3dp"
+                        android:layout_gravity="center"
+                        android:layout_height="50dp"/>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        tools:text="Medical"/>
+
+                <ImageView
+                        android:layout_width="50dp"
+                        android:src="@drawable/ic_medical"
+                        android:padding="3dp"
+                        android:layout_gravity="center"
+                        android:layout_height="50dp"/>
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+        <!--Pie chart layout-->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1.5"
+                android:gravity="center"
+                android:layout_height="0dp">
+
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        tools:text="Medical"/>
+
+                <ImageView
+                        android:layout_width="50dp"
+                        android:src="@drawable/ic_medical"
+                        android:padding="3dp"
+                        android:layout_gravity="center"
+                        android:layout_height="50dp"/>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1.5"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+
+
+                <ImageView
+                        android:layout_width="150dp"
+                        android:src="@drawable/ic_chart"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        android:layout_height="150dp"/>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        tools:text="Medical"/>
+
+                <ImageView
+                        android:layout_width="50dp"
+                        android:src="@drawable/ic_medical"
+                        android:padding="3dp"
+                        android:layout_gravity="center"
+                        android:layout_height="50dp"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="0.8"
+                android:layout_height="0dp">
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        tools:text="Medical"/>
+
+                <ImageView
+                        android:layout_width="50dp"
+                        android:src="@drawable/ic_medical"
+                        android:padding="3dp"
+                        android:layout_gravity="center"
+                        android:layout_height="50dp"/>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        tools:text="Medical"/>
+
+                <ImageView
+                        android:layout_width="50dp"
+                        android:src="@drawable/ic_medical"
+                        android:padding="3dp"
+                        android:layout_gravity="center"
+                        android:layout_height="50dp"/>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        tools:text="Medical"/>
+
+                <ImageView
+                        android:layout_width="50dp"
+                        android:src="@drawable/ic_medical"
+                        android:padding="3dp"
+                        android:layout_gravity="center"
+                        android:layout_height="50dp"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
 
 
     </LinearLayout>
-
+    </LinearLayout>
 
 
     <android.support.design.widget.BottomNavigationView
@@ -63,6 +395,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
             android:layout_alignParentBottom="true"
+            android:gravity="center|bottom"
             android:background="?android:attr/windowBackground"
             app:menu="@menu/navigation" />
 
