@@ -17,8 +17,8 @@ import com.razerdp.widget.animatedpieview.AnimatedPieView;
 import com.razerdp.widget.animatedpieview.AnimatedPieViewConfig;
 import com.razerdp.widget.animatedpieview.data.SimplePieInfo;
 import com.remotearthsolutions.expensetracker.R;
-import com.remotearthsolutions.expensetracker.adapters.viewholder.Adapter_Home;
-import com.remotearthsolutions.expensetracker.entities.HomeModel;
+import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter;
+import com.remotearthsolutions.expensetracker.entities.Category;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +27,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView recyclerView;
-    List<HomeModel> allcatlist;
-    Adapter_Home adapter;
+    List<Category> allcatlist;
+    CategoryListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +57,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Call Category Data
         recyclerView = findViewById(R.id.recyclearView);
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager llm= new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(llm);
         loadcategory();
-        adapter = new Adapter_Home(allcatlist,this);
+        adapter = new CategoryListAdapter(allcatlist, this);
         recyclerView.setAdapter(adapter);
-
 
 
     }
@@ -80,8 +79,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .canTouch(true)
                 .drawText(true)
                 .autoSize(true)
-                .textSize(50)
-                .duration(2000);
+                .strokeWidth(40)
+                .textSize(30)
+                .duration(1000);
 
         mAnimatedPieView.applyConfig(config);
         mAnimatedPieView.start();
@@ -92,14 +92,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void loadcategory() {
 
         allcatlist = new ArrayList<>();
-        allcatlist.add(new HomeModel(R.drawable.ic_food,"Food"));
-        allcatlist.add(new HomeModel(R.drawable.ic_gift,"Gift"));
-        allcatlist.add(new HomeModel(R.drawable.ic_bills,"Bills"));
-        allcatlist.add(new HomeModel(R.drawable.ic_taxi,"Taxi"));
-        allcatlist.add(new HomeModel(R.drawable.ic_delivery_truck,"Transport"));
+        allcatlist.add(new Category(R.drawable.ic_food, "Food"));
+        allcatlist.add(new Category(R.drawable.ic_gift, "Gift"));
+        allcatlist.add(new Category(R.drawable.ic_bills, "Bills"));
+        allcatlist.add(new Category(R.drawable.ic_taxi, "Taxi"));
+        allcatlist.add(new Category(R.drawable.ic_delivery_truck, "Transport"));
 
     }
-
 
 
     // Method for bottom Navigation
@@ -110,13 +109,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         public boolean onNavigationItemSelected(MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Toast.makeText(getApplicationContext(),"Clicked On Bottom menu 1",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Clicked On Bottom menu 1", Toast.LENGTH_LONG).show();
                     return true;
                 case R.id.navigation_dashboard:
-                    Toast.makeText(getApplicationContext(),"Clicked On Bottom Menu 2",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Clicked On Bottom Menu 2", Toast.LENGTH_LONG).show();
                     return true;
                 case R.id.navigation_notifications:
-                    Toast.makeText(getApplicationContext(),"Clicked On Bottom Menu 3",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Clicked On Bottom Menu 3", Toast.LENGTH_LONG).show();
                     return true;
             }
             return false;

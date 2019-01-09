@@ -18,7 +18,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -41,8 +40,6 @@ public class LoginActivity extends AppCompatActivity {
     private Button signInButton;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +57,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivityForResult(signInIntent, code);
             }
         });
-
 
 
         mCallbackManager = CallbackManager.Factory.create();
@@ -99,12 +95,10 @@ public class LoginActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
-
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
 
     }
-
 
 
     @Override
@@ -162,11 +156,11 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(getApplicationContext(), "Login Successfully with google",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Login Successfully with google", Toast.LENGTH_LONG).show();
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(getApplicationContext(), "Login failed with google",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Login failed with google", Toast.LENGTH_LONG).show();
 
                         }
 
@@ -175,7 +169,6 @@ public class LoginActivity extends AppCompatActivity {
                 });
 
     }
-
 
 
     private void handleFacebookAccessToken(AccessToken token) {
