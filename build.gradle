@@ -20,9 +20,15 @@ allprojects {
     repositories {
         google()
         jcenter()
+
+        // added for implement pie chart
+        maven { url "https://jitpack.io" }
+
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+
