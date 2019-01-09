@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:context=".activities.LoginActivity"
+              android:gravity="center"
+              android:layout_margin="20dp">
+
+
+    <ImageView
+            android:layout_width="@dimen/logo_height_weight"
+            android:layout_height="@dimen/logo_height_weight"
+            android:src="@drawable/templogo"/>
+
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/welcometitle"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"/>
+
+
+    <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/termpolicytext"
+            android:textColor="@color/Ashcolor"/>
+
+    <Button
+            android:id="@+id/facebook_login_button"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="@string/fb_signin_text"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textColor="@color/textcolorwhite"
+            android:background="@drawable/btn_background"
+            android:drawableStart="@drawable/ic_facebook"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_marginTop="10dp"/>
+
+
+    <Button
+            android:id="@+id/googlebutton"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="@string/gmail_signin_text"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textColor="@color/textcolorwhite"
+            android:drawableStart="@drawable/ic_google"
+            android:background="@drawable/btn_background"
+            android:textSize="15sp"/>
+
+
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/noaccounttext"
+            android:textColor="@color/Ashcolor"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textSize="15sp"
+            android:layout_marginTop="20dp"/>
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="@string/signup_button_text"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textColor="@color/textcolorwhite"
+            android:background="@drawable/btn_background"
+            android:layout_marginTop="5dp"/>
+
+
+
+</LinearLayout>
