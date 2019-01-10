@@ -20,12 +20,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:gravity="center"
-                android:background="@color/colorPrimary"
                 android:weightSum="2">
 
             <ImageView
                     android:layout_width="0dp"
                     android:layout_weight="0.3"
+                    android:tint="@color/colorPrimary"
                     android:src="@drawable/ic_previous"
                     android:layout_height="35dp"/>
 
@@ -43,6 +43,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="0.3"
                     android:src="@drawable/ic_next"
+                    android:tint="@color/colorPrimary"
                     android:layout_height="35dp"/>
 
         </LinearLayout>
@@ -86,7 +87,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Expense Catagory"
                                 android:textColor="@color/colorPrimary"
-                                android:textSize="18dp"
+                                android:textSize="18sp"
                         />
 
                         <ImageView
@@ -109,7 +110,6 @@
                         <android.support.v7.widget.RecyclerView
                                 android:id="@+id/recyclearView"
                                 android:layout_width="match_parent"
-
                                 android:layout_height="wrap_content"/>
 
 
