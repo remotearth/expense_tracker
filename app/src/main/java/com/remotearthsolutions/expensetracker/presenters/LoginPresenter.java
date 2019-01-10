@@ -3,6 +3,7 @@ package com.remotearthsolutions.expensetracker.presenters;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.remotearthsolutions.expensetracker.contracts.LoginContract;
 import com.remotearthsolutions.expensetracker.interactors.LoginInteractor;
+import com.remotearthsolutions.expensetracker.services.FacebookSignInService;
 import com.remotearthsolutions.expensetracker.services.GoogleSigninService;
 
 public class LoginPresenter {
@@ -10,6 +11,9 @@ public class LoginPresenter {
     private  LoginContract.View view;
     private GoogleSigninService googleSigninService;
     private LoginContract.Interactor interactor;
+
+    private FacebookSignInService facebookSignInService;
+
     public LoginPresenter(LoginContract.View view, GoogleSigninService googleSigninService){
         this.view = view;
         this.googleSigninService = googleSigninService;
@@ -21,6 +25,8 @@ public class LoginPresenter {
         googleSigninService.initializeGoogleSigninClient();
         view.initializeView();
         view.facebookInitialize();
+
+        facebookSignInService.initializeFacebookLoginManager();
     }
 
     public GoogleSignInClient getGoogleSignInClient() {
