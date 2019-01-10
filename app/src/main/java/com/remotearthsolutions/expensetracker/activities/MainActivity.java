@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
@@ -13,6 +14,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.razerdp.widget.animatedpieview.AnimatedPieView;
 import com.razerdp.widget.animatedpieview.AnimatedPieViewConfig;
 import com.razerdp.widget.animatedpieview.data.SimplePieInfo;
@@ -60,10 +63,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(llm);
         loadcategory();
-        adapter = new CategoryListAdapter(allcatlist, this);
+        adapter = new CategoryListAdapter(allcatlist);
         recyclerView.setAdapter(adapter);
 
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            Intent intent = new Intent(this,LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     // method for pie chart operation

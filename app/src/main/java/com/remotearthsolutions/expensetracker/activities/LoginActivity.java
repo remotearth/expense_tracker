@@ -17,27 +17,32 @@ import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.*;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.contracts.LoginContract;
+import com.remotearthsolutions.expensetracker.presenters.LoginPresenter;
+import com.remotearthsolutions.expensetracker.services.GoogleSigninServiceImpl;
 
 import java.util.Arrays;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, LoginContract.View {
 
 
     private CallbackManager mCallbackManager;
-    private static final String TAG = "FACELOG";
-    private Button loginbtn;
+    private static final String TAG = LoginActivity.class.getName();
     private FirebaseAuth mAuth;
-
     // Initialization for google sign in
-    GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInClient mGoogleSignInClient;
     private static final int code = 101;
-    private Button signInButton;
+    private Button googleSignInButton;
+    private Button facebookSignInButton;
+
+    private LoginPresenter presenter;
+
+    private GoogleSigninServiceImpl googleSigninService;
 
 
     @Override
@@ -45,79 +50,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // google button
-        signInButton = findViewById(R.id.googlebutton);
-
-        // google sign in
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-                startActivityForResult(signInIntent, code);
-            }
-        });
-
-
-        mCallbackManager = CallbackManager.Factory.create();
-        mAuth = FirebaseAuth.getInstance();
-        loginbtn = findViewById(R.id.facebook_login_button);
-        loginbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("email", "public_profile"));
-                LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        Log.d("", "facebook:onSuccess:" + loginResult);
-                        handleFacebookAccessToken(loginResult.getAccessToken());
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        Log.d(TAG, "facebook:onCancel");
-                        // ...
-                    }
-
-                    @Override
-                    public void onError(FacebookException error) {
-                        Log.d(TAG, "facebook:onError", error);
-                        // ...
-                    }
-                });
-            }
-        });
-
-        //--- code for google sign in
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        presenter = new LoginPresenter(this,new GoogleSigninServiceImpl(this));
+        presenter.init();
 
 
     }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            updateUI();
-        }
-
-
-    }
-
-    private void updateUI() {
-
-        Toast.makeText(LoginActivity.this, "You are logged in", Toast.LENGTH_LONG).show();
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -163,8 +100,6 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Login failed with google", Toast.LENGTH_LONG).show();
 
                         }
-
-                        // ...
                     }
                 });
 
@@ -183,13 +118,12 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI();
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI();
                         }
 
                     }
@@ -197,4 +131,64 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.googlebutton:
+                mGoogleSignInClient = presenter.getGoogleSignInClient();
+
+                if (mGoogleSignInClient == null) {
+                    Log.w(TAG, "mGoogleSignInClient must be initialized");
+                    return;
+                }
+
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, code);
+                break;
+            case R.id.facebook_login_button:
+                initializeFacebookLoginManager();
+                break;
+        }
+
+    }
+
+    private void initializeFacebookLoginManager() {
+
+        LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("email", "public_profile"));
+        LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d("", "facebook:onSuccess:" + loginResult);
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "facebook:onCancel");
+                // ...
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "facebook:onError", error);
+                // ...
+            }
+        });
+    }
+
+    @Override
+    public void initializeView() {
+        googleSignInButton = findViewById(R.id.googlebutton);
+        facebookSignInButton = findViewById(R.id.facebook_login_button);
+
+        googleSignInButton.setOnClickListener(this);
+        facebookSignInButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void facebookInitialize() {
+        mCallbackManager = CallbackManager.Factory.create();
+        mAuth = FirebaseAuth.getInstance();
+    }
 }
