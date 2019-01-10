@@ -24,9 +24,12 @@ import com.google.firebase.auth.*;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.LoginContract;
 import com.remotearthsolutions.expensetracker.presenters.LoginPresenter;
+import com.remotearthsolutions.expensetracker.services.FacebookLoginManagerImpl;
 import com.remotearthsolutions.expensetracker.services.GoogleSigninServiceImpl;
 
 import java.util.Arrays;
+
+import static com.facebook.login.widget.ProfilePictureView.TAG;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, LoginContract.View {
 
@@ -50,7 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        presenter = new LoginPresenter(this,new GoogleSigninServiceImpl(this));
+        presenter = new LoginPresenter(this,new GoogleSigninServiceImpl(this), new FacebookLoginManagerImpl(this));
         presenter.init();
 
 
@@ -79,6 +82,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
 
+    }
+
+    private void handleFacebookAccessToken(String token) {
+        Log.d(TAG, "handleFacebookAccessToken:" + token);
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
     }
 
 
@@ -122,6 +149,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivityForResult(signInIntent, code);
                 break;
             case R.id.facebook_login_button:
+                presenter.startFacebookLogin();
 
                 break;
         }
@@ -142,5 +170,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void facebookInitialize() {
         mCallbackManager = CallbackManager.Factory.create();
         mAuth = FirebaseAuth.getInstance();
+    }
+
+    @Override
+    public void onTokenGenerated(String token) {
+
+        handleFacebookAccessToken(token);
     }
 }
