@@ -17,11 +17,13 @@ public class LoginPresenter implements FacebookService.CallBack, FirebaseService
     private GoogleService googleService;
     private FacebookService facebookService;
 
+
     public LoginPresenter(LoginContract.View view, GoogleService googleService, FacebookService facebookService, FirebaseService firebaseService) {
         this.view = view;
         this.googleService = googleService;
         this.facebookService = facebookService;
         this.firebaseService = firebaseService;
+
 
     }
 
@@ -30,6 +32,8 @@ public class LoginPresenter implements FacebookService.CallBack, FirebaseService
         view.initializeView();
         googleService.initializeGoogleSigninClient();
         facebookService.facebookCallbackInitialize();
+
+
     }
 
     public void startFacebookLogin() {

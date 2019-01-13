@@ -22,6 +22,7 @@ import com.razerdp.widget.animatedpieview.data.SimplePieInfo;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter;
 import com.remotearthsolutions.expensetracker.entities.Category;
+import com.remotearthsolutions.expensetracker.utils.ChartUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +55,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
-        // Call Pie Chart
-        drawPie();
-
         // Call Category Data
         recyclerView = findViewById(R.id.recyclearView);
         recyclerView.setHasFixedSize(true);
@@ -65,6 +63,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         loadcategory();
         adapter = new CategoryListAdapter(allcatlist);
         recyclerView.setAdapter(adapter);
+
+
+        ChartUtils chartUtils = new ChartUtils();
+        AnimatedPieView mAnimatedPieView = findViewById(R.id.animatedpie);
+        mAnimatedPieView.applyConfig(chartUtils.getPieChart()).start();
+
 
     }
 
@@ -80,27 +84,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    // method for pie chart operation
-    private void drawPie() {
-
-        AnimatedPieView mAnimatedPieView = findViewById(R.id.animatedpie);
-        AnimatedPieViewConfig config = new AnimatedPieViewConfig();
-        config.startAngle(-90)// Starting angle offset
-                .addData(new SimplePieInfo(17.2f, Color.parseColor("#00aaee"), "Food"))
-                .addData(new SimplePieInfo(18.0f, Color.parseColor("#000000"), "Gift"))
-                .addData(new SimplePieInfo(11.0f, Color.parseColor("#FF008577"), "Bills"))
-                .addData(new SimplePieInfo(15.0f, Color.parseColor("#D81B60"), "Taxi"))
-                .canTouch(true)
-                .drawText(true)
-                .autoSize(true)
-                .strokeWidth(40)
-                .textSize(30)
-                .duration(1000);
-
-        mAnimatedPieView.applyConfig(config);
-        mAnimatedPieView.start();
-
-    }
 
     // method for category item
     private void loadcategory() {
