@@ -1,11 +1,12 @@
 package com.remotearthsolutions.expensetracker.contracts;
 
-public interface LoginContract {
-    interface View {
-        void initializeView();
-        void facebookInitialize();
+import com.google.firebase.auth.FirebaseUser;
 
-        void onTokenGenerated(String token);
+public interface LoginContract {
+    interface View extends BaseView {
+        void initializeView();
+        void onLoginSuccess(FirebaseUser user);
+        void onLoginFailure();
     }
 
     interface Interactor {

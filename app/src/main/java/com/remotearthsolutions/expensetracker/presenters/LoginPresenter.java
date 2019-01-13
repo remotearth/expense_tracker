@@ -1,51 +1,77 @@
 package com.remotearthsolutions.expensetracker.presenters;
 
+import android.content.Intent;
+import com.facebook.CallbackManager;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FirebaseUser;
 import com.remotearthsolutions.expensetracker.contracts.LoginContract;
-import com.remotearthsolutions.expensetracker.interactors.LoginInteractor;
-import com.remotearthsolutions.expensetracker.services.FacebookLoginManagerImpl;
-import com.remotearthsolutions.expensetracker.services.FacebookSignInService;
-import com.remotearthsolutions.expensetracker.services.GoogleSigninService;
+import com.remotearthsolutions.expensetracker.services.FacebookService;
+import com.remotearthsolutions.expensetracker.services.FirebaseService;
+import com.remotearthsolutions.expensetracker.services.GoogleService;
 
-public class LoginPresenter implements FacebookLoginManagerImpl.CallBack {
+public class LoginPresenter implements FacebookService.CallBack, FirebaseService.Callback, GoogleService.Callback {
 
-    private  LoginContract.View view;
-    private GoogleSigninService googleSigninService;
-    private LoginContract.Interactor interactor;
+    private LoginContract.View view;
+    private FirebaseService firebaseService;
+    private GoogleService googleService;
+    private FacebookService facebookService;
 
-    private FacebookSignInService facebookSignInService;
-
-    public LoginPresenter(LoginContract.View view, GoogleSigninService googleSigninService, FacebookSignInService facebookSignInService){
+    public LoginPresenter(LoginContract.View view, GoogleService googleService, FacebookService facebookService, FirebaseService firebaseService) {
         this.view = view;
-        this.googleSigninService = googleSigninService;
-        interactor = new LoginInteractor();
-        this.facebookSignInService = facebookSignInService;
-
+        this.googleService = googleService;
+        this.facebookService = facebookService;
+        this.firebaseService = firebaseService;
 
     }
 
     public void init() {
 
-        googleSigninService.initializeGoogleSigninClient();
         view.initializeView();
-        view.facebookInitialize();
-
-
+        googleService.initializeGoogleSigninClient();
+        facebookService.facebookCallbackInitialize();
     }
 
-    public void startFacebookLogin()
-    {
-        facebookSignInService.initializeFacebookLoginManager(this);
+    public void startFacebookLogin() {
+        facebookService.startFacebookLogin(this);
+    }
+
+    public CallbackManager getFacebookCallbackManager() {
+        return facebookService.getFacebookCallbackManager();
+    }
+
+    public void startGoogleLogin(Intent data) {
+        googleService.startGoogleLogin(data,this);
     }
 
     public GoogleSignInClient getGoogleSignInClient() {
-        return googleSigninService.getGoogleSignInClient();
+        return googleService.getGoogleSignInClient();
     }
 
     @Override
-    public void OnCallBackRegistrationSuccess(String token) {
-
-        view.onTokenGenerated(token);
-
+    public void onFirebaseSigninSuccess(FirebaseUser user) {
+        view.onLoginSuccess(user);
     }
+
+    @Override
+    public void onFirebaseSigninFailure(String message) {
+        view.onLoginFailure();
+        view.showAlert(null, message, "Ok", null, null);
+    }
+
+    @Override
+    public void onSocialLoginSuccess(AuthCredential credential) {
+        firebaseService.signinWithCredential(credential, this);
+    }
+
+    @Override
+    public void onSocialLoginFailure(String message) {
+        view.showAlert(null, message, "Ok", null, null);
+    }
+
+    @Override
+    public void onFacebookLoginCancel() {
+        view.onLoginFailure();
+    }
+
 }
