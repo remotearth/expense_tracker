@@ -1,9 +1,10 @@
 package com.remotearthsolutions.expensetracker.adapters;
 
-import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.viewholder.CategoryViewHolder;
 import com.remotearthsolutions.expensetracker.entities.Category;

@@ -10,7 +10,7 @@ import com.remotearthsolutions.expensetracker.services.FacebookService;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
 import com.remotearthsolutions.expensetracker.services.GoogleService;
 
-public class LoginPresenter implements FacebookService.CallBack, FirebaseService.Callback, GoogleService.Callback {
+public class LoginPresenter implements  FacebookService.CallBack, FirebaseService.Callback, GoogleService.Callback {
 
     private LoginContract.View view;
     private FirebaseService firebaseService;
@@ -32,7 +32,6 @@ public class LoginPresenter implements FacebookService.CallBack, FirebaseService
         view.initializeView();
         googleService.initializeGoogleSigninClient();
         facebookService.facebookCallbackInitialize();
-
 
     }
 

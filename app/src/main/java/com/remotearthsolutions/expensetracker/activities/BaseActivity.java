@@ -1,7 +1,7 @@
 package com.remotearthsolutions.expensetracker.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import com.remotearthsolutions.expensetracker.contracts.BaseView;
 
 public class BaseActivity extends AppCompatActivity implements BaseView {
