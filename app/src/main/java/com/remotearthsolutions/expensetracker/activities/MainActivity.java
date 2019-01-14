@@ -1,7 +1,6 @@
 package com.remotearthsolutions.expensetracker.activities;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -17,12 +16,10 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.razerdp.widget.animatedpieview.AnimatedPieView;
-import com.razerdp.widget.animatedpieview.AnimatedPieViewConfig;
-import com.razerdp.widget.animatedpieview.data.SimplePieInfo;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter;
 import com.remotearthsolutions.expensetracker.entities.Category;
-import com.remotearthsolutions.expensetracker.utils.ChartUtils;
+import com.remotearthsolutions.expensetracker.presenters.MainPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private RecyclerView recyclerView;
     List<Category> allcatlist;
     CategoryListAdapter adapter;
+
+    private MainPresenter mainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +63,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         adapter = new CategoryListAdapter(allcatlist);
         recyclerView.setAdapter(adapter);
 
-
-        ChartUtils chartUtils = new ChartUtils();
         AnimatedPieView mAnimatedPieView = findViewById(R.id.animatedpie);
-        mAnimatedPieView.applyConfig(chartUtils.getPieChart()).start();
+        mainPresenter = new MainPresenter();
+        mainPresenter.initChart(mAnimatedPieView);
+
 
 
     }

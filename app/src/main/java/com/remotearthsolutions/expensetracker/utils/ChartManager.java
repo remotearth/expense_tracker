@@ -5,6 +5,6 @@ import com.razerdp.widget.animatedpieview.AnimatedPieViewConfig;
 public interface ChartManager {
 
     AnimatedPieViewConfig getPieChart();
-    
+
 
 }
