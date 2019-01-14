@@ -19,7 +19,7 @@ import com.razerdp.widget.animatedpieview.AnimatedPieView;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter;
 import com.remotearthsolutions.expensetracker.entities.Category;
-import com.remotearthsolutions.expensetracker.utils.ChartUtils;
+import com.remotearthsolutions.expensetracker.presenters.MainPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private RecyclerView recyclerView;
     List<Category> allcatlist;
     CategoryListAdapter adapter;
+
+    private MainPresenter mainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +63,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         adapter = new CategoryListAdapter(allcatlist);
         recyclerView.setAdapter(adapter);
 
-
-        ChartUtils chartUtils = new ChartUtils();
         AnimatedPieView mAnimatedPieView = findViewById(R.id.animatedpie);
-        mAnimatedPieView.applyConfig(chartUtils.getPieChart()).start();
+        mainPresenter = new MainPresenter();
+        mainPresenter.initChart(mAnimatedPieView);
+
 
 
     }
