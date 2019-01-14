@@ -20,6 +20,7 @@ import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter;
 import com.remotearthsolutions.expensetracker.entities.Category;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         loadcategory();
         adapter = new CategoryListAdapter(allcatlist, this);
         recyclerView.setAdapter(adapter);
+
+
 
 
     }
