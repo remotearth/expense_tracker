@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         adapter = new CategoryListAdapter(allcatlist, this);
         recyclerView.setAdapter(adapter);
 
-
     }
 
     // method for pie chart operation

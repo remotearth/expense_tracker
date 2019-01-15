@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SlidingDrawer
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/SlidingDrawer"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:content="@+id/contentLayout"
         android:handle="@+id/slideButton"
         android:orientation="vertical"
-        android:padding="10dip" xmlns:android="http://schemas.android.com/apk/res/android">
+        android:padding="10dip">
 
 
+    <Button
+            android:id="@+id/slideButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector"
+            android:text="SHOW"
+            android:textColor="#ecf0f1"
+            android:textSize="20sp"/>
 
-
-
-
-
-
-
-
-<LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="match_parent">
-
-
+    <LinearLayout
+            android:id="@+id/contentLayout"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:layout_height="wrap_content">
 
 
         <LinearLayout
@@ -35,75 +36,75 @@
                 android:baselineAligned="false">
 
 
-            <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:layout_marginEnd="5dp"
-                    android:orientation="vertical"
-                    android:layout_height="wrap_content">
+            <!--<LinearLayout-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:gravity="end"-->
+                    <!--android:layout_marginEnd="5dp"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:layout_height="wrap_content">-->
 
-                <ImageView android:layout_width="50dp"
-                           android:layout_gravity="end"
-                           android:padding="5dp"
-                           android:src="@drawable/ic_food"
-                           android:layout_height="50dp"/>
+                <!--<ImageView android:layout_width="50dp"-->
+                           <!--android:layout_gravity="end"-->
+                           <!--android:padding="5dp"-->
+                           <!--android:src="@drawable/ic_food"-->
+                           <!--android:layout_height="50dp"/>-->
 
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/from_account"
-                        android:textSize="18sp"
-                        android:background="@color/colorAccent"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"/>
+                <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/from_account"-->
+                        <!--android:textSize="18sp"-->
+                        <!--android:background="@color/colorAccent"-->
+                        <!--android:textAlignment="center"-->
+                        <!--android:textColor="@color/white"/>-->
 
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/from_account_card"
-                        android:textSize="25sp"
-                        android:background="@color/colorAccent"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"/>
-
-
-            </LinearLayout>
+                <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/from_account_card"-->
+                        <!--android:textSize="25sp"-->
+                        <!--android:background="@color/colorAccent"-->
+                        <!--android:textAlignment="center"-->
+                        <!--android:textColor="@color/white"/>-->
 
 
-            <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_height="wrap_content">
+            <!--</LinearLayout>-->
 
 
-                <ImageView android:layout_width="50dp"
-                           android:layout_gravity="end"
-                           android:padding="5dp"
-                           android:src="@drawable/ic_gift"
-                           android:layout_height="50dp"/>
-
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/to_account"
-                        android:textSize="18sp"
-                        android:background="@color/colorPrimary"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"/>
+            <!--<LinearLayout-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:layout_height="wrap_content">-->
 
 
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/from_catagory_card"
-                        android:textSize="25sp"
-                        android:background="@color/colorPrimary"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"/>
+                <!--<ImageView android:layout_width="50dp"-->
+                           <!--android:layout_gravity="end"-->
+                           <!--android:padding="5dp"-->
+                           <!--android:src="@drawable/ic_gift"-->
+                           <!--android:layout_height="50dp"/>-->
 
-            </LinearLayout>
+                <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/to_account"-->
+                        <!--android:textSize="18sp"-->
+                        <!--android:background="@color/colorPrimary"-->
+                        <!--android:textAlignment="center"-->
+                        <!--android:textColor="@color/white"/>-->
+
+
+                <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/from_catagory_card"-->
+                        <!--android:textSize="25sp"-->
+                        <!--android:background="@color/colorPrimary"-->
+                        <!--android:textAlignment="center"-->
+                        <!--android:textColor="@color/white"/>-->
+
+            <!--</LinearLayout>-->
 
         </LinearLayout>
 
@@ -192,7 +193,7 @@
                     android:background="@drawable/selector"
                     android:text="1"
                     android:textColor="#ecf0f1"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
 
             <Button
                     android:id="@+id/button2"
@@ -203,7 +204,7 @@
                     android:background="@drawable/selector"
                     android:text="2"
                     android:textColor="#ecf0f1"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
 
             <Button
                     android:id="@+id/button3"
@@ -214,7 +215,7 @@
                     android:background="@drawable/selector"
                     android:text="3"
                     android:textColor="#ecf0f1"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
 
             <Button
                     android:id="@+id/buttondiv"
@@ -225,7 +226,7 @@
                     android:background="@drawable/operator_selector"
                     android:text="/"
                     android:textColor="#ecf0f1"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"/>
 
         </LinearLayout>
 
@@ -244,7 +245,7 @@
                     android:background="@drawable/selector"
                     android:text="4"
                     android:textColor="#ecf0f1"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
 
             <Button
                     android:id="@+id/button5"
@@ -255,7 +256,7 @@
                     android:background="@drawable/selector"
                     android:text="5"
                     android:textColor="#ecf0f1"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
 
             <Button
                     android:id="@+id/button6"
@@ -266,7 +267,7 @@
                     android:background="@drawable/selector"
                     android:text="6"
                     android:textColor="#ecf0f1"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
 
             <Button
                     android:id="@+id/buttonsub"
@@ -277,7 +278,7 @@
                     android:background="@drawable/operator_selector"
                     android:text="-"
                     android:textColor="#ecf0f1"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"/>
 
         </LinearLayout>
 
@@ -296,7 +297,7 @@
                     android:background="@drawable/selector"
                     android:text="7"
                     android:textColor="#ecf0f1"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
 
             <Button
                     android:id="@+id/button8"
@@ -307,7 +308,7 @@
                     android:background="@drawable/selector"
                     android:text="8"
                     android:textColor="#ecf0f1"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
 
             <Button
                     android:id="@+id/button9"
@@ -318,7 +319,7 @@
                     android:background="@drawable/selector"
                     android:text="9"
                     android:textColor="#ecf0f1"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
 
             <Button
                     android:id="@+id/buttonmul"
@@ -329,7 +330,7 @@
                     android:background="@drawable/operator_selector"
                     android:text="x"
                     android:textColor="#ecf0f1"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"/>
 
         </LinearLayout>
 
@@ -348,7 +349,7 @@
                     android:background="@drawable/selector"
                     android:text="."
                     android:textColor="#ecf0f1"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
 
             <Button
                     android:id="@+id/button0"
@@ -359,7 +360,7 @@
                     android:background="@drawable/selector"
                     android:text="0"
                     android:textColor="#ecf0f1"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
 
             <Button
                     android:id="@+id/Remainder"
@@ -370,7 +371,7 @@
                     android:background="@drawable/selector"
                     android:text="="
                     android:textColor="#ecf0f1"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"/>
 
             <Button
                     android:id="@+id/buttonadd"
@@ -381,7 +382,7 @@
                     android:background="@drawable/operator_selector"
                     android:text="+"
                     android:textColor="#ecf0f1"
-                    android:textSize="30sp" />
+                    android:textSize="30sp"/>
 
         </LinearLayout>
 
@@ -397,7 +398,11 @@
                 android:layout_height="wrap_content"/>
 
 
+    </LinearLayout>
 
-        </LinearLayout>
 
 </SlidingDrawer>
+
+
+
+
