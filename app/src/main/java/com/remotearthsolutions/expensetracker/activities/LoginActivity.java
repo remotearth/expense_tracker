@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import androidx.lifecycle.ViewModelProviders;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseUser;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.LoginContract;
 import com.remotearthsolutions.expensetracker.presenters.LoginPresenter;
+import com.remotearthsolutions.expensetracker.presenters.viewmodel_factory.LoginViewModelFactory;
 import com.remotearthsolutions.expensetracker.services.FacebookServiceImpl;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.services.GoogleServiceImpl;
@@ -26,8 +28,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        presenter = new LoginPresenter(this, new GoogleServiceImpl(this),
-                new FacebookServiceImpl(this), new FirebaseServiceImpl(this));
+        presenter = ViewModelProviders.of(this,
+                new LoginViewModelFactory(this, new GoogleServiceImpl(this), new FacebookServiceImpl(this), new FirebaseServiceImpl(this))).
+                get(LoginPresenter.class);
         presenter.init();
 
     }

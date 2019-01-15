@@ -11,7 +11,7 @@ public class MainPresenter{
 
     public void initChart(AnimatedPieView mAnimatedPieView)
     {
-        view.initializeView();
+        //view.initializeView();
         ChartUtils chartUtils = new ChartUtils();
         mAnimatedPieView.applyConfig(chartUtils.getPieChart()).start();
 
