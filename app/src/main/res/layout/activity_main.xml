@@ -24,8 +24,9 @@
             app:menu="@menu/activity_main_drawer" />
 
 
-    <include layout="@layout/add_expense"/>
-
-
+    <FrameLayout
+            android:id="@+id/framelayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
 </android.support.v4.widget.DrawerLayout>

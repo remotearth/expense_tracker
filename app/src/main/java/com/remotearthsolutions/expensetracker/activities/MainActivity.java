@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 import com.razerdp.widget.animatedpieview.AnimatedPieView;
 import com.razerdp.widget.animatedpieview.AnimatedPieViewConfig;
@@ -19,6 +21,7 @@ import com.razerdp.widget.animatedpieview.data.SimplePieInfo;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter;
 import com.remotearthsolutions.expensetracker.entities.Category;
+import com.remotearthsolutions.expensetracker.fragments.ExpenseFragment;
 
 
 import java.util.ArrayList;
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private RecyclerView recyclerView;
     List<Category> allcatlist;
     CategoryListAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         loadcategory();
         adapter = new CategoryListAdapter(allcatlist, this);
         recyclerView.setAdapter(adapter);
+
+
+        // load fragment
+        ExpenseFragment fragment = new ExpenseFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.framelayout,fragment,"expensefragment");
+        fragmentTransaction.commit();
+
 
     }
 
