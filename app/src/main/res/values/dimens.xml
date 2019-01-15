@@ -5,4 +5,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
     <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="shadow_size">8dp</dimen>
+    <dimen name="layer_size">300dp</dimen>
+    <dimen name="preview_offset_distance">150dp</dimen>
+    <dimen name="offset_distance">48dp</dimen>
 </resources>

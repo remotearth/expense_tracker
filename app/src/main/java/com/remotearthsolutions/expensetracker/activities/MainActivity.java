@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
@@ -26,6 +27,9 @@ import com.remotearthsolutions.expensetracker.fragments.ExpenseFragment;
 import com.remotearthsolutions.expensetracker.presenters.MainPresenter;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl;
+import com.wunderlist.slidinglayer.LayerTransformer;
+import com.wunderlist.slidinglayer.SlidingLayer;
+import com.wunderlist.slidinglayer.transformer.SlideJoyTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private AnimatedPieView mAnimatedPieView;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
+    private ExpenseFragment expenseFragment;
 
 
     @Override
@@ -64,6 +69,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         adapter = new CategoryListAdapter(categoryList);
         recyclerView.setAdapter(adapter);
 
+        adapter.setOnItemClickListener(new CategoryListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Category category) {
+
+                expenseFragment = new ExpenseFragment();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.framelayout, expenseFragment, ExpenseFragment.class.getName());
+                fragmentTransaction.commit();
+
+            }
+        });
+
     }
 
     @Override
@@ -86,14 +103,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(llm);
-
-        ExpenseFragment fragment = new ExpenseFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.framelayout, fragment, "expensefragment");
-        fragmentTransaction.commit();
-
-
         mAnimatedPieView = findViewById(R.id.animatedpie);
+
+
 
     }
 
@@ -172,4 +184,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onPostCreate(savedInstanceState);
         toggle.syncState();
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+
+                if(expenseFragment!= null){
+                    if(expenseFragment.isDrawerOpened()){
+                        expenseFragment.toggleDrawer();
+                        return true;
+                    }
+                }
+
+            default:
+                return super.onKeyDown(keyCode, event);
+        }
+    }
+
+
 }

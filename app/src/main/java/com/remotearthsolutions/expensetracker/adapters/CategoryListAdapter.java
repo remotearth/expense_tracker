@@ -14,6 +14,7 @@ import java.util.List;
 public class CategoryListAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
 
     private List<Category> categorylist;
+    private OnItemClickListener listener;
 
     public CategoryListAdapter(List<Category> categorylist) {
         this.categorylist = categorylist;
@@ -23,7 +24,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryViewHolder
     public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_catagory, parent, false);
-        return new CategoryViewHolder(v);
+        return new CategoryViewHolder(v,listener);
     }
 
     @Override
@@ -42,4 +43,11 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryViewHolder
         return categorylist.size();
     }
 
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Category category);
+    }
 }
