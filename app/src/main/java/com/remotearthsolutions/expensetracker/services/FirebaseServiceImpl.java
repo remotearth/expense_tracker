@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class FirebaseServiceImpl implements FirebaseService {
 
@@ -42,5 +43,11 @@ public class FirebaseServiceImpl implements FirebaseService {
                         callback.onFirebaseSigninFailure("Authentication with Firebase is failed ");
                     }
                 });
+    }
+
+    @Override
+    public FirebaseUser getUser() {
+        if(mAuth == null) return null;
+        return mAuth.getCurrentUser();
     }
 }

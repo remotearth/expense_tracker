@@ -1,10 +1,12 @@
 package com.remotearthsolutions.expensetracker.utils;
 
-import com.razerdp.widget.animatedpieview.AnimatedPieViewConfig;
+import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
+
+import java.util.List;
 
 public interface ChartManager {
 
-    AnimatedPieViewConfig getPieChart();
-
+    void initPierChart();
+    void loadExpensePieChart(ChartManagerImpl.ChartView chartView, List<ExpeneChartData> data);
 
 }
