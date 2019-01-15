@@ -1,11 +1,16 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.annotation.TargetApi;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,9 +31,11 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
     private View v;
     private ImageView calenderTask;
     private Dialog dialog;
-    private LinearLayout previousdate,currentdate;
+    private LinearLayout previousdate,currentdate, selectdate;
     private TextView datestatus,dialogyesterday,dialogtoday;
 
+
+    @TargetApi(Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
@@ -40,11 +47,14 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
 
 
         datestatus = v.findViewById(R.id.ShowDate);
+
+
         previousdate = dialog.findViewById(R.id.previousdate);
         currentdate = dialog.findViewById(R.id.currentdate);
-
+        selectdate = dialog.findViewById(R.id.selectdate);
         dialogyesterday = dialog.findViewById(R.id.showdyesterday);
         dialogtoday = dialog.findViewById(R.id.showdtoday);
+
 
         showDialogCurrentDate();
         showDialogPreviousDate();
@@ -57,6 +67,7 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
 
         previousdate.setOnClickListener(this);
         currentdate.setOnClickListener(this);
+        selectdate.setOnClickListener(this);
 
         calenderTask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +80,7 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
         return v;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.previousdate) {
@@ -80,7 +92,6 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
             datestatus.setText("YESTERDAY WAS: "+yesterday);
             dialog.dismiss();
 
-
         }
         if (v.getId() == R.id.currentdate) {
 
@@ -90,6 +101,26 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
             String today = dateFormat.format(calendar.getTime());
             datestatus.setText("TODAY IS: "+today);
             dialog.dismiss();
+        }
+
+        if (v.getId() == R.id.selectdate) {
+
+            DatePicker datePicker = new DatePicker(getActivity());
+            int cdate = datePicker.getDayOfMonth();
+            int cmonth = (datePicker.getMonth()+1);
+            int cyear = datePicker.getYear();
+
+            DatePickerDialog datePickerDialog;
+            datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                    datestatus.setText("SELECTED DATE: "+dayOfMonth+"-"+(month+1)+"-"+year);
+                    dialog.dismiss();
+                }
+            },cyear,cmonth,cdate);
+            datePickerDialog.show();
+
         }
 
     }
