@@ -1,10 +1,10 @@
 package com.remotearthsolutions.expensetracker.adapters;
 
-import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.viewholder.CategoryViewHolder;
 import com.remotearthsolutions.expensetracker.entities.Category;
@@ -13,13 +13,10 @@ import java.util.List;
 
 public class CategoryListAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
 
-
     private List<Category> categorylist;
-    private Context context;
 
-    public CategoryListAdapter(List<Category> categorylist, Context context) {
+    public CategoryListAdapter(List<Category> categorylist) {
         this.categorylist = categorylist;
-        this.context = context;
     }
 
     @Override
