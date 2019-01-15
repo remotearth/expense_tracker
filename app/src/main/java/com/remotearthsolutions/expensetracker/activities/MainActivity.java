@@ -1,24 +1,25 @@
 package com.remotearthsolutions.expensetracker.activities;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.razerdp.widget.animatedpieview.AnimatedPieView;
-import com.razerdp.widget.animatedpieview.AnimatedPieViewConfig;
-import com.razerdp.widget.animatedpieview.data.SimplePieInfo;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter;
 import com.remotearthsolutions.expensetracker.entities.Category;
+import com.remotearthsolutions.expensetracker.presenters.MainPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private RecyclerView recyclerView;
     List<Category> allcatlist;
     CategoryListAdapter adapter;
+
+    private MainPresenter mainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,42 +54,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
-        // Call Pie Chart
-        drawPie();
-
         // Call Category Data
         recyclerView = findViewById(R.id.recyclearView);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(llm);
         loadcategory();
-        adapter = new CategoryListAdapter(allcatlist, this);
+        adapter = new CategoryListAdapter(allcatlist);
         recyclerView.setAdapter(adapter);
 
-
-    }
-
-    // method for pie chart operation
-    private void drawPie() {
-
         AnimatedPieView mAnimatedPieView = findViewById(R.id.animatedpie);
-        AnimatedPieViewConfig config = new AnimatedPieViewConfig();
-        config.startAngle(-90)// Starting angle offset
-                .addData(new SimplePieInfo(17.2f, Color.parseColor("#00aaee"), "Food"))
-                .addData(new SimplePieInfo(18.0f, Color.parseColor("#000000"), "Gift"))
-                .addData(new SimplePieInfo(11.0f, Color.parseColor("#FF008577"), "Bills"))
-                .addData(new SimplePieInfo(15.0f, Color.parseColor("#D81B60"), "Taxi"))
-                .canTouch(true)
-                .drawText(true)
-                .autoSize(true)
-                .strokeWidth(40)
-                .textSize(30)
-                .duration(1000);
+        mainPresenter = new MainPresenter();
+        mainPresenter.initChart(mAnimatedPieView);
 
-        mAnimatedPieView.applyConfig(config);
-        mAnimatedPieView.start();
+
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
 
     // method for category item
     private void loadcategory() {

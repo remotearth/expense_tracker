@@ -1,4 +1,8 @@
 package com.remotearthsolutions.expensetracker.interactors;
 
-public class LoginInteractor {
+import com.remotearthsolutions.expensetracker.contracts.LoginContract;
+
+public class LoginInteractor implements LoginContract.Interactor {
+
+
 }
