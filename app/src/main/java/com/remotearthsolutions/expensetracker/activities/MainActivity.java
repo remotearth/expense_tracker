@@ -65,9 +65,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         recyclerView.setAdapter(adapter);
 
 
-
-
-
     }
 
     // method for pie chart operation
