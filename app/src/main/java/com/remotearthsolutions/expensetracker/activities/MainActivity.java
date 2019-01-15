@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private CategoryListAdapter adapter;
     private AnimatedPieView mAnimatedPieView;
     private DrawerLayout drawer;
+    private ActionBarDrawerToggle toggle;
 
 
     @Override
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -163,5 +165,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void loadChartConfig(AnimatedPieViewConfig config) {
         mAnimatedPieView.applyConfig(config).start();
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        toggle.syncState();
     }
 }
