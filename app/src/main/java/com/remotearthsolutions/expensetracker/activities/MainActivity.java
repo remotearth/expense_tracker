@@ -13,35 +13,60 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.razerdp.widget.animatedpieview.AnimatedPieView;
+import com.razerdp.widget.animatedpieview.AnimatedPieViewConfig;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter;
+import com.remotearthsolutions.expensetracker.contracts.MainContract;
 import com.remotearthsolutions.expensetracker.entities.Category;
+import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
 import com.remotearthsolutions.expensetracker.presenters.MainPresenter;
+import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
+import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View, ChartManagerImpl.ChartView {
 
+    private MainPresenter presenter;
     private RecyclerView recyclerView;
-    List<Category> allcatlist;
-    CategoryListAdapter adapter;
-
-    private MainPresenter mainPresenter;
+    private List<Category> categoryList;
+    private CategoryListAdapter adapter;
+    private AnimatedPieView mAnimatedPieView;
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        presenter = new MainPresenter(this, this, new ChartManagerImpl());
+        presenter.init();
+
+        List<ExpeneChartData> data = new ArrayList<>();
+        ExpeneChartData data1 = new ExpeneChartData(17.3f, "#F0F0F0", "data1");
+        ExpeneChartData data2 = new ExpeneChartData(40.6f, "#A0E0D0", "data2");
+        ExpeneChartData data3 = new ExpeneChartData(42.1f, "#AAADD0", "data3");
+        data.add(data1);
+        data.add(data2);
+        data.add(data3);
+
+        presenter.loadChart(data);
+
+        loadcategory();
+        adapter = new CategoryListAdapter(categoryList);
+        recyclerView.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void initializeView() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Code for Navigation drawer
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -49,55 +74,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Call bottom Navigation method
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-
-        // Call Category Data
         recyclerView = findViewById(R.id.recyclearView);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(llm);
-        loadcategory();
-        adapter = new CategoryListAdapter(allcatlist);
-        recyclerView.setAdapter(adapter);
 
-        AnimatedPieView mAnimatedPieView = findViewById(R.id.animatedpie);
-        mainPresenter = new MainPresenter();
-        mainPresenter.initChart(mAnimatedPieView);
+        mAnimatedPieView = findViewById(R.id.animatedpie);
+    }
 
-
-
+    @Override
+    public void openLoginScreen() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser == null) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        presenter.checkAuthectication(new FirebaseServiceImpl(this));
     }
 
-
-    // method for category item
     private void loadcategory() {
 
-        allcatlist = new ArrayList<>();
-        allcatlist.add(new Category(R.drawable.ic_food, "Food"));
-        allcatlist.add(new Category(R.drawable.ic_gift, "Gift"));
-        allcatlist.add(new Category(R.drawable.ic_bills, "Bills"));
-        allcatlist.add(new Category(R.drawable.ic_taxi, "Taxi"));
-        allcatlist.add(new Category(R.drawable.ic_delivery_truck, "Transport"));
+        categoryList = new ArrayList<>();
+        categoryList.add(new Category(R.drawable.ic_food, "Food"));
+        categoryList.add(new Category(R.drawable.ic_gift, "Gift"));
+        categoryList.add(new Category(R.drawable.ic_bills, "Bills"));
+        categoryList.add(new Category(R.drawable.ic_taxi, "Taxi"));
+        categoryList.add(new Category(R.drawable.ic_delivery_truck, "Transport"));
 
     }
 
-
-    // Method for bottom Navigation
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -121,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -129,29 +140,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    // Method for Navigation Drawer menu action
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
 
+        return true;
+    }
+
+    @Override
+    public void loadChartConfig(AnimatedPieViewConfig config) {
+        mAnimatedPieView.applyConfig(config).start();
     }
 }

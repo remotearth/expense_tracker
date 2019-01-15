@@ -5,5 +5,7 @@ public interface MainContract {
     interface View{
 
         void initializeView();
+
+        void openLoginScreen();
     }
 }
