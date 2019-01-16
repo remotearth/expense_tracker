@@ -32,8 +32,6 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryViewHolder
 
         Category category = categorylist.get(position);
         holder.bind(category);
-
-
     }
 
     @Override

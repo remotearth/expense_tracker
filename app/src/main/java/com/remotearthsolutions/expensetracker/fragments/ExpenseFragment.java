@@ -13,9 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
 import com.wunderlist.slidinglayer.SlidingLayer;
 import com.wunderlist.slidinglayer.transformer.SlideJoyTransformer;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -128,6 +128,7 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
     }
 
     public void showDialogPreviousDate() {
+
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, -1);
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());

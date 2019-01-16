@@ -25,7 +25,6 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
                 listener.onItemClick(category);
             }
         });
-
     }
 
     public void bind(Category category) {

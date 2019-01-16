@@ -27,10 +27,6 @@ import com.remotearthsolutions.expensetracker.fragments.ExpenseFragment;
 import com.remotearthsolutions.expensetracker.presenters.MainPresenter;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl;
-import com.wunderlist.slidinglayer.LayerTransformer;
-import com.wunderlist.slidinglayer.SlidingLayer;
-import com.wunderlist.slidinglayer.transformer.SlideJoyTransformer;
-
 import java.util.ArrayList;
 import java.util.List;
 
