@@ -19,6 +19,7 @@ import com.remotearthsolutions.expensetracker.adapters.AccountListAdapter;
 import com.remotearthsolutions.expensetracker.entities.Accounts;
 import com.wunderlist.slidinglayer.SlidingLayer;
 import com.wunderlist.slidinglayer.transformer.SlideJoyTransformer;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,12 +43,18 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
     private List<Accounts> accountslist;
     private RecyclerView accountrecyclerView;
     private LinearLayout selectAccount;
+    private int cDay, cMonth, cYear;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.add_expense, container, false);
         calenderTask = v.findViewById(R.id.selectdata);
+
+        Calendar calendar = Calendar.getInstance();
+        cDay = calendar.get(Calendar.DAY_OF_MONTH);
+        cMonth = calendar.get(Calendar.MONTH);
+        cYear = calendar.get(Calendar.YEAR);
 
         // load account list
         accountbaseddialog = new Dialog(getActivity());
@@ -57,9 +64,9 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         accountrecyclerView.setLayoutManager(llm);
         selectAccount = v.findViewById(R.id.fromaccountselection);
-        accountListAdapter = new AccountListAdapter(accountslist,getActivity());
-        accountrecyclerView.setAdapter(accountListAdapter);
         loadAccountlIST();
+        accountListAdapter = new AccountListAdapter(accountslist, getActivity());
+        accountrecyclerView.setAdapter(accountListAdapter);
 
         selectAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +93,7 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
         showDialogCurrentDate();
         showDialogPreviousDate();
 
-        Calendar calendar = Calendar.getInstance();
+        calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, 0);
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         String today = dateFormat.format(calendar.getTime());
@@ -115,12 +122,11 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
         return v;
     }
 
-    public void loadAccountlIST()
-    {
+    public void loadAccountlIST() {
         accountslist = new ArrayList<>();
-        accountslist.add(new Accounts(R.drawable.ic_currency,"CASH",1000.00));
-        accountslist.add(new Accounts(R.drawable.ic_currency,"BANK",2000.00));
-        accountslist.add(new Accounts(R.drawable.ic_currency,"LOAN",3000.00));
+        accountslist.add(new Accounts(R.drawable.ic_currency, "CASH", 1000.00));
+        accountslist.add(new Accounts(R.drawable.ic_currency, "BANK", 2000.00));
+        accountslist.add(new Accounts(R.drawable.ic_currency, "LOAN", 3000.00));
 
     }
 
@@ -146,20 +152,18 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
             datebaseddialog.dismiss();
         } else if (v.getId() == R.id.selectdate) {
 
-            DatePicker datePicker = new DatePicker(getActivity());
-            int cdate = datePicker.getDayOfMonth();
-            int cmonth = (datePicker.getMonth() + 1);
-            int cyear = datePicker.getYear();
-
             DatePickerDialog datePickerDialog;
             datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    cYear = year;
+                    cMonth = month;
+                    cDay = dayOfMonth;
 
                     datestatus.setText("SELECTED DATE: " + dayOfMonth + "-" + (month + 1) + "-" + year);
                     datebaseddialog.dismiss();
                 }
-            }, cyear, cmonth, cdate);
+            }, cYear, cMonth, cDay);
             datePickerDialog.show();
 
         }
