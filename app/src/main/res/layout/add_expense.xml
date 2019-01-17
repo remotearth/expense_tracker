@@ -16,6 +16,9 @@
             android:background="#FFFFFF"
             android:layout_height="wrap_content">
 
+
+
+
         <LinearLayout
                 android:weightSum="2"
                 android:layout_gravity="center"
@@ -385,6 +388,9 @@
                 android:layout_height="0dp"/>
     </LinearLayout>
 </com.wunderlist.slidinglayer.SlidingLayer>
+
+
+
 
 
 

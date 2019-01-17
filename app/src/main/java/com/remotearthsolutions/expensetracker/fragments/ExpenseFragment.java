@@ -7,11 +7,9 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
@@ -34,16 +32,13 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
 
     private Handler handler;
     private ImageView calenderTask;
-    private Dialog datebaseddialog, accountbaseddialog;
+    private Dialog datebaseddialog;
     private LinearLayout previousdate, currentdate, selectdate;
     private TextView datestatus, dialogyesterday, dialogtoday;
     private SlidingLayer mSlidingLayer;
-
-    private AccountListAdapter accountListAdapter;
-    private List<Accounts> accountslist;
-    private RecyclerView accountrecyclerView;
     private LinearLayout selectAccount;
     private int cDay, cMonth, cYear;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,28 +46,23 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
         View v = inflater.inflate(R.layout.add_expense, container, false);
         calenderTask = v.findViewById(R.id.selectdata);
 
+
         Calendar calendar = Calendar.getInstance();
         cDay = calendar.get(Calendar.DAY_OF_MONTH);
         cMonth = calendar.get(Calendar.MONTH);
         cYear = calendar.get(Calendar.YEAR);
 
-        // load account list
-        accountbaseddialog = new Dialog(getActivity());
-        accountbaseddialog.setContentView(R.layout.add_account);
-        accountrecyclerView = accountbaseddialog.findViewById(R.id.accountrecyclearView);
-        accountrecyclerView.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        accountrecyclerView.setLayoutManager(llm);
-        selectAccount = v.findViewById(R.id.fromaccountselection);
-        loadAccountlIST();
-        accountListAdapter = new AccountListAdapter(accountslist, getActivity());
-        accountrecyclerView.setAdapter(accountListAdapter);
 
+
+        selectAccount = v.findViewById(R.id.fromaccountselection);
         selectAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                accountbaseddialog.show();
+                AccountFragment accountFragment = new AccountFragment();
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.framelayout,accountFragment,AccountFragment.class.getName());
+                fragmentTransaction.commit();
             }
         });
 
@@ -122,13 +112,7 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
         return v;
     }
 
-    public void loadAccountlIST() {
-        accountslist = new ArrayList<>();
-        accountslist.add(new Accounts(R.drawable.ic_currency, "CASH", 1000.00));
-        accountslist.add(new Accounts(R.drawable.ic_currency, "BANK", 2000.00));
-        accountslist.add(new Accounts(R.drawable.ic_currency, "LOAN", 3000.00));
 
-    }
 
     @Override
     public void onClick(View v) {
