@@ -7,15 +7,16 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.DatePicker;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
-import com.remotearthsolutions.expensetracker.adapters.AccountListAdapter;
-import com.remotearthsolutions.expensetracker.entities.Accounts;
 import com.wunderlist.slidinglayer.SlidingLayer;
 import com.wunderlist.slidinglayer.transformer.SlideJoyTransformer;
 
@@ -68,10 +69,10 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View v) {
 
-                AccountFragment accountFragment = new AccountFragment();
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.framelayout,accountFragment,AccountFragment.class.getName());
-                fragmentTransaction.commit();
+
+                FragmentManager fm = getChildFragmentManager();
+                AccountDialogFragment editNameDialogFragment = AccountDialogFragment.newInstance("Select Account");
+                editNameDialogFragment.show(fm, AccountDialogFragment.class.getName());
 
             }
         });
@@ -85,6 +86,7 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
                 CategoryFragment editNameDialogFragment = CategoryFragment.newInstance("Select Category");
                 editNameDialogFragment.show(fm, CategoryFragment.class.getName());
 
+                
             }
         });
 
@@ -119,7 +121,6 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
         calenderTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 datebaseddialog.show();
             }
         });
@@ -134,8 +135,6 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
 
         return v;
     }
-
-
 
     @Override
     public void onClick(View v) {

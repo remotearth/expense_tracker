@@ -1,15 +1,12 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
@@ -19,26 +16,33 @@ import com.remotearthsolutions.expensetracker.entities.Accounts;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountFragment extends DialogFragment {
+public class AccountDialogFragment extends DialogFragment {
 
-    public AccountFragment() {
+    public AccountDialogFragment() {
     }
-
-    private View view;
-    //private Dialog accountbaseddialog;
+    
     private AccountListAdapter accountListAdapter;
     private List<Accounts> accountslist;
     private RecyclerView accountrecyclerView;
 
+    public static AccountDialogFragment newInstance(String title) {
+        AccountDialogFragment frag = new AccountDialogFragment();
+        Bundle args = new Bundle();
+        args.putString("title", title);
+        frag.setArguments(args);
+        return frag;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.add_account, container);
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        view = inflater.inflate(R.layout.add_account, container, false);
-
-
-//        accountbaseddialog = new Dialog(getActivity());
-//        accountbaseddialog.setContentView(R.layout.add_account);
         accountrecyclerView = view.findViewById(R.id.accountrecyclearView);
         accountrecyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -47,12 +51,7 @@ public class AccountFragment extends DialogFragment {
         loadAccountlIST();
         accountListAdapter = new AccountListAdapter(accountslist, getActivity());
         accountrecyclerView.setAdapter(accountListAdapter);
-//        accountbaseddialog.show();
-
-
-        return view;
     }
-
 
     public void loadAccountlIST() {
         accountslist = new ArrayList<>();

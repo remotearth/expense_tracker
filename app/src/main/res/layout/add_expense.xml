@@ -15,10 +15,7 @@
             android:orientation="vertical"
             android:background="#FFFFFF"
             android:layout_height="wrap_content">
-
-
-
-
+        
         <LinearLayout
                 android:weightSum="2"
                 android:layout_gravity="center"
