@@ -1,9 +1,14 @@
 package com.remotearthsolutions.expensetracker.entities;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Category {
 
-    private int categoryImage;
-    private String categoryName;
+    int categoryImage;
+    String categoryName;
+
+    public Category(){}
 
     public Category(int categoryImage, String categoryName) {
         this.categoryImage = categoryImage;

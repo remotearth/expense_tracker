@@ -1,17 +1,12 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
@@ -21,23 +16,28 @@ import com.remotearthsolutions.expensetracker.entities.Category;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryFragment extends DialogFragment {
+public class CategoryDialogFragment extends DialogFragment {
 
-    public CategoryFragment() {
+    public CategoryDialogFragment() {
     }
 
     private View v;
     private RecyclerView recyclerView;
     private CategoryListAdapter categoryListAdapter;
     private List<Category> categoryList;
+    private CategoryDialogFragment.Callback callback;
 
 
-    public static CategoryFragment newInstance(String title) {
-        CategoryFragment frag = new CategoryFragment();
+    public static CategoryDialogFragment newInstance(String title) {
+        CategoryDialogFragment frag = new CategoryDialogFragment();
         Bundle args = new Bundle();
         args.putString("title", title);
         frag.setArguments(args);
         return frag;
+    }
+
+    public void setCallback(CategoryDialogFragment.Callback callback){
+        this.callback = callback;
     }
 
 
@@ -62,26 +62,9 @@ public class CategoryFragment extends DialogFragment {
         categoryListAdapter.setOnItemClickListener(new CategoryListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Category category, int position) {
-
-                int Image = categoryList.get(position).getCategoryImage();
-                String Name = categoryList.get(position).getCategoryName();
-
-                Bundle bundle = new Bundle();
-                bundle.putInt("image",Image);
-                bundle.putString("name",Name);
-
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                ExpenseFragment expenseFragment = new ExpenseFragment();
-                expenseFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.framelayout,expenseFragment);
-                fragmentTransaction.commit();
-
-
+                callback.onSelectCategory(category);
             }
         });
-
-
 
     }
 
@@ -94,5 +77,9 @@ public class CategoryFragment extends DialogFragment {
         categoryList.add(new Category(R.drawable.ic_taxi, "Taxi"));
         categoryList.add(new Category(R.drawable.ic_delivery_truck, "Transport"));
 
+    }
+
+    public interface Callback {
+        void onSelectCategory(Category category);
     }
 }

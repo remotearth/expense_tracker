@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.AccountListAdapter;
-import com.remotearthsolutions.expensetracker.entities.Accounts;
+import com.remotearthsolutions.expensetracker.entities.Account;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +20,11 @@ public class AccountDialogFragment extends DialogFragment {
 
     public AccountDialogFragment() {
     }
-    
+
     private AccountListAdapter accountListAdapter;
-    private List<Accounts> accountslist;
+    private List<Account> accountslist;
     private RecyclerView accountrecyclerView;
+    private AccountDialogFragment.Callback callback;
 
     public static AccountDialogFragment newInstance(String title) {
         AccountDialogFragment frag = new AccountDialogFragment();
@@ -31,6 +32,10 @@ public class AccountDialogFragment extends DialogFragment {
         args.putString("title", title);
         frag.setArguments(args);
         return frag;
+    }
+
+    public void setCallback(AccountDialogFragment.Callback callback) {
+        this.callback = callback;
     }
 
     @Nullable
@@ -49,15 +54,25 @@ public class AccountDialogFragment extends DialogFragment {
         accountrecyclerView.setLayoutManager(llm);
 
         loadAccountlIST();
-        accountListAdapter = new AccountListAdapter(accountslist, getActivity());
+        accountListAdapter = new AccountListAdapter(accountslist);
+        accountListAdapter.setOnItemClickListener(new AccountListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Account account) {
+                callback.onSelectAccount(account);
+            }
+        });
         accountrecyclerView.setAdapter(accountListAdapter);
     }
 
     public void loadAccountlIST() {
         accountslist = new ArrayList<>();
-        accountslist.add(new Accounts(R.drawable.ic_currency, "CASH", 1000.00));
-        accountslist.add(new Accounts(R.drawable.ic_currency, "BANK", 2000.00));
-        accountslist.add(new Accounts(R.drawable.ic_currency, "LOAN", 3000.00));
+        accountslist.add(new Account(R.drawable.ic_currency, "CASH", 1000.00));
+        accountslist.add(new Account(R.drawable.ic_currency, "BANK", 2000.00));
+        accountslist.add(new Account(R.drawable.ic_currency, "LOAN", 3000.00));
 
+    }
+
+    public interface Callback {
+        void onSelectAccount(Account category);
     }
 }

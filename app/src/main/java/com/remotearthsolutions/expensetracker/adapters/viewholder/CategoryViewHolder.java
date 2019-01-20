@@ -13,6 +13,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
     private ImageView categoryImageIv;
     private TextView categoryNameTv;
     private Category category;
+    private int position;
 
     public CategoryViewHolder(View view, final CategoryListAdapter.OnItemClickListener listener) {
         super(view);
@@ -22,13 +23,14 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(category,getPosition());
+                listener.onItemClick(category, position);
             }
         });
     }
 
-    public void bind(Category category) {
+    public void bind(Category category, int position) {
         this.category = category;
+        this.position = position;
         categoryImageIv.setImageResource(category.getCategoryImage());
         categoryNameTv.setText(category.getCategoryName());
     }

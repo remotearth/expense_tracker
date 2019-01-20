@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -27,6 +28,8 @@ import com.remotearthsolutions.expensetracker.fragments.ExpenseFragment;
 import com.remotearthsolutions.expensetracker.presenters.MainPresenter;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl;
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +73,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onItemClick(Category category, int position) {
 
                 expenseFragment = new ExpenseFragment();
+                Parcelable wrappedCategory = Parcels.wrap(category);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("category_parcel",wrappedCategory);
+                expenseFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, expenseFragment, ExpenseFragment.class.getName());
                 fragmentTransaction.commit();

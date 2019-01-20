@@ -15,7 +15,7 @@
             android:orientation="vertical"
             android:background="#FFFFFF"
             android:layout_height="wrap_content">
-        
+
         <LinearLayout
                 android:weightSum="2"
                 android:layout_gravity="center"
@@ -33,11 +33,13 @@
                     android:orientation="vertical"
                     android:layout_height="wrap_content">
 
-                <ImageView android:layout_width="50dp"
-                           android:layout_gravity="end"
-                           android:padding="5dp"
-                           android:src="@drawable/ic_food"
-                           android:layout_height="50dp"/>
+                <ImageView
+                        android:id="@+id/accountImageIv"
+                        android:layout_width="50dp"
+                        android:layout_gravity="end"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_food"
+                        android:layout_height="50dp"/>
 
                 <TextView
                         android:layout_width="match_parent"
@@ -49,6 +51,7 @@
                         android:textColor="@color/white"/>
 
                 <TextView
+                        android:id="@+id/accountNameTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/from_account_card"
@@ -68,9 +71,9 @@
                 <ImageView
                         android:id="@+id/showcatimage"
                         android:layout_width="50dp"
-                           android:layout_gravity="end"
-                           android:padding="5dp"
-                           android:layout_height="50dp"/>
+                        android:layout_gravity="end"
+                        android:padding="5dp"
+                        android:layout_height="50dp"/>
 
                 <TextView
                         android:layout_width="match_parent"

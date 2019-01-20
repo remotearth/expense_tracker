@@ -1,12 +1,12 @@
 package com.remotearthsolutions.expensetracker.entities;
 
-public class Accounts {
+public class Account {
 
     private int accountImage;
     private String accountName;
     private Double accountAmount;
 
-    public Accounts(int accountImage, String accountName, Double accountAmount) {
+    public Account(int accountImage, String accountName, Double accountAmount) {
         this.accountImage = accountImage;
         this.accountName = accountName;
         this.accountAmount = accountAmount;

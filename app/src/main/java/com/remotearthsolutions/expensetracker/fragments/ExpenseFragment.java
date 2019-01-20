@@ -13,12 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.entities.Account;
+import com.remotearthsolutions.expensetracker.entities.Category;
 import com.wunderlist.slidinglayer.SlidingLayer;
 import com.wunderlist.slidinglayer.transformer.SlideJoyTransformer;
+import org.parceler.Parcels;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,10 +31,10 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
     }
 
     private Handler handler;
-    private ImageView calenderTask;
+    private ImageView calenderTask, categoryImageIv,accountImageIv;
     private Dialog datebaseddialog;
     private LinearLayout previousdate, currentdate, selectdate;
-    private TextView datestatus, dialogyesterday, dialogtoday;
+    private TextView datestatus, dialogyesterday, dialogtoday, categoryNameTv,accountNameTv;
     private SlidingLayer mSlidingLayer;
     private LinearLayout selectAccount, selectCategory;
     private int cDay, cMonth, cYear;
@@ -43,19 +43,25 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.add_expense, container, false);
-        calenderTask = v.findViewById(R.id.selectdata);
+        View view = inflater.inflate(R.layout.add_expense, container, false);
+        categoryImageIv = view.findViewById(R.id.showcatimage);
+        categoryNameTv = view.findViewById(R.id.showcatname);
+        accountNameTv = view.findViewById(R.id.accountNameTv);
+        accountImageIv = view.findViewById(R.id.accountImageIv);
 
-        // receiving Data from Category Fragment
+        calenderTask = view.findViewById(R.id.selectdata);
+        selectAccount = view.findViewById(R.id.fromaccountselection);
+        selectCategory = view.findViewById(R.id.categorylayout);
+        mSlidingLayer = view.findViewById(R.id.slidingDrawer);
+
+        datestatus = view.findViewById(R.id.ShowDate);
+
         Bundle args = getArguments();
         if (args  != null){
 
-            int getImage = getArguments().getInt("image");
-            String getName = getArguments().getString("name");
-            ImageView imageView = v.findViewById(R.id.showcatimage);
-            TextView textView = v.findViewById(R.id.showcatname);
-            imageView.setImageResource(getImage);
-            textView.setText(getName);
+            Category category = Parcels.unwrap(args.getParcelable("category_parcel"));
+            categoryImageIv.setImageResource(category.getCategoryImage());
+            categoryNameTv.setText(category.getCategoryName());
         }
 
         Calendar calendar = Calendar.getInstance();
@@ -64,46 +70,54 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
         cYear = calendar.get(Calendar.YEAR);
 
 
-        selectAccount = v.findViewById(R.id.fromaccountselection);
+
         selectAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
                 FragmentManager fm = getChildFragmentManager();
-                AccountDialogFragment editNameDialogFragment = AccountDialogFragment.newInstance("Select Account");
-                editNameDialogFragment.show(fm, AccountDialogFragment.class.getName());
+                final AccountDialogFragment accountDialogFragment = AccountDialogFragment.newInstance("Select Account");
+                accountDialogFragment.setCallback(new AccountDialogFragment.Callback() {
+                    @Override
+                    public void onSelectAccount(Account account) {
+                        accountImageIv.setImageResource(account.getAccountImage());
+                        accountNameTv.setText(account.getAccountName());
+                        accountDialogFragment.dismiss();
+                    }
+                });
+                accountDialogFragment.show(fm, AccountDialogFragment.class.getName());
 
             }
         });
 
-        selectCategory = v.findViewById(R.id.categorylayout);
+
         selectCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 FragmentManager fm = getChildFragmentManager();
-                CategoryFragment editNameDialogFragment = CategoryFragment.newInstance("Select Category");
-                editNameDialogFragment.show(fm, CategoryFragment.class.getName());
-
-                
+                final CategoryDialogFragment editNameDialogFragment = CategoryDialogFragment.newInstance("Select Category");
+                editNameDialogFragment.setCallback(new CategoryDialogFragment.Callback() {
+                    @Override
+                    public void onSelectCategory(Category category) {
+                        categoryImageIv.setImageResource(category.getCategoryImage());
+                        categoryNameTv.setText(category.getCategoryName());
+                        editNameDialogFragment.dismiss();
+                    }
+                });
+                editNameDialogFragment.show(fm, CategoryDialogFragment.class.getName());
             }
         });
 
-
-        mSlidingLayer = v.findViewById(R.id.slidingDrawer);
         mSlidingLayer.setLayerTransformer(new SlideJoyTransformer());
-
         datebaseddialog = new Dialog(getActivity());
         datebaseddialog.setContentView(R.layout.add_date);
-        datestatus = v.findViewById(R.id.ShowDate);
-
         previousdate = datebaseddialog.findViewById(R.id.previousdate);
         currentdate = datebaseddialog.findViewById(R.id.currentdate);
         selectdate = datebaseddialog.findViewById(R.id.selectdate);
         dialogyesterday = datebaseddialog.findViewById(R.id.showdyesterday);
         dialogtoday = datebaseddialog.findViewById(R.id.showdtoday);
-
 
         showDialogCurrentDate();
         showDialogPreviousDate();
@@ -133,7 +147,7 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
             }
         }, 50);
 
-        return v;
+        return view;
     }
 
     @Override
