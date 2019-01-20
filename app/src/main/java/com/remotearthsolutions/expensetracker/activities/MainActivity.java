@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         adapter.setOnItemClickListener(new CategoryListAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(Category category) {
+            public void onItemClick(Category category, int position) {
 
                 expenseFragment = new ExpenseFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

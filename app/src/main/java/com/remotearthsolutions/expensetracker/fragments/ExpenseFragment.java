@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,9 +21,7 @@ import com.wunderlist.slidinglayer.transformer.SlideJoyTransformer;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
 public class ExpenseFragment extends Fragment implements View.OnClickListener {
@@ -36,7 +35,7 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
     private LinearLayout previousdate, currentdate, selectdate;
     private TextView datestatus, dialogyesterday, dialogtoday;
     private SlidingLayer mSlidingLayer;
-    private LinearLayout selectAccount;
+    private LinearLayout selectAccount, selectCategory;
     private int cDay, cMonth, cYear;
 
 
@@ -46,12 +45,22 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
         View v = inflater.inflate(R.layout.add_expense, container, false);
         calenderTask = v.findViewById(R.id.selectdata);
 
+        // receiving Data from Category Fragment
+        Bundle args = getArguments();
+        if (args  != null){
+
+            int getImage = getArguments().getInt("image");
+            String getName = getArguments().getString("name");
+            ImageView imageView = v.findViewById(R.id.showcatimage);
+            TextView textView = v.findViewById(R.id.showcatname);
+            imageView.setImageResource(getImage);
+            textView.setText(getName);
+        }
 
         Calendar calendar = Calendar.getInstance();
         cDay = calendar.get(Calendar.DAY_OF_MONTH);
         cMonth = calendar.get(Calendar.MONTH);
         cYear = calendar.get(Calendar.YEAR);
-
 
 
         selectAccount = v.findViewById(R.id.fromaccountselection);
@@ -63,8 +72,22 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout,accountFragment,AccountFragment.class.getName());
                 fragmentTransaction.commit();
+
             }
         });
+
+        selectCategory = v.findViewById(R.id.categorylayout);
+        selectCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentManager fm = getChildFragmentManager();
+                CategoryFragment editNameDialogFragment = CategoryFragment.newInstance("Select Category");
+                editNameDialogFragment.show(fm, CategoryFragment.class.getName());
+
+            }
+        });
+
 
         mSlidingLayer = v.findViewById(R.id.slidingDrawer);
         mSlidingLayer.setLayerTransformer(new SlideJoyTransformer());

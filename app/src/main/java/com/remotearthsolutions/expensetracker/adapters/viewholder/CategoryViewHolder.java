@@ -22,7 +22,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(category);
+                listener.onItemClick(category,getPosition());
             }
         });
     }
