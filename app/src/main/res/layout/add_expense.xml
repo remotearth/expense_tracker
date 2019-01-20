@@ -114,6 +114,7 @@
                     android:layout_height="wrap_content"/>
 
             <EditText
+                    android:id="@+id/inputdigit"
                     android:textSize="30sp"
                     android:textColor="@color/colorPrimary"
                     android:textAlignment="center"
@@ -176,7 +177,7 @@
                 android:orientation="horizontal">
 
             <Button
-                    android:id="@+id/button1"
+                    android:id="@+id/digit1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="1dp"
@@ -187,7 +188,7 @@
                     android:textSize="20sp"/>
 
             <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/digit2"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="1dp"
@@ -198,7 +199,7 @@
                     android:textSize="20sp"/>
 
             <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/digit3"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="1dp"
@@ -209,7 +210,7 @@
                     android:textSize="20sp"/>
 
             <Button
-                    android:id="@+id/buttondiv"
+                    android:id="@+id/division"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="1dp"
@@ -228,7 +229,7 @@
                 android:orientation="horizontal">
 
             <Button
-                    android:id="@+id/button4"
+                    android:id="@+id/digit4"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="1dp"
@@ -239,7 +240,7 @@
                     android:textSize="20sp"/>
 
             <Button
-                    android:id="@+id/button5"
+                    android:id="@+id/digit5"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="1dp"
@@ -250,7 +251,7 @@
                     android:textSize="20sp"/>
 
             <Button
-                    android:id="@+id/button6"
+                    android:id="@+id/digit6"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="1dp"
@@ -261,7 +262,7 @@
                     android:textSize="20sp"/>
 
             <Button
-                    android:id="@+id/buttonsub"
+                    android:id="@+id/subtraction"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="1dp"
@@ -280,7 +281,7 @@
                 android:orientation="horizontal">
 
             <Button
-                    android:id="@+id/button7"
+                    android:id="@+id/digit7"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="1dp"
@@ -291,7 +292,7 @@
                     android:textSize="20sp"/>
 
             <Button
-                    android:id="@+id/button8"
+                    android:id="@+id/digit8"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="1dp"
@@ -302,7 +303,7 @@
                     android:textSize="20sp"/>
 
             <Button
-                    android:id="@+id/button9"
+                    android:id="@+id/digit9"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="1dp"
@@ -313,7 +314,7 @@
                     android:textSize="20sp"/>
 
             <Button
-                    android:id="@+id/buttonmul"
+                    android:id="@+id/multiplication"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="1dp"
@@ -332,7 +333,7 @@
                 android:orientation="horizontal">
 
             <Button
-                    android:id="@+id/buttonDot"
+                    android:id="@+id/dot"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="1dp"
@@ -343,7 +344,7 @@
                     android:textSize="20sp"/>
 
             <Button
-                    android:id="@+id/button0"
+                    android:id="@+id/digit0"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="1dp"
@@ -354,7 +355,7 @@
                     android:textSize="20sp"/>
 
             <Button
-                    android:id="@+id/Remainder"
+                    android:id="@+id/equalto"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="1dp"
@@ -365,7 +366,7 @@
                     android:textSize="30sp"/>
 
             <Button
-                    android:id="@+id/buttonadd"
+                    android:id="@+id/addition"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="1dp"
