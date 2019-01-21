@@ -42,8 +42,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.CategoryActivity" android:theme="@style/AppTheme"/>
-
     </application>
 
 </manifest>

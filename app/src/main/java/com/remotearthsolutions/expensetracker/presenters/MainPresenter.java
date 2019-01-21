@@ -13,18 +13,13 @@ import java.util.List;
 public class MainPresenter {
 
     private MainContract.View view;
-    private ChartManager chartManager;
-    private ChartManagerImpl.ChartView chartView;
 
-    public MainPresenter(MainContract.View view, ChartManagerImpl.ChartView chartView, ChartManager chartManager) {
+    public MainPresenter(MainContract.View view) {
         this.view = view;
-        this.chartManager = chartManager;
-        this.chartView = chartView;
     }
 
     public void init() {
         view.initializeView();
-        chartManager.initPierChart();
 
     }
 
@@ -35,7 +30,7 @@ public class MainPresenter {
         }
     }
 
-    public void loadChart(List<ExpeneChartData> data) {
-        chartManager.loadExpensePieChart(chartView, data);
-    }
+//    public void loadChart(List<ExpeneChartData> data) {
+//        chartManager.loadExpensePieChart(chartView, data);
+//    }
 }
