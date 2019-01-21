@@ -1,7 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,19 +9,18 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.razerdp.widget.animatedpieview.AnimatedPieView;
 import com.razerdp.widget.animatedpieview.AnimatedPieViewConfig;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.activities.MainActivity;
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter;
 import com.remotearthsolutions.expensetracker.entities.Category;
 import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
 import com.remotearthsolutions.expensetracker.utils.ChartManager;
 import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl;
-import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +32,11 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
     private AnimatedPieView mAnimatedPieView;
     private RecyclerView recyclerView;
     private List<Category> categoryList;
-    private ExpenseFragment expenseFragment;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.content_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         mAnimatedPieView = view.findViewById(R.id.animatedpie);
 
@@ -68,22 +65,12 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
         adapter.setOnItemClickListener(new CategoryListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Category category, int position) {
-
-                expenseFragment = new ExpenseFragment();
-                Parcelable wrappedCategory = Parcels.wrap(category);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("category_parcel", wrappedCategory);
-                expenseFragment.setArguments(bundle);
-                FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, expenseFragment, ExpenseFragment.class.getName());
-                fragmentTransaction.commit();
-
+                ((MainActivity) getActivity()).openAddExpenseScreen(category);
             }
         });
 
         BottomNavigationView navigation = view.findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
 
         return view;
     }
@@ -123,9 +110,4 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
             return false;
         }
     };
-
-    public ExpenseFragment getExpenseFragment(){
-        return expenseFragment;
-    }
-
 }

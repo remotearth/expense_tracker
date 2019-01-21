@@ -41,7 +41,7 @@ public class AccountDialogFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.add_account, container);
+        return inflater.inflate(R.layout.fragment_add_account, container);
     }
 
     @Override

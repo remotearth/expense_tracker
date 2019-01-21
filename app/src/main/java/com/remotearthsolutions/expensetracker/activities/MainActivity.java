@@ -2,7 +2,7 @@ package com.remotearthsolutions.expensetracker.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.os.Parcelable;
 import android.view.MenuItem;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -14,11 +14,13 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.MainContract;
+import com.remotearthsolutions.expensetracker.entities.Category;
 import com.remotearthsolutions.expensetracker.fragments.CategoryFragment;
 import com.remotearthsolutions.expensetracker.fragments.ExpenseFragment;
 import com.remotearthsolutions.expensetracker.fragments.HomeFragment;
 import com.remotearthsolutions.expensetracker.presenters.MainPresenter;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
+import org.parceler.Parcels;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
 
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-
+        
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -98,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
 
-
         }
 
         drawer.closeDrawer(GravityCompat.START);
@@ -111,20 +112,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_BACK:
-                ExpenseFragment expenseFragment = homeFragment.getExpenseFragment();
-                if (expenseFragment != null) {
-                    if (expenseFragment.isDrawerOpened()) {
-                        expenseFragment.toggleDrawer();
-                        return true;
-                    }
-                }
-
-            default:
-                return super.onKeyDown(keyCode, event);
-        }
+    public void openAddExpenseScreen(Category category) {
+        ExpenseFragment expenseFragment = new ExpenseFragment();
+        Parcelable wrappedCategory = Parcels.wrap(category);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("category_parcel", wrappedCategory);
+        expenseFragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.add(R.id.framelayout, expenseFragment, ExpenseFragment.class.getName());
+        fragmentTransaction.commit();
     }
 }

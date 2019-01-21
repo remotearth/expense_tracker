@@ -1,7 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,6 @@ import com.remotearthsolutions.expensetracker.entities.Account;
 import com.remotearthsolutions.expensetracker.entities.Category;
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
 import com.remotearthsolutions.expensetracker.utils.NumpadManager;
-import com.wunderlist.slidinglayer.SlidingLayer;
-import com.wunderlist.slidinglayer.transformer.SlideJoyTransformer;
 import org.parceler.Parcels;
 
 import java.util.Calendar;
@@ -27,10 +24,8 @@ public class ExpenseFragment extends Fragment {
     public ExpenseFragment() {
     }
 
-    private Handler handler;
     private ImageView calenderBtnIv, categoryBtnIv, accountBtnIv;
     private TextView selectedDateTv, categoryNameTv, accountNameTv;
-    private SlidingLayer mSlidingLayer;
     private LinearLayout selectAccount, selectCategory;
     private EditText inputdigit;
     private ImageView deleteBtn;
@@ -38,7 +33,7 @@ public class ExpenseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.add_expense, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_expense, container, false);
 
         inputdigit = view.findViewById(R.id.inputdigit);
         deleteBtn = view.findViewById(R.id.deleteBtn);
@@ -56,7 +51,6 @@ public class ExpenseFragment extends Fragment {
         calenderBtnIv = view.findViewById(R.id.selectdata);
         selectAccount = view.findViewById(R.id.fromaccountselection);
         selectCategory = view.findViewById(R.id.categorylayout);
-        mSlidingLayer = view.findViewById(R.id.slidingDrawer);
         selectedDateTv = view.findViewById(R.id.ShowDate);
 
         Bundle args = getArguments();
@@ -103,7 +97,6 @@ public class ExpenseFragment extends Fragment {
             }
         });
 
-        mSlidingLayer.setLayerTransformer(new SlideJoyTransformer());
         selectedDateTv.setText(DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy));
 
         calenderBtnIv.setOnClickListener(new View.OnClickListener() {
@@ -127,29 +120,7 @@ public class ExpenseFragment extends Fragment {
             }
         });
 
-        handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                toggleDrawer();
-            }
-        }, 50);
-
         return view;
     }
 
-    public boolean isDrawerOpened() {
-        if (mSlidingLayer == null) return false;
-        return mSlidingLayer.isOpened();
-    }
-
-    public void toggleDrawer() {
-        if (mSlidingLayer == null) return;
-
-        if (mSlidingLayer.isOpened()) {
-            mSlidingLayer.closeLayer(true);
-        } else {
-            mSlidingLayer.openLayer(true);
-        }
-    }
 }
