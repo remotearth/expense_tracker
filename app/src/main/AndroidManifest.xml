@@ -43,6 +43,8 @@
         </activity>
         <activity android:name=".activities.ExpenseActivity">
         </activity>
+        <activity android:name=".activities.AddCategory">
+        </activity>
     </application>
 
 </manifest>
