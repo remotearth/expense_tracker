@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:orientation="horizontal">
+
+        <Button
+                android:id="@+id/digit1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="0.25"
+                android:background="@drawable/selector"
+                android:text="1"
+                android:textColor="#ecf0f1"
+                android:textSize="20sp"/>
+
+        <Button
+                android:id="@+id/digit2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="0.25"
+                android:background="@drawable/selector"
+                android:text="2"
+                android:textColor="#ecf0f1"
+                android:textSize="20sp"/>
+
+        <Button
+                android:id="@+id/digit3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="0.25"
+                android:background="@drawable/selector"
+                android:text="3"
+                android:textColor="#ecf0f1"
+                android:textSize="20sp"/>
+
+        <Button
+                android:id="@+id/division"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="0.25"
+                android:background="@drawable/operator_selector"
+                android:text="/"
+                android:textColor="#ecf0f1"
+                android:textSize="30sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:orientation="horizontal">
+
+        <Button
+                android:id="@+id/digit4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="0.25"
+                android:background="@drawable/selector"
+                android:text="4"
+                android:textColor="#ecf0f1"
+                android:textSize="20sp"/>
+
+        <Button
+                android:id="@+id/digit5"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="0.25"
+                android:background="@drawable/selector"
+                android:text="5"
+                android:textColor="#ecf0f1"
+                android:textSize="20sp"/>
+
+        <Button
+                android:id="@+id/digit6"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="0.25"
+                android:background="@drawable/selector"
+                android:text="6"
+                android:textColor="#ecf0f1"
+                android:textSize="20sp"/>
+
+        <Button
+                android:id="@+id/subtraction"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="0.25"
+                android:background="@drawable/operator_selector"
+                android:text="-"
+                android:textColor="#ecf0f1"
+                android:textSize="30sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:orientation="horizontal">
+
+        <Button
+                android:id="@+id/digit7"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="0.25"
+                android:background="@drawable/selector"
+                android:text="7"
+                android:textColor="#ecf0f1"
+                android:textSize="20sp"/>
+
+        <Button
+                android:id="@+id/digit8"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="0.25"
+                android:background="@drawable/selector"
+                android:text="8"
+                android:textColor="#ecf0f1"
+                android:textSize="20sp"/>
+
+        <Button
+                android:id="@+id/digit9"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="0.25"
+                android:background="@drawable/selector"
+                android:text="9"
+                android:textColor="#ecf0f1"
+                android:textSize="20sp"/>
+
+        <Button
+                android:id="@+id/multiplication"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="0.25"
+                android:background="@drawable/operator_selector"
+                android:text="x"
+                android:textColor="#ecf0f1"
+                android:textSize="30sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+    >
+
+        <Button
+                android:id="@+id/dot"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="0.25"
+                android:background="@drawable/selector"
+                android:text="."
+                android:textColor="#ecf0f1"
+                android:textSize="20sp"/>
+
+        <Button
+                android:id="@+id/digit0"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="0.25"
+                android:background="@drawable/selector"
+                android:text="0"
+                android:textColor="#ecf0f1"
+                android:textSize="20sp"/>
+
+        <Button
+                android:id="@+id/equalto"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="0.25"
+                android:background="@drawable/selector"
+                android:text="="
+                android:textColor="#ecf0f1"
+                android:textSize="30sp"/>
+
+        <Button
+                android:id="@+id/addition"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="0.25"
+                android:background="@drawable/operator_selector"
+                android:text="+"
+                android:textColor="#ecf0f1"
+                android:textSize="30sp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentManager;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.entities.Account;
 import com.remotearthsolutions.expensetracker.entities.Category;
+import com.remotearthsolutions.expensetracker.utils.NumpadManager;
 import com.wunderlist.slidinglayer.SlidingLayer;
 import com.wunderlist.slidinglayer.transformer.SlideJoyTransformer;
 import org.parceler.Parcels;
@@ -36,11 +37,8 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
     private SlidingLayer mSlidingLayer;
     private LinearLayout selectAccount, selectCategory;
     private int cDay, cMonth, cYear;
-
-
-    // Calculator Task
-    private Button addition,subtraction,multiplication,division,one,two,three,four,five,six,seven,eight,nine,zero,dot,equalto;
     private EditText inputdigit;
+    private ImageView deleteBtn;
     
 
     @Override
@@ -48,42 +46,13 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
 
         View view = inflater.inflate(R.layout.add_expense, container, false);
 
-        // Calculator Task
-        addition = view.findViewById(R.id.addition);
-        subtraction = view.findViewById(R.id.subtraction);
-        multiplication = view.findViewById(R.id.multiplication);
-        division = view.findViewById(R.id.division);
-        one = view.findViewById(R.id.digit1);
-        two = view.findViewById(R.id.digit2);
-        three = view.findViewById(R.id.digit3);
-        four = view.findViewById(R.id.digit4);
-        five = view.findViewById(R.id.digit5);
-        six = view.findViewById(R.id.digit6);
-        seven = view.findViewById(R.id.digit7);
-        eight = view.findViewById(R.id.digit8);
-        nine = view.findViewById(R.id.digit9);
-        zero = view.findViewById(R.id.digit0);
-        dot = view.findViewById(R.id.dot);
-        equalto = view.findViewById(R.id.equalto);
         inputdigit = view.findViewById(R.id.inputdigit);
-
-        addition.setOnClickListener(this);
-        subtraction.setOnClickListener(this);
-        multiplication.setOnClickListener(this);
-        division.setOnClickListener(this);
-        one.setOnClickListener(this);
-        two.setOnClickListener(this);
-        three.setOnClickListener(this);
-        four.setOnClickListener(this);
-        five.setOnClickListener(this);
-        six.setOnClickListener(this);
-        seven.setOnClickListener(this);
-        eight.setOnClickListener(this);
-        nine.setOnClickListener(this);
-        zero.setOnClickListener(this);
-        dot.setOnClickListener(this);
-        equalto.setOnClickListener(this);
-
+        deleteBtn = view.findViewById(R.id.deleteBtn);
+        NumpadFragment numpadFragment = (NumpadFragment)getChildFragmentManager().findFragmentById(R.id.numpadContainer);
+        NumpadManager numpadManager = new NumpadManager();
+        numpadManager.attachDisplay(inputdigit);
+        numpadManager.attachDeleteButton(deleteBtn);
+        numpadFragment.setListener(numpadManager);
 
         categoryImageIv = view.findViewById(R.id.showcatimage);
         categoryNameTv = view.findViewById(R.id.showcatname);
@@ -228,78 +197,6 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
             datePickerDialog.show();
 
         }
-
-        // adding calculation task
-        else if (v.getId() == R.id.digit1)
-        {
-            inputdigit.setText(inputdigit.getText()+"1");
-
-        }
-        else if (v.getId() == R.id.digit2)
-        {
-            inputdigit.setText(inputdigit.getText()+"2");
-        }
-        else if (v.getId() == R.id.digit3)
-        {
-            inputdigit.setText(inputdigit.getText()+"3");
-        }
-        else if (v.getId() == R.id.digit4)
-        {
-            inputdigit.setText(inputdigit.getText()+"4");
-        }
-        else if (v.getId() == R.id.digit5)
-        {
-            inputdigit.setText(inputdigit.getText()+"5");
-        }
-        else if (v.getId() == R.id.digit6)
-        {
-            inputdigit.setText(inputdigit.getText()+"6");
-        }
-        else if (v.getId() == R.id.digit7)
-        {
-            inputdigit.setText(inputdigit.getText()+"7");
-        }
-        else if (v.getId() == R.id.digit8)
-        {
-            inputdigit.setText(inputdigit.getText()+"8");
-        }
-        else if (v.getId() == R.id.digit9)
-        {
-            inputdigit.setText(inputdigit.getText()+"9");
-        }
-        else if (v.getId() == R.id.digit0)
-        {
-            inputdigit.setText(inputdigit.getText()+"0");
-        }
-        else if (v.getId() == R.id.addition)
-        {
-
-        }
-        else if (v.getId() == R.id.subtraction)
-        {
-
-        }
-        else if (v.getId() == R.id.multiplication)
-        {
-
-        }
-        else if (v.getId() == R.id.division)
-        {
-
-        }
-
-        else if (v.getId() == R.id.dot)
-        {
-
-        }
-        else if (v.getId() == R.id.equalto)
-        {
-
-        }
-
-
-
-
 
     }
 
