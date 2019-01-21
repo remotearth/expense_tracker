@@ -41,8 +41,9 @@
                 <data android:scheme="@string/fb_login_protocol_scheme"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ExpenseActivity">
-        </activity>
+
+        <activity android:name=".activities.CategoryActivity" android:theme="@style/AppTheme"/>
+
     </application>
 
 </manifest>

@@ -24,6 +24,7 @@ import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter;
 import com.remotearthsolutions.expensetracker.contracts.MainContract;
 import com.remotearthsolutions.expensetracker.entities.Category;
 import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
+import com.remotearthsolutions.expensetracker.fragments.CategoryFragment;
 import com.remotearthsolutions.expensetracker.fragments.ExpenseFragment;
 import com.remotearthsolutions.expensetracker.presenters.MainPresenter;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
@@ -44,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private ExpenseFragment expenseFragment;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,8 +172,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         int id = item.getItemId();
 
-        drawer.closeDrawer(GravityCompat.START);
+        if (id == R.id.nav_categories)
+        {
+            startActivity(new Intent(getApplicationContext(), CategoryActivity.class));
 
+        }
+
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
