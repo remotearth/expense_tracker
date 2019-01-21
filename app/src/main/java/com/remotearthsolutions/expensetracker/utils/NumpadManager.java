@@ -74,10 +74,4 @@ public class NumpadManager implements NumpadFragment.Listener {
         displayEdtxt.setText(Double.toString(result));
         isOperationDone = true;
     }
-
-    @Override
-    public void onEqualButtonClick() {
-
-
-    }
 }

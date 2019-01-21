@@ -104,7 +104,5 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
         void onNumpadButtonClick(String value);
 
         void onMathOperationButtonClick(String operation);
-
-        void onEqualButtonClick();
     }
 }
