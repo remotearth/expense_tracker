@@ -57,9 +57,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-
-            <!--Catagory Horizontal View-->
-
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_weight="0.8"
@@ -115,7 +112,6 @@
 
             </LinearLayout>
 
-            <!--Pie Chart View-->
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_weight="1.2"
@@ -129,6 +125,7 @@
 
             </LinearLayout>
         </LinearLayout>
+
 
     </LinearLayout>
 

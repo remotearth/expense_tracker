@@ -2,13 +2,17 @@ package com.remotearthsolutions.expensetracker.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.widget.Toast;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -20,9 +24,11 @@ import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter;
 import com.remotearthsolutions.expensetracker.contracts.MainContract;
 import com.remotearthsolutions.expensetracker.entities.Category;
 import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
+import com.remotearthsolutions.expensetracker.fragments.ExpenseFragment;
 import com.remotearthsolutions.expensetracker.presenters.MainPresenter;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +42,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private CategoryListAdapter adapter;
     private AnimatedPieView mAnimatedPieView;
     private DrawerLayout drawer;
+    private ActionBarDrawerToggle toggle;
+    private ExpenseFragment expenseFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +68,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         adapter = new CategoryListAdapter(categoryList);
         recyclerView.setAdapter(adapter);
 
+        adapter.setOnItemClickListener(new CategoryListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Category category, int position) {
+
+                expenseFragment = new ExpenseFragment();
+                Parcelable wrappedCategory = Parcels.wrap(category);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("category_parcel",wrappedCategory);
+                expenseFragment.setArguments(bundle);
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.framelayout, expenseFragment, ExpenseFragment.class.getName());
+                fragmentTransaction.commit();
+
+            }
+        });
+
     }
 
     @Override
@@ -67,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -81,8 +106,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(llm);
-
         mAnimatedPieView = findViewById(R.id.animatedpie);
+
+
+
     }
 
     @Override
@@ -154,4 +181,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void loadChartConfig(AnimatedPieViewConfig config) {
         mAnimatedPieView.applyConfig(config).start();
     }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        toggle.syncState();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+
+                if(expenseFragment!= null){
+                    if(expenseFragment.isDrawerOpened()){
+                        expenseFragment.toggleDrawer();
+                        return true;
+                    }
+                }
+
+            default:
+                return super.onKeyDown(keyCode, event);
+        }
+    }
+
+
 }
