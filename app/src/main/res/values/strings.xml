@@ -35,5 +35,6 @@
     <string name="today_14th_january_2019">TODAY 14TH JANUARY, 2019</string>
     <string name="currentdate">Today</string>
     <string name="previousdate">Yesterday</string>
+    <string name="menu_categories">Categories</string>
 
 </resources>

@@ -65,6 +65,7 @@ public class AccountDialogFragment extends DialogFragment {
     }
 
     public void loadAccountlIST() {
+
         accountslist = new ArrayList<>();
         accountslist.add(new Account(R.drawable.ic_currency, "CASH", 1000.00));
         accountslist.add(new Account(R.drawable.ic_currency, "BANK", 2000.00));
