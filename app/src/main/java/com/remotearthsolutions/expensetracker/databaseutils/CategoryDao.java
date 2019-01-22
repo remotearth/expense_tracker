@@ -1,22 +1,21 @@
 package com.remotearthsolutions.expensetracker.databaseutils;
 
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.Query;
-import androidx.room.Update;
+import androidx.room.*;
+
 import java.util.List;
 
+@Dao
 public interface CategoryDao {
 
     @Insert
-    public void addCategory(CategoryModel categoryModel);
+    void addCategory(CategoryModel categoryModel);
 
     @Query("Select * from category")
-    public List<CategoryModel> getCategory();
+    List<CategoryModel> getCategory();
 
     @Delete
-    public void deleteCategory(CategoryModel categoryModel);
+    void deleteCategory(CategoryModel categoryModel);
 
     @Update
-    public void updateCategory(CategoryModel categoryModel);
+    void updateCategory(CategoryModel categoryModel);
 }

@@ -93,7 +93,7 @@ public class AddCategoryDialogFragment extends DialogFragment {
 
     private void saveCategory() {
 
-        String getNameByEditText = nameeditText.getText().toString().trim();
+        final String getNameByEditText = nameeditText.getText().toString().trim();
 
         if (getNameByEditText.isEmpty()) {
             nameeditText.setError("Plz Enter Category Name");
@@ -101,35 +101,26 @@ public class AddCategoryDialogFragment extends DialogFragment {
             return;
         }
 
-        CategoryModel categoryModel = new CategoryModel();
-        categoryModel.setName(getNameByEditText);
-        DatabaseClient
-                .getInstance(getActivity())
-                .getAppDatabase()
-                .dao
-                .addCategory(categoryModel);
-        Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+        class SaveCategory extends AsyncTask<Void, Void, Void> {
 
-//        class SaveCategory extends AsyncTask<Void, Void, Void> {
-//
-//            @Override
-//            protected Void doInBackground(Void... voids) {
-//
-//                CategoryModel categoryModel = new CategoryModel();
-//                categoryModel.setName(getNameByEditText);
-//                DatabaseClient.getInstance(getContext()).getAppDatabase().dao.addCategory(categoryModel);
-//                return null;
-//            }
-//
-//            @Override
-//            protected void onPostExecute(Void aVoid) {
-//                super.onPostExecute(aVoid);
-//                Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
-//            }
-//        }
-//
-//        SaveCategory saveCategory = new SaveCategory();
-//        saveCategory.execute();
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+                CategoryModel categoryModel = new CategoryModel();
+                categoryModel.setName(getNameByEditText);
+                DatabaseClient.getInstance(getContext()).getAppDatabase().categoryDao().addCategory(categoryModel);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        SaveCategory saveCategory = new SaveCategory();
+        saveCategory.execute();
     }
 
     public void loadicon() {

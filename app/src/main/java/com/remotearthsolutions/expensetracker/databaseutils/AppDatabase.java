@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase;
 
 
 @Database(entities = {CategoryModel.class}, version = 1)
-public abstract class AppDatabase extends RoomDatabase{
+public abstract class AppDatabase extends RoomDatabase {
+    public abstract CategoryDao categoryDao();
 
-    public  CategoryDao dao;
 }

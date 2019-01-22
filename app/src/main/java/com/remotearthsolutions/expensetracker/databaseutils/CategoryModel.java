@@ -10,7 +10,7 @@ public class CategoryModel {
     @PrimaryKey (autoGenerate = true)
     private int id;
 
-    @ColumnInfo(name = "categoryname")
+    @ColumnInfo(name = "category_name")
     private String name;
 
 

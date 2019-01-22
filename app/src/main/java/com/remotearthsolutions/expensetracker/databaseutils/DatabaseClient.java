@@ -12,7 +12,7 @@ public class DatabaseClient {
     private DatabaseClient(Context context) {
         this.context = context;
         //creating the app database with Room database builder, here ExpenseTracker is the database name
-        appDatabase = Room.databaseBuilder(context, AppDatabase.class, "ExpenseTracker").build();
+        appDatabase = Room.databaseBuilder(context, AppDatabase.class, "expensetracker_db").build();
     }
 
     public static synchronized DatabaseClient getInstance(Context context) {
