@@ -23,6 +23,7 @@
 
 
         <EditText
+                android:id="@+id/addnametodb"
                 android:hint="Enter Category Name"
                 android:layout_width="match_parent"
                 android:textSize="18sp"
@@ -45,6 +46,7 @@
 
 
         <Button
+                android:id="@+id/addtodb"
                 android:text="ADD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
