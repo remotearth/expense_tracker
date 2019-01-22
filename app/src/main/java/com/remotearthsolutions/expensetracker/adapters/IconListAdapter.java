@@ -50,6 +50,6 @@ public class IconListAdapter extends RecyclerView.Adapter<IconViewHolder>{
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Icon icon);
+        void onItemClick(Icon icon, int position);
     }
 }

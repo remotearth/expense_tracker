@@ -60,9 +60,9 @@ public class AddCategoryDialogFragment extends DialogFragment {
         iconListAdapter = new IconListAdapter(alliconList);
         iconListAdapter.setOnItemClickListener(new IconListAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(Icon icon) {
+            public void onItemClick(Icon icon,int position) {
 
-                callback.onSelectIcon(icon);
+                //----- task to do----------//
             }
         });
         recyclerView.setAdapter(iconListAdapter);
