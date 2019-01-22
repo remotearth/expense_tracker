@@ -116,6 +116,16 @@ public class AddCategoryDialogFragment extends DialogFragment {
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
                 Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<CategoryModel> categories = DatabaseClient.getInstance(getContext()).getAppDatabase().categoryDao().getCategory();
+                        for (CategoryModel category : categories) {
+                            System.out.println(category.getName());
+                        }
+                    }
+                }).start();
             }
         }
 

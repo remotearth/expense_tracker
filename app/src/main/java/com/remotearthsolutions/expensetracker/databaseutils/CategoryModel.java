@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.databaseutils;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -7,6 +8,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "category")
 public class CategoryModel {
 
+    @NonNull
     @PrimaryKey (autoGenerate = true)
     private int id;
 
