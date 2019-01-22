@@ -35,4 +35,5 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         categoryNameTv.setText(category.getCategoryName());
     }
 
+
 }

@@ -20,7 +20,7 @@ public class IconViewHolder extends RecyclerView.ViewHolder {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(icon);
+                listener.onItemClick(icon,position);
             }
         });
     }
