@@ -34,7 +34,7 @@ public class AddCategoryDialogFragment extends DialogFragment {
     private IconListAdapter iconListAdapter;
     private List<Icon> alliconList;
     private RecyclerView recyclerView;
-    private AddCategoryDialogFragment.Callback callback;
+
 
     //---- Store to room
     private EditText nameeditText;
@@ -48,9 +48,7 @@ public class AddCategoryDialogFragment extends DialogFragment {
         return frag;
     }
 
-    public void setCallback(AddCategoryDialogFragment.Callback callback) {
-        this.callback = callback;
-    }
+
 
     @Nullable
     @Override
@@ -149,7 +147,5 @@ public class AddCategoryDialogFragment extends DialogFragment {
         alliconList.add(new Icon(R.drawable.ic_currency));
     }
 
-    public interface Callback {
-        void onSelectIcon(Icon icon);
-    }
+
 }

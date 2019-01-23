@@ -22,7 +22,7 @@ public class CategoryListViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
 
-                listener.onItemClick(categoryModel);
+                listener.onItemClick(categoryModel,position);
             }
         });
     }

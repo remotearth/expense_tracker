@@ -1,13 +1,18 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -44,6 +49,7 @@ public class CategoryFragment extends Fragment {
         getList();
 
 
+
         floatingActionButton = view.findViewById(R.id.addcategory);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,18 +79,37 @@ public class CategoryFragment extends Fragment {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                Toast.makeText(getApplicationContext(),"SHOWING DATA", Toast.LENGTH_LONG).show();
-                CategoryListViewAdapter adapter = new CategoryListViewAdapter(showcategorylist,getActivity());
+
+                adapter = new CategoryListViewAdapter(showcategorylist,getActivity());
                 recyclerView.setAdapter(adapter);
                 adapter.setOnItemClickListener(new CategoryListViewAdapter.OnItemClickListener() {
                     @Override
-                    public void onItemClick(CategoryModel categoryModel) {
+                    public void onItemClick(final CategoryModel categoryModel, final int position) {
 
-                        Toast.makeText(getActivity(),"Clicked on"+categoryModel.getName(), Toast.LENGTH_SHORT).show();
+                        final Dialog dialog = new Dialog(getActivity());
+                        dialog.setContentView(R.layout.custom_update_category);
+                        final EditText udpateEditText = dialog.findViewById(R.id.categoryupdate);
+                        final Button updateButton = dialog.findViewById(R.id.updatebutton);
+                        udpateEditText.setText(categoryModel.getName());
+                        udpateEditText.setSelection(udpateEditText.getText().length());
+
+                        dialog.show();
+
+                        updateButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                String username = udpateEditText.getText().toString();
+                                updateCategory(username);
+                                dialog.dismiss();
+                            }
+                        });
 
 
                     }
                 });
+
+
 
             }
         }
@@ -92,6 +117,38 @@ public class CategoryFragment extends Fragment {
         GetCategoryList getCategoryList = new GetCategoryList();
         getCategoryList.execute();
     }
+
+
+    private void updateCategory(final String username)
+    {
+
+        class UpdateTask extends AsyncTask<Void, Void, Void> {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+                CategoryModel categoryModel = new CategoryModel();
+                categoryModel.setName(username);
+                DatabaseClient.getInstance(getContext())
+                        .getAppDatabase()
+                        .categoryDao()
+                        .updateCategory(categoryModel);
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_LONG).show();
+
+            }
+        }
+
+        UpdateTask ut = new UpdateTask();
+        ut.execute();
+    }
+
 
 
 }
