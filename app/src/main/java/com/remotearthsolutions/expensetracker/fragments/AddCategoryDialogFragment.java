@@ -115,7 +115,7 @@ public class AddCategoryDialogFragment extends DialogFragment {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Saved", Toast.LENGTH_LONG).show();
 
                 new Thread(new Runnable() {
                     @Override
