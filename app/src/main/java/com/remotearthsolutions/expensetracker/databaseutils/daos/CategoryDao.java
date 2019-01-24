@@ -1,17 +1,19 @@
-package com.remotearthsolutions.expensetracker.databaseutils;
+package com.remotearthsolutions.expensetracker.databaseutils.daos;
 
 import androidx.room.*;
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import io.reactivex.Flowable;
 
 import java.util.List;
 
 @Dao
 public interface CategoryDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addCategory(CategoryModel categoryModel);
 
     @Query("Select * from category")
-    List<CategoryModel> getCategory();
+    Flowable<List<CategoryModel>> getAllCategories();
 
     @Delete
     void deleteCategory(CategoryModel categoryModel);

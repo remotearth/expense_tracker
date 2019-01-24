@@ -7,24 +7,34 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.AccountListAdapter;
+import com.remotearthsolutions.expensetracker.contracts.AccountDialogContract;
+import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
+import com.remotearthsolutions.expensetracker.databaseutils.models.AccountIncome;
+import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
 import com.remotearthsolutions.expensetracker.entities.Account;
+import com.remotearthsolutions.expensetracker.presenters.AccountDialogPresenter;
+import com.remotearthsolutions.expensetracker.presenters.viewmodel_factory.AccountDialogViewModelFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountDialogFragment extends DialogFragment {
+public class AccountDialogFragment extends DialogFragment implements AccountDialogContract.View {
+
+    private AccountDialogPresenter presenter;
+    private AccountListAdapter accountListAdapter;
+    private List<AccountIncome> accountslist;
+    private RecyclerView accountrecyclerView;
+    private AccountDialogFragment.Callback callback;
 
     public AccountDialogFragment() {
     }
-
-    private AccountListAdapter accountListAdapter;
-    private List<Account> accountslist;
-    private RecyclerView accountrecyclerView;
-    private AccountDialogFragment.Callback callback;
 
     public static AccountDialogFragment newInstance(String title) {
         AccountDialogFragment frag = new AccountDialogFragment();
@@ -53,27 +63,43 @@ public class AccountDialogFragment extends DialogFragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         accountrecyclerView.setLayoutManager(llm);
 
+        AccountDao accountDao = DatabaseClient.getInstance(getContext()).getAppDatabase().accountDao();
+        presenter = ViewModelProviders.of(this,
+                new AccountDialogViewModelFactory(this, accountDao)).
+                get(AccountDialogPresenter.class);
+        presenter.loadAccounts();
+
+
+    }
+
+    public void loadAccountlIST() {
+
+        accountslist = new ArrayList<>();
+        accountslist.add(new AccountIncome(1,"Cash", "currenncy",100));
+        accountslist.add(new AccountIncome(1,"Bank", "bank",235));
+        accountslist.add(new AccountIncome(1,"Loan", "load",100));
+
+    }
+
+    @Override
+    public void onAccountFetchSuccess(List<AccountIncome> accounts) {
         loadAccountlIST();
         accountListAdapter = new AccountListAdapter(accountslist);
         accountListAdapter.setOnItemClickListener(new AccountListAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(Account account) {
+            public void onItemClick(AccountIncome account) {
                 callback.onSelectAccount(account);
             }
         });
         accountrecyclerView.setAdapter(accountListAdapter);
     }
 
-    public void loadAccountlIST() {
-
-        accountslist = new ArrayList<>();
-        accountslist.add(new Account(R.drawable.ic_currency, "CASH", 1000.00));
-        accountslist.add(new Account(R.drawable.ic_currency, "BANK", 2000.00));
-        accountslist.add(new Account(R.drawable.ic_currency, "LOAN", 3000.00));
+    @Override
+    public void onAccountFetchFailure() {
 
     }
 
     public interface Callback {
-        void onSelectAccount(Account category);
+        void onSelectAccount(AccountIncome accountIncome);
     }
 }
