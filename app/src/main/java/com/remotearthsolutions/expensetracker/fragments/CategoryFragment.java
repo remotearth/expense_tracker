@@ -64,46 +64,36 @@ public class CategoryFragment extends Fragment implements CategoryFragmentContra
             }
         });
 
-
         return view;
     }
-
-
-
-//    private void updateCategory(final String username) {
-//
-//        class UpdateTask extends AsyncTask<Void, Void, Void> {
-//
-//            @Override
-//            protected Void doInBackground(Void... voids) {
-//
-//                CategoryModel categoryModel = new CategoryModel();
-//                categoryModel.setName(username);
-//                DatabaseClient.getInstance(getContext())
-//                        .getAppDatabase()
-//                        .categoryDao()
-//                        .updateCategory(categoryModel);
-//
-//                return null;
-//            }
-//
-//            @Override
-//            protected void onPostExecute(Void aVoid) {
-//                super.onPostExecute(aVoid);
-//                Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_LONG).show();
-//
-//            }
-//        }
-//
-//        UpdateTask ut = new UpdateTask();
-//        ut.execute();
-//    }
-
 
     @Override
     public void showCategories(List<CategoryModel> categories) {
 
         adapter = new CategoryListViewAdapter(categories);
+        adapter.setOnItemClickListener(new CategoryListViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(CategoryModel categoryModel) {
+
+                FragmentManager fm = getChildFragmentManager();
+                final AddCategoryDialogFragment categoryDialogFragment = AddCategoryDialogFragment.newInstance("Update Category");
+                categoryDialogFragment.setCategory(categoryModel);
+                categoryDialogFragment.setCallback(new AddCategoryDialogFragment.Callback() {
+                    @Override
+                    public void onCategoryAdded(CategoryModel categoryModel) {
+                        presenter.showCategories();
+                        categoryDialogFragment.dismiss();
+
+                    }
+                });
+                categoryDialogFragment.show(fm, AddCategoryDialogFragment.class.getName());
+            }
+
+            @Override
+            public void onItemLongClick(CategoryModel categoryModel) {
+
+            }
+        });
         recyclerView.setAdapter(adapter);
 
     }

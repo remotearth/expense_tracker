@@ -48,5 +48,6 @@ public class CategoryListViewAdapter extends RecyclerView.Adapter<CategoryListVi
 
     public interface OnItemClickListener {
         void onItemClick(CategoryModel categoryModel);
+        void onItemLongClick(CategoryModel categoryModel);
     }
 }

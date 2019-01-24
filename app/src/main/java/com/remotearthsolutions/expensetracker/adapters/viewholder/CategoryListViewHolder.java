@@ -23,6 +23,14 @@ public class CategoryListViewHolder extends RecyclerView.ViewHolder {
                 listener.onItemClick(categoryModel);
             }
         });
+
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                listener.onItemLongClick(categoryModel);
+                return false;
+            }
+        });
     }
 
     public void bind(CategoryModel categoryModel)

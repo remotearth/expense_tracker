@@ -26,15 +26,18 @@ import java.util.List;
 
 public class AddCategoryDialogFragment extends DialogFragment {
 
-    public AddCategoryDialogFragment() {
-    }
 
     private IconListAdapter iconListAdapter;
     private List<Icon> alliconList;
     private RecyclerView recyclerView;
     private AddCategoryDialogFragment.Callback callback;
-    private EditText nameeditText;
-    private Button addbutton;
+    private EditText categoryNameEdtxt;
+    private CategoryModel categoryModel;
+    private int selectedIcon = R.drawable.ic_bills;
+
+    public AddCategoryDialogFragment() {
+    }
+
 
     public static AddCategoryDialogFragment newInstance(String title) {
         AddCategoryDialogFragment frag = new AddCategoryDialogFragment();
@@ -44,7 +47,7 @@ public class AddCategoryDialogFragment extends DialogFragment {
         return frag;
     }
 
-    public void setCallback(AddCategoryDialogFragment.Callback callback){
+    public void setCallback(AddCategoryDialogFragment.Callback callback) {
         this.callback = callback;
     }
 
@@ -58,10 +61,14 @@ public class AddCategoryDialogFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        nameeditText = view.findViewById(R.id.addnametodb);
-        addbutton = view.findViewById(R.id.addtodb);
+        categoryNameEdtxt = view.findViewById(R.id.addnametodb);
+        Button addBtn = view.findViewById(R.id.addtodb);
 
-        addbutton.setOnClickListener(new View.OnClickListener() {
+        if (categoryModel != null) {
+            categoryNameEdtxt.setText(categoryModel.getName());
+        }
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -88,22 +95,31 @@ public class AddCategoryDialogFragment extends DialogFragment {
 
     private void saveCategory() {
 
-        final String categoryName = nameeditText.getText().toString().trim();
+        final String categoryName = categoryNameEdtxt.getText().toString().trim();
 
         if (categoryName.isEmpty()) {
-            nameeditText.setError("Plz Enter Category Name");
-            nameeditText.requestFocus();
+            categoryNameEdtxt.setError("Plz Enter Category Name");
+            categoryNameEdtxt.requestFocus();
             return;
         }
 
         CategoryDao categoryDao = DatabaseClient.getInstance(getContext()).getAppDatabase().categoryDao();
+        CategoryModel newCategoryModel = new CategoryModel();
+        if (categoryModel != null) {
+            newCategoryModel.setId(categoryModel.getId());
+        }
 
-//        CompositeDisposable disposable = new CompositeDisposable();
-//        disposable.add(categoryDao.addCategory(categoryModel))
-        CategoryModel categoryModel = new CategoryModel();
-        categoryModel.setName(categoryName);
+        newCategoryModel.setName(categoryName);
+        //newCategoryModel.setIcon(selectedIcon);
+        newCategoryModel.setIcon("selected_icon");
 
-        Completable.fromAction(() -> categoryDao.addCategory(categoryModel)).subscribeOn(Schedulers.io())
+        Completable.fromAction(() -> {
+            if (categoryModel != null) {
+                categoryDao.updateCategory(newCategoryModel);
+            } else {
+                categoryDao.addCategory(newCategoryModel);
+            }
+        }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> callback.onCategoryAdded(categoryModel));
 
@@ -123,6 +139,10 @@ public class AddCategoryDialogFragment extends DialogFragment {
         alliconList.add(new Icon(R.drawable.ic_currency));
         alliconList.add(new Icon(R.drawable.ic_currency));
         alliconList.add(new Icon(R.drawable.ic_currency));
+    }
+
+    public void setCategory(CategoryModel categoryModel) {
+        this.categoryModel = categoryModel;
     }
 
     public interface Callback {
