@@ -1,6 +1,5 @@
 package com.remotearthsolutions.expensetracker.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +15,9 @@ public class CategoryListViewAdapter extends RecyclerView.Adapter<CategoryListVi
 
     private List<CategoryModel> categorylist;
     private CategoryListViewAdapter.OnItemClickListener listener;
-    private Context context;
 
-    public CategoryListViewAdapter(List<CategoryModel> categorylist, Context context) {
+    public CategoryListViewAdapter(List<CategoryModel> categorylist) {
         this.categorylist = categorylist;
-        this.context = context;
     }
 
     @NonNull

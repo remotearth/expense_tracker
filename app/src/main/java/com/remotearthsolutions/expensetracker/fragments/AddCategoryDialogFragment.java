@@ -13,22 +13,26 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.IconListAdapter;
+import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.entities.Icon;
+import io.reactivex.Completable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddCategoryDialogFragment extends DialogFragment {
 
-
     public AddCategoryDialogFragment() {
-
     }
 
     private IconListAdapter iconListAdapter;
     private List<Icon> alliconList;
     private RecyclerView recyclerView;
-    //private AddCategoryDialogFragment.Callback callback;
+    private AddCategoryDialogFragment.Callback callback;
     private EditText nameeditText;
     private Button addbutton;
 
@@ -38,6 +42,10 @@ public class AddCategoryDialogFragment extends DialogFragment {
         args.putString("title", title);
         frag.setArguments(args);
         return frag;
+    }
+
+    public void setCallback(AddCategoryDialogFragment.Callback callback){
+        this.callback = callback;
     }
 
     @Nullable
@@ -80,14 +88,24 @@ public class AddCategoryDialogFragment extends DialogFragment {
 
     private void saveCategory() {
 
-        final String getNameByEditText = nameeditText.getText().toString().trim();
+        final String categoryName = nameeditText.getText().toString().trim();
 
-        if (getNameByEditText.isEmpty()) {
+        if (categoryName.isEmpty()) {
             nameeditText.setError("Plz Enter Category Name");
             nameeditText.requestFocus();
             return;
         }
 
+        CategoryDao categoryDao = DatabaseClient.getInstance(getContext()).getAppDatabase().categoryDao();
+
+//        CompositeDisposable disposable = new CompositeDisposable();
+//        disposable.add(categoryDao.addCategory(categoryModel))
+        CategoryModel categoryModel = new CategoryModel();
+        categoryModel.setName(categoryName);
+
+        Completable.fromAction(() -> categoryDao.addCategory(categoryModel)).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> callback.onCategoryAdded(categoryModel));
 
     }
 
@@ -105,6 +123,10 @@ public class AddCategoryDialogFragment extends DialogFragment {
         alliconList.add(new Icon(R.drawable.ic_currency));
         alliconList.add(new Icon(R.drawable.ic_currency));
         alliconList.add(new Icon(R.drawable.ic_currency));
+    }
+
+    public interface Callback {
+        void onCategoryAdded(CategoryModel categoryModel);
     }
 
 
