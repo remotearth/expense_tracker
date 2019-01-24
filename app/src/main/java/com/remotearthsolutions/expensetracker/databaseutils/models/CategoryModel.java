@@ -1,4 +1,4 @@
-package com.remotearthsolutions.expensetracker.databaseutils;
+package com.remotearthsolutions.expensetracker.databaseutils.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -15,6 +15,13 @@ public class CategoryModel {
     @ColumnInfo(name = "category_name")
     private String name;
 
+    @ColumnInfo(name = "icon_name")
+    private String icon;
+
+    public CategoryModel(String name, String icon) {
+        this.name = name;
+        this.icon = icon;
+    }
 
     public int getId() {
         return id;
@@ -30,5 +37,13 @@ public class CategoryModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

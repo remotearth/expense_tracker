@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.databaseutils.models.AccountIncome;
 import com.remotearthsolutions.expensetracker.entities.Account;
 import com.remotearthsolutions.expensetracker.entities.Category;
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
@@ -68,9 +69,10 @@ public class ExpenseFragment extends Fragment {
                 final AccountDialogFragment accountDialogFragment = AccountDialogFragment.newInstance("Select Account");
                 accountDialogFragment.setCallback(new AccountDialogFragment.Callback() {
                     @Override
-                    public void onSelectAccount(Account account) {
-                        accountBtnIv.setImageResource(account.getAccountImage());
-                        accountNameTv.setText(account.getAccountName());
+                    public void onSelectAccount(AccountIncome account) {
+                        //accountBtnIv.setImageResource(account.getIcon_name());
+                        accountBtnIv.setImageResource(R.drawable.ic_currency);
+                        accountNameTv.setText(account.getAccount_name());
                         accountDialogFragment.dismiss();
                     }
                 });

@@ -36,7 +36,7 @@ public class CategoryDialogFragment extends DialogFragment {
         return frag;
     }
 
-    public void setCallback(CategoryDialogFragment.Callback callback){
+    public void setCallback(CategoryDialogFragment.Callback callback) {
         this.callback = callback;
     }
 

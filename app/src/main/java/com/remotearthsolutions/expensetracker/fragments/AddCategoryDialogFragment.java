@@ -1,13 +1,11 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -15,14 +13,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.IconListAdapter;
-import com.remotearthsolutions.expensetracker.databaseutils.CategoryModel;
-import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.entities.Icon;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class AddCategoryDialogFragment extends DialogFragment {
 
@@ -35,8 +29,6 @@ public class AddCategoryDialogFragment extends DialogFragment {
     private List<Icon> alliconList;
     private RecyclerView recyclerView;
     private AddCategoryDialogFragment.Callback callback;
-
-    //---- Store to room
     private EditText nameeditText;
     private Button addbutton;
 
@@ -62,7 +54,6 @@ public class AddCategoryDialogFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //---- Store to room
         nameeditText = view.findViewById(R.id.addnametodb);
         addbutton = view.findViewById(R.id.addtodb);
 
@@ -101,36 +92,36 @@ public class AddCategoryDialogFragment extends DialogFragment {
             return;
         }
 
-        class SaveCategory extends AsyncTask<Void, Void, Void> {
-
-            @Override
-            protected Void doInBackground(Void... voids) {
-
-                CategoryModel categoryModel = new CategoryModel();
-                categoryModel.setName(getNameByEditText);
-                DatabaseClient.getInstance(getContext()).getAppDatabase().categoryDao().addCategory(categoryModel);
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        List<CategoryModel> categories = DatabaseClient.getInstance(getContext()).getAppDatabase().categoryDao().getCategory();
-                        for (CategoryModel category : categories) {
-                            System.out.println(category.getName());
-                        }
-                    }
-                }).start();
-            }
-        }
-
-        SaveCategory saveCategory = new SaveCategory();
-        saveCategory.execute();
+//        class SaveCategory extends AsyncTask<Void, Void, Void> {
+//
+//            @Override
+//            protected Void doInBackground(Void... voids) {
+//
+//                CategoryModel categoryModel = new CategoryModel();
+//                categoryModel.setCategoryId(getNameByEditText);
+//                DatabaseClient.getInstance(getContext()).getAppDatabase().categoryDao().addCategory(categoryModel);
+//                return null;
+//            }
+//
+//            @Override
+//            protected void onPostExecute(Void aVoid) {
+//                super.onPostExecute(aVoid);
+//                Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+//
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        List<CategoryModel> categories = DatabaseClient.getInstance(getContext()).getAppDatabase().categoryDao().getAllCategories();
+//                        for (CategoryModel category : categories) {
+//                            System.out.println(category.getCategoryId());
+//                        }
+//                    }
+//                }).start();
+//            }
+//        }
+//
+//        SaveCategory saveCategory = new SaveCategory();
+//        saveCategory.execute();
     }
 
     public void loadicon() {
