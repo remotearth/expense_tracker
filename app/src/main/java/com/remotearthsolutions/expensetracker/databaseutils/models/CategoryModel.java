@@ -3,6 +3,7 @@ package com.remotearthsolutions.expensetracker.databaseutils.models;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "category")
@@ -17,6 +18,10 @@ public class CategoryModel {
 
     @ColumnInfo(name = "icon_name")
     private String icon;
+
+    @Ignore
+    public CategoryModel() {
+    }
 
     public CategoryModel(String name, String icon) {
         this.name = name;

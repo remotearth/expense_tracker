@@ -28,7 +28,7 @@ public class AddCategoryDialogFragment extends DialogFragment {
     private IconListAdapter iconListAdapter;
     private List<Icon> alliconList;
     private RecyclerView recyclerView;
-    private AddCategoryDialogFragment.Callback callback;
+    //private AddCategoryDialogFragment.Callback callback;
     private EditText nameeditText;
     private Button addbutton;
 
@@ -39,7 +39,7 @@ public class AddCategoryDialogFragment extends DialogFragment {
         frag.setArguments(args);
         return frag;
     }
-    
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

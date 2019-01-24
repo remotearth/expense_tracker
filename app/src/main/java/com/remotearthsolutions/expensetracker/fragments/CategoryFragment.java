@@ -1,7 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,8 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.CategoryListViewAdapter;
-import com.remotearthsolutions.expensetracker.databaseutils.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 
 import java.util.List;
 
@@ -49,7 +47,6 @@ public class CategoryFragment extends Fragment {
         getList();
 
 
-
         floatingActionButton = view.findViewById(R.id.addcategory);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +69,7 @@ public class CategoryFragment extends Fragment {
             @Override
             protected Void doInBackground(Void... voids) {
 
-                showcategorylist = DatabaseClient.getInstance(getActivity()).getAppDatabase().categoryDao().getCategory();
+                showcategorylist = DatabaseClient.getInstance(getActivity()).getAppDatabase().categoryDao().getAllCategories().blockingFirst();
                 return null;
             }
 
@@ -80,11 +77,11 @@ public class CategoryFragment extends Fragment {
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
 
-                adapter = new CategoryListViewAdapter(showcategorylist,getActivity());
+                adapter = new CategoryListViewAdapter(showcategorylist, getActivity());
                 recyclerView.setAdapter(adapter);
                 adapter.setOnItemClickListener(new CategoryListViewAdapter.OnItemClickListener() {
                     @Override
-                    public void onItemClick(final CategoryModel categoryModel, final int position) {
+                    public void onItemClick(final CategoryModel categoryModel) {
 
                         final Dialog dialog = new Dialog(getActivity());
                         dialog.setContentView(R.layout.custom_update_category);
@@ -110,7 +107,6 @@ public class CategoryFragment extends Fragment {
                 });
 
 
-
             }
         }
 
@@ -119,8 +115,7 @@ public class CategoryFragment extends Fragment {
     }
 
 
-    private void updateCategory(final String username)
-    {
+    private void updateCategory(final String username) {
 
         class UpdateTask extends AsyncTask<Void, Void, Void> {
 
@@ -148,7 +143,6 @@ public class CategoryFragment extends Fragment {
         UpdateTask ut = new UpdateTask();
         ut.execute();
     }
-
 
 
 }
