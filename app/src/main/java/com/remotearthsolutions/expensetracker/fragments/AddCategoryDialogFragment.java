@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -32,6 +33,7 @@ public class AddCategoryDialogFragment extends DialogFragment {
     private RecyclerView recyclerView;
     private AddCategoryDialogFragment.Callback callback;
     private EditText categoryNameEdtxt;
+    private TextView categorydialogstatus;
     private CategoryModel categoryModel;
     private int selectedIcon = R.drawable.ic_bills;
 
@@ -62,10 +64,14 @@ public class AddCategoryDialogFragment extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         categoryNameEdtxt = view.findViewById(R.id.addnametodb);
+        categorydialogstatus = view.findViewById(R.id.header);
         Button addBtn = view.findViewById(R.id.addtodb);
 
         if (categoryModel != null) {
             categoryNameEdtxt.setText(categoryModel.getName());
+            categoryNameEdtxt.setSelection(categoryNameEdtxt.getText().length());
+            categorydialogstatus.setText("Update Category");
+            addBtn.setText("Update");
         }
 
         addBtn.setOnClickListener(new View.OnClickListener() {

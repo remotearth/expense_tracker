@@ -38,8 +38,13 @@ public class CategoryFragmentPresenter {
     }
 
     public void deleteCategory(CategoryModel categoryModel) {
-        Completable.fromAction(() -> categoryDao.deleteCategory(categoryModel)).observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> showCategories());
+
+        disposable.delete(categoryDao.deleteCategory(categoryModel)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        categories -> view.showCategories(categories)
+                ));
+
     }
 }

@@ -1,11 +1,14 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -91,6 +94,35 @@ public class CategoryFragment extends Fragment implements CategoryFragmentContra
 
             @Override
             public void onItemLongClick(CategoryModel categoryModel) {
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                alertDialogBuilder.setTitle("Warning");
+                alertDialogBuilder.setIcon(R.drawable.ic_warning);
+                alertDialogBuilder.setMessage("Are you sure,You want to Delete?");
+                alertDialogBuilder.setCancelable(false);
+
+                alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int arg1) {
+
+                        presenter.deleteCategory(categoryModel);
+                        Toast.makeText(getActivity(), "Category Deleted Successfully", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+
+                    }
+                });
+
+                alertDialogBuilder.setNegativeButton("Not Now", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
 
             }
         });

@@ -10,6 +10,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.IncomeModel;
 
 
 @Database(entities = {CategoryModel.class, AccountModel.class, IncomeModel.class}, version = 1)
+
 public abstract class AppDatabase extends RoomDatabase {
     public abstract CategoryDao categoryDao();
     public abstract AccountDao accountDao();
