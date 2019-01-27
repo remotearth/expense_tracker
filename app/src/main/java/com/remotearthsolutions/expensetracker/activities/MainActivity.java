@@ -18,13 +18,13 @@ import com.remotearthsolutions.expensetracker.entities.Category;
 import com.remotearthsolutions.expensetracker.fragments.CategoryFragment;
 import com.remotearthsolutions.expensetracker.fragments.ExpenseFragment;
 import com.remotearthsolutions.expensetracker.fragments.HomeFragment;
-import com.remotearthsolutions.expensetracker.presenters.MainPresenter;
+import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import org.parceler.Parcels;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
 
-    private MainPresenter presenter;
+    private MainViewModel presenter;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private HomeFragment homeFragment;
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        presenter = new MainPresenter(this);
+        presenter = new MainViewModel(this);
         presenter.init();
 
         homeFragment = new HomeFragment();

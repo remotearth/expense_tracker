@@ -1,20 +1,15 @@
-package com.remotearthsolutions.expensetracker.presenters;
+package com.remotearthsolutions.expensetracker.viewmodels;
 
 
 import com.google.firebase.auth.FirebaseUser;
 import com.remotearthsolutions.expensetracker.contracts.MainContract;
-import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
-import com.remotearthsolutions.expensetracker.utils.ChartManager;
-import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl;
 
-import java.util.List;
-
-public class MainPresenter {
+public class MainViewModel {
 
     private MainContract.View view;
 
-    public MainPresenter(MainContract.View view) {
+    public MainViewModel(MainContract.View view) {
         this.view = view;
     }
 

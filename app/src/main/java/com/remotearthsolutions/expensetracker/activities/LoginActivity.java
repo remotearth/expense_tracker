@@ -10,8 +10,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseUser;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.LoginContract;
-import com.remotearthsolutions.expensetracker.presenters.LoginPresenter;
-import com.remotearthsolutions.expensetracker.presenters.viewmodel_factory.LoginViewModelFactory;
+import com.remotearthsolutions.expensetracker.viewmodels.LoginViewModel;
+import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.LoginViewModelFactory;
 import com.remotearthsolutions.expensetracker.services.FacebookServiceImpl;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.services.GoogleServiceImpl;
@@ -21,7 +21,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     private static final String TAG = LoginActivity.class.getName();
     private static final int REQUEST_CODE_GOOGLE_SIGNIN_INTENT = 101;
 
-    private LoginPresenter presenter;
+    private LoginViewModel presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
         presenter = ViewModelProviders.of(this,
                 new LoginViewModelFactory(this, new GoogleServiceImpl(this), new FacebookServiceImpl(this), new FirebaseServiceImpl(this))).
-                get(LoginPresenter.class);
+                get(LoginViewModel.class);
         presenter.init();
 
     }

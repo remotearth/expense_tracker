@@ -1,7 +1,6 @@
-package com.remotearthsolutions.expensetracker.presenters;
+package com.remotearthsolutions.expensetracker.viewmodels;
 
 import android.content.Intent;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
 import com.facebook.CallbackManager;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -12,14 +11,14 @@ import com.remotearthsolutions.expensetracker.services.FacebookService;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
 import com.remotearthsolutions.expensetracker.services.GoogleService;
 
-public class LoginPresenter extends ViewModel implements FacebookService.CallBack, FirebaseService.Callback, GoogleService.Callback {
+public class LoginViewModel extends ViewModel implements FacebookService.CallBack, FirebaseService.Callback, GoogleService.Callback {
 
     private LoginContract.View view;
     private GoogleService googleService;
     private FacebookService facebookService;
     private FirebaseService firebaseService;
 
-    public LoginPresenter(LoginContract.View view, GoogleService googleService, FacebookService facebookService, FirebaseService firebaseService) {
+    public LoginViewModel(LoginContract.View view, GoogleService googleService, FacebookService facebookService, FirebaseService firebaseService) {
         this.view = view;
         this.googleService = googleService;
         this.facebookService = facebookService;
