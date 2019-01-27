@@ -4,6 +4,7 @@ import com.remotearthsolutions.expensetracker.contracts.CategoryFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import io.reactivex.Completable;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -39,12 +40,9 @@ public class CategoryFragmentPresenter {
 
     public void deleteCategory(CategoryModel categoryModel) {
 
-        disposable.delete(categoryDao.deleteCategory(categoryModel)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        categories -> view.showCategories(categories)
-                ));
+        Completable.fromAction(() -> categoryDao.deleteCategory(categoryModel)).observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> showCategories());
 
     }
 }
