@@ -1,14 +1,13 @@
-package com.remotearthsolutions.expensetracker.databaseutils.models;
+package com.remotearthsolutions.expensetracker.databaseutils.models.dtos;
 
 public class AccountIncome {
-
 
     private int account_id;
     private String account_name;
     private String icon_name;
-    private int total_amount;
+    private double total_amount;
 
-    public AccountIncome(int account_id, String account_name, String icon_name, int total_amount) {
+    public AccountIncome(int account_id, String account_name, String icon_name, double total_amount) {
         this.account_id = account_id;
         this.account_name = account_name;
         this.icon_name = icon_name;
@@ -39,11 +38,11 @@ public class AccountIncome {
         this.icon_name = icon_name;
     }
 
-    public int getTotal_amount() {
+    public double getTotal_amount() {
         return total_amount;
     }
 
-    public void setTotal_amount(int total_amount) {
+    public void setTotal_amount(double total_amount) {
         this.total_amount = total_amount;
     }
 }

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
 
 import com.remotearthsolutions.expensetracker.adapters.AccountListAdapter;
-import com.remotearthsolutions.expensetracker.databaseutils.models.AccountIncome;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.AccountIncome;
 
 public class AccountViewHolder extends RecyclerView.ViewHolder {
 

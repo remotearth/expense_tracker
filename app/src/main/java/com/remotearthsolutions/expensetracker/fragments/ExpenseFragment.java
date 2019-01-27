@@ -11,9 +11,8 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import com.remotearthsolutions.expensetracker.R;
-import com.remotearthsolutions.expensetracker.databaseutils.models.AccountIncome;
-import com.remotearthsolutions.expensetracker.entities.Account;
-import com.remotearthsolutions.expensetracker.entities.Category;
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.AccountIncome;
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
 import com.remotearthsolutions.expensetracker.utils.NumpadManager;
 import org.parceler.Parcels;
@@ -57,9 +56,10 @@ public class ExpenseFragment extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
 
-            Category category = Parcels.unwrap(args.getParcelable("category_parcel"));
-            categoryBtnIv.setImageResource(category.getCategoryImage());
-            categoryNameTv.setText(category.getCategoryName());
+            CategoryModel category = Parcels.unwrap(args.getParcelable("category_parcel"));
+            //categoryBtnIv.setImageResource(category.getIcon());
+            categoryBtnIv.setImageResource(R.drawable.ic_bills);
+            categoryNameTv.setText(category.getName());
         }
 
         selectAccount.setOnClickListener(new View.OnClickListener() {
@@ -89,9 +89,10 @@ public class ExpenseFragment extends Fragment {
                 final CategoryDialogFragment categoryDialogFragment = CategoryDialogFragment.newInstance("Select Category");
                 categoryDialogFragment.setCallback(new CategoryDialogFragment.Callback() {
                     @Override
-                    public void onSelectCategory(Category category) {
-                        categoryBtnIv.setImageResource(category.getCategoryImage());
-                        categoryNameTv.setText(category.getCategoryName());
+                    public void onSelectCategory(CategoryModel category) {
+                        //categoryBtnIv.setImageResource(category.getIcon());
+                        accountBtnIv.setImageResource(R.drawable.ic_currency);
+                        categoryNameTv.setText(category.getName());
                         categoryDialogFragment.dismiss();
                     }
                 });

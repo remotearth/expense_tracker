@@ -14,12 +14,12 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.MainContract;
-import com.remotearthsolutions.expensetracker.entities.Category;
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.fragments.CategoryFragment;
 import com.remotearthsolutions.expensetracker.fragments.ExpenseFragment;
 import com.remotearthsolutions.expensetracker.fragments.HomeFragment;
-import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
+import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel;
 import org.parceler.Parcels;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
     }
 
-    public void openAddExpenseScreen(Category category) {
+    public void openAddExpenseScreen(CategoryModel category) {
         ExpenseFragment expenseFragment = new ExpenseFragment();
         Parcelable wrappedCategory = Parcels.wrap(category);
         Bundle bundle = new Bundle();

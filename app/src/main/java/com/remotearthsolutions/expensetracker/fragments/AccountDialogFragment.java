@@ -15,7 +15,7 @@ import com.remotearthsolutions.expensetracker.adapters.AccountListAdapter;
 import com.remotearthsolutions.expensetracker.contracts.AccountDialogContract;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
-import com.remotearthsolutions.expensetracker.databaseutils.models.AccountIncome;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.AccountIncome;
 import com.remotearthsolutions.expensetracker.viewmodels.AccountDialogViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.AccountDialogViewModelFactory;
 
