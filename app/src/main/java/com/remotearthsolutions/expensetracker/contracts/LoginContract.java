@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.contracts;
 
+import android.content.Intent;
 import com.google.firebase.auth.FirebaseUser;
 
 public interface LoginContract {
@@ -9,6 +10,7 @@ public interface LoginContract {
         void initializeView();
         void onLoginSuccess(FirebaseUser user);
         void onLoginFailure();
+
     }
 
     interface Interactor {
