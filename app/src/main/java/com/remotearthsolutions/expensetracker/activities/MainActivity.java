@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.MenuItem;
+import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void openLoginScreen() {
+
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
@@ -113,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void openAddExpenseScreen(Category category) {
+
         ExpenseFragment expenseFragment = new ExpenseFragment();
         Parcelable wrappedCategory = Parcels.wrap(category);
         Bundle bundle = new Bundle();
