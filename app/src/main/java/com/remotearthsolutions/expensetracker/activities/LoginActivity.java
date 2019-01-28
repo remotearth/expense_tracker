@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 import androidx.lifecycle.ViewModelProviders;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseUser;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.LoginContract;
-import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.presenters.LoginPresenter;
 import com.remotearthsolutions.expensetracker.presenters.viewmodel_factory.LoginViewModelFactory;
 import com.remotearthsolutions.expensetracker.services.FacebookServiceImpl;
@@ -52,7 +50,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void onClick(View v) {
 
         switch (v.getId()) {
-
             case R.id.googlebutton:
                 GoogleSignInClient mGoogleSignInClient = presenter.getGoogleSignInClient();
 
@@ -68,30 +65,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             case R.id.facebook_login_button:
                 presenter.startFacebookLogin();
                 break;
-
-            case R.id.withoutlogin:
-                User user = new User();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                user.setAuthType("guestuser");
-                intent.putExtra("key",user);
-                startActivity(intent);
-                finish();
-                break;
         }
 
-
     }
-
 
     @Override
     public void initializeView() {
         Button googleSignInButton = findViewById(R.id.googlebutton);
         Button facebookSignInButton = findViewById(R.id.facebook_login_button);
-        Button continueWithOutLogin = findViewById(R.id.withoutlogin);
 
         googleSignInButton.setOnClickListener(this);
         facebookSignInButton.setOnClickListener(this);
-        continueWithOutLogin.setOnClickListener(this);
     }
 
     @Override
@@ -105,6 +89,4 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void onLoginFailure() {
         showAlert(null, "Login failed", "Ok", null, null);
     }
-
-
 }

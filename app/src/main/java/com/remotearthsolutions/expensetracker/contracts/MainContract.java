@@ -6,6 +6,5 @@ public interface MainContract {
         void initializeView();
 
         void openLoginScreen();
-
     }
 }

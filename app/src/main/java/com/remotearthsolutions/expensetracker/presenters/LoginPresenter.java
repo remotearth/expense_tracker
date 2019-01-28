@@ -7,10 +7,7 @@ import com.facebook.CallbackManager;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseUser;
-import com.remotearthsolutions.expensetracker.activities.LoginActivity;
-import com.remotearthsolutions.expensetracker.activities.MainActivity;
 import com.remotearthsolutions.expensetracker.contracts.LoginContract;
-import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.services.FacebookService;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
 import com.remotearthsolutions.expensetracker.services.GoogleService;
@@ -78,6 +75,5 @@ public class LoginPresenter extends ViewModel implements FacebookService.CallBac
     public void onFacebookLoginCancel() {
         view.onLoginFailure();
     }
-
 
 }
