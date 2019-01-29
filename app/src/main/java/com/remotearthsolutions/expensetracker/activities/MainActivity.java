@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.MenuItem;
-import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,20 +12,24 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.MainContract;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.fragments.CategoryFragment;
 import com.remotearthsolutions.expensetracker.fragments.ExpenseFragment;
 import com.remotearthsolutions.expensetracker.fragments.HomeFragment;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 
+import com.remotearthsolutions.expensetracker.utils.Constants;
+import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel;
 import org.parceler.Parcels;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
 
-    private MainViewModel presenter;
+    private MainViewModel viewModel;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private HomeFragment homeFragment;
@@ -36,8 +39,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        presenter = new MainViewModel(this);
-        presenter.init();
+        viewModel = new MainViewModel(this);
+        viewModel.init();
 
         homeFragment = new HomeFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -70,7 +73,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.checkAuthectication(new FirebaseServiceImpl(this));
+        String userStr = SharedPreferenceUtils.getInstance(this).getString(Constants.KEY_USER,"");
+        User user = new Gson().fromJson(userStr,User.class);
+        viewModel.checkAuthectication(new FirebaseServiceImpl(this),user);
     }
 
     @Override

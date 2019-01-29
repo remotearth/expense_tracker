@@ -32,4 +32,12 @@ public class SharedPreferenceUtils {
     public int getInt(String key, int defaultVal) {
         return sp.getInt(key, defaultVal);
     }
+
+    public void putString(String key, String val) {
+        editor.putString(key, val).apply();
+    }
+
+    public String getString(String key, String defaultVal) {
+        return sp.getString(key, defaultVal);
+    }
 }

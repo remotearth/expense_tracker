@@ -48,6 +48,10 @@ public class LoginViewModel extends ViewModel implements FacebookService.CallBac
         googleService.startGoogleLogin(data, this);
     }
 
+    public void startGuestLogin() {
+
+    }
+
     public GoogleSignInClient getGoogleSignInClient() {
         return googleService.getGoogleSignInClient();
     }
@@ -77,6 +81,7 @@ public class LoginViewModel extends ViewModel implements FacebookService.CallBac
     public void onFacebookLoginCancel() {
         view.onLoginFailure();
     }
+
 
 
 }

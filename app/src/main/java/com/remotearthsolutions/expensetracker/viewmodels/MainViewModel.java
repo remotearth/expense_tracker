@@ -21,15 +21,11 @@ public class MainViewModel {
 
     }
 
-    public void checkAuthectication(FirebaseService firebaseService) {
+    public void checkAuthectication(FirebaseService firebaseService, User guestUser) {
 
         FirebaseUser user = firebaseService.getUser();
 
-        User user1 = new User();
-        Intent intent = new Intent();
-        user1  = intent.getParcelableExtra("key");
-
-        if (user == null && user1 == null)
+        if (user == null && guestUser == null)
         {
             view.openLoginScreen();
         }

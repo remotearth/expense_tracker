@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 import androidx.lifecycle.ViewModelProviders;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseUser;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.LoginContract;
-import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.viewmodels.LoginViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.LoginViewModelFactory;
 import com.remotearthsolutions.expensetracker.services.FacebookServiceImpl;
@@ -23,17 +21,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     private static final String TAG = LoginActivity.class.getName();
     private static final int REQUEST_CODE_GOOGLE_SIGNIN_INTENT = 101;
 
-    private LoginViewModel presenter;
+    private LoginViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        presenter = ViewModelProviders.of(this,
+        viewModel = ViewModelProviders.of(this,
                 new LoginViewModelFactory(this, new GoogleServiceImpl(this), new FacebookServiceImpl(this), new FirebaseServiceImpl(this))).
                 get(LoginViewModel.class);
-        presenter.init();
+        viewModel.init();
 
     }
 
@@ -41,10 +39,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        presenter.getFacebookCallbackManager().onActivityResult(requestCode, resultCode, data);
+        viewModel.getFacebookCallbackManager().onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_CODE_GOOGLE_SIGNIN_INTENT) {
-            presenter.startGoogleLogin(data);
+            viewModel.startGoogleLogin(data);
         }
     }
 
@@ -54,7 +52,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         switch (v.getId()) {
 
             case R.id.googlebutton:
-                GoogleSignInClient mGoogleSignInClient = presenter.getGoogleSignInClient();
+                GoogleSignInClient mGoogleSignInClient = viewModel.getGoogleSignInClient();
 
                 if (mGoogleSignInClient == null) {
                     Log.w(TAG, "mGoogleSignInClient must be initialized");
@@ -66,16 +64,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 break;
 
             case R.id.facebook_login_button:
-                presenter.startFacebookLogin();
+                viewModel.startFacebookLogin();
                 break;
 
-            case R.id.withoutlogin:
-                User user = new User();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                user.setAuthType("guestuser");
-                intent.putExtra("key",user);
-                startActivity(intent);
-                finish();
+            case R.id.withoutloginbutton:
+                viewModel.startGuestLogin();
                 break;
         }
 
@@ -87,7 +80,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void initializeView() {
         Button googleSignInButton = findViewById(R.id.googlebutton);
         Button facebookSignInButton = findViewById(R.id.facebook_login_button);
-        Button continueWithOutLogin = findViewById(R.id.withoutlogin);
+        Button continueWithOutLogin = findViewById(R.id.withoutloginbutton);
 
         googleSignInButton.setOnClickListener(this);
         facebookSignInButton.setOnClickListener(this);
