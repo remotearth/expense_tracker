@@ -8,13 +8,17 @@ import android.widget.Button;
 import androidx.lifecycle.ViewModelProviders;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.LoginContract;
-import com.remotearthsolutions.expensetracker.viewmodels.LoginViewModel;
-import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.LoginViewModelFactory;
+import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.services.FacebookServiceImpl;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.services.GoogleServiceImpl;
+import com.remotearthsolutions.expensetracker.utils.Constants;
+import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
+import com.remotearthsolutions.expensetracker.viewmodels.LoginViewModel;
+import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.LoginViewModelFactory;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener, LoginContract.View {
 
@@ -68,13 +72,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 break;
 
             case R.id.withoutloginbutton:
-                viewModel.startGuestLogin();
+                User user = new User();
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                user.setAuthType("guestuser");
+                SharedPreferenceUtils.getInstance(this).putString(Constants.KEY_USER, new Gson().toJson(user));
+                startActivity(intent);
+                finish();
                 break;
         }
-
-
     }
-
 
     @Override
     public void initializeView() {

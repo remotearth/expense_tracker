@@ -21,7 +21,6 @@ import com.remotearthsolutions.expensetracker.fragments.CategoryFragment;
 import com.remotearthsolutions.expensetracker.fragments.ExpenseFragment;
 import com.remotearthsolutions.expensetracker.fragments.HomeFragment;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
-
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel;
@@ -73,14 +72,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onStart() {
         super.onStart();
-        String userStr = SharedPreferenceUtils.getInstance(this).getString(Constants.KEY_USER,"");
-        User user = new Gson().fromJson(userStr,User.class);
-        viewModel.checkAuthectication(new FirebaseServiceImpl(this),user);
+        String userStr = SharedPreferenceUtils.getInstance(this).getString(Constants.KEY_USER, "");
+        User user = new Gson().fromJson(userStr, User.class);
+        viewModel.checkAuthectication(new FirebaseServiceImpl(this), user);
     }
 
     @Override
     public void onBackPressed() {
-        
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
