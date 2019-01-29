@@ -20,6 +20,7 @@ import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.fragments.CategoryFragment;
 import com.remotearthsolutions.expensetracker.fragments.ExpenseFragment;
 import com.remotearthsolutions.expensetracker.fragments.HomeFragment;
+import com.remotearthsolutions.expensetracker.fragments.SettingsFragment;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
@@ -106,6 +107,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentTransaction.commit();
                 break;
             }
+
+            case R.id.nav_settings: {
+
+                getFragmentManager().beginTransaction().replace(R.id.framelayout,new SettingsFragment()).commit();
+                break;
+            }
+
+
+
 
         }
 
