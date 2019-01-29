@@ -1,7 +1,7 @@
 package com.remotearthsolutions.expensetracker.databaseutils.daos;
 
 import androidx.room.*;
-import com.remotearthsolutions.expensetracker.databaseutils.models.AccountIncome;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.AccountIncome;
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
 import io.reactivex.Flowable;
 

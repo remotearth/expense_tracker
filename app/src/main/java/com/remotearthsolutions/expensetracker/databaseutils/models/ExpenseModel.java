@@ -15,12 +15,24 @@ public class ExpenseModel {
     @ColumnInfo(name = "category_id")
     private int categoryId;
 
-    @ColumnInfo(name = "amount")
-    private int amount;
+    @ColumnInfo(name = "account_id")
+    private int source;
 
-    public ExpenseModel(int categoryId, int amount) {
+    @ColumnInfo(name = "amount")
+    private double amount;
+
+    @ColumnInfo(name = "datetime")
+    private long datetime;
+
+    public ExpenseModel(int categoryId, int source, double amount, long datetime) {
         this.categoryId = categoryId;
+        this.source = source;
         this.amount = amount;
+        this.datetime = datetime;
+    }
+
+    public ExpenseModel() {
+
     }
 
     public int getId() {
@@ -39,11 +51,27 @@ public class ExpenseModel {
         this.categoryId = categoryId;
     }
 
-    public int getAmount() {
+    public int getSource() {
+        return source;
+    }
+
+    public void setSource(int source) {
+        this.source = source;
+    }
+
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public long getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(long datetime) {
+        this.datetime = datetime;
     }
 }

@@ -1,4 +1,4 @@
-package com.remotearthsolutions.expensetracker.presenters;
+package com.remotearthsolutions.expensetracker.viewmodels;
 
 import androidx.lifecycle.ViewModel;
 import com.remotearthsolutions.expensetracker.contracts.AccountDialogContract;
@@ -7,13 +7,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class AccountDialogPresenter extends ViewModel {
+public class AccountDialogViewModel extends ViewModel {
 
     AccountDialogContract.View view;
     AccountDao accountDao;
     CompositeDisposable mDisposable = new CompositeDisposable();
 
-    public AccountDialogPresenter(AccountDialogContract.View view, AccountDao accountDao) {
+    public AccountDialogViewModel(AccountDialogContract.View view, AccountDao accountDao) {
         this.view = view;
         this.accountDao = accountDao;
     }

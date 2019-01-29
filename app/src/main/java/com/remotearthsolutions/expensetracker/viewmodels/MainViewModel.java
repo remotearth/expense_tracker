@@ -1,4 +1,4 @@
-package com.remotearthsolutions.expensetracker.presenters;
+package com.remotearthsolutions.expensetracker.viewmodels;
 
 
 import android.content.Intent;
@@ -8,12 +8,11 @@ import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
 
 
-public class MainPresenter {
+public class MainViewModel {
 
     private MainContract.View view;
 
-
-    public MainPresenter(MainContract.View view) {
+    public MainViewModel(MainContract.View view) {
         this.view = view;
     }
 
@@ -34,15 +33,5 @@ public class MainPresenter {
         {
             view.openLoginScreen();
         }
-
-
-
-
     }
-
-
-
-//    public void loadChart(List<ExpeneChartData> data) {
-//        chartManager.loadExpensePieChart(chartView, data);
-//    }
 }

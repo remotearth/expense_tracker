@@ -1,11 +1,11 @@
-package com.remotearthsolutions.expensetracker.presenters.viewmodel_factory;
+package com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import com.remotearthsolutions.expensetracker.contracts.AccountDialogContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
-import com.remotearthsolutions.expensetracker.presenters.AccountDialogPresenter;
+import com.remotearthsolutions.expensetracker.viewmodels.AccountDialogViewModel;
 
 public class AccountDialogViewModelFactory implements ViewModelProvider.Factory {
 
@@ -20,7 +20,7 @@ public class AccountDialogViewModelFactory implements ViewModelProvider.Factory 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new AccountDialogPresenter(view, accountDao);
+        return (T) new AccountDialogViewModel(view, accountDao);
 
     }
 }

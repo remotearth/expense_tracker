@@ -1,10 +1,10 @@
-package com.remotearthsolutions.expensetracker.presenters.viewmodel_factory;
+package com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import com.remotearthsolutions.expensetracker.contracts.LoginContract;
-import com.remotearthsolutions.expensetracker.presenters.LoginPresenter;
+import com.remotearthsolutions.expensetracker.viewmodels.LoginViewModel;
 import com.remotearthsolutions.expensetracker.services.FacebookService;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
 import com.remotearthsolutions.expensetracker.services.GoogleService;
@@ -26,6 +26,6 @@ public class LoginViewModelFactory implements ViewModelProvider.Factory {
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new LoginPresenter(view, googleService, facebookService, firebaseService);
+        return (T) new LoginViewModel(view, googleService, facebookService, firebaseService);
     }
 }

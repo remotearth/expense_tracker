@@ -1,6 +1,6 @@
 package com.remotearthsolutions.expensetracker.contracts;
 
-import com.remotearthsolutions.expensetracker.databaseutils.models.AccountIncome;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.AccountIncome;
 
 import java.util.List;
 

@@ -37,4 +37,17 @@ public class DateTimeUtils {
         return calendar;
     }
 
+    public static long getTimeInMillisFromDateStr(String dateStr,String format){
+        DateFormat dateFormat = new SimpleDateFormat(format, Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
+        try {
+            Date dateObj = dateFormat.parse(dateStr);
+            calendar.setTime(dateObj);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return calendar.getTimeInMillis();
+    }
+
 }

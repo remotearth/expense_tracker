@@ -2,21 +2,21 @@ package com.remotearthsolutions.expensetracker.entities;
 
 public class ExpeneChartData {
 
-    private float value;
+    private double value;
     private String color;
-    private String description;
+    private String categoryName;
 
-    public ExpeneChartData(float value, String color, String description) {
+    public ExpeneChartData(double value, String color, String categoryName) {
         this.value = value;
         this.color = color;
-        this.description = description;
+        this.categoryName = categoryName;
     }
 
-    public float getValue() {
+    public double getValue() {
         return value;
     }
 
-    public void setValue(float value) {
+    public void setValue(double value) {
         this.value = value;
     }
 
@@ -28,11 +28,11 @@ public class ExpeneChartData {
         this.color = color;
     }
 
-    public String getDescription() {
-        return description;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

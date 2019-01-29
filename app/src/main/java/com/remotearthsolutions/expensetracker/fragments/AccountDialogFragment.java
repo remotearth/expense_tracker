@@ -15,19 +15,16 @@ import com.remotearthsolutions.expensetracker.adapters.AccountListAdapter;
 import com.remotearthsolutions.expensetracker.contracts.AccountDialogContract;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
-import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
-import com.remotearthsolutions.expensetracker.databaseutils.models.AccountIncome;
-import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
-import com.remotearthsolutions.expensetracker.entities.Account;
-import com.remotearthsolutions.expensetracker.presenters.AccountDialogPresenter;
-import com.remotearthsolutions.expensetracker.presenters.viewmodel_factory.AccountDialogViewModelFactory;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.AccountIncome;
+import com.remotearthsolutions.expensetracker.viewmodels.AccountDialogViewModel;
+import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.AccountDialogViewModelFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AccountDialogFragment extends DialogFragment implements AccountDialogContract.View {
 
-    private AccountDialogPresenter presenter;
+    private AccountDialogViewModel presenter;
     private AccountListAdapter accountListAdapter;
     private List<AccountIncome> accountslist;
     private RecyclerView accountrecyclerView;
@@ -66,7 +63,7 @@ public class AccountDialogFragment extends DialogFragment implements AccountDial
         AccountDao accountDao = DatabaseClient.getInstance(getContext()).getAppDatabase().accountDao();
         presenter = ViewModelProviders.of(this,
                 new AccountDialogViewModelFactory(this, accountDao)).
-                get(AccountDialogPresenter.class);
+                get(AccountDialogViewModel.class);
         presenter.loadAccounts();
 
 
@@ -76,8 +73,8 @@ public class AccountDialogFragment extends DialogFragment implements AccountDial
 
         accountslist = new ArrayList<>();
         accountslist.add(new AccountIncome(1,"Cash", "currenncy",100));
-        accountslist.add(new AccountIncome(1,"Bank", "bank",235));
-        accountslist.add(new AccountIncome(1,"Loan", "load",100));
+        accountslist.add(new AccountIncome(2,"Bank", "bank",235));
+        accountslist.add(new AccountIncome(3,"Loan", "load",100));
 
     }
 

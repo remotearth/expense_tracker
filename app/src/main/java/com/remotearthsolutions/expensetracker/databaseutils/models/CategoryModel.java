@@ -5,19 +5,21 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import org.parceler.Parcel;
 
+@Parcel
 @Entity(tableName = "category")
 public class CategoryModel {
 
     @NonNull
     @PrimaryKey (autoGenerate = true)
-    private int id;
+    int id;
 
     @ColumnInfo(name = "category_name")
-    private String name;
+    String name;
 
     @ColumnInfo(name = "icon_name")
-    private String icon;
+    String icon;
 
     @Ignore
     public CategoryModel() {
