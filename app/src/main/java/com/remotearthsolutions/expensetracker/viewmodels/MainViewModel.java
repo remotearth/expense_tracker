@@ -1,7 +1,6 @@
 package com.remotearthsolutions.expensetracker.viewmodels;
 
 
-import android.content.Intent;
 import com.google.firebase.auth.FirebaseUser;
 import com.remotearthsolutions.expensetracker.contracts.MainContract;
 import com.remotearthsolutions.expensetracker.entities.User;
