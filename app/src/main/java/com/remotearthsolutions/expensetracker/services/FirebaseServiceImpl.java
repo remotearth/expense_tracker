@@ -46,6 +46,28 @@ public class FirebaseServiceImpl implements FirebaseService {
     }
 
     @Override
+    public void signinAnonymously(Callback callback) {
+
+        mAuth.signInAnonymously()
+                .addOnCompleteListener((Activity)context, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            callback.onFirebaseSigninSuccess(task.getResult().getUser());
+
+                        } else {
+                            callback.onFirebaseSigninFailure("Authentication with Firebase is failed ");
+                        }
+                    }
+                }).addOnFailureListener((Activity)context, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                callback.onFirebaseSigninFailure("Authentication with Firebase is failed ");
+            }
+        });
+    }
+
+    @Override
     public FirebaseUser getUser() {
         if(mAuth == null) return null;
         return mAuth.getCurrentUser();

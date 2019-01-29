@@ -1,99 +1,102 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import com.remotearthsolutions.expensetracker.R;
-import com.remotearthsolutions.expensetracker.entities.Account;
-import com.remotearthsolutions.expensetracker.entities.Category;
+import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
+import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
+import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.AccountIncome;
+import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
 import com.remotearthsolutions.expensetracker.utils.NumpadManager;
-import com.wunderlist.slidinglayer.SlidingLayer;
-import com.wunderlist.slidinglayer.transformer.SlideJoyTransformer;
+import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
+import com.remotearthsolutions.expensetracker.viewmodels.ExpenseFragmentViewModel;
 import org.parceler.Parcels;
 
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
-public class ExpenseFragment extends Fragment implements View.OnClickListener {
+public class ExpenseFragment extends Fragment implements ExpenseFragmentContract.View {
+
+    private ImageView calenderBtnIv, categoryBtnIv, accountBtnIv, deleteBtn, okBtn;
+    private TextView dateTv, categoryNameTv, accountNameTv;
+    private LinearLayout selectAccount, selectCategory;
+    private EditText expenseEdtxt;
+
+    private ExpenseFragmentViewModel viewModel;
+
+    private CategoryModel selectedCategory;
+    private AccountIncome selectedSourceAccount;
 
     public ExpenseFragment() {
     }
 
-    private Handler handler;
-    private ImageView calenderTask, categoryImageIv,accountImageIv;
-    private Dialog datebaseddialog;
-    private LinearLayout previousdate, currentdate, selectdate;
-    private TextView datestatus, dialogyesterday, dialogtoday, categoryNameTv,accountNameTv;
-    private SlidingLayer mSlidingLayer;
-    private LinearLayout selectAccount, selectCategory;
-    private int cDay, cMonth, cYear;
-    private EditText inputdigit;
-    private ImageView deleteBtn;
-    
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.add_expense, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_expense, container, false);
 
-        inputdigit = view.findViewById(R.id.inputdigit);
+        expenseEdtxt = view.findViewById(R.id.inputdigit);
         deleteBtn = view.findViewById(R.id.deleteBtn);
-        NumpadFragment numpadFragment = (NumpadFragment)getChildFragmentManager().findFragmentById(R.id.numpadContainer);
+        categoryBtnIv = view.findViewById(R.id.showcatimage);
+        categoryNameTv = view.findViewById(R.id.showcatname);
+        accountNameTv = view.findViewById(R.id.accountNameTv);
+        accountBtnIv = view.findViewById(R.id.accountImageIv);
+        calenderBtnIv = view.findViewById(R.id.selectdate);
+        selectAccount = view.findViewById(R.id.fromaccountselection);
+        selectCategory = view.findViewById(R.id.categorylayout);
+        dateTv = view.findViewById(R.id.dateTv);
+        okBtn = view.findViewById(R.id.okBtn);
+
+        NumpadFragment numpadFragment = (NumpadFragment) getChildFragmentManager().findFragmentById(R.id.numpadContainer);
         NumpadManager numpadManager = new NumpadManager();
-        numpadManager.attachDisplay(inputdigit);
+        numpadManager.attachDisplay(expenseEdtxt);
         numpadManager.attachDeleteButton(deleteBtn);
         numpadFragment.setListener(numpadManager);
 
-        categoryImageIv = view.findViewById(R.id.showcatimage);
-        categoryNameTv = view.findViewById(R.id.showcatname);
-        accountNameTv = view.findViewById(R.id.accountNameTv);
-        accountImageIv = view.findViewById(R.id.accountImageIv);
-
-        calenderTask = view.findViewById(R.id.selectdata);
-        selectAccount = view.findViewById(R.id.fromaccountselection);
-        selectCategory = view.findViewById(R.id.categorylayout);
-        mSlidingLayer = view.findViewById(R.id.slidingDrawer);
-
-        datestatus = view.findViewById(R.id.ShowDate);
-
         Bundle args = getArguments();
-        if (args  != null){
-
-            Category category = Parcels.unwrap(args.getParcelable("category_parcel"));
-            categoryImageIv.setImageResource(category.getCategoryImage());
-            categoryNameTv.setText(category.getCategoryName());
+        if (args != null) {
+            selectedCategory = Parcels.unwrap(args.getParcelable("category_parcel"));
+            //categoryBtnIv.setImageResource(category.getIcon());
+            categoryBtnIv.setImageResource(R.drawable.ic_bills);
+            categoryNameTv.setText(selectedCategory.getName());
         }
 
-        Calendar calendar = Calendar.getInstance();
-        cDay = calendar.get(Calendar.DAY_OF_MONTH);
-        cMonth = calendar.get(Calendar.MONTH);
-        cYear = calendar.get(Calendar.YEAR);
+        ExpenseDao expenseDao = DatabaseClient.getInstance(getActivity()).getAppDatabase().expenseDao();
+        viewModel = new ExpenseFragmentViewModel(this,expenseDao);
+        viewModel.init();
 
 
+        return view;
+    }
+
+    @Override
+    public void defineClickListener() {
 
         selectAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 FragmentManager fm = getChildFragmentManager();
                 final AccountDialogFragment accountDialogFragment = AccountDialogFragment.newInstance("Select Account");
                 accountDialogFragment.setCallback(new AccountDialogFragment.Callback() {
                     @Override
-                    public void onSelectAccount(Account account) {
-                        accountImageIv.setImageResource(account.getAccountImage());
-                        accountNameTv.setText(account.getAccountName());
+                    public void onSelectAccount(AccountIncome account) {
+                        //accountBtnIv.setImageResource(account.getIcon_name());
+                        accountBtnIv.setImageResource(R.drawable.ic_currency);
+                        accountNameTv.setText(account.getAccount_name());
                         accountDialogFragment.dismiss();
+
+                        selectedSourceAccount = account;
                     }
                 });
                 accountDialogFragment.show(fm, AccountDialogFragment.class.getName());
@@ -101,137 +104,70 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-
         selectCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 FragmentManager fm = getChildFragmentManager();
-                final CategoryDialogFragment editNameDialogFragment = CategoryDialogFragment.newInstance("Select Category");
-                editNameDialogFragment.setCallback(new CategoryDialogFragment.Callback() {
+                final CategoryDialogFragment categoryDialogFragment = CategoryDialogFragment.newInstance("Select Category");
+                categoryDialogFragment.setCallback(new CategoryDialogFragment.Callback() {
                     @Override
-                    public void onSelectCategory(Category category) {
-                        categoryImageIv.setImageResource(category.getCategoryImage());
-                        categoryNameTv.setText(category.getCategoryName());
-                        editNameDialogFragment.dismiss();
+                    public void onSelectCategory(CategoryModel category) {
+                        //categoryBtnIv.setImageResource(category.getIcon());
+                        accountBtnIv.setImageResource(R.drawable.ic_currency);
+                        categoryNameTv.setText(category.getName());
+                        categoryDialogFragment.dismiss();
+
+                        selectedCategory = category;
                     }
                 });
-                editNameDialogFragment.show(fm, CategoryDialogFragment.class.getName());
+                categoryDialogFragment.show(fm, CategoryDialogFragment.class.getName());
             }
         });
 
-        mSlidingLayer.setLayerTransformer(new SlideJoyTransformer());
-        datebaseddialog = new Dialog(getActivity());
-        datebaseddialog.setContentView(R.layout.add_date);
-        previousdate = datebaseddialog.findViewById(R.id.previousdate);
-        currentdate = datebaseddialog.findViewById(R.id.currentdate);
-        selectdate = datebaseddialog.findViewById(R.id.selectdate);
-        dialogyesterday = datebaseddialog.findViewById(R.id.showdyesterday);
-        dialogtoday = datebaseddialog.findViewById(R.id.showdtoday);
+        dateTv.setText(DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy));
 
-        showDialogCurrentDate();
-        showDialogPreviousDate();
-
-        calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, 0);
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        String today = dateFormat.format(calendar.getTime());
-        datestatus.setText("TODAY IS: " + today);
-
-        previousdate.setOnClickListener(this);
-        currentdate.setOnClickListener(this);
-        selectdate.setOnClickListener(this);
-
-        calenderTask.setOnClickListener(new View.OnClickListener() {
+        calenderBtnIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                datebaseddialog.show();
+
+                FragmentManager fm = getChildFragmentManager();
+                final DatePickerDialogFragment datePickerDialogFragment = DatePickerDialogFragment.newInstance("");
+
+                Calendar cal = DateTimeUtils.getCalendarFromDateString(DateTimeUtils.dd_MM_yyyy, dateTv.getText().toString());
+                datePickerDialogFragment.setInitialDate(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR));
+
+                datePickerDialogFragment.setCallback(new DatePickerDialogFragment.Callback() {
+                    @Override
+                    public void onSelectDate(String date) {
+                        dateTv.setText(date);
+                        datePickerDialogFragment.dismiss();
+                    }
+                });
+                datePickerDialogFragment.show(fm, DatePickerDialogFragment.class.getName());
             }
         });
 
-        handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                toggleDrawer();
-            }
-        }, 50);
+            public void onClick(View v) {
+                String expenseStr = expenseEdtxt.getText().toString();
+                double amount = expenseStr.length() > 0 ? Double.parseDouble(expenseStr) : 0;
 
-        return view;
+
+                ExpenseModel expenseModel = new ExpenseModel();
+                expenseModel.setAmount(amount);
+                expenseModel.setDatetime(DateTimeUtils.getTimeInMillisFromDateStr(dateTv.getText().toString(), DateTimeUtils.dd_MM_yyyy));
+                expenseModel.setCategoryId(selectCategory.getId());
+                expenseModel.setSource(selectedSourceAccount.getAccount_id());
+                SharedPreferenceUtils.getInstance(getContext()).getInt(SharedPreferenceUtils.KEY_SELECTED_ACCOUNT_ID,1);
+                viewModel.addExpense(expenseModel);
+            }
+        });
     }
 
     @Override
-    public void onClick(View v) {
-
-        if (v.getId() == R.id.previousdate) {
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.DATE, -1);
-            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-            String yesterday = dateFormat.format(calendar.getTime());
-            datestatus.setText("YESTERDAY WAS: " + yesterday);
-            datebaseddialog.dismiss();
-
-        } else if (v.getId() == R.id.currentdate) {
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.DATE, 0);
-            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-            String today = dateFormat.format(calendar.getTime());
-            datestatus.setText("TODAY IS: " + today);
-            datebaseddialog.dismiss();
-        } else if (v.getId() == R.id.selectdate) {
-
-            DatePickerDialog datePickerDialog;
-            datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    cYear = year;
-                    cMonth = month;
-                    cDay = dayOfMonth;
-
-                    datestatus.setText("SELECTED DATE: " + dayOfMonth + "-" + (month + 1) + "-" + year);
-                    datebaseddialog.dismiss();
-                }
-            }, cYear, cMonth, cDay);
-            datePickerDialog.show();
-
-        }
-
-    }
-
-    public void showDialogPreviousDate() {
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, -1);
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        String yesterday = dateFormat.format(calendar.getTime());
-        dialogyesterday.setText(yesterday);
-        datebaseddialog.dismiss();
-    }
-
-    public void showDialogCurrentDate() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, 0);
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        String today = dateFormat.format(calendar.getTime());
-        dialogtoday.setText(today);
-        datebaseddialog.dismiss();
-    }
-
-    public boolean isDrawerOpened() {
-        if (mSlidingLayer == null) return false;
-        return mSlidingLayer.isOpened();
-    }
-
-    public void toggleDrawer() {
-        if (mSlidingLayer == null) return;
-
-        if (mSlidingLayer.isOpened()) {
-            mSlidingLayer.closeLayer(true);
-        } else {
-            mSlidingLayer.openLayer(true);
-        }
+    public void onExpenseAdded() {
 
     }
 }

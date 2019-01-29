@@ -7,16 +7,16 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.viewholder.AccountViewHolder;
-import com.remotearthsolutions.expensetracker.entities.Account;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.AccountIncome;
 
 import java.util.List;
 
 public class AccountListAdapter extends RecyclerView.Adapter<AccountViewHolder> {
 
-    private List<Account> accountlist;
+    private List<AccountIncome> accountlist;
     private AccountListAdapter.OnItemClickListener listener;
 
-    public AccountListAdapter(List<Account> accountlist) {
+    public AccountListAdapter(List<AccountIncome> accountlist) {
         this.accountlist = accountlist;
     }
 
@@ -29,7 +29,7 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountViewHolder> 
 
     @Override
     public void onBindViewHolder(AccountViewHolder holder, int position) {
-        Account account = accountlist.get(position);
+        AccountIncome account = accountlist.get(position);
         holder.bind(account);
     }
 
@@ -45,6 +45,6 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountViewHolder> 
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Account category);
+        void onItemClick(AccountIncome account);
     }
 }

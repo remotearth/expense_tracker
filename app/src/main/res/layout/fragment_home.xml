@@ -6,8 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activities.MainActivity"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:showIn="@layout/app_bar_main">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -101,10 +100,9 @@
                             android:layout_height="wrap_content">
 
                         <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/recyclearView"
+                                android:id="@+id/recyclerView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"/>
-
 
                     </LinearLayout>
 
@@ -139,5 +137,12 @@
             android:gravity="center|bottom"
             android:background="?android:attr/windowBackground"
             app:menu="@menu/navigation"/>
+
+    <RelativeLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    </RelativeLayout>
 
 </RelativeLayout>

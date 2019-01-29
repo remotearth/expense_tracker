@@ -5,6 +5,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public interface FirebaseService {
     void signinWithCredential(AuthCredential token, Callback callback);
+    void signinAnonymously(Callback callback);
     FirebaseUser getUser();
 
     interface Callback{

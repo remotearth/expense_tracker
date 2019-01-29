@@ -29,7 +29,7 @@ public class ChartManagerImpl implements ChartManager {
     @Override
     public void loadExpensePieChart(ChartView chartView, List<ExpeneChartData> data) {
         for (ExpeneChartData item : data) {
-            config.addData(new SimplePieInfo(item.getValue(), Color.parseColor(item.getColor()), item.getDescription()));
+            config.addData(new SimplePieInfo(item.getValue(), Color.parseColor(item.getColor()), item.getCategoryName()));
         }
 
         chartView.loadChartConfig(config);

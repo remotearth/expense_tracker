@@ -53,7 +53,7 @@
                 android:background="@drawable/operator_selector"
                 android:text="/"
                 android:textColor="#ecf0f1"
-                android:textSize="30sp"/>
+                android:textSize="20sp"/>
 
     </LinearLayout>
 
@@ -105,7 +105,7 @@
                 android:background="@drawable/operator_selector"
                 android:text="-"
                 android:textColor="#ecf0f1"
-                android:textSize="30sp"/>
+                android:textSize="25sp"/>
 
     </LinearLayout>
 
@@ -157,7 +157,7 @@
                 android:background="@drawable/operator_selector"
                 android:text="x"
                 android:textColor="#ecf0f1"
-                android:textSize="30sp"/>
+                android:textSize="20sp"/>
 
     </LinearLayout>
 
@@ -198,7 +198,7 @@
                 android:background="@drawable/selector"
                 android:text="="
                 android:textColor="#ecf0f1"
-                android:textSize="30sp"/>
+                android:textSize="25sp"/>
 
         <Button
                 android:id="@+id/addition"
@@ -209,7 +209,7 @@
                 android:background="@drawable/operator_selector"
                 android:text="+"
                 android:textColor="#ecf0f1"
-                android:textSize="30sp"/>
+                android:textSize="25sp"/>
 
     </LinearLayout>
 

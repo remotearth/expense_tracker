@@ -3,9 +3,7 @@ package com.remotearthsolutions.expensetracker.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,77 +11,41 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.razerdp.widget.animatedpieview.AnimatedPieView;
-import com.razerdp.widget.animatedpieview.AnimatedPieViewConfig;
+import com.google.gson.Gson;
 import com.remotearthsolutions.expensetracker.R;
-import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter;
 import com.remotearthsolutions.expensetracker.contracts.MainContract;
-import com.remotearthsolutions.expensetracker.entities.Category;
-import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import com.remotearthsolutions.expensetracker.entities.User;
+import com.remotearthsolutions.expensetracker.fragments.CategoryFragment;
 import com.remotearthsolutions.expensetracker.fragments.ExpenseFragment;
-import com.remotearthsolutions.expensetracker.presenters.MainPresenter;
+import com.remotearthsolutions.expensetracker.fragments.HomeFragment;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
-import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl;
+
+import com.remotearthsolutions.expensetracker.utils.Constants;
+import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
+import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel;
 import org.parceler.Parcels;
 
-import java.util.ArrayList;
-import java.util.List;
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
 
-
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View, ChartManagerImpl.ChartView {
-
-    private MainPresenter presenter;
-    private RecyclerView recyclerView;
-    private List<Category> categoryList;
-    private CategoryListAdapter adapter;
-    private AnimatedPieView mAnimatedPieView;
+    private MainViewModel viewModel;
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
-    private ExpenseFragment expenseFragment;
-
+    private HomeFragment homeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        presenter = new MainPresenter(this, this, new ChartManagerImpl());
-        presenter.init();
+        viewModel = new MainViewModel(this);
+        viewModel.init();
 
-        List<ExpeneChartData> data = new ArrayList<>();
-        ExpeneChartData data1 = new ExpeneChartData(17.3f, "#F0F0F0", "data1");
-        ExpeneChartData data2 = new ExpeneChartData(40.6f, "#A0E0D0", "data2");
-        ExpeneChartData data3 = new ExpeneChartData(42.1f, "#AAADD0", "data3");
-        data.add(data1);
-        data.add(data2);
-        data.add(data3);
-
-        presenter.loadChart(data);
-
-        loadcategory();
-        adapter = new CategoryListAdapter(categoryList);
-        recyclerView.setAdapter(adapter);
-
-        adapter.setOnItemClickListener(new CategoryListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Category category, int position) {
-
-                expenseFragment = new ExpenseFragment();
-                Parcelable wrappedCategory = Parcels.wrap(category);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("category_parcel",wrappedCategory);
-                expenseFragment.setArguments(bundle);
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.framelayout, expenseFragment, ExpenseFragment.class.getName());
-                fragmentTransaction.commit();
-
-            }
-        });
-
+        homeFragment = new HomeFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.framelayout, homeFragment, HomeFragment.class.getName());
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -98,22 +60,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        recyclerView = findViewById(R.id.recyclearView);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(llm);
-        mAnimatedPieView = findViewById(R.id.animatedpie);
-
-
-
     }
 
     @Override
     public void openLoginScreen() {
+
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
@@ -122,44 +73,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.checkAuthectication(new FirebaseServiceImpl(this));
+        String userStr = SharedPreferenceUtils.getInstance(this).getString(Constants.KEY_USER,"");
+        User user = new Gson().fromJson(userStr,User.class);
+        viewModel.checkAuthectication(new FirebaseServiceImpl(this),user);
     }
-
-    private void loadcategory() {
-
-        categoryList = new ArrayList<>();
-        categoryList.add(new Category(R.drawable.ic_food, "Food"));
-        categoryList.add(new Category(R.drawable.ic_gift, "Gift"));
-        categoryList.add(new Category(R.drawable.ic_bills, "Bills"));
-        categoryList.add(new Category(R.drawable.ic_taxi, "Taxi"));
-        categoryList.add(new Category(R.drawable.ic_delivery_truck, "Transport"));
-
-    }
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    Toast.makeText(getApplicationContext(), "Clicked On Bottom menu 1", Toast.LENGTH_LONG).show();
-                    return true;
-                case R.id.navigation_dashboard:
-                    Toast.makeText(getApplicationContext(), "Clicked On Bottom Menu 2", Toast.LENGTH_LONG).show();
-                    return true;
-                case R.id.navigation_notifications:
-                    Toast.makeText(getApplicationContext(), "Clicked On Bottom Menu 3", Toast.LENGTH_LONG).show();
-                    return true;
-            }
-            return false;
-        }
-    };
-
 
     @Override
     public void onBackPressed() {
-
+        
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -170,16 +91,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
-        int id = item.getItemId();
+        switch (item.getItemId()) {
+            case R.id.nav_home: {
+                homeFragment = new HomeFragment();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.framelayout, homeFragment, HomeFragment.class.getName());
+                fragmentTransaction.commit();
+                break;
+            }
+
+            case R.id.nav_categories: {
+                CategoryFragment categoryFragment = new CategoryFragment();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.framelayout, categoryFragment, CategoryFragment.class.getName());
+                fragmentTransaction.commit();
+                break;
+            }
+
+        }
 
         drawer.closeDrawer(GravityCompat.START);
-
         return true;
-    }
-
-    @Override
-    public void loadChartConfig(AnimatedPieViewConfig config) {
-        mAnimatedPieView.applyConfig(config).start();
     }
 
     @Override
@@ -188,22 +120,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_BACK:
 
-                if(expenseFragment!= null){
-                    if(expenseFragment.isDrawerOpened()){
-                        expenseFragment.toggleDrawer();
-                        return true;
-                    }
-                }
+    public void openAddExpenseScreen(CategoryModel category) {
 
-            default:
-                return super.onKeyDown(keyCode, event);
-        }
+        ExpenseFragment expenseFragment = new ExpenseFragment();
+        Parcelable wrappedCategory = Parcels.wrap(category);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("category_parcel", wrappedCategory);
+        expenseFragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.add(R.id.framelayout, expenseFragment, ExpenseFragment.class.getName());
+        fragmentTransaction.commit();
     }
-
-
 }
