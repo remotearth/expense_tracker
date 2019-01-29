@@ -25,7 +25,4 @@ public class MainViewModel {
         }
     }
 
-//    public void loadChart(List<ExpeneChartData> data) {
-//        chartManager.loadExpensePieChart(chartView, data);
-//    }
 }

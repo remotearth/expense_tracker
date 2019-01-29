@@ -73,8 +73,8 @@ public class AccountDialogFragment extends DialogFragment implements AccountDial
 
         accountslist = new ArrayList<>();
         accountslist.add(new AccountIncome(1,"Cash", "currenncy",100));
-        accountslist.add(new AccountIncome(1,"Bank", "bank",235));
-        accountslist.add(new AccountIncome(1,"Loan", "load",100));
+        accountslist.add(new AccountIncome(2,"Bank", "bank",235));
+        accountslist.add(new AccountIncome(3,"Loan", "load",100));
 
     }
 
