@@ -29,7 +29,7 @@ public class CategoryFragment extends Fragment implements CategoryFragmentContra
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
     private CategoryListViewAdapter adapter;
-    private CategoryFragmentViewModel presenter;
+    private CategoryFragmentViewModel viewModel;
 
 
     public CategoryFragment() {
@@ -46,8 +46,8 @@ public class CategoryFragment extends Fragment implements CategoryFragmentContra
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         CategoryDao categoryDao = DatabaseClient.getInstance(getContext()).getAppDatabase().categoryDao();
-        presenter = new CategoryFragmentViewModel(this, categoryDao);
-        presenter.showCategories();
+        viewModel = new CategoryFragmentViewModel(this, categoryDao);
+        viewModel.showCategories();
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +58,7 @@ public class CategoryFragment extends Fragment implements CategoryFragmentContra
                 categoryDialogFragment.setCallback(new AddCategoryDialogFragment.Callback() {
                     @Override
                     public void onCategoryAdded(CategoryModel categoryModel) {
-                        presenter.showCategories();
+                        viewModel.showCategories();
                         categoryDialogFragment.dismiss();
 
                     }
@@ -84,7 +84,7 @@ public class CategoryFragment extends Fragment implements CategoryFragmentContra
                 categoryDialogFragment.setCallback(new AddCategoryDialogFragment.Callback() {
                     @Override
                     public void onCategoryAdded(CategoryModel categoryModel) {
-                        presenter.showCategories();
+                        viewModel.showCategories();
                         categoryDialogFragment.dismiss();
 
                     }
@@ -106,7 +106,7 @@ public class CategoryFragment extends Fragment implements CategoryFragmentContra
                     @Override
                     public void onClick(DialogInterface dialog, int arg1) {
 
-                        presenter.deleteCategory(categoryModel);
+                        viewModel.deleteCategory(categoryModel);
                         Toast.makeText(getActivity(), "Category Deleted Successfully", Toast.LENGTH_LONG).show();
                         dialog.dismiss();
 

@@ -31,17 +31,17 @@ public class CategoryFragmentViewModel {
 
     public void updateCategory(CategoryModel categoryModel) {
 
-        Completable.fromAction(() -> categoryDao.updateCategory(categoryModel)).observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> showCategories());
+        disposable.add(Completable.fromAction(() -> categoryDao.updateCategory(categoryModel))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> showCategories()));
 
     }
 
     public void deleteCategory(CategoryModel categoryModel) {
-
-        Completable.fromAction(() -> categoryDao.deleteCategory(categoryModel)).observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> showCategories());
-
+        disposable.add(Completable.fromAction(() -> categoryDao.deleteCategory(categoryModel))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> showCategories()));
     }
 }
