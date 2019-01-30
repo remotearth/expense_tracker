@@ -7,20 +7,20 @@
     <group android:checkableBehavior="single">
         <item
                 android:id="@+id/nav_home"
-                android:icon="@drawable/ic_categories"
+                android:icon="@drawable/ic_home"
                 android:title="@string/menu_home"/>
         <item
                 android:id="@+id/nav_categories"
-                android:icon="@drawable/ic_facebook"
+                android:icon="@drawable/ic_categories"
                 android:title="@string/menu_categories"/>
         <item
                 android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_facebook"
+                android:icon="@drawable/ic_settings"
                 android:title="@string/menu_settings"/>
 
         <item
                 android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_facebook"
+                android:icon="@drawable/ic_logout"
                 android:title="@string/menu_logout"/>
 
     </group>
@@ -29,12 +29,12 @@
         <menu>
             <item
                     android:id="@+id/nav_about"
-                    android:icon="@drawable/ic_facebook"
+                    android:icon="@drawable/ic_about"
                     android:title="@string/menu_about"/>
 
             <item
                     android:id="@+id/nav_licenses"
-                    android:icon="@drawable/ic_facebook"
+                    android:icon="@drawable/ic_license"
                     android:title="@string/menu_licenses"/>
         </menu>
     </item>

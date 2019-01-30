@@ -13,7 +13,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.MainContract;
@@ -22,6 +21,7 @@ import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.fragments.CategoryFragment;
 import com.remotearthsolutions.expensetracker.fragments.ExpenseFragment;
 import com.remotearthsolutions.expensetracker.fragments.HomeFragment;
+import com.remotearthsolutions.expensetracker.fragments.SettingsFragment;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
@@ -102,6 +102,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
             case R.id.nav_categories: {
+
+                getSupportActionBar().setTitle("Category");
                 CategoryFragment categoryFragment = new CategoryFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, categoryFragment, CategoryFragment.class.getName());
@@ -109,16 +111,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
 
-            case R.id.nav_logout:
-            {
+            case R.id.nav_logout: {
 
                 SharedPreferenceUtils.getInstance(this).logOut();
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
 
-        }
+            case R.id.nav_settings: {
 
+                getSupportActionBar().setTitle("Settings");
+                getFragmentManager().beginTransaction().replace(R.id.framelayout, new SettingsFragment()).commit();
+                break;
+            }
+
+        }
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
