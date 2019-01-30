@@ -101,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
             case R.id.nav_categories: {
+
+                getSupportActionBar().setTitle("Category");
                 CategoryFragment categoryFragment = new CategoryFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, categoryFragment, CategoryFragment.class.getName());
@@ -110,10 +112,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.nav_settings: {
 
+                getSupportActionBar().setTitle("Settings");
                 getFragmentManager().beginTransaction().replace(R.id.framelayout,new SettingsFragment()).commit();
                 break;
             }
-
 
 
 

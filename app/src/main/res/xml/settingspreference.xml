@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ListPreference
         android:key="pref_currency_list"
-        android:title="Select Country"
-        android:defaultValue="true"
+        android:title="Select Currency"
+        android:defaultValue="Bangladeshi Taka - BDT"
+        android:entryValues="@array/currency"
+        android:entries="@array/currency"
         android:summary="Click me to Choose Your Own Currency"/>
-
 
 
 </PreferenceScreen>
