@@ -2,7 +2,6 @@
 <resources>
 
     <string-array name="currency">
-
         <item>Afghan Afghani - AFN</item>
         <item>Albanian Lek - ALL</item>
         <item>Armenian Dram - AMD</item>
@@ -12,7 +11,6 @@
         <item>Aruban Florin - AWG</item>
         <item>Azerbaijani Manat - AZN</item>
         <item>Algerian Dinar - DZD</item>
-
         <item>Bosnia-Herzegovina Convertible Mark - BAM</item>
         <item>Barbadian Dollar - BBD</item>
         <item>Bangladeshi Taka - BDT</item>
@@ -29,7 +27,6 @@
         <item>Botswanan Pula - BWP</item>
         <item>Belarusian Ruble - BYN</item>
         <item>Belize Dollar - BZD</item>
-
         <item>Canadian Dollar - CAD</item>
         <item>Congolese Franc - CDF</item>
         <item>CFP Franc - XPF</item>
@@ -49,20 +46,16 @@
         <item>Comorian Franc - KMF</item>
         <item>CFA Franc BEAC - XAF</item>
         <item>CFA Franc BCEAO - XOF</item>
-
         <item>Djiboutian Franc - DJF</item>
         <item>Danish Krone - DKK</item>
         <item>Dominican Peso - DOP</item>
-
         <item>Egyptian Pound - DZD</item>
         <item>Egyptian Pound - EGP</item>
         <item>Eritrean Nakfa - ERN</item>
         <item>Ethiopian Birr - ETB</item>
         <item>Euro - EUR</item>
-
         <item>Fijian Dollar - FJD</item>
         <item>Falkland Islands Pound - FKP</item>
-
         <item>Georgian Lari - GGP</item>
         <item>Ghanaian Cedi - GGP</item>
         <item>Gibraltar Pound - GIP</item>
@@ -71,13 +64,10 @@
         <item>Guatemalan Quetzal - GTQ</item>
         <item>Guyanaese Dollar - GYD</item>
         <item>Gold Ounce - XAU</item>
-
-
         <item>Hong Kong Dollar - HKD</item>
         <item>Honduran Lempira - HNL</item>
         <item>Haitian Gourde - HTG</item>
         <item>Hungarian Forint - HUF</item>
-
         <item>Indonesian Rupiah - IDR</item>
         <item>Indian Rupee - INR</item>
         <item>Iraqi Dinar - IQD</item>
@@ -85,23 +75,19 @@
         <item>Icelandic Króna - ISK</item>
         <item>Israeli New Sheqel - IDR</item>
         <item>Israeli New Sheqel - ILS</item>
-
         <item>Jersey Pound - JEP</item>
         <item>Jamaican Dollar - JMD</item>
         <item>Jordanian Dinar - JOD</item>
         <item>Japanese Yen - JPY</item>
-
         <item>Kenyan Shilling - KES</item>
         <item>Kyrgystani Som - KGS</item>
         <item>Kuwaiti Dinar - KWD</item>
         <item>Kazakhstani Tenge - KZT</item>
-
         <item>Laotian Kip - LAK</item>
         <item>Lebanese Pound - LBP</item>
         <item>Liberian Dollar - LRD</item>
         <item>Lesotho Loti - LSL</item>
         <item>Libyan Dinar - LYD</item>
-
         <item>Manx pound - IMP</item>
         <item>Moroccan Dirham - MAD</item>
         <item>Moldovan Leu - MDL</item>
@@ -118,8 +104,6 @@
         <item>Mexican Peso - MXN</item>
         <item>Malaysian Ringgit - MYR</item>
         <item>Mozambican Metical - MZN</item>
-
-
         <item>North Korean Won - KPW</item>
         <item>Netherlands Antillean Guilder - ANG</item>
         <item>Namibian Dollar - NAD</item>
@@ -129,10 +113,7 @@
         <item>Nepalese Rupee - NPR</item>
         <item>New Zealand Dollar - NZD</item>
         <item>New Taiwan Dollar - TWD</item>
-
-
         <item>Omani Rial - OMR</item>
-
         <item>Panamanian Balboa - PAB</item>
         <item>Peruvian Nuevo Sol - PEN</item>
         <item>Papua New Guinean Kina - PGK</item>
@@ -142,13 +123,10 @@
         <item>Paraguayan Guarani - PYG</item>
         <item>Palladium Ounce - XPD</item>
         <item>Platinum Ounce - XPT</item>
-
         <item>Qatari Rial - QAR</item>
-
         <item>Romanian Leu - RON</item>
         <item>Russian Ruble - RUB</item>
         <item>Rwandan Franc - RWF</item>
-
         <item>Saudi Riyal - SAR</item>
         <item>Sri Lankan Rupee - LKR</item>
         <item>South Korean Won - KRW</item>
@@ -172,10 +150,6 @@
         <item>Silver Ounce - XAG</item>
         <item>Special Drawing Rights - XDR</item>
         <item>South African Rand - ZAR</item>
-
-
-
-
         <item>Thai Baht - THB</item>
         <item>Tajikistani Somoni - TJS</item>
         <item>Turkmenistani Manat - TMT</item>
@@ -184,26 +158,19 @@
         <item>Turkish Lira - TRY</item>
         <item>Trinidad and Tobago Dollar - TTD</item>
         <item>Tanzanian Shilling - TZS</item>
-
         <item>United Arab Emirates Dirham - AED</item>
         <item>Ukrainian Hryvnia - UAH</item>
         <item>Ugandan Shilling - UGX</item>
         <item>United States Dollar - USD</item>
         <item>Uruguayan Peso - UYU</item>
         <item>Uzbekistan Som - UZS</item>
-
         <item>Venezuelan Bolívar Fuerte (Old) - VEF</item>
         <item>Venezuelan Bolívar Soberano - VES</item>
         <item>Vietnamese Dong - VND</item>
         <item>Vanuatu Vatu - VUV</item>
-
-
         <item>Yemeni Rial - YER</item>
-
         <item>Zambian Kwacha - ZMW</item>
         <item>Zimbabwean Dollar - ZWL</item>
-
-
     </string-array>
 
 </resources>

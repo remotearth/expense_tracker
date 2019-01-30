@@ -41,6 +41,10 @@
     <string name="menu_about">About</string>
     <string name="menu_licenses">Licenses</string>
     <string name="menu_logout">Logout</string>
+    <string name="preferencekey">pref_currency_list</string>
+    <string name="preferencetitle">Select Currency</string>
+    <string name="defaultvalue">Bangladeshi Taka - BDT</string>
+    <string name="summarypreftext">Click me to Choose Your Own Currency</string>
 
 
 </resources>
