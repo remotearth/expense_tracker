@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:key="@string/preferencekey"
+        android:title="@string/preferencetitle"
+        android:defaultValue="@string/defaultvalue"
+        android:entryValues="@array/currency"
+        android:entries="@array/currency"
+        android:summary="@string/summarypreftext"/>
+
+
+</PreferenceScreen>
