@@ -40,4 +40,9 @@ public class SharedPreferenceUtils {
     public String getString(String key, String defaultVal) {
         return sp.getString(key, defaultVal);
     }
+
+    public void logOut()
+    {
+        editor.clear().commit();
+    }
 }
