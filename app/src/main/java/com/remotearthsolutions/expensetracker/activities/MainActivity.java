@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.MainContract;
@@ -110,17 +111,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
 
+            case R.id.nav_logout: {
+
+                SharedPreferenceUtils.getInstance(this).logOut();
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            }
+
             case R.id.nav_settings: {
 
                 getSupportActionBar().setTitle("Settings");
-                getFragmentManager().beginTransaction().replace(R.id.framelayout,new SettingsFragment()).commit();
+                getFragmentManager().beginTransaction().replace(R.id.framelayout, new SettingsFragment()).commit();
                 break;
             }
 
-
-
         }
-
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
