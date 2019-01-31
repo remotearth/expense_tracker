@@ -10,5 +10,13 @@
         android:entries="@array/currency"
         android:summary="@string/summarypreftext"/>
 
+    <ListPreference
+            android:key="@string/prefdate"
+            android:title="@string/TimePeriod"
+            android:defaultValue="@string/daily"
+            android:entryValues="@array/TimePeriod"
+            android:entries="@array/TimePeriod"
+            android:summary="@string/SelectPeriodfromHere"/>
+
 
 </PreferenceScreen>
