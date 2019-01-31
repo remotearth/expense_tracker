@@ -31,6 +31,9 @@ import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.CategoryFragmentViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.HomeFragmentViewModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -83,14 +86,27 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
             });
             categoryDialogFragment.show(fm, AddCategoryDialogFragment.class.getName());
 
-
         });
 
         showdate.setText(DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy));
 
+
         nextDate.setOnClickListener(v -> {
 
-            
+            SimpleDateFormat sdf = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy);
+            try {
+
+                Date getCurrentDate = sdf.parse(DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy));
+                Date getNextDate = sdf.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy,+1));
+
+                if (getNextDate.compareTo(getCurrentDate) > 0)
+                {
+                    showdate.setText(DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy));
+                }
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
         });
 
@@ -100,8 +116,6 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
             showdate.setText(previousdate);
 
         });
-
-
 
         return view;
     }
