@@ -23,6 +23,7 @@
                 android:weightSum="2">
 
             <ImageView
+                    android:id="@+id/previousdatebutton"
                     android:layout_width="0dp"
                     android:layout_weight="0.3"
                     android:tint="@color/colorPrimary"
@@ -30,16 +31,18 @@
                     android:layout_height="35dp"/>
 
             <TextView
+                    android:id="@+id/showdateinhome"
                     android:layout_width="0dp"
                     android:layout_weight="1.4"
                     tools:text="MONTH NAME"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:textColor="@color/textcolorwhite"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
                     android:layout_height="match_parent"/>
 
             <ImageView
+                    android:id="@+id/nextdatebutton"
                     android:layout_width="0dp"
                     android:layout_weight="0.3"
                     android:src="@drawable/ic_next"
@@ -87,6 +90,7 @@
                                 android:textSize="18sp"/>
 
                         <ImageView
+                                android:id="@+id/addcategoryinhome"
                                 android:layout_width="0dp"
                                 android:layout_weight="0.2"
                                 android:layout_height="wrap_content"

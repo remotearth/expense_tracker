@@ -5,10 +5,13 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -24,6 +27,8 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
 import com.remotearthsolutions.expensetracker.utils.ChartManager;
 import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl;
+import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
+import com.remotearthsolutions.expensetracker.viewmodels.CategoryFragmentViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.HomeFragmentViewModel;
 
 import java.util.List;
@@ -35,11 +40,20 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
     private AnimatedPieView mAnimatedPieView;
     private RecyclerView recyclerView;
     private HomeFragmentViewModel viewModel;
+    private ImageView addCategory,nextDate,previousDate;
+    private TextView showdate;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        addCategory = view.findViewById(R.id.addcategoryinhome);
+        showdate = view.findViewById(R.id.showdateinhome);
+        nextDate = view.findViewById(R.id.nextdatebutton);
+        previousDate = view.findViewById(R.id.previousdatebutton);
+
 
         mAnimatedPieView = view.findViewById(R.id.animatedpie);
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -54,6 +68,40 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
 
         BottomNavigationView navigation = view.findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        addCategory.setOnClickListener(v -> {
+
+            FragmentManager fm = getChildFragmentManager();
+            final AddCategoryDialogFragment categoryDialogFragment = AddCategoryDialogFragment.newInstance("Add Category");
+            categoryDialogFragment.setCallback(new AddCategoryDialogFragment.Callback() {
+                @Override
+                public void onCategoryAdded(CategoryModel categoryModel) {
+
+                    categoryDialogFragment.dismiss();
+
+                }
+            });
+            categoryDialogFragment.show(fm, AddCategoryDialogFragment.class.getName());
+
+
+        });
+
+        showdate.setText(DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy));
+
+        nextDate.setOnClickListener(v -> {
+
+            
+
+        });
+
+        previousDate.setOnClickListener(v -> {
+
+            String previousdate = DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, -1);
+            showdate.setText(previousdate);
+
+        });
+
+
 
         return view;
     }
