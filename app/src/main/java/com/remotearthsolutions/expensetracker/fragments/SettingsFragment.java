@@ -17,6 +17,7 @@ public class SettingsFragment extends PreferenceFragment {
 
     private SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener;
     private static final String PREF_CURRENCY = "pref_currency_list";
+    private static final String PREF_PERIOD = "pref_period_list";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,6 +30,13 @@ public class SettingsFragment extends PreferenceFragment {
             {
                 Preference currencyPreference = findPreference(key);
                 currencyPreference.setSummary(sharedPreferences.getString(key,""));
+            }
+
+            else if (key.equals(PREF_PERIOD))
+            {
+
+                Preference periodPreference = findPreference(key);
+                periodPreference.setSummary(sharedPreferences.getString(key,""));
             }
         };
     }
@@ -47,6 +55,9 @@ public class SettingsFragment extends PreferenceFragment {
         getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(preferenceChangeListener);
         Preference currencyPref = findPreference(PREF_CURRENCY);
         currencyPref.setSummary(getPreferenceScreen().getSharedPreferences().getString(PREF_CURRENCY,""));
+
+        Preference periodPref = findPreference(PREF_PERIOD);
+        periodPref.setSummary(getPreferenceScreen().getSharedPreferences().getString(PREF_PERIOD,""));
     }
 
     @Override
