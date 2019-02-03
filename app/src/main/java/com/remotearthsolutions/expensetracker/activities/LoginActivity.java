@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,6 +38,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 get(LoginViewModel.class);
         viewModel.init();
 
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 
     @Override

@@ -19,11 +19,14 @@ import com.remotearthsolutions.expensetracker.activities.MainActivity;
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter;
 import com.remotearthsolutions.expensetracker.contracts.HomeFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
 import com.remotearthsolutions.expensetracker.utils.ChartManager;
 import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl;
+import com.remotearthsolutions.expensetracker.utils.Constants;
+import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.HomeFragmentViewModel;
 
 import java.util.List;
@@ -48,12 +51,15 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
         recyclerView.setLayoutManager(llm);
 
         CategoryDao categoryDao = DatabaseClient.getInstance(getContext()).getAppDatabase().categoryDao();
-        viewModel = new HomeFragmentViewModel(this, categoryDao);
+        AccountDao accountDao = DatabaseClient.getInstance(getContext()).getAppDatabase().accountDao();
+        viewModel = new HomeFragmentViewModel(this, categoryDao,accountDao);
         viewModel.init();
         viewModel.loadExpenseChart();
 
         BottomNavigationView navigation = view.findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        SharedPreferenceUtils.getInstance(getActivity()).putBoolean(Constants.KEY_IS_FIRST_RUN,false);
 
         return view;
     }

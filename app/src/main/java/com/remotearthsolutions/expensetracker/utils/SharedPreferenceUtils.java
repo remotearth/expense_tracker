@@ -6,8 +6,6 @@ import android.preference.PreferenceManager;
 
 public class SharedPreferenceUtils {
 
-    public static final String KEY_SELECTED_ACCOUNT_ID = "KEY_SELECTED_ACCOUNT_ID";
-
     private static SharedPreferenceUtils instance;
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
@@ -39,5 +37,13 @@ public class SharedPreferenceUtils {
 
     public String getString(String key, String defaultVal) {
         return sp.getString(key, defaultVal);
+    }
+
+    public void putBoolean(String key, boolean val) {
+        editor.putBoolean(key, val).apply();
+    }
+
+    public boolean getBoolean(String key, boolean defaultVal) {
+        return sp.getBoolean(key, defaultVal);
     }
 }

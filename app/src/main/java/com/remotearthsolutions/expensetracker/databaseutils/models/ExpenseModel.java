@@ -3,6 +3,7 @@ package com.remotearthsolutions.expensetracker.databaseutils.models;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "expense")
@@ -31,6 +32,7 @@ public class ExpenseModel {
         this.datetime = datetime;
     }
 
+    @Ignore
     public ExpenseModel() {
 
     }

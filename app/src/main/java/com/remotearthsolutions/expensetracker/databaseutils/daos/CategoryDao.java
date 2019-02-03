@@ -13,6 +13,9 @@ public interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addCategory(CategoryModel categoryModel);
 
+    @Insert
+    void addAllCategories(CategoryModel... categoryModels);
+
     @Query("Select * from category")
     Flowable<List<CategoryModel>> getAllCategories();
 

@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.remotearthsolutions.expensetracker.R;
@@ -24,6 +25,7 @@ import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel;
+import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.MainViewModelFactory;
 import org.parceler.Parcels;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
@@ -38,7 +40,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        viewModel = new MainViewModel(this);
+        viewModel = ViewModelProviders.of(this,
+                new MainViewModelFactory(this)).
+                get(MainViewModel.class);
         viewModel.init();
 
         homeFragment = new HomeFragment();
