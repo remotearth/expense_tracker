@@ -19,14 +19,12 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.AccountI
 import com.remotearthsolutions.expensetracker.viewmodels.AccountDialogViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.AccountDialogViewModelFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AccountDialogFragment extends DialogFragment implements AccountDialogContract.View {
 
-    private AccountDialogViewModel presenter;
+    private AccountDialogViewModel viewModel;
     private AccountListAdapter accountListAdapter;
-    private List<AccountIncome> accountslist;
     private RecyclerView accountrecyclerView;
     private AccountDialogFragment.Callback callback;
 
@@ -61,17 +59,17 @@ public class AccountDialogFragment extends DialogFragment implements AccountDial
         accountrecyclerView.setLayoutManager(llm);
 
         AccountDao accountDao = DatabaseClient.getInstance(getContext()).getAppDatabase().accountDao();
-        presenter = ViewModelProviders.of(this,
+        this.viewModel = ViewModelProviders.of(this,
                 new AccountDialogViewModelFactory(this, accountDao)).
                 get(AccountDialogViewModel.class);
-        presenter.loadAccounts();
+        this.viewModel.loadAccounts();
 
 
     }
 
     @Override
     public void onAccountFetchSuccess(List<AccountIncome> accounts) {
-        accountListAdapter = new AccountListAdapter(accountslist);
+        accountListAdapter = new AccountListAdapter(accounts);
         accountListAdapter.setOnItemClickListener(new AccountListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(AccountIncome account) {

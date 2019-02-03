@@ -20,7 +20,7 @@ import com.remotearthsolutions.expensetracker.contracts.CategoryFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
-import com.remotearthsolutions.expensetracker.viewmodels.CategoryFragmentViewModel;
+import com.remotearthsolutions.expensetracker.viewmodels.CategoryViewModel;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class CategoryFragment extends Fragment implements CategoryFragmentContra
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
     private CategoryListViewAdapter adapter;
-    private CategoryFragmentViewModel viewModel;
+    private CategoryViewModel viewModel;
 
 
     public CategoryFragment() {
@@ -46,7 +46,7 @@ public class CategoryFragment extends Fragment implements CategoryFragmentContra
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         CategoryDao categoryDao = DatabaseClient.getInstance(getContext()).getAppDatabase().categoryDao();
-        viewModel = new CategoryFragmentViewModel(this, categoryDao);
+        viewModel = new CategoryViewModel(this, categoryDao);
         viewModel.showCategories();
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {

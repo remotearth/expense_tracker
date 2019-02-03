@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
@@ -29,7 +28,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
     private ImageView calenderBtnIv, categoryBtnIv, accountBtnIv, deleteBtn, okBtn;
     private TextView dateTv, categoryNameTv, accountNameTv;
-    private LinearLayout selectAccount, selectCategory;
+    private LinearLayout selectAccountBtn, selectCategoryBtn;
     private EditText expenseEdtxt;
 
     private ExpenseFragmentViewModel viewModel;
@@ -52,8 +51,8 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         accountNameTv = view.findViewById(R.id.accountNameTv);
         accountBtnIv = view.findViewById(R.id.accountImageIv);
         calenderBtnIv = view.findViewById(R.id.selectdate);
-        selectAccount = view.findViewById(R.id.fromaccountselection);
-        selectCategory = view.findViewById(R.id.categorylayout);
+        selectAccountBtn = view.findViewById(R.id.fromaccountselection);
+        selectCategoryBtn = view.findViewById(R.id.categorylayout);
         dateTv = view.findViewById(R.id.dateTv);
         okBtn = view.findViewById(R.id.okBtn);
 
@@ -74,8 +73,8 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         ExpenseDao expenseDao = DatabaseClient.getInstance(getActivity()).getAppDatabase().expenseDao();
         AccountDao accountDao = DatabaseClient.getInstance(getActivity()).getAppDatabase().accountDao();
 
-        int accountId = SharedPreferenceUtils.getInstance(getActivity()).getInt(Constants.KEY_SELECTED_ACCOUNT_ID,1);
-        viewModel = new ExpenseFragmentViewModel(this,expenseDao, accountDao);
+        int accountId = SharedPreferenceUtils.getInstance(getActivity()).getInt(Constants.KEY_SELECTED_ACCOUNT_ID, 1);
+        viewModel = new ExpenseFragmentViewModel(this, expenseDao, accountDao);
         viewModel.init(accountId);
 
 
@@ -85,7 +84,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
     @Override
     public void defineClickListener() {
 
-        selectAccount.setOnClickListener(new View.OnClickListener() {
+        selectAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getChildFragmentManager();
@@ -99,7 +98,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
                         accountDialogFragment.dismiss();
 
                         selectedSourceAccount = account;
-                        SharedPreferenceUtils.getInstance(getActivity()).putInt(Constants.KEY_SELECTED_ACCOUNT_ID,selectedSourceAccount.getAccount_id());
+                        SharedPreferenceUtils.getInstance(getActivity()).putInt(Constants.KEY_SELECTED_ACCOUNT_ID, selectedSourceAccount.getAccount_id());
                     }
                 });
                 accountDialogFragment.show(fm, AccountDialogFragment.class.getName());
@@ -107,7 +106,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             }
         });
 
-        selectCategory.setOnClickListener(new View.OnClickListener() {
+        selectCategoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -161,7 +160,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
                 ExpenseModel expenseModel = new ExpenseModel();
                 expenseModel.setAmount(amount);
                 expenseModel.setDatetime(DateTimeUtils.getTimeInMillisFromDateStr(dateTv.getText().toString(), DateTimeUtils.dd_MM_yyyy));
-                expenseModel.setCategoryId(selectCategory.getId());
+                expenseModel.setCategoryId(selectedCategory.getId());
                 expenseModel.setSource(selectedSourceAccount.getAccount_id());
                 viewModel.addExpense(expenseModel);
             }
@@ -171,7 +170,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
     @Override
     public void onExpenseAdded() {
         expenseEdtxt.setText("");
-        Toast.makeText(getActivity(),"Successfully added.",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Successfully added.", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -180,6 +179,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         //accountBtnIv.setImageResource(account.getIcon_name());
         accountBtnIv.setImageResource(R.drawable.ic_currency);
         accountNameTv.setText(account.getAccount_name());
+        SharedPreferenceUtils.getInstance(getActivity()).putInt(Constants.KEY_SELECTED_ACCOUNT_ID, account.getAccount_id());
     }
 
     @Override
