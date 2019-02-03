@@ -46,10 +46,14 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
     private RecyclerView recyclerView;
     private HomeFragmentViewModel viewModel;
     private ImageView addCategory,nextDate,previousDate;
-    private TextView showdate;
     private Button dailyButton,weeklyButton,monthlyButton,yearlyButton;
-    private int cDay, cMonth, cYear;
 
+    private TextView showdate;
+    private Date getPreviousDate,getNextDate,getCurrentDate;
+    private Calendar calendar;
+    private Date getPreviousWeek,getNextWeak,getCurrentWeek;
+    private Date getPreviousMonth,getNextMonth,getCurrentMonth;
+    private Date getPreviousYear,getNextYear,getCurrentYear;
 
     @Nullable
     @Override
@@ -72,6 +76,7 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
         weeklyButton.setOnClickListener(this);
         monthlyButton.setOnClickListener(this);
         yearlyButton.setOnClickListener(this);
+
 
 
         mAnimatedPieView = view.findViewById(R.id.animatedpie);
@@ -156,20 +161,32 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
         else if (v.getId() == R.id.nextdatebutton) {
 
             SimpleDateFormat sdf = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy);
+            String getstatusdate = showdate.getText().toString();
+
             try {
 
-                Date getCurrentDate = sdf.parse(DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy));
-                Date getNextDate = sdf.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy,+1));
+                getCurrentDate = sdf.parse(DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy));
+                getNextDate = sdf.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy,+1));
 
                 if (getNextDate.compareTo(getCurrentDate) > 0)
                 {
                     showdate.setText(DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy));
                 }
 
+                getNextWeak = sdf.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy,+7));
+                String weeknextdate = sdf.format(getNextWeak);
+
+                if (getstatusdate.matches(weeknextdate))
+                {
+                    Toast.makeText(getActivity(), "Not possible to move into next week",Toast.LENGTH_LONG).show();
+                }
+
+
+
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
         }
 
         else if (v.getId() == R.id.previousdatebutton) {
@@ -180,66 +197,43 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
 
         else if (v.getId() == R.id.daily)
         {
+            String previous = DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy);
+            showdate.setText(previous);
 
-            DatePicker datePicker = new DatePicker(getActivity());
-            cDay = datePicker.getDayOfMonth();
-            cMonth = datePicker.getMonth()+1;
-            cYear = datePicker.getYear();
-
-
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-                    showdate.setText(dayOfMonth+"/"+month+"/"+year);
-
-                }
-            }, cYear, cMonth, cDay);
-            datePickerDialog.show();
         }
 
         else if (v.getId() == R.id.weekly)
         {
+            try
+            {
+                SimpleDateFormat sdf = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy);
+                getCurrentWeek = sdf.parse(DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy));
+                getPreviousWeek = sdf.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy,-7));
+                String weekcurrentdate = sdf.format(getCurrentWeek);
+                String weeklastdate = sdf.format(getPreviousWeek);
+                showdate.setText(weeklastdate+" - "+weekcurrentdate);
 
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
         }
 
         else if (v.getId() == R.id.monthly)
         {
-            DatePicker datePicker = new DatePicker(getActivity());
-            cDay = datePicker.getDayOfMonth();
-            cMonth = datePicker.getMonth()+1;
-            cYear = datePicker.getYear();
-
-
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-                    showdate.setText(month+"/"+year);
-
-                }
-            }, cYear, cMonth, cDay);
-            datePickerDialog.show();
+            SimpleDateFormat sdf = new SimpleDateFormat(DateTimeUtils.MM_yy);
+            calendar =Calendar.getInstance();
+            String month =sdf.format(calendar.getTime());
+            showdate.setText(month);
 
         }
 
         else if (v.getId() == R.id.yearly)
         {
-            DatePicker datePicker = new DatePicker(getActivity());
-            cDay = datePicker.getDayOfMonth();
-            cMonth = datePicker.getMonth()+1;
-            cYear = datePicker.getYear();
-
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-                    showdate.setText(year);
-
-                }
-            }, cYear, cMonth, cDay);
-            datePickerDialog.show();
+            SimpleDateFormat sdf = new SimpleDateFormat(DateTimeUtils.yyyy);
+            calendar =Calendar.getInstance();
+            String year = sdf.format(calendar.getTime());
+            showdate.setText(year);
 
         }
 
