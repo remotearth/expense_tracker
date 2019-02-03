@@ -39,11 +39,17 @@ public class SharedPreferenceUtils {
         return sp.getString(key, defaultVal);
     }
 
+
     public void putBoolean(String key, boolean val) {
         editor.putBoolean(key, val).apply();
     }
 
     public boolean getBoolean(String key, boolean defaultVal) {
         return sp.getBoolean(key, defaultVal);
+    }
+
+    public void logOut() {
+        editor.clear().commit();
+
     }
 }

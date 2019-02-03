@@ -13,14 +13,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.MainContract;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.entities.User;
-import com.remotearthsolutions.expensetracker.fragments.CategoryFragment;
-import com.remotearthsolutions.expensetracker.fragments.ExpenseFragment;
-import com.remotearthsolutions.expensetracker.fragments.HomeFragment;
+import com.remotearthsolutions.expensetracker.fragments.*;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
@@ -104,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
             case R.id.nav_categories: {
+
+                getSupportActionBar().setTitle("Category");
                 CategoryFragment categoryFragment = new CategoryFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, categoryFragment, CategoryFragment.class.getName());
@@ -111,8 +112,56 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
 
-        }
+            case R.id.nav_logout: {
 
+                SharedPreferenceUtils.getInstance(this).logOut();
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            }
+
+            case R.id.nav_settings: {
+
+                getSupportActionBar().setTitle("Settings");
+                getFragmentManager().beginTransaction().replace(R.id.framelayout, new SettingsFragment()).commit();
+                break;
+            }
+
+            case R.id.nav_about:
+            {
+                getSupportActionBar().setTitle("About Us");
+                AboutFragment aboutFragment = new AboutFragment();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.framelayout, aboutFragment, AboutFragment.class.getName());
+                fragmentTransaction.commit();
+            }
+
+            case R.id.nav_privacypolicy:
+            {
+                WebViewFragment webViewFragment = new WebViewFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.KEY_URL,Constants.URL_PRIVACY_POLICY);
+                webViewFragment.setArguments(bundle);
+                getSupportActionBar().setTitle("Privacy Policy");
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.framelayout, webViewFragment, Constants.URL_PRIVACY_POLICY_TAG);
+                fragmentTransaction.commit();
+
+            }
+
+            case R.id.nav_licenses:
+            {
+                WebViewFragment webViewFragment = new WebViewFragment();
+                Bundle bundle1 = new Bundle();
+                bundle1.putString(Constants.KEY_URL,Constants.URL_LICENSES);
+                webViewFragment.setArguments(bundle1);
+                getSupportActionBar().setTitle("Licenses Agreement");
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.framelayout, webViewFragment, Constants.URL_lICENSES_TAG);
+                fragmentTransaction.commit();
+
+            }
+
+        }
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
