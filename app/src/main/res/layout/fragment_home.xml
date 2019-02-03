@@ -15,14 +15,67 @@
             android:layout_height="match_parent">
 
 
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:weightSum="4">
+
+            <Button
+                    android:id="@+id/daily"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/daily"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_margin="3dp"
+                    android:tint="@color/colorPrimary"
+                    android:layout_height="wrap_content"/>
+
+            <Button
+                    android:id="@+id/weekly"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/weekly"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_margin="3dp"
+                    android:tint="@color/colorPrimary"
+                    android:layout_height="wrap_content"/>
+
+
+            <Button
+                    android:id="@+id/monthly"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@string/monthly"
+                    android:layout_margin="3dp"
+                    android:tint="@color/colorPrimary"
+                    android:layout_height="wrap_content"/>
+
+
+            <Button
+                    android:id="@+id/yearly"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@string/yearly"
+                    android:layout_margin="3dp"
+                    android:tint="@color/colorPrimary"
+                    android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
         <LinearLayout
                 android:id="@+id/monthcontainer"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:weightSum="2">
 
             <ImageView
+                    android:id="@+id/previousdatebutton"
                     android:layout_width="0dp"
                     android:layout_weight="0.3"
                     android:tint="@color/colorPrimary"
@@ -30,16 +83,18 @@
                     android:layout_height="35dp"/>
 
             <TextView
+                    android:id="@+id/showdateinhome"
                     android:layout_width="0dp"
                     android:layout_weight="1.4"
                     tools:text="MONTH NAME"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:textColor="@color/textcolorwhite"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
                     android:layout_height="match_parent"/>
 
             <ImageView
+                    android:id="@+id/nextdatebutton"
                     android:layout_width="0dp"
                     android:layout_weight="0.3"
                     android:src="@drawable/ic_next"
@@ -82,11 +137,12 @@
                                 android:layout_width="0dp"
                                 android:layout_weight="1.8"
                                 android:layout_height="wrap_content"
-                                android:text="Expense Catagory"
+                                android:text="@string/expense_catagory"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="18sp"/>
 
                         <ImageView
+                                android:id="@+id/addcategoryinhome"
                                 android:layout_width="0dp"
                                 android:layout_weight="0.2"
                                 android:layout_height="wrap_content"

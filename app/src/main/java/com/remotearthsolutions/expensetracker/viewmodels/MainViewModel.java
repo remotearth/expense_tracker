@@ -1,13 +1,14 @@
 package com.remotearthsolutions.expensetracker.viewmodels;
 
 
+import androidx.lifecycle.ViewModel;
 import com.google.firebase.auth.FirebaseUser;
 import com.remotearthsolutions.expensetracker.contracts.MainContract;
 import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
 
 
-public class MainViewModel {
+public class MainViewModel extends ViewModel {
 
     private MainContract.View view;
 
@@ -24,8 +25,7 @@ public class MainViewModel {
 
         FirebaseUser user = firebaseService.getUser();
 
-        if (user == null && guestUser == null)
-        {
+        if (user == null && guestUser == null) {
             view.openLoginScreen();
         }
     }

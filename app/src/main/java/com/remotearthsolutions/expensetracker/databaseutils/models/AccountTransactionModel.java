@@ -5,8 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "income")
-public class IncomeModel {
+@Entity(tableName = "account_transaction")
+public class AccountTransactionModel {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -17,7 +17,7 @@ public class IncomeModel {
     @ColumnInfo(name = "amount")
     private int amount;
 
-    public IncomeModel(int accountId, int amount) {
+    public AccountTransactionModel(int accountId, int amount) {
         this.accountId = accountId;
         this.amount = amount;
     }

@@ -1,23 +1,21 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import androidx.fragment.app.Fragment;
+import android.widget.*;
 import androidx.fragment.app.FragmentManager;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
-import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.AccountIncome;
+import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
 import com.remotearthsolutions.expensetracker.utils.NumpadManager;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
@@ -26,11 +24,11 @@ import org.parceler.Parcels;
 
 import java.util.Calendar;
 
-public class ExpenseFragment extends Fragment implements ExpenseFragmentContract.View {
+public class ExpenseFragment extends BaseFragment implements ExpenseFragmentContract.View {
 
     private ImageView calenderBtnIv, categoryBtnIv, accountBtnIv, deleteBtn, okBtn;
     private TextView dateTv, categoryNameTv, accountNameTv;
-    private LinearLayout selectAccount, selectCategory;
+    private LinearLayout selectAccountBtn, selectCategoryBtn;
     private EditText expenseEdtxt;
 
     private ExpenseFragmentViewModel viewModel;
@@ -53,8 +51,8 @@ public class ExpenseFragment extends Fragment implements ExpenseFragmentContract
         accountNameTv = view.findViewById(R.id.accountNameTv);
         accountBtnIv = view.findViewById(R.id.accountImageIv);
         calenderBtnIv = view.findViewById(R.id.selectdate);
-        selectAccount = view.findViewById(R.id.fromaccountselection);
-        selectCategory = view.findViewById(R.id.categorylayout);
+        selectAccountBtn = view.findViewById(R.id.fromaccountselection);
+        selectCategoryBtn = view.findViewById(R.id.categorylayout);
         dateTv = view.findViewById(R.id.dateTv);
         okBtn = view.findViewById(R.id.okBtn);
 
@@ -73,8 +71,11 @@ public class ExpenseFragment extends Fragment implements ExpenseFragmentContract
         }
 
         ExpenseDao expenseDao = DatabaseClient.getInstance(getActivity()).getAppDatabase().expenseDao();
-        viewModel = new ExpenseFragmentViewModel(this,expenseDao);
-        viewModel.init();
+        AccountDao accountDao = DatabaseClient.getInstance(getActivity()).getAppDatabase().accountDao();
+
+        int accountId = SharedPreferenceUtils.getInstance(getActivity()).getInt(Constants.KEY_SELECTED_ACCOUNT_ID, 1);
+        viewModel = new ExpenseFragmentViewModel(this, expenseDao, accountDao);
+        viewModel.init(accountId);
 
 
         return view;
@@ -83,7 +84,7 @@ public class ExpenseFragment extends Fragment implements ExpenseFragmentContract
     @Override
     public void defineClickListener() {
 
-        selectAccount.setOnClickListener(new View.OnClickListener() {
+        selectAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getChildFragmentManager();
@@ -97,6 +98,7 @@ public class ExpenseFragment extends Fragment implements ExpenseFragmentContract
                         accountDialogFragment.dismiss();
 
                         selectedSourceAccount = account;
+                        SharedPreferenceUtils.getInstance(getActivity()).putInt(Constants.KEY_SELECTED_ACCOUNT_ID, selectedSourceAccount.getAccount_id());
                     }
                 });
                 accountDialogFragment.show(fm, AccountDialogFragment.class.getName());
@@ -104,7 +106,7 @@ public class ExpenseFragment extends Fragment implements ExpenseFragmentContract
             }
         });
 
-        selectCategory.setOnClickListener(new View.OnClickListener() {
+        selectCategoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -158,9 +160,8 @@ public class ExpenseFragment extends Fragment implements ExpenseFragmentContract
                 ExpenseModel expenseModel = new ExpenseModel();
                 expenseModel.setAmount(amount);
                 expenseModel.setDatetime(DateTimeUtils.getTimeInMillisFromDateStr(dateTv.getText().toString(), DateTimeUtils.dd_MM_yyyy));
-                expenseModel.setCategoryId(selectCategory.getId());
+                expenseModel.setCategoryId(selectedCategory.getId());
                 expenseModel.setSource(selectedSourceAccount.getAccount_id());
-                SharedPreferenceUtils.getInstance(getContext()).getInt(SharedPreferenceUtils.KEY_SELECTED_ACCOUNT_ID,1);
                 viewModel.addExpense(expenseModel);
             }
         });
@@ -168,6 +169,21 @@ public class ExpenseFragment extends Fragment implements ExpenseFragmentContract
 
     @Override
     public void onExpenseAdded() {
+        expenseEdtxt.setText("");
+        Toast.makeText(getActivity(), "Successfully added.", Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void setSourceAccount(AccountIncome account) {
+        selectedSourceAccount = account;
+        //accountBtnIv.setImageResource(account.getIcon_name());
+        accountBtnIv.setImageResource(R.drawable.ic_currency);
+        accountNameTv.setText(account.getAccount_name());
+        SharedPreferenceUtils.getInstance(getActivity()).putInt(Constants.KEY_SELECTED_ACCOUNT_ID, account.getAccount_id());
+    }
+
+    @Override
+    public Context getContext() {
+        return getActivity();
     }
 }

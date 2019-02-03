@@ -1,9 +1,11 @@
 package com.remotearthsolutions.expensetracker.viewmodels;
 
 import com.remotearthsolutions.expensetracker.contracts.HomeFragmentContract;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
+import com.remotearthsolutions.expensetracker.utils.InitialDataGenerator;
 import com.remotearthsolutions.expensetracker.utils.Utils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -16,11 +18,13 @@ public class HomeFragmentViewModel {
 
     private HomeFragmentContract.View view;
     private CategoryDao categoryDao;
+    private AccountDao accountDao;
     private CompositeDisposable disposable = new CompositeDisposable();
 
-    public HomeFragmentViewModel(HomeFragmentContract.View view, CategoryDao categoryDao) {
+    public HomeFragmentViewModel(HomeFragmentContract.View view, CategoryDao categoryDao, AccountDao accountDao) {
         this.view = view;
         this.categoryDao = categoryDao;
+        this.accountDao = accountDao;
     }
 
     public void init() {

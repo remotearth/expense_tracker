@@ -1,18 +1,11 @@
-package com.remotearthsolutions.expensetracker.activities;
+package com.remotearthsolutions.expensetracker.fragments;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import com.remotearthsolutions.expensetracker.contracts.BaseView;
 
-public abstract class BaseActivity extends AppCompatActivity implements BaseView {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
+public abstract class BaseFragment extends Fragment implements BaseView {
 
     @Override
     public void showAlert(String title, String message, String btnOk, String btnCancel, Callback callback) {
