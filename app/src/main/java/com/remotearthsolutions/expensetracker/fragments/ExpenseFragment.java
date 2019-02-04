@@ -62,6 +62,9 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         numpadManager.attachDeleteButton(deleteBtn);
         numpadFragment.setListener(numpadManager);
 
+        ExpenseDao expenseDao = DatabaseClient.getInstance(getActivity()).getAppDatabase().expenseDao();
+        AccountDao accountDao = DatabaseClient.getInstance(getActivity()).getAppDatabase().accountDao();
+
         Bundle args = getArguments();
         if (args != null) {
             selectedCategory = Parcels.unwrap(args.getParcelable("category_parcel"));
@@ -70,13 +73,9 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             categoryNameTv.setText(selectedCategory.getName());
         }
 
-        ExpenseDao expenseDao = DatabaseClient.getInstance(getActivity()).getAppDatabase().expenseDao();
-        AccountDao accountDao = DatabaseClient.getInstance(getActivity()).getAppDatabase().accountDao();
-
         int accountId = SharedPreferenceUtils.getInstance(getActivity()).getInt(Constants.KEY_SELECTED_ACCOUNT_ID, 1);
         viewModel = new ExpenseFragmentViewModel(this, expenseDao, accountDao);
         viewModel.init(accountId);
-
 
         return view;
     }

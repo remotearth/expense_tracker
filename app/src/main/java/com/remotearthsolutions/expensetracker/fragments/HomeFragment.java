@@ -46,7 +46,6 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
     private Button dailyButton, weeklyButton, monthlyButton, yearlyButton;
     private int cDay, cMonth, cYear;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,6 +67,8 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
         weeklyButton.setOnClickListener(this);
         monthlyButton.setOnClickListener(this);
         yearlyButton.setOnClickListener(this);
+
+        view.findViewById(R.id.fab).setOnClickListener(this);
 
 
         mAnimatedPieView = view.findViewById(R.id.animatedpie);
@@ -223,7 +224,10 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
             datePickerDialog.show();
 
         }
+        else if(v.getId() == R.id.fab){
 
 
+            ((MainActivity) getActivity()).openAddExpenseScreen();
+        }
     }
 }
