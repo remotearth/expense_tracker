@@ -3,7 +3,6 @@ package com.remotearthsolutions.expensetracker.fragments;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
@@ -21,22 +20,20 @@ import com.remotearthsolutions.expensetracker.activities.MainActivity;
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter;
 import com.remotearthsolutions.expensetracker.contracts.HomeFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
 import com.remotearthsolutions.expensetracker.utils.ChartManager;
 import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl;
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
-import com.remotearthsolutions.expensetracker.viewmodels.CategoryFragmentViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.HomeFragmentViewModel;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 
 public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView, HomeFragmentContract.View, View.OnClickListener {
@@ -65,7 +62,7 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
         previousDate = view.findViewById(R.id.previousdatebutton);
         dailyButton = view.findViewById(R.id.daily);
         weeklyButton = view.findViewById(R.id.weekly);
-        monthlyButton= view.findViewById(R.id.monthly);
+        monthlyButton = view.findViewById(R.id.monthly);
         yearlyButton = view.findViewById(R.id.yearly);
 
         addCategory.setOnClickListener(this);
@@ -84,13 +81,13 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
         recyclerView.setLayoutManager(llm);
 
         CategoryDao categoryDao = DatabaseClient.getInstance(getContext()).getAppDatabase().categoryDao();
-        viewModel = new HomeFragmentViewModel(this, categoryDao);
+        AccountDao accountDao = DatabaseClient.getInstance(getContext()).getAppDatabase().accountDao();
+        viewModel = new HomeFragmentViewModel(this, categoryDao, accountDao);
         viewModel.init();
         viewModel.loadExpenseChart();
 
         BottomNavigationView navigation = view.findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
 
         simpleDateFormat = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy);
         selectedDate = "daily";
@@ -103,6 +100,7 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
         }
         
        return view;
+
     }
 
     @Override
@@ -112,19 +110,19 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
-                switch (item.getItemId()) {
-                    case R.id.navigation_home:
-                        Toast.makeText(getActivity(), "Clicked On Bottom menu 1", Toast.LENGTH_LONG).show();
-                        return true;
-                    case R.id.navigation_dashboard:
-                        Toast.makeText(getActivity(), "Clicked On Bottom Menu 2", Toast.LENGTH_LONG).show();
-                        return true;
-                    case R.id.navigation_notifications:
-                        Toast.makeText(getActivity(), "Clicked On Bottom Menu 3", Toast.LENGTH_LONG).show();
-                        return true;
-                }
-                return false;
-            };
+        switch (item.getItemId()) {
+            case R.id.navigation_home:
+                Toast.makeText(getActivity(), "Clicked On Bottom menu 1", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.navigation_dashboard:
+                Toast.makeText(getActivity(), "Clicked On Bottom Menu 2", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.navigation_notifications:
+                Toast.makeText(getActivity(), "Clicked On Bottom Menu 3", Toast.LENGTH_LONG).show();
+                return true;
+        }
+        return false;
+    };
 
     @Override
     public void showCategories(List<CategoryModel> categories) {
@@ -307,7 +305,7 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
 
         }
 
+       }
 
-
-    }
 }
+

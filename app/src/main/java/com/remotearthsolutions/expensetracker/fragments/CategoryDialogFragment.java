@@ -7,24 +7,31 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter;
+import com.remotearthsolutions.expensetracker.contracts.CategoryFragmentContract;
+import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import com.remotearthsolutions.expensetracker.viewmodels.CategoryViewModel;
+import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.CategoryViewModelFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryDialogFragment extends DialogFragment {
+public class CategoryDialogFragment extends DialogFragment implements CategoryFragmentContract.View {
+
+    private CategoryViewModel viewModel;
+    private RecyclerView recyclerView;
+    private CategoryListAdapter categoryListAdapter;
+    //private List<CategoryModel> categories;
+    private CategoryDialogFragment.Callback callback;
 
     public CategoryDialogFragment() {
     }
-
-    private RecyclerView recyclerView;
-    private CategoryListAdapter categoryListAdapter;
-    private List<CategoryModel> categoryList;
-    private CategoryDialogFragment.Callback callback;
-
 
     public static CategoryDialogFragment newInstance(String title) {
         CategoryDialogFragment frag = new CategoryDialogFragment();
@@ -50,19 +57,34 @@ public class CategoryDialogFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        CategoryDao categoryDao = DatabaseClient.getInstance(getContext()).getAppDatabase().categoryDao();
+        viewModel = ViewModelProviders.of(this, new CategoryViewModelFactory(this, categoryDao)).get(CategoryViewModel.class);
+
         recyclerView = view.findViewById(R.id.categoryrecyclearView);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-        categoryListAdapter = new CategoryListAdapter(categoryList);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        categoryListAdapter = new CategoryListAdapter(new ArrayList<>());
         recyclerView.setAdapter(categoryListAdapter);
 
+        //if(categories!=null && categories.size()>0){
+        viewModel.showCategories();
+//        }
+//        else{
+//            showCategories(categories);
+//        }
+    }
+
+    @Override
+    public void showCategories(List<CategoryModel> categories) {
+
+        categoryListAdapter = new CategoryListAdapter(categories);
         categoryListAdapter.setOnItemClickListener(new CategoryListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(CategoryModel category) {
                 callback.onSelectCategory(category);
             }
         });
-
+        recyclerView.setAdapter(categoryListAdapter);
     }
 
     public interface Callback {
