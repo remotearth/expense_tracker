@@ -26,6 +26,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
 import com.remotearthsolutions.expensetracker.utils.ChartManager;
 import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl;
+import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.HomeFragmentViewModel;
 
@@ -90,7 +91,7 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         simpleDateFormat = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy);
-        selectedDate = "daily";
+        selectedDate = Constants.KEY_DAILY;
         try {
             startDate = simpleDateFormat.parse(DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy));
             String startdatetoget = simpleDateFormat.format(startDate);
@@ -166,13 +167,13 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
 
         else if (v.getId() == R.id.nextdatebutton) {
 
-            if (selectedDate.equals("daily"))
+            if (selectedDate.equals(Constants.KEY_DAILY))
             {
                 String nextdate = DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, 0);
                 dataTv.setText(nextdate);
             }
 
-            if (selectedDate.equals("weekly"))
+            if (selectedDate.equals(Constants.KEY_WEEKLY))
             {
                 simpleDateFormat = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy);
                 try
@@ -190,7 +191,7 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
             }
 
 
-            else if (selectedDate.equals("monthly"))
+            else if (selectedDate.equals(Constants.KEY_MONTHLY))
             {
                 simpleDateFormat = new SimpleDateFormat(DateTimeUtils.MM_yy);
                 calendar = Calendar.getInstance();
@@ -199,9 +200,9 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
                 dataTv.setText(previousmonth);
             }
 
-            else if (selectedDate.equals("yearly"))
+            else if (selectedDate.equals(Constants.KEY_YEARLY))
             {
-                selectedDate = "yearly";
+                selectedDate = Constants.KEY_YEARLY;
                 simpleDateFormat = new SimpleDateFormat(DateTimeUtils.yyyy);
                 calendar =Calendar.getInstance();
                 calendar.add(Calendar.YEAR, 0);
@@ -213,13 +214,13 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
 
         else if (v.getId() == R.id.previousdatebutton) {
 
-            if (selectedDate.equals("daily"))
+            if (selectedDate.equals(Constants.KEY_DAILY))
             {
                 String previousdate = DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, -1);
                 dataTv.setText(previousdate);
             }
 
-            else if (selectedDate.equals("weekly"))
+            else if (selectedDate.equals(Constants.KEY_WEEKLY))
             {
                 simpleDateFormat = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy);
                 try
@@ -236,7 +237,7 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
                 dataTv.setText(weeklastdate+" - "+weekcurrentdate);
             }
 
-            else if (selectedDate.equals("monthly"))
+            else if (selectedDate.equals(Constants.KEY_MONTHLY))
             {
                 simpleDateFormat = new SimpleDateFormat(DateTimeUtils.MM_yy);
                 calendar = Calendar.getInstance();
@@ -245,10 +246,10 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
                 dataTv.setText(previousmonth);
             }
 
-            else if (selectedDate.equals("yearly"))
+            else if (selectedDate.equals(Constants.KEY_YEARLY))
             {
 
-                selectedDate = "yearly";
+                selectedDate = Constants.KEY_YEARLY;
                 simpleDateFormat = new SimpleDateFormat(DateTimeUtils.yyyy);
                 calendar =Calendar.getInstance();
                 calendar.add(Calendar.YEAR, -1);
@@ -260,7 +261,7 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
 
         else if (v.getId() == R.id.daily)
         {
-            selectedDate = "daily";
+            selectedDate = Constants.KEY_DAILY;
             String dailydate = DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy);
             dataTv.setText(dailydate);
 
@@ -268,7 +269,7 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
 
         else if (v.getId() == R.id.weekly)
         {
-            selectedDate = "weekly";
+            selectedDate = Constants.KEY_WEEKLY;
             simpleDateFormat = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy);
             try
             {
@@ -287,7 +288,7 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
 
         else if (v.getId() == R.id.monthly)
         {
-            selectedDate = "monthly";
+            selectedDate = Constants.KEY_MONTHLY;
             simpleDateFormat = new SimpleDateFormat(DateTimeUtils.MM_yy);
             calendar =Calendar.getInstance();
             String month =simpleDateFormat.format(calendar.getTime());
@@ -297,7 +298,7 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
 
         else if (v.getId() == R.id.yearly)
         {
-            selectedDate = "yearly";
+            selectedDate = Constants.KEY_YEARLY;
             SimpleDateFormat sdf = new SimpleDateFormat(DateTimeUtils.yyyy);
             calendar =Calendar.getInstance();
             String year = sdf.format(calendar.getTime());
@@ -305,7 +306,7 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
 
         }
 
-       }
+    }
 
 }
 
