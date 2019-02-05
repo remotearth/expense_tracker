@@ -3,6 +3,7 @@ package com.remotearthsolutions.expensetracker.viewmodels;
 import com.remotearthsolutions.expensetracker.contracts.HomeFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
 import com.remotearthsolutions.expensetracker.utils.InitialDataGenerator;
@@ -59,6 +60,18 @@ public class HomeFragmentViewModel {
 
 
                 }));
+
+    }
+
+    public CategoryModel getFirstCategory() {
+
+//         List<CategoryModel> categoryModels = categoryDao.getAllCategories()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread()).blockingFirst();
+//
+//         return categoryModels.get(0);
+
+        return null;
 
     }
 }
