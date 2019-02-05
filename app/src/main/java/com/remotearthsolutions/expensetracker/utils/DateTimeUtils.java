@@ -10,6 +10,9 @@ import java.util.Locale;
 public class DateTimeUtils {
 
     public static final String dd_MM_yyyy = "dd-MM-yyyy";
+    public static final String MM_yy = "MMMM,yy";
+    public static final String yyyy = "yyyy";
+
 
     public static String getCurrentDate(String format){
         Calendar calendar = Calendar.getInstance();

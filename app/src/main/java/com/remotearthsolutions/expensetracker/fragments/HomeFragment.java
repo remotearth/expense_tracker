@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.fragments;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,11 +27,13 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
 import com.remotearthsolutions.expensetracker.utils.ChartManager;
 import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl;
+import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.HomeFragmentViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -41,10 +44,19 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
     private AnimatedPieView mAnimatedPieView;
     private RecyclerView recyclerView;
     private HomeFragmentViewModel viewModel;
-    private ImageView addCategory, nextDate, previousDate;
-    private TextView showdate;
-    private Button dailyButton, weeklyButton, monthlyButton, yearlyButton;
-    private int cDay, cMonth, cYear;
+    private ImageView addCategory,nextDate,previousDate;
+    private Button dailyButton,weeklyButton,monthlyButton,yearlyButton;
+    private TextView dataTv;
+    private String selectedDate;
+    private Date startDate,endDate;
+    private SimpleDateFormat simpleDateFormat;
+    private Calendar calendar;
+
+    private int day = 0;
+    private int month = 0;
+    private int year = 0;
+    private int startingOfWeek = -7;
+    private int endingOfWeek = 0;
 
 
     @Nullable
@@ -53,7 +65,7 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         addCategory = view.findViewById(R.id.addcategoryinhome);
-        showdate = view.findViewById(R.id.showdateinhome);
+        dataTv = view.findViewById(R.id.showdateinhome);
         nextDate = view.findViewById(R.id.nextdatebutton);
         previousDate = view.findViewById(R.id.previousdatebutton);
         dailyButton = view.findViewById(R.id.daily);
@@ -85,9 +97,18 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
         BottomNavigationView navigation = view.findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        showdate.setText(DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy));
+        simpleDateFormat = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy);
+        selectedDate = Constants.KEY_DAILY;
+        try {
+            startDate = simpleDateFormat.parse(DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy));
+            String startdatetoget = simpleDateFormat.format(startDate);
+            dataTv.setText(startdatetoget);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        
+       return view;
 
-        return view;
     }
 
     @Override
@@ -149,81 +170,201 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
             });
             categoryDialogFragment.show(fm, AddCategoryDialogFragment.class.getName());
 
-        } else if (v.getId() == R.id.nextdatebutton) {
+        }
 
-            SimpleDateFormat sdf = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy);
-            try {
+        else if (v.getId() == R.id.nextdatebutton) {
 
-                Date getCurrentDate = sdf.parse(DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy));
-                Date getNextDate = sdf.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, +1));
+            if (selectedDate.equals(Constants.KEY_DAILY))
+            {
 
-                if (getNextDate.compareTo(getCurrentDate) > 0) {
-                    showdate.setText(DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy));
+                if (day < 0) {
+                    day = day + 1;
                 }
+
+                String nextdate = DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, day);
+                dataTv.setText(nextdate);
+            }
+
+            if (selectedDate.equals(Constants.KEY_WEEKLY))
+            {
+                simpleDateFormat = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy);
+                try
+                {
+
+                    if (endingOfWeek < 0) {
+                        endingOfWeek = endingOfWeek + 7;
+                        startingOfWeek = startingOfWeek + 7;
+                    }
+
+                    startDate = simpleDateFormat.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy,startingOfWeek));
+                    endDate = simpleDateFormat.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy,endingOfWeek));
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                String weekcurrentdate = simpleDateFormat.format(endDate);
+                String weeklastdate = simpleDateFormat.format(startDate);
+                dataTv.setText(weeklastdate+" - "+weekcurrentdate);
+            }
+
+
+            else if (selectedDate.equals(Constants.KEY_MONTHLY))
+            {
+                simpleDateFormat = new SimpleDateFormat(DateTimeUtils.MM_yy);
+                calendar = Calendar.getInstance();
+                if (month < 0) {
+                    month = month + 1;
+                }
+
+                calendar.add(Calendar.MONTH, month);
+                String previousmonth =simpleDateFormat.format(calendar.getTime());
+                dataTv.setText(previousmonth);
+            }
+
+            else if (selectedDate.equals(Constants.KEY_YEARLY))
+            {
+                selectedDate = Constants.KEY_YEARLY;
+                simpleDateFormat = new SimpleDateFormat(DateTimeUtils.yyyy);
+                calendar =Calendar.getInstance();
+
+                if (year < 0) {
+                    year = year + 1;
+                }
+                calendar.add(Calendar.YEAR, year);
+                String year = simpleDateFormat.format(calendar.getTime());
+                dataTv.setText(year);
+            }
+
+        }
+
+        else if (v.getId() == R.id.previousdatebutton) {
+
+            if (selectedDate.equals(Constants.KEY_DAILY))
+            {
+                day = day - 1;
+
+                String previousdate = DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, day);
+                dataTv.setText(previousdate);
+            }
+
+            else if (selectedDate.equals(Constants.KEY_WEEKLY))
+            {
+                simpleDateFormat = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy);
+                try
+                {
+                    startingOfWeek = startingOfWeek - 7;
+                    endingOfWeek = endingOfWeek - 7;
+
+                    endDate = simpleDateFormat.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, endingOfWeek));
+                    startDate = simpleDateFormat.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, startingOfWeek));
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                String weekcurrentdate = simpleDateFormat.format(endDate);
+                String weeklastdate = simpleDateFormat.format(startDate);
+                dataTv.setText(weeklastdate+" - "+weekcurrentdate);
+            }
+
+            else if (selectedDate.equals(Constants.KEY_MONTHLY))
+            {
+                simpleDateFormat = new SimpleDateFormat(DateTimeUtils.MM_yy);
+                calendar = Calendar.getInstance();
+
+                month = month - 1;
+
+                calendar.add(Calendar.MONTH, month);
+                String previousmonth =simpleDateFormat.format(calendar.getTime());
+                dataTv.setText(previousmonth);
+            }
+
+            else if (selectedDate.equals(Constants.KEY_YEARLY))
+            {
+
+                selectedDate = Constants.KEY_YEARLY;
+                simpleDateFormat = new SimpleDateFormat(DateTimeUtils.yyyy);
+                calendar =Calendar.getInstance();
+
+                year = year - 1;
+                calendar.add(Calendar.YEAR, year);
+                String year = simpleDateFormat.format(calendar.getTime());
+                dataTv.setText(year);
+            }
+
+        }
+
+        else if (v.getId() == R.id.daily)
+        {
+            resetDate();
+
+            selectedDate = Constants.KEY_DAILY;
+            String dailydate = DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, day);
+            dataTv.setText(dailydate);
+
+        }
+
+        else if (v.getId() == R.id.weekly)
+        {
+            resetDate();
+
+            selectedDate = Constants.KEY_WEEKLY;
+            simpleDateFormat = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy);
+            try
+            {
+                startDate = simpleDateFormat.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, startingOfWeek));
+                endDate = simpleDateFormat.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, endingOfWeek));
 
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
-        } else if (v.getId() == R.id.previousdatebutton) {
-
-            String previousdate = DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, -1);
-            showdate.setText(previousdate);
-        } else if (v.getId() == R.id.daily) {
-
-            DatePicker datePicker = new DatePicker(getActivity());
-            cDay = datePicker.getDayOfMonth();
-            cMonth = datePicker.getMonth() + 1;
-            cYear = datePicker.getYear();
-
-
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-                    showdate.setText(dayOfMonth + "/" + month + "/" + year);
-
-                }
-            }, cYear, cMonth, cDay);
-            datePickerDialog.show();
-        } else if (v.getId() == R.id.weekly) {
-
-
-        } else if (v.getId() == R.id.monthly) {
-            DatePicker datePicker = new DatePicker(getActivity());
-            cDay = datePicker.getDayOfMonth();
-            cMonth = datePicker.getMonth() + 1;
-            cYear = datePicker.getYear();
-
-
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-                    showdate.setText(month + "/" + year);
-
-                }
-            }, cYear, cMonth, cDay);
-            datePickerDialog.show();
-
-        } else if (v.getId() == R.id.yearly) {
-            DatePicker datePicker = new DatePicker(getActivity());
-            cDay = datePicker.getDayOfMonth();
-            cMonth = datePicker.getMonth() + 1;
-            cYear = datePicker.getYear();
-
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-                    showdate.setText(year);
-
-                }
-            }, cYear, cMonth, cDay);
-            datePickerDialog.show();
+            String weekcurrentdate = simpleDateFormat.format(endDate);
+            String weeklastdate = simpleDateFormat.format(startDate);
+            dataTv.setText(weeklastdate+" - "+weekcurrentdate);
 
         }
 
+        else if (v.getId() == R.id.monthly)
+        {
+            resetDate();
+
+            selectedDate = Constants.KEY_MONTHLY;
+
+            simpleDateFormat = new SimpleDateFormat(DateTimeUtils.MM_yy);
+            calendar = Calendar.getInstance();
+
+            calendar.add(Calendar.MONTH, month);
+            String currentMonth =simpleDateFormat.format(calendar.getTime());
+            dataTv.setText(currentMonth);
+
+        }
+
+        else if (v.getId() == R.id.yearly)
+        {
+            resetDate();
+
+            selectedDate = Constants.KEY_YEARLY;
+
+            SimpleDateFormat sdf = new SimpleDateFormat(DateTimeUtils.yyyy);
+            calendar = Calendar.getInstance();
+
+            calendar.add(Calendar.YEAR, year);
+            String currentYear = sdf.format(calendar.getTime());
+            dataTv.setText(currentYear);
+
+        }
 
     }
+
+    private void resetDate() {
+        day = 0;
+        month = 0;
+        year = 0;
+        startingOfWeek = -7;
+        endingOfWeek = 0;
+    }
+
 }
+
