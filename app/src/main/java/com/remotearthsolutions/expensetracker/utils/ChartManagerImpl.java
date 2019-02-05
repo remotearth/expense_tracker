@@ -21,7 +21,7 @@ public class ChartManagerImpl implements ChartManager {
                 .canTouch(true)
                 .drawText(true)
                 .autoSize(true)
-                .strokeWidth(40)
+                .strokeWidth(30)
                 .textSize(30)
                 .duration(1000);
     }

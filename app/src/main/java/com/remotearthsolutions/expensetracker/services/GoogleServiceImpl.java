@@ -14,7 +14,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.remotearthsolutions.expensetracker.R;
 
 public class GoogleServiceImpl implements GoogleService {
-
+    private static final String GOOGLE_CLIENT_ID= "1034332655323-lv5t5fja6ef5co4vsaf9bv476c9rga9r.apps.googleusercontent.com";
     private GoogleSignInClient mGoogleSignInClient;
     private Context context;
 
@@ -25,7 +25,7 @@ public class GoogleServiceImpl implements GoogleService {
     @Override
     public void initializeGoogleSigninClient() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(context.getString(R.string.default_web_client_id))
+                .requestIdToken(GOOGLE_CLIENT_ID)
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
