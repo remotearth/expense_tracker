@@ -297,20 +297,24 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
 
         else if (v.getId() == R.id.daily)
         {
+            resetDate();
+
             selectedDate = Constants.KEY_DAILY;
-            String dailydate = DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy);
+            String dailydate = DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, day);
             dataTv.setText(dailydate);
 
         }
 
         else if (v.getId() == R.id.weekly)
         {
+            resetDate();
+
             selectedDate = Constants.KEY_WEEKLY;
             simpleDateFormat = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy);
             try
             {
-                endDate = simpleDateFormat.parse(DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy));
-                startDate = simpleDateFormat.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy,-7));
+                startDate = simpleDateFormat.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, startingOfWeek));
+                endDate = simpleDateFormat.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, endingOfWeek));
 
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -324,24 +328,42 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
 
         else if (v.getId() == R.id.monthly)
         {
+            resetDate();
+
             selectedDate = Constants.KEY_MONTHLY;
+
             simpleDateFormat = new SimpleDateFormat(DateTimeUtils.MM_yy);
-            calendar =Calendar.getInstance();
-            String month =simpleDateFormat.format(calendar.getTime());
-            dataTv.setText(month);
+            calendar = Calendar.getInstance();
+
+            calendar.add(Calendar.MONTH, month);
+            String currentMonth =simpleDateFormat.format(calendar.getTime());
+            dataTv.setText(currentMonth);
 
         }
 
         else if (v.getId() == R.id.yearly)
         {
+            resetDate();
+
             selectedDate = Constants.KEY_YEARLY;
+
             SimpleDateFormat sdf = new SimpleDateFormat(DateTimeUtils.yyyy);
-            calendar =Calendar.getInstance();
-            String year = sdf.format(calendar.getTime());
-            dataTv.setText(year);
+            calendar = Calendar.getInstance();
+
+            calendar.add(Calendar.YEAR, year);
+            String currentYear = sdf.format(calendar.getTime());
+            dataTv.setText(currentYear);
 
         }
 
+    }
+
+    public void resetDate() {
+        day = 0;
+        month = 0;
+        year = 0;
+        startingOfWeek = -7;
+        endingOfWeek = 0;
     }
 
 }
