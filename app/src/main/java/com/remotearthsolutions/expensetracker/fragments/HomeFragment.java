@@ -31,9 +31,7 @@ import com.remotearthsolutions.expensetracker.viewmodels.HomeFragmentViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView, HomeFragmentContract.View, View.OnClickListener {
@@ -52,6 +50,7 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
     private int startingOfWeek = -7;
     private int endingOfWeek = 0;
 
+    private long startTime,endTime;
 
     @Nullable
     @Override
@@ -259,6 +258,12 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
             selectedDate = Constants.KEY_DAILY;
             String dailydate = DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, day);
             binding.dateTv.setText(dailydate);
+
+            calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+
 
         } else if (v.getId() == R.id.weeklyRangeBtn) {
             resetDate();
