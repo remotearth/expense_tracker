@@ -210,7 +210,7 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
                 binding.dateTv.setText(year);
             }
 
-        } else if (v.getId() == R.id.previousdate) {
+        } else if (v.getId() == R.id.previousDateBtn) {
 
             if (selectedDate.equals(Constants.KEY_DAILY)) {
                 day = day - 1;
