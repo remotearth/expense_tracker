@@ -209,7 +209,7 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
                 binding.dateTv.setText(year);
             }
 
-        } else if (v.getId() == R.id.previousdate) {
+        } else if (v.getId() == R.id.previousDateBtn) {
 
             if (selectedDate.equals(Constants.KEY_DAILY)) {
                 day = day - 1;
@@ -259,10 +259,16 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
             String dailydate = DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, day);
             binding.dateTv.setText(dailydate);
 
-            calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, 0);
-            calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.SECOND, 0);
+            calendar = DateTimeUtils.getCalendarFromDateString(DateTimeUtils.dd_MM_yyyy,dailydate);
+            calendar.set(Calendar.HOUR_OF_DAY,0);
+            calendar.set(Calendar.MINUTE,0);
+            calendar.set(Calendar.SECOND,0);
+            startTime = calendar.getTimeInMillis();
+            calendar.set(Calendar.HOUR_OF_DAY,23);
+            calendar.set(Calendar.MINUTE,59);
+            calendar.set(Calendar.SECOND,59);
+            endTime = calendar.getTimeInMillis();
+            Toast.makeText(getActivity(), "start time"+startTime+" endtime"+endTime,Toast.LENGTH_SHORT).show();
 
 
         } else if (v.getId() == R.id.weeklyRangeBtn) {
@@ -282,6 +288,18 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
             String weeklastdate = simpleDateFormat.format(startDate);
             binding.dateTv.setText(weeklastdate + " - " + weekcurrentdate);
 
+            Calendar calendarforweeklastday = DateTimeUtils.getCalendarFromDateString(DateTimeUtils.dd_MM_yyyy,weeklastdate);
+            calendarforweeklastday.set(Calendar.HOUR_OF_DAY,0);
+            calendarforweeklastday.set(Calendar.MINUTE,0);
+            calendarforweeklastday.set(Calendar.SECOND,0);
+            startTime = calendarforweeklastday.getTimeInMillis();
+            Calendar calendarforweekendday = DateTimeUtils.getCalendarFromDateString(DateTimeUtils.dd_MM_yyyy,weekcurrentdate);
+            calendarforweekendday.set(Calendar.HOUR_OF_DAY,23);
+            calendarforweekendday.set(Calendar.MINUTE,59);
+            calendarforweekendday.set(Calendar.SECOND,59);
+            endTime = calendarforweekendday.getTimeInMillis();
+            Toast.makeText(getActivity(), "start time: "+startTime+" endtime: "+endTime,Toast.LENGTH_SHORT).show();
+
         } else if (v.getId() == R.id.monthlyRangeBtn) {
             resetDate();
 
@@ -293,7 +311,23 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
             calendar.add(Calendar.MONTH, month);
             String currentMonth = simpleDateFormat.format(calendar.getTime());
             binding.dateTv.setText(currentMonth);
-        } else if (v.getId() == R.id.yearlyRangeBtn) {
+
+            calendar = DateTimeUtils.getCalendarFromDateString(DateTimeUtils.dd_MM_yyyy,currentMonth);
+            calendar.set(Calendar.DAY_OF_MONTH,1);
+            calendar.set(Calendar.HOUR_OF_DAY,0);
+            calendar.set(Calendar.MINUTE,0);
+            calendar.set(Calendar.SECOND,0);
+            startTime = calendar.getTimeInMillis();
+
+            calendar.set(Calendar.DAY_OF_MONTH,28);
+            calendar.set(Calendar.HOUR_OF_DAY,23);
+            calendar.set(Calendar.MINUTE,59);
+            calendar.set(Calendar.SECOND,59);
+            endTime = calendar.getTimeInMillis();
+            Toast.makeText(getActivity(), "start time"+startTime+" endtime"+endTime,Toast.LENGTH_SHORT).show();
+
+        }
+        else if (v.getId() == R.id.yearlyRangeBtn) {
             resetDate();
 
             selectedDate = Constants.KEY_YEARLY;
@@ -303,7 +337,9 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
             calendar.add(Calendar.YEAR, year);
             String currentYear = sdf.format(calendar.getTime());
             binding.dateTv.setText(currentYear);
-        } else if (v.getId() == R.id.fab) {
+
+        }
+        else if (v.getId() == R.id.fab) {
             CategoryModel categoryModel = viewModel.getFirstCategory();
             ((MainActivity) getActivity()).openAddExpenseScreen(categoryModel);
         }
