@@ -31,7 +31,9 @@ import com.remotearthsolutions.expensetracker.viewmodels.HomeFragmentViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 
 public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView, HomeFragmentContract.View, View.OnClickListener {
@@ -50,7 +52,7 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
     private int startingOfWeek = -7;
     private int endingOfWeek = 0;
 
-    private long startTime,endTime;
+    private long startTime, endTime;
 
     @Nullable
     @Override
@@ -165,16 +167,9 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
                 String nextdate = DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, day);
                 binding.dateTv.setText(nextdate);
 
-                calendar = DateTimeUtils.getCalendarFromDateString(DateTimeUtils.dd_MM_yyyy,nextdate);
-                calendar.set(Calendar.HOUR_OF_DAY,0);
-                calendar.set(Calendar.MINUTE,0);
-                calendar.set(Calendar.SECOND,0);
-                startTime = calendar.getTimeInMillis();
-                calendar.set(Calendar.HOUR_OF_DAY,23);
-                calendar.set(Calendar.MINUTE,59);
-                calendar.set(Calendar.SECOND,59);
-                endTime = calendar.getTimeInMillis();
-                Toast.makeText(getActivity(), "start time"+startTime+" endtime"+endTime,Toast.LENGTH_SHORT).show();
+                startTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, nextdate, 0, 0, 0);
+                endTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, nextdate, 23, 59, 59);
+                Toast.makeText(getActivity(), "start time" + startTime + " endtime" + endTime, Toast.LENGTH_SHORT).show();
 
             }
 
@@ -194,23 +189,13 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
                     e.printStackTrace();
                 }
 
-                String weekcurrentdate = simpleDateFormat.format(endDate);
-                String weeklastdate = simpleDateFormat.format(startDate);
-                binding.dateTv.setText(weeklastdate + " - " + weekcurrentdate);
+                String weekstartdate = simpleDateFormat.format(startDate);
+                String weeklastdate = simpleDateFormat.format(endDate);
 
-                Calendar calendarforweeklastday = DateTimeUtils.getCalendarFromDateString(DateTimeUtils.dd_MM_yyyy,weeklastdate);
-                calendarforweeklastday.set(Calendar.HOUR_OF_DAY,0);
-                calendarforweeklastday.set(Calendar.MINUTE,0);
-                calendarforweeklastday.set(Calendar.SECOND,0);
-                startTime = calendarforweeklastday.getTimeInMillis();
-                Calendar calendarforweekendday = DateTimeUtils.getCalendarFromDateString(DateTimeUtils.dd_MM_yyyy,weekcurrentdate);
-                calendarforweekendday.set(Calendar.HOUR_OF_DAY,23);
-                calendarforweekendday.set(Calendar.MINUTE,59);
-                calendarforweekendday.set(Calendar.SECOND,59);
-                endTime = calendarforweekendday.getTimeInMillis();
-                Toast.makeText(getActivity(), "start time: "+startTime+" endtime: "+endTime,Toast.LENGTH_SHORT).show();
-
-
+                binding.dateTv.setText(weekstartdate + " - " + weeklastdate);
+                startTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, weekstartdate, 0, 0, 0);
+                endTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, weekstartdate, 29, 59, 59);
+                Toast.makeText(getActivity(), "start time: " + startTime + " endtime: " + endTime, Toast.LENGTH_SHORT).show();
 
             } else if (selectedDate.equals(Constants.KEY_MONTHLY)) {
                 simpleDateFormat = new SimpleDateFormat(DateTimeUtils.MM_yy);
@@ -220,22 +205,13 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
                 }
 
                 calendar.add(Calendar.MONTH, month);
-                String previousmonth = simpleDateFormat.format(calendar.getTime());
-                binding.dateTv.setText(previousmonth);
-
-                calendar = DateTimeUtils.getCalendarFromDateString(DateTimeUtils.dd_MM_yyyy,previousmonth);
-                calendar.set(Calendar.DATE, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
-                calendar.set(Calendar.HOUR_OF_DAY, 0);
-                calendar.set(Calendar.MINUTE, 0);
-                calendar.set(Calendar.SECOND, 0);
-                startTime = calendar.getTimeInMillis();
-
-                calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-                calendar.set(Calendar.HOUR_OF_DAY, 23);
-                calendar.set(Calendar.MINUTE, 59);
-                calendar.set(Calendar.SECOND, 59);
-                endTime = calendar.getTimeInMillis();
-                Toast.makeText(getActivity(), "start time"+startTime+" endtime"+endTime,Toast.LENGTH_SHORT).show();
+                String currentMonth = simpleDateFormat.format(calendar.getTime());
+                binding.dateTv.setText(currentMonth);
+                int minimumDate = calendar.getActualMinimum(Calendar.DAY_OF_MONTH);
+                int maximumDate = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+                startTime = getDateTimeInLong(DateTimeUtils.MM_yy, currentMonth, minimumDate, 0, 0, 0);
+                endTime = getDateTimeInLong(DateTimeUtils.MM_yy, currentMonth, maximumDate, 23, 59, 59);
+                Toast.makeText(getActivity(), "start time" + startTime + " endtime" + endTime, Toast.LENGTH_SHORT).show();
 
 
             } else if (selectedDate.equals(Constants.KEY_YEARLY)) {
@@ -250,6 +226,12 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
                 calendar.add(Calendar.YEAR, year);
                 String year = simpleDateFormat.format(calendar.getTime());
                 binding.dateTv.setText(year);
+
+                int minimumDate = calendar.getActualMinimum(Calendar.DAY_OF_YEAR);
+                int maximumDate = calendar.getActualMaximum(Calendar.DAY_OF_YEAR);
+                startTime = getDateTimeInLong(DateTimeUtils.yyyy, year,minimumDate, 0, 0, 0);
+                endTime = getDateTimeInLong(DateTimeUtils.yyyy, year, maximumDate, 23, 59, 59);
+                Toast.makeText(getActivity(), "start time" + startTime + " endtime" + endTime, Toast.LENGTH_SHORT).show();
             }
 
         } else if (v.getId() == R.id.previousDateBtn) {
@@ -260,19 +242,11 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
                 String previousdate = DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, day);
                 binding.dateTv.setText(previousdate);
 
-                calendar = DateTimeUtils.getCalendarFromDateString(DateTimeUtils.dd_MM_yyyy,previousdate);
-                calendar.set(Calendar.HOUR_OF_DAY,0);
-                calendar.set(Calendar.MINUTE,0);
-                calendar.set(Calendar.SECOND,0);
-                startTime = calendar.getTimeInMillis();
-                calendar.set(Calendar.HOUR_OF_DAY,23);
-                calendar.set(Calendar.MINUTE,59);
-                calendar.set(Calendar.SECOND,59);
-                endTime = calendar.getTimeInMillis();
-                Toast.makeText(getActivity(), "start time"+startTime+" endtime"+endTime,Toast.LENGTH_SHORT).show();
+                startTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, previousdate, 0, 0, 0);
+                endTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, previousdate, 23, 59, 59);
+                Toast.makeText(getActivity(), "start time" + startTime + " endtime" + endTime, Toast.LENGTH_SHORT).show();
 
-        }
-        else if (selectedDate.equals(Constants.KEY_WEEKLY)) {
+            } else if (selectedDate.equals(Constants.KEY_WEEKLY)) {
                 simpleDateFormat = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy);
                 try {
                     startingOfWeek = startingOfWeek - 7;
@@ -285,21 +259,13 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
                     e.printStackTrace();
                 }
 
-                String weekcurrentdate = simpleDateFormat.format(endDate);
-                String weeklastdate = simpleDateFormat.format(startDate);
-                binding.dateTv.setText(weeklastdate + " - " + weekcurrentdate);
+                String weekstartdate = simpleDateFormat.format(startDate);
+                String weeklastdate = simpleDateFormat.format(endDate);
 
-                Calendar calendarforweeklastday = DateTimeUtils.getCalendarFromDateString(DateTimeUtils.dd_MM_yyyy,weeklastdate);
-                calendarforweeklastday.set(Calendar.HOUR_OF_DAY,0);
-                calendarforweeklastday.set(Calendar.MINUTE,0);
-                calendarforweeklastday.set(Calendar.SECOND,0);
-                startTime = calendarforweeklastday.getTimeInMillis();
-                Calendar calendarforweekendday = DateTimeUtils.getCalendarFromDateString(DateTimeUtils.dd_MM_yyyy,weekcurrentdate);
-                calendarforweekendday.set(Calendar.HOUR_OF_DAY,23);
-                calendarforweekendday.set(Calendar.MINUTE,59);
-                calendarforweekendday.set(Calendar.SECOND,59);
-                endTime = calendarforweekendday.getTimeInMillis();
-                Toast.makeText(getActivity(), "start time: "+startTime+" endtime: "+endTime,Toast.LENGTH_SHORT).show();
+                binding.dateTv.setText(weekstartdate + " - " + weeklastdate);
+                startTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, weekstartdate, 0, 0, 0);
+                endTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, weekstartdate, 29, 59, 59);
+                Toast.makeText(getActivity(), "start time: " + startTime + " endtime: " + endTime, Toast.LENGTH_SHORT).show();
 
 
             } else if (selectedDate.equals(Constants.KEY_MONTHLY)) {
@@ -308,53 +274,44 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
                 month = month - 1;
 
                 calendar.add(Calendar.MONTH, month);
-                String previousmonth = simpleDateFormat.format(calendar.getTime());
-                binding.dateTv.setText(previousmonth);
+                String currentMonth = simpleDateFormat.format(calendar.getTime());
+                binding.dateTv.setText(currentMonth);
 
-                calendar = DateTimeUtils.getCalendarFromDateString(DateTimeUtils.dd_MM_yyyy,previousmonth);
-                calendar.set(Calendar.DATE, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
-                calendar.set(Calendar.HOUR_OF_DAY, 0);
-                calendar.set(Calendar.MINUTE, 0);
-                calendar.set(Calendar.SECOND, 0);
-                startTime = calendar.getTimeInMillis();
+                int minimumDate = calendar.getActualMinimum(Calendar.DAY_OF_MONTH);
+                int maximumDate = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+                startTime = getDateTimeInLong(DateTimeUtils.MM_yy, currentMonth, minimumDate, 0, 0, 0);
+                endTime = getDateTimeInLong(DateTimeUtils.MM_yy, currentMonth, maximumDate, 23, 59, 59);
+                Toast.makeText(getActivity(), "start time" + startTime + " endtime" + endTime, Toast.LENGTH_SHORT).show();
 
-                calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-                calendar.set(Calendar.HOUR_OF_DAY, 23);
-                calendar.set(Calendar.MINUTE, 59);
-                calendar.set(Calendar.SECOND, 59);
-                endTime = calendar.getTimeInMillis();
-                Toast.makeText(getActivity(), "start time"+startTime+" endtime"+endTime,Toast.LENGTH_SHORT).show();
-
-            }
-            else if (selectedDate.equals(Constants.KEY_YEARLY)) {
+            } else if (selectedDate.equals(Constants.KEY_YEARLY)) {
 
                 selectedDate = Constants.KEY_YEARLY;
                 simpleDateFormat = new SimpleDateFormat(DateTimeUtils.yyyy);
                 calendar = Calendar.getInstance();
                 year = year - 1;
                 calendar.add(Calendar.YEAR, year);
+
                 String year = simpleDateFormat.format(calendar.getTime());
                 binding.dateTv.setText(year);
+
+                int minimumDate = calendar.getActualMinimum(Calendar.DAY_OF_YEAR);
+                int maximumDate = calendar.getActualMaximum(Calendar.DAY_OF_YEAR);
+                startTime = getDateTimeInLong(DateTimeUtils.yyyy, year,minimumDate, 0, 0, 0);
+                endTime = getDateTimeInLong(DateTimeUtils.yyyy, year, maximumDate, 23, 59, 59);
+
             }
 
-        }
-        else if (v.getId() == R.id.dailyRangeBtn) {
+        } else if (v.getId() == R.id.dailyRangeBtn) {
 
             resetDate();
             selectedDate = Constants.KEY_DAILY;
-            String dailydate = DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, day);
-            binding.dateTv.setText(dailydate);
 
-            calendar = DateTimeUtils.getCalendarFromDateString(DateTimeUtils.dd_MM_yyyy,dailydate);
-            calendar.set(Calendar.HOUR_OF_DAY,0);
-            calendar.set(Calendar.MINUTE,0);
-            calendar.set(Calendar.SECOND,0);
-            startTime = calendar.getTimeInMillis();
-            calendar.set(Calendar.HOUR_OF_DAY,23);
-            calendar.set(Calendar.MINUTE,59);
-            calendar.set(Calendar.SECOND,59);
-            endTime = calendar.getTimeInMillis();
-            Toast.makeText(getActivity(), "start time"+startTime+" endtime"+endTime,Toast.LENGTH_SHORT).show();
+            String nextdate = DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, day);
+            binding.dateTv.setText(nextdate);
+
+            startTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, nextdate, 0, 0, 0);
+            endTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, nextdate, 23, 59, 59);
+            Toast.makeText(getActivity(), "start time" + startTime + " endtime" + endTime, Toast.LENGTH_SHORT).show();
 
 
         } else if (v.getId() == R.id.weeklyRangeBtn) {
@@ -370,21 +327,13 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
                 e.printStackTrace();
             }
 
-            String weekcurrentdate = simpleDateFormat.format(endDate);
-            String weeklastdate = simpleDateFormat.format(startDate);
-            binding.dateTv.setText(weeklastdate + " - " + weekcurrentdate);
+            String weekstartdate = simpleDateFormat.format(startDate);
+            String weeklastdate = simpleDateFormat.format(endDate);
 
-            Calendar calendarforweeklastday = DateTimeUtils.getCalendarFromDateString(DateTimeUtils.dd_MM_yyyy,weeklastdate);
-            calendarforweeklastday.set(Calendar.HOUR_OF_DAY,0);
-            calendarforweeklastday.set(Calendar.MINUTE,0);
-            calendarforweeklastday.set(Calendar.SECOND,0);
-            startTime = calendarforweeklastday.getTimeInMillis();
-            Calendar calendarforweekendday = DateTimeUtils.getCalendarFromDateString(DateTimeUtils.dd_MM_yyyy,weekcurrentdate);
-            calendarforweekendday.set(Calendar.HOUR_OF_DAY,23);
-            calendarforweekendday.set(Calendar.MINUTE,59);
-            calendarforweekendday.set(Calendar.SECOND,59);
-            endTime = calendarforweekendday.getTimeInMillis();
-            Toast.makeText(getActivity(), "start time: "+startTime+" endtime: "+endTime,Toast.LENGTH_SHORT).show();
+            binding.dateTv.setText(weekstartdate + " - " + weeklastdate);
+            startTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, weekstartdate, 0, 0, 0);
+            endTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, weeklastdate, 29, 59, 59);
+            Toast.makeText(getActivity(), "start time: " + startTime + " endtime: " + endTime, Toast.LENGTH_SHORT).show();
 
         } else if (v.getId() == R.id.monthlyRangeBtn) {
             resetDate();
@@ -398,22 +347,13 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
             String currentMonth = simpleDateFormat.format(calendar.getTime());
             binding.dateTv.setText(currentMonth);
 
-            calendar = DateTimeUtils.getCalendarFromDateString(DateTimeUtils.dd_MM_yyyy,currentMonth);
-            calendar.set(Calendar.DATE, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
-            calendar.set(Calendar.HOUR_OF_DAY, 0);
-            calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.SECOND, 0);
-            startTime = calendar.getTimeInMillis();
+            int minimumDate = calendar.getActualMinimum(Calendar.DAY_OF_MONTH);
+            int maximumDate = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+            startTime = getDateTimeInLong(DateTimeUtils.MM_yy, currentMonth, minimumDate, 0, 0, 0);
+            endTime = getDateTimeInLong(DateTimeUtils.MM_yy, currentMonth, maximumDate, 23, 59, 59);
+            Toast.makeText(getActivity(), "start time" + startTime + " endtime" + endTime, Toast.LENGTH_SHORT).show();
 
-            calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-            calendar.set(Calendar.HOUR_OF_DAY, 23);
-            calendar.set(Calendar.MINUTE, 59);
-            calendar.set(Calendar.SECOND, 59);
-            endTime = calendar.getTimeInMillis();
-            Toast.makeText(getActivity(), "start time"+startTime+" endtime"+endTime,Toast.LENGTH_SHORT).show();
-
-        }
-        else if (v.getId() == R.id.yearlyRangeBtn) {
+        } else if (v.getId() == R.id.yearlyRangeBtn) {
             resetDate();
 
             selectedDate = Constants.KEY_YEARLY;
@@ -424,13 +364,34 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
             String currentYear = sdf.format(calendar.getTime());
             binding.dateTv.setText(currentYear);
 
-        }
-        else if (v.getId() == R.id.fab)
-        {
+            int minimumDate = calendar.getActualMinimum(Calendar.DAY_OF_YEAR);
+            int maximumDate = calendar.getActualMaximum(Calendar.DAY_OF_YEAR);
+            startTime = getDateTimeInLong(DateTimeUtils.yyyy, currentYear, minimumDate, 0, 0, 0);
+            endTime = getDateTimeInLong(DateTimeUtils.yyyy, currentYear, maximumDate, 23, 59, 59);
+            Toast.makeText(getActivity(), "start time" + startTime + " endtime" + endTime, Toast.LENGTH_SHORT).show();
+
+        } else if (v.getId() == R.id.fab) {
             CategoryModel categoryModel = viewModel.getFirstCategory();
             ((MainActivity) getActivity()).openAddExpenseScreen(categoryModel);
         }
 
+    }
+
+    private long getDateTimeInLong(String format, String dateStr, int hour, int min, int sec) {
+        Calendar calendarforweeklastday = DateTimeUtils.getCalendarFromDateString(format, dateStr);
+        calendarforweeklastday.set(Calendar.HOUR_OF_DAY, hour);
+        calendarforweeklastday.set(Calendar.MINUTE, min);
+        calendarforweeklastday.set(Calendar.SECOND, sec);
+        return calendarforweeklastday.getTimeInMillis();
+    }
+
+    private long getDateTimeInLong(String format, String dateStr, int dateType, int hour, int min, int sec) {
+        Calendar calendarforweeklastday = DateTimeUtils.getCalendarFromDateString(format, dateStr);
+        calendarforweeklastday.set(Calendar.DATE, dateType);
+        calendarforweeklastday.set(Calendar.HOUR_OF_DAY, hour);
+        calendarforweeklastday.set(Calendar.MINUTE, min);
+        calendarforweeklastday.set(Calendar.SECOND, sec);
+        return calendarforweeklastday.getTimeInMillis();
     }
 
     private void resetDate() {
