@@ -97,13 +97,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             {
                 backPressedTime = t;
                 Toast.makeText(this, "Press back again to logout", Toast.LENGTH_SHORT).show();
-                super.onBackPressed();
             }
             else
             {
-                finishAffinity();
+                super.onBackPressed();
             }
-
 
         }
     }
@@ -138,9 +136,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
             case R.id.nav_settings: {
-
+                SettingsFragment settingsFragment = new SettingsFragment();
                 getSupportActionBar().setTitle("Settings");
-                getFragmentManager().beginTransaction().replace(R.id.framelayout, new SettingsFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, settingsFragment,SettingsFragment.class.getName()).commit();
                 break;
             }
 
