@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -21,6 +22,8 @@ public class MainFragment extends Fragment {
 
     private FragmentMainBinding binding;
     private MainFragmentPagerAdapter pagerAdapter;
+    private ActionBar actionBar;
+    private String[] tabTitles = new String[]{"Home", "Tab 2", "Transactions"};
 
     @Nullable
     @Override
@@ -40,15 +43,19 @@ public class MainFragment extends Fragment {
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
+
         switch (item.getItemId()) {
             case R.id.navigation_home:
                 binding.viewpager.setCurrentItem(0, true);
+                actionBar.setTitle(tabTitles[0]);
                 return true;
             case R.id.navigation_dashboard:
                 binding.viewpager.setCurrentItem(1, true);
+                actionBar.setTitle(tabTitles[1]);
                 return true;
             case R.id.navigation_transaction:
                 binding.viewpager.setCurrentItem(2, true);
+                actionBar.setTitle(tabTitles[2]);
                 return true;
         }
         return false;
@@ -62,7 +69,8 @@ public class MainFragment extends Fragment {
 
         @Override
         public void onPageSelected(int position) {
-            switch (position){
+            actionBar.setTitle(tabTitles[position]);
+            switch (position) {
                 case 0:
                     binding.navigation.setSelectedItemId(R.id.navigation_home);
                     break;
@@ -82,9 +90,12 @@ public class MainFragment extends Fragment {
         }
     };
 
-    public static class MainFragmentPagerAdapter extends FragmentPagerAdapter {
+    public void setActionBar(ActionBar supportActionBar) {
+        this.actionBar = supportActionBar;
+        actionBar.setTitle("Home");
+    }
 
-        private String[] tabTitles = new String[]{"Home", "Tab 2", "Transactions"};
+    public static class MainFragmentPagerAdapter extends FragmentPagerAdapter {
 
         public MainFragmentPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -113,7 +124,7 @@ public class MainFragment extends Fragment {
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
-            return tabTitles[position];
+            return null;
         }
     }
 

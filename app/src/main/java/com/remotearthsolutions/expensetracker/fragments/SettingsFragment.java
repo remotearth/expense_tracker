@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.utils.Constants;
+import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
@@ -16,28 +18,28 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     private SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener;
-    private static final String PREF_CURRENCY = "pref_currency_list";
-    private static final String PREF_PERIOD = "pref_period_list";
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.settingspreference);
 
+        Preference preferencePeriod = findPreference(Constants.PREF_PERIOD);
+        preferencePeriod.setSummary(SharedPreferenceUtils.getInstance(getActivity()).getString(Constants.PREF_PERIOD, Constants.KEY_DAILY));
+        Preference preferenceCurrency = findPreference(Constants.PREF_CURRENCY);
+        preferenceCurrency.setSummary(SharedPreferenceUtils.getInstance(getActivity()).getString(Constants.PREF_CURRENCY, "United States Dollar - USD"));
+
         preferenceChangeListener = (sharedPreferences, key) -> {
 
-            if (key.equals(PREF_CURRENCY))
-            {
+            if (key.equals(Constants.PREF_CURRENCY)) {
                 Preference currencyPreference = findPreference(key);
-                currencyPreference.setSummary(sharedPreferences.getString(key,""));
-            }
-
-            else if (key.equals(PREF_PERIOD))
-            {
-
+                currencyPreference.setSummary(sharedPreferences.getString(key, "United States Dollar - USD"));
+            } else if (key.equals(Constants.PREF_PERIOD)) {
                 Preference periodPreference = findPreference(key);
-                periodPreference.setSummary(sharedPreferences.getString(key,""));
+                periodPreference.setSummary(sharedPreferences.getString(key, Constants.KEY_DAILY));
             }
         };
+
+        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(preferenceChangeListener);
     }
 
     @Override
@@ -49,20 +51,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(preferenceChangeListener);
-        Preference currencyPref = findPreference(PREF_CURRENCY);
-        currencyPref.setSummary(getPreferenceScreen().getSharedPreferences().getString(PREF_CURRENCY,""));
-
-        Preference periodPref = findPreference(PREF_PERIOD);
-        periodPref.setSummary(getPreferenceScreen().getSharedPreferences().getString(PREF_PERIOD,""));
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
+        super.onStop();
         getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(preferenceChangeListener);
-
     }
+
 }

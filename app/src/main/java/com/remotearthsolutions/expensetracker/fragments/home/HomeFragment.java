@@ -22,10 +22,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databinding.FragmentHomeBinding;
 import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
 import com.remotearthsolutions.expensetracker.fragments.AddCategoryDialogFragment;
-import com.remotearthsolutions.expensetracker.utils.ChartManager;
-import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl;
-import com.remotearthsolutions.expensetracker.utils.Constants;
-import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
+import com.remotearthsolutions.expensetracker.utils.*;
 import com.remotearthsolutions.expensetracker.viewmodels.HomeFragmentViewModel;
 
 import java.text.ParseException;
@@ -40,16 +37,8 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
     private CategoryListAdapter adapter;
     private HomeFragmentViewModel viewModel;
     private FragmentHomeBinding binding;
-    private String selectedDate;
     private Date startDate, endDate;
     private SimpleDateFormat simpleDateFormat;
-    private Calendar calendar;
-
-    private int day = 0;
-    private int month = 0;
-    private int year = 0;
-    private int startingOfWeek = -7;
-    private int endingOfWeek = 0;
 
     private long startTime, endTime;
 
@@ -82,16 +71,22 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
         viewModel.init();
         viewModel.loadExpenseChart();
 
-        simpleDateFormat = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy);
-        selectedDate = Constants.KEY_DAILY;
-        try {
-            startDate = simpleDateFormat.parse(DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy));
-            String startdatetoget = simpleDateFormat.format(startDate);
-            binding.dateTv.setText(startdatetoget);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        String period = SharedPreferenceUtils.getInstance(getActivity()).getString(Constants.PREF_PERIOD,Constants.KEY_DAILY);
+        switch (period){
+            case Constants.KEY_DAILY:
+                binding.dailyRangeBtn.performClick();
+                break;
+            case Constants.KEY_WEEKLY:
+                binding.weeklyRangeBtn.performClick();
+                break;
+            case Constants.KEY_MONTHLY:
+                binding.monthlyRangeBtn.performClick();
+                break;
+            case Constants.KEY_YEARLY:
+                binding.yearlyRangeBtn.performClick();
+                break;
         }
-
+        
         return view;
 
     }

@@ -64,6 +64,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         binding.navView.setNavigationItemSelectedListener(this);
 
         mainFragment = new MainFragment();
+        mainFragment.setActionBar(getSupportActionBar());
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.framelayout, mainFragment, MainFragment.class.getName());
         fragmentTransaction.commit();
@@ -116,6 +117,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         switch (item.getItemId()) {
             case R.id.nav_home: {
                 mainFragment = new MainFragment();
+                mainFragment.setActionBar(getSupportActionBar());
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, mainFragment, MainFragment.class.getName());
                 fragmentTransaction.commit();
