@@ -37,9 +37,9 @@ public class HomeFragmentViewModel {
 
     }
 
-    public void loadExpenseChart() {
+    public void loadExpenseChart(long startTime,long endTime) {
 
-        disposable.add(categoryDao.getAllCategoriesWithExpense()
+        disposable.add(categoryDao.getAllCategoriesWithExpense(startTime,endTime)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((listOfCategoryWithAmount) -> {
@@ -52,26 +52,16 @@ public class HomeFragmentViewModel {
                     List<ExpeneChartData> chartDataList = new ArrayList<>();
                     for (CategoryExpense expense : listOfCategoryWithAmount) {
                         double val = (expense.getTotal_amount() / sum) * 100;
-                        ExpeneChartData data = new ExpeneChartData(val, Utils.getRandomColorHexValue(), expense.getCategory_name());
-                        chartDataList.add(data);
+                        if(val>0){
+                            ExpeneChartData data = new ExpeneChartData(val, Utils.getRandomColorHexValue(), expense.getCategory_name());
+                            chartDataList.add(data);
+                        }
                     }
 
                     view.loadExpenseChart(chartDataList);
 
 
                 }));
-
-    }
-
-    public CategoryModel getFirstCategory() {
-
-//         List<CategoryModel> categoryModels = categoryDao.getAllCategories()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread()).blockingFirst();
-//
-//         return categoryModels.get(0);
-
-        return null;
 
     }
 }

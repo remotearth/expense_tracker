@@ -23,7 +23,7 @@ public class ChartManagerImpl implements ChartManager {
                 .autoSize(true)
                 .strokeWidth(30)
                 .textSize(30)
-                .duration(1000);
+                .duration(500);
     }
 
     @Override

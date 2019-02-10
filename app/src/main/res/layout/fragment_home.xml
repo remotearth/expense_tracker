@@ -15,91 +15,6 @@
                 android:layout_height="match_parent">
 
             <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:gravity="center"
-                    android:layout_margin="10dp"
-                    android:weightSum="4">
-
-                <Button
-                        android:id="@+id/dailyRangeBtn"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/daily"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_margin="3dp"
-                        android:tint="@color/colorPrimary"
-                        android:layout_height="wrap_content"/>
-
-                <Button
-                        android:id="@+id/weeklyRangeBtn"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="@string/weekly"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_margin="3dp"
-                        android:tint="@color/colorPrimary"
-                        android:layout_height="wrap_content"/>
-
-                <Button
-                        android:id="@+id/monthlyRangeBtn"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:textColor="@color/colorPrimary"
-                        android:text="@string/monthly"
-                        android:layout_margin="3dp"
-                        android:tint="@color/colorPrimary"
-                        android:layout_height="wrap_content"/>
-
-                <Button
-                        android:id="@+id/yearlyRangeBtn"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:textColor="@color/colorPrimary"
-                        android:text="@string/yearly"
-                        android:layout_margin="3dp"
-                        android:tint="@color/colorPrimary"
-                        android:layout_height="wrap_content"/>
-            </LinearLayout>
-
-            <LinearLayout
-                    android:id="@+id/monthcontainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:weightSum="2">
-
-                <ImageView
-                        android:id="@+id/previousDateBtn"
-                        android:layout_width="0dp"
-                        android:layout_weight="0.3"
-                        android:tint="@color/colorPrimary"
-                        android:src="@drawable/ic_previous"
-                        android:layout_height="35dp"/>
-
-                <TextView
-                        android:id="@+id/dateTv"
-                        android:layout_width="0dp"
-                        android:layout_weight="1.4"
-                        tools:text="MONTH NAME"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp"
-                        android:layout_height="match_parent"/>
-
-                <ImageView
-                        android:id="@+id/nextDateBtn"
-                        android:layout_width="0dp"
-                        android:layout_weight="0.3"
-                        android:src="@drawable/ic_next"
-                        android:tint="@color/colorPrimary"
-                        android:layout_height="35dp"/>
-
-            </LinearLayout>
-
-
-            <LinearLayout
                     android:id="@+id/cat_container"
                     android:weightSum="2"
                     android:layout_width="match_parent"
@@ -183,7 +98,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:src="@drawable/ic_add"
-                android:layout_margin="26dp"
+                android:layout_margin="15dp"
                 app:elevation="3dp"
                 app:rippleColor="@color/colorPrimary"/>
     </RelativeLayout>

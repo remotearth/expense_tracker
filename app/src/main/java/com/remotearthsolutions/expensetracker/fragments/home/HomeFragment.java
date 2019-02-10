@@ -22,23 +22,19 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databinding.FragmentHomeBinding;
 import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
 import com.remotearthsolutions.expensetracker.fragments.AddCategoryDialogFragment;
-import com.remotearthsolutions.expensetracker.utils.*;
+import com.remotearthsolutions.expensetracker.utils.ChartManager;
+import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl;
+import com.remotearthsolutions.expensetracker.utils.Constants;
+import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.HomeFragmentViewModel;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-
-public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView, HomeFragmentContract.View, View.OnClickListener, DateFilterButtonClickListener.Callback {
+public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView, HomeFragmentContract.View, View.OnClickListener {
 
     private CategoryListAdapter adapter;
     private HomeFragmentViewModel viewModel;
     private FragmentHomeBinding binding;
-    private Date startDate, endDate;
-    private SimpleDateFormat simpleDateFormat;
 
     private long startTime, endTime;
 
@@ -52,15 +48,6 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
         binding.addCategoryBtn.setOnClickListener(this);
         binding.fab.setOnClickListener(this);
 
-        DateFilterButtonClickListener dateFilterButtonClickListener = new DateFilterButtonClickListener(this);
-        binding.nextDateBtn.setOnClickListener(dateFilterButtonClickListener);
-        binding.previousDateBtn.setOnClickListener(dateFilterButtonClickListener);
-        binding.dailyRangeBtn.setOnClickListener(dateFilterButtonClickListener);
-        binding.weeklyRangeBtn.setOnClickListener(dateFilterButtonClickListener);
-        binding.monthlyRangeBtn.setOnClickListener(dateFilterButtonClickListener);
-        binding.yearlyRangeBtn.setOnClickListener(dateFilterButtonClickListener);
-
-
         binding.recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         binding.recyclerView.setLayoutManager(llm);
@@ -69,26 +56,9 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
         AccountDao accountDao = DatabaseClient.getInstance(getContext()).getAppDatabase().accountDao();
         viewModel = new HomeFragmentViewModel(this, categoryDao, accountDao);
         viewModel.init();
-        viewModel.loadExpenseChart();
+        viewModel.loadExpenseChart(startTime, endTime);
 
-        String period = SharedPreferenceUtils.getInstance(getActivity()).getString(Constants.PREF_PERIOD,Constants.KEY_DAILY);
-        switch (period){
-            case Constants.KEY_DAILY:
-                binding.dailyRangeBtn.performClick();
-                break;
-            case Constants.KEY_WEEKLY:
-                binding.weeklyRangeBtn.performClick();
-                break;
-            case Constants.KEY_MONTHLY:
-                binding.monthlyRangeBtn.performClick();
-                break;
-            case Constants.KEY_YEARLY:
-                binding.yearlyRangeBtn.performClick();
-                break;
-        }
-        
         return view;
-
     }
 
     @Override
@@ -135,17 +105,23 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
             categoryDialogFragment.show(fm, AddCategoryDialogFragment.class.getName());
 
         } else if (v.getId() == R.id.fab) {
-            CategoryModel categoryModel = viewModel.getFirstCategory();
-            ((MainActivity) getActivity()).openAddExpenseScreen(categoryModel);
+            ((MainActivity) getActivity()).openAddExpenseScreen(null);
         }
 
     }
 
-    @Override
-    public void onDateChanged(String date, long startTime, long endTime) {
-        binding.dateTv.setText(date);
+//    @Override
+//    public void onDateChanged(String date, long startTime, long endTime) {
+//        binding.dateTv.setText(date);
+//        this.startTime = startTime;
+//        this.endTime = endTime;
+//        viewModel.loadExpenseChart(startTime, endTime);
+//    }
+
+    public void updateChartView(long startTime, long endTime){
         this.startTime = startTime;
         this.endTime = endTime;
+        viewModel.loadExpenseChart(startTime,endTime);
     }
 }
 

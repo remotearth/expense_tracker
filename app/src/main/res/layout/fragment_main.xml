@@ -1,13 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+        <LinearLayout
+                android:id="@+id/dateRangeContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:gravity="center"
+                    android:layout_margin="10dp"
+                    android:weightSum="4">
+
+                <Button
+                        android:id="@+id/dailyRangeBtn"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/daily"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_margin="3dp"
+                        android:tint="@color/colorPrimary"
+                        android:layout_height="wrap_content"/>
+
+                <Button
+                        android:id="@+id/weeklyRangeBtn"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/weekly"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_margin="3dp"
+                        android:tint="@color/colorPrimary"
+                        android:layout_height="wrap_content"/>
+
+                <Button
+                        android:id="@+id/monthlyRangeBtn"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorPrimary"
+                        android:text="@string/monthly"
+                        android:layout_margin="3dp"
+                        android:tint="@color/colorPrimary"
+                        android:layout_height="wrap_content"/>
+
+                <Button
+                        android:id="@+id/yearlyRangeBtn"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorPrimary"
+                        android:text="@string/yearly"
+                        android:layout_margin="3dp"
+                        android:tint="@color/colorPrimary"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/monthcontainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:weightSum="2">
+
+                <ImageView
+                        android:id="@+id/previousDateBtn"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.3"
+                        android:tint="@color/colorPrimary"
+                        android:src="@drawable/ic_previous"
+                        android:layout_height="35dp"/>
+
+                <TextView
+                        android:id="@+id/dateTv"
+                        android:layout_width="0dp"
+                        android:layout_weight="1.4"
+                        tools:text="MONTH NAME"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:layout_height="match_parent"/>
+
+                <ImageView
+                        android:id="@+id/nextDateBtn"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.3"
+                        android:src="@drawable/ic_next"
+                        android:tint="@color/colorPrimary"
+                        android:layout_height="35dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
         <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager"
+                android:layout_below="@id/dateRangeContainer"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/navigation">
