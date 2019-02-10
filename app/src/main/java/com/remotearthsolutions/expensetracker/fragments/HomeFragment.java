@@ -82,8 +82,6 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
         viewModel.init();
         viewModel.loadExpenseChart();
 
-        binding.navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
         simpleDateFormat = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy);
         selectedDate = Constants.KEY_DAILY;
         try {
@@ -103,26 +101,26 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
         binding.chartView.applyConfig(config).start();
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = item -> {
-        switch (item.getItemId()) {
-            case R.id.navigation_home:
-                Toast.makeText(getActivity(), "Clicked On Bottom menu 1", Toast.LENGTH_LONG).show();
-                return true;
-            case R.id.navigation_dashboard:
-                Toast.makeText(getActivity(), "Clicked On Bottom Menu 2", Toast.LENGTH_LONG).show();
-                return true;
-            case R.id.navigation_transaction:
-
-                ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("All Transaction");
-                AllExpenseFragment allExpenseFragment = new AllExpenseFragment();
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.framelayout, allExpenseFragment, AllExpenseFragment.class.getName());
-                fragmentTransaction.commit();
-                return true;
-        }
-        return false;
-    };
+//    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+//            = item -> {
+//        switch (item.getItemId()) {
+//            case R.id.navigation_home:
+//                Toast.makeText(getActivity(), "Clicked On Bottom menu 1", Toast.LENGTH_LONG).show();
+//                return true;
+//            case R.id.navigation_dashboard:
+//                Toast.makeText(getActivity(), "Clicked On Bottom Menu 2", Toast.LENGTH_LONG).show();
+//                return true;
+//            case R.id.navigation_transaction:
+//
+//                ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("All Transaction");
+//                AllExpenseFragment allExpenseFragment = new AllExpenseFragment();
+//                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(R.id.framelayout, allExpenseFragment, AllExpenseFragment.class.getName());
+//                fragmentTransaction.commit();
+//                return true;
+//        }
+//        return false;
+//    };
 
     @Override
     public void showCategories(List<CategoryModel> categories) {

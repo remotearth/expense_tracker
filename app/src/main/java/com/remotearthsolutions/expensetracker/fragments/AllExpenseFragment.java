@@ -17,14 +17,12 @@ import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AllExpenseFragment extends Fragment implements ExpenseFragmentContract.ExpenseView {
 
     private RecyclerView recyclerView;
     private ExpenseListAdapter adapter;
-    private List<ExpenseModel> expenselist;
     private ExpenseViewModel viewModel;
 
     public AllExpenseFragment() {
@@ -41,7 +39,7 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
         recyclerView.setLayoutManager(llm);
 
         ExpenseDao expenseDao = DatabaseClient.getInstance(getContext()).getAppDatabase().expenseDao();
-        viewModel = new ExpenseViewModel(this,expenseDao);
+        viewModel = new ExpenseViewModel(this, expenseDao);
         viewModel.showExpense();
 
         return view;
