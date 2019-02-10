@@ -26,21 +26,24 @@
     </group>
 
     <item android:title="Others">
+
         <menu>
-            <item
-                    android:id="@+id/nav_about"
-                    android:icon="@drawable/ic_about"
-                    android:title="@string/menu_about"/>
+            <group android:checkableBehavior="single">
+                <item
+                        android:id="@+id/nav_about"
+                        android:icon="@drawable/ic_about"
+                        android:title="@string/menu_about"/>
 
-            <item
-                    android:id="@+id/nav_privacypolicy"
-                    android:icon="@drawable/ic_privacypolicy"
-                    android:title="@string/privacy_policy"/>
+                <item
+                        android:id="@+id/nav_privacypolicy"
+                        android:icon="@drawable/ic_privacypolicy"
+                        android:title="@string/privacy_policy"/>
 
-            <item
-                    android:id="@+id/nav_licenses"
-                    android:icon="@drawable/ic_license"
-                    android:title="@string/menu_licenses"/>
+                <item
+                        android:id="@+id/nav_licenses"
+                        android:icon="@drawable/ic_license"
+                        android:title="@string/menu_licenses"/>
+            </group>
         </menu>
     </item>
 
