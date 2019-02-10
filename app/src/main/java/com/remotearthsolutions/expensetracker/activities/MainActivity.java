@@ -88,16 +88,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-
         }
-        else {
+        else if (getSupportFragmentManager().getBackStackEntryCount() == 1)
+        {
 
+            super.onBackPressed();
+        }
+        else
+        {
             long t = System.currentTimeMillis();
             if (t - backPressedTime > 2000)
             {
                 backPressedTime = t;
-                Toast.makeText(this, "Press back again to logout", Toast.LENGTH_SHORT).show();
-                super.onBackPressed();
+                Toast.makeText(this, "Press once again to close app", Toast.LENGTH_SHORT).show();
+
             }
             else
             {
@@ -200,8 +204,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         expenseFragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down);
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.add(R.id.framelayout, expenseFragment, ExpenseFragment.class.getName());
+        fragmentTransaction.addToBackStack("home");
         fragmentTransaction.commit();
     }
 }
