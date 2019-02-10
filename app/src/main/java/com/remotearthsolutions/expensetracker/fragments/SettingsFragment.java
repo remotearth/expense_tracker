@@ -2,15 +2,15 @@ package com.remotearthsolutions.expensetracker.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.Nullable;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
 import com.remotearthsolutions.expensetracker.R;
 
-public class SettingsFragment extends PreferenceFragment {
+public class SettingsFragment extends PreferenceFragmentCompat {
 
     public SettingsFragment() {
     }
@@ -20,8 +20,7 @@ public class SettingsFragment extends PreferenceFragment {
     private static final String PREF_PERIOD = "pref_period_list";
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.settingspreference);
 
         preferenceChangeListener = (sharedPreferences, key) -> {

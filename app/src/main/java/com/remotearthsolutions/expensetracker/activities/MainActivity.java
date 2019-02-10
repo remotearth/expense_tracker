@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         else if (getSupportFragmentManager().getBackStackEntryCount() == 1)
         {
-
             super.onBackPressed();
         }
         else
@@ -101,13 +100,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             {
                 backPressedTime = t;
                 Toast.makeText(this, "Press once again to close app", Toast.LENGTH_SHORT).show();
-
             }
             else
             {
-                finishAffinity();
+                super.onBackPressed();
             }
-
 
         }
     }
@@ -142,9 +139,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
             case R.id.nav_settings: {
-
+                SettingsFragment settingsFragment = new SettingsFragment();
                 getSupportActionBar().setTitle("Settings");
-                getFragmentManager().beginTransaction().replace(R.id.framelayout, new SettingsFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, settingsFragment,SettingsFragment.class.getName()).commit();
                 break;
             }
 
