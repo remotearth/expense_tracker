@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.razerdp.widget.animatedpieview.AnimatedPieViewConfig;
@@ -110,8 +112,13 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
             case R.id.navigation_dashboard:
                 Toast.makeText(getActivity(), "Clicked On Bottom Menu 2", Toast.LENGTH_LONG).show();
                 return true;
-            case R.id.navigation_notifications:
-                Toast.makeText(getActivity(), "Clicked On Bottom Menu 3", Toast.LENGTH_LONG).show();
+            case R.id.navigation_transaction:
+
+                ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("All Transaction");
+                AllExpenseFragment allExpenseFragment = new AllExpenseFragment();
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.framelayout, allExpenseFragment, AllExpenseFragment.class.getName());
+                fragmentTransaction.commit();
                 return true;
         }
         return false;
