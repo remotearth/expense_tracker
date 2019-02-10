@@ -5,9 +5,10 @@
     <ListPreference
         android:key="@string/preferencekey"
         android:title="@string/preferencetitle"
-        android:defaultValue="@string/defaultvalue"
+        android:defaultValue="United States Dollar - USD"
         android:entryValues="@array/currency"
         android:entries="@array/currency"
+        android:icon="@drawable/ic_bills"
         android:summary="@string/summarypreftext"/>
 
     <ListPreference
@@ -16,6 +17,7 @@
             android:defaultValue="@string/daily"
             android:entryValues="@array/TimePeriod"
             android:entries="@array/TimePeriod"
+            android:icon="@drawable/ic_bills"
             android:summary="@string/SelectPeriodfromHere"/>
 
 

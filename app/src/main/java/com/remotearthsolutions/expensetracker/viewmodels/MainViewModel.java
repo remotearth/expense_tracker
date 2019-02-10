@@ -11,9 +11,11 @@ import com.remotearthsolutions.expensetracker.services.FirebaseService;
 public class MainViewModel extends ViewModel {
 
     private MainContract.View view;
+    private FirebaseService firebaseService;
 
-    public MainViewModel(MainContract.View view) {
+    public MainViewModel(MainContract.View view,FirebaseService firebaseService) {
         this.view = view;
+        this.firebaseService = firebaseService;
     }
 
     public void init() {
@@ -21,12 +23,17 @@ public class MainViewModel extends ViewModel {
 
     }
 
-    public void checkAuthectication(FirebaseService firebaseService, User guestUser) {
+    public void checkAuthectication(User guestUser) {
 
         FirebaseUser user = firebaseService.getUser();
 
         if (user == null && guestUser == null) {
-            view.openLoginScreen();
+            view.goBackToLoginScreen();
         }
+    }
+
+    public void performLogout() {
+        firebaseService.logout();
+        view.onLogoutSuccess();
     }
 }

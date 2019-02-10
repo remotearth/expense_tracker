@@ -10,10 +10,14 @@ public interface Constants {
     String URL_LICENSES = "http://www.google.com";
     String URL_PRIVACY_POLICY_TAG = "PRIVACYTAG";
     String URL_lICENSES_TAG = "LICENSESTAG";
-    String KEY_DAILY = "daily";
-    String KEY_WEEKLY = "weekly";
-    String KEY_MONTHLY = "monthly";
-    String KEY_YEARLY= "yearly";
+    String KEY_DAILY = "Daily";
+    String KEY_WEEKLY = "Weekly";
+    String KEY_MONTHLY = "Monthly";
+    String KEY_YEARLY= "Yearly";
+
+
+    String PREF_CURRENCY = "pref_currency_list";
+    String PREF_PERIOD = "pref_period_list";
 
 
 

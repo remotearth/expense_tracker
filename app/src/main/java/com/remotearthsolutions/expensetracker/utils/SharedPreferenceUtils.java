@@ -48,8 +48,7 @@ public class SharedPreferenceUtils {
         return sp.getBoolean(key, defaultVal);
     }
 
-    public void logOut() {
+    public void clear() {
         editor.clear().commit();
-
     }
 }

@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -7,18 +8,17 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.MainContract;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import com.remotearthsolutions.expensetracker.databinding.ActivityMainBinding;
 import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.fragments.*;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
@@ -28,47 +28,50 @@ import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.MainViewModelFactory;
 import org.parceler.Parcels;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
 
+    private ActivityMainBinding binding;
     private MainViewModel viewModel;
-    private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
-    private HomeFragment homeFragment;
+    private MainFragment mainFragment;
     private long backPressedTime = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         viewModel = ViewModelProviders.of(this,
-                new MainViewModelFactory(this)).
+                new MainViewModelFactory(this, new FirebaseServiceImpl(this))).
                 get(MainViewModel.class);
         viewModel.init();
+    }
 
-        homeFragment = new HomeFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.framelayout, homeFragment, HomeFragment.class.getName());
-        fragmentTransaction.commit();
+    @Override
+    public Context getContext() {
+        return this;
     }
 
     @Override
     public void initializeView() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        drawer = findViewById(R.id.drawer_layout);
+        setSupportActionBar(binding.toolbar);
+
         toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+                this, binding.drawerLayout, binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        binding.navView.setNavigationItemSelectedListener(this);
+
+        mainFragment = new MainFragment();
+        mainFragment.setActionBar(getSupportActionBar());
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.framelayout, mainFragment, MainFragment.class.getName());
+        fragmentTransaction.commit();
     }
 
     @Override
-    public void openLoginScreen() {
+    public void goBackToLoginScreen() {
 
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
@@ -76,33 +79,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    public void onLogoutSuccess() {
+        SharedPreferenceUtils.getInstance(getContext()).clear();
+        goBackToLoginScreen();
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         String userStr = SharedPreferenceUtils.getInstance(this).getString(Constants.KEY_USER, "");
         User user = new Gson().fromJson(userStr, User.class);
-        viewModel.checkAuthectication(new FirebaseServiceImpl(this), user);
+        viewModel.checkAuthectication(user);
     }
 
     @Override
     public void onBackPressed() {
 
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        }
-        else if (getSupportFragmentManager().getBackStackEntryCount() == 1)
-        {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
+        } else if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
             super.onBackPressed();
-        }
-        else
-        {
+        } else {
             long t = System.currentTimeMillis();
-            if (t - backPressedTime > 2000)
-            {
+            if (t - backPressedTime > 2000) {
                 backPressedTime = t;
                 Toast.makeText(this, "Press once again to close app", Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
+            } else {
                 super.onBackPressed();
             }
 
@@ -114,9 +116,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (item.getItemId()) {
             case R.id.nav_home: {
-                homeFragment = new HomeFragment();
+                mainFragment = new MainFragment();
+                mainFragment.setActionBar(getSupportActionBar());
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.framelayout, homeFragment, HomeFragment.class.getName());
+                fragmentTransaction.replace(R.id.framelayout, mainFragment, MainFragment.class.getName());
                 fragmentTransaction.commit();
                 break;
             }
@@ -130,23 +133,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentTransaction.commit();
                 break;
             }
-
-            case R.id.nav_logout: {
-
-                SharedPreferenceUtils.getInstance(this).logOut();
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-            }
-
             case R.id.nav_settings: {
                 SettingsFragment settingsFragment = new SettingsFragment();
                 getSupportActionBar().setTitle("Settings");
-                getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, settingsFragment,SettingsFragment.class.getName()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, settingsFragment, SettingsFragment.class.getName()).commit();
                 break;
             }
 
-            case R.id.nav_about:
-            {
+            case R.id.nav_logout: {
+
+                showAlert("", "Are you sure want to logout?", "Yes", "No", new Callback() {
+                    @Override
+                    public void onOkBtnPressed() {
+
+                        viewModel.performLogout();
+                    }
+
+                    @Override
+                    public void onCancelBtnPressed() {
+
+                    }
+                });
+                binding.drawerLayout.closeDrawer(GravityCompat.START);
+                return false;
+            }
+
+            case R.id.nav_about: {
                 getSupportActionBar().setTitle("About Us");
                 AboutFragment aboutFragment = new AboutFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -155,25 +167,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
 
-            case R.id.nav_privacypolicy:
-            {
+            case R.id.nav_privacypolicy: {
                 WebViewFragment webViewFragment = new WebViewFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString(Constants.KEY_URL,Constants.URL_PRIVACY_POLICY);
+                bundle.putString(Constants.KEY_URL, Constants.URL_PRIVACY_POLICY);
                 webViewFragment.setArguments(bundle);
                 getSupportActionBar().setTitle("Privacy Policy");
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, webViewFragment, Constants.URL_PRIVACY_POLICY_TAG);
                 fragmentTransaction.commit();
                 break;
-
             }
 
-            case R.id.nav_licenses:
-            {
+            case R.id.nav_licenses: {
                 WebViewFragment webViewFragment = new WebViewFragment();
                 Bundle bundle1 = new Bundle();
-                bundle1.putString(Constants.KEY_URL,Constants.URL_LICENSES);
+                bundle1.putString(Constants.KEY_URL, Constants.URL_LICENSES);
                 webViewFragment.setArguments(bundle1);
                 getSupportActionBar().setTitle("Licenses Agreement");
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -183,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
         }
-        drawer.closeDrawer(GravityCompat.START);
+        binding.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 

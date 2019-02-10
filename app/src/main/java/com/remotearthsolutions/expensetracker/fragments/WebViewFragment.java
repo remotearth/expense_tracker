@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,19 +37,17 @@ public class WebViewFragment extends Fragment {
 
         if (getArguments() != null) {
 
-                getUrl = getArguments().getString(Constants.KEY_URL);
-                webView.loadUrl(getUrl);
+            getUrl = getArguments().getString(Constants.KEY_URL);
+            webView.loadUrl(getUrl);
         }
 
         webView.setWebViewClient(new WebViewClient());
         return view;
     }
 
-    public class WebViewClient extends android.webkit.WebViewClient
-    {
+    public class WebViewClient extends android.webkit.WebViewClient {
         @Override
-        public void onPageStarted(android.webkit.WebView view, String url, Bitmap favicon)
-        {
+        public void onPageStarted(android.webkit.WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
             progressBar.setVisibility(View.VISIBLE);
         }
@@ -60,6 +57,7 @@ public class WebViewFragment extends Fragment {
             view.loadUrl(url);
             return true;
         }
+
         @Override
         public void onPageFinished(android.webkit.WebView view, String url) {
             super.onPageFinished(view, url);

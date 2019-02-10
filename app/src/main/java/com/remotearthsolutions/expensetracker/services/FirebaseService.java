@@ -7,6 +7,7 @@ public interface FirebaseService {
     void signinWithCredential(AuthCredential token, Callback callback);
     void signinAnonymously(Callback callback);
     FirebaseUser getUser();
+    void logout();
 
     interface Callback{
         void onFirebaseSigninSuccess(FirebaseUser user);

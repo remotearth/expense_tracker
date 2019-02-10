@@ -72,4 +72,11 @@ public class FirebaseServiceImpl implements FirebaseService {
         if(mAuth == null) return null;
         return mAuth.getCurrentUser();
     }
+
+    @Override
+    public void logout() {
+        if(mAuth!=null){
+            mAuth.signOut();
+        }
+    }
 }
