@@ -192,6 +192,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
     @Override
     public void showDefaultCategory(CategoryModel categoryModel) {
+        selectedCategory = categoryModel;
         categoryBtnIv.setImageResource(R.drawable.ic_bills);
         //categoryBtnIv.setImageResource(categoryModel.getIcon());
         categoryNameTv.setText(categoryModel.getName());

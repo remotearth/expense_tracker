@@ -1,0 +1,57 @@
+package com.remotearthsolutions.expensetracker.fragments;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.adapters.ExpenseListAdapter;
+import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
+import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
+import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
+import com.remotearthsolutions.expensetracker.viewmodels.ExpenseViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class AllExpenseFragment extends Fragment implements ExpenseFragmentContract.ExpenseView {
+
+    private RecyclerView recyclerView;
+    private ExpenseListAdapter adapter;
+    private List<ExpenseModel> expenselist;
+    private ExpenseViewModel viewModel;
+
+    public AllExpenseFragment() {
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_all_expense, container, false);
+        recyclerView = view.findViewById(R.id.expenserecyclearView);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(llm);
+
+        ExpenseDao expenseDao = DatabaseClient.getInstance(getContext()).getAppDatabase().expenseDao();
+        viewModel = new ExpenseViewModel(this,expenseDao);
+        viewModel.showExpense();
+
+        return view;
+    }
+
+
+    @Override
+    public void showExpense(List<ExpenseModel> expense) {
+
+        adapter = new ExpenseListAdapter(expense);
+        recyclerView.setAdapter(adapter);
+    }
+}

@@ -152,6 +152,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, aboutFragment, AboutFragment.class.getName());
                 fragmentTransaction.commit();
+                break;
             }
 
             case R.id.nav_privacypolicy:
@@ -164,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, webViewFragment, Constants.URL_PRIVACY_POLICY_TAG);
                 fragmentTransaction.commit();
+                break;
 
             }
 
@@ -177,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, webViewFragment, Constants.URL_lICENSES_TAG);
                 fragmentTransaction.commit();
-
+                break;
             }
 
         }

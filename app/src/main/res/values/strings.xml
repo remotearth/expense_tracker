@@ -21,7 +21,7 @@
     <!--BottoM Navigation Strings-->
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_transaction">Transaction</string>
 
     <!--BottoM sheet Strings-->
     <string name="from_account_card">CASH</string>

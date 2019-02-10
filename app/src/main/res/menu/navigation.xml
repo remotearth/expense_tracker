@@ -12,8 +12,8 @@
         android:title="@string/title_dashboard" />
 
     <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_facebook"
-        android:title="@string/title_notifications" />
+        android:id="@+id/navigation_transaction"
+        android:icon="@drawable/ic_transaction"
+        android:title="@string/title_transaction" />
 
 </menu>
