@@ -37,8 +37,6 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
         View view = inflater.inflate(R.layout.fragment_all_expense, container, false);
         recyclerView = view.findViewById(R.id.expenserecyclearView);
         recyclerView.setHasFixedSize(true);
-        expenselist = new ArrayList<>();
-        adapter = new ExpenseListAdapter(expenselist);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(llm);
 

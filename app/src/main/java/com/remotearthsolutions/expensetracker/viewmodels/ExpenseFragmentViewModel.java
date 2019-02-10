@@ -2,11 +2,11 @@ package com.remotearthsolutions.expensetracker.viewmodels;
 
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
-import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.AccountIncome;
 import io.reactivex.Completable;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -16,12 +16,14 @@ public class ExpenseFragmentViewModel {
     private ExpenseFragmentContract.View view;
     private ExpenseDao expenseDao;
     private AccountDao accountDao;
+    private CategoryDao categoryDao;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    public ExpenseFragmentViewModel(ExpenseFragmentContract.View view, ExpenseDao expenseDao, AccountDao accountDao) {
+    public ExpenseFragmentViewModel(ExpenseFragmentContract.View view, ExpenseDao expenseDao, AccountDao accountDao, CategoryDao categoryDao) {
         this.view = view;
         this.expenseDao = expenseDao;
         this.accountDao = accountDao;
+        this.categoryDao = categoryDao;
     }
 
     public void init(int accountId) {
@@ -49,9 +51,19 @@ public class ExpenseFragmentViewModel {
             }).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(() -> view.onExpenseAdded()));
-        }
-        else{
+        } else {
             view.showToast("Please enter an amount");
         }
+    }
+
+    public void setDefaultCategory() {
+        compositeDisposable.add(categoryDao.getAllCategories()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).
+                        subscribe(categoryModels -> {
+                            CategoryModel categoryModel = categoryModels.get(0);
+                            view.showDefaultCategory(categoryModel);
+                        }));
+
     }
 }

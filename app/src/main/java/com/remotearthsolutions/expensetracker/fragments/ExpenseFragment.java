@@ -11,6 +11,7 @@ import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
@@ -64,18 +65,26 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
         ExpenseDao expenseDao = DatabaseClient.getInstance(getActivity()).getAppDatabase().expenseDao();
         AccountDao accountDao = DatabaseClient.getInstance(getActivity()).getAppDatabase().accountDao();
+        CategoryDao categoryDao = DatabaseClient.getInstance(getActivity()).getAppDatabase().categoryDao();
+
+        int accountId = SharedPreferenceUtils.getInstance(getActivity()).getInt(Constants.KEY_SELECTED_ACCOUNT_ID, 1);
+        viewModel = new ExpenseFragmentViewModel(this, expenseDao, accountDao,categoryDao);
+        viewModel.init(accountId);
 
         Bundle args = getArguments();
         if (args != null) {
             selectedCategory = Parcels.unwrap(args.getParcelable("category_parcel"));
-            //categoryBtnIv.setImageResource(category.getIcon());
-            categoryBtnIv.setImageResource(R.drawable.ic_bills);
-            categoryNameTv.setText(selectedCategory.getName());
+            if(selectedCategory!=null){
+                //categoryBtnIv.setImageResource(category.getIcon());
+                categoryBtnIv.setImageResource(R.drawable.ic_bills);
+                categoryNameTv.setText(selectedCategory.getName());
+            }
+            else{
+                viewModel.setDefaultCategory();
+            }
         }
 
-        int accountId = SharedPreferenceUtils.getInstance(getActivity()).getInt(Constants.KEY_SELECTED_ACCOUNT_ID, 1);
-        viewModel = new ExpenseFragmentViewModel(this, expenseDao, accountDao);
-        viewModel.init(accountId);
+
 
         return view;
     }
@@ -179,6 +188,14 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         accountBtnIv.setImageResource(R.drawable.ic_currency);
         accountNameTv.setText(account.getAccount_name());
         SharedPreferenceUtils.getInstance(getActivity()).putInt(Constants.KEY_SELECTED_ACCOUNT_ID, account.getAccount_id());
+    }
+
+    @Override
+    public void showDefaultCategory(CategoryModel categoryModel) {
+        selectedCategory = categoryModel;
+        categoryBtnIv.setImageResource(R.drawable.ic_bills);
+        //categoryBtnIv.setImageResource(categoryModel.getIcon());
+        categoryNameTv.setText(categoryModel.getName());
     }
 
     @Override
