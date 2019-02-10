@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down);
         fragmentTransaction.add(R.id.framelayout, expenseFragment, ExpenseFragment.class.getName());
-        fragmentTransaction.addToBackStack("home");
+        fragmentTransaction.addToBackStack(ExpenseFragment.class.getName());
         fragmentTransaction.commit();
     }
 }
