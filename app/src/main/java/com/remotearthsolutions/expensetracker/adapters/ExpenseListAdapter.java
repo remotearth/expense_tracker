@@ -9,14 +9,15 @@ import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.viewholder.ExpenseListViewHolder;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 
 import java.util.List;
 
 public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListViewHolder> {
 
-    private List<ExpenseModel> expenselist;
+    private List<CategoryExpense> expenselist;
 
-    public ExpenseListAdapter(List<ExpenseModel> expenselist) {
+    public ExpenseListAdapter(List<CategoryExpense> expenselist) {
         this.expenselist = expenselist;
     }
 
@@ -31,8 +32,8 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListViewHold
     @Override
     public void onBindViewHolder(@NonNull ExpenseListViewHolder holder, int position) {
 
-        ExpenseModel expenseModel = expenselist.get(position);
-        holder.bind(expenseModel);
+        CategoryExpense expense = expenselist.get(position);
+        holder.bind(expense);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,10 @@ import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.ExpenseListAdapter;
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseViewModel;
 
 import java.util.List;
@@ -24,6 +27,8 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
     private RecyclerView recyclerView;
     private ExpenseListAdapter adapter;
     private ExpenseViewModel viewModel;
+    private long startTime, endTime;
+
 
     public AllExpenseFragment() {
     }
@@ -40,16 +45,25 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
 
         ExpenseDao expenseDao = DatabaseClient.getInstance(getContext()).getAppDatabase().expenseDao();
         viewModel = new ExpenseViewModel(this, expenseDao);
-        viewModel.showExpense();
+        viewModel.loadFilterExpense(startTime,endTime);
+
+        Log.d("START TIME",String.valueOf(startTime));
+        Log.d("END TIME",String.valueOf(endTime));
 
         return view;
     }
 
 
     @Override
-    public void showExpense(List<ExpenseModel> expense) {
+    public void loadFilterExpense(List<CategoryExpense> listOffilterExpense) {
 
-        adapter = new ExpenseListAdapter(expense);
+        adapter = new ExpenseListAdapter(listOffilterExpense);
         recyclerView.setAdapter(adapter);
+    }
+
+    public void updateFilterListWithDate(long startTime, long endTime){
+        this.startTime = startTime;
+        this.endTime = endTime;
+        viewModel.loadFilterExpense(startTime,endTime);
     }
 }

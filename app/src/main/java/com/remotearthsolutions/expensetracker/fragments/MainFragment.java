@@ -30,6 +30,7 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
     private String[] tabTitles = new String[]{"Home", "Transactions", "Tab 2",};
 
     private static HomeFragment homeFragment;
+    private static AllExpenseFragment allExpenseFragment;
 
     @Nullable
     @Override
@@ -138,6 +139,10 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
         binding.dateTv.setText(date);
         if (homeFragment != null) {
             homeFragment.updateChartView(startTime, endTime);
+        }
+        else if (allExpenseFragment != null)
+        {
+            allExpenseFragment.updateFilterListWithDate(startTime,endTime);
         }
 
     }

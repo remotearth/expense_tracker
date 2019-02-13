@@ -20,8 +20,9 @@
                 android:padding="10dp"
                 android:layout_height="wrap_content">
 
+
             <TextView
-                    android:id="@+id/ammountTv"
+                    android:id="@+id/categorynameTv"
                     android:text="$10500"
                     android:textSize="25sp"
                     android:textColor="@color/colorPrimary"
@@ -29,7 +30,7 @@
                     android:layout_height="wrap_content"/>
 
             <TextView
-                    android:id="@+id/ammountDateTime"
+                    android:id="@+id/ammountTv"
                     android:text="Time: 10:45 am, 10/02/2019"
                     android:textSize="18sp"
                     android:textColor="@color/Ashcolor"
