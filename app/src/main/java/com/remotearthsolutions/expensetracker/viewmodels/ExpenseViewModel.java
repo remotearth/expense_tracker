@@ -2,11 +2,8 @@ package com.remotearthsolutions.expensetracker.viewmodels;
 
 import androidx.lifecycle.ViewModel;
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
-import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
-import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
-import com.remotearthsolutions.expensetracker.utils.Utils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -26,16 +23,26 @@ public class ExpenseViewModel extends ViewModel {
 
     }
 
-    public void loadFilterExpense(long startTime, long endTime)
-    {
-        disposable.add(expenseDao.getAllFilterExpense(startTime,endTime)
+    public void loadFilterExpense(long startTime, long endTime) {
+        disposable.add(expenseDao.getAllFilterExpense(startTime, endTime)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((listOfFilterExpense) -> {
 
-                    view.loadFilterExpense(listOfFilterExpense);
+                    List<CategoryExpense> expenseList = new ArrayList<>();
+                    if (listOfFilterExpense != null) {
 
-        }));
+                        for (int i = 0; i < listOfFilterExpense.size(); i++) {
+                            CategoryExpense expense = listOfFilterExpense.get(i);
+                            if (expense.getTotal_amount() > 0) {
+                                expenseList.add(expense);
+                            }
+                        }
+                    }
+
+                    view.loadFilterExpense(expenseList);
+
+                }));
     }
 
 }
