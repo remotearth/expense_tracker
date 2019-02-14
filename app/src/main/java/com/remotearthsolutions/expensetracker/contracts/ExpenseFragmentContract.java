@@ -3,6 +3,8 @@ package com.remotearthsolutions.expensetracker.contracts;
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.AccountIncome;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
+import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
 
 import java.util.List;
 
@@ -19,7 +21,8 @@ public interface ExpenseFragmentContract {
     }
 
     interface ExpenseView{
-        void showExpense(List<ExpenseModel> expense);
+
+        void loadFilterExpense(List<CategoryExpense> listOffilterExpense);
     }
 
 

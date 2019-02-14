@@ -110,14 +110,6 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
 
     }
 
-//    @Override
-//    public void onDateChanged(String date, long startTime, long endTime) {
-//        binding.dateTv.setText(date);
-//        this.startTime = startTime;
-//        this.endTime = endTime;
-//        viewModel.loadExpenseChart(startTime, endTime);
-//    }
-
     public void updateChartView(long startTime, long endTime){
         this.startTime = startTime;
         this.endTime = endTime;
