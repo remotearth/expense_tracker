@@ -6,12 +6,14 @@ public class CategoryExpense {
     private String category_name;
     private String icon_name;
     private double total_amount;
+    private long datetime;
 
-    public CategoryExpense(int category_id, String category_name, String icon_name, double total_amount) {
+    public CategoryExpense(int category_id, String category_name, String icon_name, double total_amount, long datetime) {
         this.category_id = category_id;
         this.category_name = category_name;
         this.icon_name = icon_name;
         this.total_amount = total_amount;
+        this.datetime = datetime;
     }
 
     public int getCategory_id() {
@@ -44,5 +46,13 @@ public class CategoryExpense {
 
     public void setTotal_amount(double total_amount) {
         this.total_amount = total_amount;
+    }
+
+    public long getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(long datetime) {
+        this.datetime = datetime;
     }
 }

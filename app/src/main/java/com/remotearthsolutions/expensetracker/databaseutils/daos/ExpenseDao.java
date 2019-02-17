@@ -16,7 +16,7 @@ public interface ExpenseDao {
     @Query("Select sum(amount) from expense where category_id = :id")
     int getTotalAmountByCategoryId(int id);
 
-    @Query("SELECT ctg.id as category_id, ctg.category_name,ctg.icon_name,SUM(exp.amount) as total_amount " +
+    @Query("SELECT ctg.id as category_id, ctg.category_name,ctg.icon_name,exp.datetime,exp.amount as total_amount " +
             "FROM category  as ctg LEFT JOIN expense as exp ON ctg.id = exp.category_id " +
             "AND exp.datetime >= :startTime AND exp.datetime <= :endTime GROUP BY ctg.id ")
     Flowable<List<CategoryExpense>> getAllFilterExpense(long startTime, long endTime);

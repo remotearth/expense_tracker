@@ -5,12 +5,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
-import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 
 public class ExpenseListViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView ammountCategoryTv,ammountTv;
+    private TextView ammountCategoryTv, ammountTv, datetimeTv;
     private CategoryExpense expense;
 
 
@@ -21,8 +20,7 @@ public class ExpenseListViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void bind(CategoryExpense expense)
-    {
+    public void bind(CategoryExpense expense) {
         this.expense = expense;
         ammountCategoryTv.setText(String.valueOf(expense.getCategory_name()));
         ammountTv.setText(String.valueOf(expense.getTotal_amount()));

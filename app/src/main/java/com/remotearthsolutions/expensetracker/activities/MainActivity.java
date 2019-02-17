@@ -8,9 +8,10 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import com.google.android.material.navigation.NavigationView;
@@ -94,11 +95,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onBackPressed() {
-
+        Fragment expenseFragment = getSupportFragmentManager().findFragmentByTag(ExpenseFragment.class.getName());
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START);
-        } else if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
-            super.onBackPressed();
+        } else if (expenseFragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft =  fragmentManager.beginTransaction();
+            ft.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down);
+            ft.remove(expenseFragment);
+            fragmentManager.popBackStack();
         } else {
             long t = System.currentTimeMillis();
             if (t - backPressedTime > 2000) {

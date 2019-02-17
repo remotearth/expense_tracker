@@ -1,6 +1,7 @@
 package com.remotearthsolutions.expensetracker.fragments.home;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,8 +44,6 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
-        View view = binding.getRoot();
-
         binding.addCategoryBtn.setOnClickListener(this);
         binding.fab.setOnClickListener(this);
 
@@ -58,7 +57,7 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
         viewModel.init();
         viewModel.loadExpenseChart(startTime, endTime);
 
-        return view;
+        return binding.getRoot();
     }
 
     @Override
@@ -105,7 +104,9 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
             categoryDialogFragment.show(fm, AddCategoryDialogFragment.class.getName());
 
         } else if (v.getId() == R.id.fab) {
+            binding.fab.setClickable(false);
             ((MainActivity) getActivity()).openAddExpenseScreen(null);
+            new Handler().postDelayed(() -> binding.fab.setClickable(true),500);
         }
 
     }

@@ -45,13 +45,15 @@ public class NumpadManager implements NumpadFragment.Listener {
         }
 
         String val = displayEdtxt.getText().toString();
+        if(val.length()== 0)
+            return;
+
         double currentVal = Double.parseDouble(val);
         double lastVal = Double.parseDouble(lastValue);
 
         if (lastOperation == null) {
             result = currentVal;
         } else {
-
             if (lastOperation.equals("+")) {
                 result = lastVal + currentVal;
             } else if (lastOperation.equals("-")) {
