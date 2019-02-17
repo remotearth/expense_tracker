@@ -1,11 +1,15 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +19,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.activities.MainActivity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -66,14 +77,40 @@ public class Tab2Fragment extends Fragment {
 
         createFile.setOnClickListener(v -> {
 
-            String fileName = "RemotearthFile";
-            String fileContent = "";
-            createFile(fileName,fileContent);
+            requestStoragePermission();
         });
 
 
         return view;
     }
+
+    private void requestStoragePermission() {
+        Dexter.withActivity(getActivity())
+                .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+
+                        String fileName = "RemotearthFile";
+                        String fileContent = "";
+                        createFile(fileName,fileContent);
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+
+                        if (response.isPermanentlyDenied()) {
+                            showSettingsDialog();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
+    }
+
 
     private void createFile(String filename, String content)
     {
@@ -95,10 +132,27 @@ public class Tab2Fragment extends Fragment {
             io.printStackTrace();
             Toast.makeText(getActivity(), "Error File Creating", Toast.LENGTH_LONG).show();
         }
-       ;
 
+    }
 
+    private void showSettingsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Attention!");
+        builder.setMessage("To use this Features Your need Permission For that, You can access it in app settings.");
+        builder.setPositiveButton("Go To Setting", (dialog, which) -> {
+            dialog.cancel();
+            openSettings();
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        builder.show();
 
+    }
+
+    private void openSettings() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
+        intent.setData(uri);
+        startActivityForResult(intent, 101);
     }
 
 
