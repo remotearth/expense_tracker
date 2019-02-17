@@ -18,6 +18,9 @@ import androidx.fragment.app.Fragment;
 import com.remotearthsolutions.expensetracker.R;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import static android.provider.CalendarContract.CalendarCache.URI;
 
@@ -27,14 +30,13 @@ public class Tab2Fragment extends Fragment {
     public Tab2Fragment() {
     }
 
-    private Button shareButton;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_share, container, false);
 
-        shareButton = view.findViewById(R.id.sendMail);
+        Button shareButton = view.findViewById(R.id.sendMail);
+        Button createFile = view.findViewById(R.id.createFile);
 
 
         shareButton.setOnClickListener(v -> {
@@ -62,8 +64,41 @@ public class Tab2Fragment extends Fragment {
 
         });
 
+        createFile.setOnClickListener(v -> {
+
+            String fileName = "RemotearthFile";
+            String fileContent = "";
+            createFile(fileName,fileContent);
+        });
+
 
         return view;
+    }
+
+    private void createFile(String filename, String content)
+    {
+      String fileName = filename+ ".txt";
+      File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(),fileName);
+
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            fileOutputStream.write(content.getBytes());
+            fileOutputStream.close();
+            Toast.makeText(getActivity(), "File Created Successfully", Toast.LENGTH_LONG).show();
+        } catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+            Toast.makeText(getActivity(), "File Not Found", Toast.LENGTH_LONG).show();
+        }
+        catch (IOException io)
+        {
+            io.printStackTrace();
+            Toast.makeText(getActivity(), "Error File Creating", Toast.LENGTH_LONG).show();
+        }
+       ;
+
+
+
     }
 
 
