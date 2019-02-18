@@ -124,12 +124,12 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
                 FragmentManager fm = getChildFragmentManager();
                 final CategoryDialogFragment categoryDialogFragment = CategoryDialogFragment.newInstance("Select Category");
-
-                Bundle args = new Bundle();
-                args.putString("name", selectedCategory.getName());
-                categoryDialogFragment.setArguments(args);
-
-                Log.d("name", selectedCategory.getName());
+                categoryDialogFragment.setCategory(selectedCategory.getId());
+//                Bundle args = new Bundle();
+//                args.putString("name", selectedCategory.getName());
+//                categoryDialogFragment.setArguments(args);
+//
+//                Log.d("name", selectedCategory.getName());
 
                 categoryDialogFragment.setCallback(new CategoryDialogFragment.Callback() {
                     @Override

@@ -28,8 +28,8 @@ public class CategoryDialogFragment extends DialogFragment implements CategoryFr
     private CategoryViewModel viewModel;
     private RecyclerView recyclerView;
     private CategoryListAdapter categoryListAdapter;
-    //private List<CategoryModel> categories;
     private CategoryDialogFragment.Callback callback;
+    private int selectedCategoryId;
 
     public CategoryDialogFragment() {
     }
@@ -46,12 +46,13 @@ public class CategoryDialogFragment extends DialogFragment implements CategoryFr
         this.callback = callback;
     }
 
+    public void setCategory(int categoryId){
+        this.selectedCategoryId = categoryId;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Bundle mArgs = getArguments();
-        String myValue = mArgs.getString("name");
-        Log.d("Name", ""+ myValue);
         return inflater.inflate(R.layout.fragment_add_category, container);
     }
 
@@ -59,8 +60,6 @@ public class CategoryDialogFragment extends DialogFragment implements CategoryFr
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        Bundle bundle = getArguments();
 
         CategoryDao categoryDao = DatabaseClient.getInstance(getContext()).getAppDatabase().categoryDao();
         viewModel = ViewModelProviders.of(this, new CategoryViewModelFactory(this, categoryDao)).get(CategoryViewModel.class);
@@ -70,19 +69,13 @@ public class CategoryDialogFragment extends DialogFragment implements CategoryFr
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         categoryListAdapter = new CategoryListAdapter(new ArrayList<>());
         recyclerView.setAdapter(categoryListAdapter);
-
-        //if(categories!=null && categories.size()>0){
         viewModel.showCategories();
-//        }
-//        else{
-//            showCategories(categories);
-//        }
     }
 
     @Override
     public void showCategories(List<CategoryModel> categories) {
 
-        categoryListAdapter = new CategoryListAdapter(categories);
+        categoryListAdapter = new CategoryListAdapter(categories, selectedCategoryId);
         categoryListAdapter.setOnItemClickListener(new CategoryListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(CategoryModel category) {
