@@ -15,9 +15,9 @@
             <LinearLayout
 
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:layout_margin="10dp"
+                    android:layout_margin="5dp"
                     android:weightSum="4">
 
                 <Button
@@ -26,6 +26,7 @@
                         android:layout_weight="1"
                         android:text="@string/daily"
                         android:textColor="@color/colorPrimary"
+                        android:textSize="13sp"
                         android:layout_margin="3dp"
                         android:tint="@color/colorPrimary"
                         android:layout_height="wrap_content"/>
@@ -36,6 +37,7 @@
                         android:layout_weight="1"
                         android:text="@string/weekly"
                         android:textColor="@color/colorPrimary"
+                        android:textSize="13sp"
                         android:layout_margin="3dp"
                         android:tint="@color/colorPrimary"
                         android:layout_height="wrap_content"/>
@@ -45,6 +47,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:textColor="@color/colorPrimary"
+                        android:textSize="13sp"
                         android:text="@string/monthly"
                         android:layout_margin="3dp"
                         android:tint="@color/colorPrimary"
@@ -55,6 +58,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:textColor="@color/colorPrimary"
+                        android:textSize="13sp"
                         android:text="@string/yearly"
                         android:layout_margin="3dp"
                         android:tint="@color/colorPrimary"
@@ -84,7 +88,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="18sp"
+                        android:textSize="15sp"
                         android:layout_height="match_parent"/>
 
                 <ImageView

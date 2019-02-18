@@ -4,17 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.databinding.FragmentNumpadBinding;
 
 
 public class NumpadFragment extends Fragment implements View.OnClickListener {
 
-    private Button addition, subtraction, multiplication, division, one, two, three, four, five, six, seven, eight, nine, zero, dot, equalto;
     private NumpadFragment.Listener listener;
+    private FragmentNumpadBinding binding;
 
     public void setListener(NumpadFragment.Listener listener) {
         this.listener = listener;
@@ -23,67 +24,50 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_numpad, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_numpad, container, false);
 
-        addition = view.findViewById(R.id.addition);
-        subtraction = view.findViewById(R.id.subtraction);
-        multiplication = view.findViewById(R.id.multiplication);
-        division = view.findViewById(R.id.division);
-        one = view.findViewById(R.id.digit1);
-        two = view.findViewById(R.id.digit2);
-        three = view.findViewById(R.id.digit3);
-        four = view.findViewById(R.id.digit4);
-        five = view.findViewById(R.id.digit5);
-        six = view.findViewById(R.id.digit6);
-        seven = view.findViewById(R.id.digit7);
-        eight = view.findViewById(R.id.digit8);
-        nine = view.findViewById(R.id.digit9);
-        zero = view.findViewById(R.id.digit0);
-        dot = view.findViewById(R.id.dot);
-        equalto = view.findViewById(R.id.equalto);
+        binding.addition.setOnClickListener(this);
+        binding.subtraction.setOnClickListener(this);
+        binding.multiplication.setOnClickListener(this);
+        binding.division.setOnClickListener(this);
+        binding.digitOne.setOnClickListener(this);
+        binding.digitTwo.setOnClickListener(this);
+        binding.digitThree.setOnClickListener(this);
+        binding.digitFour.setOnClickListener(this);
+        binding.digitFive.setOnClickListener(this);
+        binding.digitSix.setOnClickListener(this);
+        binding.digitSeven.setOnClickListener(this);
+        binding.digitEight.setOnClickListener(this);
+        binding.digitNine.setOnClickListener(this);
+        binding.digitZero.setOnClickListener(this);
+        binding.dot.setOnClickListener(this);
+        binding.equalto.setOnClickListener(this);
 
-        addition.setOnClickListener(this);
-        subtraction.setOnClickListener(this);
-        multiplication.setOnClickListener(this);
-        division.setOnClickListener(this);
-        one.setOnClickListener(this);
-        two.setOnClickListener(this);
-        three.setOnClickListener(this);
-        four.setOnClickListener(this);
-        five.setOnClickListener(this);
-        six.setOnClickListener(this);
-        seven.setOnClickListener(this);
-        eight.setOnClickListener(this);
-        nine.setOnClickListener(this);
-        zero.setOnClickListener(this);
-        dot.setOnClickListener(this);
-        equalto.setOnClickListener(this);
-
-        return view;
+        return binding.getRoot();
     }
 
     @Override
     public void onClick(View v) {
 
-        if (v.getId() == R.id.digit1) {
+        if (v.getId() == R.id.digitOne) {
             listener.onNumpadButtonClick("1");
-        } else if (v.getId() == R.id.digit2) {
+        } else if (v.getId() == R.id.digitTwo) {
             listener.onNumpadButtonClick("2");
-        } else if (v.getId() == R.id.digit3) {
+        } else if (v.getId() == R.id.digitThree) {
             listener.onNumpadButtonClick("3");
-        } else if (v.getId() == R.id.digit4) {
+        } else if (v.getId() == R.id.digitFour) {
             listener.onNumpadButtonClick("4");
-        } else if (v.getId() == R.id.digit5) {
+        } else if (v.getId() == R.id.digitFive) {
             listener.onNumpadButtonClick("5");
-        } else if (v.getId() == R.id.digit6) {
+        } else if (v.getId() == R.id.digitSix) {
             listener.onNumpadButtonClick("6");
-        } else if (v.getId() == R.id.digit7) {
+        } else if (v.getId() == R.id.digitSeven) {
             listener.onNumpadButtonClick("7");
-        } else if (v.getId() == R.id.digit8) {
+        } else if (v.getId() == R.id.digitEight) {
             listener.onNumpadButtonClick("8");
-        } else if (v.getId() == R.id.digit9) {
+        } else if (v.getId() == R.id.digitNine) {
             listener.onNumpadButtonClick("9");
-        } else if (v.getId() == R.id.digit0) {
+        } else if (v.getId() == R.id.digitZero) {
             listener.onNumpadButtonClick("0");
         } else if (v.getId() == R.id.dot) {
             listener.onNumpadButtonClick(".");
