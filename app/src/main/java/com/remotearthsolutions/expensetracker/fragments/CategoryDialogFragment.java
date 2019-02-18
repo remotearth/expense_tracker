@@ -1,6 +1,7 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,9 @@ public class CategoryDialogFragment extends DialogFragment implements CategoryFr
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        Bundle mArgs = getArguments();
+        String myValue = mArgs.getString("name");
+        Log.d("Name", ""+ myValue);
         return inflater.inflate(R.layout.fragment_add_category, container);
     }
 
@@ -56,6 +59,8 @@ public class CategoryDialogFragment extends DialogFragment implements CategoryFr
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Bundle bundle = getArguments();
 
         CategoryDao categoryDao = DatabaseClient.getInstance(getContext()).getAppDatabase().categoryDao();
         viewModel = ViewModelProviders.of(this, new CategoryViewModelFactory(this, categoryDao)).get(CategoryViewModel.class);

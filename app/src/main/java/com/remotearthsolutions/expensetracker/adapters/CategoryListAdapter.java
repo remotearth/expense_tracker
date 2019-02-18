@@ -1,6 +1,9 @@
 package com.remotearthsolutions.expensetracker.adapters;
 
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +19,16 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryViewHolder
 
     private List<CategoryModel> categorylist;
     private CategoryListAdapter.OnItemClickListener listener;
+    private String selectedItem;
+
+    public CategoryListAdapter(List<CategoryModel> categorylist, String selectedItem) {
+        this.categorylist = categorylist;
+        this.selectedItem = selectedItem;
+    }
 
     public CategoryListAdapter(List<CategoryModel> categorylist) {
         this.categorylist = categorylist;
+
     }
 
     public void setOnItemClickListener(CategoryListAdapter.OnItemClickListener listener) {
@@ -35,6 +45,9 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryViewHolder
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         CategoryModel category = categorylist.get(position);
+//        if (category.getName().equals(bundle.getString("name"))) {
+//            Log.d("Hellloooo", "onBindViewHolder: "+ categorylist.get(position));
+//        }
         holder.bind(category);
     }
 
