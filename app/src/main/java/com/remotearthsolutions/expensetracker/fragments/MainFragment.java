@@ -36,7 +36,6 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
-        View view = binding.getRoot();
 
         pagerAdapter = new MainFragmentPagerAdapter(getChildFragmentManager());
         binding.viewpager.setOffscreenPageLimit(2);
@@ -73,7 +72,7 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
             }
         }, 500);
 
-        return view;
+        return binding.getRoot();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

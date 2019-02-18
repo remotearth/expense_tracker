@@ -16,9 +16,16 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryViewHolder
 
     private List<CategoryModel> categorylist;
     private CategoryListAdapter.OnItemClickListener listener;
+    private int selectedCategoryId;
+
+    public CategoryListAdapter(List<CategoryModel> categorylist, int selectedCategoryId) {
+        this.categorylist = categorylist;
+        this.selectedCategoryId = selectedCategoryId;
+    }
 
     public CategoryListAdapter(List<CategoryModel> categorylist) {
         this.categorylist = categorylist;
+
     }
 
     public void setOnItemClickListener(CategoryListAdapter.OnItemClickListener listener) {
@@ -35,7 +42,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryViewHolder
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         CategoryModel category = categorylist.get(position);
-        holder.bind(category);
+        holder.bind(category, category.getId() == selectedCategoryId);
     }
 
     @Override

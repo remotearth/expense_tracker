@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseFragmentViewModel;
 import org.parceler.Parcels;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 public class ExpenseFragment extends BaseFragment implements ExpenseFragmentContract.View {
@@ -36,6 +38,8 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
     private CategoryModel selectedCategory;
     private AccountIncome selectedSourceAccount;
+
+    private Bundle args;
 
     public ExpenseFragment() {
     }
@@ -71,7 +75,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         viewModel = new ExpenseFragmentViewModel(this, expenseDao, accountDao,categoryDao);
         viewModel.init(accountId);
 
-        Bundle args = getArguments();
+        args = getArguments();
         if (args != null) {
             selectedCategory = Parcels.unwrap(args.getParcelable("category_parcel"));
             if(selectedCategory!=null){
@@ -120,6 +124,13 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
                 FragmentManager fm = getChildFragmentManager();
                 final CategoryDialogFragment categoryDialogFragment = CategoryDialogFragment.newInstance("Select Category");
+                categoryDialogFragment.setCategory(selectedCategory.getId());
+//                Bundle args = new Bundle();
+//                args.putString("name", selectedCategory.getName());
+//                categoryDialogFragment.setArguments(args);
+//
+//                Log.d("name", selectedCategory.getName());
+
                 categoryDialogFragment.setCallback(new CategoryDialogFragment.Callback() {
                     @Override
                     public void onSelectCategory(CategoryModel category) {
