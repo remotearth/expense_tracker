@@ -6,12 +6,6 @@ android {
     compileSdkVersion 28
 
     signingConfigs {
-        debug {
-            storeFile file("../keystores/debug.keystore")
-            storePassword "android"
-            keyAlias "androiddebugkey"
-            keyPassword "android"
-        }
         release {
             storeFile file("../keystores/remotearth_solutions.keystore")
             storePassword "alliswell"
@@ -28,13 +22,12 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        signingConfig signingConfigs.debug
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
         debug {
-            minifyEnabled false
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
         release {
             minifyEnabled false
