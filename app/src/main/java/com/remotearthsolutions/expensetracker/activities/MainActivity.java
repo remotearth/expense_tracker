@@ -14,6 +14,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.remotearthsolutions.expensetracker.R;
@@ -37,6 +40,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private ActionBarDrawerToggle toggle;
     private MainFragment mainFragment;
     private long backPressedTime = 0;
+    private InterstitialAd interstitialAd;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 new MainViewModelFactory(this, new FirebaseServiceImpl(this))).
                 get(MainViewModel.class);
         viewModel.init();
+
+        MobileAds.initialize(this);
+        AdmobUtils admobUtils = new AdmobUtils(this);
+        admobUtils.showInterstitialAds(interstitialAd);
+
 
     }
 

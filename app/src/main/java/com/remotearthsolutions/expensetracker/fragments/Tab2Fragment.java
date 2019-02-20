@@ -34,7 +34,6 @@ import java.io.IOException;
 
 public class Tab2Fragment extends Fragment {
 
-    private AdView adView;
 
     public Tab2Fragment() {
     }
@@ -46,11 +45,6 @@ public class Tab2Fragment extends Fragment {
 
         Button shareButton = view.findViewById(R.id.sendMail);
         Button createFile = view.findViewById(R.id.createFile);
-
-        // addmob -----//
-        adView = view.findViewById(R.id.adView);
-        AdmobUtils admobUtils = new AdmobUtils(getActivity());
-        admobUtils.showBannerAds(adView);
 
 
         shareButton.setOnClickListener(v -> {
