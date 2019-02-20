@@ -18,7 +18,7 @@ public class AdmobUtils {
 
     public void showInterstitialAds(InterstitialAd interstitialAd)
     {
-        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        interstitialAd.setAdUnitId(context.getString(R.string.appunitid));
         AdRequest adRequest = new AdRequest.Builder().build();
         interstitialAd.loadAd(adRequest);
         interstitialAd.setAdListener(new AdListener() {
