@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,7 +27,13 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
 import com.remotearthsolutions.expensetracker.activities.MainActivity;
+import com.remotearthsolutions.expensetracker.callbacks.InAppBillingCallback;
+import com.remotearthsolutions.expensetracker.services.InventoryCallback;
+import com.remotearthsolutions.expensetracker.services.PurchaseListener;
+import com.remotearthsolutions.expensetracker.utils.Constants;
+import org.solovyev.android.checkout.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,9 +43,16 @@ import java.io.IOException;
 import static android.provider.CalendarContract.CalendarCache.URI;
 
 
-public class Tab2Fragment extends Fragment {
+public class Tab2Fragment extends Fragment implements InAppBillingCallback {
+
+    private final ActivityCheckout mCheckout;
+    private Inventory mInventory;
+
+    private Button buyButton;
+    private TextView infoTextView;
 
     public Tab2Fragment() {
+        mCheckout = Checkout.forActivity(getActivity(), ApplicationObject.get().getBilling());
     }
 
     @Nullable
@@ -48,6 +62,17 @@ public class Tab2Fragment extends Fragment {
 
         Button shareButton = view.findViewById(R.id.sendMail);
         Button createFile = view.findViewById(R.id.createFile);
+        buyButton = view.findViewById(R.id.button_buy);
+        infoTextView = view.findViewById(R.id.info_textView);
+
+        mCheckout.start();
+
+        mCheckout.createPurchaseFlow(new PurchaseListener(this));
+
+        mInventory = mCheckout.makeInventory();
+        mInventory.load(Inventory.Request.create()
+                .loadAllPurchases()
+                .loadSkus(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM), new InventoryCallback());
 
 
         shareButton.setOnClickListener(v -> {
@@ -75,9 +100,20 @@ public class Tab2Fragment extends Fragment {
 
         });
 
-        createFile.setOnClickListener(v -> {
+        createFile.setOnClickListener(v -> requestStoragePermission());
 
-            requestStoragePermission();
+        buyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+
+                Toast.makeText(getContext(), "Clicked", Toast.LENGTH_LONG).show();
+                mCheckout.whenReady(new Checkout.EmptyListener() {
+                    @Override
+                    public void onReady(BillingRequests requests) {
+                        requests.purchase(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM, null, mCheckout.getPurchaseFlow());
+                    }
+                });
+            }
         });
 
 
@@ -156,5 +192,26 @@ public class Tab2Fragment extends Fragment {
     }
 
 
+    @Override
+    public void onPurchaseSuccessListener(Purchase purchase) {
+        buyButton.setVisibility(View.GONE);
+        infoTextView.setText("Thank You");
+    }
 
+    @Override
+    public void onPurchaseFailedListener(String error) {
+        Toast.makeText(getContext(), "Failed : "+ error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDestroy() {
+        mCheckout.stop();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mCheckout.onActivityResult(requestCode, resultCode, data);
+    }
 }
