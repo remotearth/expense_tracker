@@ -25,18 +25,10 @@ public class AdmobUtils {
         interstitialAd.setAdListener(new AdListener() {
             public void onAdLoaded() {
 
-              initiate();
+                interstitialAd.show();
 
             }
         });
     }
-
-    private void initiate()
-    {
-        if (interstitialAd.isLoaded()) {
-            interstitialAd.show();
-        }
-    }
-
 
 }
