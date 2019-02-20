@@ -2,16 +2,13 @@ package com.remotearthsolutions.expensetracker.fragments;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.RemoteException;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +18,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -28,6 +27,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.utils.AdmobUtils;
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
 import com.remotearthsolutions.expensetracker.activities.MainActivity;
 import com.remotearthsolutions.expensetracker.callbacks.InAppBillingCallback;
@@ -41,8 +41,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import static android.provider.CalendarContract.CalendarCache.URI;
-
 
 public class Tab2Fragment extends Fragment implements InAppBillingCallback {
 
@@ -51,6 +49,7 @@ public class Tab2Fragment extends Fragment implements InAppBillingCallback {
 
     private Button buyButton;
     private TextView infoTextView;
+
 
     public Tab2Fragment() {
 
@@ -118,30 +117,6 @@ public class Tab2Fragment extends Fragment implements InAppBillingCallback {
                 }
             });
         });
-
-//        consumeButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Thread t = new Thread(() -> {
-//                    String purchaseToken = "inapp:" + getActivity().getPackageName() + ":android.test.purchased";
-//                    try {
-//                        Log.d("","Running");
-//                        int response = .consumePurchase(3, getActivity().getPackageName(), purchaseToken);
-//                        if(response==0)
-//                        {
-//                            Log.d("Consumed","Consumed");
-//                        }else {
-//                            Log.d("","No"+response);
-//                        }
-//                    }catch (RemoteException e)
-//                    {
-//                        Log.d("Errorr",""+e);
-//                    }
-//
-//                });
-//                t.start();
-//            }
-//        });
 
 
         return view;
