@@ -18,18 +18,25 @@ public class AdmobUtils {
 
     public void showInterstitialAds(InterstitialAd interstitialAd)
     {
+
+        interstitialAd = new InterstitialAd(context);
         interstitialAd.setAdUnitId(context.getString(R.string.appunitid));
         AdRequest adRequest = new AdRequest.Builder().build();
         interstitialAd.loadAd(adRequest);
         interstitialAd.setAdListener(new AdListener() {
             public void onAdLoaded() {
 
-                if (interstitialAd.isLoaded()) {
-                    interstitialAd.show();
-                }
+              initiate();
 
             }
         });
+    }
+
+    public void initiate()
+    {
+        if (interstitialAd.isLoaded()) {
+            interstitialAd.show();
+        }
     }
 
 
