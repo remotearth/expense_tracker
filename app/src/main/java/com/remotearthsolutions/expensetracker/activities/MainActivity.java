@@ -23,6 +23,7 @@ import com.remotearthsolutions.expensetracker.databinding.ActivityMainBinding;
 import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.fragments.*;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
+import com.remotearthsolutions.expensetracker.utils.AdmobUtils;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel;
@@ -46,6 +47,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 new MainViewModelFactory(this, new FirebaseServiceImpl(this))).
                 get(MainViewModel.class);
         viewModel.init();
+
     }
 
     @Override

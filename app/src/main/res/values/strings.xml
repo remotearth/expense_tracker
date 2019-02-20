@@ -13,7 +13,7 @@
     <!--Drawer Navigation Strings-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_title">EXPENSE TRACKER</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
@@ -56,6 +56,8 @@
     <string name="day">Day</string>
     <string name="Day">Daily</string>
     <string name="SelectPeriodfromHere">Select Period from Here</string>
+    <string name="appunitid">ca-app-pub-3996731798982494/8955771736</string>
+    <string name="appid">ca-app-pub-3996731798982494~9482261632</string>
 
 
 </resources>

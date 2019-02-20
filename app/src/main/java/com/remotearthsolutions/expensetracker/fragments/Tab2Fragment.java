@@ -2,15 +2,11 @@ package com.remotearthsolutions.expensetracker.fragments;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -26,17 +24,17 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.remotearthsolutions.expensetracker.R;
-import com.remotearthsolutions.expensetracker.activities.MainActivity;
+import com.remotearthsolutions.expensetracker.utils.AdmobUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import static android.provider.CalendarContract.CalendarCache.URI;
-
 
 public class Tab2Fragment extends Fragment {
+
+    private AdView adView;
 
     public Tab2Fragment() {
     }
@@ -48,6 +46,11 @@ public class Tab2Fragment extends Fragment {
 
         Button shareButton = view.findViewById(R.id.sendMail);
         Button createFile = view.findViewById(R.id.createFile);
+
+        // addmob -----//
+        adView = view.findViewById(R.id.adView);
+        AdmobUtils admobUtils = new AdmobUtils(getActivity());
+        admobUtils.showBannerAds(adView);
 
 
         shareButton.setOnClickListener(v -> {

@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
             android:name=".activities.ApplicationObject"
@@ -43,6 +44,11 @@
                 <data android:scheme="@string/fb_login_protocol_scheme"/>
             </intent-filter>
         </activity>
+
+        <meta-data
+                android:name="com.google.android.gms.ads.AD_MANAGER_APP"
+                android:value="true"/>
+
 
     </application>
 
