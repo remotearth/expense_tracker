@@ -14,6 +14,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.remotearthsolutions.expensetracker.R;
@@ -23,6 +26,7 @@ import com.remotearthsolutions.expensetracker.databinding.ActivityMainBinding;
 import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.fragments.*;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
+import com.remotearthsolutions.expensetracker.utils.AdmobUtils;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel;
@@ -37,6 +41,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private MainFragment mainFragment;
     private long backPressedTime = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +51,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 new MainViewModelFactory(this, new FirebaseServiceImpl(this))).
                 get(MainViewModel.class);
         viewModel.init();
+
+        AdmobUtils admobUtils = new AdmobUtils(this);
+        admobUtils.showInterstitialAds();
+
+
     }
 
     @Override

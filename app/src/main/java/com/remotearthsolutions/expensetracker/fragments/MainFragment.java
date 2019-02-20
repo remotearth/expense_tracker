@@ -32,6 +32,7 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
     private static HomeFragment homeFragment;
     private static AllExpenseFragment allExpenseFragment;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
