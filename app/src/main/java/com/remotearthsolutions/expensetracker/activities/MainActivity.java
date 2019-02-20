@@ -53,8 +53,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 get(MainViewModel.class);
         viewModel.init();
 
-        MobileAds.initialize(this);
         AdmobUtils admobUtils = new AdmobUtils(this);
+        interstitialAd = new InterstitialAd(this);
         admobUtils.showInterstitialAds(interstitialAd);
 
 
