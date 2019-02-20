@@ -40,8 +40,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private ActionBarDrawerToggle toggle;
     private MainFragment mainFragment;
     private long backPressedTime = 0;
-    private InterstitialAd interstitialAd;
-    
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +53,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         viewModel.init();
 
         AdmobUtils admobUtils = new AdmobUtils(this);
-        admobUtils.showInterstitialAds(interstitialAd);
+        admobUtils.showInterstitialAds();
 
 
     }
