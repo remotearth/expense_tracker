@@ -20,7 +20,8 @@ public class PurchaseListener extends EmptyRequestListener<Purchase> {
 
     @Override
     public void onError(int response, Exception e) {
-        Log.d("Error", "onError: ");
+        Log.d("Error", "onError: "+ response);
         billingCallback.onPurchaseFailedListener(e.getMessage());
+        e.printStackTrace();
     }
 }

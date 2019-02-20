@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.RemoteException;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
@@ -45,25 +46,21 @@ import static android.provider.CalendarContract.CalendarCache.URI;
 
 public class Tab2Fragment extends Fragment implements InAppBillingCallback {
 
-    private final ActivityCheckout mCheckout;
+    private ActivityCheckout mCheckout;
     private Inventory mInventory;
 
     private Button buyButton;
     private TextView infoTextView;
 
     public Tab2Fragment() {
-        mCheckout = Checkout.forActivity(getActivity(), ApplicationObject.get().getBilling());
+
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_share, container, false);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        Button shareButton = view.findViewById(R.id.sendMail);
-        Button createFile = view.findViewById(R.id.createFile);
-        buyButton = view.findViewById(R.id.button_buy);
-        infoTextView = view.findViewById(R.id.info_textView);
+        mCheckout = Checkout.forActivity(getActivity(), ApplicationObject.get().getBilling());
 
         mCheckout.start();
 
@@ -73,7 +70,18 @@ public class Tab2Fragment extends Fragment implements InAppBillingCallback {
         mInventory.load(Inventory.Request.create()
                 .loadAllPurchases()
                 .loadSkus(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM), new InventoryCallback());
+    }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_share, container, false);
+
+        Button shareButton = view.findViewById(R.id.sendMail);
+        Button createFile = view.findViewById(R.id.createFile);
+        buyButton = view.findViewById(R.id.button_buy);
+        infoTextView = view.findViewById(R.id.info_textView);
 
         shareButton.setOnClickListener(v -> {
 
@@ -102,19 +110,38 @@ public class Tab2Fragment extends Fragment implements InAppBillingCallback {
 
         createFile.setOnClickListener(v -> requestStoragePermission());
 
-        buyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view1) {
-
-                Toast.makeText(getContext(), "Clicked", Toast.LENGTH_LONG).show();
-                mCheckout.whenReady(new Checkout.EmptyListener() {
-                    @Override
-                    public void onReady(BillingRequests requests) {
-                        requests.purchase(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM, null, mCheckout.getPurchaseFlow());
-                    }
-                });
-            }
+        buyButton.setOnClickListener(view1 -> {
+            mCheckout.whenReady(new Checkout.EmptyListener() {
+                @Override
+                public void onReady(BillingRequests requests) {
+                    requests.purchase(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM, null, mCheckout.getPurchaseFlow());
+                }
+            });
         });
+
+//        consumeButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Thread t = new Thread(() -> {
+//                    String purchaseToken = "inapp:" + getActivity().getPackageName() + ":android.test.purchased";
+//                    try {
+//                        Log.d("","Running");
+//                        int response = .consumePurchase(3, getActivity().getPackageName(), purchaseToken);
+//                        if(response==0)
+//                        {
+//                            Log.d("Consumed","Consumed");
+//                        }else {
+//                            Log.d("","No"+response);
+//                        }
+//                    }catch (RemoteException e)
+//                    {
+//                        Log.d("Errorr",""+e);
+//                    }
+//
+//                });
+//                t.start();
+//            }
+//        });
 
 
         return view;
