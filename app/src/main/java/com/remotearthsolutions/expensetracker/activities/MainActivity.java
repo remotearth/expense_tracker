@@ -1,6 +1,7 @@
 package com.remotearthsolutions.expensetracker.activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -54,7 +56,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         AdmobUtils admobUtils = new AdmobUtils(this);
         admobUtils.showInterstitialAds();
-
 
     }
 
@@ -231,4 +232,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         fragmentTransaction.addToBackStack(ExpenseFragment.class.getName());
         fragmentTransaction.commit();
     }
+
+
 }
