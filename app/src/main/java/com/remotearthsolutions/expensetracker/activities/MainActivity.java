@@ -1,6 +1,7 @@
 package com.remotearthsolutions.expensetracker.activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -64,7 +66,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mCheckout.start();
 
         mCheckout.createPurchaseFlow(new PurchaseListener(this));
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ((ApplicationObject)getApplication()).activityResumed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ((ApplicationObject)getApplication()).activityPaused();
         mInventory = mCheckout.makeInventory();
         mInventory.load(Inventory.Request.create()
                 .loadAllPurchases()
@@ -96,7 +109,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void goBackToLoginScreen() {
-
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
@@ -262,4 +274,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             admobUtils.showInterstitialAds();
         }
     }
+
+
 }
