@@ -18,10 +18,9 @@ public class MyFirebaseMessegingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        if (ApplicationObject.isActivityVisible()) {
 
+        if (((ApplicationObject) getApplicationContext()).isActivityVisible()) {
             Activity activity = ((ApplicationObject) getApplicationContext()).getCurrentActivity();
-
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
