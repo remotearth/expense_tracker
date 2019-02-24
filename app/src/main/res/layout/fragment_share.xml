@@ -16,6 +16,18 @@
             android:id="@+id/createFile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+    <Button
+            android:id="@+id/button_buy"
+            android:text="Buy The Product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    <TextView
+            android:id="@+id/info_textView"
+            android:text=""
+            android:textSize="25sp"
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
 
 </LinearLayout>

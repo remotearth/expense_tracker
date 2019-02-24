@@ -4,12 +4,27 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 import androidx.multidex.MultiDexApplication;
+import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
+import org.solovyev.android.checkout.Billing;
 
 public class ApplicationObject extends MultiDexApplication implements Application.ActivityLifecycleCallbacks {
 
     private boolean activityVisible;
     private Activity currentActivity;
+
+    private static ApplicationObject sInstance;
+
+    public ApplicationObject() {
+        sInstance = this;
+    }
+
+    private final Billing mBilling = new Billing(this, new Billing.DefaultConfiguration() {
+        @Override
+        public String getPublicKey() {
+            return Constants.LICENSE_KEY;
+        }
+    });
 
     @Override
     public void onCreate() {
@@ -69,5 +84,13 @@ public class ApplicationObject extends MultiDexApplication implements Applicatio
 
     public Activity getCurrentActivity(){
         return currentActivity;
+    }
+
+    public static ApplicationObject get() {
+        return sInstance;
+    }
+
+    public Billing getBilling() {
+        return mBilling;
     }
 }

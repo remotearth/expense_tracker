@@ -22,20 +22,26 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.callbacks.InAppBillingCallback;
 import com.remotearthsolutions.expensetracker.contracts.MainContract;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databinding.ActivityMainBinding;
 import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.fragments.*;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
+import com.remotearthsolutions.expensetracker.services.InventoryCallback;
+import com.remotearthsolutions.expensetracker.services.PurchaseListener;
 import com.remotearthsolutions.expensetracker.utils.AdmobUtils;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.MainViewModelFactory;
 import org.parceler.Parcels;
+import org.solovyev.android.checkout.*;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
+import javax.annotation.Nonnull;
+
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View, InAppBillingCallback, Inventory.Callback {
 
     private ActivityMainBinding binding;
     private MainViewModel viewModel;
@@ -43,6 +49,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private MainFragment mainFragment;
     private long backPressedTime = 0;
 
+    private ActivityCheckout mCheckout;
+    private Inventory mInventory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +62,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 get(MainViewModel.class);
         viewModel.init();
 
-        AdmobUtils admobUtils = new AdmobUtils(this);
-        admobUtils.showInterstitialAds();
+        mCheckout = Checkout.forActivity(this, ApplicationObject.get().getBilling());
+        mCheckout.start();
 
+        mCheckout.createPurchaseFlow(new PurchaseListener(this));
     }
 
     @Override
@@ -69,6 +78,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected void onPause() {
         super.onPause();
         ((ApplicationObject)getApplication()).activityPaused();
+        mInventory = mCheckout.makeInventory();
+        mInventory.load(Inventory.Request.create()
+                .loadAllPurchases()
+                .loadSkus(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM), this);
     }
 
     @Override
@@ -96,7 +109,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void goBackToLoginScreen() {
-
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
@@ -243,6 +255,24 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         fragmentTransaction.add(R.id.framelayout, expenseFragment, ExpenseFragment.class.getName());
         fragmentTransaction.addToBackStack(ExpenseFragment.class.getName());
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onPurchaseSuccessListener(Purchase purchase) {
+
+    }
+
+    @Override
+    public void onPurchaseFailedListener(String error) {
+
+    }
+
+    @Override
+    public void onLoaded(@Nonnull Inventory.Products products) {
+        if (!products.get(ProductTypes.IN_APP).isPurchased(Constants.TEST_PURCHASED_ITEM)) {
+            AdmobUtils admobUtils = new AdmobUtils(this);
+            admobUtils.showInterstitialAds();
+        }
     }
 
 
