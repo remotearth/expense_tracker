@@ -1,7 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +26,7 @@ public class CategoryDialogFragment extends DialogFragment implements CategoryFr
 
     private CategoryViewModel viewModel;
     private RecyclerView recyclerView;
+    private GridLayoutManager layoutManager;
     private CategoryListAdapter categoryListAdapter;
     private CategoryDialogFragment.Callback callback;
     private int selectedCategoryId;
@@ -46,7 +46,7 @@ public class CategoryDialogFragment extends DialogFragment implements CategoryFr
         this.callback = callback;
     }
 
-    public void setCategory(int categoryId){
+    public void setCategory(int categoryId) {
         this.selectedCategoryId = categoryId;
     }
 
@@ -66,7 +66,8 @@ public class CategoryDialogFragment extends DialogFragment implements CategoryFr
 
         recyclerView = view.findViewById(R.id.categoryrecyclearView);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        layoutManager = new GridLayoutManager(getActivity(), 3);
+        recyclerView.setLayoutManager(layoutManager);
         categoryListAdapter = new CategoryListAdapter(new ArrayList<>());
         recyclerView.setAdapter(categoryListAdapter);
         viewModel.showCategories();
@@ -82,7 +83,19 @@ public class CategoryDialogFragment extends DialogFragment implements CategoryFr
                 callback.onSelectCategory(category);
             }
         });
+
         recyclerView.setAdapter(categoryListAdapter);
+        layoutManager.scrollToPosition(getPositionOfSelectedItem(categories, selectedCategoryId));
+    }
+
+    public int getPositionOfSelectedItem(List<CategoryModel> categories, int categoryId) {
+        for (CategoryModel category : categories) {
+            if (category.getId() == categoryId) {
+                return categories.indexOf(category);
+            }
+        }
+
+        return 0;
     }
 
     public interface Callback {

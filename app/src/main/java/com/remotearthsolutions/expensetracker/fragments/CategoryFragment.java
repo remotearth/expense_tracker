@@ -54,7 +54,7 @@ public class CategoryFragment extends Fragment implements CategoryFragmentContra
             public void onClick(View v) {
 
                 FragmentManager fm = getChildFragmentManager();
-                final AddCategoryDialogFragment categoryDialogFragment = AddCategoryDialogFragment.newInstance("Add Category");
+                final AddCategoryDialogFragment categoryDialogFragment = AddCategoryDialogFragment.newInstance("ADD CATEGORY");
                 categoryDialogFragment.setCallback(new AddCategoryDialogFragment.Callback() {
                     @Override
                     public void onCategoryAdded(CategoryModel categoryModel) {
