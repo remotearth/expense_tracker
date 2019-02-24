@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,25 +18,26 @@ import com.remotearthsolutions.expensetracker.adapters.IconListAdapter;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
-import com.remotearthsolutions.expensetracker.entities.Icon;
+import com.remotearthsolutions.expensetracker.utils.CategoryIcons;
+import com.remotearthsolutions.expensetracker.utils.Utils;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class AddCategoryDialogFragment extends DialogFragment {
 
 
     private IconListAdapter iconListAdapter;
-    private List<Icon> alliconList;
     private RecyclerView recyclerView;
     private AddCategoryDialogFragment.Callback callback;
     private EditText categoryNameEdtxt;
     private TextView categorydialogstatus;
     private CategoryModel categoryModel;
-    private int selectedIcon = R.drawable.cat_bills;
+    private String selectedIcon;
 
     public AddCategoryDialogFragment() {
     }
@@ -84,15 +86,24 @@ public class AddCategoryDialogFragment extends DialogFragment {
         });
 
         recyclerView = view.findViewById(R.id.accountrecyclearView);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                (Utils.getDeviceScreenSize(getActivity()).height / 2));
+        recyclerView.setLayoutParams(params);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-        loadicon();
-        iconListAdapter = new IconListAdapter(alliconList);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),4);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+        Map<String, Integer> iconMap = CategoryIcons.getAllIcons();
+        List<String> alliconList = new ArrayList<>(iconMap.keySet());
+
+        iconListAdapter = new IconListAdapter(alliconList,gridLayoutManager);
+        iconListAdapter.setSelectedIcon(selectedIcon != null ? selectedIcon : "");
         iconListAdapter.setOnItemClickListener(new IconListAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(Icon icon, int position) {
-
-                //----- task to do----------//
+            public void onItemClick(String icon) {
+                selectedIcon = icon;
+                iconListAdapter.setSelectedIcon(selectedIcon != null ? selectedIcon : "");
+                iconListAdapter.notifyDataSetChanged();
             }
         });
         recyclerView.setAdapter(iconListAdapter);
@@ -116,8 +127,7 @@ public class AddCategoryDialogFragment extends DialogFragment {
         }
 
         newCategoryModel.setName(categoryName);
-        //newCategoryModel.setIcon(selectedIcon);
-        newCategoryModel.setIcon("selected_icon");
+        newCategoryModel.setIcon(selectedIcon);
 
         Completable.fromAction(() -> {
             if (categoryModel != null) {
@@ -131,24 +141,9 @@ public class AddCategoryDialogFragment extends DialogFragment {
 
     }
 
-    public void loadicon() {
-
-        alliconList = new ArrayList<>();
-        alliconList.add(new Icon(R.drawable.ic_currency));
-        alliconList.add(new Icon(R.drawable.ic_currency));
-        alliconList.add(new Icon(R.drawable.ic_currency));
-        alliconList.add(new Icon(R.drawable.ic_currency));
-        alliconList.add(new Icon(R.drawable.ic_currency));
-        alliconList.add(new Icon(R.drawable.ic_currency));
-        alliconList.add(new Icon(R.drawable.ic_currency));
-        alliconList.add(new Icon(R.drawable.ic_currency));
-        alliconList.add(new Icon(R.drawable.ic_currency));
-        alliconList.add(new Icon(R.drawable.ic_currency));
-        alliconList.add(new Icon(R.drawable.ic_currency));
-    }
-
     public void setCategory(CategoryModel categoryModel) {
         this.categoryModel = categoryModel;
+        selectedIcon = categoryModel.getIcon();
     }
 
     public interface Callback {

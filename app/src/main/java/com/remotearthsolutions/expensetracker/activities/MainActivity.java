@@ -66,22 +66,25 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mCheckout.start();
 
         mCheckout.createPurchaseFlow(new PurchaseListener(this));
+        mInventory = mCheckout.makeInventory();
+        mInventory.load(Inventory.Request.create()
+                .loadAllPurchases()
+                .loadSkus(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM), this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         ((ApplicationObject)getApplication()).activityResumed();
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         ((ApplicationObject)getApplication()).activityPaused();
-        mInventory = mCheckout.makeInventory();
-        mInventory.load(Inventory.Request.create()
-                .loadAllPurchases()
-                .loadSkus(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM), this);
+        mCheckout.stop();
+
     }
 
     @Override

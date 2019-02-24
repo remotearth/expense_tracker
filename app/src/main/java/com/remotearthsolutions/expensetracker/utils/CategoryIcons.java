@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CategoryIcons {
-    private Map<String,Integer> icons = new HashMap<String,Integer>(){
+    private static Map<String, Integer> icons = new HashMap<String, Integer>() {
         {
             put("cat_bills", R.drawable.cat_bills);
             put("cat_bills1", R.drawable.cat_bills1);
@@ -43,16 +43,24 @@ public class CategoryIcons {
             put("cat_entertainment3", R.drawable.cat_entertainment3);
             put("cat_entertainment4", R.drawable.cat_entertainment4);
             put("cat_entertainment5", R.drawable.cat_entertainment5);
-            put("cat_food",R.drawable.cat_food);
-            put("cat_gift",R.drawable.cat_gift);
-            put("cat_health",R.drawable.cat_health);
-            put("cat_pets",R.drawable.cat_pets);
-            put("cat_sports",R.drawable.cat_sports);
-            put("cat_taxi",R.drawable.cat_taxi);
-            put("cat_toiletry",R.drawable.cat_toiletry);
-            put("cat_transport",R.drawable.cat_transport);
-            put("cat_family",R.drawable.cat_family);
+            put("cat_food", R.drawable.cat_food);
+            put("cat_gift", R.drawable.cat_gift);
+            put("cat_health", R.drawable.cat_health);
+            put("cat_pets", R.drawable.cat_pets);
+            put("cat_sports", R.drawable.cat_sports);
+            put("cat_taxi", R.drawable.cat_taxi);
+            put("cat_toiletry", R.drawable.cat_toiletry);
+            put("cat_transport", R.drawable.cat_transport);
+            put("cat_family", R.drawable.cat_family);
 
         }
     };
+
+    public static int getIconId(String name) {
+        return icons.get(name);
+    }
+
+    public static Map<String, Integer> getAllIcons() {
+        return icons;
+    }
 }
