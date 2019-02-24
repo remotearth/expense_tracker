@@ -16,6 +16,8 @@ public class ApplicationObject extends MultiDexApplication implements Applicatio
         super.onCreate();
 
         SharedPreferenceUtils.getInstance(this);
+
+        registerActivityLifecycleCallbacks(this);
     }
 
     public boolean isActivityVisible() {
