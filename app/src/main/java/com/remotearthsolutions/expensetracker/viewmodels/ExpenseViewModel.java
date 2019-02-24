@@ -45,4 +45,26 @@ public class ExpenseViewModel extends ViewModel {
                 }));
     }
 
+    public void saveExpenseToCSV(long startTime, long endTime) {
+        disposable.add(expenseDao.getAllFilterExpense(startTime, endTime)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((listOfFilterExpense) -> {
+
+                    List<CategoryExpense> expenseList = new ArrayList<>();
+                    if (listOfFilterExpense != null) {
+
+                        for (int i = 0; i < listOfFilterExpense.size(); i++) {
+                            CategoryExpense expense = listOfFilterExpense.get(i);
+                            if (expense.getTotal_amount() > 0) {
+                                expenseList.add(expense);
+                            }
+                        }
+                    }
+
+                    view.loadFilterExpense(expenseList);
+
+                }));
+    }
+
 }
