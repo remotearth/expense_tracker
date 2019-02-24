@@ -4,10 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -22,11 +19,10 @@ import com.remotearthsolutions.expensetracker.utils.CategoryIcons;
 import com.remotearthsolutions.expensetracker.utils.Utils;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class AddCategoryDialogFragment extends DialogFragment {
 
@@ -76,35 +72,23 @@ public class AddCategoryDialogFragment extends DialogFragment {
             addBtn.setText("Update");
         }
 
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // Call db operation method here
-                saveCategory();
-            }
-        });
+        addBtn.setOnClickListener(v -> saveCategory());
 
         recyclerView = view.findViewById(R.id.accountrecyclearView);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 (Utils.getDeviceScreenSize(getActivity()).height / 2));
         recyclerView.setLayoutParams(params);
         recyclerView.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),4);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4);
         recyclerView.setLayoutManager(gridLayoutManager);
 
-        Map<String, Integer> iconMap = CategoryIcons.getAllIcons();
-        List<String> alliconList = new ArrayList<>(iconMap.keySet());
-
-        iconListAdapter = new IconListAdapter(alliconList,gridLayoutManager);
+        List<String> alliconList = CategoryIcons.getAllIcons();
+        iconListAdapter = new IconListAdapter(alliconList, gridLayoutManager);
         iconListAdapter.setSelectedIcon(selectedIcon != null ? selectedIcon : "");
-        iconListAdapter.setOnItemClickListener(new IconListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(String icon) {
-                selectedIcon = icon;
-                iconListAdapter.setSelectedIcon(selectedIcon != null ? selectedIcon : "");
-                iconListAdapter.notifyDataSetChanged();
-            }
+        iconListAdapter.setOnItemClickListener(icon -> {
+            selectedIcon = icon;
+            iconListAdapter.setSelectedIcon(selectedIcon != null ? selectedIcon : "");
+            iconListAdapter.notifyDataSetChanged();
         });
         recyclerView.setAdapter(iconListAdapter);
 
@@ -115,8 +99,13 @@ public class AddCategoryDialogFragment extends DialogFragment {
         final String categoryName = categoryNameEdtxt.getText().toString().trim();
 
         if (categoryName.isEmpty()) {
-            categoryNameEdtxt.setError("Plz Enter Category Name");
+            categoryNameEdtxt.setError("Enter Category Name");
             categoryNameEdtxt.requestFocus();
+            return;
+        }
+
+        if (selectedIcon == null || selectedIcon.isEmpty()) {
+            Toast.makeText(getActivity(), "Select an icon for the category", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -129,7 +118,8 @@ public class AddCategoryDialogFragment extends DialogFragment {
         newCategoryModel.setName(categoryName);
         newCategoryModel.setIcon(selectedIcon);
 
-        Completable.fromAction(() -> {
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        compositeDisposable.add(Completable.fromAction(() -> {
             if (categoryModel != null) {
                 categoryDao.updateCategory(newCategoryModel);
             } else {
@@ -137,7 +127,7 @@ public class AddCategoryDialogFragment extends DialogFragment {
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> callback.onCategoryAdded(categoryModel));
+                .subscribe(() -> callback.onCategoryAdded(categoryModel)));
 
     }
 

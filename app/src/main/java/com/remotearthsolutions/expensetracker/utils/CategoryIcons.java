@@ -2,7 +2,9 @@ package com.remotearthsolutions.expensetracker.utils;
 
 import com.remotearthsolutions.expensetracker.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CategoryIcons {
@@ -43,22 +45,22 @@ public class CategoryIcons {
             put("cat_entertainment3", R.drawable.cat_entertainment3);
             put("cat_entertainment4", R.drawable.cat_entertainment4);
             put("cat_entertainment5", R.drawable.cat_entertainment5);
-            put("cat_food",R.drawable.cat_food);
-            put("cat_food1",R.drawable.cat_food1);
-            put("cat_food2",R.drawable.cat_food2);
-            put("cat_food3",R.drawable.cat_food3);
-            put("cat_food4",R.drawable.cat_food4);
-            put("cat_food5",R.drawable.cat_food5);
-            put("cat_food6",R.drawable.cat_food6);
-            put("cat_food7",R.drawable.cat_food7);
-            put("cat_gift",R.drawable.cat_gift);
-            put("cat_health",R.drawable.cat_health);
-            put("cat_pets",R.drawable.cat_pets);
-            put("cat_sports",R.drawable.cat_sports);
-            put("cat_taxi",R.drawable.cat_taxi);
-            put("cat_toiletry",R.drawable.cat_toiletry);
-            put("cat_transport",R.drawable.cat_transport);
-            put("cat_family",R.drawable.cat_family);
+            put("cat_food", R.drawable.cat_food);
+            put("cat_food1", R.drawable.cat_food1);
+            put("cat_food2", R.drawable.cat_food2);
+            put("cat_food3", R.drawable.cat_food3);
+            put("cat_food4", R.drawable.cat_food4);
+            put("cat_food5", R.drawable.cat_food5);
+            put("cat_food6", R.drawable.cat_food6);
+            put("cat_food7", R.drawable.cat_food7);
+            put("cat_gift", R.drawable.cat_gift);
+            put("cat_health", R.drawable.cat_health);
+            put("cat_pets", R.drawable.cat_pets);
+            put("cat_sports", R.drawable.cat_sports);
+            put("cat_taxi", R.drawable.cat_taxi);
+            put("cat_toiletry", R.drawable.cat_toiletry);
+            put("cat_transport", R.drawable.cat_transport);
+            put("cat_family", R.drawable.cat_family);
 
         }
     };
@@ -67,7 +69,8 @@ public class CategoryIcons {
         return icons.get(name);
     }
 
-    public static Map<String, Integer> getAllIcons() {
-        return icons;
+    public static List<String> getAllIcons() {
+        return new ArrayList<>(icons.keySet());
+
     }
 }
