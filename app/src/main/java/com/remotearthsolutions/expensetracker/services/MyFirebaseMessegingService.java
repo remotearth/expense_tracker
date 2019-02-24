@@ -1,14 +1,12 @@
 package com.remotearthsolutions.expensetracker.services;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import androidx.core.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -21,25 +19,22 @@ public class MyFirebaseMessegingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         if (ApplicationObject.isActivityVisible()) {
-            new Handler(Looper.getMainLooper()) {
-                @Override
-                public void handleMessage(Message message) {
-                    showAlertDialog(remoteMessage.getNotification().getBody());
-                }
-            };
-        } else {
-            new Handler(Looper.getMainLooper()) {
-                @Override
-                public void handleMessage(Message message) {
-                    showNotification(remoteMessage);
-                }
-            };
 
+            Activity activity = ((ApplicationObject) getApplicationContext()).getCurrentActivity();
+
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    showAlertDialog(activity, remoteMessage.getNotification().getBody());
+                }
+            });
+        } else {
+            showNotification(remoteMessage);
         }
     }
 
-    public void showAlertDialog(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+    public void showAlertDialog(Activity activity, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         builder.setTitle("Remotearth Notification");
         builder.setMessage(message);

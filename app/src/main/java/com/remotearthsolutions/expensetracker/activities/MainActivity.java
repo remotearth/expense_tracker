@@ -62,13 +62,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void onResume() {
         super.onResume();
-        ApplicationObject.activityResumed();
+        ((ApplicationObject)getApplication()).activityResumed();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        ApplicationObject.activityPaused();
+        ((ApplicationObject)getApplication()).activityPaused();
     }
 
     @Override
