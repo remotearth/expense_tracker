@@ -55,4 +55,12 @@ public class CategoryExpense {
     public void setDatetime(long datetime) {
         this.datetime = datetime;
     }
+
+    @Override
+    public String toString() {
+        return category_id +
+                ", " + category_name +
+                ", " + total_amount +
+                "\n";
+    }
 }

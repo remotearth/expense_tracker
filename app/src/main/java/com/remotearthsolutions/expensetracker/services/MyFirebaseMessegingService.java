@@ -21,18 +21,13 @@ public class MyFirebaseMessegingService extends FirebaseMessagingService {
 
         if (((ApplicationObject) getApplicationContext()).isActivityVisible()) {
             Activity activity = ((ApplicationObject) getApplicationContext()).getCurrentActivity();
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    showAlertDialog(activity, remoteMessage.getNotification().getBody());
-                }
-            });
+            activity.runOnUiThread(() -> showAlertDialog(activity, remoteMessage.getNotification().getBody()));
         } else {
             showNotification(remoteMessage);
         }
     }
 
-    public void showAlertDialog(Activity activity, String message) {
+    private void showAlertDialog(Activity activity, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         builder.setTitle("Remotearth Notification");
@@ -45,7 +40,7 @@ public class MyFirebaseMessegingService extends FirebaseMessagingService {
         alert.show();
     }
 
-    public void showNotification(RemoteMessage remoteMessage) {
+    private void showNotification(RemoteMessage remoteMessage) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
