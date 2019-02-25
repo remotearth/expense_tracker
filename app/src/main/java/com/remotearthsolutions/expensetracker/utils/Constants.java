@@ -15,6 +15,7 @@ public interface Constants {
     String KEY_MONTHLY = "Monthly";
     String KEY_YEARLY= "Yearly";
 
+    String CATEGORY_PARCEL = "category_parcel";
 
     String PREF_CURRENCY = "pref_currency_list";
     String PREF_PERIOD = "pref_period_list";
@@ -22,5 +23,7 @@ public interface Constants {
     String LICENSE_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjdEZ6Ng4jqYE4XL2Zn6aSCfqnm5EzLTVlFPFTuXrAt3aTOxTLQBsdUn2Yu7FUCCJc27Ao/v9loyEzlEFOly90Ye1eVFzfnc7dNHVkHMHSYLp3k2XcIcN0xIbHgncCPTc/8i1pAxLHVzCPOLKe7GFp27HrQFPrz46jz2lG7RYRIFcfGlLL6nX8NAZWV5tpD2OVU3h5u5xDWIAL65O0vCaR8adRDbAClairUxn3zOsYQ5BJHs2cWOUR0qUeMcHjsYKoIMbWbWvd0JGOEJ8m/tMzmePz8hhXTS+/lZxY1ezelq8zlbnSQ3E3bA7lRNHZLuCFHx7X82qTAugMHXCr7pqVQIDAQAB";
     String TEST_PURCHASED_ITEM = "android.test.purchased";
     String PRODUCT_ID = "com.remotearthsolutions.expensetracker.remove_ad";
+
+
 
 }

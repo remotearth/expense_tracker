@@ -1,7 +1,6 @@
 package com.remotearthsolutions.expensetracker.activities;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -9,16 +8,12 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.remotearthsolutions.expensetracker.R;
@@ -28,8 +23,8 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databinding.ActivityMainBinding;
 import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.fragments.*;
+import com.remotearthsolutions.expensetracker.fragments.home.HomeFragment;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
-import com.remotearthsolutions.expensetracker.services.InventoryCallback;
 import com.remotearthsolutions.expensetracker.services.PurchaseListener;
 import com.remotearthsolutions.expensetracker.utils.AdmobUtils;
 import com.remotearthsolutions.expensetracker.utils.Constants;
@@ -66,22 +61,25 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mCheckout.start();
 
         mCheckout.createPurchaseFlow(new PurchaseListener(this));
+        mInventory = mCheckout.makeInventory();
+        mInventory.load(Inventory.Request.create()
+                .loadAllPurchases()
+                .loadSkus(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM), this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        ((ApplicationObject)getApplication()).activityResumed();
+        ((ApplicationObject) getApplication()).activityResumed();
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        ((ApplicationObject)getApplication()).activityPaused();
-        mInventory = mCheckout.makeInventory();
-        mInventory.load(Inventory.Request.create()
-                .loadAllPurchases()
-                .loadSkus(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM), this);
+        ((ApplicationObject) getApplication()).activityPaused();
+        mCheckout.stop();
+
     }
 
     @Override
@@ -100,11 +98,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         toggle.syncState();
         binding.navView.setNavigationItemSelectedListener(this);
 
+        loadMainFragment();
+    }
+
+    private void loadMainFragment() {
         mainFragment = new MainFragment();
         mainFragment.setActionBar(getSupportActionBar());
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.framelayout, mainFragment, MainFragment.class.getName());
-        fragmentTransaction.commitAllowingStateLoss();
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -135,10 +137,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             binding.drawerLayout.closeDrawer(GravityCompat.START);
         } else if (expenseFragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction ft =  fragmentManager.beginTransaction();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
             ft.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down);
             ft.remove(expenseFragment);
             fragmentManager.popBackStack();
+
+            loadMainFragment();
+
         } else {
             long t = System.currentTimeMillis();
             if (t - backPressedTime > 2000) {
@@ -245,16 +250,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public void openAddExpenseScreen(CategoryModel category) {
 
+        getSupportActionBar().setTitle("Add Expense");
         ExpenseFragment expenseFragment = new ExpenseFragment();
         Parcelable wrappedCategory = Parcels.wrap(category);
         Bundle bundle = new Bundle();
-        bundle.putParcelable("category_parcel", wrappedCategory);
+        bundle.putParcelable(Constants.CATEGORY_PARCEL, wrappedCategory);
         expenseFragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down);
         fragmentTransaction.add(R.id.framelayout, expenseFragment, ExpenseFragment.class.getName());
         fragmentTransaction.addToBackStack(ExpenseFragment.class.getName());
         fragmentTransaction.commit();
+
     }
 
     @Override

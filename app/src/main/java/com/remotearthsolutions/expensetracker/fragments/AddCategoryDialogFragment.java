@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -17,25 +15,25 @@ import com.remotearthsolutions.expensetracker.adapters.IconListAdapter;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
-import com.remotearthsolutions.expensetracker.entities.Icon;
+import com.remotearthsolutions.expensetracker.utils.CategoryIcons;
+import com.remotearthsolutions.expensetracker.utils.Utils;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AddCategoryDialogFragment extends DialogFragment {
 
 
     private IconListAdapter iconListAdapter;
-    private List<Icon> alliconList;
     private RecyclerView recyclerView;
     private AddCategoryDialogFragment.Callback callback;
     private EditText categoryNameEdtxt;
     private TextView categorydialogstatus;
     private CategoryModel categoryModel;
-    private int selectedIcon = R.drawable.ic_bills;
+    private String selectedIcon;
 
     public AddCategoryDialogFragment() {
     }
@@ -74,26 +72,23 @@ public class AddCategoryDialogFragment extends DialogFragment {
             addBtn.setText("Update");
         }
 
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // Call db operation method here
-                saveCategory();
-            }
-        });
+        addBtn.setOnClickListener(v -> saveCategory());
 
         recyclerView = view.findViewById(R.id.accountrecyclearView);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                (Utils.getDeviceScreenSize(getActivity()).height / 2));
+        recyclerView.setLayoutParams(params);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-        loadicon();
-        iconListAdapter = new IconListAdapter(alliconList);
-        iconListAdapter.setOnItemClickListener(new IconListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Icon icon, int position) {
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4);
+        recyclerView.setLayoutManager(gridLayoutManager);
 
-                //----- task to do----------//
-            }
+        List<String> alliconList = CategoryIcons.getAllIcons();
+        iconListAdapter = new IconListAdapter(alliconList, gridLayoutManager);
+        iconListAdapter.setSelectedIcon(selectedIcon != null ? selectedIcon : "");
+        iconListAdapter.setOnItemClickListener(icon -> {
+            selectedIcon = icon;
+            iconListAdapter.setSelectedIcon(selectedIcon != null ? selectedIcon : "");
+            iconListAdapter.notifyDataSetChanged();
         });
         recyclerView.setAdapter(iconListAdapter);
 
@@ -104,8 +99,13 @@ public class AddCategoryDialogFragment extends DialogFragment {
         final String categoryName = categoryNameEdtxt.getText().toString().trim();
 
         if (categoryName.isEmpty()) {
-            categoryNameEdtxt.setError("Plz Enter Category Name");
+            categoryNameEdtxt.setError("Enter Category Name");
             categoryNameEdtxt.requestFocus();
+            return;
+        }
+
+        if (selectedIcon == null || selectedIcon.isEmpty()) {
+            Toast.makeText(getActivity(), "Select an icon for the category", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -116,10 +116,10 @@ public class AddCategoryDialogFragment extends DialogFragment {
         }
 
         newCategoryModel.setName(categoryName);
-        //newCategoryModel.setIcon(selectedIcon);
-        newCategoryModel.setIcon("selected_icon");
+        newCategoryModel.setIcon(selectedIcon);
 
-        Completable.fromAction(() -> {
+        CompositeDisposable compositeDisposable = new CompositeDisposable();
+        compositeDisposable.add(Completable.fromAction(() -> {
             if (categoryModel != null) {
                 categoryDao.updateCategory(newCategoryModel);
             } else {
@@ -127,28 +127,13 @@ public class AddCategoryDialogFragment extends DialogFragment {
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> callback.onCategoryAdded(categoryModel));
+                .subscribe(() -> callback.onCategoryAdded(categoryModel)));
 
-    }
-
-    public void loadicon() {
-
-        alliconList = new ArrayList<>();
-        alliconList.add(new Icon(R.drawable.ic_currency));
-        alliconList.add(new Icon(R.drawable.ic_currency));
-        alliconList.add(new Icon(R.drawable.ic_currency));
-        alliconList.add(new Icon(R.drawable.ic_currency));
-        alliconList.add(new Icon(R.drawable.ic_currency));
-        alliconList.add(new Icon(R.drawable.ic_currency));
-        alliconList.add(new Icon(R.drawable.ic_currency));
-        alliconList.add(new Icon(R.drawable.ic_currency));
-        alliconList.add(new Icon(R.drawable.ic_currency));
-        alliconList.add(new Icon(R.drawable.ic_currency));
-        alliconList.add(new Icon(R.drawable.ic_currency));
     }
 
     public void setCategory(CategoryModel categoryModel) {
         this.categoryModel = categoryModel;
+        selectedIcon = categoryModel.getIcon();
     }
 
     public interface Callback {

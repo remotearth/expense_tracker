@@ -4,21 +4,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.viewholder.IconViewHolder;
-import com.remotearthsolutions.expensetracker.entities.Icon;
 
 import java.util.List;
 
-public class IconListAdapter extends RecyclerView.Adapter<IconViewHolder>{
+public class IconListAdapter extends RecyclerView.Adapter<IconViewHolder> {
 
-    private List<Icon> iconlist;
+    private List<String> iconlist;
     private IconListAdapter.OnItemClickListener listener;
+    private String selectedIcon;
+    private GridLayoutManager layoutManager;
 
-
-    public IconListAdapter(List<Icon> iconlist) {
+    public IconListAdapter(List<String> iconlist, GridLayoutManager layoutManager) {
         this.iconlist = iconlist;
+        this.layoutManager = layoutManager;
     }
 
     @NonNull
@@ -26,14 +28,14 @@ public class IconListAdapter extends RecyclerView.Adapter<IconViewHolder>{
     public IconViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_icon, parent, false);
-        return new IconViewHolder(v,listener);
+        return new IconViewHolder(v, listener, layoutManager);
     }
 
     @Override
     public void onBindViewHolder(@NonNull IconViewHolder holder, int position) {
 
-        Icon icon = iconlist.get(position);
-        holder.bind(icon,position);
+        String icon = iconlist.get(position);
+        holder.bind(icon, selectedIcon.equals(icon));
     }
 
     @Override
@@ -43,13 +45,19 @@ public class IconListAdapter extends RecyclerView.Adapter<IconViewHolder>{
         return iconlist.size();
     }
 
-
-
-    public void setOnItemClickListener(IconListAdapter.OnItemClickListener listener){
+    public void setOnItemClickListener(IconListAdapter.OnItemClickListener listener) {
         this.listener = listener;
     }
 
+    public void setSelectedIcon(String selectedIcon) {
+        this.selectedIcon = selectedIcon;
+        int position = iconlist.indexOf(selectedIcon);
+        if (position > 0) {
+            layoutManager.scrollToPosition(position);
+        }
+    }
+
     public interface OnItemClickListener {
-        void onItemClick(Icon icon, int position);
+        void onItemClick(String icon);
     }
 }

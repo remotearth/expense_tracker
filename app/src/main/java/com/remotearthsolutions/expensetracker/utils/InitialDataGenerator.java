@@ -7,22 +7,22 @@ public class InitialDataGenerator {
 
     public static CategoryModel[] generateCategories() {
         return new CategoryModel[]{
-                new CategoryModel("Bills", "flat_icon"),
-                new CategoryModel("Car", "flat_icon"),
-                new CategoryModel("Cloths", "flat_icon"),
-                new CategoryModel("Communication", "flat_icon"),
-                new CategoryModel("Eating out", "flat_icon"),
-                new CategoryModel("Entertainment", "flat_icon"),
-                new CategoryModel("Food", "flat_icon"),
-                new CategoryModel("Gift", "flat_icon"),
-                new CategoryModel("Health", "flat_icon"),
-                new CategoryModel("House", "flat_icon"),
-                new CategoryModel("Pets", "flat_icon"),
-                new CategoryModel("Sports", "flat_icon"),
-                new CategoryModel("Taxi", "flat_icon"),
-                new CategoryModel("Toiletry", "flat_icon"),
-                new CategoryModel("Transport", "flat_icon"),
-                new CategoryModel("Family", "flat_icon"),
+                new CategoryModel("Bills", "cat_bills"),
+                new CategoryModel("Car", "cat_car"),
+                new CategoryModel("Cloths", "cat_clothes"),
+                new CategoryModel("Communication", "cat_communication"),
+                new CategoryModel("Eating out", "cat_eatingout"),
+                new CategoryModel("Entertainment", "cat_entertainment"),
+                new CategoryModel("Food", "cat_food"),
+                new CategoryModel("Gift", "cat_gift"),
+                new CategoryModel("Health", "cat_health"),
+                new CategoryModel("House", "cat_pets"),
+                new CategoryModel("Pets", "cat_pets"),
+                new CategoryModel("Sports", "cat_sports"),
+                new CategoryModel("Taxi", "cat_taxi"),
+                new CategoryModel("Toiletry", "cat_toiletry"),
+                new CategoryModel("Transport", "cat_transport"),
+                new CategoryModel("Family", "cat_family"),
         };
     }
 

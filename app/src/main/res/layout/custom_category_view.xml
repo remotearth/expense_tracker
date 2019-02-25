@@ -23,7 +23,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="0.4"
                     android:layout_marginLeft="5dp"
-                    android:src="@drawable/ic_food"
+                    android:src="@drawable/cat_food"
                     android:layout_height="40dp"/>
 
 

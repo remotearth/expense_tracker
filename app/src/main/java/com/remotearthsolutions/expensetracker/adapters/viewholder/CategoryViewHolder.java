@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import com.remotearthsolutions.expensetracker.utils.CategoryIcons;
 
 public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
@@ -30,8 +31,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(CategoryModel category, boolean isSelected) {
         this.category = category;
-        //categoryImageIv.setImageResource(category.getIcon());
-        categoryImageIv.setImageResource(R.drawable.ic_bills);
+        categoryImageIv.setImageResource(CategoryIcons.getIconId(category.getIcon()));
         categoryNameTv.setText(category.getName());
 
         if (isSelected) {

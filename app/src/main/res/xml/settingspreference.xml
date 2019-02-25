@@ -8,7 +8,7 @@
         android:defaultValue="United States Dollar - USD"
         android:entryValues="@array/currency"
         android:entries="@array/currency"
-        android:icon="@drawable/ic_bills"
+        android:icon="@drawable/settings_currency"
         android:summary="@string/summarypreftext"/>
 
     <ListPreference
@@ -17,7 +17,7 @@
             android:defaultValue="@string/daily"
             android:entryValues="@array/TimePeriod"
             android:entries="@array/TimePeriod"
-            android:icon="@drawable/ic_bills"
+            android:icon="@drawable/settings_timeperiod"
             android:summary="@string/SelectPeriodfromHere"/>
 
 
