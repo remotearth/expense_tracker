@@ -44,6 +44,13 @@ public class CategoryIcons {
             put("cat_entertainment4", R.drawable.cat_entertainment4);
             put("cat_entertainment5", R.drawable.cat_entertainment5);
             put("cat_food",R.drawable.cat_food);
+            put("cat_food1",R.drawable.cat_food1);
+            put("cat_food2",R.drawable.cat_food2);
+            put("cat_food3",R.drawable.cat_food3);
+            put("cat_food4",R.drawable.cat_food4);
+            put("cat_food5",R.drawable.cat_food5);
+            put("cat_food6",R.drawable.cat_food6);
+            put("cat_food7",R.drawable.cat_food7);
             put("cat_gift",R.drawable.cat_gift);
             put("cat_health",R.drawable.cat_health);
             put("cat_pets",R.drawable.cat_pets);
