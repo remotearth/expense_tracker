@@ -4,7 +4,7 @@
 
     <item
             android:id="@+id/navigation_home"
-            android:icon="@drawable/ic_home"
+            android:icon="@drawable/ic_facebook"
             android:title="@string/title_home"/>
 
     <item
@@ -14,6 +14,6 @@
 
     <item
             android:id="@+id/navigation_dashboard"
-            android:icon="@drawable/ic_dashboard"
+            android:icon="@drawable/ic_facebook"
             android:title="@string/title_dashboard"/>
 </menu>
