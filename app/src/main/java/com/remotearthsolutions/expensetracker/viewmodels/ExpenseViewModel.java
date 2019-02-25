@@ -1,16 +1,7 @@
 package com.remotearthsolutions.expensetracker.viewmodels;
 
-import android.content.Context;
-import android.os.Build;
-import android.os.Environment;
-import android.util.Log;
-import androidx.annotation.RequiresApi;
+import android.app.Activity;
 import androidx.lifecycle.ViewModel;
-import com.opencsv.CSVWriter;
-import com.opencsv.bean.StatefulBeanToCsv;
-import com.opencsv.bean.StatefulBeanToCsvBuilder;
-import com.opencsv.exceptions.CsvDataTypeMismatchException;
-import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
@@ -18,12 +9,8 @@ import com.remotearthsolutions.expensetracker.services.FileProcessingService;
 import com.remotearthsolutions.expensetracker.services.FileProcessingServiceImp;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,30 +51,20 @@ public class ExpenseViewModel extends ViewModel {
     }
 
 
-    public void saveExpenseToCSV(long startTime, long endTime) {
+    public void saveExpenseToCSV(Activity activity, long startTime, long endTime) {
 
-        try {
-            FileOutputStream outputStream = new FileOutputStream(new File(Environment.getExternalStorageDirectory() + "/raw/expense.csv"), true);
-            disposable.add(expenseDao.getAllFilterExpense(startTime, endTime)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(listOfFilterExpense -> {
+        disposable.add(expenseDao.getAllFilterExpense(startTime, endTime)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(listOfFilterExpense -> {
 
-                        if (listOfFilterExpense != null) {
-                            for (int i = 0; i < listOfFilterExpense.size(); i++) {
-                                Log.d("Info", ""+ listOfFilterExpense.get(i));
-                                fileProcessingService.writeOnCsvFile(listOfFilterExpense.get(i));
-                            }
+                    if (listOfFilterExpense != null) {
+                        for (int i = 0; i < listOfFilterExpense.size(); i++) {
+                            fileProcessingService.writeOnCsvFile(activity, listOfFilterExpense.get(i));
                         }
+                    }
 
-                    }));
-
-            outputStream.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.d("Failed", "saveExpenseToCSV: "+ e.getMessage());
-        }
+                }));
     }
 
 }

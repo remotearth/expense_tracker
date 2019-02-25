@@ -83,7 +83,6 @@ dependencies {
     implementation 'androidx.preference:preference:1.0.0'
     implementation 'com.karumi:dexter:4.2.0'
     implementation 'org.solovyev.android:checkout:1.2.1'
-    implementation 'com.opencsv:opencsv:4.5'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

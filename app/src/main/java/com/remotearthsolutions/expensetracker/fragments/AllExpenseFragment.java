@@ -46,7 +46,7 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
         ExpenseDao expenseDao = DatabaseClient.getInstance(getContext()).getAppDatabase().expenseDao();
         viewModel = new ExpenseViewModel(this, expenseDao);
         viewModel.loadFilterExpense(startTime,endTime);
-        viewModel.saveExpenseToCSV(startTime,endTime);
+        viewModel.saveExpenseToCSV(getActivity(), startTime, endTime);
 
         Log.d("START TIME",String.valueOf(startTime));
         Log.d("END TIME",String.valueOf(endTime));
