@@ -35,7 +35,7 @@ public class AddCategoryDialogFragment extends DialogFragment {
     private EditText categoryNameEdtxt;
     private TextView categorydialogstatus;
     private CategoryModel categoryModel;
-    private int selectedIcon = R.drawable.ic_bills;
+    private int selectedIcon = R.drawable.cat_bills;
 
     public AddCategoryDialogFragment() {
     }

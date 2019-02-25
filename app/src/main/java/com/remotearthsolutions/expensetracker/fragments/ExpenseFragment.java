@@ -2,7 +2,6 @@ package com.remotearthsolutions.expensetracker.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,6 @@ import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseFragmentViewModel;
 import org.parceler.Parcels;
 
-import java.io.Serializable;
 import java.util.Calendar;
 
 public class ExpenseFragment extends BaseFragment implements ExpenseFragmentContract.View {
@@ -80,7 +78,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             selectedCategory = Parcels.unwrap(args.getParcelable("category_parcel"));
             if(selectedCategory!=null){
                 //categoryBtnIv.setImageResource(category.getIcon());
-                categoryBtnIv.setImageResource(R.drawable.ic_bills);
+                categoryBtnIv.setImageResource(R.drawable.cat_bills);
                 categoryNameTv.setText(selectedCategory.getName());
             }
             else{
@@ -204,7 +202,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
     @Override
     public void showDefaultCategory(CategoryModel categoryModel) {
         selectedCategory = categoryModel;
-        categoryBtnIv.setImageResource(R.drawable.ic_bills);
+        categoryBtnIv.setImageResource(R.drawable.cat_bills);
         //categoryBtnIv.setImageResource(categoryModel.getIcon());
         categoryNameTv.setText(categoryModel.getName());
     }
