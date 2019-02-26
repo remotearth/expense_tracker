@@ -31,7 +31,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(CategoryModel category, boolean isSelected) {
         this.category = category;
-        categoryImageIv.setImageResource(CategoryIcons.getIconId(category.getIcon()));
+//        categoryImageIv.setImageResource(CategoryIcons.getIconId(category.getIcon()));
         categoryNameTv.setText(category.getName());
 
         if (isSelected) {
