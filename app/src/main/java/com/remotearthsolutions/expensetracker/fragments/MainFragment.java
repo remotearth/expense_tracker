@@ -159,7 +159,7 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
                     allExpenseFragment = new AllExpenseFragment();
                     return allExpenseFragment;
                 case 2:
-                    return new Tab2Fragment();
+                    return new DashboardFragment();
                 default:
                     return null;
             }

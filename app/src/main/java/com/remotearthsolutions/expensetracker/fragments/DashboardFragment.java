@@ -42,7 +42,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 
-public class Tab2Fragment extends Fragment implements InAppBillingCallback {
+public class DashboardFragment extends Fragment implements InAppBillingCallback {
 
     private ActivityCheckout mCheckout;
     private Inventory mInventory;
@@ -51,7 +51,7 @@ public class Tab2Fragment extends Fragment implements InAppBillingCallback {
     private TextView infoTextView;
 
 
-    public Tab2Fragment() {
+    public DashboardFragment() {
 
     }
 
