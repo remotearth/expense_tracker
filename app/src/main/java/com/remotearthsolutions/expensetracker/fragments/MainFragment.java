@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -31,6 +32,8 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
 
     private static HomeFragment homeFragment;
     private static AllExpenseFragment allExpenseFragment;
+    private static DashboardFragment dashboardFragment;
+    private int dateContainerHeight = -1;
 
 
     @Nullable
@@ -106,19 +109,71 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
         @Override
         public void onPageSelected(int position) {
             actionBar.setTitle(tabTitles[position]);
+
+            if (dateContainerHeight == -1) {
+                dateContainerHeight = binding.dateRangeContainer.getMeasuredHeight();
+            }
+
             switch (position) {
-                case 0:
-                    binding.dateRangeContainer.animate().alpha(1.0f).translationY(0).setDuration(200);
+                case 0: {
+                    if (binding.dateRangeContainer.getMeasuredHeight() == 0) {
+                        ValueAnimator anim = ValueAnimator.ofInt(0, dateContainerHeight);
+                        anim.addUpdateListener(valueAnimator -> {
+                            int val = (Integer) valueAnimator.getAnimatedValue();
+                            ViewGroup.LayoutParams layoutParams = binding.dateRangeContainer.getLayoutParams();
+                            layoutParams.height = val;
+                            binding.dateRangeContainer.setLayoutParams(layoutParams);
+                        });
+                        anim.setDuration(200);
+                        anim.start();
+
+                        new Handler().postDelayed(() -> {
+                            binding.dateRangeContainer.animate().alpha(1.0f).translationY(0).setDuration(200);
+                        }, 100);
+                    }
+
                     binding.navigation.setSelectedItemId(R.id.navigation_home);
                     break;
-                case 1:
-                    binding.dateRangeContainer.animate().alpha(1.0f).translationY(0).setDuration(200);
+                }
+                case 1: {
+                    if (binding.dateRangeContainer.getMeasuredHeight() == 0) {
+                        ValueAnimator anim = ValueAnimator.ofInt(0, dateContainerHeight);
+                        anim.addUpdateListener(valueAnimator -> {
+                            int val = (Integer) valueAnimator.getAnimatedValue();
+                            ViewGroup.LayoutParams layoutParams = binding.dateRangeContainer.getLayoutParams();
+                            layoutParams.height = val;
+                            binding.dateRangeContainer.setLayoutParams(layoutParams);
+                        });
+                        anim.setDuration(200);
+                        anim.start();
+
+                        new Handler().postDelayed(() -> {
+                            binding.dateRangeContainer.animate().alpha(1.0f).translationY(0).setDuration(200);
+                        }, 100);
+                    }
+
                     binding.navigation.setSelectedItemId(R.id.navigation_transaction);
                     break;
-                case 2:
-                    binding.dateRangeContainer.animate().alpha(0).translationY(-binding.dateRangeContainer.getHeight()).setDuration(200);
+                }
+                case 2: {
+                    if (binding.dateRangeContainer.getMeasuredHeight() == dateContainerHeight) {
+                        binding.dateRangeContainer.animate().alpha(0).translationY(-binding.dateRangeContainer.getHeight()).setDuration(200);
+                        new Handler().postDelayed(() -> {
+                            ValueAnimator anim = ValueAnimator.ofInt(dateContainerHeight, 0);
+                            anim.addUpdateListener(valueAnimator -> {
+                                int val = (Integer) valueAnimator.getAnimatedValue();
+                                ViewGroup.LayoutParams layoutParams = binding.dateRangeContainer.getLayoutParams();
+                                layoutParams.height = val;
+                                binding.dateRangeContainer.setLayoutParams(layoutParams);
+                            });
+                            anim.setDuration(200);
+                            anim.start();
+                        }, 300);
+                    }
+
                     binding.navigation.setSelectedItemId(R.id.navigation_dashboard);
                     break;
+                }
             }
 
         }
@@ -159,7 +214,8 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
                     allExpenseFragment = new AllExpenseFragment();
                     return allExpenseFragment;
                 case 2:
-                    return new DashboardFragment();
+                    dashboardFragment = new DashboardFragment();
+                    return dashboardFragment;
                 default:
                     return null;
             }
