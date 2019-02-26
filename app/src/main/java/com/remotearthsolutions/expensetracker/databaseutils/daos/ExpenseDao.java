@@ -21,6 +21,11 @@ public interface ExpenseDao {
             "AND exp.datetime >= :startTime AND exp.datetime <= :endTime GROUP BY ctg.id ")
     Flowable<List<CategoryExpense>> getAllFilterExpense(long startTime, long endTime);
 
+    @Query("SELECT ctg.id as category_id, ctg.category_name,ctg.icon_name,exp.datetime,exp.amount as total_amount " +
+            "FROM category  as ctg LEFT JOIN expense as exp ON ctg.id = exp.category_id " +
+            "GROUP BY ctg.id ")
+    Flowable<List<CategoryExpense>> getAllFilterExpense();
+
     @Delete
     void deleteExpenseAmount(ExpenseModel accountModel);
 
