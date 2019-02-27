@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string-array name="license">
-
-        <item>Razerdp Animated PieView</item>
-        <item>Wunderlist Sliding Layer</item>
-        <item>Room Persistency Libray</item>
-        <item>Serso Android Checkout</item>
-        <item>Karumi Dexter</item>
-        <item>ReactiveX RxJava</item>
-        <item>johncarl81 Parceler</item>
-        <item>Google Gson</item>
-
+        <item>AnimatedPieView - razerdp</item>
+        <item>Room Persistency Library</item>
+        <item>android-checkout - serso</item>
+        <item>Dexter - Karumi</item>
+        <item>RxJava - ReactiveX</item>
+        <item>parceler - johncarl81</item>
+        <item>gson - google</item>
     </string-array>
-
 </resources>

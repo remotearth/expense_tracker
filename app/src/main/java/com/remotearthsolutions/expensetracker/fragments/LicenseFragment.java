@@ -34,31 +34,29 @@ public class LicenseFragment extends Fragment {
 
         listView.setOnItemClickListener((parent, view1, position, id) -> {
 
-            if (licenseFileName[position].equals(licenseFileName[0])) {
-                sendLicenseFileToWebFragment(Constants.RAZERDPANIMATEDPIEVIEW_LICENSE_FILE);
+            switch (position){
+                case 0:
+                    sendLicenseFileToWebFragment(Constants.RAZERDPANIMATEDPIEVIEW_LICENSE_FILE);
+                    break;
+                case 1:
+                    sendLicenseFileToWebFragment(Constants.ROOM_LICENSE_FILE);
+                    break;
+                case 2:
+                    sendLicenseFileToWebFragment(Constants.PURCHASEDCHECKOUT_LICENSE_FILE);
+                    break;
+                case 3:
+                    sendLicenseFileToWebFragment(Constants.DEXTER_LICENSE_FILE);
+                    break;
+                case 4:
+                    sendLicenseFileToWebFragment(Constants.RXJAVA_LICENSE_FILE);
+                    break;
+                case 5:
+                    sendLicenseFileToWebFragment(Constants.PERCELER_LICENSE_FILE);
+                    break;
+                case 6:
+                    sendLicenseFileToWebFragment(Constants.GSON_LICENSE_FILE);
+                    break;
             }
-            if (licenseFileName[position].equals(licenseFileName[1])) {
-                sendLicenseFileToWebFragment(Constants.WUNDERLISTSLIDINGLAYER_LICENSE_FILE);
-            }
-            if (licenseFileName[position].equals(licenseFileName[2])) {
-                sendLicenseFileToWebFragment(Constants.ROOM_LICENSE_FILE);
-            }
-            if (licenseFileName[position].equals(licenseFileName[3])) {
-                sendLicenseFileToWebFragment(Constants.PURCHASEDCHECKOUT_LICENSE_FILE);
-            }
-            if (licenseFileName[position].equals(licenseFileName[4])) {
-                sendLicenseFileToWebFragment(Constants.DEXTER_LICENSE_FILE);
-            }
-            if (licenseFileName[position].equals(licenseFileName[5])) {
-                sendLicenseFileToWebFragment(Constants.RXJAVA_LICENSE_FILE);
-            }
-            if (licenseFileName[position].equals(licenseFileName[6])) {
-                sendLicenseFileToWebFragment(Constants.PERCELER_LICENSE_FILE);
-            }
-            if (licenseFileName[position].equals(licenseFileName[7])) {
-                sendLicenseFileToWebFragment(Constants.GSON_LICENSE_FILE);
-            }
-            
         });
         return view;
     }
