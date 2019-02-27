@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -23,7 +24,6 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databinding.ActivityMainBinding;
 import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.fragments.*;
-import com.remotearthsolutions.expensetracker.fragments.home.HomeFragment;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.services.PurchaseListener;
 import com.remotearthsolutions.expensetracker.utils.AdmobUtils;
@@ -89,16 +89,17 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void initializeView() {
+        setupActionBar();
+        binding.navView.setNavigationItemSelectedListener(this);
+        loadMainFragment();
+    }
 
+    private void setupActionBar() {
         setSupportActionBar(binding.toolbar);
-
         toggle = new ActionBarDrawerToggle(
                 this, binding.drawerLayout, binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        binding.navView.setNavigationItemSelectedListener(this);
-
-        loadMainFragment();
     }
 
     private void loadMainFragment() {
@@ -133,28 +134,38 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public void onBackPressed() {
         Fragment expenseFragment = getSupportFragmentManager().findFragmentByTag(ExpenseFragment.class.getName());
+        Fragment webViewFragment = getSupportFragmentManager().findFragmentByTag(WebViewFragment.class.getName());
 
-            if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                binding.drawerLayout.closeDrawer(GravityCompat.START);
-            } else if (expenseFragment != null) {
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down);
-                ft.remove(expenseFragment);
-                fragmentManager.popBackStack();
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
+        } else if (expenseFragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down);
+            ft.remove(expenseFragment);
+            fragmentManager.popBackStack();
 
-                loadMainFragment();
+            loadMainFragment();
 
+        } else if (webViewFragment != null) {
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
+            ft.remove(webViewFragment);
+            ft.commit();
+            fragmentManager.popBackStack();
+
+            setupActionBar();
+        } else {
+            long t = System.currentTimeMillis();
+            if (t - backPressedTime > 2000) {
+                backPressedTime = t;
+                Toast.makeText(this, "Press once again to close app", Toast.LENGTH_SHORT).show();
             } else {
-                long t = System.currentTimeMillis();
-                if (t - backPressedTime > 2000) {
-                    backPressedTime = t;
-                    Toast.makeText(this, "Press once again to close app", Toast.LENGTH_SHORT).show();
-                } else {
-                    super.onBackPressed();
-                }
-
+                super.onBackPressed();
             }
+
+        }
     }
 
     @Override
@@ -216,6 +227,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.nav_privacypolicy: {
                 WebViewFragment webViewFragment = new WebViewFragment();
                 Bundle bundle = new Bundle();
+                bundle.putString("screen","privacy_policy");
                 bundle.putString(Constants.KEY_URL, Constants.URL_PRIVACY_POLICY);
                 webViewFragment.setArguments(bundle);
                 getSupportActionBar().setTitle("Privacy Policy");
@@ -280,5 +292,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
     }
 
+    public Toolbar getToolbar() {
+        return binding.toolbar;
+    }
 
 }

@@ -27,13 +27,12 @@ public interface Constants {
     String SHARE_T0_EMAIL="Share To Email";
     String BUY_THE_PRODUCT="Buy The Product";
     
-    String RAZERDPANIMATEDPIEVIEW_LICENSE_FILE = "file:///android_asset/LICENSEAnimatedPieChart";
-    String WUNDERLISTSLIDINGLAYER_LICENSE_FILE = "file:///android_asset/LICENSESlider.txt";
-    String ROOM_LICENSE_FILE = "file:///android_asset/LICENSERoom";
-    String PURCHASEDCHECKOUT_LICENSE_FILE = "file:///android_asset/LICENSEcheckout.txt";
-    String DEXTER_LICENSE_FILE = "file:///android_asset/LICENSEDexter.txt";
-    String RXJAVA_LICENSE_FILE = "file:///android_asset/LICENSERxJava";
-    String PERCELER_LICENSE_FILE = "file:///android_asset/LICENSEPerceler";
-    String GSON_LICENSE_FILE = "file:///android_asset/LICENSEGson";
+    String RAZERDPANIMATEDPIEVIEW_LICENSE_FILE = "file:///android_asset/licenses/LICENSEAnimatedPieChart";
+    String ROOM_LICENSE_FILE = "file:///android_asset/licenses/LICENSERoom";
+    String PURCHASEDCHECKOUT_LICENSE_FILE = "file:///android_asset/licenses/LICENSEcheckout.txt";
+    String DEXTER_LICENSE_FILE = "file:///android_asset/licenses/LICENSEDexter.txt";
+    String RXJAVA_LICENSE_FILE = "file:///android_asset/licenses/LICENSERxJava";
+    String PERCELER_LICENSE_FILE = "file:///android_asset/licenses/LICENSEPerceler";
+    String GSON_LICENSE_FILE = "file:///android_asset/licenses/LICENSEGson";
 
 }

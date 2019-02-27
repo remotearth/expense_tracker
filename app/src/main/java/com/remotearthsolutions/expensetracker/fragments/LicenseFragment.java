@@ -8,9 +8,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.activities.MainActivity;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 
 public class LicenseFragment extends Fragment {
@@ -34,43 +38,49 @@ public class LicenseFragment extends Fragment {
 
         listView.setOnItemClickListener((parent, view1, position, id) -> {
 
-            if (licenseFileName[position].equals(licenseFileName[0])) {
-                sendLicenseFileToWebFragment(Constants.RAZERDPANIMATEDPIEVIEW_LICENSE_FILE);
+            switch (position){
+                case 0:
+                    sendLicenseFileToWebFragment(Constants.RAZERDPANIMATEDPIEVIEW_LICENSE_FILE);
+                    break;
+                case 1:
+                    sendLicenseFileToWebFragment(Constants.ROOM_LICENSE_FILE);
+                    break;
+                case 2:
+                    sendLicenseFileToWebFragment(Constants.PURCHASEDCHECKOUT_LICENSE_FILE);
+                    break;
+                case 3:
+                    sendLicenseFileToWebFragment(Constants.DEXTER_LICENSE_FILE);
+                    break;
+                case 4:
+                    sendLicenseFileToWebFragment(Constants.RXJAVA_LICENSE_FILE);
+                    break;
+                case 5:
+                    sendLicenseFileToWebFragment(Constants.PERCELER_LICENSE_FILE);
+                    break;
+                case 6:
+                    sendLicenseFileToWebFragment(Constants.GSON_LICENSE_FILE);
+                    break;
             }
-            if (licenseFileName[position].equals(licenseFileName[1])) {
-                sendLicenseFileToWebFragment(Constants.WUNDERLISTSLIDINGLAYER_LICENSE_FILE);
-            }
-            if (licenseFileName[position].equals(licenseFileName[2])) {
-                sendLicenseFileToWebFragment(Constants.ROOM_LICENSE_FILE);
-            }
-            if (licenseFileName[position].equals(licenseFileName[3])) {
-                sendLicenseFileToWebFragment(Constants.PURCHASEDCHECKOUT_LICENSE_FILE);
-            }
-            if (licenseFileName[position].equals(licenseFileName[4])) {
-                sendLicenseFileToWebFragment(Constants.DEXTER_LICENSE_FILE);
-            }
-            if (licenseFileName[position].equals(licenseFileName[5])) {
-                sendLicenseFileToWebFragment(Constants.RXJAVA_LICENSE_FILE);
-            }
-            if (licenseFileName[position].equals(licenseFileName[6])) {
-                sendLicenseFileToWebFragment(Constants.PERCELER_LICENSE_FILE);
-            }
-            if (licenseFileName[position].equals(licenseFileName[7])) {
-                sendLicenseFileToWebFragment(Constants.GSON_LICENSE_FILE);
-            }
-            
         });
         return view;
     }
 
     private void sendLicenseFileToWebFragment(String filepath)
     {
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.mipmap.ic_back);
+        }
+
         WebViewFragment webViewFragment = new WebViewFragment();
         Bundle bundle = new Bundle();
+        bundle.putString("screen","license_details");
         bundle.putString(Constants.KEY_URL, filepath);
         webViewFragment.setArguments(bundle);
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.framelayout, webViewFragment, LicenseFragment.class.getName());
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.replace(R.id.framelayout, webViewFragment, WebViewFragment.class.getName());
+        fragmentTransaction.addToBackStack(WebViewFragment.class.getName());
         fragmentTransaction.commit();
     }
 
