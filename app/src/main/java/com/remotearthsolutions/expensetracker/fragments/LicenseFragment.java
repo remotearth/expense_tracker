@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.remotearthsolutions.expensetracker.R;
@@ -63,12 +65,19 @@ public class LicenseFragment extends Fragment {
 
     private void sendLicenseFileToWebFragment(String filepath)
     {
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.mipmap.ic_back);
+        }
+
         WebViewFragment webViewFragment = new WebViewFragment();
         Bundle bundle = new Bundle();
         bundle.putString(Constants.KEY_URL, filepath);
         webViewFragment.setArguments(bundle);
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.framelayout, webViewFragment, LicenseFragment.class.getName());
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.replace(R.id.framelayout, webViewFragment, WebViewFragment.class.getName());
+        fragmentTransaction.addToBackStack(WebViewFragment.class.getName());
         fragmentTransaction.commit();
     }
 
