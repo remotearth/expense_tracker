@@ -1,36 +1,39 @@
 package com.remotearthsolutions.expensetracker.utils;
 
-import android.content.Context;
+import android.app.Activity;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.remotearthsolutions.expensetracker.BuildConfig;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
 
 public class AdmobUtils {
 
-    private Context context;
+    private Activity activity;
     private InterstitialAd interstitialAd;
 
 
-    public AdmobUtils(Context context) {
-        this.context = context;
+    public AdmobUtils(Activity activity) {
+        this.activity = activity;
     }
 
 
     public void showInterstitialAds() {
-        interstitialAd = new InterstitialAd(context);
+        interstitialAd = new InterstitialAd(activity);
         if (BuildConfig.DEBUG) {
-            interstitialAd.setAdUnitId(context.getString(R.string.admob_test_ad_id));
+            interstitialAd.setAdUnitId(activity.getString(R.string.admob_test_ad_id));
         } else {
-            interstitialAd.setAdUnitId(context.getString(R.string.admob_ad_id));
+            interstitialAd.setAdUnitId(activity.getString(R.string.admob_ad_id));
         }
         AdRequest adRequest = new AdRequest.Builder().build();
         interstitialAd.loadAd(adRequest);
         interstitialAd.setAdListener(new AdListener() {
             public void onAdLoaded() {
 
-                interstitialAd.show();
+                if (((ApplicationObject) activity.getApplication()).isActivityVisible()) {
+                    interstitialAd.show();
+                }
 
             }
         });

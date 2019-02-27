@@ -3,7 +3,9 @@ package com.remotearthsolutions.expensetracker.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
@@ -35,6 +37,7 @@ import org.parceler.Parcels;
 import org.solovyev.android.checkout.*;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View, InAppBillingCallback, Inventory.Callback {
 
@@ -55,16 +58,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         viewModel = ViewModelProviders.of(this,
                 new MainViewModelFactory(this, new FirebaseServiceImpl(this))).
                 get(MainViewModel.class);
-        viewModel.init();
 
-        mCheckout = Checkout.forActivity(this, ApplicationObject.get().getBilling());
-        mCheckout.start();
-
-        mCheckout.createPurchaseFlow(new PurchaseListener(this));
-        mInventory = mCheckout.makeInventory();
-        mInventory.load(Inventory.Request.create()
-                .loadAllPurchases()
-                .loadSkus(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM), this);
+        String userStr = SharedPreferenceUtils.getInstance(this).getString(Constants.KEY_USER, "");
+        User user = new Gson().fromJson(userStr, User.class);
+        viewModel.checkAuthectication(user);
     }
 
     @Override
@@ -124,11 +121,23 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     @Override
+    public void startLoadingApp() {
+
+        viewModel.init();
+
+        mCheckout = Checkout.forActivity(this, ApplicationObject.get().getBilling());
+        mCheckout.start();
+
+        mCheckout.createPurchaseFlow(new PurchaseListener(this));
+        mInventory = mCheckout.makeInventory();
+        mInventory.load(Inventory.Request.create()
+                .loadAllPurchases()
+                .loadSkus(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM), this);
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
-        String userStr = SharedPreferenceUtils.getInstance(this).getString(Constants.KEY_USER, "");
-        User user = new Gson().fromJson(userStr, User.class);
-        viewModel.checkAuthectication(user);
     }
 
     @Override
@@ -227,7 +236,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.nav_privacypolicy: {
                 WebViewFragment webViewFragment = new WebViewFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("screen","privacy_policy");
+                bundle.putString("screen", "privacy_policy");
                 bundle.putString(Constants.KEY_URL, Constants.URL_PRIVACY_POLICY);
                 webViewFragment.setArguments(bundle);
                 getSupportActionBar().setTitle("Privacy Policy");
@@ -287,8 +296,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public void onLoaded(@Nonnull Inventory.Products products) {
         if (!products.get(ProductTypes.IN_APP).isPurchased(Constants.TEST_PURCHASED_ITEM)) {
-            AdmobUtils admobUtils = new AdmobUtils(this);
-            admobUtils.showInterstitialAds();
+
+            int delay = new Random().nextInt(15000 - 2000) + 2000;
+            Log.d(MainActivity.class.getName(),"Delay before showing ad: "+delay);
+
+            new Handler().postDelayed(() -> {
+                AdmobUtils admobUtils = new AdmobUtils(MainActivity.this);
+                admobUtils.showInterstitialAds();
+            }, delay);
         }
     }
 
