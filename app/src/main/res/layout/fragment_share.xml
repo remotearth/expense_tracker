@@ -5,29 +5,10 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <Button
-            android:text="Share To Email"
-            android:id="@+id/sendMail"
+    <ListView
+            android:id="@+id/dashboardlist"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    <Button
-            android:text="Create File"
-            android:id="@+id/createFile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    <Button
-            android:id="@+id/button_buy"
-            android:text="Buy The Product"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    <TextView
-            android:id="@+id/info_textView"
-            android:text=""
-            android:textSize="25sp"
-            android:layout_margin="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"/>
 
 
 </LinearLayout>

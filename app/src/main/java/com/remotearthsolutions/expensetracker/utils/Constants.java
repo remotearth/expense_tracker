@@ -24,6 +24,8 @@ public interface Constants {
     String TEST_PURCHASED_ITEM = "android.test.purchased";
     String PRODUCT_ID = "com.remotearthsolutions.expensetracker.remove_ad";
 
+    String SHARE_T0_EMAIL="Share To Email";
+    String BUY_THE_PRODUCT="Buy The Product";
 
 
 }

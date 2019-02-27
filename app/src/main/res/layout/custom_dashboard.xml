@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="horizontal"
+              android:weightSum="2"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="0.4"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            tools:src="@drawable/ic_share"
+            android:id="@+id/dashboardimageView"/>
+
+    <TextView
+            tools:text="TextView"
+            android:layout_width="0dp"
+            android:layout_weight="1.7"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:padding="15dp"
+            android:gravity="start"
+            android:textColor="@android:color/black"
+            android:layout_height="wrap_content"
+            android:id="@+id/dashboardtextView"/>
+
+</LinearLayout>
