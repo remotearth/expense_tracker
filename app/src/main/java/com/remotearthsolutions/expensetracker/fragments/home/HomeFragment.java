@@ -70,12 +70,7 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
     public void showCategories(List<CategoryModel> categories) {
 
         adapter = new CategoryListAdapter(categories);
-        adapter.setOnItemClickListener(new CategoryListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(CategoryModel category) {
-                ((MainActivity) getActivity()).openAddExpenseScreen(category);
-            }
-        });
+        adapter.setOnItemClickListener(category -> ((MainActivity) getActivity()).openAddExpenseScreen(category));
         binding.recyclerView.setAdapter(adapter);
     }
 
@@ -94,14 +89,7 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
 
             FragmentManager fm = getChildFragmentManager();
             final AddCategoryDialogFragment categoryDialogFragment = AddCategoryDialogFragment.newInstance("Add Category");
-            categoryDialogFragment.setCallback(new AddCategoryDialogFragment.Callback() {
-                @Override
-                public void onCategoryAdded(CategoryModel categoryModel) {
-
-                    categoryDialogFragment.dismiss();
-
-                }
-            });
+            categoryDialogFragment.setCallback(categoryModel -> categoryDialogFragment.dismiss());
             categoryDialogFragment.show(fm, AddCategoryDialogFragment.class.getName());
 
         } else if (v.getId() == R.id.fab) {
