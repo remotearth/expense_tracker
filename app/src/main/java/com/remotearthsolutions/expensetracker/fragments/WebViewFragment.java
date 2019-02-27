@@ -10,8 +10,6 @@ import android.webkit.WebView;
 import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import com.remotearthsolutions.expensetracker.R;
@@ -25,7 +23,7 @@ public class WebViewFragment extends Fragment {
 
     private ProgressBar progressBar;
     private WebView webView;
-    private String getUrl;
+    private String url, screen;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Nullable
@@ -34,8 +32,15 @@ public class WebViewFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_webview, container, false);
 
-        Toolbar toolbar = ((MainActivity) getActivity()).getToolbar();
-        toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
+        if (getArguments() != null) {
+            url = getArguments().getString(Constants.KEY_URL);
+            screen = getArguments().getString("screen");
+        }
+
+        if (screen.equals("license_details")) {
+            Toolbar toolbar = ((MainActivity) getActivity()).getToolbar();
+            toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
+        }
 
         webView = view.findViewById(R.id.webview);
         progressBar = view.findViewById(R.id.progressBar);
@@ -43,12 +48,8 @@ public class WebViewFragment extends Fragment {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.setWebViewClient(new WebViewClient());
-
-        if (getArguments() != null) {
-            getUrl = getArguments().getString(Constants.KEY_URL);
-            webView.loadUrl(getUrl);
-        }
-
+        webView.loadUrl(url);
+        
         return view;
     }
 

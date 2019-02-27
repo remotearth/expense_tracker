@@ -10,9 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.activities.MainActivity;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 
 public class LicenseFragment extends Fragment {
@@ -73,6 +75,7 @@ public class LicenseFragment extends Fragment {
 
         WebViewFragment webViewFragment = new WebViewFragment();
         Bundle bundle = new Bundle();
+        bundle.putString("screen","license_details");
         bundle.putString(Constants.KEY_URL, filepath);
         webViewFragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

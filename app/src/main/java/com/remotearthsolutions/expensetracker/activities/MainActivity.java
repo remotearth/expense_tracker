@@ -152,8 +152,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE);
             ft.remove(webViewFragment);
-            fragmentManager.popBackStack();
             ft.commit();
+            fragmentManager.popBackStack();
 
             setupActionBar();
         } else {
@@ -227,6 +227,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.nav_privacypolicy: {
                 WebViewFragment webViewFragment = new WebViewFragment();
                 Bundle bundle = new Bundle();
+                bundle.putString("screen","privacy_policy");
                 bundle.putString(Constants.KEY_URL, Constants.URL_PRIVACY_POLICY);
                 webViewFragment.setArguments(bundle);
                 getSupportActionBar().setTitle("Privacy Policy");
