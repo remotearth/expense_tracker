@@ -28,7 +28,7 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
     private FragmentMainBinding binding;
     private MainFragmentPagerAdapter pagerAdapter;
     private ActionBar actionBar;
-    private String[] tabTitles = new String[]{"Home", "Transactions", "Tab 2",};
+    private String[] tabTitles = new String[]{"Home", "Transactions", "Dashboard",};
 
     private static HomeFragment homeFragment;
     private static AllExpenseFragment allExpenseFragment;

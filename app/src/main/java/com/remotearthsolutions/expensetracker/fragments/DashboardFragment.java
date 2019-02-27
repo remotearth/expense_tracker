@@ -5,16 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
+import com.remotearthsolutions.expensetracker.adapters.DashboardAdapter;
 import com.remotearthsolutions.expensetracker.callbacks.InAppBillingCallback;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
+import com.remotearthsolutions.expensetracker.entities.DashboardModel;
 import com.remotearthsolutions.expensetracker.services.FileProcessingServiceImp;
 import com.remotearthsolutions.expensetracker.services.InventoryCallback;
 import com.remotearthsolutions.expensetracker.services.PurchaseListener;
@@ -23,18 +23,18 @@ import com.remotearthsolutions.expensetracker.viewmodels.Tab2ViewModel;
 import io.reactivex.disposables.CompositeDisposable;
 import org.solovyev.android.checkout.*;
 
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+
 
 public class DashboardFragment extends Fragment implements InAppBillingCallback {
 
     private ActivityCheckout mCheckout;
     private Inventory mInventory;
-
     private Tab2ViewModel tab2ViewModel;
-
-    private Button shareButton;
-    private Button createFile;
-    private Button buyButton;
-    private TextView infoTextView;
+    private ListView lv;
+    private DashboardAdapter adapter;
+    private ArrayList<DashboardModel> dashboardlist;
 
     public DashboardFragment() {
 
@@ -66,36 +66,15 @@ public class DashboardFragment extends Fragment implements InAppBillingCallback 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_share, container, false);
-
-        shareButton = view.findViewById(R.id.sendMail);
-        createFile = view.findViewById(R.id.createFile);
-        buyButton = view.findViewById(R.id.button_buy);
-        infoTextView = view.findViewById(R.id.info_textView);
-
-        shareButton.setOnClickListener(v -> {
-            tab2ViewModel.saveExpenseToCSV(getActivity());
-            tab2ViewModel.shareCSV_FileToMail(getActivity());
-        });
-
-        createFile.setOnClickListener(v -> {
-            // TODO
-        });
-
-        buyButton.setOnClickListener(view1 -> mCheckout.whenReady(new Checkout.EmptyListener() {
-            @Override
-            public void onReady(BillingRequests requests) {
-                requests.purchase(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM, null, mCheckout.getPurchaseFlow());
-            }
-        }));
-
+        lv = view.findViewById(R.id.dashboardlist);
+        loaddashboarddata();
         return view;
     }
 
 
     @Override
     public void onPurchaseSuccessListener(Purchase purchase) {
-        buyButton.setVisibility(View.GONE);
-        infoTextView.setText("Thank You");
+        Toast.makeText(getActivity(), "Thank You For Purchased", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -113,5 +92,34 @@ public class DashboardFragment extends Fragment implements InAppBillingCallback 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mCheckout.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void loaddashboarddata()
+    {
+        dashboardlist = new ArrayList<>();
+        dashboardlist.add(new DashboardModel(R.drawable.ic_share,Constants.SHARE_T0_EMAIL));
+        dashboardlist.add(new DashboardModel(R.drawable.ic_cart,Constants.BUY_THE_PRODUCT));
+        adapter = new DashboardAdapter(getActivity(),dashboardlist);
+        lv.setAdapter(adapter);
+        lv.setOnItemClickListener((parent, view, position, id) -> {
+
+
+            if (position == 0)
+            {
+                tab2ViewModel.saveExpenseToCSV(getActivity());
+                tab2ViewModel.shareCSV_FileToMail(getActivity());
+            }
+            if (position == 1)
+            {
+                mCheckout.whenReady(new Checkout.EmptyListener() {
+                    @Override
+                    public void onReady(@Nonnull BillingRequests requests) {
+
+                        requests.purchase(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM, null, mCheckout.getPurchaseFlow());
+                    }
+                });
+
+            }
+        });
     }
 }
