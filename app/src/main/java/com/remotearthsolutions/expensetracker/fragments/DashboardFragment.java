@@ -23,7 +23,8 @@ import com.remotearthsolutions.expensetracker.viewmodels.Tab2ViewModel;
 import io.reactivex.disposables.CompositeDisposable;
 import org.solovyev.android.checkout.*;
 
-public class Tab2Fragment extends Fragment implements InAppBillingCallback {
+
+public class DashboardFragment extends Fragment implements InAppBillingCallback {
 
     private ActivityCheckout mCheckout;
     private Inventory mInventory;
@@ -35,7 +36,9 @@ public class Tab2Fragment extends Fragment implements InAppBillingCallback {
     private Button buyButton;
     private TextView infoTextView;
 
-    public Tab2Fragment() {}
+    public DashboardFragment() {
+
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

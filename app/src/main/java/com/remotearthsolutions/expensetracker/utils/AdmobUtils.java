@@ -1,8 +1,10 @@
 package com.remotearthsolutions.expensetracker.utils;
 
 import android.content.Context;
-import android.widget.Toast;
-import com.google.android.gms.ads.*;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.remotearthsolutions.expensetracker.BuildConfig;
 import com.remotearthsolutions.expensetracker.R;
 
 public class AdmobUtils {
@@ -16,10 +18,13 @@ public class AdmobUtils {
     }
 
 
-    public void showInterstitialAds()
-    {
+    public void showInterstitialAds() {
         interstitialAd = new InterstitialAd(context);
-        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        if (BuildConfig.DEBUG) {
+            interstitialAd.setAdUnitId(context.getString(R.string.admob_test_ad_id));
+        } else {
+            interstitialAd.setAdUnitId(context.getString(R.string.admob_ad_id));
+        }
         AdRequest adRequest = new AdRequest.Builder().build();
         interstitialAd.loadAd(adRequest);
         interstitialAd.setAdListener(new AdListener() {

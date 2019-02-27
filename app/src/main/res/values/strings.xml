@@ -56,8 +56,9 @@
     <string name="day">Day</string>
     <string name="Day">Daily</string>
     <string name="SelectPeriodfromHere">Select Period from Here</string>
-    <string name="appunitid">ca-app-pub-3996731798982494/8955771736</string>
-    <string name="appid">ca-app-pub-3996731798982494~9482261632</string>
+    <string name="admob_ad_id">ca-app-pub-3996731798982494/8955771736</string>
+    <string name="admob_app_id">ca-app-pub-3996731798982494~9482261632</string>
+    <string name="admob_test_ad_id">ca-app-pub-3940256099942544/1033173712</string>
 
 
 </resources>
