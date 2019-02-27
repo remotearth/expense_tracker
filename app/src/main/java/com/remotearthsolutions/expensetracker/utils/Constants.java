@@ -24,6 +24,13 @@ public interface Constants {
     String TEST_PURCHASED_ITEM = "android.test.purchased";
     String PRODUCT_ID = "com.remotearthsolutions.expensetracker.remove_ad";
 
-
+    String RAZERDPANIMATEDPIEVIEW_LICENSE_FILE = "file:///android_asset/LICENSEAnimatedPieChart";
+    String WUNDERLISTSLIDINGLAYER_LICENSE_FILE = "file:///android_asset/LICENSESlider.txt";
+    String ROOM_LICENSE_FILE = "file:///android_asset/LICENSERoom";
+    String PURCHASEDCHECKOUT_LICENSE_FILE = "file:///android_asset/LICENSEcheckout.txt";
+    String DEXTER_LICENSE_FILE = "file:///android_asset/LICENSEDexter.txt";
+    String RXJAVA_LICENSE_FILE = "file:///android_asset/LICENSERxJava";
+    String PERCELER_LICENSE_FILE = "file:///android_asset/LICENSEPerceler";
+    String GSON_LICENSE_FILE = "file:///android_asset/LICENSEGson";
 
 }
