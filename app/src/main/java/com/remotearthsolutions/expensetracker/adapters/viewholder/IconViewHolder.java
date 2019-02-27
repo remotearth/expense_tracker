@@ -21,12 +21,7 @@ public class IconViewHolder extends RecyclerView.ViewHolder {
         container = view.findViewById(R.id.container);
         categoryIconIv = view.findViewById(R.id.iconIv);
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onItemClick(icon);
-            }
-        });
+        view.setOnClickListener(v -> listener.onItemClick(icon));
     }
 
     public void bind(String icon, boolean isSelected) {
