@@ -30,6 +30,9 @@ public class MainViewModel extends ViewModel {
         if (user == null && guestUser == null) {
             view.goBackToLoginScreen();
         }
+        else{
+            view.startLoadingApp();
+        }
     }
 
     public void performLogout() {

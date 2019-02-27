@@ -20,7 +20,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1.8"
                     android:layout_height="wrap_content"
-                    android:text="@string/expense_catagory"
+                    android:text="@string/expense_category"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp"/>
 

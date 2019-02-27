@@ -9,5 +9,6 @@ public interface MainContract {
 
         void onLogoutSuccess();
 
+        void startLoadingApp();
     }
 }

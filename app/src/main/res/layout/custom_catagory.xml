@@ -26,17 +26,19 @@
             <ImageView
                     android:id="@+id/eventtitle"
                     android:src="@drawable/ic_launcher_background"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:padding="5dp"
-                    android:layout_marginTop="3dp"/>
+                    android:layout_marginTop="3dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"/>
 
             <TextView
                     android:id="@+id/eventdate"
                     android:text="Date"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="18sp"
+                    android:textSize="13sp"
                     android:gravity="center"
                     android:singleLine="true"
                     android:paddingBottom="3dp"
