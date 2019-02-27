@@ -7,7 +7,7 @@ import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseViewModel;
 
-public class ExpenseViewModelFactory implements ViewModelProvider.Factory  {
+public class ExpenseViewModelFactory implements ViewModelProvider.Factory {
 
 
     private ExpenseFragmentContract.ExpenseView view;
