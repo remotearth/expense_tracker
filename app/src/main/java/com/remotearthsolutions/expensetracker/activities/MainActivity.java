@@ -133,27 +133,28 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public void onBackPressed() {
         Fragment expenseFragment = getSupportFragmentManager().findFragmentByTag(ExpenseFragment.class.getName());
-        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            binding.drawerLayout.closeDrawer(GravityCompat.START);
-        } else if (expenseFragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction ft = fragmentManager.beginTransaction();
-            ft.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down);
-            ft.remove(expenseFragment);
-            fragmentManager.popBackStack();
 
-            loadMainFragment();
+            if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                binding.drawerLayout.closeDrawer(GravityCompat.START);
+            } else if (expenseFragment != null) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down);
+                ft.remove(expenseFragment);
+                fragmentManager.popBackStack();
 
-        } else {
-            long t = System.currentTimeMillis();
-            if (t - backPressedTime > 2000) {
-                backPressedTime = t;
-                Toast.makeText(this, "Press once again to close app", Toast.LENGTH_SHORT).show();
+                loadMainFragment();
+
             } else {
-                super.onBackPressed();
-            }
+                long t = System.currentTimeMillis();
+                if (t - backPressedTime > 2000) {
+                    backPressedTime = t;
+                    Toast.makeText(this, "Press once again to close app", Toast.LENGTH_SHORT).show();
+                } else {
+                    super.onBackPressed();
+                }
 
-        }
+            }
     }
 
     @Override
@@ -225,13 +226,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
 
             case R.id.nav_licenses: {
-                WebViewFragment webViewFragment = new WebViewFragment();
-                Bundle bundle1 = new Bundle();
-                bundle1.putString(Constants.KEY_URL, Constants.URL_LICENSES);
-                webViewFragment.setArguments(bundle1);
-                getSupportActionBar().setTitle("Licenses Agreement");
+                getSupportActionBar().setTitle("Licenses");
+                LicenseFragment licenseFragment = new LicenseFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.framelayout, webViewFragment, Constants.URL_lICENSES_TAG);
+                fragmentTransaction.replace(R.id.framelayout, licenseFragment, AboutFragment.class.getName());
                 fragmentTransaction.commit();
                 break;
             }
