@@ -20,17 +20,11 @@
             android:text="@string/welcometitle"
             android:textColor="@color/colorPrimary"
             android:gravity="center"
+            android:textStyle="bold"
             android:textAllCaps="false"
             android:textSize="20sp"
             android:layout_marginTop="20dp"/>
 
-
-    <CheckBox
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/termpolicytext"
-            android:textColor="@color/Ashcolor"/>
 
     <Button
             android:id="@+id/facebook_login_button"
@@ -39,12 +33,14 @@
             android:text="@string/fb_signin_text"
             android:gravity="center"
             android:textSize="15sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:textColor="@color/textcolorwhite"
-            android:background="@drawable/btn_background"
+            android:background="@drawable/btn_for_facebook"
             android:drawableStart="@drawable/ic_facebook"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="30dp"/>
 
 
     <Button
@@ -56,11 +52,12 @@
             android:layout_marginTop="5dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:textColor="@color/textcolorwhite"
             android:drawableStart="@drawable/ic_google"
-            android:background="@drawable/btn_background"
+            android:background="@drawable/btn_for_google"
             android:textSize="15sp"/>
-
 
 
     <TextView
@@ -80,10 +77,11 @@
             android:text="@string/signin_without_login"
             android:gravity="center"
             android:textSize="15sp"
+            android:layout_marginLeft="10dp"
+            android:drawableStart="@drawable/ic_withoutlogin"
+            android:layout_marginRight="10dp"
             android:textColor="@color/textcolorwhite"
             android:background="@drawable/btn_background"
             android:layout_marginTop="5dp"/>
-
-
 
 </LinearLayout>
