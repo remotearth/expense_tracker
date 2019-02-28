@@ -20,7 +20,6 @@ public class MainViewModel extends ViewModel {
 
     public void init() {
         view.initializeView();
-
     }
 
     public void checkAuthectication(User guestUser) {

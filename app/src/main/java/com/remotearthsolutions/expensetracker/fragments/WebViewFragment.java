@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.activities.MainActivity;
@@ -40,6 +41,7 @@ public class WebViewFragment extends Fragment {
         if (screen.equals("license_details")) {
             Toolbar toolbar = ((MainActivity) getActivity()).getToolbar();
             toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
+            ((MainActivity) getActivity()).getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }
 
         webView = view.findViewById(R.id.webview);
@@ -49,7 +51,7 @@ public class WebViewFragment extends Fragment {
         webView.getSettings().setBuiltInZoomControls(true);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(url);
-        
+
         return view;
     }
 

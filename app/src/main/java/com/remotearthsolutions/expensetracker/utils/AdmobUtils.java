@@ -12,12 +12,20 @@ public class AdmobUtils {
 
     private Activity activity;
     private InterstitialAd interstitialAd;
+    private static AdmobUtils instance;
+    private boolean appShouldShowAds;
 
+    public static AdmobUtils getInstance(Activity activity){
+        if(instance == null){
+            instance = new AdmobUtils(activity);
+        }
 
-    public AdmobUtils(Activity activity) {
-        this.activity = activity;
+        return instance;
     }
 
+    private AdmobUtils(Activity activity) {
+        this.activity = activity;
+    }
 
     public void showInterstitialAds() {
         interstitialAd = new InterstitialAd(activity);
@@ -31,12 +39,16 @@ public class AdmobUtils {
         interstitialAd.setAdListener(new AdListener() {
             public void onAdLoaded() {
 
-                if (((ApplicationObject) activity.getApplication()).isActivityVisible()) {
+                if (((ApplicationObject) activity.getApplication()).isActivityVisible() && appShouldShowAds) {
                     interstitialAd.show();
                 }
 
             }
         });
+    }
+
+    public void appShouldShowAds(boolean state){
+        this.appShouldShowAds = state;
     }
 
 }

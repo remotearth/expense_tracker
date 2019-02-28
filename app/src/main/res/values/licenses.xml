@@ -2,11 +2,15 @@
 <resources>
     <string-array name="license">
         <item>AnimatedPieView - razerdp</item>
-        <item>Room Persistency Library</item>
+        <item>Room persistency library</item>
         <item>android-checkout - serso</item>
         <item>Dexter - Karumi</item>
         <item>RxJava - ReactiveX</item>
         <item>parceler - johncarl81</item>
         <item>gson - google</item>
+        <item>facebook-android-sdk - facebook</item>
+        <item>firebase-android-sdk - firebase</item>
+        <item>RxAndroid - ReactiveX</item>
+        <item>multidex - casidiablo</item>
     </string-array>
 </resources>

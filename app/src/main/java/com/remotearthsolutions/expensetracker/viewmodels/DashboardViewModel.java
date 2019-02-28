@@ -8,12 +8,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class Tab2ViewModel extends ViewModel {
+public class DashboardViewModel extends ViewModel {
     private ExpenseDao expenseDao;
     private CompositeDisposable disposable;
     private FileProcessingService fileProcessingService;
 
-    public Tab2ViewModel(ExpenseDao expenseDao, CompositeDisposable disposable, FileProcessingService fileProcessingService) {
+    public DashboardViewModel(ExpenseDao expenseDao, CompositeDisposable disposable, FileProcessingService fileProcessingService) {
         this.expenseDao = expenseDao;
         this.disposable = disposable;
         this.fileProcessingService = fileProcessingService;

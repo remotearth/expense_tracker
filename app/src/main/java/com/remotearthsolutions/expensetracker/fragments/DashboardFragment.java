@@ -5,7 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.ListView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -19,7 +20,7 @@ import com.remotearthsolutions.expensetracker.services.FileProcessingServiceImp;
 import com.remotearthsolutions.expensetracker.services.InventoryCallback;
 import com.remotearthsolutions.expensetracker.services.PurchaseListener;
 import com.remotearthsolutions.expensetracker.utils.Constants;
-import com.remotearthsolutions.expensetracker.viewmodels.Tab2ViewModel;
+import com.remotearthsolutions.expensetracker.viewmodels.DashboardViewModel;
 import io.reactivex.disposables.CompositeDisposable;
 import org.solovyev.android.checkout.*;
 
@@ -31,7 +32,7 @@ public class DashboardFragment extends Fragment implements InAppBillingCallback 
 
     private ActivityCheckout mCheckout;
     private Inventory mInventory;
-    private Tab2ViewModel tab2ViewModel;
+    private DashboardViewModel dashboardViewModel;
     private ListView lv;
     private DashboardAdapter adapter;
     private ArrayList<DashboardModel> dashboardlist;
@@ -53,7 +54,7 @@ public class DashboardFragment extends Fragment implements InAppBillingCallback 
                 .loadAllPurchases()
                 .loadSkus(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM), new InventoryCallback());
 
-        tab2ViewModel = new Tab2ViewModel(DatabaseClient
+        dashboardViewModel = new DashboardViewModel(DatabaseClient
                 .getInstance(getContext())
                 .getAppDatabase()
                 .expenseDao(),
@@ -74,12 +75,12 @@ public class DashboardFragment extends Fragment implements InAppBillingCallback 
 
     @Override
     public void onPurchaseSuccessListener(Purchase purchase) {
-        Toast.makeText(getActivity(), "Thank You For Purchased", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Thank you for purchasing this item", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onPurchaseFailedListener(String error) {
-        Toast.makeText(getContext(), "Failed : " + error, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -94,23 +95,19 @@ public class DashboardFragment extends Fragment implements InAppBillingCallback 
         mCheckout.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void loaddashboarddata()
-    {
+    private void loaddashboarddata() {
         dashboardlist = new ArrayList<>();
-        dashboardlist.add(new DashboardModel(R.drawable.ic_share,Constants.SHARE_T0_EMAIL));
-        dashboardlist.add(new DashboardModel(R.drawable.ic_cart,Constants.BUY_THE_PRODUCT));
-        adapter = new DashboardAdapter(getActivity(),dashboardlist);
+        dashboardlist.add(new DashboardModel(R.drawable.ic_share, Constants.SHARE_T0_EMAIL));
+        dashboardlist.add(new DashboardModel(R.drawable.ic_cart, Constants.BUY_THE_PRODUCT));
+        adapter = new DashboardAdapter(getActivity(), dashboardlist);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener((parent, view, position, id) -> {
 
-
-            if (position == 0)
-            {
-                tab2ViewModel.saveExpenseToCSV(getActivity());
-                tab2ViewModel.shareCSV_FileToMail(getActivity());
+            if (position == 0) {
+                dashboardViewModel.saveExpenseToCSV(getActivity());
+                dashboardViewModel.shareCSV_FileToMail(getActivity());
             }
-            if (position == 1)
-            {
+            if (position == 1) {
                 mCheckout.whenReady(new Checkout.EmptyListener() {
                     @Override
                     public void onReady(@Nonnull BillingRequests requests) {
