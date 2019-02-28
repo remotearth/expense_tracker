@@ -6,6 +6,8 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.AccountI
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -26,6 +28,14 @@ public interface AccountDao {
             "ON acc.id = inc.account_id \n" +
             "GROUP BY acc.id")
     Flowable<List<AccountIncome>> getAllAccountsWithAmount();
+
+    @Query("SELECT acc.id as account_id, acc.account_name,acc.icon_name,SUM(inc.amount) as total_amount\n" +
+            "FROM account as acc \n" +
+            "LEFT JOIN account_transaction as inc \n" +
+            "ON acc.id = inc.account_id \n" +
+            "GROUP BY acc.id")
+    Flowable<ArrayList<AccountIncome>> getAllAccount();
+
 
     @Query("SELECT * FROM account WHERE id=:id")
     Single<AccountModel> getAccountById(int id);
