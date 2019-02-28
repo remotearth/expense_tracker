@@ -34,5 +34,11 @@ public interface Constants {
     String RXJAVA_LICENSE_FILE = "file:///android_asset/licenses/LICENSERxJava";
     String PERCELER_LICENSE_FILE = "file:///android_asset/licenses/LICENSEPerceler";
     String GSON_LICENSE_FILE = "file:///android_asset/licenses/LICENSEGson";
+    String FACEBOOK_LICENSE_FILE = "file:///android_asset/licenses/LICENSEFacebook.txt";
+    String FIREBASE_LICENSE_FILE = "file:///android_asset/licenses/LICENSEFirebase.txt";
+    String RXANROID_LICENSE_FILE = "file:///android_asset/licenses/LICENSERxandroid.txt";
+    String MULTIDEX_LICENSE_FILE = "file:///android_asset/licenses/LICENSEMultidex.txt";
+    String ADMOB_LICENSE_FILE = "file:///android_asset/licenses/LICENSEAdsense.txt";
+
 
 }

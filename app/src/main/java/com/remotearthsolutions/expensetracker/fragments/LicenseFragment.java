@@ -60,6 +60,23 @@ public class LicenseFragment extends Fragment {
                 case 6:
                     sendLicenseFileToWebFragment(Constants.GSON_LICENSE_FILE);
                     break;
+                case 7:
+                    sendLicenseFileToWebFragment(Constants.FACEBOOK_LICENSE_FILE);
+                    break;
+                case 8:
+                    sendLicenseFileToWebFragment(Constants.FIREBASE_LICENSE_FILE);
+                    break;
+                case 9:
+                    sendLicenseFileToWebFragment(Constants.RXANROID_LICENSE_FILE);
+                    break;
+                case 10:
+                    sendLicenseFileToWebFragment(Constants.MULTIDEX_LICENSE_FILE);
+                    break;
+                case 11:
+                    sendLicenseFileToWebFragment(Constants.ADMOB_LICENSE_FILE);
+                    break;
+
+
             }
         });
         return view;
