@@ -13,6 +13,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -165,6 +166,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             fragmentManager.popBackStack();
 
             setupActionBar();
+            binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         } else {
             long t = System.currentTimeMillis();
             if (t - backPressedTime > 2000) {
@@ -309,6 +311,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public Toolbar getToolbar() {
         return binding.toolbar;
+    }
+
+    public DrawerLayout getDrawerLayout(){
+        return binding.drawerLayout;
     }
 
 }
