@@ -6,7 +6,7 @@
               android:layout_margin="30dp">
 
     <TextView
-            android:id="@+id/title_section"
+            android:id="@+id/date_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

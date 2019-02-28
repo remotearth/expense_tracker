@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.databaseutils.daos;
 
 import androidx.room.*;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import io.reactivex.Flowable;
@@ -30,6 +31,14 @@ public interface ExpenseDao {
             "WHERE exp.datetime >= :startTime AND exp.datetime <= :endTime " +
             "ORDER BY exp.datetime ASC")
     Flowable<List<CategoryExpense>> getExpenseWithinRange(long startTime, long endTime);
+
+    @Query("SELECT DISTINCT exp.datetime " +
+            "FROM category AS ctg " +
+            "LEFT JOIN expense AS exp " +
+            "ON ctg.id = exp.category_id " +
+            "WHERE exp.datetime >= :startTime AND exp.datetime <= :endTime " +
+            "ORDER BY exp.datetime ASC")
+    Flowable<List<DateModel>> getDateWithinRange(long startTime, long endTime);
 
     @Query("Select sum(amount) from expense where category_id = :id")
     int getTotalAmountByCategoryId(int id);
