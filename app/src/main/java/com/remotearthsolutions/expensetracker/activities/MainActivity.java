@@ -287,7 +287,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onPurchaseSuccessListener(Purchase purchase) {
-
+        if(purchase.sku.equals(Constants.TEST_PURCHASED_ITEM)){
+            AdmobUtils.getInstance(MainActivity.this).appShouldShowAds(false);
+        }
     }
 
     @Override
@@ -302,9 +304,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             int delay = new Random().nextInt(15000 - 2000) + 2000;
             Log.d(MainActivity.class.getName(),"Delay before showing ad: "+delay);
 
+            AdmobUtils.getInstance(MainActivity.this).appShouldShowAds(true);
             new Handler().postDelayed(() -> {
-                AdmobUtils admobUtils = new AdmobUtils(MainActivity.this);
-                admobUtils.showInterstitialAds();
+                AdmobUtils.getInstance(MainActivity.this).showInterstitialAds();
             }, delay);
         }
     }
