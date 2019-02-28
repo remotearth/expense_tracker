@@ -24,7 +24,7 @@ public class ExpenseViewModel extends ViewModel {
     }
 
     public void loadFilterExpense(long startTime, long endTime) {
-        disposable.add(expenseDao.getAllFilterExpense(startTime, endTime)
+        disposable.add(expenseDao.getExpenseWithinRange(startTime, endTime)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((listOfFilterExpense) -> {
