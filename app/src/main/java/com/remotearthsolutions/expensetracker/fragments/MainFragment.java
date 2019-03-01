@@ -43,7 +43,7 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
 
         pagerAdapter = new MainFragmentPagerAdapter(getChildFragmentManager());
-        binding.viewpager.setOffscreenPageLimit(2);
+        binding.viewpager.setOffscreenPageLimit(tabTitles.length - 1);
         binding.viewpager.setAdapter(pagerAdapter);
         binding.viewpager.addOnPageChangeListener(viewPagerPageChangeListener);
         binding.navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -252,7 +252,7 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
 
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
 
         @Nullable

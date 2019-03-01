@@ -10,16 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.remotearthsolutions.expensetracker.R;
-import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.AccountIncome;
+import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
+import com.remotearthsolutions.expensetracker.utils.CategoryIcons;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class AccountsAdapter extends ArrayAdapter<AccountIncome> {
+public class AccountsAdapter extends ArrayAdapter<AccountModel> {
 
     private Context context;
-    private ArrayList<AccountIncome> accountList;
+    private List<AccountModel> accountList;
 
-    public AccountsAdapter(Context context, ArrayList<AccountIncome> accountList) {
+    public AccountsAdapter(Context context, List<AccountModel> accountList) {
         super(context, R.layout.custom_account, accountList);
         this.context = context;
         this.accountList = accountList;
@@ -35,14 +36,14 @@ public class AccountsAdapter extends ArrayAdapter<AccountIncome> {
             view = LayoutInflater.from(context).inflate(R.layout.custom_account, parent, false);
         }
 
-        AccountIncome model = accountList.get(position);
+        AccountModel model = accountList.get(position);
         ImageView accountImageIv = view.findViewById(R.id.acimage);
         TextView accountNameTv = view.findViewById(R.id.actitle);
         TextView ammountTv = view.findViewById(R.id.acammount);
 
-        accountImageIv.setImageResource(R.drawable.ic_currency);
-        accountNameTv.setText(model.getAccount_name());
-        ammountTv.setText(String.valueOf(model.getTotal_amount()));
+        accountImageIv.setImageResource(CategoryIcons.getIconId(model.getIcon()));
+        accountNameTv.setText(model.getName());
+        ammountTv.setText(String.valueOf(model.getAmount()));
 
         return view;
     }

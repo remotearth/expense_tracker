@@ -7,14 +7,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
 
 import com.remotearthsolutions.expensetracker.adapters.AccountListAdapter;
-import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.AccountIncome;
+import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
+import com.remotearthsolutions.expensetracker.utils.CategoryIcons;
 
 public class AccountViewHolder extends RecyclerView.ViewHolder {
 
     private ImageView accountImageIv;
     private TextView accountNameTv;
     private TextView ammountTv;
-    private AccountIncome account;
+    private AccountModel account;
 
     public AccountViewHolder(View view, final AccountListAdapter.OnItemClickListener listener) {
         super(view);
@@ -32,13 +33,11 @@ public class AccountViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void bind(AccountIncome account) {
+    public void bind(AccountModel account) {
         this.account = account;
-
-        //accountImageIv.setImageResource(account.getIcon_name().);
-        accountImageIv.setImageResource(R.drawable.ic_currency);
-        accountNameTv.setText(account.getAccount_name());
-        ammountTv.setText(String.valueOf(account.getTotal_amount()));
+        accountImageIv.setImageResource(CategoryIcons.getIconId(account.getIcon()));
+        accountNameTv.setText(account.getName());
+        ammountTv.setText(String.valueOf(account.getAmount()));
 
 
 
