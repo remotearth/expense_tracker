@@ -18,14 +18,14 @@ public class LoginViewModel extends ViewModel implements FacebookService.CallBac
     private GoogleService googleService;
     private FacebookService facebookService;
     private FirebaseService firebaseService;
-    private InternetCheckerService internetCheckerService;
+    //private InternetCheckerService internetCheckerService;
 
     public LoginViewModel(LoginContract.View view, GoogleService googleService, FacebookService facebookService, FirebaseService firebaseService, InternetCheckerService internetCheckerService) {
         this.view = view;
         this.googleService = googleService;
         this.facebookService = facebookService;
         this.firebaseService = firebaseService;
-        this.internetCheckerService = internetCheckerService;
+        //this.internetCheckerService = internetCheckerService;
     }
 
     public void init() {
@@ -38,13 +38,10 @@ public class LoginViewModel extends ViewModel implements FacebookService.CallBac
 
     public void startFacebookLogin() {
 
-        if (internetCheckerService.isConnected())
-        {
+        if (view.isDeviceOnline()) {
             facebookService.startFacebookLogin(this);
-        }
-        else
-        {
-            view.showAlert("Warning","No Internet Connection","OK",null,null);
+        } else {
+            view.showAlert("Warning", "No Internet Connection", "OK", null, null);
         }
 
     }
@@ -53,18 +50,18 @@ public class LoginViewModel extends ViewModel implements FacebookService.CallBac
         return facebookService.getFacebookCallbackManager();
     }
 
-    public void startGoogleLogin(Intent data) {
-
-        if (internetCheckerService.isConnected())
-        {
-            googleService.startGoogleLogin(data, this);
+    public void startGoogleLogin() {
+        if (view.isDeviceOnline()) {
+            view.loadUserEmails();
+        } else {
+            view.showAlert("Warning", "No Internet Connection", "OK", null, null);
         }
-        else
-        {
-            view.showAlert("Warning","No Internet Connection","OK",null,null);
-        }
-
     }
+
+    public void googleLoginWithIntent(Intent data){
+        googleService.startGoogleLogin(data, this);
+    }
+
 
     public void startGuestLogin() {
 

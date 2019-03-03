@@ -53,7 +53,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         viewModel.getFacebookCallbackManager().onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_CODE_GOOGLE_SIGNIN_INTENT) {
-            viewModel.startGoogleLogin(data);
+            viewModel.googleLoginWithIntent(data);
         }
     }
 
@@ -64,15 +64,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         switch (v.getId()) {
 
             case R.id.googlebutton:
-                GoogleSignInClient mGoogleSignInClient = viewModel.getGoogleSignInClient();
-
-                if (mGoogleSignInClient == null) {
-                    Log.w(TAG, "mGoogleSignInClient must be initialized");
-                    return;
-                }
-
-                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-                startActivityForResult(signInIntent, REQUEST_CODE_GOOGLE_SIGNIN_INTENT);
+                viewModel.startGoogleLogin();
                 break;
 
             case R.id.facebook_login_button:
@@ -111,6 +103,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void onLoginFailure() {
         showAlert(null, "Login failed", "Ok", null, null);
+    }
+
+    @Override
+    public void loadUserEmails() {
+        GoogleSignInClient mGoogleSignInClient = viewModel.getGoogleSignInClient();
+
+        if (mGoogleSignInClient == null) {
+            Log.w(TAG, "mGoogleSignInClient must be initialized");
+            return;
+        }
+
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, REQUEST_CODE_GOOGLE_SIGNIN_INTENT);
     }
 
 
