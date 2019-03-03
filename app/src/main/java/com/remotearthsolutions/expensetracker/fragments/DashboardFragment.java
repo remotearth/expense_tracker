@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -31,7 +32,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 
-public class DashboardFragment extends Fragment implements InAppBillingCallback {
+public class DashboardFragment extends BaseFragment implements InAppBillingCallback {
 
     private ActivityCheckout mCheckout;
     private Inventory mInventory;
@@ -125,7 +126,7 @@ public class DashboardFragment extends Fragment implements InAppBillingCallback 
                     break;
 
                 case 2:
-                    showAlertDialog("Warning","To Enjoy this service, You have to buy","Ok");
+                    showAlert(getString(R.string.ALERT_TITLE),getString(R.string.DIALOG_MESSAGE),getString(R.string.DIALOG_BUTTON_POSITIVE),null,null);
                     break;
 
                 default:
@@ -133,14 +134,8 @@ public class DashboardFragment extends Fragment implements InAppBillingCallback 
         });
     }
 
-    private void showAlertDialog(String title, String message, String okBtn)
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setCancelable(true);
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.setPositiveButton(okBtn, (dialog, which) -> dialog.dismiss());
-        AlertDialog alert=builder.create();
-        alert.show();
+    @Override
+    public Context getContext() {
+        return getActivity();
     }
 }

@@ -60,4 +60,7 @@
     <string name="admob_app_id">ca-app-pub-3996731798982494~9482261632</string>
     <string name="admob_ad_id">ca-app-pub-3996731798982494/8955771736</string>
     <string name="admob_test_ad_id">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="ALERT_TITLE">Warning</string>
+    <string name="DIALOG_MESSAGE">To Enjoy this service, You have to buy</string>
+    <string name="DIALOG_BUTTON_POSITIVE">Ok</string>
 </resources>
