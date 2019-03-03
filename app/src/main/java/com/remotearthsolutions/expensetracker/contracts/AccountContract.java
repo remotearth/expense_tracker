@@ -4,10 +4,11 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
 
 import java.util.List;
 
-public interface AccountDialogContract {
-    interface View {
-        void onAccountFetchSuccess(List<AccountModel> accounts);
+public interface AccountContract {
 
-        void onAccountFetchFailure();
+    interface View {
+
+        void onAccountFetch(List<AccountModel> accounts);
+        void onSuccess(String message);
     }
 }

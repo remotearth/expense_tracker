@@ -12,7 +12,7 @@ import org.parceler.Parcel;
 public class CategoryModel {
 
     @NonNull
-    @PrimaryKey (autoGenerate = true)
+    @PrimaryKey(autoGenerate = true)
     int id;
 
     @ColumnInfo(name = "category_name")
@@ -21,13 +21,17 @@ public class CategoryModel {
     @ColumnInfo(name = "icon_name")
     String icon;
 
+    @ColumnInfo(name = "notremovable")
+    int notremovable;
+
     @Ignore
     public CategoryModel() {
     }
 
-    public CategoryModel(String name, String icon) {
+    public CategoryModel(String name, String icon, int notremovable) {
         this.name = name;
         this.icon = icon;
+        this.notremovable = notremovable;
     }
 
     public int getId() {
@@ -52,5 +56,13 @@ public class CategoryModel {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public int getNotremovable() {
+        return notremovable;
+    }
+
+    public void setNotremovable(int notremovable) {
+        this.notremovable = notremovable;
     }
 }

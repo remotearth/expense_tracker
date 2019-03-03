@@ -29,7 +29,7 @@ public class ExpenseFragmentViewModel {
     public void init(int accountId) {
         view.defineClickListener();
 
-        compositeDisposable.add(accountDao.getAccountWithAmountById(accountId)
+        compositeDisposable.add(accountDao.getAccountById(accountId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(accountIncome -> {
                     if (accountIncome != null) {

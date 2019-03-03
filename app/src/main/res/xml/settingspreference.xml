@@ -13,12 +13,12 @@
 
     <ListPreference
             android:key="@string/prefdate"
-            android:title="@string/TimePeriod"
+            android:title="@string/timeperiod"
             android:defaultValue="@string/daily"
             android:entryValues="@array/TimePeriod"
             android:entries="@array/TimePeriod"
             android:icon="@drawable/settings_timeperiod"
-            android:summary="@string/SelectPeriodfromHere"/>
+            android:summary="@string/selectperiodfromhere"/>
 
 
 </PreferenceScreen>

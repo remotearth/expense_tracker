@@ -1,6 +1,5 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,12 +23,13 @@ import com.remotearthsolutions.expensetracker.viewmodels.CategoryViewModel;
 
 import java.util.List;
 
-public class CategoryFragment extends Fragment implements CategoryFragmentContract.View {
+public class CategoryFragment extends Fragment implements CategoryFragmentContract.View, OptionBottomSheetFragment.Callback {
 
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
     private CategoryListViewAdapter adapter;
     private CategoryViewModel viewModel;
+    private CategoryModel selectedCategory;
 
 
     public CategoryFragment() {
@@ -38,7 +38,7 @@ public class CategoryFragment extends Fragment implements CategoryFragmentContra
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.category_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_category, container, false);
 
         floatingActionButton = view.findViewById(R.id.addcategory);
         recyclerView = view.findViewById(R.id.cat_recycler);
@@ -49,22 +49,9 @@ public class CategoryFragment extends Fragment implements CategoryFragmentContra
         viewModel = new CategoryViewModel(this, categoryDao);
         viewModel.showCategories();
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                FragmentManager fm = getChildFragmentManager();
-                final AddCategoryDialogFragment categoryDialogFragment = AddCategoryDialogFragment.newInstance("ADD CATEGORY");
-                categoryDialogFragment.setCallback(new AddCategoryDialogFragment.Callback() {
-                    @Override
-                    public void onCategoryAdded(CategoryModel categoryModel) {
-                        viewModel.showCategories();
-                        categoryDialogFragment.dismiss();
-
-                    }
-                });
-                categoryDialogFragment.show(fm, AddCategoryDialogFragment.class.getName());
-            }
+        floatingActionButton.setOnClickListener(v -> {
+            selectedCategory = null;
+            onClickEditBtn();
         });
 
         return view;
@@ -74,59 +61,60 @@ public class CategoryFragment extends Fragment implements CategoryFragmentContra
     public void showCategories(List<CategoryModel> categories) {
 
         adapter = new CategoryListViewAdapter(categories);
-        adapter.setOnItemClickListener(new CategoryListViewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(CategoryModel categoryModel) {
+        adapter.setOnItemClickListener(categoryModel -> {
 
-                FragmentManager fm = getChildFragmentManager();
-                final AddCategoryDialogFragment categoryDialogFragment = AddCategoryDialogFragment.newInstance("Update Category");
-                categoryDialogFragment.setCategory(categoryModel);
-                categoryDialogFragment.setCallback(new AddCategoryDialogFragment.Callback() {
-                    @Override
-                    public void onCategoryAdded(CategoryModel categoryModel) {
-                        viewModel.showCategories();
-                        categoryDialogFragment.dismiss();
+            selectedCategory = categoryModel;
+            OptionBottomSheetFragment optionBottomSheetFragment = new OptionBottomSheetFragment();
+            optionBottomSheetFragment.setCallback(CategoryFragment.this, OptionBottomSheetFragment.OptionsFor.CATEGORY);
+            optionBottomSheetFragment.show(getChildFragmentManager(), OptionBottomSheetFragment.class.getName());
 
-                    }
-                });
-                categoryDialogFragment.show(fm, AddCategoryDialogFragment.class.getName());
-            }
-
-            @Override
-            public void onItemLongClick(CategoryModel categoryModel) {
-
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-                alertDialogBuilder.setTitle("Warning");
-                alertDialogBuilder.setIcon(R.drawable.ic_warning);
-                alertDialogBuilder.setMessage("Are you sure,You want to Delete?");
-                alertDialogBuilder.setCancelable(false);
-
-                alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int arg1) {
-
-                        viewModel.deleteCategory(categoryModel);
-                        Toast.makeText(getActivity(), "Category Deleted Successfully", Toast.LENGTH_LONG).show();
-                        dialog.dismiss();
-
-                    }
-                });
-
-                alertDialogBuilder.setNegativeButton("Not Now", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        dialog.dismiss();
-                    }
-                });
-
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-
-            }
         });
         recyclerView.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void onClickAddAmountBtn() {
+        //THis is not neeed for category. need to refactor this somehow so this method will not be need to imlpement here.
+    }
+
+    @Override
+    public void onClickEditBtn() {
+        FragmentManager fm = getChildFragmentManager();
+        final AddCategoryDialogFragment categoryDialogFragment = AddCategoryDialogFragment.newInstance("Update Category");
+        categoryDialogFragment.setCategory(selectedCategory);
+        categoryDialogFragment.setCallback(categoryModel1 -> {
+            //viewModel.showCategories();
+            categoryDialogFragment.dismiss();
+
+        });
+        categoryDialogFragment.show(fm, AddCategoryDialogFragment.class.getName());
+    }
+
+    @Override
+    public void onClickDeleteBtn() {
+
+        if (selectedCategory.getNotremovable() == 1) {
+            Toast.makeText(getActivity(), "You cannot delete this expense category", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setTitle("Warning");
+        alertDialogBuilder.setIcon(R.drawable.ic_warning);
+        alertDialogBuilder.setMessage("Are you sure,You want to Delete?");
+        alertDialogBuilder.setCancelable(false);
+
+        alertDialogBuilder.setPositiveButton("Yes", (dialog, arg1) -> {
+
+            viewModel.deleteCategory(selectedCategory);
+            Toast.makeText(getActivity(), "Category Deleted Successfully", Toast.LENGTH_LONG).show();
+            dialog.dismiss();
+
+        });
+        alertDialogBuilder.setNegativeButton("Not Now", (dialog, which) -> dialog.dismiss());
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
 
     }
 }

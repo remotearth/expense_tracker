@@ -28,11 +28,12 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
     private FragmentMainBinding binding;
     private MainFragmentPagerAdapter pagerAdapter;
     private ActionBar actionBar;
-    private String[] tabTitles = new String[]{"Home", "Transactions", "Dashboard",};
+    private String[] tabTitles = new String[]{"Home", "Transactions", "Accounts", "Dashboard",};
 
     private static HomeFragment homeFragment;
     private static AllExpenseFragment allExpenseFragment;
     private static DashboardFragment dashboardFragment;
+    private static AccountsFragment accountsFragment;
     private int dateContainerHeight = -1;
 
 
@@ -42,7 +43,7 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
 
         pagerAdapter = new MainFragmentPagerAdapter(getChildFragmentManager());
-        binding.viewpager.setOffscreenPageLimit(2);
+        binding.viewpager.setOffscreenPageLimit(tabTitles.length - 1);
         binding.viewpager.setAdapter(pagerAdapter);
         binding.viewpager.addOnPageChangeListener(viewPagerPageChangeListener);
         binding.navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -62,21 +63,33 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
                 switch (period) {
                     case Constants.KEY_DAILY:
                         binding.dailyRangeBtn.performClick();
+                        binding.dailyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
                         break;
                     case Constants.KEY_WEEKLY:
                         binding.weeklyRangeBtn.performClick();
+                        binding.weeklyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
                         break;
                     case Constants.KEY_MONTHLY:
                         binding.monthlyRangeBtn.performClick();
+                        binding.monthlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
                         break;
                     case Constants.KEY_YEARLY:
                         binding.yearlyRangeBtn.performClick();
+                        binding.yearlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
                         break;
                 }
             }
         }, 500);
 
         return binding.getRoot();
+    }
+
+    private void resetDateRangeBtns(){
+        binding.dailyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_unselected);
+        binding.weeklyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_unselected);
+        binding.monthlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_unselected);
+        binding.yearlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_unselected);
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -91,9 +104,13 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
                 binding.viewpager.setCurrentItem(1, true);
                 actionBar.setTitle(tabTitles[1]);
                 return true;
-            case R.id.navigation_dashboard:
+            case R.id.navigation_accounts:
                 binding.viewpager.setCurrentItem(2, true);
                 actionBar.setTitle(tabTitles[2]);
+                return true;
+            case R.id.navigation_dashboard:
+                binding.viewpager.setCurrentItem(3, true);
+                actionBar.setTitle(tabTitles[3]);
                 return true;
 
         }
@@ -171,6 +188,26 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
                         }, 300);
                     }
 
+                    binding.navigation.setSelectedItemId(R.id.navigation_accounts);
+                    break;
+                }
+
+                case 3: {
+                    if (binding.dateRangeContainer.getMeasuredHeight() == dateContainerHeight) {
+                        binding.dateRangeContainer.animate().alpha(0).translationY(-binding.dateRangeContainer.getHeight()).setDuration(200);
+                        new Handler().postDelayed(() -> {
+                            ValueAnimator anim = ValueAnimator.ofInt(dateContainerHeight, 0);
+                            anim.addUpdateListener(valueAnimator -> {
+                                int val = (Integer) valueAnimator.getAnimatedValue();
+                                ViewGroup.LayoutParams layoutParams = binding.dateRangeContainer.getLayoutParams();
+                                layoutParams.height = val;
+                                binding.dateRangeContainer.setLayoutParams(layoutParams);
+                            });
+                            anim.setDuration(200);
+                            anim.start();
+                        }, 300);
+                    }
+
                     binding.navigation.setSelectedItemId(R.id.navigation_dashboard);
                     break;
                 }
@@ -190,7 +227,26 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
     }
 
     @Override
-    public void onDateChanged(String date, long startTime, long endTime) {
+    public void onDateChanged(int buttonId, String date, long startTime, long endTime) {
+        resetDateRangeBtns();
+        switch (buttonId){
+            case R.id.dailyRangeBtn:
+                binding.dailyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
+                break;
+            case R.id.weeklyRangeBtn:
+                binding.weeklyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
+                break;
+            case R.id.monthlyRangeBtn:
+                binding.monthlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
+                break;
+            case R.id.yearlyRangeBtn:
+                binding.yearlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
+                break;
+
+        }
+
+
+
         binding.dateTv.setText(date);
         if (homeFragment != null && allExpenseFragment != null) {
             homeFragment.updateChartView(startTime, endTime);
@@ -214,6 +270,9 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
                     allExpenseFragment = new AllExpenseFragment();
                     return allExpenseFragment;
                 case 2:
+                    accountsFragment = new AccountsFragment();
+                    return accountsFragment;
+                case 3:
                     dashboardFragment = new DashboardFragment();
                     return dashboardFragment;
                 default:
@@ -224,7 +283,7 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
 
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
 
         @Nullable

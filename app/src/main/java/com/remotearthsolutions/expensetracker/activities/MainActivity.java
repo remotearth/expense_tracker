@@ -153,9 +153,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             FragmentTransaction ft = fragmentManager.beginTransaction();
             ft.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down);
             ft.remove(expenseFragment);
+            ft.commit();
             fragmentManager.popBackStack();
 
-            loadMainFragment();
+            //loadMainFragment();
 
         } else if (webViewFragment != null) {
 
@@ -287,7 +288,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onPurchaseSuccessListener(Purchase purchase) {
-        if(purchase.sku.equals(Constants.TEST_PURCHASED_ITEM)){
+        if (purchase.sku.equals(Constants.TEST_PURCHASED_ITEM)) {
             AdmobUtils.getInstance(MainActivity.this).appShouldShowAds(false);
         }
     }
@@ -302,7 +303,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (!products.get(ProductTypes.IN_APP).isPurchased(Constants.TEST_PURCHASED_ITEM)) {
 
             int delay = new Random().nextInt(15000 - 2000) + 2000;
-            Log.d(MainActivity.class.getName(),"Delay before showing ad: "+delay);
+            Log.d(MainActivity.class.getName(), "Delay before showing ad: " + delay);
 
             AdmobUtils.getInstance(MainActivity.this).appShouldShowAds(true);
             new Handler().postDelayed(() -> {
@@ -315,7 +316,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return binding.toolbar;
     }
 
-    public DrawerLayout getDrawerLayout(){
+    public DrawerLayout getDrawerLayout() {
         return binding.drawerLayout;
     }
 
