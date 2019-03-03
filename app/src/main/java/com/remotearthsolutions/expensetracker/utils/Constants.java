@@ -26,7 +26,7 @@ public interface Constants {
 
     String SHARE_T0_EMAIL="Export Data";
     String BUY_THE_PRODUCT="Buy The Product";
-    String IMPORT_FILE="Input Data";
+    String IMPORT_FILE="Import Data";
     
     String RAZERDPANIMATEDPIEVIEW_LICENSE_FILE = "file:///android_asset/licenses/LICENSEAnimatedPieChart";
     String ROOM_LICENSE_FILE = "file:///android_asset/licenses/LICENSERoom";

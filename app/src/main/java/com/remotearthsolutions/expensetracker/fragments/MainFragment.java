@@ -63,21 +63,33 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
                 switch (period) {
                     case Constants.KEY_DAILY:
                         binding.dailyRangeBtn.performClick();
+                        binding.dailyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
                         break;
                     case Constants.KEY_WEEKLY:
                         binding.weeklyRangeBtn.performClick();
+                        binding.weeklyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
                         break;
                     case Constants.KEY_MONTHLY:
                         binding.monthlyRangeBtn.performClick();
+                        binding.monthlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
                         break;
                     case Constants.KEY_YEARLY:
                         binding.yearlyRangeBtn.performClick();
+                        binding.yearlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
                         break;
                 }
             }
         }, 500);
 
         return binding.getRoot();
+    }
+
+    private void resetDateRangeBtns(){
+        binding.dailyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_unselected);
+        binding.weeklyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_unselected);
+        binding.monthlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_unselected);
+        binding.yearlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_unselected);
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -215,7 +227,26 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
     }
 
     @Override
-    public void onDateChanged(String date, long startTime, long endTime) {
+    public void onDateChanged(int buttonId, String date, long startTime, long endTime) {
+        resetDateRangeBtns();
+        switch (buttonId){
+            case R.id.dailyRangeBtn:
+                binding.dailyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
+                break;
+            case R.id.weeklyRangeBtn:
+                binding.weeklyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
+                break;
+            case R.id.monthlyRangeBtn:
+                binding.monthlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
+                break;
+            case R.id.yearlyRangeBtn:
+                binding.yearlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
+                break;
+
+        }
+
+
+
         binding.dateTv.setText(date);
         if (homeFragment != null && allExpenseFragment != null) {
             homeFragment.updateChartView(startTime, endTime);

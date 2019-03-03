@@ -102,8 +102,8 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
     private void loaddashboarddata() {
         dashboardlist = new ArrayList<>();
         dashboardlist.add(new DashboardModel(R.drawable.ic_share, Constants.SHARE_T0_EMAIL));
-        dashboardlist.add(new DashboardModel(R.drawable.ic_cart, Constants.BUY_THE_PRODUCT));
         dashboardlist.add(new DashboardModel(R.drawable.ic_import, Constants.IMPORT_FILE));
+        dashboardlist.add(new DashboardModel(R.drawable.ic_cart, Constants.BUY_THE_PRODUCT));
         adapter = new DashboardAdapter(getActivity(), dashboardlist);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener((parent, view, position, id) -> {

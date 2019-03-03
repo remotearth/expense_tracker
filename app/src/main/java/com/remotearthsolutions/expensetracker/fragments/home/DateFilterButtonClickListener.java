@@ -213,7 +213,7 @@ public class DateFilterButtonClickListener implements View.OnClickListener {
             endTime = getDateTimeInLong(DateTimeUtils.yyyy, date, maximumDate, 23, 59, 59);
         }
 
-        callback.onDateChanged(date, startTime, endTime);
+        callback.onDateChanged(v.getId(), date, startTime, endTime);
     }
 
     private long getDateTimeInLong(String format, String dateStr, int hour, int min, int sec) {
@@ -242,6 +242,6 @@ public class DateFilterButtonClickListener implements View.OnClickListener {
     }
 
     public interface Callback {
-        void onDateChanged(String date, long startTime, long endTime);
+        void onDateChanged(int btnId, String date, long startTime, long endTime);
     }
 }
