@@ -21,8 +21,9 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private List<CategoryExpense> expenseList;
     private List<DateModel> dateModelList;
 
-    public ExpenseListAdapter(List<CategoryExpense> expenseList) {
+    public ExpenseListAdapter(List<CategoryExpense> expenseList, List<DateModel> dateModelList) {
         this.expenseList = expenseList;
+        this.dateModelList = dateModelList;
     }
 
     @NonNull
@@ -47,7 +48,8 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             CategoryExpense expense = expenseList.get(position);
             ((ExpenseListViewHolder) holder).bind(expense);
         } else {
-            // ... TODO Bind dateSectionedView
+            DateModel dateModel = dateModelList.get(position);
+            ((DateSectionedViewHolder)holder).bind(dateModel);
         }
     }
 
@@ -59,10 +61,6 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-//        if ()
-//        return this.expenseList.get(position)? VIEW_SECTION : VIEW_ITEM;
-        // ... TODO According to position change
-        return VIEW_ITEM;
-
+        return expenseList.get(position).isHeader? VIEW_SECTION : VIEW_ITEM;
     }
 }

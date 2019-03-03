@@ -27,6 +27,7 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
     private ExpenseListAdapter adapter;
     private ExpenseViewModel viewModel;
     private long startTime, endTime;
+    private List<CategoryExpense> listOffilterExpense;
 
 
     public AllExpenseFragment() {
@@ -47,8 +48,8 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
         viewModel.loadFilterExpense(startTime, endTime);
         viewModel.loadFilterDate(startTime, endTime);
 
-        Log.d("START TIME",String.valueOf(startTime));
-        Log.d("END TIME",String.valueOf(endTime));
+        Log.d("START TIME", String.valueOf(startTime));
+        Log.d("END TIME", String.valueOf(endTime));
 
         return view;
     }
@@ -56,19 +57,18 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
 
     @Override
     public void loadFilterExpense(List<CategoryExpense> listOffilterExpense) {
-
-        adapter = new ExpenseListAdapter(listOffilterExpense);
-        recyclerView.setAdapter(adapter);
+        this.listOffilterExpense = listOffilterExpense;
     }
 
     @Override
     public void loadDate(List<DateModel> listOfDate) {
-
+        adapter = new ExpenseListAdapter(listOffilterExpense, listOfDate);
+        recyclerView.setAdapter(adapter);
     }
 
-    public void updateFilterListWithDate(long startTime, long endTime){
+    public void updateFilterListWithDate(long startTime, long endTime) {
         this.startTime = startTime;
         this.endTime = endTime;
-        viewModel.loadFilterExpense(startTime,endTime);
+        viewModel.loadFilterExpense(startTime, endTime);
     }
 }
