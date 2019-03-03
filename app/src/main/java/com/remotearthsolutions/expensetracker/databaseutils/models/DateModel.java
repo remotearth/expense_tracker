@@ -1,11 +1,23 @@
 package com.remotearthsolutions.expensetracker.databaseutils.models;
 
+import androidx.room.Ignore;
+import com.intrusoft.sectionedrecyclerview.Section;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
-public class DateModel {
+public class DateModel implements Section<CategoryExpense> {
+    @Ignore
+    private List<CategoryExpense> childList;
     private long datetime;
+
+    public DateModel(List<CategoryExpense> childList, long datetime) {
+        this.childList = childList;
+        this.datetime = datetime;
+    }
 
     public long getDatetime() {
         return datetime;
@@ -25,5 +37,10 @@ public class DateModel {
 
     public void setDate(long datetime) {
         this.datetime = datetime;
+    }
+
+    @Override
+    public List<CategoryExpense> getChildItems() {
+        return childList;
     }
 }

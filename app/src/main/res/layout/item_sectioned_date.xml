@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:layout_margin="30dp">
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="30dp">
 
     <TextView
             android:id="@+id/date_section"
@@ -14,6 +16,6 @@
             android:textSize="25sp"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
 </LinearLayout>

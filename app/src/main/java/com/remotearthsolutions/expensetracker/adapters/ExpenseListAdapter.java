@@ -1,10 +1,10 @@
 package com.remotearthsolutions.expensetracker.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import com.intrusoft.sectionedrecyclerview.SectionRecyclerViewAdapter;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.viewholder.DateSectionedViewHolder;
 import com.remotearthsolutions.expensetracker.adapters.viewholder.ExpenseListViewHolder;
@@ -13,54 +13,34 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.Category
 
 import java.util.List;
 
-public class ExpenseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ExpenseListAdapter extends SectionRecyclerViewAdapter<DateModel, CategoryExpense, DateSectionedViewHolder, ExpenseListViewHolder> {
+    private Context context;
 
-    private final int VIEW_ITEM = 1;
-    private final int VIEW_SECTION = 0;
-
-    private List<CategoryExpense> expenseList;
-    private List<DateModel> dateModelList;
-
-    public ExpenseListAdapter(List<CategoryExpense> expenseList, List<DateModel> dateModelList) {
-        this.expenseList = expenseList;
-        this.dateModelList = dateModelList;
-    }
-
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        RecyclerView.ViewHolder viewHolder;
-
-        if (viewType == VIEW_ITEM) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_all_expense, parent, false);
-            viewHolder = new ExpenseListViewHolder(view);
-        } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sectioned_date, parent, false);
-            viewHolder = new DateSectionedViewHolder(view);
-        }
-
-        return viewHolder;
+    public ExpenseListAdapter(Context context, List<DateModel> sectionItemList) {
+        super(context, sectionItemList);
+        this.context = context;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof ExpenseListViewHolder) {
-            CategoryExpense expense = expenseList.get(position);
-            ((ExpenseListViewHolder) holder).bind(expense);
-        } else {
-            DateModel dateModel = dateModelList.get(position);
-            ((DateSectionedViewHolder)holder).bind(dateModel);
-        }
+    public DateSectionedViewHolder onCreateSectionViewHolder(ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_sectioned_date, viewGroup, false);
+        return new DateSectionedViewHolder(view);
     }
 
     @Override
-    public int getItemCount() {
-        if (expenseList == null) return 0;
-        return expenseList.size();
+    public ExpenseListViewHolder onCreateChildViewHolder(ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(context).inflate(R.layout.custom_all_expense, viewGroup, false);
+        return new ExpenseListViewHolder(view);
     }
 
     @Override
-    public int getItemViewType(int position) {
-        return expenseList.get(position).isHeader? VIEW_SECTION : VIEW_ITEM;
+    public void onBindSectionViewHolder(DateSectionedViewHolder dateSectionedViewHolder, int i, DateModel dateModel) {
+        dateSectionedViewHolder.bind(dateModel);
     }
+
+    @Override
+    public void onBindChildViewHolder(ExpenseListViewHolder expenseListViewHolder, int i, int i1, CategoryExpense expenseModel) {
+        expenseListViewHolder.bind(expenseModel);
+    }
+
 }
