@@ -52,9 +52,8 @@
     <string name="yearly">Yearly</string>
     <string name="expense_category">Expense Category</string>
     <string name="prefdate">pref_period_list</string>
-    <string name="TimePeriod">Time Period</string>
+    <string name="timeperiod">Time Period</string>
     <string name="day">Day</string>
-    <string name="Day">Daily</string>
     <string name="selectperiodfromhere">Select Period from Here</string>
 
     <string name="admob_app_id">ca-app-pub-3996731798982494~9482261632</string>

@@ -126,7 +126,7 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
                     break;
 
                 case 2:
-                    showAlert(getString(R.string.ALERT_TITLE),getString(R.string.DIALOG_MESSAGE),getString(R.string.DIALOG_BUTTON_POSITIVE),null,null);
+                    showAlert(getString(R.string.warning),getString(R.string.buy_message),getString(R.string.ok),null,null);
                     break;
 
                 default:
