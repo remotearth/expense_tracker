@@ -22,7 +22,7 @@ public class AccountDialogViewModel extends ViewModel {
     }
 
     public void loadAccounts() {
-        mDisposable.add(accountDao.getAllAccountsWithAmount()
+        mDisposable.add(accountDao.getAllAccounts()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(

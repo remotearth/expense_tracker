@@ -14,9 +14,9 @@ import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
+import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
-import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.AccountIncome;
 import com.remotearthsolutions.expensetracker.utils.*;
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseFragmentViewModel;
 import org.parceler.Parcels;
@@ -33,7 +33,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
     private ExpenseFragmentViewModel viewModel;
 
     private CategoryModel selectedCategory;
-    private AccountIncome selectedSourceAccount;
+    private AccountModel selectedSourceAccount;
 
     private Bundle args;
 
@@ -107,17 +107,14 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         selectAccountBtn.setOnClickListener(v -> {
             FragmentManager fm = getChildFragmentManager();
             final AccountDialogFragment accountDialogFragment = AccountDialogFragment.newInstance("Select Account");
-            accountDialogFragment.setCallback(new AccountDialogFragment.Callback() {
-                @Override
-                public void onSelectAccount(AccountIncome account) {
-                    //accountBtnIv.setImageResource(account.getIcon_name());
-                    accountBtnIv.setImageResource(R.drawable.ic_currency);
-                    accountNameTv.setText(account.getAccount_name());
-                    accountDialogFragment.dismiss();
+            accountDialogFragment.setCallback(account -> {
 
-                    selectedSourceAccount = account;
-                    SharedPreferenceUtils.getInstance(getActivity()).putInt(Constants.KEY_SELECTED_ACCOUNT_ID, selectedSourceAccount.getAccount_id());
-                }
+                accountBtnIv.setImageResource(CategoryIcons.getIconId(account.getIcon()));
+                accountNameTv.setText(account.getName());
+                accountDialogFragment.dismiss();
+
+                selectedSourceAccount = account;
+                SharedPreferenceUtils.getInstance(getActivity()).putInt(Constants.KEY_SELECTED_ACCOUNT_ID, selectedSourceAccount.getId());
             });
             accountDialogFragment.show(fm, AccountDialogFragment.class.getName());
 
@@ -164,7 +161,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             expenseModel.setAmount(amount);
             expenseModel.setDatetime(DateTimeUtils.getTimeInMillisFromDateStr(dateTv.getText().toString(), DateTimeUtils.dd_MM_yyyy));
             expenseModel.setCategoryId(selectedCategory.getId());
-            expenseModel.setSource(selectedSourceAccount.getAccount_id());
+            expenseModel.setSource(selectedSourceAccount.getId());
             viewModel.addExpense(expenseModel);
         });
     }
@@ -176,12 +173,12 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
     }
 
     @Override
-    public void setSourceAccount(AccountIncome account) {
+    public void setSourceAccount(AccountModel account) {
         selectedSourceAccount = account;
         //accountBtnIv.setImageResource(account.getIcon_name());
         accountBtnIv.setImageResource(R.drawable.ic_currency);
-        accountNameTv.setText(account.getAccount_name());
-        SharedPreferenceUtils.getInstance(getActivity()).putInt(Constants.KEY_SELECTED_ACCOUNT_ID, account.getAccount_id());
+        accountNameTv.setText(account.getName());
+        SharedPreferenceUtils.getInstance(getActivity()).putInt(Constants.KEY_SELECTED_ACCOUNT_ID, account.getId());
     }
 
     @Override

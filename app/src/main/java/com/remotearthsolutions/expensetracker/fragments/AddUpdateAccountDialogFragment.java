@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.IconListAdapter;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
-import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
+import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
 import com.remotearthsolutions.expensetracker.utils.CategoryIcons;
 import com.remotearthsolutions.expensetracker.utils.Utils;
 import io.reactivex.Completable;
@@ -24,55 +24,45 @@ import io.reactivex.schedulers.Schedulers;
 
 import java.util.List;
 
-public class AddCategoryDialogFragment extends DialogFragment {
+public class AddUpdateAccountDialogFragment extends DialogFragment {
 
-
-    private IconListAdapter iconListAdapter;
     private RecyclerView recyclerView;
-    private AddCategoryDialogFragment.Callback callback;
-    private EditText categoryNameEdtxt;
-    private TextView categorydialogstatus;
-    private CategoryModel categoryModel;
+    private AccountModel accountModel;
+    private EditText nameEdtxt;
+    private TextView headerTv;
+    private Button okBtn;
     private String selectedIcon;
+    private IconListAdapter iconListAdapter;
 
-    public AddCategoryDialogFragment() {
-    }
-
-
-    public static AddCategoryDialogFragment newInstance(String title) {
-        AddCategoryDialogFragment frag = new AddCategoryDialogFragment();
-        Bundle args = new Bundle();
-        args.putString("title", title);
-        frag.setArguments(args);
-        return frag;
-    }
-
-    public void setCallback(AddCategoryDialogFragment.Callback callback) {
-        this.callback = callback;
+    public void setAccountModel(AccountModel accountModel) {
+        this.accountModel = accountModel;
+        if (accountModel != null) {
+            selectedIcon = accountModel.getIcon();
+        }
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_add_update_category_account, container);
+        return inflater.inflate(R.layout.fragment_add_update_category_account, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        categoryNameEdtxt = view.findViewById(R.id.nameEdtxt);
-        categorydialogstatus = view.findViewById(R.id.header);
-        Button okBtn = view.findViewById(R.id.okBtn);
+        headerTv = view.findViewById(R.id.header);
+        nameEdtxt = view.findViewById(R.id.nameEdtxt);
+        okBtn = view.findViewById(R.id.okBtn);
 
-        if (categoryModel != null) {
-            categoryNameEdtxt.setText(categoryModel.getName());
-            categoryNameEdtxt.setSelection(categoryNameEdtxt.getText().length());
-            categorydialogstatus.setText("Update Category");
+        if (accountModel != null) {
+            headerTv.setText("Update Account");
             okBtn.setText("Update");
+            nameEdtxt.setText(accountModel.getName());
+        } else {
+            headerTv.setText("Add Account");
+            okBtn.setText("Add");
         }
-
-        okBtn.setOnClickListener(v -> saveCategory());
 
         recyclerView = view.findViewById(R.id.accountrecyclearView);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -92,55 +82,46 @@ public class AddCategoryDialogFragment extends DialogFragment {
         });
         recyclerView.setAdapter(iconListAdapter);
 
+        okBtn.setOnClickListener(v -> saveAccount());
+
     }
 
-    private void saveCategory() {
+    private void saveAccount() {
 
-        final String categoryName = categoryNameEdtxt.getText().toString().trim();
+        final String accountName = nameEdtxt.getText().toString().trim();
 
-        if (categoryName.isEmpty()) {
-            categoryNameEdtxt.setError("Enter Category Name");
-            categoryNameEdtxt.requestFocus();
+        if (accountName.isEmpty()) {
+            nameEdtxt.setError("Enter a name for account");
+            nameEdtxt.requestFocus();
             return;
         }
 
         if (selectedIcon == null || selectedIcon.isEmpty()) {
-            Toast.makeText(getActivity(), "Select an icon for the category", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Select an icon for the account", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        CategoryDao categoryDao = DatabaseClient.getInstance(getContext()).getAppDatabase().categoryDao();
+        AccountDao accountDao = DatabaseClient.getInstance(getContext()).getAppDatabase().accountDao();
 
-        if (categoryModel == null) {
-            categoryModel = new CategoryModel();
+        if (accountModel == null) {
+            accountModel = new AccountModel();
         }
-        categoryModel.setName(categoryName);
-        categoryModel.setIcon(selectedIcon);
+        accountModel.setName(accountName);
+        accountModel.setIcon(selectedIcon);
 
         CompositeDisposable compositeDisposable = new CompositeDisposable();
         compositeDisposable.add(Completable.fromAction(() -> {
-            if (categoryModel.getId() > 0) {
-                categoryDao.updateCategory(categoryModel);
+            if (accountModel.getId() > 0) {
+                accountDao.updateAccount(accountModel);
             } else {
-                categoryDao.addCategory(categoryModel);
+                accountDao.addAccount(accountModel);
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> callback.onCategoryAdded(categoryModel)));
+                .subscribe(() -> {
 
+                }));
+
+        dismiss();
     }
-
-    public void setCategory(CategoryModel categoryModel) {
-        this.categoryModel = categoryModel;
-        if (categoryModel != null) {
-            selectedIcon = categoryModel.getIcon();
-        }
-
-    }
-
-    public interface Callback {
-        void onCategoryAdded(CategoryModel categoryModel);
-    }
-
-
 }
