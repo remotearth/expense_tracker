@@ -1,6 +1,8 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
@@ -99,24 +102,45 @@ public class DashboardFragment extends Fragment implements InAppBillingCallback 
         dashboardlist = new ArrayList<>();
         dashboardlist.add(new DashboardModel(R.drawable.ic_share, Constants.SHARE_T0_EMAIL));
         dashboardlist.add(new DashboardModel(R.drawable.ic_cart, Constants.BUY_THE_PRODUCT));
+        dashboardlist.add(new DashboardModel(R.drawable.ic_import, Constants.IMPORT_FILE));
         adapter = new DashboardAdapter(getActivity(), dashboardlist);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener((parent, view, position, id) -> {
 
-            if (position == 0) {
-                dashboardViewModel.saveExpenseToCSV(getActivity());
-                dashboardViewModel.shareCSV_FileToMail(getActivity());
-            }
-            if (position == 1) {
-                mCheckout.whenReady(new Checkout.EmptyListener() {
-                    @Override
-                    public void onReady(@Nonnull BillingRequests requests) {
+            switch (position)
+            {
+                case 0:
+                    dashboardViewModel.saveExpenseToCSV(getActivity());
+                    dashboardViewModel.shareCSV_FileToMail(getActivity());
+                    break;
 
-                        requests.purchase(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM, null, mCheckout.getPurchaseFlow());
-                    }
-                });
+                case 1:
+                    mCheckout.whenReady(new Checkout.EmptyListener() {
+                        @Override
+                        public void onReady(@Nonnull BillingRequests requests) {
 
+                            requests.purchase(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM, null, mCheckout.getPurchaseFlow());
+                        }
+                    });
+                    break;
+
+                case 2:
+                    showAlertDialog("Warning","To Enjoy this service, You have to buy","Ok");
+                    break;
+
+                default:
             }
         });
+    }
+
+    private void showAlertDialog(String title, String message, String okBtn)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton(okBtn, (dialog, which) -> dialog.dismiss());
+        AlertDialog alert=builder.create();
+        alert.show();
     }
 }
