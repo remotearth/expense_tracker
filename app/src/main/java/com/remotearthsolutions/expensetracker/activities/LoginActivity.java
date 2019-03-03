@@ -16,6 +16,7 @@ import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.services.FacebookServiceImpl;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.services.GoogleServiceImpl;
+import com.remotearthsolutions.expensetracker.services.InternetCheckerServiceImpl;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.LoginViewModel;
@@ -34,7 +35,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         setContentView(R.layout.activity_login);
 
         viewModel = ViewModelProviders.of(this,
-                new LoginViewModelFactory(this, new GoogleServiceImpl(this), new FacebookServiceImpl(this), new FirebaseServiceImpl(this))).
+                new LoginViewModelFactory(this, new GoogleServiceImpl(this), new FacebookServiceImpl(this), new FirebaseServiceImpl(this), new InternetCheckerServiceImpl(this))).
                 get(LoginViewModel.class);
         viewModel.init();
 

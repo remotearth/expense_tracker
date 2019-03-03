@@ -10,6 +10,7 @@ import com.remotearthsolutions.expensetracker.contracts.LoginContract;
 import com.remotearthsolutions.expensetracker.services.FacebookService;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
 import com.remotearthsolutions.expensetracker.services.GoogleService;
+import com.remotearthsolutions.expensetracker.services.InternetCheckerService;
 
 public class LoginViewModel extends ViewModel implements FacebookService.CallBack, FirebaseService.Callback, GoogleService.Callback {
 
@@ -17,12 +18,14 @@ public class LoginViewModel extends ViewModel implements FacebookService.CallBac
     private GoogleService googleService;
     private FacebookService facebookService;
     private FirebaseService firebaseService;
+    private InternetCheckerService internetCheckerService;
 
-    public LoginViewModel(LoginContract.View view, GoogleService googleService, FacebookService facebookService, FirebaseService firebaseService) {
+    public LoginViewModel(LoginContract.View view, GoogleService googleService, FacebookService facebookService, FirebaseService firebaseService, InternetCheckerService internetCheckerService) {
         this.view = view;
         this.googleService = googleService;
         this.facebookService = facebookService;
         this.firebaseService = firebaseService;
+        this.internetCheckerService = internetCheckerService;
     }
 
     public void init() {
@@ -34,7 +37,16 @@ public class LoginViewModel extends ViewModel implements FacebookService.CallBac
     }
 
     public void startFacebookLogin() {
-        facebookService.startFacebookLogin(this);
+
+        if (internetCheckerService.isConnected())
+        {
+            facebookService.startFacebookLogin(this);
+        }
+        else
+        {
+            view.showAlert("Warning","No Internet Connection","OK",null,null);
+        }
+
     }
 
     public CallbackManager getFacebookCallbackManager() {
@@ -42,7 +54,16 @@ public class LoginViewModel extends ViewModel implements FacebookService.CallBac
     }
 
     public void startGoogleLogin(Intent data) {
-        googleService.startGoogleLogin(data, this);
+
+        if (internetCheckerService.isConnected())
+        {
+            googleService.startGoogleLogin(data, this);
+        }
+        else
+        {
+            view.showAlert("Warning","No Internet Connection","OK",null,null);
+        }
+
     }
 
     public void startGuestLogin() {

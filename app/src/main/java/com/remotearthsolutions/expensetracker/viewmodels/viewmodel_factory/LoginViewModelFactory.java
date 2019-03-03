@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import com.remotearthsolutions.expensetracker.contracts.LoginContract;
+import com.remotearthsolutions.expensetracker.services.InternetCheckerService;
 import com.remotearthsolutions.expensetracker.viewmodels.LoginViewModel;
 import com.remotearthsolutions.expensetracker.services.FacebookService;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
@@ -15,17 +16,19 @@ public class LoginViewModelFactory implements ViewModelProvider.Factory {
     private GoogleService googleService;
     private FacebookService facebookService;
     private FirebaseService firebaseService;
+    private InternetCheckerService internetCheckerService;
 
-    public LoginViewModelFactory(LoginContract.View view, GoogleService googleService, FacebookService facebookService, FirebaseService firebaseService) {
+    public LoginViewModelFactory(LoginContract.View view, GoogleService googleService, FacebookService facebookService, FirebaseService firebaseService, InternetCheckerService internetCheckerService) {
         this.view = view;
         this.googleService = googleService;
         this.facebookService = facebookService;
         this.firebaseService = firebaseService;
+        this.internetCheckerService = internetCheckerService;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new LoginViewModel(view, googleService, facebookService, firebaseService);
+        return (T) new LoginViewModel(view, googleService, facebookService, firebaseService, internetCheckerService);
     }
 }
