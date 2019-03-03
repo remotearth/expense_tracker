@@ -16,7 +16,7 @@
         <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/ic_amount"/>
 
         <TextView
                 android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
         <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/ic_editamount"/>
 
         <TextView
                 android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
         <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/ic_deleteamount"/>
 
         <TextView
                 android:layout_width="wrap_content"
