@@ -1,0 +1,19 @@
+<vector android:height="24dp" android:viewportHeight="464"
+    android:viewportWidth="464" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#a88e74" android:pathData="m40,328h32v48h-32zM40,328"/>
+    <path android:fillColor="#a88e74" android:pathData="m392,328h32v48h-32zM392,328"/>
+    <path android:fillColor="#9a826a" android:pathData="m40,328h32v32h-32zM40,328"/>
+    <path android:fillColor="#9a826a" android:pathData="m392,328h32v32h-32zM392,328"/>
+    <path android:fillColor="#b6534f" android:pathData="m232,296h-184v-64h-8v-96c0,-26.508 21.492,-48 48,-48h112c17.672,0 32,14.328 32,32zM232,296"/>
+    <path android:fillColor="#b6534f" android:pathData="m232,296h184v-64h8v-96c0,-26.508 -21.492,-48 -48,-48h-112c-17.672,0 -32,14.328 -32,32zM232,296"/>
+    <path android:fillColor="#e06661" android:pathData="m232,296h-184v-64h168c8.836,0 16,7.164 16,16zM232,296"/>
+    <path android:fillColor="#e06661" android:pathData="m416,296h-184v-48c0,-8.836 7.164,-16 16,-16h168zM416,296"/>
+    <path android:fillColor="#a24a46" android:pathData="m152,160c0,8.836 -7.164,16 -16,16s-16,-7.164 -16,-16 7.164,-16 16,-16 16,7.164 16,16zM152,160"/>
+    <path android:fillColor="#a24a46" android:pathData="m344,160c0,8.836 -7.164,16 -16,16s-16,-7.164 -16,-16 7.164,-16 16,-16 16,7.164 16,16zM344,160"/>
+    <path android:fillColor="#b6534f" android:pathData="m40,280h384v24h-384zM40,280"/>
+    <path android:fillColor="#a24a46" android:pathData="m448,344h-432v-88h32v40h368v-40h32zM448,344"/>
+    <path android:fillColor="#b6534f" android:pathData="m48,271.281c20.117,-3.406 35.875,-19.164 39.281,-39.281h-39.281zM48,271.281"/>
+    <path android:fillColor="#b6534f" android:pathData="m416,271.281c-20.117,-3.406 -35.875,-19.164 -39.281,-39.281h39.281zM416,271.281"/>
+    <path android:fillColor="#e06661" android:pathData="m464,224c0,22.09 -17.91,40 -40,40s-40,-17.91 -40,-40 17.91,-40 40,-40 40,17.91 40,40zM464,224"/>
+    <path android:fillColor="#e06661" android:pathData="m80,224c0,22.09 -17.91,40 -40,40s-40,-17.91 -40,-40 17.91,-40 40,-40 40,17.91 40,40zM80,224"/>
+</vector>
