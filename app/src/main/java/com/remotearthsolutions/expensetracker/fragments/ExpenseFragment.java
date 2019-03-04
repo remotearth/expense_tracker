@@ -21,7 +21,9 @@ import com.remotearthsolutions.expensetracker.utils.*;
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseFragmentViewModel;
 import org.parceler.Parcels;
 
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 public class ExpenseFragment extends BaseFragment implements ExpenseFragmentContract.View {
 
@@ -57,6 +59,12 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         selectCategoryBtn = view.findViewById(R.id.toCategoryBtn);
         dateTv = view.findViewById(R.id.dateTv);
         okBtn = view.findViewById(R.id.okBtn);
+
+        List<String> currencies = Arrays.asList(getResources().getStringArray(R.array.currency));
+        String selectedCurrency = SharedPreferenceUtils.getInstance(getActivity()).getString(Constants.PREF_CURRENCY, getActivity().getString(R.string.default_currency));
+        String currencySymbol = getResources().getStringArray(R.array.currency_symbols)[currencies.indexOf(selectedCurrency)];
+        expenseEdtxt.setHint(currencySymbol + " 0");
+
 
         NumpadFragment numpadFragment = (NumpadFragment) getChildFragmentManager().findFragmentById(R.id.numpadContainer);
         NumpadManager numpadManager = new NumpadManager();

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="default_currency">United States Dollar - USD</string>
+
     <string-array name="currency">
         <item>Afghan Afghani - AFN</item>
         <item>Albanian Lek - ALL</item>
