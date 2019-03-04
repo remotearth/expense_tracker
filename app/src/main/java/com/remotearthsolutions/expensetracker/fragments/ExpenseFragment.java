@@ -62,7 +62,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
         List<String> currencies = Arrays.asList(getResources().getStringArray(R.array.currency));
         String selectedCurrency = SharedPreferenceUtils.getInstance(getActivity()).getString(Constants.PREF_CURRENCY, getActivity().getString(R.string.default_currency));
-        String currencySymbol = getResources().getStringArray(R.array.currency_symbols)[currencies.indexOf(selectedCurrency)];
+        String currencySymbol = getResources().getStringArray(R.array.currency_symbol)[currencies.indexOf(selectedCurrency)];
         expenseEdtxt.setHint(currencySymbol + " 0");
 
 
