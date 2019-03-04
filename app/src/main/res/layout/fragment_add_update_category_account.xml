@@ -20,7 +20,7 @@
             android:orientation="vertical"
             android:layout_height="wrap_content">
         <EditText
-                android:id="@+id/addnametodb"
+                android:id="@+id/nameEdtxt"
                 android:hint="Enter Category Name"
                 android:layout_width="match_parent"
                 android:textSize="18sp"
@@ -36,11 +36,11 @@
                 android:textSize="18sp"/>
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/accountrecyclearView"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         <Button
-                android:id="@+id/addtodb"
+                android:id="@+id/okBtn"
                 android:text="ADD"
                 android:textColor="@color/textcolorwhite"
                 android:background="@drawable/btn_selector"

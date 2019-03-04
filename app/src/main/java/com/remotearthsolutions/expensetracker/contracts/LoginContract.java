@@ -10,6 +10,7 @@ public interface LoginContract {
         void initializeView();
         void onLoginSuccess(FirebaseUser user);
         void onLoginFailure();
+        void loadUserEmails();
 
     }
 

@@ -13,6 +13,11 @@
             android:title="@string/title_transaction"/>
 
     <item
+            android:id="@+id/navigation_accounts"
+            android:icon="@drawable/ic_account"
+            android:title="@string/accounts"/>
+
+    <item
             android:id="@+id/navigation_dashboard"
             android:icon="@drawable/ic_dashboard"
             android:title="@string/title_dashboard"/>

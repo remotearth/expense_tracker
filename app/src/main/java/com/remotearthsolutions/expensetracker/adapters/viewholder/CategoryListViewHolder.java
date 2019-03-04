@@ -16,29 +16,14 @@ public class CategoryListViewHolder extends RecyclerView.ViewHolder {
     private ImageView categoryImage;
     private CategoryModel categoryModel;
 
-    public CategoryListViewHolder(@NonNull View view, final CategoryListViewAdapter.OnItemClickListener listener){
+    public CategoryListViewHolder(@NonNull View view, final CategoryListViewAdapter.OnItemClickListener listener) {
         super(view);
         categoryName = view.findViewById(R.id.cat_nameview);
         categoryImage = view.findViewById(R.id.cat_iconview);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                listener.onItemClick(categoryModel);
-            }
-        });
-
-        view.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                listener.onItemLongClick(categoryModel);
-                return false;
-            }
-        });
+        view.setOnClickListener(v -> listener.onItemClick(categoryModel));
     }
 
-    public void bind(CategoryModel categoryModel)
-    {
+    public void bind(CategoryModel categoryModel) {
         this.categoryModel = categoryModel;
         categoryName.setText(categoryModel.getName());
         categoryImage.setImageResource(CategoryIcons.getIconId(categoryModel.getIcon()));

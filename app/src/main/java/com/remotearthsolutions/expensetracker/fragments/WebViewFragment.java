@@ -4,21 +4,18 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.activities.MainActivity;
 import com.remotearthsolutions.expensetracker.utils.Constants;
-
-import java.util.Objects;
 
 public class WebViewFragment extends Fragment {
 
@@ -27,7 +24,7 @@ public class WebViewFragment extends Fragment {
 
     private ProgressBar progressBar;
     private WebView webView;
-    private String getUrl;
+    private String url, screen;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Nullable
@@ -35,24 +32,26 @@ public class WebViewFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_webview, container, false);
-//        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-//        actionBar.setHomeButtonEnabled(true);
 
+        if (getArguments() != null) {
+            url = getArguments().getString(Constants.KEY_URL);
+            screen = getArguments().getString("screen");
+        }
+
+        if (screen.equals("license_details")) {
+            Toolbar toolbar = ((MainActivity) getActivity()).getToolbar();
+            toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
+            ((MainActivity) getActivity()).getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        }
 
         webView = view.findViewById(R.id.webview);
         progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setBuiltInZoomControls(true);
-
-        if (getArguments() != null) {
-
-            getUrl = getArguments().getString(Constants.KEY_URL);
-            webView.loadUrl(getUrl);
-        }
-
         webView.setWebViewClient(new WebViewClient());
+        webView.loadUrl(url);
+
         return view;
     }
 

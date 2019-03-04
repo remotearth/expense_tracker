@@ -50,15 +50,17 @@
     <string name="weekly">Weekly</string>
     <string name="monthly">Monthly</string>
     <string name="yearly">Yearly</string>
-    <string name="expense_catagory">Expense Catagory</string>
+    <string name="expense_category">Expense Category</string>
     <string name="prefdate">pref_period_list</string>
-    <string name="TimePeriod">Time Period</string>
+    <string name="timeperiod">Time Period</string>
     <string name="day">Day</string>
-    <string name="Day">Daily</string>
-    <string name="SelectPeriodfromHere">Select Period from Here</string>
-    <string name="admob_ad_id">ca-app-pub-3996731798982494/8955771736</string>
+    <string name="selectperiodfromhere">Select Period from Here</string>
+
     <string name="admob_app_id">ca-app-pub-3996731798982494~9482261632</string>
+    <string name="admob_ad_id">ca-app-pub-3996731798982494/8955771736</string>
     <string name="admob_test_ad_id">ca-app-pub-3940256099942544/1033173712</string>
-
-
+    <string name="accounts">Accounts</string>
+    <string name="warning">Warning</string>
+    <string name="buy_message">To Enjoy this service, You have to buy</string>
+    <string name="ok">Ok</string>
 </resources>

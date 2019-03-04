@@ -20,7 +20,6 @@ public class MainViewModel extends ViewModel {
 
     public void init() {
         view.initializeView();
-
     }
 
     public void checkAuthectication(User guestUser) {
@@ -29,6 +28,9 @@ public class MainViewModel extends ViewModel {
 
         if (user == null && guestUser == null) {
             view.goBackToLoginScreen();
+        }
+        else{
+            view.startLoadingApp();
         }
     }
 

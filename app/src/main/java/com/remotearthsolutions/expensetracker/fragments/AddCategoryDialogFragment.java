@@ -54,25 +54,25 @@ public class AddCategoryDialogFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.add_category_fragment, container);
+        return inflater.inflate(R.layout.fragment_add_update_category_account, container);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        categoryNameEdtxt = view.findViewById(R.id.addnametodb);
+        categoryNameEdtxt = view.findViewById(R.id.nameEdtxt);
         categorydialogstatus = view.findViewById(R.id.header);
-        Button addBtn = view.findViewById(R.id.addtodb);
+        Button okBtn = view.findViewById(R.id.okBtn);
 
         if (categoryModel != null) {
             categoryNameEdtxt.setText(categoryModel.getName());
             categoryNameEdtxt.setSelection(categoryNameEdtxt.getText().length());
             categorydialogstatus.setText("Update Category");
-            addBtn.setText("Update");
+            okBtn.setText("Update");
         }
 
-        addBtn.setOnClickListener(v -> saveCategory());
+        okBtn.setOnClickListener(v -> saveCategory());
 
         recyclerView = view.findViewById(R.id.accountrecyclearView);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -110,20 +110,19 @@ public class AddCategoryDialogFragment extends DialogFragment {
         }
 
         CategoryDao categoryDao = DatabaseClient.getInstance(getContext()).getAppDatabase().categoryDao();
-        CategoryModel newCategoryModel = new CategoryModel();
-        if (categoryModel != null) {
-            newCategoryModel.setId(categoryModel.getId());
-        }
 
-        newCategoryModel.setName(categoryName);
-        newCategoryModel.setIcon(selectedIcon);
+        if (categoryModel == null) {
+            categoryModel = new CategoryModel();
+        }
+        categoryModel.setName(categoryName);
+        categoryModel.setIcon(selectedIcon);
 
         CompositeDisposable compositeDisposable = new CompositeDisposable();
         compositeDisposable.add(Completable.fromAction(() -> {
-            if (categoryModel != null) {
-                categoryDao.updateCategory(newCategoryModel);
+            if (categoryModel.getId() > 0) {
+                categoryDao.updateCategory(categoryModel);
             } else {
-                categoryDao.addCategory(newCategoryModel);
+                categoryDao.addCategory(categoryModel);
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -133,7 +132,10 @@ public class AddCategoryDialogFragment extends DialogFragment {
 
     public void setCategory(CategoryModel categoryModel) {
         this.categoryModel = categoryModel;
-        selectedIcon = categoryModel.getIcon();
+        if (categoryModel != null) {
+            selectedIcon = categoryModel.getIcon();
+        }
+
     }
 
     public interface Callback {
