@@ -67,14 +67,14 @@
         <item>Hong Kong Dollar - HKD</item>
         <item>Honduran Lempira - HNL</item>
         <item>Haitian Gourde - HTG</item>
-        <item>Hungarian Forint - HUF</item>
+        <item>Ft</item>
         <item>Indonesian Rupiah - IDR</item>
-        <item>Indian Rupee - INR</item>
-        <item>Iraqi Dinar - IQD</item>
-        <item>Iranian Rial - IRR</item>
-        <item>Icelandic Króna - ISK</item>
-        <item>Israeli New Sheqel - IDR</item>
-        <item>Israeli New Sheqel - ILS</item>
+        <item>₹</item>
+        <item>ع.د</item>
+        <item>﷼</item>
+        <item>Kr</item>
+        <item>₪</item>
+        <item>₪</item>
         <item>Jersey Pound - JEP</item>
         <item>Jamaican Dollar - JMD</item>
         <item>Jordanian Dinar - JOD</item>
@@ -173,7 +173,7 @@
         <item>Zimbabwean Dollar - ZWL</item>
     </string-array>
 
-    <string-array name="currency_symbols">
+    <string-array name="currency_code">
         <item>AFN</item>
         <item>ALL</item>
         <item>AMD</item>
@@ -197,7 +197,7 @@
         <item>BTC</item>
         <item>BTN</item>
         <item>BWP</item>
-        <item> BYN</item>
+        <item>BYN</item>
         <item>BZD</item>
         <item>CAD</item>
         <item>CDF</item>
@@ -343,6 +343,178 @@
         <item>YER</item>
         <item>ZMW</item>
         <item>ZWL</item>
+    </string-array>
+
+    <string-array name="currency_symbol">
+        <item>Af</item>
+        <item>L</item>
+        <item>Դ</item>
+        <item>Kz</item>
+        <item>$</item>
+        <item>$</item>
+        <item>ƒ</item>
+        <item>ман</item>
+        <item>د.ج</item>
+        <item>КМ</item>
+        <item>$</item>
+        <item>৳</item>
+        <item>£</item>
+        <item>лв</item>
+        <item>₣</item>
+        <item>$</item>
+        <item>$</item>
+        <item>Bs.</item>
+        <item>R$</item>
+        <item>$</item>
+        <item>₿</item>
+        <item>Nu</item>
+        <item>P</item>
+        <item>Br</item>
+        <item>$</item>
+        <item>$</item>
+        <item>₣</item>
+        <item>₣</item>
+        <item>UF</item>
+        <item>$</item>
+        <item>CNH</item>
+        <item>¥</item>
+        <item>v</item>
+        <item>$</item>
+        <item>Kn</item>
+        <item>₡</item>
+        <item>CUC$</item>
+        <item>$</item>
+        <item>$</item>
+        <item>Kč</item>
+        <item>៛</item>
+        <item>CF</item>
+        <item>FCFA</item>
+        <item>₣</item>
+        <item>₣</item>
+        <item>kr</item>
+        <item>$</item>
+        <item>د.ج</item>
+        <item>ج.م</item>
+        <item> نافكا</item>
+        <item>ብር</item>
+        <item>€</item>
+        <item>$</item>
+        <item>£</item>
+        <item>ლ</item>
+        <item>₵</item>
+        <item>£</item>
+        <item>D</item>
+        <item>GFr</item>
+        <item>Q</item>
+        <item>$</item>
+        <item>XAU</item>
+        <item>$</item>
+        <item>L</item>
+        <item>G</item>
+        <item>Ft</item>
+        <item>Rp</item>
+        <item>Rs</item>
+        <item>ع.د</item>
+        <item>﷼</item>
+        <item>Íkr</item>
+        <item>INR</item>
+        <item>₪</item>
+        <item>£</item>
+        <item>$</item>
+        <item>د.ا</item>
+        <item>¥</item>
+        <item>Sh</item>
+        <item>Лв</item>
+        <item>د.ك</item>
+        <item>〒</item>
+        <item>₭</item>
+        <item>ل.ل</item>
+        <item>$</item>
+        <item>L</item>
+        <item>ل.د</item>
+        <item>£</item>
+        <item>د.م.</item>
+        <item>L</item>
+        <item>Ar</item>
+        <item>ден</item>
+        <item>K</item>
+        <item>₮</item>
+        <item>P</item>
+        <item>UM</item>
+        <item>UM</item>
+        <item>Rs</item>
+        <item>ރ.</item>
+        <item>MK</item>
+        <item>$</item>
+        <item>RM</item>
+        <item>MTn</item>
+        <item>₩</item>
+        <item>NAƒ</item>
+        <item>$</item>
+        <item>₦</item>
+        <item>C$</item>
+        <item>kr</item>
+        <item>Rs</item>
+        <item>$</item>
+        <item>$</item>
+        <item>ر.ع.</item>
+        <item>B/.</item>
+        <item>S/.</item>
+        <item>₣</item>
+        <item>₱</item>
+        <item>Rs</item>
+        <item>zł</item>
+        <item>₲</item>
+        <item>XPD</item>
+        <item>XPT</item>
+        <item>ر.ق</item>
+        <item>L</item>
+        <item>р.</item>
+        <item>₣</item>
+        <item>ر.س</item>
+        <item>Rs</item>
+        <item>₩</item>
+        <item>$</item>
+        <item>Rs</item>
+        <item>£</item>
+        <item>kr</item>
+        <item>$</item>
+        <item>£</item>
+        <item>Le</item>
+        <item>Sh</item>
+        <item>₣</item>
+        <item>T</item>
+        <item>$</item>
+        <item>Db</item>
+        <item>Db</item>
+        <item>$</item>
+        <item>ل.س</item>
+        <item>L</item>
+        <item>din</item>
+        <item>ozt</item>
+        <item>SDR</item>
+        <item>R</item>
+        <item>฿</item>
+        <item>ЅМ</item>
+        <item>m</item>
+        <item>د.ت</item>
+        <item>T$</item>
+        <item>₤</item>
+        <item>$</item>
+        <item>Sh</item>
+        <item>د.إ</item>
+        <item>₴</item>
+        <item>Sh</item>
+        <item>$</item>
+        <item>$</item>
+        <item>лв</item>
+        <item>Bs F</item>
+        <item>Bs.</item>
+        <item>₫</item>
+        <item>Vt</item>
+        <item>﷼</item>
+        <item>ZK</item>
+        <item>$</item>
     </string-array>
 
 
