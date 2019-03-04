@@ -9,6 +9,7 @@ public class CategoryExpense {
     private String icon_name;
     private double total_amount;
     private long datetime;
+
     @Ignore
     public boolean isHeader = false;
 

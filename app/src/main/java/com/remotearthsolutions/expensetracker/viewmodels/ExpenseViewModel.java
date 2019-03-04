@@ -25,34 +25,33 @@ public class ExpenseViewModel extends ViewModel {
         this.expenseDao = expenseDao;
     }
 
-//    public void loadFilterExpense(long startTime, long endTime) {
-//        disposable.add(expenseDao.getExpenseWithinRange(startTime, endTime)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe((listOfFilterExpense) -> {
-//
-//                    List<CategoryExpense> expenseList = new ArrayList<>();
-//                    List<DateModel> dateList = new ArrayList<>();
-//
-//                    if (listOfFilterExpense != null) {
-//                        long previousDate = listOfFilterExpense.get(0).getDatetime();
-//
-//                        for (int i = 0; i < listOfFilterExpense.size(); i++) {
-//                            CategoryExpense expense = listOfFilterExpense.get(i);
-//
-//                            if (expense.getDatetime() != previousDate) {
-//                                dateList.add(new DateModel(expenseList, previousDate));
-//                                previousDate = expense.getDatetime();
-//                            }
-//
-//                            expenseList.add(expense);
-//                        }
-//                    }
-//
-//                    view.loadDate(dateList);
-//
-//                }));
-//    }
+    public void loadFilterExpense(long startTime, long endTime) {
+        disposable.add(expenseDao.getExpenseWithinRange(startTime, endTime)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((listOfFilterExpense) -> {
+
+                    List<CategoryExpense> expenseList = new ArrayList<>();
+
+                    if (listOfFilterExpense.size() > 0) {
+                        long previousDate = listOfFilterExpense.get(0).getDatetime();
+
+                        for (int i = 0; i < listOfFilterExpense.size(); i++) {
+                            CategoryExpense expense = listOfFilterExpense.get(i);
+
+                            if (expense.getDatetime() != previousDate) {
+                                expense.isHeader = true;
+                                previousDate = expense.getDatetime();
+                            }
+
+                            expenseList.add(expense);
+                        }
+                    }
+
+                    view.loadFilterExpense(expenseList);
+
+                }));
+    }
 
     public void loadFilterDate(long startTime, long endTime) {
         disposable.add(expenseDao.getDateWithinRange(startTime, endTime)

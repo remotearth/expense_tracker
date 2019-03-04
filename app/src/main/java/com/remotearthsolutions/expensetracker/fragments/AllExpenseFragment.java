@@ -46,8 +46,7 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
         ExpenseDao expenseDao = DatabaseClient.getInstance(getContext()).getAppDatabase().expenseDao();
         viewModel = new ExpenseViewModel(this, expenseDao);
 
-//        viewModel.loadFilterExpense(startTime, endTime);
-//        viewModel.loadFilterDate(startTime, endTime);
+        viewModel.loadFilterExpense(startTime, endTime);
 
         Log.d("START TIME", String.valueOf(startTime));
         Log.d("END TIME", String.valueOf(endTime));
@@ -57,19 +56,19 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
 
     @Override
     public void loadFilterExpense(List<CategoryExpense> listOffilterExpense) {
-//        this.listOffilterExpense = listOffilterExpense;
+        adapter = new ExpenseListAdapter(listOffilterExpense);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void loadDate(List<DateModel> listOfDate) {
-        adapter = new ExpenseListAdapter(getContext(), listOfDate);
-        recyclerView.setAdapter(adapter);
+
     }
 
     public void updateFilterListWithDate(long startTime, long endTime) {
         this.startTime = startTime;
         this.endTime = endTime;
-//        viewModel.loadFilterExpense(startTime, endTime);
-        viewModel.loadFilterDate(startTime, endTime);
+        viewModel.loadFilterExpense(startTime, endTime);
     }
+
 }
