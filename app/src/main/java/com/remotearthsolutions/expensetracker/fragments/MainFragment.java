@@ -245,12 +245,10 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
 
         }
 
-
-
         binding.dateTv.setText(date);
         if (homeFragment != null && allExpenseFragment != null) {
             homeFragment.updateChartView(startTime, endTime);
-            allExpenseFragment.updateFilterListWithDate(startTime, endTime);
+            allExpenseFragment.updateFilterListWithDate(startTime, endTime, buttonId);
         }
     }
 

@@ -10,25 +10,22 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.Category
 
 public class ExpenseListViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView ammountCategoryTv, ammountTv, datetimeTv;
-    private CategoryExpense expense;
+    private TextView categoryTextView;
+    private TextView amountTextView;
     private ImageView categoryExpenseIcon;
-
 
     public ExpenseListViewHolder(@NonNull View itemView) {
         super(itemView);
-        ammountCategoryTv = itemView.findViewById(R.id.categorynameTv);
-        ammountTv = itemView.findViewById(R.id.ammountTv);
-        categoryExpenseIcon = itemView.findViewById(R.id.categoryIMG);
 
+        categoryTextView = itemView.findViewById(R.id.categorynameTv);
+        amountTextView = itemView.findViewById(R.id.ammountTv);
+        categoryExpenseIcon = itemView.findViewById(R.id.categoryIMG);
     }
 
     public void bind(CategoryExpense expense) {
-        this.expense = expense;
-        ammountCategoryTv.setText(String.valueOf(expense.getCategory_name()));
-        ammountTv.setText(String.valueOf(expense.getTotal_amount()));
+        categoryTextView.setText(String.valueOf(expense.getCategory_name()));
+        amountTextView.setText(String.valueOf(expense.getTotal_amount()));
         categoryExpenseIcon.setImageResource(R.drawable.ic_currency);
-
     }
     
 }
