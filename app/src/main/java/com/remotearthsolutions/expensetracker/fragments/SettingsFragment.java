@@ -26,7 +26,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         Preference preferencePeriod = findPreference(Constants.PREF_PERIOD);
         preferencePeriod.setSummary(SharedPreferenceUtils.getInstance(getActivity()).getString(Constants.PREF_PERIOD, Constants.KEY_DAILY));
         Preference preferenceCurrency = findPreference(Constants.PREF_CURRENCY);
-        preferenceCurrency.setSummary(SharedPreferenceUtils.getInstance(getActivity()).getString(Constants.PREF_CURRENCY, "United States Dollar - USD"));
+        preferenceCurrency.setSummary(SharedPreferenceUtils.getInstance(getActivity()).getString(Constants.PREF_CURRENCY, getActivity().getString(R.string.default_currency)));
 
         preferenceChangeListener = (sharedPreferences, key) -> {
 
