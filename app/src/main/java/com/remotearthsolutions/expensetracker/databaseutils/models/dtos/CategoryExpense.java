@@ -21,6 +21,8 @@ public class CategoryExpense {
         this.datetime = datetime;
     }
 
+    public CategoryExpense() {}
+
     public int getCategory_id() {
         return category_id;
     }

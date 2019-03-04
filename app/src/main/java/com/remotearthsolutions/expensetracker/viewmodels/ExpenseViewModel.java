@@ -35,13 +35,20 @@ public class ExpenseViewModel extends ViewModel {
 
                     if (listOfFilterExpense.size() > 0) {
                         long previousDate = listOfFilterExpense.get(0).getDatetime();
+                        CategoryExpense header = new CategoryExpense();
+                        header.isHeader = true;
+                        header.setDatetime(previousDate);
+                        expenseList.add(header);
 
                         for (int i = 0; i < listOfFilterExpense.size(); i++) {
                             CategoryExpense expense = listOfFilterExpense.get(i);
 
                             if (expense.getDatetime() != previousDate) {
-                                expense.isHeader = true;
+                                CategoryExpense dummy = new CategoryExpense();
+                                dummy.isHeader = true;
+                                dummy.setDatetime(expense.getDatetime());
                                 previousDate = expense.getDatetime();
+                                expenseList.add(dummy);
                             }
 
                             expenseList.add(expense);
