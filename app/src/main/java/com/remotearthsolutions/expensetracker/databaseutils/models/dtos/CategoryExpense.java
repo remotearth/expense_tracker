@@ -1,5 +1,7 @@
 package com.remotearthsolutions.expensetracker.databaseutils.models.dtos;
 
+import androidx.room.Ignore;
+
 public class CategoryExpense {
 
     private int category_id;
@@ -8,6 +10,9 @@ public class CategoryExpense {
     private double total_amount;
     private long datetime;
 
+    @Ignore
+    public boolean isHeader = false;
+
     public CategoryExpense(int category_id, String category_name, String icon_name, double total_amount, long datetime) {
         this.category_id = category_id;
         this.category_name = category_name;
@@ -15,6 +20,8 @@ public class CategoryExpense {
         this.total_amount = total_amount;
         this.datetime = datetime;
     }
+
+    public CategoryExpense() {}
 
     public int getCategory_id() {
         return category_id;

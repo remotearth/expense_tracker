@@ -15,6 +15,7 @@ import com.remotearthsolutions.expensetracker.adapters.ExpenseListAdapter;
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
+import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseViewModel;
 
@@ -26,6 +27,8 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
     private ExpenseListAdapter adapter;
     private ExpenseViewModel viewModel;
     private long startTime, endTime;
+    private List<CategoryExpense> listOffilterExpense;
+    private int clickedBtnId;
 
 
     public AllExpenseFragment() {
@@ -43,25 +46,31 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
 
         ExpenseDao expenseDao = DatabaseClient.getInstance(getContext()).getAppDatabase().expenseDao();
         viewModel = new ExpenseViewModel(this, expenseDao);
-        viewModel.loadFilterExpense(startTime,endTime);
 
-        Log.d("START TIME",String.valueOf(startTime));
-        Log.d("END TIME",String.valueOf(endTime));
+        viewModel.loadFilterExpense(startTime, endTime);
+
+        Log.d("START TIME", String.valueOf(startTime));
+        Log.d("END TIME", String.valueOf(endTime));
 
         return view;
     }
 
-
     @Override
     public void loadFilterExpense(List<CategoryExpense> listOffilterExpense) {
-
-        adapter = new ExpenseListAdapter(listOffilterExpense);
+        adapter = new ExpenseListAdapter(listOffilterExpense, clickedBtnId);
         recyclerView.setAdapter(adapter);
     }
 
-    public void updateFilterListWithDate(long startTime, long endTime){
+    @Override
+    public void loadDate(List<DateModel> listOfDate) {
+
+    }
+
+    public void updateFilterListWithDate(long startTime, long endTime, int btnId) {
         this.startTime = startTime;
         this.endTime = endTime;
-        viewModel.loadFilterExpense(startTime,endTime);
+        this.clickedBtnId = btnId;
+        viewModel.loadFilterExpense(startTime, endTime);
     }
+
 }

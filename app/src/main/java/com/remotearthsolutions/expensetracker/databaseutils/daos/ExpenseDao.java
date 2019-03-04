@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.databaseutils.daos;
 
 import androidx.room.*;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import io.reactivex.Flowable;
@@ -13,22 +14,42 @@ public interface ExpenseDao {
     @Insert
     void add(ExpenseModel expenseModel);
 
+    @Update
+    void updateExpenseAmount(ExpenseModel accountModel);
+
+    @Query("SELECT ctg.id AS category_id, ctg.category_name, ctg.icon_name, exp.datetime, exp.amount AS total_amount " +
+            "FROM category AS ctg " +
+            "LEFT JOIN expense as exp " +
+            "ON ctg.id = exp.category_id " +
+            "ORDER BY exp.datetime ASC")
+    Flowable<List<CategoryExpense>> getAllFilterExpense();
+
+    @Query("SELECT ctg.id AS category_id, ctg.category_name, ctg.icon_name, exp.datetime, exp.amount AS total_amount  " +
+            "FROM category AS ctg " +
+            "LEFT JOIN expense AS exp " +
+            "ON ctg.id = exp.category_id " +
+            "WHERE exp.datetime >= :startTime AND exp.datetime <= :endTime " +
+            "ORDER BY exp.datetime ASC")
+    Flowable<List<CategoryExpense>> getExpenseWithinRange(long startTime, long endTime);
+
+    @Query("SELECT DISTINCT exp.datetime " +
+            "FROM category AS ctg " +
+            "LEFT JOIN expense AS exp " +
+            "ON ctg.id = exp.category_id " +
+            "WHERE exp.datetime >= :startTime AND exp.datetime <= :endTime " +
+            "ORDER BY exp.datetime ASC")
+    Flowable<List<DateModel>> getDateWithinRange(long startTime, long endTime);
+
     @Query("Select sum(amount) from expense where category_id = :id")
     int getTotalAmountByCategoryId(int id);
-
-    @Query("SELECT ctg.id as category_id, ctg.category_name,ctg.icon_name,exp.datetime,exp.amount as total_amount " +
-            "FROM category  as ctg LEFT JOIN expense as exp ON ctg.id = exp.category_id " +
-            "AND exp.datetime >= :startTime AND exp.datetime <= :endTime GROUP BY ctg.id ")
-    Flowable<List<CategoryExpense>> getAllFilterExpense(long startTime, long endTime);
-
-    @Query("SELECT ctg.id as category_id, ctg.category_name,ctg.icon_name,exp.datetime,exp.amount as total_amount " +
-            "FROM category  as ctg LEFT JOIN expense as exp ON ctg.id = exp.category_id " +
-            "GROUP BY ctg.id ")
-    Flowable<List<CategoryExpense>> getAllFilterExpense();
 
     @Delete
     void deleteExpenseAmount(ExpenseModel accountModel);
 
-    @Update
-    void updateExpenseAmount(ExpenseModel accountModel);
+
+
+
+
+
+
 }
