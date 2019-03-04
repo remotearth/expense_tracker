@@ -19,6 +19,7 @@ import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
 import com.remotearthsolutions.expensetracker.adapters.DashboardAdapter;
 import com.remotearthsolutions.expensetracker.callbacks.InAppBillingCallback;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.entities.DashboardModel;
 import com.remotearthsolutions.expensetracker.services.FileProcessingServiceImp;
 import com.remotearthsolutions.expensetracker.services.InventoryCallback;
@@ -30,6 +31,7 @@ import org.solovyev.android.checkout.*;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class DashboardFragment extends BaseFragment implements InAppBillingCallback {
@@ -108,26 +110,27 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
         lv.setAdapter(adapter);
         lv.setOnItemClickListener((parent, view, position, id) -> {
 
-            switch (position)
-            {
+            switch (position) {
+
                 case 0:
                     dashboardViewModel.saveExpenseToCSV(getActivity());
                     dashboardViewModel.shareCSV_FileToMail(getActivity());
                     break;
 
                 case 1:
-                    mCheckout.whenReady(new Checkout.EmptyListener() {
-                        @Override
-                        public void onReady(@Nonnull BillingRequests requests) {
-
-                            requests.purchase(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM, null, mCheckout.getPurchaseFlow());
-                        }
-                    });
+                    showAlert(getString(R.string.warning),getString(R.string.buy_message),getString(R.string.ok),null,null);
+                    List<CategoryExpense> expenses = dashboardViewModel.readExpenseFromCsv(getActivity());
                     break;
 
                 case 2:
-                    showAlert(getString(R.string.warning),getString(R.string.buy_message),getString(R.string.ok),null,null);
-                    break;
+                mCheckout.whenReady(new Checkout.EmptyListener() {
+                        @Override
+                        public void onReady(@Nonnull BillingRequests requests) {
+                            requests.purchase(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM, null, mCheckout.getPurchaseFlow());
+                        }
+                    });
+                break;
+
 
                 default:
             }
