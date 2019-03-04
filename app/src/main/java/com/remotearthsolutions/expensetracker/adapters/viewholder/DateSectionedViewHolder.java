@@ -11,12 +11,22 @@ public class DateSectionedViewHolder extends RecyclerView.ViewHolder {
 
     private TextView dateTextView;
 
-    public DateSectionedViewHolder(@NonNull View itemView) {
+    public DateSectionedViewHolder(@NonNull View itemView, boolean monthViewHidden) {
         super(itemView);
+
         dateTextView = itemView.findViewById(R.id.date_section);
+
+        if (monthViewHidden) {
+            itemView.setVisibility(View.GONE);
+        } else {
+            itemView.setVisibility(View.VISIBLE);
+        }
+
     }
 
     public void bind(DateModel dateModel) {
-        dateTextView.setText(dateModel.getDate());
+        if (dateTextView != null) {
+            dateTextView.setText(dateModel.getDate());
+        }
     }
 }

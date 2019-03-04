@@ -28,6 +28,7 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
     private ExpenseViewModel viewModel;
     private long startTime, endTime;
     private List<CategoryExpense> listOffilterExpense;
+    private int clickedBtnId;
 
 
     public AllExpenseFragment() {
@@ -56,7 +57,7 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
 
     @Override
     public void loadFilterExpense(List<CategoryExpense> listOffilterExpense) {
-        adapter = new ExpenseListAdapter(listOffilterExpense);
+        adapter = new ExpenseListAdapter(listOffilterExpense, clickedBtnId);
         recyclerView.setAdapter(adapter);
     }
 
@@ -65,9 +66,10 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
 
     }
 
-    public void updateFilterListWithDate(long startTime, long endTime) {
+    public void updateFilterListWithDate(long startTime, long endTime, int btnId) {
         this.startTime = startTime;
         this.endTime = endTime;
+        this.clickedBtnId = btnId;
         viewModel.loadFilterExpense(startTime, endTime);
     }
 

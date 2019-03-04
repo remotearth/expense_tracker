@@ -190,11 +190,11 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
     }
 
     @Override
-    public void onDateChanged(String date, long startTime, long endTime) {
+    public void onDateChanged(String date, long startTime, long endTime, int btnId) {
         binding.dateTv.setText(date);
         if (homeFragment != null && allExpenseFragment != null) {
             homeFragment.updateChartView(startTime, endTime);
-            allExpenseFragment.updateFilterListWithDate(startTime, endTime);
+            allExpenseFragment.updateFilterListWithDate(startTime, endTime, btnId);
         }
     }
 

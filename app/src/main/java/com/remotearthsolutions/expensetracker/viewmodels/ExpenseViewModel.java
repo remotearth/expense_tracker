@@ -6,6 +6,7 @@ import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
+import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -35,18 +36,34 @@ public class ExpenseViewModel extends ViewModel {
 
                     if (listOfFilterExpense.size() > 0) {
                         long previousDate = listOfFilterExpense.get(0).getDatetime();
+                        String previousMonth = DateTimeUtils.getDate(previousDate, DateTimeUtils.mmm);
+                        CategoryExpense monthHeader = new CategoryExpense();
+                        monthHeader.isHeader = true;
+                        monthHeader.setCategory_name(previousMonth);
+                        expenseList.add(monthHeader);
+
                         CategoryExpense header = new CategoryExpense();
                         header.isHeader = true;
-                        header.setDatetime(previousDate);
+                        header.setCategory_name(DateTimeUtils.getDate(previousDate, DateTimeUtils.dd_MM_yyyy));
                         expenseList.add(header);
 
                         for (int i = 0; i < listOfFilterExpense.size(); i++) {
                             CategoryExpense expense = listOfFilterExpense.get(i);
 
+                            String monthName = DateTimeUtils.getDate(expense.getDatetime(), DateTimeUtils.mmm);
+                            if (!monthName.equals(previousMonth)) {
+                                monthHeader = new CategoryExpense();
+                                monthHeader.isHeader = true;
+                                monthHeader.setCategory_name(monthName);
+                                expenseList.add(monthHeader);
+                                previousMonth = monthName;
+                            }
+
+
                             if (expense.getDatetime() != previousDate) {
                                 CategoryExpense dummy = new CategoryExpense();
                                 dummy.isHeader = true;
-                                dummy.setDatetime(expense.getDatetime());
+                                dummy.setCategory_name(DateTimeUtils.getDate(expense.getDatetime(), DateTimeUtils.dd_MM_yyyy));
                                 previousDate = expense.getDatetime();
                                 expenseList.add(dummy);
                             }
@@ -70,7 +87,7 @@ public class ExpenseViewModel extends ViewModel {
                     if (listOfDate != null) {
                         for (int i = 0; i < listOfDate.size(); i++) {
                             dateModelList.add(listOfDate.get(i));
-                            Log.d("Date", " "+ listOfDate.get(i).getDate());
+                            Log.d("Date", " " + listOfDate.get(i).getDate());
                         }
                     }
 
