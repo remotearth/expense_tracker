@@ -1,24 +1,20 @@
 package com.remotearthsolutions.expensetracker.fragments.home;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.razerdp.widget.animatedpieview.AnimatedPieViewConfig;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.activities.MainActivity;
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter;
-import com.remotearthsolutions.expensetracker.contracts.BaseView;
 import com.remotearthsolutions.expensetracker.contracts.HomeFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
@@ -27,12 +23,14 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databinding.FragmentHomeBinding;
 import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
 import com.remotearthsolutions.expensetracker.fragments.AddCategoryDialogFragment;
-import com.remotearthsolutions.expensetracker.utils.*;
+import com.remotearthsolutions.expensetracker.fragments.BaseFragment;
+import com.remotearthsolutions.expensetracker.utils.ChartManager;
+import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl;
 import com.remotearthsolutions.expensetracker.viewmodels.HomeFragmentViewModel;
 
 import java.util.List;
 
-public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView, HomeFragmentContract.View, View.OnClickListener {
+public class HomeFragment extends BaseFragment implements ChartManagerImpl.ChartView, HomeFragmentContract.View, View.OnClickListener {
 
     private CategoryListAdapter adapter;
     private HomeFragmentViewModel viewModel;
@@ -60,9 +58,15 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
         viewModel.init();
         viewModel.loadExpenseChart(startTime, endTime);
 
-        viewModel.getNumberOfItem().observe(this, (Integer integer) -> limitOfCategory = integer);
+        viewModel.getNumberOfItem().observe(getViewLifecycleOwner(), (Integer integer) -> limitOfCategory = integer);
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        viewModel.getNumberOfItem().removeObservers(this);
     }
 
     @Override
@@ -91,38 +95,33 @@ public class HomeFragment extends Fragment implements ChartManagerImpl.ChartView
 
         if (v.getId() == R.id.addCategoryBtn) {
 
-            if (limitOfCategory <= 20) {
+            if (limitOfCategory < 20) {
                 FragmentManager fm = getChildFragmentManager();
                 final AddCategoryDialogFragment categoryDialogFragment = AddCategoryDialogFragment.newInstance("Add Category");
                 categoryDialogFragment.setCallback(categoryModel -> categoryDialogFragment.dismiss());
                 categoryDialogFragment.show(fm, AddCategoryDialogFragment.class.getName());
             } else {
-                AlertDialogUtils.show(getContext(), "Attention", "You have to be premium user", "Ok", null, new BaseView.Callback() {
-                    @Override
-                    public void onOkBtnPressed() {
-
-                    }
-
-                    @Override
-                    public void onCancelBtnPressed() {
-
-                    }
-                });
+                showAlert("Attention", "You need to be premium user to add more categories", "Ok", null, null);
             }
 
 
         } else if (v.getId() == R.id.fab) {
             binding.fab.setClickable(false);
             ((MainActivity) getActivity()).openAddExpenseScreen(null);
-            new Handler().postDelayed(() -> binding.fab.setClickable(true),500);
+            new Handler().postDelayed(() -> binding.fab.setClickable(true), 500);
         }
 
     }
 
-    public void updateChartView(long startTime, long endTime){
+    public void updateChartView(long startTime, long endTime) {
         this.startTime = startTime;
         this.endTime = endTime;
-        viewModel.loadExpenseChart(startTime,endTime);
+        viewModel.loadExpenseChart(startTime, endTime);
+    }
+
+    @Override
+    public Context getContext() {
+        return getActivity();
     }
 }
 

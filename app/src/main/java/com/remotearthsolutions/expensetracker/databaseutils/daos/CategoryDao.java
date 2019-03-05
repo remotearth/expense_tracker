@@ -25,7 +25,6 @@ public interface CategoryDao {
             "AND exp.datetime >= :startTime AND exp.datetime <= :endTime GROUP BY ctg.id ")
     Flowable<List<CategoryExpense>> getAllCategoriesWithExpense(long startTime, long endTime);
 
-
     @Delete
     void deleteCategory(CategoryModel categoryModel);
 
