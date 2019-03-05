@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.viewmodels;
 
+import androidx.lifecycle.LiveData;
 import com.remotearthsolutions.expensetracker.contracts.HomeFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
@@ -62,6 +63,9 @@ public class HomeFragmentViewModel {
 
 
                 }));
+    }
 
+    public LiveData<Integer> getNumberOfItem() {
+        return categoryDao.getDataCount();
     }
 }
