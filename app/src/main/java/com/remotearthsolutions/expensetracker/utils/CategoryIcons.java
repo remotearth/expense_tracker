@@ -101,6 +101,52 @@ public class CategoryIcons {
             put("cat_family3", R.drawable.cat_family3);
             put("cat_family4", R.drawable.cat_family4);
             put("cat_family5", R.drawable.cat_family5);
+            put("cat_icon1", R.drawable.cat_icon1);
+            put("cat_icon2", R.drawable.cat_icon2);
+            put("cat_icon3", R.drawable.cat_icon3);
+            put("cat_icon4", R.drawable.cat_icon4);
+            put("cat_icon5", R.drawable.cat_icon5);
+            put("cat_icon6", R.drawable.cat_icon6);
+            put("cat_icon7", R.drawable.cat_icon7);
+            put("cat_icon8", R.drawable.cat_icon8);
+            put("cat_icon9", R.drawable.cat_icon9);
+            put("cat_icon10", R.drawable.cat_icon10);
+            put("cat_icon11", R.drawable.cat_icon11);
+            put("cat_icon12", R.drawable.cat_icon12);
+            put("cat_icon13", R.drawable.cat_icon13);
+            put("cat_icon14", R.drawable.cat_icon14);
+            put("cat_icon15", R.drawable.cat_icon15);
+            put("cat_icon16", R.drawable.cat_icon16);
+            put("cat_icon17", R.drawable.cat_icon17);
+            put("cat_icon18", R.drawable.cat_icon18);
+            put("cat_icon19", R.drawable.cat_icon19);
+            put("cat_icon20", R.drawable.cat_icon20);
+            put("cat_icon21", R.drawable.cat_icon21);
+            put("cat_icon22", R.drawable.cat_icon22);
+            put("cat_icon23", R.drawable.cat_icon23);
+            put("cat_icon24", R.drawable.cat_icon24);
+            put("cat_icon25", R.drawable.cat_icon25);
+            put("cat_icon26", R.drawable.cat_icon26);
+            put("cat_icon27", R.drawable.cat_icon27);
+            put("cat_icon28", R.drawable.cat_icon28);
+            put("cat_icon29", R.drawable.cat_icon29);
+            put("cat_icon30", R.drawable.cat_icon30);
+            put("cat_icon31", R.drawable.cat_icon31);
+            put("cat_icon32", R.drawable.cat_icon32);
+            put("cat_icon33", R.drawable.cat_icon33);
+            put("cat_icon34", R.drawable.cat_icon34);
+            put("cat_icon35", R.drawable.cat_icon35);
+            put("cat_icon36", R.drawable.cat_icon36);
+            put("cat_icon37", R.drawable.cat_icon37);
+            put("cat_icon38", R.drawable.cat_icon38);
+            put("cat_icon39", R.drawable.cat_icon39);
+            put("cat_icon40", R.drawable.cat_icon40);
+            put("cat_icon41", R.drawable.cat_icon41);
+
+
+
+
+
 
         }
     };

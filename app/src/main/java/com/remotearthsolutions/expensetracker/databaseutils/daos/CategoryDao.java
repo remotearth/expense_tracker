@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.databaseutils.daos;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.*;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
@@ -24,10 +25,12 @@ public interface CategoryDao {
             "AND exp.datetime >= :startTime AND exp.datetime <= :endTime GROUP BY ctg.id ")
     Flowable<List<CategoryExpense>> getAllCategoriesWithExpense(long startTime, long endTime);
 
-
     @Delete
     void deleteCategory(CategoryModel categoryModel);
 
     @Update
     void updateCategory(CategoryModel categoryModel);
+
+    @Query("SELECT COUNT(category_name) FROM category")
+    LiveData<Integer> getDataCount();
 }

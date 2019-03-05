@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.viewmodels;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import com.remotearthsolutions.expensetracker.contracts.CategoryFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
@@ -44,5 +45,9 @@ public class CategoryViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> showCategories()));
+    }
+
+    public LiveData<Integer> getNumberOfItem() {
+        return categoryDao.getDataCount();
     }
 }
