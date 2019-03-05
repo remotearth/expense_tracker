@@ -64,12 +64,6 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        viewModel.getNumberOfItem().removeObservers(this);
-    }
-
-    @Override
     public void loadChartConfig(AnimatedPieViewConfig config) {
         binding.chartView.applyConfig(config).start();
     }
@@ -78,7 +72,11 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
     public void showCategories(List<CategoryModel> categories) {
 
         adapter = new CategoryListAdapter(categories);
-        adapter.setOnItemClickListener(category -> ((MainActivity) getActivity()).openAddExpenseScreen(category));
+        adapter.setOnItemClickListener(category -> {
+            if (getActivity() != null) {
+                ((MainActivity) getActivity()).openAddExpenseScreen(category);
+            }
+        });
         binding.recyclerView.setAdapter(adapter);
     }
 

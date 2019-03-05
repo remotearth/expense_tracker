@@ -49,7 +49,7 @@ public class CategoryFragment extends BaseFragment implements CategoryFragmentCo
         viewModel = new CategoryViewModel(this, categoryDao);
         viewModel.showCategories();
 
-        viewModel.getNumberOfItem().observe(this, (Integer count) -> limitOfCategory = count);
+        viewModel.getNumberOfItem().observe(getViewLifecycleOwner(), (Integer count) -> limitOfCategory = count);
 
         floatingActionButton.setOnClickListener(v -> {
             if (limitOfCategory < 20) {
