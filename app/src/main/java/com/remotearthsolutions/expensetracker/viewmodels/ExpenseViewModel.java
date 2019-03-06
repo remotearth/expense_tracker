@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.viewmodels;
 
 import android.util.Log;
 import androidx.lifecycle.ViewModel;
+import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel;
@@ -26,7 +27,7 @@ public class ExpenseViewModel extends ViewModel {
         this.expenseDao = expenseDao;
     }
 
-    public void loadFilterExpense(long startTime, long endTime) {
+    public void loadFilterExpense(long startTime, long endTime, int btnId) {
         disposable.add(expenseDao.getExpenseWithinRange(startTime, endTime)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -37,35 +38,43 @@ public class ExpenseViewModel extends ViewModel {
                     if (listOfFilterExpense.size() > 0) {
                         long previousDate = listOfFilterExpense.get(0).getDatetime();
                         String previousMonth = DateTimeUtils.getDate(previousDate, DateTimeUtils.mmm);
-                        CategoryExpense monthHeader = new CategoryExpense();
-                        monthHeader.isHeader = true;
-                        monthHeader.setCategory_name(previousMonth);
-                        expenseList.add(monthHeader);
 
-                        CategoryExpense header = new CategoryExpense();
-                        header.isHeader = true;
-                        header.setCategory_name(DateTimeUtils.getDate(previousDate, DateTimeUtils.dd_MM_yyyy));
-                        expenseList.add(header);
+                        if (btnId == R.id.yearlyRangeBtn) {
+                            CategoryExpense monthHeader = new CategoryExpense();
+                            monthHeader.isHeader = true;
+                            monthHeader.setCategory_name(previousMonth);
+                            expenseList.add(monthHeader);
+                        }
+
+                        if (btnId != R.id.dailyRangeBtn) {
+                            CategoryExpense header = new CategoryExpense();
+                            header.isHeader = true;
+                            header.setCategory_name(DateTimeUtils.getDate(previousDate, DateTimeUtils.dd_MM_yyyy));
+                            expenseList.add(header);
+                        }
 
                         for (int i = 0; i < listOfFilterExpense.size(); i++) {
                             CategoryExpense expense = listOfFilterExpense.get(i);
 
-                            String monthName = DateTimeUtils.getDate(expense.getDatetime(), DateTimeUtils.mmm);
-                            if (!monthName.equals(previousMonth)) {
-                                monthHeader = new CategoryExpense();
-                                monthHeader.isHeader = true;
-                                monthHeader.setCategory_name(monthName);
-                                expenseList.add(monthHeader);
-                                previousMonth = monthName;
+                            if (btnId == R.id.yearlyRangeBtn) {
+                                String monthName = DateTimeUtils.getDate(expense.getDatetime(), DateTimeUtils.mmm);
+                                if (!monthName.equals(previousMonth)) {
+                                    CategoryExpense monthHeader = new CategoryExpense();
+                                    monthHeader.isHeader = true;
+                                    monthHeader.setCategory_name(monthName);
+                                    expenseList.add(monthHeader);
+                                    previousMonth = monthName;
+                                }
                             }
 
-
-                            if (expense.getDatetime() != previousDate) {
-                                CategoryExpense dummy = new CategoryExpense();
-                                dummy.isHeader = true;
-                                dummy.setCategory_name(DateTimeUtils.getDate(expense.getDatetime(), DateTimeUtils.dd_MM_yyyy));
-                                previousDate = expense.getDatetime();
-                                expenseList.add(dummy);
+                            if (btnId != R.id.dailyRangeBtn) {
+                                if (expense.getDatetime() != previousDate) {
+                                    CategoryExpense dummy = new CategoryExpense();
+                                    dummy.isHeader = true;
+                                    dummy.setCategory_name(DateTimeUtils.getDate(expense.getDatetime(), DateTimeUtils.dd_MM_yyyy));
+                                    previousDate = expense.getDatetime();
+                                    expenseList.add(dummy);
+                                }
                             }
 
                             expenseList.add(expense);

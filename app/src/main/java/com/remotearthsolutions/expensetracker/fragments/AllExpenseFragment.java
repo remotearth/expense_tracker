@@ -46,12 +46,6 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
 
         ExpenseDao expenseDao = DatabaseClient.getInstance(getContext()).getAppDatabase().expenseDao();
         viewModel = new ExpenseViewModel(this, expenseDao);
-
-        viewModel.loadFilterExpense(startTime, endTime);
-
-        Log.d("START TIME", String.valueOf(startTime));
-        Log.d("END TIME", String.valueOf(endTime));
-
         return view;
     }
 
@@ -70,7 +64,7 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
         this.startTime = startTime;
         this.endTime = endTime;
         this.clickedBtnId = btnId;
-        viewModel.loadFilterExpense(startTime, endTime);
+        viewModel.loadFilterExpense(startTime, endTime, btnId);
     }
 
 }
