@@ -93,7 +93,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
         BufferedReader fileReader = null;
 
         try {
-            String line = "";
+            String line;
             fileReader = new BufferedReader(new FileReader(file));
             fileReader.readLine();
 

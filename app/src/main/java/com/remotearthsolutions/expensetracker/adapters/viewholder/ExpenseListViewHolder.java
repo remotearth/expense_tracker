@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
+import com.remotearthsolutions.expensetracker.utils.CategoryIcons;
 
 public class ExpenseListViewHolder extends RecyclerView.ViewHolder {
 
@@ -17,15 +18,15 @@ public class ExpenseListViewHolder extends RecyclerView.ViewHolder {
     public ExpenseListViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        categoryTextView = itemView.findViewById(R.id.categorynameTv);
-        amountTextView = itemView.findViewById(R.id.ammountTv);
+        categoryTextView = itemView.findViewById(R.id.categoryNameTv);
+        amountTextView = itemView.findViewById(R.id.amountTv);
         categoryExpenseIcon = itemView.findViewById(R.id.categoryIMG);
     }
 
-    public void bind(CategoryExpense expense) {
+    public void bind(CategoryExpense expense, String currencySymbol) {
         categoryTextView.setText(String.valueOf(expense.getCategory_name()));
-        amountTextView.setText(String.valueOf(expense.getTotal_amount()));
-        categoryExpenseIcon.setImageResource(R.drawable.ic_currency);
+        amountTextView.setText(currencySymbol + " " + String.valueOf(expense.getTotal_amount()));
+        categoryExpenseIcon.setImageResource(CategoryIcons.getIconId(expense.getIcon_name()));
     }
-    
+
 }
