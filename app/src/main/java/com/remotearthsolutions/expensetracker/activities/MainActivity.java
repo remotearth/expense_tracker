@@ -137,6 +137,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     @Override
+    public void stayOnCurrencyScreen() {
+
+        Intent intent = new Intent(this, CurrencySelection.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
     }

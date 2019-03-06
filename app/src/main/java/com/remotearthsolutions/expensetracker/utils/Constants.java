@@ -41,5 +41,9 @@ public interface Constants {
     String MULTIDEX_LICENSE_FILE = "file:///android_asset/licenses/LICENSEMultidex.txt";
     String ADMOB_LICENSE_FILE = "file:///android_asset/licenses/LICENSEAdsense.txt";
 
+    String mycurrencypreference = "currecysession" ;
+    String isFirstTimevisited = "key";
+    String firstTimevisitedValue = "true";
+
 
 }

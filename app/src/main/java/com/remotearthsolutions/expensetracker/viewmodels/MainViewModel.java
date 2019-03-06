@@ -26,11 +26,22 @@ public class MainViewModel extends ViewModel {
 
         FirebaseUser user = firebaseService.getUser();
 
-        if (user == null && guestUser == null) {
-            view.goBackToLoginScreen();
+        if (guestUser == null)
+        {
+            if (user == null)
+            {
+                view.goBackToLoginScreen();
+            }
+            else
+            {
+                view.stayOnCurrencyScreen();
+            }
+
         }
-        else{
+        else {
+
             view.startLoadingApp();
+
         }
     }
 

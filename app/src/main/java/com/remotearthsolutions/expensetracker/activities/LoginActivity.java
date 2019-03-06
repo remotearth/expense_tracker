@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import androidx.lifecycle.ViewModelProviders;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.remotearthsolutions.expensetracker.R;
@@ -72,10 +73,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 break;
 
             case R.id.withoutloginbutton:
-                User user = new User();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                user.setAuthType("guestuser");
-                SharedPreferenceUtils.getInstance(this).putString(Constants.KEY_USER, new Gson().toJson(user));
+                Intent intent = new Intent(LoginActivity.this, CurrencySelection.class);;
                 startActivity(intent);
                 finish();
                 break;
@@ -95,9 +93,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onLoginSuccess(FirebaseUser user) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+
+       Intent intent = new Intent(this, CurrencySelection.class);
+       startActivity(intent);
+       finish();
+
+
     }
 
     @Override
