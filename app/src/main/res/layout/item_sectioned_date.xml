@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="30dp">
+        android:layout_margin="10dp">
 
     <TextView
             android:id="@+id/date_section"
@@ -13,9 +13,15 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Section Title"
-            android:textSize="25sp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textSize="20sp"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"/>
+
+    <View
+            android:id="@+id/underLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:visibility="invisible"
+            android:background="@color/colorAccent"/>
 
 </LinearLayout>

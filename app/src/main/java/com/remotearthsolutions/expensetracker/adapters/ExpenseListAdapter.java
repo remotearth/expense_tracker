@@ -15,7 +15,6 @@ import java.util.List;
 
 public class ExpenseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final int HEADER_NULL = 0;
     private static final int HEADER_ENABLE = 1;
     private static final int HEADER_DISABLE = 2;
 
@@ -30,19 +29,10 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public int getItemViewType(int position) {
         CategoryExpense item = categoryExpenseList.get(position);
-        if (clickedBtnId != R.id.yearlyRangeBtn && item.isHeader) {
-            if (item.getCategory_name().contains("-")) {
-                return HEADER_ENABLE;
-            } else {
-                return HEADER_NULL;
-            }
+        if (item.isHeader) {
+            return HEADER_ENABLE;
         } else {
-
-            if (item.isHeader) {
-                return HEADER_ENABLE;
-            } else {
-                return HEADER_DISABLE;
-            }
+            return HEADER_DISABLE;
         }
     }
 
@@ -51,15 +41,11 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == HEADER_ENABLE) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sectioned_date, parent, false);
-            DateSectionedViewHolder dateSectionedViewHolder = new DateSectionedViewHolder(view, false);
+            DateSectionedViewHolder dateSectionedViewHolder = new DateSectionedViewHolder(view);
             return dateSectionedViewHolder;
-        } else if (viewType == HEADER_DISABLE) {
+        } else {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_all_expense, parent, false);
             return new ExpenseListViewHolder(view);
-        } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sectioned_date, parent, false);
-            DateSectionedViewHolder dateSectionedViewHolder = new DateSectionedViewHolder(view, true);
-            return dateSectionedViewHolder;
         }
     }
 

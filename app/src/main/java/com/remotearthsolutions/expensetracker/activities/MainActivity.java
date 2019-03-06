@@ -153,10 +153,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             FragmentTransaction ft = fragmentManager.beginTransaction();
             ft.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down);
             ft.remove(expenseFragment);
-            ft.commit();
             fragmentManager.popBackStack();
+            ft.commit();
 
-            //loadMainFragment();
+            getSupportActionBar().setTitle("Home");
 
         } else if (webViewFragment != null) {
 

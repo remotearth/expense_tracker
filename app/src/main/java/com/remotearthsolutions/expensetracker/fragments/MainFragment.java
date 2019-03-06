@@ -228,7 +228,10 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
 
     @Override
     public void onDateChanged(int buttonId, String date, long startTime, long endTime) {
-        resetDateRangeBtns();
+        if(buttonId != R.id.nextDateBtn && buttonId != R.id.previousDateBtn){
+            resetDateRangeBtns();
+        }
+
         switch (buttonId){
             case R.id.dailyRangeBtn:
                 binding.dailyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);

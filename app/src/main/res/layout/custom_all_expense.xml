@@ -16,9 +16,9 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="10dp"
-                android:layout_height="wrap_content">
+                android:padding="5dp">
 
             <LinearLayout
                     android:layout_width="0dp"
@@ -27,11 +27,11 @@
                     android:layout_gravity="center"
                     android:layout_height="wrap_content">
 
-
                 <ImageView
                         android:id="@+id/categoryIMG"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:src="@mipmap/ic_launcher"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"/>
 
 
             </LinearLayout>
@@ -45,17 +45,17 @@
 
 
                 <TextView
-                        android:id="@+id/categorynameTv"
+                        android:id="@+id/amountTv"
                         android:text="$10500"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         android:textColor="@color/colorPrimary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                 <TextView
-                        android:id="@+id/ammountTv"
-                        android:text="Time: 10:45 am, 10/02/2019"
-                        android:textSize="18sp"
+                        android:id="@+id/categoryNameTv"
+                        android:text="Bills"
+                        android:textSize="16sp"
                         android:textColor="@color/Ashcolor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
