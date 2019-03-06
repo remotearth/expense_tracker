@@ -112,11 +112,7 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
                     break;
 
                 case 1:
-                    //showAlert(getString(R.string.warning),getString(R.string.buy_message),getString(R.string.ok),null,null);
-                    List<CategoryExpense> expenses = dashboardViewModel.readExpenseFromCsv(getActivity());
-                    //FileProcessingService fileProcessingService = new FileProcessingServiceImp();
-
-
+                    
                     break;
 
                 case 2:

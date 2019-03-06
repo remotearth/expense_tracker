@@ -117,18 +117,18 @@ public class FileProcessingServiceImp implements FileProcessingService {
     }
 
     private void writeExternalFile(String content) {
+
         File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), FILE_NAME);
         FileWriter fw = null;
+        PrintWriter printWriter = null;
         try {
             if (!file.exists()) {
                 file.createNewFile();
             }
 
             fw = new FileWriter(file,true);
-            fw.write(content);
-//            FileOutputStream fileOutputStream = new FileOutputStream(file);
-//            fileOutputStream.write(content.getBytes());
-//            fileOutputStream.close();
+            printWriter = new PrintWriter(fw);
+            printWriter.print(content);
 
         } catch (FileNotFoundException e) {
             Log.d("error", "File Not Found");
@@ -138,6 +138,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
             if(fw!=null){
                 try {
                     fw.close();
+                    printWriter.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
