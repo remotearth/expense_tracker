@@ -82,6 +82,10 @@ public class DashboardViewModel extends ViewModel {
         return fileProcessingService.readFromCsvFile(activity);
     }
 
+    public List<String> getAllCsvFile() {
+        return fileProcessingService.getNameOfAllCsvFile();
+    }
+
     public void shareCSV_FileToMail(Activity activity) {
         fileProcessingService.shareFile(activity);
     }

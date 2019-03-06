@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProviders;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
@@ -17,7 +18,6 @@ import com.remotearthsolutions.expensetracker.adapters.DashboardAdapter;
 import com.remotearthsolutions.expensetracker.callbacks.InAppBillingCallback;
 import com.remotearthsolutions.expensetracker.databaseutils.AppDatabase;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
-import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.entities.DashboardModel;
 import com.remotearthsolutions.expensetracker.services.FileProcessingServiceImp;
 import com.remotearthsolutions.expensetracker.services.InventoryCallback;
@@ -112,7 +112,19 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
                     break;
 
                 case 1:
-                    
+
+                    List<String> allCsvFile = dashboardViewModel.getAllCsvFile();
+
+                    final CharSequence[] csvList = allCsvFile.toArray(new String[allCsvFile.size()]);
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+                    dialogBuilder.setTitle("Select a .csv file");
+                    dialogBuilder.setItems(csvList, (dialog, item) -> {
+                        String selectedText = csvList[item].toString();  //Selected item in listview
+                    });
+
+                    AlertDialog alertDialogObject = dialogBuilder.create();
+                    alertDialogObject.show();
+
                     break;
 
                 case 2:

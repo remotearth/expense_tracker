@@ -17,6 +17,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
+import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
 import com.remotearthsolutions.expensetracker.utils.PermissionUtils;
 
 import java.io.*;
@@ -27,7 +28,6 @@ import java.util.List;
 
 public class FileProcessingServiceImp implements FileProcessingService {
 
-    private String FILE_NAME = "Expense_Tracker";
     private PermissionUtils writePermission;
 
     public FileProcessingServiceImp() {
@@ -36,7 +36,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
     @Override
     public void writeOnCsvFile(Activity activity, String content) {
-        FILE_NAME += Calendar.getInstance().getTime().toString() + ".csv";
+
         writePermission.writeExternalStoragePermission(activity, new PermissionListener() {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse response) {
@@ -57,14 +57,12 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
     @Override
     public List<CategoryExpense> readFromCsvFile(Activity activity) {
-        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), FILE_NAME);
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), createFileNameAccordingToDate());
         List<CategoryExpense> categoryExpenseList = new ArrayList();
-
-        BufferedReader fileReader = null;
 
         try {
             String line = "";
-            fileReader = new BufferedReader(new FileReader(file));
+            BufferedReader fileReader = new BufferedReader(new FileReader(file));
             fileReader.readLine();
 
             while ((line = fileReader.readLine()) != null) {
@@ -76,14 +74,10 @@ public class FileProcessingServiceImp implements FileProcessingService {
                 }
             }
 
+            fileReader.close();
+
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                fileReader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
 
         return categoryExpenseList;
@@ -132,6 +126,21 @@ public class FileProcessingServiceImp implements FileProcessingService {
         }
     }
 
+    public List<String> getNameOfAllCsvFile() {
+        List<String> fileList = new ArrayList<>();
+
+        File dataDirectory = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+        String[] listOfAllItems = dataDirectory.list();
+
+        for(String item : listOfAllItems) {
+            if (item.contains("expense_tracker_")) {
+                fileList.add(item);
+            }
+        }
+
+        return fileList;
+    }
+
     @Override
     public void shareFile(Activity activity) {
         String emailAddress = "";
@@ -139,7 +148,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
         try {
 
-            File fileLocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), FILE_NAME);
+            File fileLocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), createFileNameAccordingToDate());
             Uri uri = Uri.fromFile(fileLocation);
 
             final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -159,7 +168,8 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
     private void writeExternalFile(String content) {
 
-        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), FILE_NAME);
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), createFileNameAccordingToDate());
+
         FileWriter fw = null;
         PrintWriter printWriter = null;
         try {
@@ -189,6 +199,10 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
     private void forceUserToGrantPermission(Activity activity) {
         writePermission.showSettingsDialog(activity);
+    }
+
+    private String createFileNameAccordingToDate() {
+        return "expense_tracker_"+ DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy) +".csv";
     }
 
 }
