@@ -19,11 +19,13 @@ public class AccountsAdapter extends ArrayAdapter<AccountModel> {
 
     private Context context;
     private List<AccountModel> accountList;
+    private String currencySymbol;
 
-    public AccountsAdapter(Context context, List<AccountModel> accountList) {
+    public AccountsAdapter(Context context, List<AccountModel> accountList, String currencySymbol) {
         super(context, R.layout.custom_account, accountList);
         this.context = context;
         this.accountList = accountList;
+        this.currencySymbol = currencySymbol;
     }
 
     @NonNull
@@ -43,7 +45,7 @@ public class AccountsAdapter extends ArrayAdapter<AccountModel> {
 
         accountImageIv.setImageResource(CategoryIcons.getIconId(model.getIcon()));
         accountNameTv.setText(model.getName());
-        ammountTv.setText(String.valueOf(model.getAmount()));
+        ammountTv.setText(currencySymbol + " " + String.valueOf(model.getAmount()));
 
         return view;
     }

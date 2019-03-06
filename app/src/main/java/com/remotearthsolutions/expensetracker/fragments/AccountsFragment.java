@@ -18,6 +18,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
 import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils;
+import com.remotearthsolutions.expensetracker.utils.Utils;
 import com.remotearthsolutions.expensetracker.viewmodels.AccountViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.AccountViewModelFactory;
 
@@ -30,6 +31,7 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
     private AccountsAdapter adapter;
     private AccountModel selectAccountModel;
     private int limitOfAccount;
+    private String currencySymbol;
 
     public AccountsFragment() {
     }
@@ -44,6 +46,11 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         listview = view.findViewById(R.id.accountList);
+
+        currencySymbol = "$";
+        if (getActivity() != null) {
+            currencySymbol = Utils.getCurrency(getActivity());
+        }
 
         AccountDao accountDao = DatabaseClient.getInstance(getContext()).getAppDatabase().accountDao();
         this.viewModel = ViewModelProviders.of(this,
@@ -72,7 +79,7 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
     @Override
     public void onAccountFetch(List<AccountModel> accounts) {
         if (isAdded()) {
-            adapter = new AccountsAdapter(getActivity(), accounts);
+            adapter = new AccountsAdapter(getActivity(), accounts, currencySymbol);
             listview.setAdapter(adapter);
             listview.setOnItemClickListener((parent, view, position, id) -> {
                 this.selectAccountModel = accounts.get(position);
