@@ -3,6 +3,7 @@ package com.remotearthsolutions.expensetracker.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.DashB
 import org.solovyev.android.checkout.*;
 
 import javax.annotation.Nonnull;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,11 +117,18 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
 
                     List<String> allCsvFile = dashboardViewModel.getAllCsvFile();
 
+                    if(allCsvFile == null || allCsvFile.size() == 0){
+                        Toast.makeText(getActivity(),"No expense tracker supported file is found",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     final CharSequence[] csvList = allCsvFile.toArray(new String[allCsvFile.size()]);
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
                     dialogBuilder.setTitle("Select a .csv file");
                     dialogBuilder.setItems(csvList, (dialog, item) -> {
-                        String selectedText = csvList[item].toString();  //Selected item in listview
+                        String selectedText = csvList[item].toString();
+                        String filePath = new File( Environment.getExternalStorageDirectory().getAbsolutePath(), selectedText).getAbsolutePath();
+                        dashboardViewModel.importDataFromFile(filePath);
                     });
 
                     AlertDialog alertDialogObject = dialogBuilder.create();

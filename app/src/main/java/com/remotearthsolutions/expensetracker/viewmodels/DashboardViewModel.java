@@ -114,7 +114,6 @@ public class DashboardViewModel extends ViewModel {
                 }
             });
 
-
         });
     }
 }

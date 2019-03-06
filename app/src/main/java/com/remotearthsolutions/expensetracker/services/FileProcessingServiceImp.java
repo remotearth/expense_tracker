@@ -23,7 +23,6 @@ import com.remotearthsolutions.expensetracker.utils.PermissionUtils;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 public class FileProcessingServiceImp implements FileProcessingService {
@@ -113,6 +112,8 @@ public class FileProcessingServiceImp implements FileProcessingService {
                     accountModels = Arrays.asList(new Gson().fromJson(jsonContent, AccountModel[].class));
                 }
             }
+
+            callback.onComplete(categoryModels, expenseModels, accountModels);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -122,7 +123,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
                 e.printStackTrace();
             }
 
-            callback.onComplete(categoryModels, expenseModels, accountModels);
+
         }
     }
 
@@ -131,10 +132,11 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
         File dataDirectory = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
         String[] listOfAllItems = dataDirectory.list();
-
-        for(String item : listOfAllItems) {
-            if (item.contains("expense_tracker_")) {
-                fileList.add(item);
+        if (listOfAllItems != null && listOfAllItems.length > 0) {
+            for (String item : listOfAllItems) {
+                if (item.contains("expense_tracker_")) {
+                    fileList.add(item);
+                }
             }
         }
 
@@ -202,7 +204,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
     }
 
     private String createFileNameAccordingToDate() {
-        return "expense_tracker_"+ DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy) +".csv";
+        return "expense_tracker_" + DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy) + ".csv";
     }
 
 }
