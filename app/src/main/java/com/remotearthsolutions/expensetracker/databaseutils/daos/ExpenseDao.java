@@ -46,6 +46,9 @@ public interface ExpenseDao {
     @Delete
     void deleteExpenseAmount(ExpenseModel accountModel);
 
+    @Query("Select * from expense")
+    Flowable<List<ExpenseModel>> getAllExpenseEntry();
+
 
 
 

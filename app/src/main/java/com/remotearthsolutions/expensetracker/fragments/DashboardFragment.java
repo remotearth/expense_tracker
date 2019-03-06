@@ -1,9 +1,7 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +10,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
 import com.remotearthsolutions.expensetracker.adapters.DashboardAdapter;
 import com.remotearthsolutions.expensetracker.callbacks.InAppBillingCallback;
+import com.remotearthsolutions.expensetracker.databaseutils.AppDatabase;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.entities.DashboardModel;
@@ -26,7 +24,7 @@ import com.remotearthsolutions.expensetracker.services.InventoryCallback;
 import com.remotearthsolutions.expensetracker.services.PurchaseListener;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.viewmodels.DashboardViewModel;
-import io.reactivex.disposables.CompositeDisposable;
+import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.DashBoardViewModelFactory;
 import org.solovyev.android.checkout.*;
 
 import javax.annotation.Nonnull;
@@ -59,13 +57,9 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
         mInventory.load(Inventory.Request.create()
                 .loadAllPurchases()
                 .loadSkus(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM), new InventoryCallback());
-
-        dashboardViewModel = new DashboardViewModel(DatabaseClient
-                .getInstance(getContext())
-                .getAppDatabase()
-                .expenseDao(),
-                new CompositeDisposable(),
-                new FileProcessingServiceImp());
+        AppDatabase db = DatabaseClient.getInstance(getContext()).getAppDatabase();
+        dashboardViewModel = ViewModelProviders.of(this, new DashBoardViewModelFactory(db.expenseDao(),
+                db.categoryDao(), db.accountDao(), new FileProcessingServiceImp())).get(DashboardViewModel.class);
     }
 
     @Nullable
@@ -118,18 +112,21 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
                     break;
 
                 case 1:
-                    showAlert(getString(R.string.warning),getString(R.string.buy_message),getString(R.string.ok),null,null);
+                    //showAlert(getString(R.string.warning),getString(R.string.buy_message),getString(R.string.ok),null,null);
                     List<CategoryExpense> expenses = dashboardViewModel.readExpenseFromCsv(getActivity());
+                    //FileProcessingService fileProcessingService = new FileProcessingServiceImp();
+
+
                     break;
 
                 case 2:
-                mCheckout.whenReady(new Checkout.EmptyListener() {
+                    mCheckout.whenReady(new Checkout.EmptyListener() {
                         @Override
                         public void onReady(@Nonnull BillingRequests requests) {
                             requests.purchase(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM, null, mCheckout.getPurchaseFlow());
                         }
                     });
-                break;
+                    break;
 
 
                 default:

@@ -8,5 +8,6 @@ import java.util.List;
 public interface FileProcessingService {
     void writeOnCsvFile(Activity activity, String content);
     List<CategoryExpense> readFromCsvFile(Activity activity);
+    List<?> loadTableData(String tableName, String hashString);
     void shareFile(Activity activity);
 }

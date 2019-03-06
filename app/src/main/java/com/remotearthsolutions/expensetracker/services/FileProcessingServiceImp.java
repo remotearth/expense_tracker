@@ -11,18 +11,18 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.utils.PermissionUtils;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class FileProcessingServiceImp implements FileProcessingService {
 
-    private static final String FILE_NAME = "Remotearth Solution.csv";
+    private String FILE_NAME = "Expense_Tracker";
     private PermissionUtils writePermission;
 
     public FileProcessingServiceImp() {
@@ -31,6 +31,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
     @Override
     public void writeOnCsvFile(Activity activity, String content) {
+        FILE_NAME += Calendar.getInstance().getTime().toString() + ".csv";
         writePermission.writeExternalStoragePermission(activity, new PermissionListener() {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse response) {
@@ -84,13 +85,20 @@ public class FileProcessingServiceImp implements FileProcessingService {
     }
 
     @Override
+    public List<?> loadTableData(String table, String hashString) {
+
+
+        return new ArrayList<CategoryModel>();
+    }
+
+    @Override
     public void shareFile(Activity activity) {
-        String emailAddress = "abircoxsbazar@gmail.com";
+        String emailAddress = "";
         String emailSubject = "Reports From Expense Tracker";
 
         try {
 
-            File fileLocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "Remotearth Solution.csv");
+            File fileLocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), FILE_NAME);
             Uri uri = Uri.fromFile(fileLocation);
 
             final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -110,17 +118,31 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
     private void writeExternalFile(String content) {
         File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), FILE_NAME);
-
+        FileWriter fw = null;
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            fileOutputStream.write(content.getBytes());
-            fileOutputStream.close();
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            fw = new FileWriter(file,true);
+            fw.write(content);
+//            FileOutputStream fileOutputStream = new FileOutputStream(file);
+//            fileOutputStream.write(content.getBytes());
+//            fileOutputStream.close();
+
         } catch (FileNotFoundException e) {
             Log.d("error", "File Not Found");
         } catch (IOException io) {
             Log.d("error", "Error File Creating");
+        } finally {
+            if(fw!=null){
+                try {
+                    fw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-
     }
 
     private void forceUserToGrantPermission(Activity activity) {
