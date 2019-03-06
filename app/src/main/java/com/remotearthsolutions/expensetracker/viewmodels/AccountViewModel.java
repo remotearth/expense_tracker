@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.viewmodels;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import com.remotearthsolutions.expensetracker.contracts.AccountContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
@@ -54,4 +55,9 @@ public class AccountViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> view.onSuccess("Operation successful")));
     }
+
+    public LiveData<Integer> getNumberOfItem() {
+        return accountDao.countAccount();
+    }
+
 }

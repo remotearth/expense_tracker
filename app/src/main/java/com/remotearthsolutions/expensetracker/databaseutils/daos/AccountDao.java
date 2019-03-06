@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.databaseutils.daos;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.*;
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
 import io.reactivex.Flowable;
@@ -27,4 +28,8 @@ public interface AccountDao {
 
     @Update
     void updateAccount(AccountModel accountModel);
+
+    @Query("SELECT COUNT(name) FROM account")
+    LiveData<Integer> countAccount();
+
 }

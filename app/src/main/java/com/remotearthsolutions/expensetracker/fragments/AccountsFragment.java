@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +9,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.AccountsAdapter;
@@ -23,12 +23,13 @@ import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.Accou
 
 import java.util.List;
 
-public class AccountsFragment extends Fragment implements AccountContract.View, OptionBottomSheetFragment.Callback {
+public class AccountsFragment extends BaseFragment implements AccountContract.View, OptionBottomSheetFragment.Callback {
 
     private AccountViewModel viewModel;
     private ListView listview;
     private AccountsAdapter adapter;
     private AccountModel selectAccountModel;
+    private int limitOfAccount;
 
     public AccountsFragment() {
     }
@@ -50,9 +51,21 @@ public class AccountsFragment extends Fragment implements AccountContract.View, 
                 get(AccountViewModel.class);
         this.viewModel.loadAccounts();
 
+        viewModel.getNumberOfItem().observe(this,
+                (Integer count) -> limitOfAccount = count);
+
         view.findViewById(R.id.addAccountBtn).setOnClickListener(v -> {
-            selectAccountModel = null;
-            onClickEditBtn();
+
+            if (limitOfAccount < 5)
+            {
+                selectAccountModel = null;
+                onClickEditBtn();
+            }
+            else
+            {
+                 showAlert("Attention", "You need to be premium user to add more Account", "Ok", null, null);
+            }
+
         });
     }
 
@@ -84,8 +97,6 @@ public class AccountsFragment extends Fragment implements AccountContract.View, 
             addAccountAmountDialogFragment.dismiss();
         });
         addAccountAmountDialogFragment.show(getChildFragmentManager(), AddAccountAmountDialogFragment.class.getName());
-
-
     }
 
     @Override
@@ -114,5 +125,10 @@ public class AccountsFragment extends Fragment implements AccountContract.View, 
 
             }
         });
+    }
+
+    @Override
+    public Context getContext() {
+        return getActivity();
     }
 }
