@@ -11,13 +11,14 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
 import com.remotearthsolutions.expensetracker.utils.PermissionUtils;
 
 import java.io.*;
+import java.util.Calendar;
 
 public class FileProcessingServiceImp implements FileProcessingService {
 
-    private static final String FILE_NAME = "Remotearth Solution.csv";
     private PermissionUtils writePermission;
 
     public FileProcessingServiceImp() {
@@ -51,7 +52,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
         try {
 
-            File fileLocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "Remotearth Solution.csv");
+            File fileLocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), createFileNameAccordingToDate());
             Uri uri = Uri.fromFile(fileLocation);
 
             final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -70,7 +71,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
     }
 
     private void writeExternalFile(String content) {
-        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), FILE_NAME);
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), createFileNameAccordingToDate());
 
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
@@ -86,6 +87,10 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
     private void forceUserToGrantPermission(Activity activity) {
         writePermission.showSettingsDialog(activity);
+    }
+
+    private String createFileNameAccordingToDate() {
+        return "expense_tracker_"+ Calendar.getInstance().getTime().toString() +".csv";
     }
 
 }
