@@ -10,6 +10,7 @@ import com.remotearthsolutions.expensetracker.adapters.viewholder.DateSectionedV
 import com.remotearthsolutions.expensetracker.adapters.viewholder.ExpenseListViewHolder;
 import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
+import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 
 import java.util.List;
 
@@ -17,13 +18,12 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private static final int HEADER_ENABLE = 1;
     private static final int HEADER_DISABLE = 2;
-
     private List<CategoryExpense> categoryExpenseList;
-    private int clickedBtnId;
+    private String currencySymbol;
 
-    public ExpenseListAdapter(List<CategoryExpense> categoryExpenseList, int clickedBtnId) {
+    public ExpenseListAdapter(List<CategoryExpense> categoryExpenseList, String currencySymbol) {
         this.categoryExpenseList = categoryExpenseList;
-        this.clickedBtnId = clickedBtnId;
+        this.currencySymbol = currencySymbol;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             viewHolder.bind(new DateModel(item.getCategory_name()));
         } else {
             ExpenseListViewHolder viewHolder = (ExpenseListViewHolder) holder;
-            viewHolder.bind(item);
+            viewHolder.bind(item, currencySymbol);
         }
 
     }

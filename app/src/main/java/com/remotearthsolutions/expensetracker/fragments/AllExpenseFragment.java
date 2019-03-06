@@ -1,7 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
+import com.remotearthsolutions.expensetracker.utils.Utils;
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseViewModel;
 
 import java.util.List;
@@ -26,10 +26,7 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
     private RecyclerView recyclerView;
     private ExpenseListAdapter adapter;
     private ExpenseViewModel viewModel;
-    private long startTime, endTime;
-    private List<CategoryExpense> listOffilterExpense;
-    private int clickedBtnId;
-
+    private String currencySymbol;
 
     public AllExpenseFragment() {
     }
@@ -44,6 +41,11 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(llm);
 
+        currencySymbol = "$";
+        if (getActivity() != null) {
+            currencySymbol = Utils.getCurrency(getActivity());
+        }
+
         ExpenseDao expenseDao = DatabaseClient.getInstance(getContext()).getAppDatabase().expenseDao();
         viewModel = new ExpenseViewModel(this, expenseDao);
         return view;
@@ -51,7 +53,7 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
 
     @Override
     public void loadFilterExpense(List<CategoryExpense> listOffilterExpense) {
-        adapter = new ExpenseListAdapter(listOffilterExpense, clickedBtnId);
+        adapter = new ExpenseListAdapter(listOffilterExpense, currencySymbol);
         recyclerView.setAdapter(adapter);
     }
 
@@ -61,9 +63,6 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
     }
 
     public void updateFilterListWithDate(long startTime, long endTime, int btnId) {
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.clickedBtnId = btnId;
         viewModel.loadFilterExpense(startTime, endTime, btnId);
     }
 
