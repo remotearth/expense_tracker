@@ -83,7 +83,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
     }
 
     @Override
-    public void loadTableData(String filepath, String[] tableNames, Callback callback) {
+    public void loadTableData(String filepath, Callback callback) {
 
         List<ExpenseModel> expenseModels = null;
         List<CategoryModel> categoryModels = null;
@@ -98,7 +98,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
             fileReader.readLine();
 
             while ((line = fileReader.readLine()) != null) {
-                if (line.contains("mata1")) {
+                if (line.contains("meta1")) {
                     line = line.replace("meta1:", "");
                     String jsonContent = new String(Base64.decode(line, Base64.NO_WRAP), "UTF-8");
                     expenseModels = Arrays.asList(new Gson().fromJson(jsonContent, ExpenseModel[].class));
@@ -175,7 +175,8 @@ public class FileProcessingServiceImp implements FileProcessingService {
         FileWriter fw = null;
         PrintWriter printWriter = null;
         try {
-            if (!file.exists()) {
+            if (file.exists()) {
+                file.delete();
                 file.createNewFile();
             }
 

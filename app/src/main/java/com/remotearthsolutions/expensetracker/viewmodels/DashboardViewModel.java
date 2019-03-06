@@ -91,26 +91,24 @@ public class DashboardViewModel extends ViewModel {
     }
 
     public void importDataFromFile(String filepath) {
-        fileProcessingService.loadTableData(filepath, new String[]{"category", "expense", "account"}, (categories, expenseModels, accountModels) -> {
 
-            Executors.newSingleThreadExecutor().execute(new Runnable() {
-                @Override
-                public void run() {
+        fileProcessingService.loadTableData(filepath, (categories, expenseModels, accountModels) -> {
 
-                    categoryDao.deleteAll();
-                    for (CategoryModel categoryModel: categories) {
-                        categoryDao.addCategory(categoryModel);
-                    }
+            Executors.newSingleThreadExecutor().execute(() -> {
 
-                    expenseDao.deleteAll();
-                    for (ExpenseModel expenseModel: expenseModels) {
-                        expenseDao.add(expenseModel);
-                    }
+                categoryDao.deleteAll();
+                for (CategoryModel categoryModel : categories) {
+                    categoryDao.addCategory(categoryModel);
+                }
 
-                    accountDao.deleteAll();
-                    for (AccountModel accountModel: accountModels) {
-                        accountDao.addAccount(accountModel);
-                    }
+                expenseDao.deleteAll();
+                for (ExpenseModel expenseModel : expenseModels) {
+                    expenseDao.add(expenseModel);
+                }
+
+                accountDao.deleteAll();
+                for (AccountModel accountModel : accountModels) {
+                    accountDao.addAccount(accountModel);
                 }
             });
 

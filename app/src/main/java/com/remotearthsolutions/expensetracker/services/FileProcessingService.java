@@ -11,7 +11,7 @@ import java.util.List;
 public interface FileProcessingService {
     void writeOnCsvFile(Activity activity, String content);
     List<CategoryExpense> readFromCsvFile(Activity activity);
-    void loadTableData(String filepath, String[] tableNames, Callback callback);
+    void loadTableData(String filepath, Callback callback);
     List<String> getNameOfAllCsvFile();
     void shareFile(Activity activity);
 
