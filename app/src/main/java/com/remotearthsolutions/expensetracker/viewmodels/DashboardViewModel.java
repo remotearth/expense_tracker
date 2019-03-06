@@ -3,10 +3,13 @@ package com.remotearthsolutions.expensetracker.viewmodels;
 import android.app.Activity;
 import androidx.lifecycle.ViewModel;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.services.FileProcessingService;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+
+import java.util.List;
 
 public class DashboardViewModel extends ViewModel {
     private ExpenseDao expenseDao;
@@ -28,11 +31,18 @@ public class DashboardViewModel extends ViewModel {
                 .subscribe(listOfFilterExpense -> {
                     if (listOfFilterExpense != null) {
                         for (int i = 0; i < listOfFilterExpense.size(); i++) {
-                            content[0] = content[0] + listOfFilterExpense.get(i);
+                            if (listOfFilterExpense.get(i).getTotal_amount() > 0) {
+                                content[0] = content[0] + listOfFilterExpense.get(i);
+                            }
+
                         }
                         fileProcessingService.writeOnCsvFile(activity, content[0]);
                     }
                 }));
+    }
+
+    public List<CategoryExpense> readExpenseFromCsv(Activity activity) {
+        return fileProcessingService.readFromCsvFile(activity);
     }
 
     public void shareCSV_FileToMail(Activity activity) {

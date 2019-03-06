@@ -11,11 +11,13 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
-import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.utils.PermissionUtils;
 
 import java.io.*;
 import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileProcessingServiceImp implements FileProcessingService {
 
@@ -46,6 +48,40 @@ public class FileProcessingServiceImp implements FileProcessingService {
     }
 
     @Override
+    public List<CategoryExpense> readFromCsvFile(Activity activity) {
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), createFileNameAccordingToDate());
+        List<CategoryExpense> categoryExpenseList = new ArrayList();
+
+        BufferedReader fileReader = null;
+
+        try {
+            String line = "";
+            fileReader = new BufferedReader(new FileReader(file));
+            fileReader.readLine();
+
+            while ((line = fileReader.readLine()) != null) {
+                String[] tokens = line.split(", ");
+
+                if (tokens.length > 0) {
+                    CategoryExpense categoryExpense = new CategoryExpense(Integer.parseInt(tokens[0]), tokens[1], tokens[2], Double.parseDouble(tokens[3]), Long.parseLong(tokens[4]));
+                    categoryExpenseList.add(categoryExpense);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fileReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return categoryExpenseList;
+    }
+
+    @Override
     public void shareFile(Activity activity) {
         String emailAddress = "abircoxsbazar@gmail.com";
         String emailSubject = "Reports From Expense Tracker";
@@ -60,13 +96,13 @@ public class FileProcessingServiceImp implements FileProcessingService {
             emailIntent.setType("image/*");
 
             emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
-            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] { emailAddress });
+            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{emailAddress});
             emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, emailSubject);
 
             activity.startActivity(Intent.createChooser(emailIntent, "Choose Email Client To Send Report"));
 
         } catch (Throwable t) {
-            Toast.makeText(activity,"Report Sending Failed Please Try Again Later " + t.toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, "Report Sending Failed Please Try Again Later " + t.toString(), Toast.LENGTH_LONG).show();
         }
     }
 
