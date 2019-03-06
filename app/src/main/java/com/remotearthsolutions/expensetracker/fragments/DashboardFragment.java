@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
 import com.remotearthsolutions.expensetracker.adapters.DashboardAdapter;
 import com.remotearthsolutions.expensetracker.callbacks.InAppBillingCallback;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.entities.DashboardModel;
 import com.remotearthsolutions.expensetracker.services.FileProcessingServiceImp;
 import com.remotearthsolutions.expensetracker.services.InventoryCallback;
@@ -30,6 +32,7 @@ import org.solovyev.android.checkout.*;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class DashboardFragment extends BaseFragment implements InAppBillingCallback {
@@ -108,26 +111,43 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
         lv.setAdapter(adapter);
         lv.setOnItemClickListener((parent, view, position, id) -> {
 
-            switch (position)
-            {
+            switch (position) {
+
                 case 0:
                     dashboardViewModel.saveExpenseToCSV(getActivity());
                     dashboardViewModel.shareCSV_FileToMail(getActivity());
                     break;
 
                 case 1:
-                    mCheckout.whenReady(new Checkout.EmptyListener() {
-                        @Override
-                        public void onReady(@Nonnull BillingRequests requests) {
+                    /**
+                     * To read element of a file
+                     * call
+                     * List<CategoryExpense> expenses = dashboardViewModel.readExpenseFromCsv(getActivity());
+                     */
 
-                            requests.purchase(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM, null, mCheckout.getPurchaseFlow());
-                        }
+                    List<String> allCsvFile = dashboardViewModel.getAllCsvFile();
+
+                    final CharSequence[] csvList = allCsvFile.toArray(new String[allCsvFile.size()]);
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+                    dialogBuilder.setTitle("Select a .csv file");
+                    dialogBuilder.setItems(csvList, (dialog, item) -> {
+                        String selectedText = csvList[item].toString();  //Selected item in listview
                     });
+
+                    AlertDialog alertDialogObject = dialogBuilder.create();
+                    alertDialogObject.show();
+
                     break;
 
                 case 2:
-                    showAlert(getString(R.string.warning),getString(R.string.buy_message),getString(R.string.ok),null,null);
-                    break;
+                mCheckout.whenReady(new Checkout.EmptyListener() {
+                        @Override
+                        public void onReady(@Nonnull BillingRequests requests) {
+                            requests.purchase(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM, null, mCheckout.getPurchaseFlow());
+                        }
+                    });
+                break;
+
 
                 default:
             }

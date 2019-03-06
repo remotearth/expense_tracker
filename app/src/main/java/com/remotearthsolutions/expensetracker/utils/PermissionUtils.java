@@ -18,6 +18,13 @@ public class PermissionUtils {
                 .check();
     }
 
+    public void readExternalStoragePermission(Activity activity, PermissionListener permissionListener) {
+        Dexter.withActivity(activity)
+                .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .withListener(permissionListener)
+                .check();
+    }
+
     public void showSettingsDialog(Activity activity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
