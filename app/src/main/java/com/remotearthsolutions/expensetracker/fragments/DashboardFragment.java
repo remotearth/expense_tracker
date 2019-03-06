@@ -1,11 +1,9 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,23 +12,24 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
 import com.remotearthsolutions.expensetracker.adapters.DashboardAdapter;
 import com.remotearthsolutions.expensetracker.callbacks.InAppBillingCallback;
+import com.remotearthsolutions.expensetracker.databaseutils.AppDatabase;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
-import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.entities.DashboardModel;
 import com.remotearthsolutions.expensetracker.services.FileProcessingServiceImp;
 import com.remotearthsolutions.expensetracker.services.InventoryCallback;
 import com.remotearthsolutions.expensetracker.services.PurchaseListener;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.viewmodels.DashboardViewModel;
-import io.reactivex.disposables.CompositeDisposable;
+import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.DashBoardViewModelFactory;
 import org.solovyev.android.checkout.*;
 
 import javax.annotation.Nonnull;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,13 +59,9 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
         mInventory.load(Inventory.Request.create()
                 .loadAllPurchases()
                 .loadSkus(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM), new InventoryCallback());
-
-        dashboardViewModel = new DashboardViewModel(DatabaseClient
-                .getInstance(getContext())
-                .getAppDatabase()
-                .expenseDao(),
-                new CompositeDisposable(),
-                new FileProcessingServiceImp());
+        AppDatabase db = DatabaseClient.getInstance(getContext()).getAppDatabase();
+        dashboardViewModel = ViewModelProviders.of(this, new DashBoardViewModelFactory(db.expenseDao(),
+                db.categoryDao(), db.accountDao(), new FileProcessingServiceImp())).get(DashboardViewModel.class);
     }
 
     @Nullable
@@ -119,19 +114,21 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
                     break;
 
                 case 1:
-                    /**
-                     * To read element of a file
-                     * call
-                     * List<CategoryExpense> expenses = dashboardViewModel.readExpenseFromCsv(getActivity());
-                     */
 
                     List<String> allCsvFile = dashboardViewModel.getAllCsvFile();
+
+                    if(allCsvFile == null || allCsvFile.size() == 0){
+                        Toast.makeText(getActivity(),"No expense tracker supported file is found",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
                     final CharSequence[] csvList = allCsvFile.toArray(new String[allCsvFile.size()]);
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
                     dialogBuilder.setTitle("Select a .csv file");
                     dialogBuilder.setItems(csvList, (dialog, item) -> {
-                        String selectedText = csvList[item].toString();  //Selected item in listview
+                        String selectedText = csvList[item].toString();
+                        String filePath = new File( Environment.getExternalStorageDirectory().getAbsolutePath(), selectedText).getAbsolutePath();
+                        dashboardViewModel.importDataFromFile(filePath);
                     });
 
                     AlertDialog alertDialogObject = dialogBuilder.create();
@@ -140,13 +137,13 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
                     break;
 
                 case 2:
-                mCheckout.whenReady(new Checkout.EmptyListener() {
+                    mCheckout.whenReady(new Checkout.EmptyListener() {
                         @Override
                         public void onReady(@Nonnull BillingRequests requests) {
                             requests.purchase(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM, null, mCheckout.getPurchaseFlow());
                         }
                     });
-                break;
+                    break;
 
 
                 default:

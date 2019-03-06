@@ -4,20 +4,25 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
+import com.google.gson.Gson;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
 import com.remotearthsolutions.expensetracker.utils.PermissionUtils;
 
 import java.io.*;
-import java.util.Calendar;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FileProcessingServiceImp implements FileProcessingService {
@@ -30,6 +35,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
     @Override
     public void writeOnCsvFile(Activity activity, String content) {
+
         writePermission.writeExternalStoragePermission(activity, new PermissionListener() {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse response) {
@@ -77,15 +83,60 @@ public class FileProcessingServiceImp implements FileProcessingService {
     }
 
     @Override
+    public void loadTableData(String filepath, Callback callback) {
+
+        List<ExpenseModel> expenseModels = null;
+        List<CategoryModel> categoryModels = null;
+        List<AccountModel> accountModels = null;
+
+        File file = new File(filepath);
+        BufferedReader fileReader = null;
+
+        try {
+            String line = "";
+            fileReader = new BufferedReader(new FileReader(file));
+            fileReader.readLine();
+
+            while ((line = fileReader.readLine()) != null) {
+                if (line.contains("meta1")) {
+                    line = line.replace("meta1:", "");
+                    String jsonContent = new String(Base64.decode(line, Base64.NO_WRAP), "UTF-8");
+                    expenseModels = Arrays.asList(new Gson().fromJson(jsonContent, ExpenseModel[].class));
+                } else if (line.contains("meta2")) {
+                    line = line.replace("meta2:", "");
+                    String jsonContent = new String(Base64.decode(line, Base64.NO_WRAP), "UTF-8");
+                    categoryModels = Arrays.asList(new Gson().fromJson(jsonContent, CategoryModel[].class));
+                } else if (line.contains("meta3")) {
+                    line = line.replace("meta3:", "");
+                    String jsonContent = new String(Base64.decode(line, Base64.NO_WRAP), "UTF-8");
+                    accountModels = Arrays.asList(new Gson().fromJson(jsonContent, AccountModel[].class));
+                }
+            }
+
+            callback.onComplete(categoryModels, expenseModels, accountModels);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fileReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+    }
+
     public List<String> getNameOfAllCsvFile() {
         List<String> fileList = new ArrayList<>();
 
         File dataDirectory = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
         String[] listOfAllItems = dataDirectory.list();
-
-        for(String item : listOfAllItems) {
-            if (item.contains("expense_tracker_")) {
-                fileList.add(item);
+        if (listOfAllItems != null && listOfAllItems.length > 0) {
+            for (String item : listOfAllItems) {
+                if (item.contains("expense_tracker_")) {
+                    fileList.add(item);
+                }
             }
         }
 
@@ -94,7 +145,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
     @Override
     public void shareFile(Activity activity) {
-        String emailAddress = "abircoxsbazar@gmail.com";
+        String emailAddress = "";
         String emailSubject = "Reports From Expense Tracker";
 
         try {
@@ -118,18 +169,35 @@ public class FileProcessingServiceImp implements FileProcessingService {
     }
 
     private void writeExternalFile(String content) {
+
         File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), createFileNameAccordingToDate());
 
+        FileWriter fw = null;
+        PrintWriter printWriter = null;
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            fileOutputStream.write(content.getBytes());
-            fileOutputStream.close();
+            if (file.exists()) {
+                file.delete();
+                file.createNewFile();
+            }
+
+            fw = new FileWriter(file, true);
+            printWriter = new PrintWriter(fw);
+            printWriter.print(content);
+
         } catch (FileNotFoundException e) {
             Log.d("error", "File Not Found");
         } catch (IOException io) {
             Log.d("error", "Error File Creating");
+        } finally {
+            if (fw != null) {
+                try {
+                    fw.close();
+                    printWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-
     }
 
     private void forceUserToGrantPermission(Activity activity) {
@@ -137,7 +205,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
     }
 
     private String createFileNameAccordingToDate() {
-        return "expense_tracker_"+ DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy) +".csv";
+        return "expense_tracker_" + DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy) + ".csv";
     }
 
 }
