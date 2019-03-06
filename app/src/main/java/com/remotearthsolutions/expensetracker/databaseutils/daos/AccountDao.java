@@ -25,6 +25,9 @@ public interface AccountDao {
     @Delete
     void deleteAccount(AccountModel accountModel);
 
+    @Query("DELETE FROM account")
+    void deleteAll();
+
     @Update
     void updateAccount(AccountModel accountModel);
 }

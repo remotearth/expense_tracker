@@ -7,6 +7,9 @@ import com.google.gson.Gson;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
+import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.services.FileProcessingService;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -14,6 +17,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 
 public class DashboardViewModel extends ViewModel {
     private ExpenseDao expenseDao;
@@ -80,5 +84,33 @@ public class DashboardViewModel extends ViewModel {
 
     public void shareCSV_FileToMail(Activity activity) {
         fileProcessingService.shareFile(activity);
+    }
+
+    public void importDataFromFile(String filepath) {
+        fileProcessingService.loadTableData(filepath, new String[]{"category", "expense", "account"}, (categories, expenseModels, accountModels) -> {
+
+            Executors.newSingleThreadExecutor().execute(new Runnable() {
+                @Override
+                public void run() {
+
+                    categoryDao.deleteAll();
+                    for (CategoryModel categoryModel: categories) {
+                        categoryDao.addCategory(categoryModel);
+                    }
+
+                    expenseDao.deleteAll();
+                    for (ExpenseModel expenseModel: expenseModels) {
+                        expenseDao.add(expenseModel);
+                    }
+
+                    accountDao.deleteAll();
+                    for (AccountModel accountModel: accountModels) {
+                        accountDao.addAccount(accountModel);
+                    }
+                }
+            });
+
+
+        });
     }
 }

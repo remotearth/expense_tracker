@@ -1,7 +1,6 @@
 package com.remotearthsolutions.expensetracker.databaseutils.daos;
 
 import androidx.room.*;
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
@@ -46,13 +45,10 @@ public interface ExpenseDao {
     @Delete
     void deleteExpenseAmount(ExpenseModel accountModel);
 
+    @Query("DELETE FROM expense")
+    void deleteAll();
+
     @Query("Select * from expense")
     Flowable<List<ExpenseModel>> getAllExpenseEntry();
-
-
-
-
-
-
 
 }
