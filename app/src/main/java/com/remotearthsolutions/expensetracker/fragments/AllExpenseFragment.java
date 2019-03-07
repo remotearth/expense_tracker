@@ -10,10 +10,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.activities.MainActivity;
 import com.remotearthsolutions.expensetracker.adapters.ExpenseListAdapter;
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.utils.Utils;
@@ -54,6 +56,15 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
     @Override
     public void loadFilterExpense(List<CategoryExpense> listOffilterExpense) {
         adapter = new ExpenseListAdapter(listOffilterExpense, currencySymbol);
+        adapter.setOnItemClickListener(categoryExpense -> {
+
+            CategoryModel categoryModel = new CategoryModel();
+            categoryModel.setId(categoryExpense.getCategory_id());
+            categoryModel.setName(categoryExpense.getCategory_name());
+            categoryModel.setIcon(categoryExpense.getIcon_name());
+            ((MainActivity)getActivity()).openAddExpenseScreen(categoryModel);
+
+        });
         recyclerView.setAdapter(adapter);
     }
 

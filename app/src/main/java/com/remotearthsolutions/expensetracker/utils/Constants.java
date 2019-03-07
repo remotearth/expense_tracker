@@ -12,19 +12,19 @@ public interface Constants {
     String KEY_DAILY = "Daily";
     String KEY_WEEKLY = "Weekly";
     String KEY_MONTHLY = "Monthly";
-    String KEY_YEARLY= "Yearly";
+    String KEY_YEARLY = "Yearly";
 
     String CATEGORY_PARCEL = "category_parcel";
-
+    String EXPENSE_PARCEL = "expense_parcel";
 
     String LICENSE_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjdEZ6Ng4jqYE4XL2Zn6aSCfqnm5EzLTVlFPFTuXrAt3aTOxTLQBsdUn2Yu7FUCCJc27Ao/v9loyEzlEFOly90Ye1eVFzfnc7dNHVkHMHSYLp3k2XcIcN0xIbHgncCPTc/8i1pAxLHVzCPOLKe7GFp27HrQFPrz46jz2lG7RYRIFcfGlLL6nX8NAZWV5tpD2OVU3h5u5xDWIAL65O0vCaR8adRDbAClairUxn3zOsYQ5BJHs2cWOUR0qUeMcHjsYKoIMbWbWvd0JGOEJ8m/tMzmePz8hhXTS+/lZxY1ezelq8zlbnSQ3E3bA7lRNHZLuCFHx7X82qTAugMHXCr7pqVQIDAQAB";
     String TEST_PURCHASED_ITEM = "android.test.purchased";
     String PRODUCT_ID = "com.remotearthsolutions.expensetracker.remove_ad";
 
-    String SHARE_T0_EMAIL="Export Data";
-    String BUY_THE_PRODUCT="Buy The Product";
-    String IMPORT_FILE="Import Data";
-    
+    String SHARE_T0_EMAIL = "Export Data";
+    String BUY_THE_PRODUCT = "Buy The Product";
+    String IMPORT_FILE = "Import Data";
+
     String RAZERDPANIMATEDPIEVIEW_LICENSE_FILE = "file:///android_asset/licenses/LICENSEAnimatedPieChart";
     String ROOM_LICENSE_FILE = "file:///android_asset/licenses/LICENSERoom";
     String PURCHASEDCHECKOUT_LICENSE_FILE = "file:///android_asset/licenses/LICENSEcheckout.txt";

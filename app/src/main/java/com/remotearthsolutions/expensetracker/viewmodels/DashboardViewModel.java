@@ -72,10 +72,8 @@ public class DashboardViewModel extends ViewModel {
                                                 });
                                     });
                         });
-
                     }
                 }));
-
     }
 
     public List<CategoryExpense> readExpenseFromCsv(Activity activity) {

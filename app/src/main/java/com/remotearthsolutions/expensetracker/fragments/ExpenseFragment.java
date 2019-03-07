@@ -17,6 +17,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.utils.*;
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseFragmentViewModel;
 import org.parceler.Parcels;
@@ -32,6 +33,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
     private ExpenseFragmentViewModel viewModel;
 
+    private CategoryExpense categoryExpense;
     private CategoryModel selectedCategory;
     private AccountModel selectedSourceAccount;
 
@@ -86,6 +88,13 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
                 categoryNameTv.setText(selectedCategory.getName());
             } else {
                 viewModel.setDefaultCategory();
+            }
+
+            categoryExpense = Parcels.unwrap(args.getParcelable(Constants.EXPENSE_PARCEL));
+            if(categoryExpense!=null){
+                expenseEdtxt.setText(Double.toString(categoryExpense.getTotal_amount()));
+                //expenseNoteEdtxt.setText(categoryExpense.getNote());
+                dateTv.setText(DateTimeUtils.getDate(categoryExpense.getDatetime(), DateTimeUtils.dd_MM_yyyy));
             }
         }
 
@@ -181,11 +190,14 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
     @Override
     public void setSourceAccount(AccountModel account) {
         selectedSourceAccount = account;
-        //accountBtnIv.setImageResource(account.getIcon_name());
-        accountBtnIv.setImageResource(R.drawable.ic_currency);
+        accountBtnIv.setImageResource(CategoryIcons.getIconId(account.getIcon()));
         accountNameTv.setText(account.getName());
         SharedPreferenceUtils.getInstance(getActivity()).putInt(Constants.KEY_SELECTED_ACCOUNT_ID, account.getId());
     }
+
+//    public void setCategoryExpense(CategoryExpense categoryExpense) {
+//        this.categoryExpense = categoryExpense;
+//    }
 
     @Override
     public void showDefaultCategory(CategoryModel categoryModel) {

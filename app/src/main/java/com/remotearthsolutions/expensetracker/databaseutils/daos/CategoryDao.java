@@ -20,7 +20,7 @@ public interface CategoryDao {
     @Query("Select * from category")
     Flowable<List<CategoryModel>> getAllCategories();
 
-    @Query("SELECT ctg.id as category_id, ctg.category_name,ctg.icon_name,exp.datetime,SUM(exp.amount) as total_amount " +
+    @Query("SELECT ctg.id as category_id, ctg.category_name,ctg.icon_name,exp.account_id, exp.datetime,SUM(exp.amount) as total_amount " +
             "FROM category  as ctg LEFT JOIN expense as exp ON ctg.id = exp.category_id " +
             "AND exp.datetime >= :startTime AND exp.datetime <= :endTime GROUP BY ctg.id ")
     Flowable<List<CategoryExpense>> getAllCategoriesWithExpense(long startTime, long endTime);

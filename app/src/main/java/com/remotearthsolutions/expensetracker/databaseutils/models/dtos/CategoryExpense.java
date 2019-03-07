@@ -9,6 +9,9 @@ public class CategoryExpense {
     private String icon_name;
     private double total_amount;
     private long datetime;
+    private int account_id;
+    @Ignore
+    private String account_name;
 
     @Ignore
     public boolean isHeader = false;
@@ -21,7 +24,17 @@ public class CategoryExpense {
         this.datetime = datetime;
     }
 
-    public CategoryExpense() {}
+    public CategoryExpense(int category_id, String category_name, String icon_name, double total_amount, long datetime, int account_id) {
+        this.category_id = category_id;
+        this.category_name = category_name;
+        this.icon_name = icon_name;
+        this.total_amount = total_amount;
+        this.datetime = datetime;
+        this.account_id = account_id;
+    }
+
+    public CategoryExpense() {
+    }
 
     public int getCategory_id() {
         return category_id;
@@ -61,6 +74,22 @@ public class CategoryExpense {
 
     public void setDatetime(long datetime) {
         this.datetime = datetime;
+    }
+
+    public int getAccount_id() {
+        return account_id;
+    }
+
+    public void setAccount_id(int account_id) {
+        this.account_id = account_id;
+    }
+
+    public String getAccount_name() {
+        return account_name;
+    }
+
+    public void setAccount_name(String account_name) {
+        this.account_name = account_name;
     }
 
     @Override
