@@ -2,8 +2,12 @@ package com.remotearthsolutions.expensetracker.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.DisplayMetrics;
+import com.remotearthsolutions.expensetracker.R;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class Utils {
@@ -16,10 +20,10 @@ public class Utils {
         return String.format("#%02x%02x%02x", r, g, b);
     }
 
-    public static ScreenSize getDeviceScreenSize(Context context){
+    public static ScreenSize getDeviceScreenSize(Context context) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        return new ScreenSize(displayMetrics.widthPixels,displayMetrics.heightPixels);
+        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        return new ScreenSize(displayMetrics.widthPixels, displayMetrics.heightPixels);
     }
 
     public static class ScreenSize {
@@ -30,5 +34,12 @@ public class Utils {
             this.width = width;
             this.height = height;
         }
+    }
+
+    public static String getCurrency(Context context) {
+        Resources resources = context.getResources();
+        List<String> currencies = Arrays.asList(resources.getStringArray(R.array.currency));
+        String selectedCurrency = SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_CURRENCY, resources.getString(R.string.default_currency));
+        return resources.getStringArray(R.array.currency_symbol)[currencies.indexOf(selectedCurrency)];
     }
 }

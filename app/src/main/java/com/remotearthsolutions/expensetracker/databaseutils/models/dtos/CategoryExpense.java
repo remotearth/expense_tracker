@@ -65,9 +65,10 @@ public class CategoryExpense {
 
     @Override
     public String toString() {
-        return category_id +
-                ", " + category_name +
-                ", " + total_amount +
-                "\n";
+        return category_id + ", " +
+                category_name + ", " +
+                icon_name + ", " +
+                total_amount + ", " +
+                datetime + "\n";
     }
 }

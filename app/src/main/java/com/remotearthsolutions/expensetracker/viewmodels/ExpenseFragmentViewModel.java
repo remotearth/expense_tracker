@@ -61,8 +61,11 @@ public class ExpenseFragmentViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).
                         subscribe(categoryModels -> {
-                            CategoryModel categoryModel = categoryModels.get(0);
-                            view.showDefaultCategory(categoryModel);
+                            if (categoryModels != null && categoryModels.size() > 0) {
+                                CategoryModel categoryModel = categoryModels.get(0);
+                                view.showDefaultCategory(categoryModel);
+                            }
+
                         }));
 
     }

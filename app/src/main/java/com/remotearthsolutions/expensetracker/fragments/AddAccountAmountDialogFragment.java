@@ -46,6 +46,7 @@ public class AddAccountAmountDialogFragment extends DialogFragment {
             accountNameTv.setText(accountIncome.getName());
             accountImageIv.setImageResource(CategoryIcons.getIconId(accountIncome.getIcon()));
             amountEdtxt.setText(Double.toString(accountIncome.getAmount()));
+            amountEdtxt.setSelection(amountEdtxt.getText().toString().length());
         }
 
         view.findViewById(R.id.okBtn).setOnClickListener(v -> {
