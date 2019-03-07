@@ -24,6 +24,7 @@ import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.callbacks.InAppBillingCallback;
 import com.remotearthsolutions.expensetracker.contracts.MainContract;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.databinding.ActivityMainBinding;
 import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.fragments.*;
@@ -277,13 +278,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
 
-    public void openAddExpenseScreen(CategoryModel category) {
+    public void openAddExpenseScreen(CategoryExpense categoryExpense) {
 
         getSupportActionBar().setTitle("Add Expense");
         ExpenseFragment expenseFragment = new ExpenseFragment();
-        Parcelable wrappedCategory = Parcels.wrap(category);
+        Parcelable wrappedCategoryExpense = Parcels.wrap(categoryExpense);
         Bundle bundle = new Bundle();
-        bundle.putParcelable(Constants.CATEGORY_PARCEL, wrappedCategory);
+        bundle.putParcelable(Constants.CATEGORYEXPENSE_PARCEL, wrappedCategoryExpense);
         expenseFragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down);

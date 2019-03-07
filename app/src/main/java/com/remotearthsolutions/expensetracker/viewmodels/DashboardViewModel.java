@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 import com.google.gson.Gson;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
@@ -20,13 +21,16 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 public class DashboardViewModel extends ViewModel {
+
+    private CategoryExpenseDao categoryExpenseDao;
     private ExpenseDao expenseDao;
     private CategoryDao categoryDao;
     private AccountDao accountDao;
     private FileProcessingService fileProcessingService;
     private CompositeDisposable disposable = new CompositeDisposable();
 
-    public DashboardViewModel(ExpenseDao expenseDao, CategoryDao categoryDao, AccountDao accountDao, FileProcessingService fileProcessingService) {
+    public DashboardViewModel(CategoryExpenseDao categoryExpenseDao, ExpenseDao expenseDao, CategoryDao categoryDao, AccountDao accountDao, FileProcessingService fileProcessingService) {
+        this.categoryExpenseDao = categoryExpenseDao;
         this.expenseDao = expenseDao;
         this.categoryDao = categoryDao;
         this.accountDao = accountDao;
@@ -36,7 +40,7 @@ public class DashboardViewModel extends ViewModel {
     public void saveExpenseToCSV(Activity activity) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        disposable.add(expenseDao.getAllFilterExpense()
+        disposable.add(categoryExpenseDao.getAllFilterExpense()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(listOfFilterExpense -> {

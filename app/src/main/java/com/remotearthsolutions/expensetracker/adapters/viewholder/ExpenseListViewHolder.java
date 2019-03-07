@@ -33,7 +33,7 @@ public class ExpenseListViewHolder extends RecyclerView.ViewHolder {
         this.expense = expense;
         categoryTextView.setText(String.valueOf(expense.getCategory_name()));
         amountTextView.setText(currencySymbol + " " + String.valueOf(expense.getTotal_amount()));
-        categoryExpenseIcon.setImageResource(CategoryIcons.getIconId(expense.getIcon_name()));
+        categoryExpenseIcon.setImageResource(CategoryIcons.getIconId(expense.getCategory_icon()));
     }
 
 }

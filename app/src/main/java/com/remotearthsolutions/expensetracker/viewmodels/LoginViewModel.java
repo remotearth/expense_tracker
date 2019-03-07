@@ -18,14 +18,12 @@ public class LoginViewModel extends ViewModel implements FacebookService.CallBac
     private GoogleService googleService;
     private FacebookService facebookService;
     private FirebaseService firebaseService;
-    //private InternetCheckerService internetCheckerService;
 
     public LoginViewModel(LoginContract.View view, GoogleService googleService, FacebookService facebookService, FirebaseService firebaseService, InternetCheckerService internetCheckerService) {
         this.view = view;
         this.googleService = googleService;
         this.facebookService = facebookService;
         this.firebaseService = firebaseService;
-        //this.internetCheckerService = internetCheckerService;
     }
 
     public void init() {
@@ -58,7 +56,7 @@ public class LoginViewModel extends ViewModel implements FacebookService.CallBac
         }
     }
 
-    public void googleLoginWithIntent(Intent data){
+    public void googleLoginWithIntent(Intent data) {
         googleService.startGoogleLogin(data, this);
     }
 

@@ -14,6 +14,7 @@ public interface Constants {
     String KEY_MONTHLY = "Monthly";
     String KEY_YEARLY = "Yearly";
 
+    String CATEGORYEXPENSE_PARCEL = "categoryexpense_parcel";
     String CATEGORY_PARCEL = "category_parcel";
     String EXPENSE_PARCEL = "expense_parcel";
 

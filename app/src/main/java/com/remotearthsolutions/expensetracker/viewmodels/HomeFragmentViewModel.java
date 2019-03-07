@@ -1,13 +1,13 @@
 package com.remotearthsolutions.expensetracker.viewmodels;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 import com.remotearthsolutions.expensetracker.contracts.HomeFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
-import com.remotearthsolutions.expensetracker.utils.InitialDataGenerator;
 import com.remotearthsolutions.expensetracker.utils.Utils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -16,15 +16,17 @@ import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragmentViewModel {
+public class HomeFragmentViewModel extends ViewModel {
 
     private HomeFragmentContract.View view;
+    private CategoryExpenseDao categoryExpenseDao;
     private CategoryDao categoryDao;
     private AccountDao accountDao;
     private CompositeDisposable disposable = new CompositeDisposable();
 
-    public HomeFragmentViewModel(HomeFragmentContract.View view, CategoryDao categoryDao, AccountDao accountDao) {
+    public HomeFragmentViewModel(HomeFragmentContract.View view, CategoryExpenseDao categoryExpenseDao, CategoryDao categoryDao, AccountDao accountDao) {
         this.view = view;
+        this.categoryExpenseDao = categoryExpenseDao;
         this.categoryDao = categoryDao;
         this.accountDao = accountDao;
     }
@@ -38,9 +40,9 @@ public class HomeFragmentViewModel {
 
     }
 
-    public void loadExpenseChart(long startTime,long endTime) {
+    public void loadExpenseChart(long startTime, long endTime) {
 
-        disposable.add(categoryDao.getAllCategoriesWithExpense(startTime,endTime)
+        disposable.add(categoryExpenseDao.getAllCategoriesWithExpense(startTime, endTime)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((listOfCategoryWithAmount) -> {
@@ -53,7 +55,7 @@ public class HomeFragmentViewModel {
                     List<ExpeneChartData> chartDataList = new ArrayList<>();
                     for (CategoryExpense expense : listOfCategoryWithAmount) {
                         double val = (expense.getTotal_amount() / sum) * 100;
-                        if(val>0){
+                        if (val > 0) {
                             ExpeneChartData data = new ExpeneChartData(val, Utils.getRandomColorHexValue(), expense.getCategory_name());
                             chartDataList.add(data);
                         }
