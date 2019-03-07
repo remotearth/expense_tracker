@@ -168,6 +168,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             expenseModel.setDatetime(DateTimeUtils.getTimeInMillisFromDateStr(dateTv.getText().toString(), DateTimeUtils.dd_MM_yyyy));
             expenseModel.setCategoryId(selectedCategory.getId());
             expenseModel.setSource(selectedSourceAccount.getId());
+            expenseModel.setNote(expenseNoteEdtxt.getText().toString());
             viewModel.addExpense(expenseModel);
         });
     }
