@@ -10,5 +10,7 @@ public interface MainContract {
         void onLogoutSuccess();
 
         void startLoadingApp();
+
+        void stayOnCurrencyScreen();
     }
 }

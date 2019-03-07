@@ -117,7 +117,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onLogoutSuccess() {
-        SharedPreferenceUtils.getInstance(getContext()).clear();
         goBackToLoginScreen();
     }
 
@@ -134,6 +133,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mInventory.load(Inventory.Request.create()
                 .loadAllPurchases()
                 .loadSkus(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM), this);
+    }
+
+    @Override
+    public void stayOnCurrencyScreen() {
+
+        Intent intent = new Intent(this, CurrencySelectionActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

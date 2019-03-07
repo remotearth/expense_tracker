@@ -2,7 +2,6 @@ package com.remotearthsolutions.expensetracker.utils;
 
 public interface Constants {
 
-    String KEY_IS_FIRST_RUN = "KEY_IS_FIRST_RUN";
     String KEY_SELECTED_ACCOUNT_ID = "KEY_SELECTED_ACCOUNT_ID";
     String KEY_USER = "KEY_USER";
     String KEY_URL = "KEY";
@@ -17,8 +16,6 @@ public interface Constants {
 
     String CATEGORY_PARCEL = "category_parcel";
 
-    String PREF_CURRENCY = "pref_currency_list";
-    String PREF_PERIOD = "pref_period_list";
 
     String LICENSE_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjdEZ6Ng4jqYE4XL2Zn6aSCfqnm5EzLTVlFPFTuXrAt3aTOxTLQBsdUn2Yu7FUCCJc27Ao/v9loyEzlEFOly90Ye1eVFzfnc7dNHVkHMHSYLp3k2XcIcN0xIbHgncCPTc/8i1pAxLHVzCPOLKe7GFp27HrQFPrz46jz2lG7RYRIFcfGlLL6nX8NAZWV5tpD2OVU3h5u5xDWIAL65O0vCaR8adRDbAClairUxn3zOsYQ5BJHs2cWOUR0qUeMcHjsYKoIMbWbWvd0JGOEJ8m/tMzmePz8hhXTS+/lZxY1ezelq8zlbnSQ3E3bA7lRNHZLuCFHx7X82qTAugMHXCr7pqVQIDAQAB";
     String TEST_PURCHASED_ITEM = "android.test.purchased";
@@ -40,6 +37,11 @@ public interface Constants {
     String RXANROID_LICENSE_FILE = "file:///android_asset/licenses/LICENSERxandroid.txt";
     String MULTIDEX_LICENSE_FILE = "file:///android_asset/licenses/LICENSEMultidex.txt";
     String ADMOB_LICENSE_FILE = "file:///android_asset/licenses/LICENSEAdsense.txt";
+
+
+    String PREF_CURRENCY = "pref_currency_list";
+    String PREF_PERIOD = "pref_period_list";
+    String PREF_ISFIRSTTIMEVISITED = "PREF_ISFIRSTTIMEVISITED";
 
 
 }

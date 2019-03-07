@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/white"
+    tools:context=".activities.CurrencySelectionActivity">
+
+
+
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:text="SELECT YOU COUNTRY"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:layout_height="wrap_content"/>
+
+            <FrameLayout
+                    android:id="@+id/currencyfragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            <Button
+                    android:id="@+id/gotomainactivity"
+                    android:layout_width="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp"
+                    android:text="Go"
+                    android:layout_gravity="end"
+                    android:layout_margin="15dp"
+                    android:layout_marginTop="10sp"
+                    android:background="@drawable/btn_background"
+                    android:layout_height="40dp"/>
+
+</LinearLayout>
