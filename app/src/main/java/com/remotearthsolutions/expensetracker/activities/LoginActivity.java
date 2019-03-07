@@ -8,12 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import androidx.lifecycle.ViewModelProviders;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.gson.Gson;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.LoginContract;
-import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.services.FacebookServiceImpl;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.services.GoogleServiceImpl;
@@ -73,9 +70,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 break;
 
             case R.id.withoutloginbutton:
-                Intent intent = new Intent(LoginActivity.this, CurrencySelection.class);;
-                startActivity(intent);
-                finish();
+                onLoginSuccess(null);
                 break;
         }
     }
@@ -94,10 +89,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void onLoginSuccess(FirebaseUser user) {
 
-       Intent intent = new Intent(this, CurrencySelection.class);
-       startActivity(intent);
-       finish();
-
+        if (SharedPreferenceUtils.getInstance(this).getBoolean(Constants.PREF_ISFIRSTTIMEVISITED, false)) {
+            startActivity(new Intent(this,MainActivity.class));
+            finish();
+        }
+        else{
+            Intent intent = new Intent(this, CurrencySelectionActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
     }
 

@@ -117,7 +117,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onLogoutSuccess() {
-        SharedPreferenceUtils.getInstance(getContext()).clear();
         goBackToLoginScreen();
     }
 
@@ -139,7 +138,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public void stayOnCurrencyScreen() {
 
-        Intent intent = new Intent(this, CurrencySelection.class);
+        Intent intent = new Intent(this, CurrencySelectionActivity.class);
         startActivity(intent);
         finish();
     }

@@ -13,7 +13,7 @@ public class MainViewModel extends ViewModel {
     private MainContract.View view;
     private FirebaseService firebaseService;
 
-    public MainViewModel(MainContract.View view,FirebaseService firebaseService) {
+    public MainViewModel(MainContract.View view, FirebaseService firebaseService) {
         this.view = view;
         this.firebaseService = firebaseService;
     }
@@ -26,22 +26,10 @@ public class MainViewModel extends ViewModel {
 
         FirebaseUser user = firebaseService.getUser();
 
-        if (guestUser == null)
-        {
-            if (user == null)
-            {
-                view.goBackToLoginScreen();
-            }
-            else
-            {
-                view.stayOnCurrencyScreen();
-            }
-
-        }
-        else {
-
+        if (user == null && guestUser == null) {
+            view.goBackToLoginScreen();
+        } else {
             view.startLoadingApp();
-
         }
     }
 

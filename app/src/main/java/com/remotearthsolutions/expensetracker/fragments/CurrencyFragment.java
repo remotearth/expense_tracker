@@ -30,7 +30,7 @@ public class CurrencyFragment extends PreferenceFragmentCompat {
 
             if (key.equals(Constants.PREF_CURRENCY)) {
                 Preference currencyPreference = findPreference(key);
-                currencyPreference.setSummary(sharedPreferences.getString(key, "United States Dollar - USD"));
+                currencyPreference.setSummary(sharedPreferences.getString(key, getActivity().getString(R.string.default_currency)));
             }
         };
 
