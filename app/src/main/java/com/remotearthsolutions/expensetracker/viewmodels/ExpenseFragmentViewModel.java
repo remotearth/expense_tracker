@@ -27,9 +27,11 @@ public class ExpenseFragmentViewModel extends ViewModel {
         this.categoryDao = categoryDao;
     }
 
-    public void init(int accountId) {
+    public void init() {
         view.defineClickListener();
+    }
 
+    public void setDefaultSourceAccount(int accountId){
         compositeDisposable.add(accountDao.getAccountById(accountId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(accountIncome -> {

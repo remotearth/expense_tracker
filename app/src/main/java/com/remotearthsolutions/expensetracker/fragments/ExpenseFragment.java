@@ -11,10 +11,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
+import com.remotearthsolutions.expensetracker.databaseutils.AppDatabase;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
-import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
-import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
-import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
@@ -35,8 +33,6 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
     private ExpenseFragmentViewModel viewModel;
     private CategoryExpense categoryExpense;
-
-    private Bundle args;
 
     public ExpenseFragment() {
     }
@@ -71,16 +67,12 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         numpadManager.attachDeleteButton(deleteBtn);
         numpadFragment.setListener(numpadManager);
 
-        ExpenseDao expenseDao = DatabaseClient.getInstance(getActivity()).getAppDatabase().expenseDao();
-        AccountDao accountDao = DatabaseClient.getInstance(getActivity()).getAppDatabase().accountDao();
-        CategoryDao categoryDao = DatabaseClient.getInstance(getActivity()).getAppDatabase().categoryDao();
-
-        int accountId = SharedPreferenceUtils.getInstance(getActivity()).getInt(Constants.KEY_SELECTED_ACCOUNT_ID, 1);
-        viewModel = ViewModelProviders.of(this, new ExpenseFragmentViewModelFactory(this, expenseDao, accountDao, categoryDao))
+        AppDatabase db = DatabaseClient.getInstance(getActivity()).getAppDatabase();
+        viewModel = ViewModelProviders.of(this, new ExpenseFragmentViewModelFactory(this, db.expenseDao(), db.accountDao(), db.categoryDao()))
                 .get(ExpenseFragmentViewModel.class);
-        viewModel.init(accountId);
+        viewModel.init();
 
-        args = getArguments();
+        Bundle args = getArguments();
         if (args != null) {
             categoryExpense = Parcels.unwrap(args.getParcelable(Constants.CATEGORYEXPENSE_PARCEL));
 
@@ -88,20 +80,17 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
                 categoryBtnIv.setImageResource(CategoryIcons.getIconId(categoryExpense.getCategory_icon()));
                 categoryNameTv.setText(categoryExpense.getCategory_name());
                 expenseEdtxt.setText(Double.toString(categoryExpense.getTotal_amount()));
-                //set note
-
-                ///
+                expenseNoteEdtxt.setText(categoryExpense.getNote());
+                accountBtnIv.setImageResource(CategoryIcons.getIconId(categoryExpense.getAccount_icon()));
+                accountNameTv.setText(categoryExpense.getAccount_name());
                 if (categoryExpense.getDatetime() > 0) {
                     dateTv.setText(DateTimeUtils.getDate(categoryExpense.getDatetime(), DateTimeUtils.dd_MM_yyyy));
                 }
-                //set account
-
-                ///
             } else {
+                int accountId = SharedPreferenceUtils.getInstance(getActivity()).getInt(Constants.KEY_SELECTED_ACCOUNT_ID, 1);
+                viewModel.setDefaultSourceAccount(accountId);
                 viewModel.setDefaultCategory();
-
             }
-
         }
 
         expenseNoteEdtxt.setOnClickListener(v -> {
@@ -178,13 +167,14 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             double amount = expenseStr.length() > 0 ? Double.parseDouble(expenseStr) : 0;
 
             ExpenseModel expenseModel = new ExpenseModel();
-            if(categoryExpense.getExpense_id()>0){
+            if (categoryExpense.getExpense_id() > 0) {
                 expenseModel.setId(categoryExpense.getExpense_id());
             }
             expenseModel.setAmount(amount);
             expenseModel.setDatetime(DateTimeUtils.getTimeInMillisFromDateStr(dateTv.getText().toString(), DateTimeUtils.dd_MM_yyyy));
             expenseModel.setCategoryId(categoryExpense.getCategory_id());
             expenseModel.setSource(categoryExpense.getAccount_id());
+            expenseModel.setNote(expenseNoteEdtxt.getText().toString());
             viewModel.addExpense(expenseModel);
         });
     }

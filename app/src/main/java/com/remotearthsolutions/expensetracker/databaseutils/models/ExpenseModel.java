@@ -25,11 +25,15 @@ public class ExpenseModel {
     @ColumnInfo(name = "datetime")
     private long datetime;
 
-    public ExpenseModel(int categoryId, int source, double amount, long datetime) {
+    @ColumnInfo(name = "note")
+    private String note;
+
+    public ExpenseModel(int categoryId, int source, double amount, long datetime, String note) {
         this.categoryId = categoryId;
         this.source = source;
         this.amount = amount;
         this.datetime = datetime;
+        this.note = note;
     }
 
     @Ignore
@@ -75,5 +79,13 @@ public class ExpenseModel {
 
     public void setDatetime(long datetime) {
         this.datetime = datetime;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }
