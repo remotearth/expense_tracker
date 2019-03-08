@@ -3,6 +3,7 @@ package com.remotearthsolutions.expensetracker.viewmodels;
 import androidx.lifecycle.ViewModel;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
@@ -16,18 +17,19 @@ import java.util.List;
 public class ExpenseViewModel extends ViewModel {
 
     private ExpenseFragmentContract.ExpenseView view;
+    private CategoryExpenseDao categoryExpenseDao;
     private ExpenseDao expenseDao;
     private CompositeDisposable disposable = new CompositeDisposable();
     private int dateRangeBtnId;
 
-
-    public ExpenseViewModel(ExpenseFragmentContract.ExpenseView view, ExpenseDao expenseDao) {
+    public ExpenseViewModel(ExpenseFragmentContract.ExpenseView view, ExpenseDao expenseDao, CategoryExpenseDao categoryExpenseDao) {
         this.view = view;
         this.expenseDao = expenseDao;
+        this.categoryExpenseDao = categoryExpenseDao;
     }
 
     public void loadFilterExpense(long startTime, long endTime, int btnId) {
-        disposable.add(expenseDao.getExpenseWithinRange(startTime, endTime)
+        disposable.add(categoryExpenseDao.getExpenseWithinRange(startTime, endTime)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((listOfFilterExpense) -> {

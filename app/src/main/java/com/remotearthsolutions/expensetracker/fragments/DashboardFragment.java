@@ -60,7 +60,7 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
                 .loadAllPurchases()
                 .loadSkus(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM), new InventoryCallback());
         AppDatabase db = DatabaseClient.getInstance(getContext()).getAppDatabase();
-        dashboardViewModel = ViewModelProviders.of(this, new DashBoardViewModelFactory(db.expenseDao(),
+        dashboardViewModel = ViewModelProviders.of(this, new DashBoardViewModelFactory(db.categoryExpenseDao(), db.expenseDao(),
                 db.categoryDao(), db.accountDao(), new FileProcessingServiceImp())).get(DashboardViewModel.class);
     }
 
@@ -117,8 +117,8 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
 
                     List<String> allCsvFile = dashboardViewModel.getAllCsvFile();
 
-                    if(allCsvFile == null || allCsvFile.size() == 0){
-                        Toast.makeText(getActivity(),"No expense tracker supported file is found",Toast.LENGTH_SHORT).show();
+                    if (allCsvFile == null || allCsvFile.size() == 0) {
+                        Toast.makeText(getActivity(), "No expense tracker supported file is found", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -127,7 +127,7 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
                     dialogBuilder.setTitle("Select a .csv file");
                     dialogBuilder.setItems(csvList, (dialog, item) -> {
                         String selectedText = csvList[item].toString();
-                        String filePath = new File( Environment.getExternalStorageDirectory().getAbsolutePath(), selectedText).getAbsolutePath();
+                        String filePath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), selectedText).getAbsolutePath();
                         dashboardViewModel.importDataFromFile(filePath);
                     });
 

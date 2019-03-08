@@ -1,6 +1,8 @@
 package com.remotearthsolutions.expensetracker.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -27,7 +29,6 @@ public class CurrencySelectionActivity extends AppCompatActivity {
         loadcurrencyfragment();
         button = findViewById(R.id.gotomainactivity);
         button.setOnClickListener(v -> gohome());
-
     }
 
     private void loadcurrencyfragment() {
