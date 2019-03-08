@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -88,7 +89,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onLoginSuccess(FirebaseUser user) {
-
+        
         if (SharedPreferenceUtils.getInstance(this).getBoolean(Constants.PREF_ISFIRSTTIMEVISITED, false)) {
             startActivity(new Intent(this,MainActivity.class));
             finish();

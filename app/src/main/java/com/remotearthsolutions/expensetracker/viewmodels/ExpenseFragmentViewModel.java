@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.viewmodels;
 
+import androidx.lifecycle.ViewModel;
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
@@ -11,7 +12,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class ExpenseFragmentViewModel {
+public class ExpenseFragmentViewModel extends ViewModel {
 
     private ExpenseFragmentContract.View view;
     private ExpenseDao expenseDao;

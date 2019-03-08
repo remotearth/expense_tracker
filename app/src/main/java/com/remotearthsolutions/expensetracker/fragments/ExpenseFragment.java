@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
@@ -17,8 +18,10 @@ import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.utils.*;
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseFragmentViewModel;
+import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.ExpenseFragmentViewModelFactory;
 import org.parceler.Parcels;
 
 import java.util.Calendar;
@@ -31,9 +34,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
     private EditText expenseEdtxt, expenseNoteEdtxt;
 
     private ExpenseFragmentViewModel viewModel;
-
-    private CategoryModel selectedCategory;
-    private AccountModel selectedSourceAccount;
+    private CategoryExpense categoryExpense;
 
     private Bundle args;
 
@@ -59,7 +60,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         okBtn = view.findViewById(R.id.okBtn);
 
         String currencySymbol = "$";
-        if(getActivity()!=null){
+        if (getActivity() != null) {
             currencySymbol = Utils.getCurrency(getActivity());
         }
         expenseEdtxt.setHint(currencySymbol + " 0");
@@ -75,18 +76,32 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         CategoryDao categoryDao = DatabaseClient.getInstance(getActivity()).getAppDatabase().categoryDao();
 
         int accountId = SharedPreferenceUtils.getInstance(getActivity()).getInt(Constants.KEY_SELECTED_ACCOUNT_ID, 1);
-        viewModel = new ExpenseFragmentViewModel(this, expenseDao, accountDao, categoryDao);
+        viewModel = ViewModelProviders.of(this, new ExpenseFragmentViewModelFactory(this, expenseDao, accountDao, categoryDao))
+                .get(ExpenseFragmentViewModel.class);
         viewModel.init(accountId);
 
         args = getArguments();
         if (args != null) {
-            selectedCategory = Parcels.unwrap(args.getParcelable(Constants.CATEGORY_PARCEL));
-            if (selectedCategory != null) {
-                categoryBtnIv.setImageResource(CategoryIcons.getIconId(selectedCategory.getIcon()));
-                categoryNameTv.setText(selectedCategory.getName());
+            categoryExpense = Parcels.unwrap(args.getParcelable(Constants.CATEGORYEXPENSE_PARCEL));
+
+            if (categoryExpense != null) {
+                categoryBtnIv.setImageResource(CategoryIcons.getIconId(categoryExpense.getCategory_icon()));
+                categoryNameTv.setText(categoryExpense.getCategory_name());
+                expenseEdtxt.setText(Double.toString(categoryExpense.getTotal_amount()));
+                //set note
+
+                ///
+                if (categoryExpense.getDatetime() > 0) {
+                    dateTv.setText(DateTimeUtils.getDate(categoryExpense.getDatetime(), DateTimeUtils.dd_MM_yyyy));
+                }
+                //set account
+
+                ///
             } else {
                 viewModel.setDefaultCategory();
+
             }
+
         }
 
         expenseNoteEdtxt.setOnClickListener(v -> {
@@ -115,12 +130,12 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             final AccountDialogFragment accountDialogFragment = AccountDialogFragment.newInstance("Select Account");
             accountDialogFragment.setCallback(account -> {
 
+                categoryExpense.setAccount(account);
                 accountBtnIv.setImageResource(CategoryIcons.getIconId(account.getIcon()));
                 accountNameTv.setText(account.getName());
                 accountDialogFragment.dismiss();
 
-                selectedSourceAccount = account;
-                SharedPreferenceUtils.getInstance(getActivity()).putInt(Constants.KEY_SELECTED_ACCOUNT_ID, selectedSourceAccount.getId());
+                SharedPreferenceUtils.getInstance(getActivity()).putInt(Constants.KEY_SELECTED_ACCOUNT_ID, account.getId());
             });
             accountDialogFragment.show(fm, AccountDialogFragment.class.getName());
 
@@ -130,13 +145,13 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
             FragmentManager fm = getChildFragmentManager();
             final CategoryDialogFragment categoryDialogFragment = CategoryDialogFragment.newInstance("Select Category");
-            categoryDialogFragment.setCategory(selectedCategory.getId());
+            categoryDialogFragment.setCategory(categoryExpense.getCategory_id());
             categoryDialogFragment.setCallback(category -> {
                 categoryBtnIv.setImageResource(CategoryIcons.getIconId(category.getIcon()));
                 categoryNameTv.setText(category.getName());
                 categoryDialogFragment.dismiss();
 
-                selectedCategory = category;
+                categoryExpense.setCategory(category);
             });
             categoryDialogFragment.show(fm, CategoryDialogFragment.class.getName());
         });
@@ -162,12 +177,14 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             String expenseStr = expenseEdtxt.getText().toString();
             double amount = expenseStr.length() > 0 ? Double.parseDouble(expenseStr) : 0;
 
-
             ExpenseModel expenseModel = new ExpenseModel();
+            if(categoryExpense.getExpense_id()>0){
+                expenseModel.setId(categoryExpense.getExpense_id());
+            }
             expenseModel.setAmount(amount);
             expenseModel.setDatetime(DateTimeUtils.getTimeInMillisFromDateStr(dateTv.getText().toString(), DateTimeUtils.dd_MM_yyyy));
-            expenseModel.setCategoryId(selectedCategory.getId());
-            expenseModel.setSource(selectedSourceAccount.getId());
+            expenseModel.setCategoryId(categoryExpense.getCategory_id());
+            expenseModel.setSource(categoryExpense.getAccount_id());
             viewModel.addExpense(expenseModel);
         });
     }
@@ -180,16 +197,21 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
     @Override
     public void setSourceAccount(AccountModel account) {
-        selectedSourceAccount = account;
-        //accountBtnIv.setImageResource(account.getIcon_name());
-        accountBtnIv.setImageResource(R.drawable.ic_currency);
+        if (categoryExpense == null)
+            categoryExpense = new CategoryExpense();
+
+        categoryExpense.setAccount(account);
+        accountBtnIv.setImageResource(CategoryIcons.getIconId(account.getIcon()));
         accountNameTv.setText(account.getName());
         SharedPreferenceUtils.getInstance(getActivity()).putInt(Constants.KEY_SELECTED_ACCOUNT_ID, account.getId());
     }
 
     @Override
     public void showDefaultCategory(CategoryModel categoryModel) {
-        selectedCategory = categoryModel;
+        if (categoryExpense == null)
+            categoryExpense = new CategoryExpense();
+
+        categoryExpense.setCategory(categoryModel);
         categoryBtnIv.setImageResource(CategoryIcons.getIconId(categoryModel.getIcon()));
         categoryNameTv.setText(categoryModel.getName());
     }

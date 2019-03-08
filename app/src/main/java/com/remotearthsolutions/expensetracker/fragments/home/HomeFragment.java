@@ -10,16 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.razerdp.widget.animatedpieview.AnimatedPieViewConfig;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.activities.MainActivity;
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter;
 import com.remotearthsolutions.expensetracker.contracts.HomeFragmentContract;
+import com.remotearthsolutions.expensetracker.databaseutils.AppDatabase;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
-import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
-import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.databinding.FragmentHomeBinding;
 import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
 import com.remotearthsolutions.expensetracker.fragments.AddCategoryDialogFragment;
@@ -27,6 +28,7 @@ import com.remotearthsolutions.expensetracker.fragments.BaseFragment;
 import com.remotearthsolutions.expensetracker.utils.ChartManager;
 import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl;
 import com.remotearthsolutions.expensetracker.viewmodels.HomeFragmentViewModel;
+import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.HomeFragmentViewModelFactory;
 
 import java.util.List;
 
@@ -52,9 +54,9 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
         LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         binding.recyclerView.setLayoutManager(llm);
 
-        CategoryDao categoryDao = DatabaseClient.getInstance(getContext()).getAppDatabase().categoryDao();
-        AccountDao accountDao = DatabaseClient.getInstance(getContext()).getAppDatabase().accountDao();
-        viewModel = new HomeFragmentViewModel(this, categoryDao, accountDao);
+        AppDatabase db = DatabaseClient.getInstance(getContext()).getAppDatabase();
+        viewModel = ViewModelProviders.of(this, new HomeFragmentViewModelFactory(this, db.categoryExpenseDao(), db.categoryDao(), db.accountDao()))
+                .get(HomeFragmentViewModel.class);
         viewModel.init();
         viewModel.loadExpenseChart(startTime, endTime);
 
@@ -74,7 +76,9 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
         adapter = new CategoryListAdapter(categories);
         adapter.setOnItemClickListener(category -> {
             if (getActivity() != null) {
-                ((MainActivity) getActivity()).openAddExpenseScreen(category);
+                CategoryExpense categoryExpense = new CategoryExpense();
+                categoryExpense.setCategory(category);
+                ((MainActivity) getActivity()).openAddExpenseScreen(categoryExpense);
             }
         });
         binding.recyclerView.setAdapter(adapter);

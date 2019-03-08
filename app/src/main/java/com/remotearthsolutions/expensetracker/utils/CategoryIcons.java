@@ -142,12 +142,6 @@ public class CategoryIcons {
             put("cat_icon39", R.drawable.cat_icon39);
             put("cat_icon40", R.drawable.cat_icon40);
             put("cat_icon41", R.drawable.cat_icon41);
-
-
-
-
-
-
         }
     };
 
