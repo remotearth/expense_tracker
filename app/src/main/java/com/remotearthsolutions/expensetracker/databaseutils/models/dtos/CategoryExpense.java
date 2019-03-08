@@ -17,6 +17,7 @@ public class CategoryExpense {
     private int account_id;
     private String account_name;
     private String account_icon;
+    private String note;
 
     @Ignore
     public boolean isHeader = false;
@@ -30,7 +31,7 @@ public class CategoryExpense {
     }
 
     public CategoryExpense(int expense_id,int category_id, String category_name, String category_icon, double total_amount, long datetime,
-                           int account_id, String account_name, String account_icon) {
+                           int account_id, String account_name, String account_icon, String note) {
         this.expense_id = expense_id;
         this.category_id = category_id;
         this.category_name = category_name;
@@ -40,6 +41,7 @@ public class CategoryExpense {
         this.account_id = account_id;
         this.account_name = account_name;
         this.account_icon = account_icon;
+        this.note = note;
     }
 
     public CategoryExpense() {
@@ -115,6 +117,14 @@ public class CategoryExpense {
 
     public void setAccount_icon(String account_icon) {
         this.account_icon = account_icon;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     @Override

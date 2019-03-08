@@ -88,15 +88,10 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
                 categoryBtnIv.setImageResource(CategoryIcons.getIconId(categoryExpense.getCategory_icon()));
                 categoryNameTv.setText(categoryExpense.getCategory_name());
                 expenseEdtxt.setText(Double.toString(categoryExpense.getTotal_amount()));
-                //set note
-                //expenseNoteEdtxt.setText(categoryExpense.getNote());
-                ///
+                expenseNoteEdtxt.setText(categoryExpense.getNote());
                 if (categoryExpense.getDatetime() > 0) {
                     dateTv.setText(DateTimeUtils.getDate(categoryExpense.getDatetime(), DateTimeUtils.dd_MM_yyyy));
                 }
-                //set account
-
-                ///
             } else {
                 viewModel.setDefaultCategory();
 
