@@ -37,11 +37,8 @@ import java.util.List;
 public class DashboardFragment extends BaseFragment implements InAppBillingCallback {
 
     private ActivityCheckout mCheckout;
-    private Inventory mInventory;
     private DashboardViewModel dashboardViewModel;
     private ListView lv;
-    private DashboardAdapter adapter;
-    private ArrayList<DashboardModel> dashboardlist;
 
     public DashboardFragment() {
 
@@ -55,7 +52,7 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
         mCheckout.start();
         mCheckout.createPurchaseFlow(new PurchaseListener(this));
 
-        mInventory = mCheckout.makeInventory();
+        Inventory mInventory = mCheckout.makeInventory();
         mInventory.load(Inventory.Request.create()
                 .loadAllPurchases()
                 .loadSkus(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM), new InventoryCallback());
@@ -98,11 +95,11 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
     }
 
     private void loaddashboarddata() {
-        dashboardlist = new ArrayList<>();
+        ArrayList<DashboardModel> dashboardlist = new ArrayList<>();
         dashboardlist.add(new DashboardModel(R.drawable.ic_share, Constants.SHARE_T0_EMAIL));
         dashboardlist.add(new DashboardModel(R.drawable.ic_import, Constants.IMPORT_FILE));
         dashboardlist.add(new DashboardModel(R.drawable.ic_cart, Constants.BUY_THE_PRODUCT));
-        adapter = new DashboardAdapter(getActivity(), dashboardlist);
+        DashboardAdapter adapter = new DashboardAdapter(getActivity(), dashboardlist);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener((parent, view, position, id) -> {
 
@@ -122,17 +119,32 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
                         return;
                     }
 
-                    final CharSequence[] csvList = allCsvFile.toArray(new String[allCsvFile.size()]);
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
-                    dialogBuilder.setTitle("Select a .csv file");
-                    dialogBuilder.setItems(csvList, (dialog, item) -> {
-                        String selectedText = csvList[item].toString();
-                        String filePath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), selectedText).getAbsolutePath();
-                        dashboardViewModel.importDataFromFile(filePath);
-                    });
+                    showAlert("Attention",
+                            "This will replace your current entries. Are you sure you want to import data?",
+                            "Yes",
+                            "Cancel", new Callback() {
+                                @Override
+                                public void onOkBtnPressed() {
 
-                    AlertDialog alertDialogObject = dialogBuilder.create();
-                    alertDialogObject.show();
+                                    final CharSequence[] csvList = allCsvFile.toArray(new String[allCsvFile.size()]);
+                                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+                                    dialogBuilder.setTitle("Select a .csv file");
+                                    dialogBuilder.setItems(csvList, (dialog, item) -> {
+                                        String selectedText = csvList[item].toString();
+                                        String filePath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), selectedText).getAbsolutePath();
+                                        dashboardViewModel.importDataFromFile(filePath);
+                                    });
+
+                                    AlertDialog alertDialogObject = dialogBuilder.create();
+                                    alertDialogObject.show();
+                                    
+                                }
+
+                                @Override
+                                public void onCancelBtnPressed() {
+
+                                }
+                            });
 
                     break;
 

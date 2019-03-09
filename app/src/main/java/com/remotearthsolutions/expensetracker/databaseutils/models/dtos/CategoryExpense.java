@@ -3,6 +3,7 @@ package com.remotearthsolutions.expensetracker.databaseutils.models.dtos;
 import androidx.room.Ignore;
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
 import org.parceler.Parcel;
 
 @Parcel
@@ -30,7 +31,7 @@ public class CategoryExpense {
         this.datetime = datetime;
     }
 
-    public CategoryExpense(int expense_id,int category_id, String category_name, String category_icon, double total_amount, long datetime,
+    public CategoryExpense(int expense_id, int category_id, String category_name, String category_icon, double total_amount, long datetime,
                            int account_id, String account_name, String account_icon, String note) {
         this.expense_id = expense_id;
         this.category_id = category_id;
@@ -129,11 +130,11 @@ public class CategoryExpense {
 
     @Override
     public String toString() {
-        return category_id + ", " +
+        return DateTimeUtils.getDate(datetime, DateTimeUtils.dd_MM_yyyy) + ", " +
                 category_name + ", " +
-                category_icon + ", " +
                 total_amount + ", " +
-                datetime + "\n";
+                account_name + ", " +
+                note + "\n";
     }
 
     public void setCategory(CategoryModel category) {
