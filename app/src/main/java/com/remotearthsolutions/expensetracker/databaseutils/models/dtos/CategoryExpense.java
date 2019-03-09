@@ -9,16 +9,16 @@ import org.parceler.Parcel;
 @Parcel
 public class CategoryExpense {
 
-    private int expense_id;
-    private int category_id;
-    private String category_name;
-    private String category_icon;
-    private double total_amount;
-    private long datetime;
-    private int account_id;
-    private String account_name;
-    private String account_icon;
-    private String note;
+    int expense_id;
+    int category_id;
+    String category_name;
+    String category_icon;
+    double total_amount;
+    long datetime;
+    int account_id;
+    String account_name;
+    String account_icon;
+    String note;
 
     @Ignore
     public boolean isHeader = false;
