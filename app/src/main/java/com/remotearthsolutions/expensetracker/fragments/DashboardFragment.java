@@ -13,6 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProviders;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
 import com.remotearthsolutions.expensetracker.adapters.DashboardAdapter;
@@ -24,6 +29,7 @@ import com.remotearthsolutions.expensetracker.services.FileProcessingServiceImp;
 import com.remotearthsolutions.expensetracker.services.InventoryCallback;
 import com.remotearthsolutions.expensetracker.services.PurchaseListener;
 import com.remotearthsolutions.expensetracker.utils.Constants;
+import com.remotearthsolutions.expensetracker.utils.PermissionUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.DashboardViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.DashBoardViewModelFactory;
 import org.solovyev.android.checkout.*;
@@ -107,18 +113,10 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
 
                 case 0:
                     dashboardViewModel.saveExpenseToCSV(getActivity());
-                    dashboardViewModel.shareCSV_FileToMail(getActivity());
+                    //dashboardViewModel.shareCSV_FileToMail(getActivity());
                     break;
 
                 case 1:
-
-                    List<String> allCsvFile = dashboardViewModel.getAllCsvFile();
-
-                    if (allCsvFile == null || allCsvFile.size() == 0) {
-                        Toast.makeText(getActivity(), "No expense tracker supported file is found", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
                     showAlert("Attention",
                             "This will replace your current entries. Are you sure you want to import data?",
                             "Yes",
@@ -126,18 +124,43 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
                                 @Override
                                 public void onOkBtnPressed() {
 
-                                    final CharSequence[] csvList = allCsvFile.toArray(new String[allCsvFile.size()]);
-                                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
-                                    dialogBuilder.setTitle("Select a .csv file");
-                                    dialogBuilder.setItems(csvList, (dialog, item) -> {
-                                        String selectedText = csvList[item].toString();
-                                        String filePath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), selectedText).getAbsolutePath();
-                                        dashboardViewModel.importDataFromFile(filePath);
-                                    });
+                                    new PermissionUtils().writeExternalStoragePermission(getActivity(), new PermissionListener() {
+                                        @Override
+                                        public void onPermissionGranted(PermissionGrantedResponse response) {
 
-                                    AlertDialog alertDialogObject = dialogBuilder.create();
-                                    alertDialogObject.show();
-                                    
+                                            List<String> allCsvFile = dashboardViewModel.getAllCsvFile();
+
+                                            if (allCsvFile == null || allCsvFile.size() == 0) {
+                                                Toast.makeText(getActivity(), "No expense tracker supported file is found", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+
+                                            final CharSequence[] csvList = allCsvFile.toArray(new String[allCsvFile.size()]);
+                                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+                                            dialogBuilder.setTitle("Select a .csv file");
+                                            dialogBuilder.setItems(csvList, (dialog, item) -> {
+                                                String selectedText = csvList[item].toString();
+                                                String filePath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), selectedText).getAbsolutePath();
+                                                dashboardViewModel.importDataFromFile(filePath);
+                                            });
+
+                                            AlertDialog alertDialogObject = dialogBuilder.create();
+                                            alertDialogObject.show();
+
+                                        }
+
+                                        @Override
+                                        public void onPermissionDenied(PermissionDeniedResponse response) {
+                                            showAlert("", "Read/write permission on external storage is needed to export/import data.",
+                                                    "Ok", null, null);
+                                        }
+
+                                        @Override
+                                        public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                                            Toast.makeText(getActivity(), "Read/write permission on external storage is needed to export/import data. Please enable it from device settings.",
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                                 }
 
                                 @Override

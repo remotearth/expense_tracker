@@ -130,7 +130,7 @@ public class CategoryExpense {
 
     @Override
     public String toString() {
-        return DateTimeUtils.getDate(datetime, DateTimeUtils.dd_MM_yyyy) + ", " +
+        return DateTimeUtils.getDate(datetime, DateTimeUtils.dd_MM_yyyy_h_mm) + ", " +
                 category_name + ", " +
                 total_amount + ", " +
                 account_name + ", " +

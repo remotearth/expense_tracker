@@ -39,7 +39,7 @@ public class DashboardViewModel extends ViewModel {
 
     public void saveExpenseToCSV(Activity activity) {
         StringBuilder stringBuilder = new StringBuilder();
-
+        stringBuilder.append("\n\nDate,Category,Amount,From,Note\n");
         disposable.add(categoryExpenseDao.getAllFilterExpense()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -72,7 +72,9 @@ public class DashboardViewModel extends ViewModel {
                                                     String encryptedStr2 = Base64.encodeToString(json2.getBytes("UTF-8"), Base64.NO_WRAP);
                                                     stringBuilder.append("meta3:" + encryptedStr2 + "\n");
 
-                                                    fileProcessingService.writeOnCsvFile(activity, stringBuilder.toString());
+                                                    fileProcessingService.writeOnCsvFile(activity, stringBuilder.toString(), () -> {
+                                                        shareCSV_FileToMail(activity);
+                                                    });
                                                 });
                                     });
                         });

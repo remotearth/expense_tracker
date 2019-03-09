@@ -79,18 +79,25 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             if (categoryExpense != null) {
                 categoryBtnIv.setImageResource(CategoryIcons.getIconId(categoryExpense.getCategory_icon()));
                 categoryNameTv.setText(categoryExpense.getCategory_name());
-                expenseEdtxt.setText(Double.toString(categoryExpense.getTotal_amount()));
+                if (categoryExpense.getTotal_amount() > 0) {
+                    expenseEdtxt.setText(Double.toString(categoryExpense.getTotal_amount()));
+                }
                 expenseNoteEdtxt.setText(categoryExpense.getNote());
-                accountBtnIv.setImageResource(CategoryIcons.getIconId(categoryExpense.getAccount_icon()));
-                accountNameTv.setText(categoryExpense.getAccount_name());
                 if (categoryExpense.getDatetime() > 0) {
                     dateTv.setText(DateTimeUtils.getDate(categoryExpense.getDatetime(), DateTimeUtils.dd_MM_yyyy));
                 }
             } else {
-                int accountId = SharedPreferenceUtils.getInstance(getActivity()).getInt(Constants.KEY_SELECTED_ACCOUNT_ID, 1);
-                viewModel.setDefaultSourceAccount(accountId);
                 viewModel.setDefaultCategory();
             }
+
+            if (categoryExpense != null && categoryExpense.getAccount_icon() != null) {
+                accountBtnIv.setImageResource(CategoryIcons.getIconId(categoryExpense.getAccount_icon()));
+                accountNameTv.setText(categoryExpense.getAccount_name());
+            } else {
+                int accountId = SharedPreferenceUtils.getInstance(getActivity()).getInt(Constants.KEY_SELECTED_ACCOUNT_ID, 1);
+                viewModel.setDefaultSourceAccount(accountId);
+            }
+
         }
 
         expenseNoteEdtxt.setOnClickListener(v -> {
@@ -171,7 +178,8 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
                 expenseModel.setId(categoryExpense.getExpense_id());
             }
             expenseModel.setAmount(amount);
-            expenseModel.setDatetime(DateTimeUtils.getTimeInMillisFromDateStr(dateTv.getText().toString(), DateTimeUtils.dd_MM_yyyy));
+            expenseModel.setDatetime(DateTimeUtils.getTimeInMillisFromDateStr(dateTv.getText().toString()
+                    + " " + DateTimeUtils.getCurrentTime(), DateTimeUtils.dd_MM_yyyy_h_mm));
             expenseModel.setCategoryId(categoryExpense.getCategory_id());
             expenseModel.setSource(categoryExpense.getAccount_id());
             expenseModel.setNote(expenseNoteEdtxt.getText().toString());

@@ -11,6 +11,7 @@ import java.util.TimeZone;
 public class DateTimeUtils {
 
     public static final String dd_MM_yyyy = "dd-MM-yyyy";
+    public static final String dd_MM_yyyy_h_mm = "dd-MM-yyyy h:mm a";
     public static final String MM_yy = "MMMM,yy";
     public static final String yyyy = "yyyy";
     public static final String mmmm = "MMMM";
@@ -19,6 +20,12 @@ public class DateTimeUtils {
     public static String getCurrentDate(String format){
         Calendar calendar = Calendar.getInstance();
         DateFormat dateFormat = new SimpleDateFormat(format, Locale.getDefault());
+        return dateFormat.format(calendar.getTime());
+    }
+
+    public static String getCurrentTime(){
+        Calendar calendar = Calendar.getInstance();
+        DateFormat dateFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
         return dateFormat.format(calendar.getTime());
     }
 
