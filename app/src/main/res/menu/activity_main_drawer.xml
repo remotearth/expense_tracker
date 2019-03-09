@@ -34,10 +34,10 @@
                         android:icon="@drawable/ic_about"
                         android:title="@string/menu_about"/>
 
-                <item
-                        android:id="@+id/nav_privacypolicy"
-                        android:icon="@drawable/ic_privacypolicy"
-                        android:title="@string/privacy_policy"/>
+                <!--<item-->
+                        <!--android:id="@+id/nav_privacypolicy"-->
+                        <!--android:icon="@drawable/ic_privacypolicy"-->
+                        <!--android:title="@string/privacy_policy"/>-->
 
                 <item
                         android:id="@+id/nav_licenses"

@@ -34,12 +34,13 @@ public class FileProcessingServiceImp implements FileProcessingService {
     }
 
     @Override
-    public void writeOnCsvFile(Activity activity, String content) {
-
+    public void writeOnCsvFile(Activity activity, String content, Runnable runnable) {
         writePermission.writeExternalStoragePermission(activity, new PermissionListener() {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse response) {
-                writeExternalFile(content);
+                if(writeExternalFile(content)){
+                    runnable.run();
+                };
             }
 
             @Override
@@ -164,11 +165,14 @@ public class FileProcessingServiceImp implements FileProcessingService {
             activity.startActivity(Intent.createChooser(emailIntent, "Choose Email Client To Send Report"));
 
         } catch (Throwable t) {
-            Toast.makeText(activity, "Report Sending Failed Please Try Again Later " + t.toString(), Toast.LENGTH_LONG).show();
+            t.printStackTrace();
+            Toast.makeText(activity, "Report Sending Failed Please Try Again Later ", Toast.LENGTH_LONG).show();
         }
     }
 
-    private void writeExternalFile(String content) {
+    private boolean writeExternalFile(String content) {
+
+        boolean isSuccess = true;
 
         File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), createFileNameAccordingToDate());
 
@@ -186,8 +190,10 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
         } catch (FileNotFoundException e) {
             Log.d("error", "File Not Found");
+            isSuccess = false;
         } catch (IOException io) {
             Log.d("error", "Error File Creating");
+            isSuccess = false;
         } finally {
             if (fw != null) {
                 try {
@@ -198,6 +204,8 @@ public class FileProcessingServiceImp implements FileProcessingService {
                 }
             }
         }
+
+        return isSuccess;
     }
 
     private void forceUserToGrantPermission(Activity activity) {

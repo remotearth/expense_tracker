@@ -9,7 +9,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.Category
 import java.util.List;
 
 public interface FileProcessingService {
-    void writeOnCsvFile(Activity activity, String content);
+    void writeOnCsvFile(Activity activity, String content, Runnable runnable);
     List<CategoryExpense> readFromCsvFile(Activity activity);
     void loadTableData(String filepath, Callback callback);
     List<String> getNameOfAllCsvFile();

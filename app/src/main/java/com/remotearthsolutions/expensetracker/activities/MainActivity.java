@@ -23,7 +23,6 @@ import com.google.gson.Gson;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.callbacks.InAppBillingCallback;
 import com.remotearthsolutions.expensetracker.contracts.MainContract;
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.databinding.ActivityMainBinding;
 import com.remotearthsolutions.expensetracker.entities.User;
@@ -90,7 +89,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void initializeView() {
         setupActionBar();
         binding.navView.setNavigationItemSelectedListener(this);
-        loadMainFragment();
+        MenuItem homeNavItem = binding.navView.getMenu().getItem(0);
+        onNavigationItemSelected(homeNavItem);
+        homeNavItem.setChecked(true);
     }
 
     private void setupActionBar() {
@@ -99,14 +100,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 this, binding.drawerLayout, binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-    }
-
-    private void loadMainFragment() {
-        mainFragment = new MainFragment();
-        mainFragment.setActionBar(getSupportActionBar());
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.framelayout, mainFragment, MainFragment.class.getName());
-        fragmentTransaction.commit();
     }
 
     @Override
@@ -244,18 +237,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 break;
             }
 
-            case R.id.nav_privacypolicy: {
-                WebViewFragment webViewFragment = new WebViewFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("screen", "privacy_policy");
-                bundle.putString(Constants.KEY_URL, Constants.URL_PRIVACY_POLICY);
-                webViewFragment.setArguments(bundle);
-                getSupportActionBar().setTitle("Privacy Policy");
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.framelayout, webViewFragment, Constants.URL_PRIVACY_POLICY_TAG);
-                fragmentTransaction.commit();
-                break;
-            }
+//            case R.id.nav_privacypolicy: {
+//                WebViewFragment webViewFragment = new WebViewFragment();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("screen", "privacy_policy");
+//                bundle.putString(Constants.KEY_URL, Constants.URL_PRIVACY_POLICY);
+//                webViewFragment.setArguments(bundle);
+//                getSupportActionBar().setTitle("Privacy Policy");
+//                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(R.id.framelayout, webViewFragment, Constants.URL_PRIVACY_POLICY_TAG);
+//                fragmentTransaction.commit();
+//                break;
+//            }
 
             case R.id.nav_licenses: {
                 getSupportActionBar().setTitle("Licenses");
@@ -310,13 +303,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void onLoaded(@Nonnull Inventory.Products products) {
         if (!products.get(ProductTypes.IN_APP).isPurchased(Constants.TEST_PURCHASED_ITEM)) {
 
-            int delay = new Random().nextInt(15000 - 2000) + 2000;
+            int delay = new Random().nextInt(10000 - 2000) + 2000;
             Log.d(MainActivity.class.getName(), "Delay before showing ad: " + delay);
 
             AdmobUtils.getInstance(MainActivity.this).appShouldShowAds(true);
             new Handler().postDelayed(() -> {
                 AdmobUtils.getInstance(MainActivity.this).showInterstitialAds();
             }, delay);
+
+            Handler handler = new Handler();
+
         }
     }
 
