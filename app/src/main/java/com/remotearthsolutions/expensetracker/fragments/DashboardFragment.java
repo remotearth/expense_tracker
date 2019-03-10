@@ -80,6 +80,7 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
 
     @Override
     public void onPurchaseSuccessListener(Purchase purchase) {
+        ((ApplicationObject)getActivity().getApplication()).setPremium(true);
         Toast.makeText(getActivity(), "Thank you for purchasing this item", Toast.LENGTH_SHORT).show();
     }
 
@@ -113,7 +114,6 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
 
                 case 0:
                     dashboardViewModel.saveExpenseToCSV(getActivity());
-                    //dashboardViewModel.shareCSV_FileToMail(getActivity());
                     break;
 
                 case 1:

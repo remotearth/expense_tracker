@@ -13,6 +13,7 @@ import org.solovyev.android.checkout.Billing;
 public class ApplicationObject extends MultiDexApplication implements Application.ActivityLifecycleCallbacks {
 
     private boolean activityVisible;
+    private boolean isPremium;
     private Activity currentActivity;
 
     private static ApplicationObject sInstance;
@@ -93,5 +94,13 @@ public class ApplicationObject extends MultiDexApplication implements Applicatio
 
     public Billing getBilling() {
         return mBilling;
+    }
+
+    public boolean isPremium() {
+        return isPremium;
+    }
+
+    public void setPremium(boolean premium) {
+        isPremium = premium;
     }
 }

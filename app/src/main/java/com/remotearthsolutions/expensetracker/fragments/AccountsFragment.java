@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
 import com.remotearthsolutions.expensetracker.adapters.AccountsAdapter;
 import com.remotearthsolutions.expensetracker.contracts.AccountContract;
 import com.remotearthsolutions.expensetracker.contracts.BaseView;
@@ -63,16 +64,13 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
 
         view.findViewById(R.id.addAccountBtn).setOnClickListener(v -> {
 
-            if (limitOfAccount < 5)
-            {
+            if (limitOfAccount < 5 ||
+                    ((ApplicationObject) getActivity().getApplication()).isPremium()) {
                 selectAccountModel = null;
                 onClickEditBtn();
+            } else {
+                showAlert("Attention", "You need to be premium user to add more Account", "Ok", null, null);
             }
-            else
-            {
-                 showAlert("Attention", "You need to be premium user to add more Account", "Ok", null, null);
-            }
-
         });
     }
 

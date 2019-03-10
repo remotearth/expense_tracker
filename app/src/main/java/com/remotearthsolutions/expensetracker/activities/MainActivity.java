@@ -302,6 +302,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public void onLoaded(@Nonnull Inventory.Products products) {
         if (!products.get(ProductTypes.IN_APP).isPurchased(Constants.TEST_PURCHASED_ITEM)) {
+            ((ApplicationObject) getApplication()).setPremium(false);
 
             int delay = new Random().nextInt(10000 - 2000) + 2000;
             Log.d(MainActivity.class.getName(), "Delay before showing ad: " + delay);
@@ -311,8 +312,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 AdmobUtils.getInstance(MainActivity.this).showInterstitialAds();
             }, delay);
 
-            Handler handler = new Handler();
-
+        } else {
+            ((ApplicationObject) getApplication()).setPremium(true);
         }
     }
 
