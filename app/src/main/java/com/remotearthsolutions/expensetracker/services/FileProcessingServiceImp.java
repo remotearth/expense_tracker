@@ -153,12 +153,10 @@ public class FileProcessingServiceImp implements FileProcessingService {
         try {
 
             File fileLocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), createFileNameAccordingToDate());
-//            Uri uri = Uri.fromFile(fileLocation);
             Uri uri = FileProvider.getUriForFile(activity, "com.remotearthsolutions.expensetracker.provider", fileLocation);
 
             final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
             emailIntent.setType("plain/text");
-            emailIntent.setType("image/*");
 
             emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
             emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{emailAddress});
