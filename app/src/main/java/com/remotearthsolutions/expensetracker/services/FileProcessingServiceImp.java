@@ -39,7 +39,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
         writePermission.writeExternalStoragePermission(activity, new PermissionListener() {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse response) {
-                if(writeExternalFile(content)){
+                if (writeExternalFile(content)) {
                     runnable.run();
                 }
             }
@@ -124,8 +124,6 @@ public class FileProcessingServiceImp implements FileProcessingService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
         }
     }
 

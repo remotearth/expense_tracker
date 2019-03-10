@@ -7,15 +7,16 @@
 
     <LinearLayout
             android:id="@+id/addAmountBtn"
-            android:padding="10dp"
+            android:padding="20dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/ic_amount"/>
 
         <TextView
@@ -27,18 +28,23 @@
                 android:text="Add amount"/>
 
     </LinearLayout>
-
+    <View
+            android:id="@+id/underLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/Ashcolor"/>
     <LinearLayout
             android:id="@+id/editBtn"
-            android:padding="10dp"
+            android:padding="20dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/ic_editamount"/>
 
         <TextView
@@ -50,18 +56,22 @@
                 android:text="Edit"/>
 
     </LinearLayout>
-
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/Ashcolor"/>
     <LinearLayout
             android:id="@+id/deleteBtn"
-            android:padding="10dp"
+            android:padding="20dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/ic_deleteamount"/>
 
         <TextView
@@ -73,5 +83,4 @@
                 android:text="Delete"/>
 
     </LinearLayout>
-
 </LinearLayout>

@@ -73,7 +73,8 @@ public class ExpenseViewModel extends ViewModel {
                             }
 
                             if (dateRangeBtnId != R.id.dailyRangeBtn) {
-                                if (expense.getDatetime() != previousDate) {
+                                if (!DateTimeUtils.getDate(expense.getDatetime(), DateTimeUtils.dd_MM_yyyy)
+                                        .equals(DateTimeUtils.getDate(previousDate, DateTimeUtils.dd_MM_yyyy))) {
                                     CategoryExpense dummy = new CategoryExpense();
                                     dummy.isHeader = true;
                                     dummy.setCategory_name(DateTimeUtils.getDate(expense.getDatetime(), DateTimeUtils.dd_MM_yyyy));

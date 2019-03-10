@@ -30,12 +30,15 @@ import com.remotearthsolutions.expensetracker.fragments.*;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.services.PurchaseListener;
 import com.remotearthsolutions.expensetracker.utils.AdmobUtils;
+import com.remotearthsolutions.expensetracker.utils.CheckoutUtils;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.MainViewModelFactory;
 import org.parceler.Parcels;
-import org.solovyev.android.checkout.*;
+import org.solovyev.android.checkout.Inventory;
+import org.solovyev.android.checkout.ProductTypes;
+import org.solovyev.android.checkout.Purchase;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
@@ -48,12 +51,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private MainFragment mainFragment;
     private long backPressedTime = 0;
 
-    private ActivityCheckout mCheckout;
-    private Inventory mInventory;
+    private CheckoutUtils checkoutUtils;
+    private String productId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        productId = ((ApplicationObject) getApplication()).getAdProductId();
+        checkoutUtils = CheckoutUtils.getInstance(this);
+        checkoutUtils.start();
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         viewModel = ViewModelProviders.of(this,
@@ -76,8 +83,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected void onPause() {
         super.onPause();
         ((ApplicationObject) getApplication()).activityPaused();
-        mCheckout.stop();
-
     }
 
     @Override
@@ -116,17 +121,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void startLoadingApp() {
-
         viewModel.init();
-
-        mCheckout = Checkout.forActivity(this, ApplicationObject.get().getBilling());
-        mCheckout.start();
-
-        mCheckout.createPurchaseFlow(new PurchaseListener(this));
-        mInventory = mCheckout.makeInventory();
-        mInventory.load(Inventory.Request.create()
-                .loadAllPurchases()
-                .loadSkus(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM), this);
+        checkoutUtils.createPurchaseFlow(new PurchaseListener(this));
+        checkoutUtils.load(this, productId);
     }
 
     @Override
@@ -135,11 +132,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Intent intent = new Intent(this, CurrencySelectionActivity.class);
         startActivity(intent);
         finish();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
     }
 
     @Override
@@ -175,6 +167,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 backPressedTime = t;
                 Toast.makeText(this, "Press once again to close app", Toast.LENGTH_SHORT).show();
             } else {
+                checkoutUtils.stop();
+                CheckoutUtils.clearInstance();
                 super.onBackPressed();
             }
 
@@ -289,19 +283,22 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onPurchaseSuccessListener(Purchase purchase) {
-        if (purchase.sku.equals(Constants.TEST_PURCHASED_ITEM)) {
+        ((ApplicationObject) getApplication()).setPremium(true);
+        if (purchase.sku.equals(productId)) {
             AdmobUtils.getInstance(MainActivity.this).appShouldShowAds(false);
         }
     }
 
     @Override
     public void onPurchaseFailedListener(String error) {
-
+        showToast(error);
     }
 
     @Override
     public void onLoaded(@Nonnull Inventory.Products products) {
-        if (!products.get(ProductTypes.IN_APP).isPurchased(Constants.TEST_PURCHASED_ITEM)) {
+        String productId = ((ApplicationObject) getApplication()).getAdProductId();
+        if (!products.get(ProductTypes.IN_APP).isPurchased(productId)) {
+            ((ApplicationObject) getApplication()).setPremium(false);
 
             int delay = new Random().nextInt(10000 - 2000) + 2000;
             Log.d(MainActivity.class.getName(), "Delay before showing ad: " + delay);
@@ -311,9 +308,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 AdmobUtils.getInstance(MainActivity.this).showInterstitialAds();
             }, delay);
 
-            Handler handler = new Handler();
-
+        } else {
+            ((ApplicationObject) getApplication()).setPremium(true);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        CheckoutUtils.getInstance(this).getCheckout().onActivityResult(requestCode, resultCode, data);
     }
 
     public Toolbar getToolbar() {

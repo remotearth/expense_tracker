@@ -9,11 +9,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.razerdp.widget.animatedpieview.AnimatedPieViewConfig;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
 import com.remotearthsolutions.expensetracker.activities.MainActivity;
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter;
 import com.remotearthsolutions.expensetracker.contracts.HomeFragmentContract;
@@ -103,11 +104,12 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
 
         if (v.getId() == R.id.addCategoryBtn) {
 
-            if (limitOfCategory < 20) {
-                FragmentManager fm = getChildFragmentManager();
+            if (limitOfCategory < 20 ||
+                    ((ApplicationObject) getActivity().getApplication()).isPremium()) {
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 final AddCategoryDialogFragment categoryDialogFragment = AddCategoryDialogFragment.newInstance("Add Category");
                 categoryDialogFragment.setCallback(categoryModel -> categoryDialogFragment.dismiss());
-                categoryDialogFragment.show(fm, AddCategoryDialogFragment.class.getName());
+                categoryDialogFragment.show(ft, AddCategoryDialogFragment.class.getName());
             } else {
                 showAlert("Attention", "You need to be premium user to add more categories", "Ok", null, null);
             }

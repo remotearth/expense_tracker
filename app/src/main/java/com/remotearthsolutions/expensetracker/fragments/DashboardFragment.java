@@ -1,7 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -21,18 +20,18 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
 import com.remotearthsolutions.expensetracker.adapters.DashboardAdapter;
-import com.remotearthsolutions.expensetracker.callbacks.InAppBillingCallback;
 import com.remotearthsolutions.expensetracker.databaseutils.AppDatabase;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.entities.DashboardModel;
 import com.remotearthsolutions.expensetracker.services.FileProcessingServiceImp;
-import com.remotearthsolutions.expensetracker.services.InventoryCallback;
-import com.remotearthsolutions.expensetracker.services.PurchaseListener;
+import com.remotearthsolutions.expensetracker.utils.CheckoutUtils;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.PermissionUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.DashboardViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.DashBoardViewModelFactory;
-import org.solovyev.android.checkout.*;
+import org.solovyev.android.checkout.BillingRequests;
+import org.solovyev.android.checkout.Checkout;
+import org.solovyev.android.checkout.ProductTypes;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -40,11 +39,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class DashboardFragment extends BaseFragment implements InAppBillingCallback {
+public class DashboardFragment extends BaseFragment {
 
-    private ActivityCheckout mCheckout;
     private DashboardViewModel dashboardViewModel;
     private ListView lv;
+    private String productId;
+    private CheckoutUtils checkoutUtils;
 
     public DashboardFragment() {
 
@@ -54,14 +54,7 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mCheckout = Checkout.forActivity(getActivity(), ApplicationObject.get().getBilling());
-        mCheckout.start();
-        mCheckout.createPurchaseFlow(new PurchaseListener(this));
-
-        Inventory mInventory = mCheckout.makeInventory();
-        mInventory.load(Inventory.Request.create()
-                .loadAllPurchases()
-                .loadSkus(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM), new InventoryCallback());
+        productId = ((ApplicationObject) getActivity().getApplication()).getAdProductId();
         AppDatabase db = DatabaseClient.getInstance(getContext()).getAppDatabase();
         dashboardViewModel = ViewModelProviders.of(this, new DashBoardViewModelFactory(db.categoryExpenseDao(), db.expenseDao(),
                 db.categoryDao(), db.accountDao(), new FileProcessingServiceImp())).get(DashboardViewModel.class);
@@ -70,34 +63,11 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_share, container, false);
+        checkoutUtils = CheckoutUtils.getInstance(getActivity());
         lv = view.findViewById(R.id.dashboardlist);
         loaddashboarddata();
         return view;
-    }
-
-
-    @Override
-    public void onPurchaseSuccessListener(Purchase purchase) {
-        Toast.makeText(getActivity(), "Thank you for purchasing this item", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onPurchaseFailedListener(String error) {
-        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onDestroy() {
-        mCheckout.stop();
-        super.onDestroy();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        mCheckout.onActivityResult(requestCode, resultCode, data);
     }
 
     private void loaddashboarddata() {
@@ -110,10 +80,8 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
         lv.setOnItemClickListener((parent, view, position, id) -> {
 
             switch (position) {
-
                 case 0:
                     dashboardViewModel.saveExpenseToCSV(getActivity());
-                    //dashboardViewModel.shareCSV_FileToMail(getActivity());
                     break;
 
                 case 1:
@@ -172,16 +140,13 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
                     break;
 
                 case 2:
-                    mCheckout.whenReady(new Checkout.EmptyListener() {
+                    checkoutUtils.getCheckout().whenReady(new Checkout.EmptyListener() {
                         @Override
                         public void onReady(@Nonnull BillingRequests requests) {
-                            requests.purchase(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM, null, mCheckout.getPurchaseFlow());
+                            requests.purchase(ProductTypes.IN_APP, productId, null, checkoutUtils.getPurchaseFlow());
                         }
                     });
                     break;
-
-
-                default:
             }
         });
     }

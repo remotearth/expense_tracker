@@ -184,6 +184,8 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             expenseModel.setSource(categoryExpense.getAccount_id());
             expenseModel.setNote(expenseNoteEdtxt.getText().toString());
             viewModel.addExpense(expenseModel);
+            viewModel.updateAccountAmount(categoryExpense.getAccount_id(),amount);
+
         });
     }
 
