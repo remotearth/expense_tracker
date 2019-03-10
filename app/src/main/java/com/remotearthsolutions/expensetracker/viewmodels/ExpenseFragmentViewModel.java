@@ -31,7 +31,7 @@ public class ExpenseFragmentViewModel extends ViewModel {
         view.defineClickListener();
     }
 
-    public void setDefaultSourceAccount(int accountId){
+    public void setDefaultSourceAccount(int accountId) {
         compositeDisposable.add(accountDao.getAccountById(accountId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(accountIncome -> {
@@ -57,6 +57,19 @@ public class ExpenseFragmentViewModel extends ViewModel {
         } else {
             view.showToast("Please enter an amount");
         }
+    }
+
+    public void updateAccountAmount(int accountId, double amount) {
+        compositeDisposable.add(accountDao.getAccountById(accountId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.computation())
+                .subscribe(accountModel -> {
+                    double previousAmount = accountModel.getAmount();
+                    previousAmount -= amount;
+                    accountModel.setAmount(previousAmount);
+                    accountDao.updateAccount(accountModel);
+                })
+        );
     }
 
     public void setDefaultCategory() {
