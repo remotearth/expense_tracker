@@ -6,8 +6,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -89,14 +87,11 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
 
         ChartManager chartManager = new ChartManagerImpl();
         chartManager.initPierChart();
-        if (listOfCategoryWithAmount.size() == 0)
-        {
+        if (listOfCategoryWithAmount.size() == 0) {
             binding.chartView.setVisibility(View.GONE);
             binding.nodatacontainer.setVisibility(View.VISIBLE);
 
-        }
-        else
-        {
+        } else {
             binding.chartView.setVisibility(View.VISIBLE);
             binding.nodatacontainer.setVisibility(View.GONE);
             chartManager.loadExpensePieChart(this, listOfCategoryWithAmount);
