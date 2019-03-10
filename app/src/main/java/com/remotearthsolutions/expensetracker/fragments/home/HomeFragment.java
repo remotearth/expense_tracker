@@ -87,7 +87,7 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
 
         ChartManager chartManager = new ChartManagerImpl();
         chartManager.initPierChart();
-        if (listOfCategoryWithAmount.size() == 0) {
+        if (listOfCategoryWithAmount == null || listOfCategoryWithAmount.size() == 0) {
             binding.chartView.setVisibility(View.GONE);
             binding.nodatacontainer.setVisibility(View.VISIBLE);
 

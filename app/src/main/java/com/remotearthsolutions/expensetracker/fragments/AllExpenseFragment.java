@@ -63,7 +63,7 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
 
         adapter = new ExpenseListAdapter(listOffilterExpense, currencySymbol);
         adapter.setOnItemClickListener(categoryExpense -> ((MainActivity) getActivity()).openAddExpenseScreen(categoryExpense));
-        if (listOffilterExpense.size() == 0) {
+        if (listOffilterExpense == null || listOffilterExpense.size() == 0) {
             recyclerView.setVisibility(View.GONE);
             layout.setVisibility(View.VISIBLE);
         } else {
