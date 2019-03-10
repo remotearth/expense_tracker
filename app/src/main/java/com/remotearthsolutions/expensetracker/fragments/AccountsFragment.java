@@ -119,17 +119,21 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
             return;
         }
 
-        AlertDialogUtils.show(getActivity(), "Warning", "Are you sure,You want to Delete?", "Yes", "No", new BaseView.Callback() {
-            @Override
-            public void onOkBtnPressed() {
-                viewModel.deleteAccount(selectAccountModel);
-            }
+        AlertDialogUtils.show(getActivity(), "Warning",
+                "Deleting this account will remove expenses related to this also. Are you sure, You want to Delete?",
+                "Yes",
+                "Not now",
+                new BaseView.Callback() {
+                    @Override
+                    public void onOkBtnPressed() {
+                        viewModel.deleteAccount(selectAccountModel);
+                    }
 
-            @Override
-            public void onCancelBtnPressed() {
+                    @Override
+                    public void onCancelBtnPressed() {
 
-            }
-        });
+                    }
+                });
     }
 
     @Override
