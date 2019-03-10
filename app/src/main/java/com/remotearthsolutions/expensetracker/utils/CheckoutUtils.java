@@ -17,6 +17,10 @@ public class CheckoutUtils {
         return instance;
     }
 
+    public static void clearInstance() {
+        instance = null;
+    }
+
     private CheckoutUtils(Activity activity) {
         mCheckout = Checkout.forActivity(activity, ApplicationObject.get().getBilling());
     }

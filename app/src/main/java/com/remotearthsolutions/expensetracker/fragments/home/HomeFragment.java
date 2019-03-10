@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.razerdp.widget.animatedpieview.AnimatedPieViewConfig;
@@ -106,10 +106,10 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
 
             if (limitOfCategory < 20 ||
                     ((ApplicationObject) getActivity().getApplication()).isPremium()) {
-                FragmentManager fm = getChildFragmentManager();
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 final AddCategoryDialogFragment categoryDialogFragment = AddCategoryDialogFragment.newInstance("Add Category");
                 categoryDialogFragment.setCallback(categoryModel -> categoryDialogFragment.dismiss());
-                categoryDialogFragment.show(fm, AddCategoryDialogFragment.class.getName());
+                categoryDialogFragment.show(ft, AddCategoryDialogFragment.class.getName());
             } else {
                 showAlert("Attention", "You need to be premium user to add more categories", "Ok", null, null);
             }

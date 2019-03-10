@@ -52,14 +52,13 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:visibility="gone"
+                android:alpha=".5"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true">
+                android:layout_centerInParent="true">
 
             <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:alpha=".5"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/ic_nodata"
                     android:layout_gravity="center"/>
 
