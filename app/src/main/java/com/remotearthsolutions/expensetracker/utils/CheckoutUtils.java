@@ -27,9 +27,13 @@ public class CheckoutUtils {
     }
 
     public void start() {
-        if (!isStarted) {
-            mCheckout.start();
-            isStarted = true;
+        try {
+            if (!isStarted) {
+                mCheckout.start();
+                isStarted = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
