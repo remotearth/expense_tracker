@@ -59,6 +59,7 @@ public class AddUpdateAccountDialogFragment extends DialogFragment {
             headerTv.setText("Update Account");
             okBtn.setText("Update");
             nameEdtxt.setText(accountModel.getName());
+            nameEdtxt.setSelection(nameEdtxt.getText().length());
         } else {
             headerTv.setText("Add Account");
             okBtn.setText("Add");

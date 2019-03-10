@@ -17,9 +17,14 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".activities.CurrencySelectionActivity">
+        <activity
+                android:name=".activities.CurrencySelectionActivity"
+                android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activities.MainActivity">
+        <activity
+                android:name=".activities.MainActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.VIEW"/>
@@ -27,7 +32,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.LoginActivity"/>
+        <activity
+                android:name=".activities.LoginActivity"
+                android:screenOrientation="portrait"/>
 
         <meta-data
                 android:name="com.facebook.sdk.ApplicationId"
