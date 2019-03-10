@@ -92,15 +92,13 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
         if (listOfCategoryWithAmount.size() == 0)
         {
             binding.chartView.setVisibility(View.GONE);
-            binding.errorimage.setVisibility(View.VISIBLE);
-            binding.errormessage.setVisibility(View.VISIBLE);
+            binding.nodatacontainer.setVisibility(View.VISIBLE);
 
         }
         else
         {
             binding.chartView.setVisibility(View.VISIBLE);
-            binding.errorimage.setVisibility(View.GONE);
-            binding.errormessage.setVisibility(View.GONE);
+            binding.nodatacontainer.setVisibility(View.GONE);
             chartManager.loadExpensePieChart(this, listOfCategoryWithAmount);
         }
     }

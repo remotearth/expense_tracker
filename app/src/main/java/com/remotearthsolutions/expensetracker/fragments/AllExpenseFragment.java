@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,8 +33,7 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
     private ExpenseListAdapter adapter;
     private ExpenseViewModel viewModel;
     private String currencySymbol;
-    private ImageView noDataIV;
-    private TextView noDataTV;
+    private LinearLayout layout;
 
     public AllExpenseFragment() {
     }
@@ -43,8 +43,7 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_all_expense, container, false);
-        noDataIV = view.findViewById(R.id.errorimage);
-        noDataTV = view.findViewById(R.id.errormessage);
+        layout = view.findViewById(R.id.nodata);
         recyclerView = view.findViewById(R.id.expenserecyclearView);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -68,13 +67,11 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
         adapter.setOnItemClickListener(categoryExpense -> ((MainActivity) getActivity()).openAddExpenseScreen(categoryExpense));
         if (listOffilterExpense.size() == 0) {
             recyclerView.setVisibility(View.GONE);
-            noDataTV.setVisibility(View.VISIBLE);
-            noDataIV.setVisibility(View.VISIBLE);
+            layout.setVisibility(View.VISIBLE);
         }
         else
         {
-            noDataTV.setVisibility(View.GONE);
-            noDataIV.setVisibility(View.GONE);
+            layout.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
             recyclerView.setAdapter(adapter);
         }
