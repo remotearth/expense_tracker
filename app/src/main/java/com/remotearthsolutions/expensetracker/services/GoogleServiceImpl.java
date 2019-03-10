@@ -2,7 +2,6 @@ package com.remotearthsolutions.expensetracker.services;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -11,10 +10,9 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.remotearthsolutions.expensetracker.R;
 
 public class GoogleServiceImpl implements GoogleService {
-    private static final String GOOGLE_CLIENT_ID= "1034332655323-lv5t5fja6ef5co4vsaf9bv476c9rga9r.apps.googleusercontent.com";
+    private static final String GOOGLE_CLIENT_ID = "1034332655323-lv5t5fja6ef5co4vsaf9bv476c9rga9r.apps.googleusercontent.com";
     private GoogleSignInClient mGoogleSignInClient;
     private Context context;
 
@@ -41,8 +39,8 @@ public class GoogleServiceImpl implements GoogleService {
             AuthCredential credential = GoogleAuthProvider.getCredential(token, null);
             callback.onSocialLoginSuccess(credential);
         } catch (ApiException e) {
-            Log.w(GoogleServiceImpl.class.getName(), "Google sign in failed", e);
-            callback.onSocialLoginFailure(e.getMessage());
+            e.printStackTrace();
+            callback.onSocialLoginFailure("Google signin failed");
         }
     }
 

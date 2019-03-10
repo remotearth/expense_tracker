@@ -73,10 +73,21 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        checkoutUtils.start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        checkoutUtils.stop();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         ((ApplicationObject) getApplication()).activityResumed();
-
     }
 
     @Override
@@ -167,7 +178,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 backPressedTime = t;
                 Toast.makeText(this, "Press once again to close app", Toast.LENGTH_SHORT).show();
             } else {
-                checkoutUtils.stop();
                 CheckoutUtils.clearInstance();
                 super.onBackPressed();
             }

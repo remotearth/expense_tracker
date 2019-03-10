@@ -140,6 +140,11 @@ public class DashboardFragment extends BaseFragment {
                     break;
 
                 case 2:
+                    if (!isDeviceOnline()) {
+                        showAlert("", "Internet connection is needed to perform this action.", "Ok", null, null);
+                        return;
+                    }
+                    
                     checkoutUtils.getCheckout().whenReady(new Checkout.EmptyListener() {
                         @Override
                         public void onReady(@Nonnull BillingRequests requests) {

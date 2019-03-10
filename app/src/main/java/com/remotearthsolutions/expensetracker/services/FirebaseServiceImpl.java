@@ -18,12 +18,11 @@ public class FirebaseServiceImpl implements FirebaseService {
 
     public FirebaseServiceImpl(Context context) {
         this.context = context;
-
         mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
-    public void signinWithCredential(AuthCredential credential,final Callback callback) {
+    public void signinWithCredential(AuthCredential credential, final Callback callback) {
 
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
@@ -37,7 +36,7 @@ public class FirebaseServiceImpl implements FirebaseService {
                         }
                     }
                 })
-                .addOnFailureListener((Activity)context, new OnFailureListener() {
+                .addOnFailureListener((Activity) context, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         callback.onFirebaseSigninFailure("Authentication with Firebase is failed ");
@@ -49,7 +48,7 @@ public class FirebaseServiceImpl implements FirebaseService {
     public void signinAnonymously(Callback callback) {
 
         mAuth.signInAnonymously()
-                .addOnCompleteListener((Activity)context, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -59,7 +58,7 @@ public class FirebaseServiceImpl implements FirebaseService {
                             callback.onFirebaseSigninFailure("Authentication with Firebase is failed ");
                         }
                     }
-                }).addOnFailureListener((Activity)context, new OnFailureListener() {
+                }).addOnFailureListener((Activity) context, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 callback.onFirebaseSigninFailure("Authentication with Firebase is failed ");
@@ -69,13 +68,13 @@ public class FirebaseServiceImpl implements FirebaseService {
 
     @Override
     public FirebaseUser getUser() {
-        if(mAuth == null) return null;
+        if (mAuth == null) return null;
         return mAuth.getCurrentUser();
     }
 
     @Override
     public void logout() {
-        if(mAuth!=null){
+        if (mAuth != null) {
             mAuth.signOut();
         }
     }
