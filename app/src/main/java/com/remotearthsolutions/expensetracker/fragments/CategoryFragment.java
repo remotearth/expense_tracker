@@ -83,7 +83,7 @@ public class CategoryFragment extends BaseFragment implements CategoryFragmentCo
 
     @Override
     public void onClickAddAmountBtn() {
-        //THis is not neeed for category. need to refactor this somehow so this method will not be need to imlpement here.
+        //THis is not need for category. need to refactor this somehow so this method will not be needed to implement here.
     }
 
     @Override
@@ -103,10 +103,10 @@ public class CategoryFragment extends BaseFragment implements CategoryFragmentCo
     public void onClickDeleteBtn() {
 
         if (selectedCategory.getNotremovable() == 1) {
-            Toast.makeText(getActivity(), "You cannot delete this expense category", Toast.LENGTH_SHORT).show();
+            showToast("You cannot delete this expense category");
             return;
         }
-        showAlert("Warning", "Are you sure,You want to Delete?", "Yes", "Not now", new Callback() {
+        showAlert("Warning", "Deleting this category will remove expenses related to this also. Are you sure, You want to Delete?", "Yes", "Not now", new Callback() {
             @Override
             public void onOkBtnPressed() {
                 viewModel.deleteCategory(selectedCategory);

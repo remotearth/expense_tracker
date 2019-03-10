@@ -7,8 +7,9 @@
 
     <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
-            android:layout_height="wrap_content">
+            android:foreground="?android:attr/selectableItemBackground">
 
 
         <LinearLayout
@@ -22,7 +23,7 @@
                     android:id="@+id/cat_iconview"
                     android:layout_width="0dp"
                     android:layout_weight="0.4"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:src="@drawable/cat_food"
                     android:layout_height="40dp"/>
 
@@ -32,9 +33,11 @@
                     android:layout_width="0dp"
                     android:layout_weight="1.6"
                     android:layout_height="40dp"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:gravity="center"
+                    android:gravity="start|center"
+                    android:textColor="@android:color/black"
                     tools:text="Category Name"/>
 
 

@@ -25,16 +25,19 @@ public class OptionBottomSheetFragment extends BottomSheetDialogFragment impleme
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_optionbottomsheet, container, false);
         LinearLayout addAmountBtn = view.findViewById(R.id.addAmountBtn);
+        View border = view.findViewById(R.id.underLine);
         addAmountBtn.setOnClickListener(this);
         view.findViewById(R.id.editBtn).setOnClickListener(this);
         view.findViewById(R.id.deleteBtn).setOnClickListener(this);
 
-        switch (optionsFor){
+        switch (optionsFor) {
             case CATEGORY:
                 addAmountBtn.setVisibility(View.GONE);
+                border.setVisibility(View.GONE);
                 break;
             case ACCOUNT:
                 addAmountBtn.setVisibility(View.VISIBLE);
+                border.setVisibility(View.VISIBLE);
                 break;
         }
 
@@ -69,7 +72,7 @@ public class OptionBottomSheetFragment extends BottomSheetDialogFragment impleme
         void onClickDeleteBtn();
     }
 
-    public enum OptionsFor{
-        CATEGORY,ACCOUNT
+    public enum OptionsFor {
+        CATEGORY, ACCOUNT
     }
 }
