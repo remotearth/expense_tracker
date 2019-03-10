@@ -4,8 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 import androidx.multidex.MultiDexApplication;
-import com.google.android.gms.ads.MobileAds;
-import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.BuildConfig;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 import org.solovyev.android.checkout.Billing;
@@ -102,5 +101,13 @@ public class ApplicationObject extends MultiDexApplication implements Applicatio
 
     public void setPremium(boolean premium) {
         isPremium = premium;
+    }
+
+    public String getAdProductId() {
+        if (BuildConfig.DEBUG) {
+            return Constants.TEST_PURCHASED_ITEM;
+        } else {
+            return Constants.PRODUCT_ID;
+        }
     }
 }

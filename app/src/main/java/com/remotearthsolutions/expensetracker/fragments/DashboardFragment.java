@@ -45,6 +45,7 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
     private ActivityCheckout mCheckout;
     private DashboardViewModel dashboardViewModel;
     private ListView lv;
+    private String productId;
 
     public DashboardFragment() {
 
@@ -54,6 +55,8 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        productId = ((ApplicationObject) getActivity().getApplication()).getAdProductId();
+
         mCheckout = Checkout.forActivity(getActivity(), ApplicationObject.get().getBilling());
         mCheckout.start();
         mCheckout.createPurchaseFlow(new PurchaseListener(this));
@@ -61,7 +64,7 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
         Inventory mInventory = mCheckout.makeInventory();
         mInventory.load(Inventory.Request.create()
                 .loadAllPurchases()
-                .loadSkus(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM), new InventoryCallback());
+                .loadSkus(ProductTypes.IN_APP, productId), new InventoryCallback());
         AppDatabase db = DatabaseClient.getInstance(getContext()).getAppDatabase();
         dashboardViewModel = ViewModelProviders.of(this, new DashBoardViewModelFactory(db.categoryExpenseDao(), db.expenseDao(),
                 db.categoryDao(), db.accountDao(), new FileProcessingServiceImp())).get(DashboardViewModel.class);
@@ -80,7 +83,7 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
 
     @Override
     public void onPurchaseSuccessListener(Purchase purchase) {
-        ((ApplicationObject)getActivity().getApplication()).setPremium(true);
+        ((ApplicationObject) getActivity().getApplication()).setPremium(true);
         Toast.makeText(getActivity(), "Thank you for purchasing this item", Toast.LENGTH_SHORT).show();
     }
 
@@ -175,7 +178,8 @@ public class DashboardFragment extends BaseFragment implements InAppBillingCallb
                     mCheckout.whenReady(new Checkout.EmptyListener() {
                         @Override
                         public void onReady(@Nonnull BillingRequests requests) {
-                            requests.purchase(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM, null, mCheckout.getPurchaseFlow());
+
+                            requests.purchase(ProductTypes.IN_APP, productId, null, mCheckout.getPurchaseFlow());
                         }
                     });
                     break;

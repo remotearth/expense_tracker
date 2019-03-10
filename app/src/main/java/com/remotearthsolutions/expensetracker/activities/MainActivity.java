@@ -50,10 +50,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private ActivityCheckout mCheckout;
     private Inventory mInventory;
+    private String productId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        productId = ((ApplicationObject) getApplication()).getAdProductId();
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         viewModel = ViewModelProviders.of(this,
@@ -126,7 +129,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mInventory = mCheckout.makeInventory();
         mInventory.load(Inventory.Request.create()
                 .loadAllPurchases()
-                .loadSkus(ProductTypes.IN_APP, Constants.TEST_PURCHASED_ITEM), this);
+                .loadSkus(ProductTypes.IN_APP, productId), this);
     }
 
     @Override
@@ -289,7 +292,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onPurchaseSuccessListener(Purchase purchase) {
-        if (purchase.sku.equals(Constants.TEST_PURCHASED_ITEM)) {
+        if (purchase.sku.equals(productId)) {
             AdmobUtils.getInstance(MainActivity.this).appShouldShowAds(false);
         }
     }
@@ -301,7 +304,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onLoaded(@Nonnull Inventory.Products products) {
-        if (!products.get(ProductTypes.IN_APP).isPurchased(Constants.TEST_PURCHASED_ITEM)) {
+        String productId = ((ApplicationObject) getApplication()).getAdProductId();
+        if (!products.get(ProductTypes.IN_APP).isPurchased(productId)) {
             ((ApplicationObject) getApplication()).setPremium(false);
 
             int delay = new Random().nextInt(10000 - 2000) + 2000;
