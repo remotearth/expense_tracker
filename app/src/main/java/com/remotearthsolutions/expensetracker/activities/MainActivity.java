@@ -30,6 +30,7 @@ import com.remotearthsolutions.expensetracker.fragments.*;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.services.PurchaseListener;
 import com.remotearthsolutions.expensetracker.utils.AdmobUtils;
+import com.remotearthsolutions.expensetracker.utils.CheckoutUtils;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel;
@@ -299,7 +300,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onPurchaseFailedListener(String error) {
-
+        Log.d(MainActivity.class.getName(),"Purchase failure");
     }
 
     @Override
@@ -319,6 +320,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         } else {
             ((ApplicationObject) getApplication()).setPremium(true);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        CheckoutUtils.getInstance(this).getCheckout().onActivityResult(requestCode,resultCode,data);
     }
 
     public Toolbar getToolbar() {
