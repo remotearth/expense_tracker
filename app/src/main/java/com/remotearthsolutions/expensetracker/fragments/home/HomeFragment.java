@@ -37,9 +37,7 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
     private CategoryListAdapter adapter;
     private HomeFragmentViewModel viewModel;
     private FragmentHomeBinding binding;
-
     private Integer limitOfCategory;
-
     private long startTime, endTime;
 
     @Nullable
@@ -89,7 +87,15 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
 
         ChartManager chartManager = new ChartManagerImpl();
         chartManager.initPierChart();
-        chartManager.loadExpensePieChart(this, listOfCategoryWithAmount);
+        if (listOfCategoryWithAmount == null || listOfCategoryWithAmount.size() == 0) {
+            binding.chartView.setVisibility(View.GONE);
+            binding.nodatacontainer.setVisibility(View.VISIBLE);
+
+        } else {
+            binding.chartView.setVisibility(View.VISIBLE);
+            binding.nodatacontainer.setVisibility(View.GONE);
+            chartManager.loadExpensePieChart(this, listOfCategoryWithAmount);
+        }
     }
 
     @Override
