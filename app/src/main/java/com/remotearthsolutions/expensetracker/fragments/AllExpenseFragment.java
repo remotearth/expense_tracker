@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -30,6 +31,7 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
     private ExpenseListAdapter adapter;
     private ExpenseViewModel viewModel;
     private String currencySymbol;
+    private LinearLayout layout;
 
     public AllExpenseFragment() {
     }
@@ -39,6 +41,7 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_all_expense, container, false);
+        layout = view.findViewById(R.id.nodata);
         recyclerView = view.findViewById(R.id.expenserecyclearView);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -57,9 +60,18 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
 
     @Override
     public void loadFilterExpense(List<CategoryExpense> listOffilterExpense) {
+
         adapter = new ExpenseListAdapter(listOffilterExpense, currencySymbol);
         adapter.setOnItemClickListener(categoryExpense -> ((MainActivity) getActivity()).openAddExpenseScreen(categoryExpense));
-        recyclerView.setAdapter(adapter);
+        if (listOffilterExpense == null || listOffilterExpense.size() == 0) {
+            recyclerView.setVisibility(View.GONE);
+            layout.setVisibility(View.VISIBLE);
+        } else {
+            layout.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+            recyclerView.setAdapter(adapter);
+        }
+
     }
 
     @Override

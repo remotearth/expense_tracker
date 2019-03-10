@@ -63,5 +63,6 @@
     <string name="warning">Warning</string>
     <string name="buy_message">To Enjoy this service, You have to buy</string>
     <string name="ok">Ok</string>
+    <string name="no_data_available">Sorry, No Data Available</string>
 
 </resources>
