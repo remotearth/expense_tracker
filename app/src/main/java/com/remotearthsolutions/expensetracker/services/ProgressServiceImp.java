@@ -16,9 +16,9 @@ public class ProgressServiceImp implements ProgressService {
     public void showProgressBar(String message) {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(mContext);
-
             mProgressDialog.setCancelable(false);
             mProgressDialog.setMessage(message);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         }
 
         mProgressDialog.show();

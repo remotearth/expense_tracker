@@ -26,12 +26,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     @Override
     public void showAlert(String title, String message, String btnOk, String btnCancel, BaseView.Callback callback) {
-        AlertDialogUtils.show(getContext(),title,message,btnOk,btnCancel,callback);
+        AlertDialogUtils.show(getContext(), title, message, btnOk, btnCancel, callback);
     }
 
     @Override
     public void showToast(String message) {
-        Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -19,7 +19,7 @@ public interface ExpenseFragmentContract {
         void showDefaultCategory(CategoryModel categoryModel);
     }
 
-    interface ExpenseView {
+    interface ExpenseView extends BaseView {
 
         void loadFilterExpense(List<CategoryExpense> listOffilterExpense);
 
