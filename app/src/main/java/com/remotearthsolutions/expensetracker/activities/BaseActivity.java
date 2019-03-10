@@ -7,17 +7,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.remotearthsolutions.expensetracker.contracts.BaseView;
 import com.remotearthsolutions.expensetracker.services.InternetCheckerService;
 import com.remotearthsolutions.expensetracker.services.InternetCheckerServiceImpl;
+import com.remotearthsolutions.expensetracker.services.ProgressService;
+import com.remotearthsolutions.expensetracker.services.ProgressServiceImp;
 import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils;
 
 public abstract class BaseActivity extends AppCompatActivity implements BaseView {
 
     private InternetCheckerService internetCheckerService;
+    private ProgressService progressService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         internetCheckerService = new InternetCheckerServiceImpl(this);
+        progressService = new ProgressServiceImp(this);
     }
 
     @Override
@@ -36,4 +40,14 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     }
 
     public abstract Context getContext();
+
+    @Override
+    public void showProgress(String message) {
+        progressService.showProgressBar(message);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressService.hideProgressBar();
+    }
 }

@@ -41,7 +41,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
             public void onPermissionGranted(PermissionGrantedResponse response) {
                 if(writeExternalFile(content)){
                     runnable.run();
-                };
+                }
             }
 
             @Override
