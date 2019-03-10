@@ -11,7 +11,7 @@
     <ImageView
             android:layout_width="@dimen/logo_height_weight"
             android:layout_height="@dimen/logo_height_weight"
-            android:src="@drawable/templogo"/>
+            android:src="@mipmap/ic_logo_layer"/>
 
 
     <TextView

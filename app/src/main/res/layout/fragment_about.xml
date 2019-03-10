@@ -6,7 +6,7 @@
               android:layout_height="match_parent">
 
     <ImageView
-            android:src="@drawable/templogo"
+            android:src="@mipmap/ic_logo_layer"
             android:layout_width="150dp"
             android:layout_gravity="center"
             android:layout_height="150dp"/>
