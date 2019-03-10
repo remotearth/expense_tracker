@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.razerdp.widget.animatedpieview.AnimatedPieViewConfig;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
 import com.remotearthsolutions.expensetracker.activities.MainActivity;
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter;
 import com.remotearthsolutions.expensetracker.contracts.HomeFragmentContract;
@@ -103,7 +104,8 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
 
         if (v.getId() == R.id.addCategoryBtn) {
 
-            if (limitOfCategory < 20) {
+            if (limitOfCategory < 20 ||
+                    ((ApplicationObject) getActivity().getApplication()).isPremium()) {
                 FragmentManager fm = getChildFragmentManager();
                 final AddCategoryDialogFragment categoryDialogFragment = AddCategoryDialogFragment.newInstance("Add Category");
                 categoryDialogFragment.setCallback(categoryModel -> categoryDialogFragment.dismiss());
