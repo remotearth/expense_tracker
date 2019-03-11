@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1034332655323-n25dn0tuporkt3otot53udr9din3kbgp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.remotearthsolutions.expensetracker",
+            "certificate_hash": "4a053f091d656a93fe1ee753a9904c4ca96ccf68"
+          }
+        },
+        {
           "client_id": "1034332655323-lv5t5fja6ef5co4vsaf9bv476c9rga9r.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1034332655323-lv5t5fja6ef5co4vsaf9bv476c9rga9r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

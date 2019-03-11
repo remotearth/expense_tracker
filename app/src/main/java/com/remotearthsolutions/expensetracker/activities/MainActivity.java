@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
@@ -204,7 +203,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
             case R.id.nav_categories: {
 
-                getSupportActionBar().setTitle("Category");
+                getSupportActionBar().setTitle(getString(R.string.menu_categories));
                 CategoryFragment categoryFragment = new CategoryFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, categoryFragment, CategoryFragment.class.getName());
@@ -213,14 +212,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
             case R.id.nav_settings: {
                 SettingsFragment settingsFragment = new SettingsFragment();
-                getSupportActionBar().setTitle("Settings");
+                getSupportActionBar().setTitle(getString(R.string.menu_settings));
                 getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, settingsFragment, SettingsFragment.class.getName()).commit();
                 break;
             }
 
             case R.id.nav_logout: {
 
-                showAlert("", "Are you sure want to logout?", "Yes", "No", new Callback() {
+                showAlert("", "Are you sure you want to logout?", "Yes", "No", new Callback() {
                     @Override
                     public void onOkBtnPressed() {
 
@@ -237,7 +236,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
 
             case R.id.nav_about: {
-                getSupportActionBar().setTitle("About Us");
+                getSupportActionBar().setTitle(getString(R.string.menu_about));
                 AboutFragment aboutFragment = new AboutFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, aboutFragment, AboutFragment.class.getName());
@@ -259,7 +258,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 //            }
 
             case R.id.nav_licenses: {
-                getSupportActionBar().setTitle("Licenses");
+                getSupportActionBar().setTitle(getString(R.string.menu_licenses));
                 LicenseFragment licenseFragment = new LicenseFragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, licenseFragment, AboutFragment.class.getName());
@@ -281,7 +280,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public void openAddExpenseScreen(CategoryExpense categoryExpense) {
 
-        getSupportActionBar().setTitle("Add Expense");
+        getSupportActionBar().setTitle(getString(R.string.add_expense));
         ExpenseFragment expenseFragment = new ExpenseFragment();
         Parcelable wrappedCategoryExpense = Parcels.wrap(categoryExpense);
         Bundle bundle = new Bundle();
@@ -315,12 +314,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             ((ApplicationObject) getApplication()).setPremium(false);
 
             int delay = new Random().nextInt(10000 - 2000) + 2000;
-            Log.d(MainActivity.class.getName(), "Delay before showing ad: " + delay);
-
             AdmobUtils.getInstance(MainActivity.this).appShouldShowAds(true);
-            new Handler().postDelayed(() -> {
-                AdmobUtils.getInstance(MainActivity.this).showInterstitialAds();
-            }, delay);
+            new Handler().postDelayed(() -> AdmobUtils.getInstance(MainActivity.this).showInterstitialAds(), delay);
 
         } else {
             ((ApplicationObject) getApplication()).setPremium(true);

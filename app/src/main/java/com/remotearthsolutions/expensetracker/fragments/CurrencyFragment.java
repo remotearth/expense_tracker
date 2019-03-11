@@ -24,10 +24,10 @@ public class CurrencyFragment extends PreferenceFragmentCompat {
         addPreferencesFromResource(R.xml.currencypreference);
 
         Preference preferenceCurrency = findPreference(Constants.PREF_CURRENCY);
-        preferenceCurrency.setSummary(SharedPreferenceUtils.getInstance(getActivity()).getString(Constants.PREF_CURRENCY, getActivity().getString(R.string.default_currency)));
+        preferenceCurrency.setSummary(SharedPreferenceUtils.getInstance(getActivity()).getString(Constants.PREF_CURRENCY,
+                getActivity().getString(R.string.default_currency)));
 
         preferenceChangeListener = (sharedPreferences, key) -> {
-
             if (key.equals(Constants.PREF_CURRENCY)) {
                 Preference currencyPreference = findPreference(key);
                 currencyPreference.setSummary(sharedPreferences.getString(key, getActivity().getString(R.string.default_currency)));
@@ -40,7 +40,7 @@ public class CurrencyFragment extends PreferenceFragmentCompat {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
-        view.setBackgroundColor(getResources().getColor(android.R.color.white));
+        view.setBackgroundColor(getResources().getColor(R.color.lightAccent));
 
         return view;
     }
