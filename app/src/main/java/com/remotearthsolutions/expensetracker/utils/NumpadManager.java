@@ -52,7 +52,7 @@ public class NumpadManager implements NumpadFragment.Listener {
         }
 
         String val = displayEdtxt.getText().toString();
-        if (val.length() == 0)
+        if (val.length() == 0 || val.equals("."))
             return;
 
         double currentVal = Double.parseDouble(val);
