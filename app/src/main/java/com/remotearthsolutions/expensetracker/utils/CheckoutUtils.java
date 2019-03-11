@@ -8,6 +8,7 @@ public class CheckoutUtils {
 
     private ActivityCheckout mCheckout;
     private static CheckoutUtils instance;
+    private boolean isStarted;
 
     public static CheckoutUtils getInstance(Activity activity) {
         if (instance == null) {
@@ -26,11 +27,19 @@ public class CheckoutUtils {
     }
 
     public void start() {
-        mCheckout.start();
+        try {
+            if (!isStarted) {
+                mCheckout.start();
+                isStarted = true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void stop() {
         mCheckout.stop();
+        isStarted = false;
     }
 
     public void createPurchaseFlow(EmptyRequestListener<Purchase> purchaseEmptyRequestListener) {

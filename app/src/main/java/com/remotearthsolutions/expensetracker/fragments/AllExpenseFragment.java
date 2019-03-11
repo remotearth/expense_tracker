@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +26,7 @@ import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.Expen
 
 import java.util.List;
 
-public class AllExpenseFragment extends Fragment implements ExpenseFragmentContract.ExpenseView {
+public class AllExpenseFragment extends BaseFragment implements ExpenseFragmentContract.ExpenseView {
 
     private RecyclerView recyclerView;
     private ExpenseListAdapter adapter;
@@ -83,4 +84,8 @@ public class AllExpenseFragment extends Fragment implements ExpenseFragmentContr
         viewModel.loadFilterExpense(startTime, endTime, btnId);
     }
 
+    @Override
+    public Context getContext() {
+        return getActivity();
+    }
 }

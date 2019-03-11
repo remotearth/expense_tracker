@@ -42,7 +42,6 @@ public class FileProcessingServiceImp implements FileProcessingService {
                 if (writeExternalFile(content)) {
                     runnable.run();
                 }
-                ;
             }
 
             @Override
@@ -125,8 +124,6 @@ public class FileProcessingServiceImp implements FileProcessingService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
         }
     }
 

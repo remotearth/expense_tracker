@@ -5,6 +5,9 @@ public interface BaseView {
     void showToast(String message);
     boolean isDeviceOnline();
 
+    void showProgress(String message);
+    void hideProgress();
+
     interface Callback{
         void onOkBtnPressed();
         void onCancelBtnPressed();

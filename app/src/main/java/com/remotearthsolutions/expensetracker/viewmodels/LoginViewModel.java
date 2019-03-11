@@ -19,7 +19,7 @@ public class LoginViewModel extends ViewModel implements FacebookService.CallBac
     private FacebookService facebookService;
     private FirebaseService firebaseService;
 
-    public LoginViewModel(LoginContract.View view, GoogleService googleService, FacebookService facebookService, FirebaseService firebaseService, InternetCheckerService internetCheckerService) {
+    public LoginViewModel(LoginContract.View view, GoogleService googleService, FacebookService facebookService, FirebaseService firebaseService) {
         this.view = view;
         this.googleService = googleService;
         this.facebookService = facebookService;
@@ -60,28 +60,26 @@ public class LoginViewModel extends ViewModel implements FacebookService.CallBac
         googleService.startGoogleLogin(data, this);
     }
 
-
-    public void startGuestLogin() {
-
-    }
-
     public GoogleSignInClient getGoogleSignInClient() {
         return googleService.getGoogleSignInClient();
     }
 
     @Override
     public void onFirebaseSigninSuccess(FirebaseUser user) {
+        view.hideProgress();
         view.onLoginSuccess(user);
     }
 
     @Override
     public void onFirebaseSigninFailure(String message) {
+        view.hideProgress();
         view.onLoginFailure();
         view.showAlert(null, message, "Ok", null, null);
     }
 
     @Override
     public void onSocialLoginSuccess(AuthCredential credential) {
+        view.showProgress("Please wait...");
         firebaseService.signinWithCredential(credential, this);
     }
 

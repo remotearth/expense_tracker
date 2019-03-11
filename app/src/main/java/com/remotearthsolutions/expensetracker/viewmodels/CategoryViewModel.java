@@ -8,7 +8,10 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+
+import java.util.List;
 
 public class CategoryViewModel extends ViewModel {
 
@@ -27,7 +30,12 @@ public class CategoryViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        categories -> view.showCategories(categories)
+                        new Consumer<List<CategoryModel>>() {
+                            @Override
+                            public void accept(List<CategoryModel> categories) throws Exception {
+                                view.showCategories(categories);
+                            }
+                        }
                 ));
     }
 
