@@ -28,7 +28,7 @@ public interface CategoryExpenseDao {
             "INNER JOIN account as acc " +
             "ON exp.account_id = acc.id " +
             "WHERE exp.datetime >= :startTime AND exp.datetime <= :endTime " +
-            "ORDER BY exp.datetime ASC")
+            "ORDER BY exp.datetime DESC")
     Flowable<List<CategoryExpense>> getExpenseWithinRange(long startTime, long endTime);
 
     @Query("SELECT ctg.id AS category_id, ctg.category_name, ctg.icon_name as category_icon, exp.id as expense_id,  exp.account_id, acc.name as account_name, " +

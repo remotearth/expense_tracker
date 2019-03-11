@@ -16,19 +16,17 @@ public class LoginViewModelFactory implements ViewModelProvider.Factory {
     private GoogleService googleService;
     private FacebookService facebookService;
     private FirebaseService firebaseService;
-    private InternetCheckerService internetCheckerService;
 
-    public LoginViewModelFactory(LoginContract.View view, GoogleService googleService, FacebookService facebookService, FirebaseService firebaseService, InternetCheckerService internetCheckerService) {
+    public LoginViewModelFactory(LoginContract.View view, GoogleService googleService, FacebookService facebookService, FirebaseService firebaseService) {
         this.view = view;
         this.googleService = googleService;
         this.facebookService = facebookService;
         this.firebaseService = firebaseService;
-        this.internetCheckerService = internetCheckerService;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new LoginViewModel(view, googleService, facebookService, firebaseService, internetCheckerService);
+        return (T) new LoginViewModel(view, googleService, facebookService, firebaseService);
     }
 }

@@ -34,7 +34,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         setContentView(R.layout.activity_login);
 
         viewModel = ViewModelProviders.of(this,
-                new LoginViewModelFactory(this, new GoogleServiceImpl(this), new FacebookServiceImpl(this), new FirebaseServiceImpl(this), new InternetCheckerServiceImpl(this))).
+                new LoginViewModelFactory(this, new GoogleServiceImpl(this), new FacebookServiceImpl(this), new FirebaseServiceImpl(this))).
                 get(LoginViewModel.class);
         viewModel.init();
 
