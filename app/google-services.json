@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "1034332655323-ugl6eit0j672fja7dqs131l16b0b22f2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.remotearthsolutions.expensetracker",
+            "certificate_hash": "b404414a496b3637e1b133dd69e2bcdf8fcdbbad"
+          }
+        },
+        {
           "client_id": "1034332655323-lv5t5fja6ef5co4vsaf9bv476c9rga9r.apps.googleusercontent.com",
           "client_type": 3
         }
