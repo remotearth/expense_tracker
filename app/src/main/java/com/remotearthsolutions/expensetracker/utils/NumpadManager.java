@@ -33,7 +33,14 @@ public class NumpadManager implements NumpadFragment.Listener {
             displayEdtxt.setText("");
             isOperationDone = false;
         }
-        displayEdtxt.setText(displayEdtxt.getText().toString() + value);
+
+        String str = displayEdtxt.getText().toString();
+        if (value.equals(".") && str.contains(".")) {
+            displayEdtxt.setText(str);
+        } else {
+            str += value;
+            displayEdtxt.setText(str);
+        }
     }
 
     @Override
@@ -45,7 +52,7 @@ public class NumpadManager implements NumpadFragment.Listener {
         }
 
         String val = displayEdtxt.getText().toString();
-        if(val.length()== 0)
+        if (val.length() == 0)
             return;
 
         double currentVal = Double.parseDouble(val);
