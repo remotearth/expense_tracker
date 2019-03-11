@@ -1,11 +1,8 @@
 package com.remotearthsolutions.expensetracker.activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
 import com.remotearthsolutions.expensetracker.R;
@@ -17,17 +14,13 @@ import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 
 public class CurrencySelectionActivity extends AppCompatActivity {
 
-    private FrameLayout frameLayout;
-    private Button button;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency_selection);
 
-        frameLayout = findViewById(R.id.currencyfragment);
         loadcurrencyfragment();
-        button = findViewById(R.id.gotomainactivity);
+        Button button = findViewById(R.id.gotomainactivity);
         button.setOnClickListener(v -> gohome());
     }
 
@@ -43,12 +36,6 @@ public class CurrencySelectionActivity extends AppCompatActivity {
         SharedPreferenceUtils.getInstance(this).putString(Constants.KEY_USER, new Gson().toJson(user));
         SharedPreferenceUtils.getInstance(this).putBoolean(Constants.PREF_ISFIRSTTIMEVISITED, true);
         startActivity(new Intent(CurrencySelectionActivity.this, MainActivity.class));
-        finish();
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
         finish();
     }
 }

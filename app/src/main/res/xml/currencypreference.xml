@@ -2,13 +2,12 @@
 <PreferenceScreen
         xmlns:android="http://schemas.android.com/apk/res/android">
 
-
-
     <ListPreference
             android:key="@string/preferencekey"
             android:title="@string/preferencetitle"
             android:entryValues="@array/currency"
             android:entries="@array/currency"
+            android:icon="@drawable/settings_currency"
             android:summary="@string/summarypreftext"/>
 
 </PreferenceScreen>
