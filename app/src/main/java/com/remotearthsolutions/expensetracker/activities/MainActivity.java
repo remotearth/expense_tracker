@@ -52,6 +52,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private long backPressedTime = 0;
 
     private CheckoutUtils checkoutUtils;
+    private PurchaseListener purchaseListener;
     private String productId;
 
     @Override
@@ -59,7 +60,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
         productId = ((ApplicationObject) getApplication()).getAdProductId();
         checkoutUtils = CheckoutUtils.getInstance(this);
+
         checkoutUtils.start();
+        purchaseListener = new PurchaseListener(this);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
@@ -76,6 +79,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected void onStart() {
         super.onStart();
         checkoutUtils.start();
+        checkoutUtils.createPurchaseFlow(purchaseListener);
     }
 
     @Override
@@ -133,7 +137,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public void startLoadingApp() {
         viewModel.init();
-        checkoutUtils.createPurchaseFlow(new PurchaseListener(this));
+        checkoutUtils.start();
         checkoutUtils.load(this, productId);
     }
 

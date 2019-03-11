@@ -171,6 +171,9 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
         okBtn.setOnClickListener(v -> {
             String expenseStr = expenseEdtxt.getText().toString();
+            if (expenseStr.equals(".")) {
+                expenseStr = "";
+            }
             double amount = expenseStr.length() > 0 ? Double.parseDouble(expenseStr) : 0;
 
             ExpenseModel expenseModel = new ExpenseModel();
@@ -184,7 +187,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             expenseModel.setSource(categoryExpense.getAccount_id());
             expenseModel.setNote(expenseNoteEdtxt.getText().toString());
             viewModel.addExpense(expenseModel);
-            viewModel.updateAccountAmount(categoryExpense.getAccount_id(),amount);
+            viewModel.updateAccountAmount(categoryExpense.getAccount_id(), amount);
 
         });
     }
