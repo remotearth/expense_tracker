@@ -1,5 +1,6 @@
 package com.remotearth.expensetracker;
 
+import android.app.Activity;
 import android.content.Intent;
 import com.remotearthsolutions.expensetracker.contracts.LoginContract;
 import com.remotearthsolutions.expensetracker.services.FacebookService;
@@ -10,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -32,21 +34,21 @@ public class LoginViewModelTests {
     private LoginViewModel loginViewModel;
 
     @Test
-    public void test_googleLoginWithIntent_withIntentData_will_startGoogleLogin() {
-        Intent intent = new Intent();
+    public void test_googleLoginWithIntent_withIntentData_willStartGoogleLogin() {
+        Intent intent = mock(Intent.class);
         loginViewModel.googleLoginWithIntent(intent);
         verify(googleService, times(1)).startGoogleLogin(eq(intent), any());
     }
 
     @Test
-    public void test_startFacebookLogin_whenDeviceIsOnline_will_startFacebookLogin() {
+    public void test_startFacebookLogin_whenDeviceIsOnline_willStartFacebookLogin() {
         when(view.isDeviceOnline()).thenReturn(true);
         loginViewModel.startFacebookLogin();
         verify(facebookService, times(1)).startFacebookLogin(any());
     }
 
     @Test
-    public void test_startFacebookLogin_whenDeviceIsOffline_will_willShowNoInternetAlert() {
+    public void test_startFacebookLogin_whenDeviceIsOffline_willShowNoInternetAlert() {
         when(view.isDeviceOnline()).thenReturn(false);
         loginViewModel.startFacebookLogin();
         String title = "Warning";
