@@ -69,6 +69,22 @@ public class LoginViewModelTests {
     }
 
     @Test
+    public void test_startGoogleLogin_when_deviceIsOnline_will_startFacebookLogin() {
+        when(view.isDeviceOnline()).thenReturn(true);
+        loginViewModel.startGoogleLogin();
+
+        verify(view, times(1)).loadUserEmails();
+    }
+
+    @Test
+    public void test_startGoogleLogin_when_deviceIsOffline_will_showNoInternetAlert() {
+        when(view.isDeviceOnline()).thenReturn(false);
+        loginViewModel.startGoogleLogin();
+
+        verify(view, times(1)).showAlert("Warning", "No Internet Connection", "OK", null, null);
+    }
+
+    @Test
     public void test_googleLoginWithIntent_withIntentData_willStartGoogleLogin() {
         Intent intent = mock(Intent.class);
         loginViewModel.googleLoginWithIntent(intent);
