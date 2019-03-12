@@ -39,7 +39,26 @@ public class LoginViewModelTests {
     @Test
     public void test_init_will_initializeView() {
         loginViewModel.init();
+
         verify(view, only()).initializeView();
+        verify(googleService, only()).initializeGoogleSigninClient();
+        verify(facebookService, times(1)).facebookCallbackInitialize();
+    }
+
+    @Test
+    public void test_startFacebookLogin_when_deviceIsOnline_will_startFacebookLogin() {
+        when(view.isDeviceOnline()).thenReturn(true);
+        loginViewModel.startFacebookLogin();
+
+        verify(facebookService, times(1)).startFacebookLogin(any());
+    }
+
+    @Test
+    public void test_startFacebookLogin_when_deviceIsOffline_will_showNoInternetAlert() {
+        when(view.isDeviceOnline()).thenReturn(false);
+        loginViewModel.startFacebookLogin();
+
+        verify(view, times(1)).showAlert("Warning", "No Internet Connection", "OK", null, null);
     }
 
     @Test
@@ -49,20 +68,4 @@ public class LoginViewModelTests {
         verify(googleService, times(1)).startGoogleLogin(eq(intent), any());
     }
 
-    @Test
-    public void test_startFacebookLogin_whenDeviceIsOnline_willStartFacebookLogin() {
-        when(view.isDeviceOnline()).thenReturn(true);
-       loginViewModel.startFacebookLogin();
-        verify(facebookService, times(1)).startFacebookLogin(any());
-    }
-
-    @Test
-    public void test_startFacebookLogin_whenDeviceIsOffline_willShowNoInternetAlert() {
-        when(view.isDeviceOnline()).thenReturn(false);
-        loginViewModel.startFacebookLogin();
-        String title = "Warning";
-        String message = "No Internet Connection";
-        verify(view, times(1)).showAlert(title,
-                message, "OK", null, null);
-    }
 }
