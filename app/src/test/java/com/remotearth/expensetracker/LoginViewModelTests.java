@@ -13,7 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -36,27 +35,31 @@ public class LoginViewModelTests {
     private LoginViewModel loginViewModel;
 
     @Test
-    public void test_googleLoginWithIntent_withIntentData_willStartGoogleLogin() {
-        Intent intent = mock(Intent.class);
-        loginViewModel.googleLoginWithIntent(intent);
-        verify(googleService, times(1)).startGoogleLogin(eq(intent), any());
+    public void test_init_will_initializeView() {
+        loginViewModel.init();
+        verify(view, only()).initializeView();
+        verify(googleService, only()).initializeGoogleSigninClient();
+        verify(facebookService, times(1)).facebookCallbackInitialize();
     }
 
     @Test
-    public void test_startFacebookLogin_whenDeviceIsOnline_willStartFacebookLogin() {
+    public void test_getFacebookCallbackManager_will_return_CallbackManager_object() {
+        loginViewModel.getFacebookCallbackManager();
+        verify(facebookService, only()).getFacebookCallbackManager();
+    }
+
+    @Test
+    public void test_startFacebookLogin_when_deviceIsOnline_will_startFacebookLogin() {
         when(view.isDeviceOnline()).thenReturn(true);
         loginViewModel.startFacebookLogin();
         verify(facebookService, times(1)).startFacebookLogin(any());
     }
 
     @Test
-    public void test_startFacebookLogin_whenDeviceIsOffline_willShowNoInternetAlert() {
+    public void test_startFacebookLogin_when_deviceIsOffline_will_showNoInternetAlert() {
         when(view.isDeviceOnline()).thenReturn(false);
         loginViewModel.startFacebookLogin();
-        String title = "Warning";
-        String message = "No Internet Connection";
-        verify(view, times(1)).showAlert(title,
-                message, "OK", null, null);
+        verify(view, times(1)).showAlert("Warning", "No Internet Connection", "OK", null, null);
     }
 
     @Test
@@ -77,7 +80,6 @@ public class LoginViewModelTests {
     public void test_googleLoginWithIntent_with_Intent_will_startGoogleLogin() {
         Intent intent = mock(Intent.class);
         loginViewModel.googleLoginWithIntent(intent);
-
         verify(googleService, times(1)).startGoogleLogin(eq(intent), any());
     }
 
@@ -88,7 +90,7 @@ public class LoginViewModelTests {
     }
 
     @Test
-    public void test_onFirebaseSigninSuccess_with_FirebaseUser_call_hideProgress_and_onLoginSuccess() {
+    public void test_onFirebaseSigninSuccess_with_FirebaseUser_will_call_hideProgress_and_onLoginSuccess() {
         FirebaseUser user = mock(FirebaseUser.class);
         loginViewModel.onFirebaseSigninSuccess(user);
         verify(view, times(1)).hideProgress();
@@ -96,35 +98,30 @@ public class LoginViewModelTests {
     }
 
     @Test
-    public void test_onFirebaseSigninFailure_with_StringData_call_hideProgress_onLoginFailure_and_showAlert() {
-        loginViewModel.onFirebaseSigninFailure("Failed");
+    public void test_onFirebaseSigninFailure_with_Data_will_call_hideProgress_onLoginFailure_and_showAlert() {
+        loginViewModel.onFirebaseSigninFailure("Sign in Failed");
         verify(view, times(1)).hideProgress();
         verify(view, times(1)).onLoginFailure();
-        verify(view, times(1)).showAlert(null, "Failed", "Ok", null, null);
+        verify(view, times(1)).showAlert(null, "Sign in Failed", "Ok", null, null);
     }
 
-
-
     @Test
-    public void test_onSocialLoginSuccess_willshowProgressbar_with_signinWithCredential()
-    {
+    public void test_onSocialLoginSuccess_with_AuthCredential_will_call_showProgress_and_signinWithCredential() {
         AuthCredential authCredential = mock(AuthCredential.class);
         loginViewModel.onSocialLoginSuccess(authCredential);
-        verify(view, only()).showProgress("Please wait");
+        verify(view, only()).showProgress("Please wait...");
         verify(firebaseService, only()).signinWithCredential(eq(authCredential), any());
     }
 
     @Test
-    public void test_onSocialLoginFailure_willshow_loginFailedAlert()
-    {
-        loginViewModel.onSocialLoginFailure("Login Failed");
-        verify(view, only()).showAlert(null, "Login Failed", "Ok", null, null);
+    public void test_onSocialLoginFailure_with_StringData_will_call_showAlert() {
+        loginViewModel.onSocialLoginFailure("Sign in Failed");
 
+        verify(view, only()).showAlert(null, "Sign in Failed", "Ok", null, null);
     }
 
     @Test
-    public void test_onFacebookLoginCancel_whenLoginFailed_willstartonLoginFailure()
-    {
+    public void test_onFacebookLoginCancel_will_call_onFacebookLoginCancel() {
         loginViewModel.onFacebookLoginCancel();
         verify(view, only()).onLoginFailure();
     }
