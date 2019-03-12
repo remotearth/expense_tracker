@@ -173,10 +173,10 @@
                         android:layout_height="match_parent"/>
 
                 <ImageView
-                        android:id="@+id/selectCurrencyBtn"
+                        android:id="@+id/expenseDeleteBtn"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_currency"
+                        android:src="@drawable/ic_delete"
                         android:layout_height="match_parent"/>
 
                 <ImageView
