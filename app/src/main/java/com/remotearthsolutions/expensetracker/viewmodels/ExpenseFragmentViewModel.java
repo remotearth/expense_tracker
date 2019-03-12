@@ -7,6 +7,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -84,5 +85,17 @@ public class ExpenseFragmentViewModel extends ViewModel {
 
                         }));
 
+    }
+
+    public void deleteExpense(CategoryExpense categoryExpense) {
+
+        if (categoryExpense == null)
+            return;
+
+        compositeDisposable.add(Completable.fromAction(() -> {
+            expenseDao.delete(categoryExpense.getExpense_id());
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> view.onExpenseDeleted()));
     }
 }

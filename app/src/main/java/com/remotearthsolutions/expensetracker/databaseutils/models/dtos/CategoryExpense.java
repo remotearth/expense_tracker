@@ -6,19 +6,19 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
 import org.parceler.Parcel;
 
-@Parcel
+@Parcel(Parcel.Serialization.BEAN)
 public class CategoryExpense {
 
-    int expense_id;
-    int category_id;
-    String category_name;
-    String category_icon;
-    double total_amount;
-    long datetime;
-    int account_id;
-    String account_name;
-    String account_icon;
-    String note;
+    private int expense_id;
+    private int category_id;
+    private String category_name;
+    private String category_icon;
+    private double total_amount;
+    private long datetime;
+    private int account_id;
+    private String account_name;
+    private String account_icon;
+    private String note;
 
     @Ignore
     public boolean isHeader = false;

@@ -26,7 +26,7 @@ import java.util.Calendar;
 
 public class ExpenseFragment extends BaseFragment implements ExpenseFragmentContract.View {
 
-    private ImageView calenderBtnIv, categoryBtnIv, accountBtnIv, deleteBtn, okBtn;
+    private ImageView calenderBtnIv, categoryBtnIv, accountBtnIv, deleteBtn, okBtn, expenseDeleteBtn;
     private TextView dateTv, categoryNameTv, accountNameTv;
     private RelativeLayout selectAccountBtn, selectCategoryBtn;
     private EditText expenseEdtxt, expenseNoteEdtxt;
@@ -52,6 +52,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         calenderBtnIv = view.findViewById(R.id.selectdate);
         selectAccountBtn = view.findViewById(R.id.fromAccountBtn);
         selectCategoryBtn = view.findViewById(R.id.toCategoryBtn);
+        expenseDeleteBtn = view.findViewById(R.id.expenseDeleteBtn);
         dateTv = view.findViewById(R.id.dateTv);
         okBtn = view.findViewById(R.id.okBtn);
 
@@ -99,21 +100,6 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             }
 
         }
-
-        expenseNoteEdtxt.setOnClickListener(v -> {
-
-            AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
-            View dialogView = getLayoutInflater().inflate(R.layout.view_add_note, null);
-            final EditText noteEdtxt = dialogView.findViewById(R.id.noteEdtxt);
-            dialogView.findViewById(R.id.okBtn).setOnClickListener(v1 -> {
-                String str = noteEdtxt.getText().toString();
-                expenseNoteEdtxt.setText(str != null ? str : "");
-                builder.dismiss();
-            });
-            builder.setView(dialogView);
-            builder.show();
-        });
-
 
         return view;
     }
@@ -190,12 +176,56 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             viewModel.updateAccountAmount(categoryExpense.getAccount_id(), amount);
 
         });
+
+        expenseNoteEdtxt.setOnClickListener(v -> {
+
+            AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+            View dialogView = getLayoutInflater().inflate(R.layout.view_add_note, null);
+            final EditText noteEdtxt = dialogView.findViewById(R.id.noteEdtxt);
+            dialogView.findViewById(R.id.okBtn).setOnClickListener(v1 -> {
+                String str = noteEdtxt.getText().toString();
+                expenseNoteEdtxt.setText(str != null ? str : "");
+                builder.dismiss();
+            });
+            builder.setView(dialogView);
+            builder.show();
+        });
+
+        expenseDeleteBtn.setOnClickListener(v -> {
+            if ((categoryExpense.getExpense_id() > 0)) {
+
+                showAlert("Attention",
+                        "Are you sure, you want to delete this expense entry",
+                        "Yes",
+                        "Not now",
+                        new Callback() {
+                            @Override
+                            public void onOkBtnPressed() {
+                                viewModel.deleteExpense(categoryExpense);
+                            }
+
+                            @Override
+                            public void onCancelBtnPressed() {
+
+                            }
+                        });
+
+            } else {
+                getActivity().onBackPressed();
+            }
+        });
     }
 
     @Override
     public void onExpenseAdded() {
         expenseEdtxt.setText("");
         Toast.makeText(getActivity(), "Successfully added.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onExpenseDeleted() {
+        Toast.makeText(getActivity(), "Successfully deleted expense entry.", Toast.LENGTH_SHORT).show();
+        getActivity().onBackPressed();
     }
 
     @Override
