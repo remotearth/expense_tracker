@@ -29,46 +29,51 @@ public class MainViewModelTests {
     private MainViewModel viewModel;
 
     @Test
-    public void test_init_willInitializeView() {
+    public void test_init_will_initializeView() {
         viewModel.init();
         verify(view, only()).initializeView();
     }
 
     @Test
-    public void test_checkauthentication_when_guestUserAndFirebaseUserIsNull_willGoBackToLogin() {
+    public void test_checkAuthentication_when_guestUserAndFireBaseUserIsNull_will_goBackToLogin() {
         when(firebaseService.getUser()).thenReturn(null);
         viewModel.checkAuthectication(null);
+
         verify(view, times(1)).goBackToLoginScreen();
         verify(view, never()).startLoadingApp();
     }
 
     @Test
-    public void test_checkauthentication_when_guestUserIsNull_AndFirebaseUserIsNotNull_willStartLoadingApp() {
+    public void test_checkAuthentication_when_guestUserIsNull_AndFireBaseUserIsNotNull_will_startLoadingApp() {
         when(firebaseService.getUser()).thenReturn(firebaseUser);
         viewModel.checkAuthectication(null);
+
         verify(view, times(1)).startLoadingApp();
         verify(view, never()).goBackToLoginScreen();
     }
 
     @Test
-    public void test_checkauthentication_when_guestUserIsNotNull_AndFirebaseUserIsNull_willStartLoadingApp() {
+    public void test_checkAuthentication_when_guestUserIsNotNull_AndFireBaseUserIsNull_will_startLoadingApp() {
         when(firebaseService.getUser()).thenReturn(null);
         viewModel.checkAuthectication(new User());
+
         verify(view, times(1)).startLoadingApp();
         verify(view, never()).goBackToLoginScreen();
     }
 
     @Test
-    public void test_checkauthentication_when_guestUserAndFirebaseUserNotNull_willStartLoadingApp() {
+    public void test_checkAuthentication_when_guestUserAndFireBaseUserNotNull_will_starLoadingApp() {
         when(firebaseService.getUser()).thenReturn(firebaseUser);
         viewModel.checkAuthectication(new User());
+
         verify(view, times(1)).startLoadingApp();
         verify(view, never()).goBackToLoginScreen();
     }
 
     @Test
-    public void test_performlogout_willCallLogoutAndOnLogoutSuccess() {
+    public void test_performLogout_will_CallLogoutAndOnLogoutSuccess() {
         viewModel.performLogout();
+
         verify(firebaseService, times(1)).logout();
         verify(view, times(1)).onLogoutSuccess();
     }

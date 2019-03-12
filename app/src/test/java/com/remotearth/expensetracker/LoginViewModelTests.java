@@ -23,15 +23,24 @@ public class LoginViewModelTests {
 
     @Mock
     LoginContract.View view;
+
     @Mock
     GoogleService googleService;
+
     @Mock
     FacebookService facebookService;
+
     @Mock
     FirebaseService firebaseService;
 
     @InjectMocks
     private LoginViewModel loginViewModel;
+
+    @Test
+    public void test_init_will_initializeView() {
+        loginViewModel.init();
+        verify(view, only()).initializeView();
+    }
 
     @Test
     public void test_googleLoginWithIntent_withIntentData_willStartGoogleLogin() {
@@ -43,7 +52,7 @@ public class LoginViewModelTests {
     @Test
     public void test_startFacebookLogin_whenDeviceIsOnline_willStartFacebookLogin() {
         when(view.isDeviceOnline()).thenReturn(true);
-        loginViewModel.startFacebookLogin();
+       loginViewModel.startFacebookLogin();
         verify(facebookService, times(1)).startFacebookLogin(any());
     }
 
