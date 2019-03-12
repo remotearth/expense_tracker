@@ -1,6 +1,7 @@
 package com.remotearth.expensetracker;
 
 import android.content.Intent;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseUser;
 import com.remotearthsolutions.expensetracker.contracts.LoginContract;
 import com.remotearthsolutions.expensetracker.services.FacebookService;
@@ -109,12 +110,32 @@ public class LoginViewModelTests {
 
     @Test
     public void test_onFirebaseSigninFailure_with_StringData_will_call_hideProgress_onLoginFailure_and_showAlert() {
-        String errorString = mock(String.class);
-        loginViewModel.onFirebaseSigninFailure(errorString);
+        loginViewModel.onFirebaseSigninFailure("Failed");
 
         verify(view, times(1)).hideProgress();
         verify(view, times(1)).onLoginFailure();
-        verify(view, times(1)).showAlert(null, errorString, "Ok", null, null);
+        verify(view, times(1)).showAlert(null, "Failed", "Ok", null, null);
     }
 
+    @Test
+    public void test_onSocialLoginSuccess_with_AuthCredential_will_call_showProgress_and_signinWithCredential() {
+        AuthCredential authCredential = mock(AuthCredential.class);
+        loginViewModel.onSocialLoginSuccess(authCredential);
+
+        verify(view, only()).showProgress("Please wait...");
+        verify(firebaseService, only()).signinWithCredential(eq(authCredential), any());
+    }
+
+    @Test
+    public void test_onSocialLoginFailure_with_StringData_will_call_showAlert() {
+        loginViewModel.onSocialLoginFailure("Failed");
+
+        verify(view, only()).showAlert(null, "Failed", "Ok", null, null);
+    }
+
+    @Test
+    public void test_onFacebookLoginCancel_will_call_onFacebookLoginCancel() {
+        loginViewModel.onFacebookLoginCancel();
+        verify(view, only()).onLoginFailure();
+    }
 }
