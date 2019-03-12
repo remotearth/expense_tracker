@@ -46,6 +46,13 @@ public class LoginViewModelTests {
     }
 
     @Test
+    public void test_getFacebookCallbackManager_will_return_CallbackManager_object() {
+        loginViewModel.getFacebookCallbackManager();
+
+        verify(facebookService, only()).getFacebookCallbackManager();
+    }
+
+    @Test
     public void test_startFacebookLogin_when_deviceIsOnline_will_startFacebookLogin() {
         when(view.isDeviceOnline()).thenReturn(true);
         loginViewModel.startFacebookLogin();
