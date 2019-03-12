@@ -85,10 +85,18 @@ public class LoginViewModelTests {
     }
 
     @Test
-    public void test_googleLoginWithIntent_withIntentData_willStartGoogleLogin() {
+    public void test_googleLoginWithIntent_with_intentData_will_startGoogleLogin() {
         Intent intent = mock(Intent.class);
         loginViewModel.googleLoginWithIntent(intent);
+
         verify(googleService, times(1)).startGoogleLogin(eq(intent), any());
+    }
+
+    @Test
+    public void test_getGoogleSignInClient_will_return_GoogleSignInClient_object() {
+        loginViewModel.getGoogleSignInClient();
+
+        verify(googleService, only()).getGoogleSignInClient();
     }
 
 }
