@@ -99,13 +99,13 @@ public class AddCategoryDialogFragment extends DialogFragment {
         final String categoryName = categoryNameEdtxt.getText().toString().trim();
 
         if (categoryName.isEmpty()) {
-            categoryNameEdtxt.setError("Enter Category Name");
+            categoryNameEdtxt.setError("Enter a Name");
             categoryNameEdtxt.requestFocus();
             return;
         }
 
         if (selectedIcon == null || selectedIcon.isEmpty()) {
-            Toast.makeText(getActivity(), "Select an icon for the category", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Select an icon", Toast.LENGTH_SHORT).show();
             return;
         }
 
