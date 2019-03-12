@@ -71,7 +71,7 @@ public class LoginViewModel extends ViewModel implements FacebookService.CallBac
     }
 
     @Override
-    public void onFirebaseSigninFailure(String message) {
+        public void onFirebaseSigninFailure(String message) {
         view.hideProgress();
         view.onLoginFailure();
         view.showAlert(null, message, "Ok", null, null);

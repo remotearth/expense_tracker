@@ -1,7 +1,7 @@
 package com.remotearth.expensetracker;
 
-import android.app.Activity;
 import android.content.Intent;
+import com.google.firebase.auth.FirebaseUser;
 import com.remotearthsolutions.expensetracker.contracts.LoginContract;
 import com.remotearthsolutions.expensetracker.services.FacebookService;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -85,7 +84,7 @@ public class LoginViewModelTests {
     }
 
     @Test
-    public void test_googleLoginWithIntent_with_intentData_will_startGoogleLogin() {
+    public void test_googleLoginWithIntent_with_Intent_will_startGoogleLogin() {
         Intent intent = mock(Intent.class);
         loginViewModel.googleLoginWithIntent(intent);
 
@@ -97,6 +96,25 @@ public class LoginViewModelTests {
         loginViewModel.getGoogleSignInClient();
 
         verify(googleService, only()).getGoogleSignInClient();
+    }
+
+    @Test
+    public void test_onFirebaseSigninSuccess_with_FirebaseUser_will_call_hideProgress_and_onLoginSuccess() {
+        FirebaseUser user = mock(FirebaseUser.class);
+        loginViewModel.onFirebaseSigninSuccess(user);
+
+        verify(view, times(1)).hideProgress();
+        verify(view, times(1)).onLoginSuccess(eq(user));
+    }
+
+    @Test
+    public void test_onFirebaseSigninFailure_with_StringData_will_call_hideProgress_onLoginFailure_and_showAlert() {
+        String errorString = mock(String.class);
+        loginViewModel.onFirebaseSigninFailure(errorString);
+
+        verify(view, times(1)).hideProgress();
+        verify(view, times(1)).onLoginFailure();
+        verify(view, times(1)).showAlert(null, errorString, "Ok", null, null);
     }
 
 }
