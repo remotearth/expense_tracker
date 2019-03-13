@@ -14,6 +14,8 @@ public interface ExpenseFragmentContract {
 
         void onExpenseAdded();
 
+        void onExpenseDeleted();
+
         void setSourceAccount(AccountModel account);
 
         void showDefaultCategory(CategoryModel categoryModel);
