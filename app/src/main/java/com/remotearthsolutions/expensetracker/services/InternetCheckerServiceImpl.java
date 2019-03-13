@@ -21,9 +21,7 @@ public class InternetCheckerServiceImpl implements InternetCheckerService {
         if (connectivity != null) {
             NetworkInfo info = connectivity.getActiveNetworkInfo();
             if (info != null) {
-                if (info.getState() == NetworkInfo.State.CONNECTED) {
-                    return true;
-                }
+                return info.getState() == NetworkInfo.State.CONNECTED;
             }
         }
         return false;

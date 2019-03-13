@@ -4,9 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import com.remotearthsolutions.expensetracker.contracts.AccountContract;
-import com.remotearthsolutions.expensetracker.contracts.AccountDialogContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
-import com.remotearthsolutions.expensetracker.viewmodels.AccountDialogViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.AccountViewModel;
 
 public class AccountViewModelFactory implements ViewModelProvider.Factory {

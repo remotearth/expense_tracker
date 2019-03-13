@@ -2,7 +2,6 @@ package com.remotearthsolutions.expensetracker.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +14,6 @@ import com.remotearthsolutions.expensetracker.contracts.LoginContract;
 import com.remotearthsolutions.expensetracker.services.FacebookServiceImpl;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.services.GoogleServiceImpl;
-import com.remotearthsolutions.expensetracker.services.InternetCheckerServiceImpl;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.LoginViewModel;

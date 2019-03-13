@@ -67,5 +67,6 @@
     <string name="no_data_available">Sorry, No Data Available</string>
 
     <string name="icons_made_by">Icons made by Freepik from Flaticon</string>
+    <string name="Authentication_with_Firebase_is_failed">Authentication with Firebase is failed</string>
 
 </resources>

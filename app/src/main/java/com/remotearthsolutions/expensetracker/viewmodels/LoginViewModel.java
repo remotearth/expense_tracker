@@ -10,7 +10,6 @@ import com.remotearthsolutions.expensetracker.contracts.LoginContract;
 import com.remotearthsolutions.expensetracker.services.FacebookService;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
 import com.remotearthsolutions.expensetracker.services.GoogleService;
-import com.remotearthsolutions.expensetracker.services.InternetCheckerService;
 
 public class LoginViewModel extends ViewModel implements FacebookService.CallBack, FirebaseService.Callback, GoogleService.Callback {
 
