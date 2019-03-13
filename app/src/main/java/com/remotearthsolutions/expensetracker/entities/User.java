@@ -2,12 +2,12 @@ package com.remotearthsolutions.expensetracker.entities;
 
 import org.parceler.Parcel;
 
-@Parcel
+@Parcel(Parcel.Serialization.BEAN)
 public class User {
 
-    int userId;
-    String userName;
-    String authType;
+    private int userId;
+    private String userName;
+    private String authType;
 
     public User() {
     }
