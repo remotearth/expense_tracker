@@ -1,6 +1,5 @@
 package com.remotearth.expensetracker;
 
-import android.app.Activity;
 import android.content.Intent;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseUser;
@@ -9,10 +8,12 @@ import com.remotearthsolutions.expensetracker.services.FacebookService;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
 import com.remotearthsolutions.expensetracker.services.GoogleService;
 import com.remotearthsolutions.expensetracker.viewmodels.LoginViewModel;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -33,6 +34,11 @@ public class LoginViewModelTests {
 
     @InjectMocks
     private LoginViewModel loginViewModel;
+
+    @Before
+    public void init() {
+        Mockito.reset(view, googleService, facebookService, firebaseService);
+    }
 
     @Test
     public void test_init_will_initializeView() {
@@ -99,7 +105,8 @@ public class LoginViewModelTests {
 
     @Test
     public void test_onFirebaseSigninFailure_with_Data_will_call_hideProgress_onLoginFailure_and_showAlert() {
-        loginViewModel.onFirebaseSigninFailure("Sign in Failed");
+        String str = "Sign in Failed";
+        loginViewModel.onFirebaseSigninFailure(str);
         verify(view, times(1)).hideProgress();
         verify(view, times(1)).onLoginFailure();
         verify(view, times(1)).showAlert(null, "Sign in Failed", "Ok", null, null);
@@ -116,7 +123,6 @@ public class LoginViewModelTests {
     @Test
     public void test_onSocialLoginFailure_with_StringData_will_call_showAlert() {
         loginViewModel.onSocialLoginFailure("Sign in Failed");
-
         verify(view, only()).showAlert(null, "Sign in Failed", "Ok", null, null);
     }
 
