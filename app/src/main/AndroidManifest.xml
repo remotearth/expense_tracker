@@ -61,7 +61,7 @@
                 android:name="com.google.android.gms.ads.APPLICATION_ID"
                 android:value="@string/admob_app_id"/>
 
-        <service android:name=".services.MyFirebaseMessegingService">
+        <service android:name=".services.ETFirebaseMessegingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
