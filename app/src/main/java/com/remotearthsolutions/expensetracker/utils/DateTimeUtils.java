@@ -9,6 +9,8 @@ import java.util.Locale;
 
 public class DateTimeUtils {
 
+    private DateTimeUtils() {}
+
     public static final String dd_MM_yyyy = "dd-MM-yyyy";
     public static final String dd_MM_yyyy_h_mm = "dd-MM-yyyy h:mm a";
     public static final String MM_yy = "MMMM,yy";
