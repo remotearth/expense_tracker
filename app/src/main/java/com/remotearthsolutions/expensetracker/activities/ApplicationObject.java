@@ -17,12 +17,6 @@ public class ApplicationObject extends MultiDexApplication implements Applicatio
     private boolean isPremium;
     private Activity currentActivity;
 
-    private static ApplicationObject sInstance;
-
-    public ApplicationObject() {
-        sInstance = this;
-    }
-
     private final Billing mBilling = new Billing(this, new Billing.DefaultConfiguration() {
         @Override
         public String getPublicKey() {
@@ -91,10 +85,6 @@ public class ApplicationObject extends MultiDexApplication implements Applicatio
 
     public Activity getCurrentActivity() {
         return currentActivity;
-    }
-
-    public static ApplicationObject get() {
-        return sInstance;
     }
 
     public Billing getBilling() {

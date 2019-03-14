@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CategoryIcons {
+public final class CategoryIcons {
     private static Map<String, Integer> icons = new HashMap<String, Integer>() {
         {
             put("cat_bills", R.drawable.cat_bills);
