@@ -36,7 +36,9 @@ public class AccountListAdapter extends RecyclerView.Adapter<AccountViewHolder> 
     @Override
     public int getItemCount() {
 
-        if (accountlist == null) return 0;
+        if (accountlist == null) {
+            return 0;
+        }
         return accountlist.size();
     }
 

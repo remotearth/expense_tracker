@@ -78,7 +78,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
             fileReader.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("Exception", ""+ e.getMessage());
         }
 
         return categoryExpenseList;
@@ -117,12 +117,12 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
             callback.onComplete(categoryModels, expenseModels, accountModels);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("Exception", ""+ e.getMessage());
         } finally {
             try {
                 fileReader.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.d("Exception", ""+ e.getMessage());
             }
         }
     }
@@ -162,8 +162,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
             activity.startActivity(Intent.createChooser(emailIntent, "Choose Email Client To Send Report"));
 
-        } catch (Throwable t) {
-            t.printStackTrace();
+        } catch (Exception t) {
             Toast.makeText(activity, "Report Sending Failed Please Try Again Later ", Toast.LENGTH_LONG).show();
         }
     }
@@ -198,7 +197,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
                     fw.close();
                     printWriter.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.d("error", "Error File Creating"+ e.getMessage());
                 }
             }
         }

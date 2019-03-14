@@ -1,5 +1,7 @@
 package com.remotearthsolutions.expensetracker.utils;
 
+import android.util.Log;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,7 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class DateTimeUtils {
+public final class DateTimeUtils {
 
     private DateTimeUtils() {}
 
@@ -51,7 +53,7 @@ public class DateTimeUtils {
             Date dateObj = dateFormat.parse(date);
             calendar.setTime(dateObj);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.d("Exception", ""+ e.getMessage());
         }
 
         return calendar;
@@ -64,7 +66,7 @@ public class DateTimeUtils {
             Date dateObj = dateFormat.parse(dateStr);
             calendar.setTime(dateObj);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.d("Exception", ""+ e.getMessage());
         }
 
         return calendar.getTimeInMillis();

@@ -20,7 +20,7 @@ public class PurchaseListener extends EmptyRequestListener<Purchase> {
     @Override
     public void onError(int response, Exception e) {
         Log.d("Error", "onError: "+ response);
-        e.printStackTrace();
+        Log.d("Exception", ""+ e.getMessage());
         if(response == ResponseCodes.ITEM_ALREADY_OWNED) {
             billingCallback.onPurchaseFailedListener("You already purchased this item");
         }

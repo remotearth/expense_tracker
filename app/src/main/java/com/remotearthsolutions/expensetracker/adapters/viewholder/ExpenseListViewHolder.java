@@ -34,11 +34,11 @@ public class ExpenseListViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(CategoryExpense expense, String currencySymbol) {
         this.expense = expense;
-        categoryTextView.setText(String.valueOf(expense.getCategory_name()));
-        amountTextView.setText(currencySymbol + " " + String.valueOf(expense.getTotal_amount()));
-        categoryExpenseIcon.setImageResource(CategoryIcons.getIconId(expense.getCategory_icon()));
-        accountNameTv.setText(expense.getAccount_name());
-        accountImageIv.setImageResource(CategoryIcons.getIconId(expense.getAccount_icon()));
+        categoryTextView.setText(String.valueOf(expense.getCategoryName()));
+        amountTextView.setText(currencySymbol + " " + String.valueOf(expense.getTotalAmount()));
+        categoryExpenseIcon.setImageResource(CategoryIcons.getIconId(expense.getCategoryIcon()));
+        accountNameTv.setText(expense.getAccountName());
+        accountImageIv.setImageResource(CategoryIcons.getIconId(expense.getAccountIcon()));
     }
 
 }

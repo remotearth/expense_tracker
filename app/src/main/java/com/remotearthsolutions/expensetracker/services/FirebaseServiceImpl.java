@@ -53,7 +53,9 @@ public class FirebaseServiceImpl implements FirebaseService {
 
     @Override
     public FirebaseUser getUser() {
-        if (mAuth == null) return null;
+        if (mAuth == null) {
+            return null;
+        }
         return mAuth.getCurrentUser();
     }
 

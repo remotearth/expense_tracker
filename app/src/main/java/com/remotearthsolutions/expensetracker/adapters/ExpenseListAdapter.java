@@ -54,7 +54,7 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         if (holder instanceof DateSectionedViewHolder) {
             DateSectionedViewHolder viewHolder = (DateSectionedViewHolder) holder;
-            viewHolder.bind(new DateModel(item.getCategory_name()));
+            viewHolder.bind(new DateModel(item.getCategoryName()));
         } else {
             ExpenseListViewHolder viewHolder = (ExpenseListViewHolder) holder;
             viewHolder.bind(item, currencySymbol);

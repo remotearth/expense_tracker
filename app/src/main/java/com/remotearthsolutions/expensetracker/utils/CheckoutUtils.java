@@ -1,6 +1,7 @@
 package com.remotearthsolutions.expensetracker.utils;
 
 import android.app.Activity;
+import android.util.Log;
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
 import org.solovyev.android.checkout.*;
 
@@ -33,7 +34,7 @@ public final class CheckoutUtils {
                 isStarted = true;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("Exception", ""+ e.getMessage());
         }
     }
 
