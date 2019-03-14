@@ -32,7 +32,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
             if (key.equals(Constants.PREF_CURRENCY)) {
                 Preference currencyPreference = findPreference(key);
-                currencyPreference.setSummary(sharedPreferences.getString(key, "United States Dollar - USD"));
+                currencyPreference.setSummary(sharedPreferences.getString(key, getString(R.string.united_states_dollar_usd)));
             } else if (key.equals(Constants.PREF_PERIOD)) {
                 Preference periodPreference = findPreference(key);
                 periodPreference.setSummary(sharedPreferences.getString(key, Constants.KEY_DAILY));

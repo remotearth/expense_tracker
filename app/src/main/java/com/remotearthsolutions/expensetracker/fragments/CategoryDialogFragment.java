@@ -16,6 +16,7 @@ import com.remotearthsolutions.expensetracker.contracts.CategoryFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.viewmodels.CategoryViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.CategoryViewModelFactory;
 
@@ -37,7 +38,7 @@ public class CategoryDialogFragment extends DialogFragment implements CategoryFr
     public static CategoryDialogFragment newInstance(String title) {
         CategoryDialogFragment frag = new CategoryDialogFragment();
         Bundle args = new Bundle();
-        args.putString("title", title);
+        args.putString(Constants.KEY_TITLE, title);
         frag.setArguments(args);
         return frag;
     }

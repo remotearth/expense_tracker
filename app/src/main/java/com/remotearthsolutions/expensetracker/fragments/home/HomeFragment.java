@@ -107,11 +107,11 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
             if (limitOfCategory < 20 ||
                     ((ApplicationObject) getActivity().getApplication()).isPremium()) {
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                final AddCategoryDialogFragment categoryDialogFragment = AddCategoryDialogFragment.newInstance("Add Category");
+                final AddCategoryDialogFragment categoryDialogFragment = AddCategoryDialogFragment.newInstance(getString(R.string.add_category));
                 categoryDialogFragment.setCallback(categoryModel -> categoryDialogFragment.dismiss());
                 categoryDialogFragment.show(ft, AddCategoryDialogFragment.class.getName());
             } else {
-                showAlert("Attention", "You need to be premium user to add more categories", "Ok", null, null);
+                showAlert(getString(R.string.attention), getString(R.string.you_need_to_be_premium_user_to_add_more_categories), getString(R.string.ok), null, null);
             }
 
 

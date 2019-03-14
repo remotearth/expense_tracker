@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel;
+import com.remotearthsolutions.expensetracker.utils.Constants;
 
 public class DateSectionedViewHolder extends RecyclerView.ViewHolder {
 
@@ -21,7 +22,7 @@ public class DateSectionedViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(DateModel dateModel) {
 
-        if(dateModel.getDate().contains("-")){
+        if(dateModel.getDate().contains(Constants.KEY_DESH)){
             dateTextView.setGravity(Gravity.LEFT);
             dateTextView.setTextSize(15f);
             underLine.setVisibility(View.VISIBLE);

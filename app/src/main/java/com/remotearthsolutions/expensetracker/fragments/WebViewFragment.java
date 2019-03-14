@@ -35,10 +35,10 @@ public class WebViewFragment extends Fragment {
 
         if (getArguments() != null) {
             url = getArguments().getString(Constants.KEY_URL);
-            screen = getArguments().getString("screen");
+            screen = getArguments().getString(Constants.KEY_SCREEN);
         }
 
-        if (screen.equals("license_details")) {
+        if (screen.equals(getString(R.string.license_details))) {
             Toolbar toolbar = ((MainActivity) getActivity()).getToolbar();
             toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
             ((MainActivity) getActivity()).getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);

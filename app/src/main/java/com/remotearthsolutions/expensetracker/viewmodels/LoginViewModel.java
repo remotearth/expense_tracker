@@ -11,6 +11,7 @@ import com.remotearthsolutions.expensetracker.services.FacebookService;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
 import com.remotearthsolutions.expensetracker.services.GoogleService;
 import com.remotearthsolutions.expensetracker.services.InternetCheckerService;
+import com.remotearthsolutions.expensetracker.utils.Constants;
 
 public class LoginViewModel extends ViewModel implements FacebookService.CallBack, FirebaseService.Callback, GoogleService.Callback {
 
@@ -39,7 +40,7 @@ public class LoginViewModel extends ViewModel implements FacebookService.CallBac
         if (view.isDeviceOnline()) {
             facebookService.startFacebookLogin(this);
         } else {
-            view.showAlert("Warning", "No Internet Connection", "OK", null, null);
+            view.showAlert(Constants.KEY_WARNING, Constants.KEY_WARNING_MESSAGE, Constants.KEY_OK, null, null);
         }
 
     }
@@ -52,7 +53,7 @@ public class LoginViewModel extends ViewModel implements FacebookService.CallBac
         if (view.isDeviceOnline()) {
             view.loadUserEmails();
         } else {
-            view.showAlert("Warning", "No Internet Connection", "OK", null, null);
+            view.showAlert(Constants.KEY_WARNING, Constants.KEY_WARNING_MESSAGE, Constants.KEY_OK, null, null);
         }
     }
 
@@ -74,12 +75,12 @@ public class LoginViewModel extends ViewModel implements FacebookService.CallBac
     public void onFirebaseSigninFailure(String message) {
         view.hideProgress();
         view.onLoginFailure();
-        view.showAlert(null, message, "Ok", null, null);
+        view.showAlert(null, message, Constants.KEY_OK, null, null);
     }
 
     @Override
     public void onSocialLoginSuccess(AuthCredential credential) {
-        view.showProgress("Please wait...");
+        view.showProgress(Constants.KEY_PLEASE_WAIT);
         firebaseService.signinWithCredential(credential, this);
     }
 

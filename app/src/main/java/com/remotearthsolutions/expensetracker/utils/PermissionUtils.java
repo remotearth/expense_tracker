@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.provider.Settings;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.listener.single.PermissionListener;
+import com.remotearthsolutions.expensetracker.R;
 
 public class PermissionUtils {
 
@@ -28,21 +29,21 @@ public class PermissionUtils {
     public void showSettingsDialog(Activity activity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
-        builder.setTitle("Attention!");
-        builder.setMessage("To use this Features Your need Permission For that, You can access it in app settings.");
+        builder.setTitle(activity.getString(R.string.warning));
+        builder.setMessage(activity.getString(R.string.to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings));
 
-        builder.setPositiveButton("Go To Setting", (dialog, which) -> {
+        builder.setPositiveButton(activity.getString(R.string.go_to_settings), (dialog, which) -> {
             dialog.cancel();
             openSettings(activity);
         });
-        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        builder.setNegativeButton(activity.getString(R.string.cancel), (dialog, which) -> dialog.cancel());
 
         builder.show();
     }
 
     private void openSettings(Activity activity) {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        Uri uri = Uri.fromParts("package", activity.getPackageName(), null);
+        Uri uri = Uri.fromParts(Constants.KEY_PACKAGE, activity.getPackageName(), null);
         intent.setData(uri);
         activity.startActivityForResult(intent, 101);
     }

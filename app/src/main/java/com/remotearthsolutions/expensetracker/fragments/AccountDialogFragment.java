@@ -16,6 +16,7 @@ import com.remotearthsolutions.expensetracker.contracts.AccountDialogContract;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
+import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.viewmodels.AccountDialogViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.AccountDialogViewModelFactory;
 
@@ -34,7 +35,7 @@ public class AccountDialogFragment extends DialogFragment implements AccountDial
     public static AccountDialogFragment newInstance(String title) {
         AccountDialogFragment frag = new AccountDialogFragment();
         Bundle args = new Bundle();
-        args.putString("title", title);
+        args.putString(Constants.KEY_TITLE, title);
         frag.setArguments(args);
         return frag;
     }

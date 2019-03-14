@@ -10,12 +10,11 @@ import java.util.TimeZone;
 
 public class DateTimeUtils {
 
-    public static final String dd_MM_yyyy = "dd-MM-yyyy";
-    public static final String dd_MM_yyyy_h_mm = "dd-MM-yyyy h:mm a";
-    public static final String MM_yy = "MMMM,yy";
-    public static final String yyyy = "yyyy";
-    public static final String mmmm = "MMMM";
-
+    public static final String dd_MM_yyyy = Constants.KEY_DATE_MONTH_YEAR;
+    public static final String dd_MM_yyyy_h_mm = Constants.KEY_DATE_MONTH_YEAR_HOUR_MINIT_AM_PM;
+    public static final String MM_yy = Constants.KEY_MONTH_YEAR;
+    public static final String yyyy = Constants.KEY_YEAR;
+    public static final String mmmm = Constants.KEY_MONTH;
 
     public static String getCurrentDate(String format){
         Calendar calendar = Calendar.getInstance();
@@ -25,7 +24,7 @@ public class DateTimeUtils {
 
     public static String getCurrentTime(){
         Calendar calendar = Calendar.getInstance();
-        DateFormat dateFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
+        DateFormat dateFormat = new SimpleDateFormat(Constants.KEY_HOUR_MINIT_AM_PM, Locale.getDefault());
         return dateFormat.format(calendar.getTime());
     }
 

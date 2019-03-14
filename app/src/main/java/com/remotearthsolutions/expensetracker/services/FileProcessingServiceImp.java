@@ -14,10 +14,12 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
+import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
 import com.remotearthsolutions.expensetracker.utils.PermissionUtils;
 
@@ -100,17 +102,17 @@ public class FileProcessingServiceImp implements FileProcessingService {
             fileReader.readLine();
 
             while ((line = fileReader.readLine()) != null) {
-                if (line.contains("meta1")) {
-                    line = line.replace("meta1:", "");
-                    String jsonContent = new String(Base64.decode(line, Base64.NO_WRAP), "UTF-8");
+                if (line.contains(Constants.KEY_META1)) {
+                    line = line.replace(Constants.KEY_META1_REPLACE, "");
+                    String jsonContent = new String(Base64.decode(line, Base64.NO_WRAP), Constants.KEY_UTF_VERSION);
                     expenseModels = Arrays.asList(new Gson().fromJson(jsonContent, ExpenseModel[].class));
-                } else if (line.contains("meta2")) {
-                    line = line.replace("meta2:", "");
-                    String jsonContent = new String(Base64.decode(line, Base64.NO_WRAP), "UTF-8");
+                } else if (line.contains(Constants.KEY_META2)) {
+                    line = line.replace(Constants.KEY_META2_REPLACE, "");
+                    String jsonContent = new String(Base64.decode(line, Base64.NO_WRAP), Constants.KEY_UTF_VERSION);
                     categoryModels = Arrays.asList(new Gson().fromJson(jsonContent, CategoryModel[].class));
-                } else if (line.contains("meta3")) {
-                    line = line.replace("meta3:", "");
-                    String jsonContent = new String(Base64.decode(line, Base64.NO_WRAP), "UTF-8");
+                } else if (line.contains(Constants.KEY_META3)) {
+                    line = line.replace(Constants.KEY_META3_REPLACE, "");
+                    String jsonContent = new String(Base64.decode(line, Base64.NO_WRAP), Constants.KEY_UTF_VERSION);
                     accountModels = Arrays.asList(new Gson().fromJson(jsonContent, AccountModel[].class));
                 }
             }
@@ -134,7 +136,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
         String[] listOfAllItems = dataDirectory.list();
         if (listOfAllItems != null && listOfAllItems.length > 0) {
             for (String item : listOfAllItems) {
-                if (item.contains("expense_tracker_")) {
+                if (item.contains(Constants.KEY_EXPENSE_TRACKER)) {
                     fileList.add(item);
                 }
             }
@@ -146,25 +148,25 @@ public class FileProcessingServiceImp implements FileProcessingService {
     @Override
     public void shareFile(Activity activity) {
         String emailAddress = "";
-        String emailSubject = "Reports From Expense Tracker";
+        String emailSubject = activity.getString(R.string.report_from_expense_tracker);
 
         try {
 
             File fileLocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), createFileNameAccordingToDate());
-            Uri uri = FileProvider.getUriForFile(activity, "com.remotearthsolutions.expensetracker.provider", fileLocation);
+            Uri uri = FileProvider.getUriForFile(activity, Constants.KEY_PROVIDER, fileLocation);
 
             final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
-            emailIntent.setType("plain/text");
+            emailIntent.setType(activity.getString(R.string.plain_text));
 
             emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
             emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{emailAddress});
             emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, emailSubject);
 
-            activity.startActivity(Intent.createChooser(emailIntent, "Choose Email Client To Send Report"));
+            activity.startActivity(Intent.createChooser(emailIntent, activity.getString(R.string.choose_email_client_to_send_report)));
 
         } catch (Throwable t) {
             t.printStackTrace();
-            Toast.makeText(activity, "Report Sending Failed Please Try Again Later ", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, activity.getString(R.string.report_sending_failed_please_try_again_later), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -211,7 +213,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
     }
 
     private String createFileNameAccordingToDate() {
-        return "expense_tracker_" + DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy) + ".csv";
+        return Constants.KEY_EXPENSE_TRACKER + DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy) + Constants.KEY_CSV_FILE_EXTENSION;
     }
 
 }

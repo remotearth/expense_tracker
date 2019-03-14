@@ -10,9 +10,11 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.utils.Constants;
 
 public class GoogleServiceImpl implements GoogleService {
-    private static final String GOOGLE_CLIENT_ID = "1034332655323-lv5t5fja6ef5co4vsaf9bv476c9rga9r.apps.googleusercontent.com";
+    private static final String GOOGLE_CLIENT_ID = Constants.KEY_GOOGLE_CLIENT_ID;
     private GoogleSignInClient mGoogleSignInClient;
     private Context context;
 
@@ -40,7 +42,7 @@ public class GoogleServiceImpl implements GoogleService {
             callback.onSocialLoginSuccess(credential);
         } catch (ApiException e) {
             e.printStackTrace();
-            callback.onSocialLoginFailure("Google signin failed");
+            callback.onSocialLoginFailure(context.getString(R.string.google_signin_failed));
         }
     }
 

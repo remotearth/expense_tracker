@@ -52,7 +52,7 @@ public class AddAccountAmountDialogFragment extends DialogFragment {
         view.findViewById(R.id.okBtn).setOnClickListener(v -> {
             String amount = amountEdtxt.getText().toString();
             if (amount == null || amount.length() == 0) {
-                Toast.makeText(getActivity(), "You have to enter an amount", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.you_have_to_enter_an_amount), Toast.LENGTH_LONG).show();
                 return;
             }
 

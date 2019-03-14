@@ -17,7 +17,7 @@ public class Utils {
         int r = ra.nextInt(255);
         int g = ra.nextInt(255);
         int b = ra.nextInt(255);
-        return String.format("#%02x%02x%02x", r, g, b);
+        return String.format(Constants.KEY_COLOR_FORMAT, r, g, b);
     }
 
     public static ScreenSize getDeviceScreenSize(Context context) {

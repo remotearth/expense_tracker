@@ -56,11 +56,11 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         dateTv = view.findViewById(R.id.dateTv);
         okBtn = view.findViewById(R.id.okBtn);
 
-        String currencySymbol = "$";
+        String currencySymbol = getString(R.string.doller_symbol);
         if (getActivity() != null) {
             currencySymbol = Utils.getCurrency(getActivity());
         }
-        expenseEdtxt.setHint(currencySymbol + " 0");
+        expenseEdtxt.setHint(currencySymbol + getString(R.string.initially_zero));
 
         NumpadFragment numpadFragment = (NumpadFragment) getChildFragmentManager().findFragmentById(R.id.numpadContainer);
         NumpadManager numpadManager = new NumpadManager();
@@ -109,7 +109,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
         selectAccountBtn.setOnClickListener(v -> {
             FragmentManager fm = getChildFragmentManager();
-            final AccountDialogFragment accountDialogFragment = AccountDialogFragment.newInstance("Select Account");
+            final AccountDialogFragment accountDialogFragment = AccountDialogFragment.newInstance(getString(R.string.select_account));
             accountDialogFragment.setCallback(account -> {
 
                 categoryExpense.setAccount(account);
@@ -126,7 +126,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         selectCategoryBtn.setOnClickListener(v -> {
 
             FragmentManager fm = getChildFragmentManager();
-            final CategoryDialogFragment categoryDialogFragment = CategoryDialogFragment.newInstance("Select Category");
+            final CategoryDialogFragment categoryDialogFragment = CategoryDialogFragment.newInstance(getString(R.string.select_category));
             categoryDialogFragment.setCategory(categoryExpense.getCategory_id());
             categoryDialogFragment.setCallback(category -> {
                 categoryBtnIv.setImageResource(CategoryIcons.getIconId(category.getIcon()));
@@ -157,7 +157,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
         okBtn.setOnClickListener(v -> {
             String expenseStr = expenseEdtxt.getText().toString();
-            if (expenseStr.equals(".")) {
+            if (expenseStr.equals(getString(R.string.point))) {
                 expenseStr = "";
             }
             double amount = expenseStr.length() > 0 ? Double.parseDouble(expenseStr) : 0;
@@ -194,10 +194,10 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         expenseDeleteBtn.setOnClickListener(v -> {
             if ((categoryExpense.getExpense_id() > 0)) {
 
-                showAlert("Attention",
-                        "Are you sure, you want to delete this expense entry",
-                        "Yes",
-                        "Not now",
+                showAlert(getString(R.string.attention),
+                        getString(R.string.are_you_sure_you_want_to_delete_this_expense_entry),
+                        getString(R.string.yes),
+                        getString(R.string.not_now),
                         new Callback() {
                             @Override
                             public void onOkBtnPressed() {
@@ -219,12 +219,12 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
     @Override
     public void onExpenseAdded() {
         expenseEdtxt.setText("");
-        Toast.makeText(getActivity(), "Successfully added.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), getString(R.string.successfully_added), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onExpenseDeleted() {
-        Toast.makeText(getActivity(), "Successfully deleted expense entry.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), getString(R.string.successfully_deleted_expense_entry), Toast.LENGTH_SHORT).show();
         getActivity().onBackPressed();
     }
 

@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.services;
 
 import android.util.Log;
 import com.remotearthsolutions.expensetracker.callbacks.InAppBillingCallback;
+import com.remotearthsolutions.expensetracker.utils.Constants;
 import org.solovyev.android.checkout.*;
 
 public class PurchaseListener extends EmptyRequestListener<Purchase> {
@@ -22,7 +23,7 @@ public class PurchaseListener extends EmptyRequestListener<Purchase> {
         Log.d("Error", "onError: "+ response);
         e.printStackTrace();
         if(response == ResponseCodes.ITEM_ALREADY_OWNED) {
-            billingCallback.onPurchaseFailedListener("You already purchased this item");
+            billingCallback.onPurchaseFailedListener(Constants.KEY_PURCHASED_ITEM_MESSAGE);
         }
 
     }

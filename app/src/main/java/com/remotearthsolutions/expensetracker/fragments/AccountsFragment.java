@@ -48,7 +48,7 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
         super.onViewCreated(view, savedInstanceState);
         listview = view.findViewById(R.id.accountList);
 
-        currencySymbol = "$";
+        currencySymbol = getString(R.string.doller_symbol);
         if (getActivity() != null) {
             currencySymbol = Utils.getCurrency(getActivity());
         }
@@ -69,7 +69,7 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
                 selectAccountModel = null;
                 onClickEditBtn();
             } else {
-                showAlert("Attention", "You need to be premium user to add more Account", "Ok", null, null);
+                showAlert(getString(R.string.attention), getString(R.string.you_need_to_be_premium_user_to_add_more_categories), getString(R.string.ok), null, null);
             }
         });
     }
@@ -115,14 +115,14 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
     @Override
     public void onClickDeleteBtn() {
         if (selectAccountModel.getNotremovable() == 1) {
-            Toast.makeText(getActivity(), "You cannot delete this account", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.you_cannot_delete_this_account), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        AlertDialogUtils.show(getActivity(), "Warning",
-                "Deleting this account will remove expenses related to this also. Are you sure, You want to Delete?",
-                "Yes",
-                "Not now",
+        AlertDialogUtils.show(getActivity(), getString(R.string.warning),
+                getString(R.string.deleting_this_account_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete),
+                getString(R.string.yes),
+                getString(R.string.not_now),
                 new BaseView.Callback() {
                     @Override
                     public void onOkBtnPressed() {

@@ -48,7 +48,7 @@ public class AllExpenseFragment extends BaseFragment implements ExpenseFragmentC
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(llm);
 
-        currencySymbol = "$";
+        currencySymbol = getString(R.string.doller_symbol);
         if (getActivity() != null) {
             currencySymbol = Utils.getCurrency(getActivity());
         }

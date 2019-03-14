@@ -10,6 +10,7 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.remotearthsolutions.expensetracker.R;
 
 public class FirebaseServiceImpl implements FirebaseService {
 
@@ -32,14 +33,14 @@ public class FirebaseServiceImpl implements FirebaseService {
                             callback.onFirebaseSigninSuccess(task.getResult().getUser());
 
                         } else {
-                            callback.onFirebaseSigninFailure("Authentication with Firebase is failed ");
+                            callback.onFirebaseSigninFailure(context.getString(R.string.authentication_with_firebase_is_failed));
                         }
                     }
                 })
                 .addOnFailureListener((Activity) context, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        callback.onFirebaseSigninFailure("Authentication with Firebase is failed ");
+                        callback.onFirebaseSigninFailure(context.getString(R.string.authentication_with_firebase_is_failed));
                     }
                 });
     }
@@ -55,13 +56,13 @@ public class FirebaseServiceImpl implements FirebaseService {
                             callback.onFirebaseSigninSuccess(task.getResult().getUser());
 
                         } else {
-                            callback.onFirebaseSigninFailure("Authentication with Firebase is failed ");
+                            callback.onFirebaseSigninFailure(context.getString(R.string.authentication_with_firebase_is_failed));
                         }
                     }
                 }).addOnFailureListener((Activity) context, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                callback.onFirebaseSigninFailure("Authentication with Firebase is failed ");
+                callback.onFirebaseSigninFailure(context.getString(R.string.authentication_with_firebase_is_failed));
             }
         });
     }

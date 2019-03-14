@@ -13,6 +13,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
 import com.remotearthsolutions.expensetracker.activities.MainActivity;
+import com.remotearthsolutions.expensetracker.utils.Constants;
 
 public class MyFirebaseMessegingService extends FirebaseMessagingService {
 
@@ -30,11 +31,11 @@ public class MyFirebaseMessegingService extends FirebaseMessagingService {
     private void showAlertDialog(Activity activity, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
-        builder.setTitle("Remotearth Notification");
+        builder.setTitle(getString(R.string.remotearth_notification));
         builder.setMessage(message);
         builder.setIcon(R.mipmap.ic_launcher);
         builder.setCancelable(true);
-        builder.setNegativeButton("OK", (dialog, id) -> dialog.cancel());
+        builder.setNegativeButton(getString(R.string.ok), (dialog, id) -> dialog.cancel());
 
         AlertDialog alert = builder.create();
         alert.show();
@@ -45,9 +46,9 @@ public class MyFirebaseMessegingService extends FirebaseMessagingService {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         if (remoteMessage.getData().size() > 0) {
-            String message = remoteMessage.getData().get("message");
+            String message = remoteMessage.getData().get(getString(R.string.message));
             Bundle bundle = new Bundle();
-            bundle.putString("message", message);
+            bundle.putString(Constants.KEY_MESSAGE, message);
             intent.putExtras(bundle);
         }
 
@@ -57,7 +58,7 @@ public class MyFirebaseMessegingService extends FirebaseMessagingService {
                 PendingIntent.FLAG_ONE_SHOT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setContentTitle("Remotearth Notification");
+        builder.setContentTitle(getString(R.string.remotearth_notification));
         builder.setContentText(remoteMessage.getNotification().getBody());
         builder.setAutoCancel(true);
         builder.setSmallIcon(R.mipmap.ic_launcher_round);
