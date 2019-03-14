@@ -8,7 +8,7 @@ import com.remotearthsolutions.expensetracker.BuildConfig;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
 
-public class AdmobUtils {
+public final class AdmobUtils {
 
     private Activity activity;
     private InterstitialAd interstitialAd;

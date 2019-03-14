@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-public class SharedPreferenceUtils {
+public final class SharedPreferenceUtils {
 
     private static SharedPreferenceUtils instance;
     private SharedPreferences sp;

@@ -4,7 +4,7 @@ import android.app.Activity;
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
 import org.solovyev.android.checkout.*;
 
-public class CheckoutUtils {
+public final class CheckoutUtils {
 
     private ActivityCheckout mCheckout;
     private static CheckoutUtils instance;
@@ -23,7 +23,7 @@ public class CheckoutUtils {
     }
 
     private CheckoutUtils(Activity activity) {
-        mCheckout = Checkout.forActivity(activity, ApplicationObject.get().getBilling());
+        mCheckout = Checkout.forActivity(activity, ((ApplicationObject) activity.getApplication()).getBilling());
     }
 
     public void start() {
