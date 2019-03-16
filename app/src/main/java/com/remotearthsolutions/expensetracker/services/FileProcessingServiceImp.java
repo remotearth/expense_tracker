@@ -35,12 +35,18 @@ public class FileProcessingServiceImp implements FileProcessingService {
     }
 
     @Override
-    public void writeOnCsvFile(Activity activity, String content, Runnable runnable) {
+    public void writeOnCsvFile(Activity activity, String content, Runnable onSuccessRunnable, Runnable onFailureRunnable) {
         writePermission.writeExternalStoragePermission(activity, new PermissionListener() {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse response) {
                 if (writeExternalFile(content)) {
-                    runnable.run();
+                    if (onSuccessRunnable != null) {
+                        onSuccessRunnable.run();
+                    }
+                } else {
+                    if (onFailureRunnable != null) {
+                        onFailureRunnable.run();
+                    }
                 }
             }
 
@@ -51,7 +57,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
             @Override
             public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-
+                Toast.makeText(activity, permission.getName() + " is neeeded. You can allow this permission from device settings.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -149,7 +155,6 @@ public class FileProcessingServiceImp implements FileProcessingService {
         String emailSubject = "Reports From Expense Tracker";
 
         try {
-
             File fileLocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), createFileNameAccordingToDate());
             Uri uri = FileProvider.getUriForFile(activity, "com.remotearthsolutions.expensetracker.provider", fileLocation);
 

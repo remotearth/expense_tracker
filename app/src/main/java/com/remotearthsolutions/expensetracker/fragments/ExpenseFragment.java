@@ -173,8 +173,6 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             expenseModel.setSource(categoryExpense.getAccount_id());
             expenseModel.setNote(expenseNoteEdtxt.getText().toString());
             viewModel.addExpense(expenseModel);
-            viewModel.updateAccountAmount(categoryExpense.getAccount_id(), amount);
-
         });
 
         expenseNoteEdtxt.setOnClickListener(v -> {
@@ -217,9 +215,10 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
     }
 
     @Override
-    public void onExpenseAdded() {
+    public void onExpenseAdded(double amount) {
         expenseEdtxt.setText("");
         Toast.makeText(getActivity(), "Successfully added.", Toast.LENGTH_SHORT).show();
+        viewModel.updateAccountAmount(categoryExpense.getAccount_id(), amount);
     }
 
     @Override

@@ -43,7 +43,7 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
 
         pagerAdapter = new MainFragmentPagerAdapter(getChildFragmentManager());
-        binding.viewpager.setOffscreenPageLimit(tabTitles.length - 1);
+        binding.viewpager.setOffscreenPageLimit(tabTitles.length);
         binding.viewpager.setAdapter(pagerAdapter);
         binding.viewpager.addOnPageChangeListener(viewPagerPageChangeListener);
         binding.navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -84,7 +84,7 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
         return binding.getRoot();
     }
 
-    private void resetDateRangeBtns(){
+    private void resetDateRangeBtns() {
         binding.dailyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_unselected);
         binding.weeklyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_unselected);
         binding.monthlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_unselected);
@@ -228,11 +228,11 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
 
     @Override
     public void onDateChanged(int buttonId, String date, long startTime, long endTime) {
-        if(buttonId != R.id.nextDateBtn && buttonId != R.id.previousDateBtn){
+        if (buttonId != R.id.nextDateBtn && buttonId != R.id.previousDateBtn) {
             resetDateRangeBtns();
         }
 
-        switch (buttonId){
+        switch (buttonId) {
             case R.id.dailyRangeBtn:
                 binding.dailyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
                 break;

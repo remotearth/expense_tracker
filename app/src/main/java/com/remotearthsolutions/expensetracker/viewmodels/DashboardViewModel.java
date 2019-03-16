@@ -40,6 +40,9 @@ public class DashboardViewModel extends ViewModel {
     public void saveExpenseToCSV(Activity activity) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\n\nDate,Category,Amount,From,Note\n");
+        if (disposable.isDisposed()) {
+            disposable = new CompositeDisposable();
+        }
         disposable.add(categoryExpenseDao.getAllFilterExpense()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -55,31 +58,35 @@ public class DashboardViewModel extends ViewModel {
                         stringBuilder.append("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                         stringBuilder.append("(Don't edit this meta data)\n");
 
-                        expenseDao.getAllExpenseEntry().subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe(entries -> {
+                        disposable.add(expenseDao.getAllExpenseEntry().subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe(entries -> {
                             String json = new Gson().toJson(entries);
                             String encryptedStr = Base64.encodeToString(json.getBytes("UTF-8"), Base64.NO_WRAP);
                             stringBuilder.append("meta1:" + encryptedStr + "\n");
 
-                            categoryDao.getAllCategories().subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe(
+                            disposable.add(categoryDao.getAllCategories().subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe(
                                     entries1 -> {
                                         String json1 = new Gson().toJson(entries1);
                                         String encryptedStr1 = Base64.encodeToString(json1.getBytes("UTF-8"), Base64.NO_WRAP);
                                         stringBuilder.append("meta2:" + encryptedStr1 + "\n");
 
-                                        accountDao.getAllAccounts().subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe(
+                                        disposable.add(accountDao.getAllAccounts().subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe(
                                                 entries2 -> {
                                                     String json2 = new Gson().toJson(entries2);
                                                     String encryptedStr2 = Base64.encodeToString(json2.getBytes("UTF-8"), Base64.NO_WRAP);
                                                     stringBuilder.append("meta3:" + encryptedStr2 + "\n");
-
                                                     fileProcessingService.writeOnCsvFile(activity, stringBuilder.toString(), () -> {
                                                         shareCSV_FileToMail(activity);
+                                                        disposable.dispose();
+                                                    }, () -> {
+                                                        disposable.dispose();
+                                                        //show error - report was not generated. please try again
                                                     });
-                                                });
-                                    });
-                        });
+                                                }));
+                                    }));
+                        }));
                     }
                 }));
+
     }
 
     public List<CategoryExpense> readExpenseFromCsv(Activity activity) {
@@ -95,7 +102,6 @@ public class DashboardViewModel extends ViewModel {
     }
 
     public void importDataFromFile(String filepath) {
-
         fileProcessingService.loadTableData(filepath, (categories, expenseModels, accountModels) -> {
 
             Executors.newSingleThreadExecutor().execute(() -> {

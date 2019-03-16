@@ -54,7 +54,7 @@ public class ExpenseFragmentViewModel extends ViewModel {
                 }
             }).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(() -> view.onExpenseAdded()));
+                    .subscribe(() -> view.onExpenseAdded(expense.getAmount())));
         } else {
             view.showToast("Please enter an amount");
         }
@@ -63,12 +63,17 @@ public class ExpenseFragmentViewModel extends ViewModel {
     public void updateAccountAmount(int accountId, double amount) {
         compositeDisposable.add(accountDao.getAccountById(accountId)
                 .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.computation())
+                .observeOn(Schedulers.io())
                 .subscribe(accountModel -> {
                     double previousAmount = accountModel.getAmount();
                     previousAmount -= amount;
                     accountModel.setAmount(previousAmount);
-                    accountDao.updateAccount(accountModel);
+
+                    Completable.fromAction(() -> accountDao.updateAccount(accountModel)).subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(() -> {
+                            });
+                    
                 })
         );
     }
