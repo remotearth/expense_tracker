@@ -20,6 +20,7 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
 import com.remotearthsolutions.expensetracker.adapters.DashboardAdapter;
+import com.remotearthsolutions.expensetracker.contracts.DashboardContract;
 import com.remotearthsolutions.expensetracker.databaseutils.AppDatabase;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.entities.DashboardModel;
@@ -39,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class DashboardFragment extends BaseFragment {
+public class DashboardFragment extends BaseFragment implements DashboardContract.View {
 
     private DashboardViewModel dashboardViewModel;
     private ListView lv;
@@ -56,7 +57,7 @@ public class DashboardFragment extends BaseFragment {
 
         productId = ((ApplicationObject) getActivity().getApplication()).getAdProductId();
         AppDatabase db = DatabaseClient.getInstance(getContext()).getAppDatabase();
-        dashboardViewModel = ViewModelProviders.of(this, new DashBoardViewModelFactory(db.categoryExpenseDao(), db.expenseDao(),
+        dashboardViewModel = ViewModelProviders.of(this, new DashBoardViewModelFactory(this, db.categoryExpenseDao(), db.expenseDao(),
                 db.categoryDao(), db.accountDao(), new FileProcessingServiceImp())).get(DashboardViewModel.class);
     }
 
@@ -144,7 +145,7 @@ public class DashboardFragment extends BaseFragment {
                         showAlert("", "Internet connection is needed to perform this action.", "Ok", null, null);
                         return;
                     }
-                    
+
                     checkoutUtils.getCheckout().whenReady(new Checkout.EmptyListener() {
                         @Override
                         public void onReady(@Nonnull BillingRequests requests) {

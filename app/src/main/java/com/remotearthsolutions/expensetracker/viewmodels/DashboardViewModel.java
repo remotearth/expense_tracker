@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.util.Base64;
 import androidx.lifecycle.ViewModel;
 import com.google.gson.Gson;
+import com.remotearthsolutions.expensetracker.contracts.DashboardContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryExpenseDao;
@@ -22,6 +23,7 @@ import java.util.concurrent.Executors;
 
 public class DashboardViewModel extends ViewModel {
 
+    private DashboardContract.View view;
     private CategoryExpenseDao categoryExpenseDao;
     private ExpenseDao expenseDao;
     private CategoryDao categoryDao;
@@ -29,7 +31,8 @@ public class DashboardViewModel extends ViewModel {
     private FileProcessingService fileProcessingService;
     private CompositeDisposable disposable = new CompositeDisposable();
 
-    public DashboardViewModel(CategoryExpenseDao categoryExpenseDao, ExpenseDao expenseDao, CategoryDao categoryDao, AccountDao accountDao, FileProcessingService fileProcessingService) {
+    public DashboardViewModel(DashboardContract.View view, CategoryExpenseDao categoryExpenseDao, ExpenseDao expenseDao, CategoryDao categoryDao, AccountDao accountDao, FileProcessingService fileProcessingService) {
+        this.view = view;
         this.categoryExpenseDao = categoryExpenseDao;
         this.expenseDao = expenseDao;
         this.categoryDao = categoryDao;
@@ -38,6 +41,7 @@ public class DashboardViewModel extends ViewModel {
     }
 
     public void saveExpenseToCSV(Activity activity) {
+
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\n\nDate,Category,Amount,From,Note\n");
         if (disposable.isDisposed()) {
@@ -47,7 +51,7 @@ public class DashboardViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(listOfFilterExpense -> {
-                    if (listOfFilterExpense != null) {
+                    if (listOfFilterExpense != null && listOfFilterExpense.size() > 0) {
                         for (int i = 0; i < listOfFilterExpense.size(); i++) {
                             if (listOfFilterExpense.get(i).getTotalAmount() > 0) {
                                 stringBuilder.append(listOfFilterExpense.get(i));
@@ -84,6 +88,10 @@ public class DashboardViewModel extends ViewModel {
                                                 }));
                                     }));
                         }));
+
+                    } else {
+                        view.showAlert("", "No expense data available to export.", "Ok", null, null);
+                        disposable.dispose();
                     }
                 }));
 
