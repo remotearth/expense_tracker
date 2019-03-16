@@ -14,10 +14,12 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+import com.remotearthsolutions.expensetracker.contracts.BaseView;
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
+import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils;
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
 import com.remotearthsolutions.expensetracker.utils.PermissionUtils;
 
@@ -52,12 +54,32 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
             @Override
             public void onPermissionDenied(PermissionDeniedResponse response) {
-                forceUserToGrantPermission(activity);
+                if (response.isPermanentlyDenied()) {
+                    forceUserToGrantPermission(activity);
+                } else {
+                    AlertDialogUtils.show(activity, "",
+                            "Without this permission, the app cannot export data.",
+                            "Ok", null, null);
+                }
             }
 
             @Override
             public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-                Toast.makeText(activity, permission.getName() + " is neeeded. You can allow this permission from device settings.", Toast.LENGTH_SHORT).show();
+                AlertDialogUtils.show(activity, "Attention",
+                        "Writing to external storage permission is needed to export data. Do you want to continue by giving the permission?",
+                        "Yes",
+                        "No",
+                        new BaseView.Callback() {
+                            @Override
+                            public void onOkBtnPressed() {
+                                token.continuePermissionRequest();
+                            }
+
+                            @Override
+                            public void onCancelBtnPressed() {
+                                token.cancelPermissionRequest();
+                            }
+                        });
             }
         });
     }
@@ -84,7 +106,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
             fileReader.close();
 
         } catch (Exception e) {
-            Log.d("Exception", ""+ e.getMessage());
+            Log.d("Exception", "" + e.getMessage());
         }
 
         return categoryExpenseList;
@@ -123,12 +145,12 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
             callback.onComplete(categoryModels, expenseModels, accountModels);
         } catch (Exception e) {
-            Log.d("Exception", ""+ e.getMessage());
+            Log.d("Exception", "" + e.getMessage());
         } finally {
             try {
                 fileReader.close();
             } catch (IOException e) {
-                Log.d("Exception", ""+ e.getMessage());
+                Log.d("Exception", "" + e.getMessage());
             }
         }
     }
@@ -202,7 +224,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
                     fw.close();
                     printWriter.close();
                 } catch (IOException e) {
-                    Log.d("error", "Error File Creating"+ e.getMessage());
+                    Log.d("error", "Error File Creating" + e.getMessage());
                 }
             }
         }

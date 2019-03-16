@@ -27,9 +27,7 @@ public class PermissionUtils {
 
     public void showSettingsDialog(Activity activity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-
-        builder.setTitle("Attention!");
-        builder.setMessage("To use this Features Your need Permission For that, You can access it in app settings.");
+        builder.setMessage("Writing to external storage permission is needed to export data. You can still enable this permission from app settings.");
 
         builder.setPositiveButton("Go To Setting", (dialog, which) -> {
             dialog.cancel();

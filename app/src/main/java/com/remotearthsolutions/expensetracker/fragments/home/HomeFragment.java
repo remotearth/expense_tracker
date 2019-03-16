@@ -40,6 +40,7 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
     private FragmentHomeBinding binding;
     private Integer limitOfCategory;
     private long startTime, endTime;
+    private List<ExpeneChartData> listOfCategoryWithAmount;
 
     @Nullable
     @Override
@@ -85,6 +86,7 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
 
     @Override
     public void loadExpenseChart(List<ExpeneChartData> listOfCategoryWithAmount) {
+        this.listOfCategoryWithAmount = listOfCategoryWithAmount;
 
         ChartManager chartManager = new ChartManagerImpl();
         chartManager.initPierChart();
@@ -127,6 +129,10 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
         this.startTime = startTime;
         this.endTime = endTime;
         viewModel.loadExpenseChart(startTime, endTime);
+    }
+
+    public void refresh() {
+        loadExpenseChart(this.listOfCategoryWithAmount);
     }
 
     @Override
