@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.os.Handler;
@@ -56,28 +57,25 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
         binding.monthlyRangeBtn.setOnClickListener(dateFilterButtonClickListener);
         binding.yearlyRangeBtn.setOnClickListener(dateFilterButtonClickListener);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                String period = SharedPreferenceUtils.getInstance(getActivity()).getString(Constants.PREF_PERIOD, Constants.KEY_DAILY);
-                switch (period) {
-                    case Constants.KEY_DAILY:
-                        binding.dailyRangeBtn.performClick();
-                        binding.dailyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
-                        break;
-                    case Constants.KEY_WEEKLY:
-                        binding.weeklyRangeBtn.performClick();
-                        binding.weeklyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
-                        break;
-                    case Constants.KEY_MONTHLY:
-                        binding.monthlyRangeBtn.performClick();
-                        binding.monthlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
-                        break;
-                    case Constants.KEY_YEARLY:
-                        binding.yearlyRangeBtn.performClick();
-                        binding.yearlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
-                        break;
-                }
+        new Handler().postDelayed(() -> {
+            String period = SharedPreferenceUtils.getInstance(getActivity()).getString(Constants.PREF_PERIOD, Constants.KEY_DAILY);
+            switch (period) {
+                case Constants.KEY_DAILY:
+                    binding.dailyRangeBtn.performClick();
+                    binding.dailyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
+                    break;
+                case Constants.KEY_WEEKLY:
+                    binding.weeklyRangeBtn.performClick();
+                    binding.weeklyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
+                    break;
+                case Constants.KEY_MONTHLY:
+                    binding.monthlyRangeBtn.performClick();
+                    binding.monthlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
+                    break;
+                case Constants.KEY_YEARLY:
+                    binding.yearlyRangeBtn.performClick();
+                    binding.yearlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
+                    break;
             }
         }, 500);
 
@@ -143,10 +141,29 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
                         });
                         anim.setDuration(200);
                         anim.start();
+                        anim.addListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(Animator animation) {
 
-                        new Handler().postDelayed(() -> {
-                            binding.dateRangeContainer.animate().alpha(1.0f).translationY(0).setDuration(200);
-                        }, 100);
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                homeFragment.refresh();
+                            }
+
+                            @Override
+                            public void onAnimationCancel(Animator animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animator animation) {
+
+                            }
+                        });
+
+                        new Handler().postDelayed(() -> binding.dateRangeContainer.animate().alpha(1.0f).translationY(0).setDuration(200), 100);
                     }
 
                     binding.navigation.setSelectedItemId(R.id.navigation_home);
