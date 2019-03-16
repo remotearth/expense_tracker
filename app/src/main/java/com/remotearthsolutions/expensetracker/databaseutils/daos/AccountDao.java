@@ -23,6 +23,9 @@ public interface AccountDao {
     @Query("SELECT * FROM account WHERE id=:id")
     Single<AccountModel> getAccountById(int id);
 
+    @Query("SELECT sum(amount) FROM account")
+    LiveData<Double> getTotalAmount();
+
     @Delete
     void deleteAccount(AccountModel accountModel);
 

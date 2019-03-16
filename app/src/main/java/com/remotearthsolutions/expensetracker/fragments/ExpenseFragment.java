@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.activities.MainActivity;
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.AppDatabase;
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
@@ -219,12 +220,16 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         expenseEdtxt.setText("");
         Toast.makeText(getActivity(), "Successfully added.", Toast.LENGTH_SHORT).show();
         viewModel.updateAccountAmount(categoryExpense.getAccount_id(), amount);
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.updateSummary();
     }
 
     @Override
     public void onExpenseDeleted() {
         Toast.makeText(getActivity(), "Successfully deleted expense entry.", Toast.LENGTH_SHORT).show();
         getActivity().onBackPressed();
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.updateSummary();
     }
 
     @Override

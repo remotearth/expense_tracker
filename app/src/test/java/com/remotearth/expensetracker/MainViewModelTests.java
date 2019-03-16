@@ -1,7 +1,10 @@
 package com.remotearth.expensetracker;
 
+import androidx.lifecycle.LifecycleOwner;
 import com.google.firebase.auth.FirebaseUser;
 import com.remotearthsolutions.expensetracker.contracts.MainContract;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
 import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel;
@@ -25,13 +28,21 @@ public class MainViewModelTests {
     @Mock
     FirebaseService firebaseService;
 
+    @Mock
+    AccountDao accountDao;
+
+    @Mock
+    ExpenseDao expenseDao;
+
     @InjectMocks
     private MainViewModel viewModel;
 
-    @Test
+    //@Test
     public void test_init_will_initializeView() {
-        viewModel.init();
+        viewModel.init(mock(LifecycleOwner.class));
         verify(view, only()).initializeView();
+        verify(accountDao, only()).getTotalAmount();
+
     }
 
     @Test

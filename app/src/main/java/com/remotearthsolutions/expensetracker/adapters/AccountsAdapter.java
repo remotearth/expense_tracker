@@ -46,6 +46,11 @@ public class AccountsAdapter extends ArrayAdapter<AccountModel> {
         accountImageIv.setImageResource(CategoryIcons.getIconId(model.getIcon()));
         accountNameTv.setText(model.getName());
         ammountTv.setText(currencySymbol + " " + String.valueOf(model.getAmount()));
+        if (model.getAmount() < 0) {
+            ammountTv.setTextColor(context.getResources().getColor(android.R.color.holo_red_dark));
+        } else {
+            ammountTv.setTextColor(context.getResources().getColor(android.R.color.holo_green_light));
+        }
 
         return view;
     }

@@ -22,6 +22,8 @@ import com.google.gson.Gson;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.callbacks.InAppBillingCallback;
 import com.remotearthsolutions.expensetracker.contracts.MainContract;
+import com.remotearthsolutions.expensetracker.databaseutils.AppDatabase;
+import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.databinding.ActivityMainBinding;
 import com.remotearthsolutions.expensetracker.entities.User;
@@ -64,9 +66,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         purchaseListener = new PurchaseListener(this);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
+        AppDatabase db = DatabaseClient.getInstance(getContext()).getAppDatabase();
         viewModel = ViewModelProviders.of(this,
-                new MainViewModelFactory(this, new FirebaseServiceImpl(this))).
+                new MainViewModelFactory(this, new FirebaseServiceImpl(this), db.accountDao(), db.expenseDao())).
                 get(MainViewModel.class);
 
         String userStr = SharedPreferenceUtils.getInstance(this).getString(Constants.KEY_USER, "");
@@ -135,9 +137,19 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void startLoadingApp() {
-        viewModel.init();
+        viewModel.init(this);
         checkoutUtils.start();
         checkoutUtils.load(this, productId);
+    }
+
+    @Override
+    public void showTotalExpense(String amount) {
+        binding.totalExpenseAmountTv.setText(amount);
+    }
+
+    @Override
+    public void showTotalBalance(String amount) {
+        binding.totalAccountAmountTv.setText(amount);
     }
 
     @Override
@@ -146,6 +158,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Intent intent = new Intent(this, CurrencySelectionActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void setBalanceTextColor(int colorId) {
+        binding.totalAccountAmountTv.setTextColor(getResources().getColor(colorId));
     }
 
     @Override
@@ -336,4 +353,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return binding.drawerLayout;
     }
 
+    public void updateSummary(long startTime, long endTime) {
+        viewModel.updateSummary(startTime, endTime);
+    }
+
+    public void updateSummary() {
+        viewModel.updateSummary();
+    }
 }
