@@ -24,6 +24,8 @@ import java.util.List;
 
 public class CategoryDialogFragment extends DialogFragment implements CategoryFragmentContract.View {
 
+    private static final int NUMBER_OF_ELEMENT_IN_ROW = 3;
+
     private CategoryViewModel viewModel;
     private RecyclerView recyclerView;
     private GridLayoutManager layoutManager;
@@ -66,7 +68,7 @@ public class CategoryDialogFragment extends DialogFragment implements CategoryFr
 
         recyclerView = view.findViewById(R.id.categoryrecyclearView);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new GridLayoutManager(getActivity(), 3);
+        layoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_ELEMENT_IN_ROW);
         recyclerView.setLayoutManager(layoutManager);
         categoryListAdapter = new CategoryListAdapter(new ArrayList<>());
         recyclerView.setAdapter(categoryListAdapter);
@@ -77,12 +79,7 @@ public class CategoryDialogFragment extends DialogFragment implements CategoryFr
     public void showCategories(List<CategoryModel> categories) {
 
         categoryListAdapter = new CategoryListAdapter(categories, selectedCategoryId);
-        categoryListAdapter.setOnItemClickListener(new CategoryListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(CategoryModel category) {
-                callback.onSelectCategory(category);
-            }
-        });
+        categoryListAdapter.setOnItemClickListener(category -> callback.onSelectCategory(category));
 
         recyclerView.setAdapter(categoryListAdapter);
         layoutManager.scrollToPosition(getPositionOfSelectedItem(categories, selectedCategoryId));

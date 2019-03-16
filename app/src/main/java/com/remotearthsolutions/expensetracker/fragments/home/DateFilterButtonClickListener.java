@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments.home;
 
+import android.util.Log;
 import android.view.View;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.utils.Constants;
@@ -57,7 +58,8 @@ public class DateFilterButtonClickListener implements View.OnClickListener {
                     endDate = simpleDateFormat.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, endingOfWeek));
 
                 } catch (ParseException e) {
-                    e.printStackTrace();
+                    Log.d("Exception", ""+ e.getMessage());
+
                 }
 
                 String weekstartdate = simpleDateFormat.format(startDate);
@@ -117,7 +119,7 @@ public class DateFilterButtonClickListener implements View.OnClickListener {
                     startDate = simpleDateFormat.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, startingOfWeek));
 
                 } catch (ParseException e) {
-                    e.printStackTrace();
+                    Log.d("Exception", ""+ e.getMessage());
                 }
 
                 String weekstartdate = simpleDateFormat.format(startDate);
@@ -173,7 +175,7 @@ public class DateFilterButtonClickListener implements View.OnClickListener {
                 endDate = simpleDateFormat.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, endingOfWeek));
 
             } catch (ParseException e) {
-                e.printStackTrace();
+                Log.d("Exception", ""+ e.getMessage());
             }
 
             String weekstartdate = simpleDateFormat.format(startDate);

@@ -14,7 +14,7 @@ import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
 import com.remotearthsolutions.expensetracker.activities.MainActivity;
 
-public class MyFirebaseMessegingService extends FirebaseMessagingService {
+public class ETFirebaseMessegingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {

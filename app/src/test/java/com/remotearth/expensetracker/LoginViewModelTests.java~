@@ -134,8 +134,5 @@ public class LoginViewModelTests {
     }
 
     @Test
-    public void test_onFacebookLoginCancel_will_call_onFacebookLoginCancel() {
-        loginViewModel.onFacebookLoginCancel();
-        verify(view, only()).onLoginFailure();
-    }
+    public void test_onFacebookLoginCancel_
 }

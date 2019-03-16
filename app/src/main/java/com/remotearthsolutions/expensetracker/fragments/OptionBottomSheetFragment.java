@@ -46,8 +46,9 @@ public class OptionBottomSheetFragment extends BottomSheetDialogFragment impleme
 
     @Override
     public void onClick(View v) {
-        if (callback == null)
+        if (callback == null) {
             return;
+        }
 
         switch (v.getId()) {
             case R.id.addAmountBtn:

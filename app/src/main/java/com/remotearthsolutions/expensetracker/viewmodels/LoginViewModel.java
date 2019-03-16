@@ -10,7 +10,6 @@ import com.remotearthsolutions.expensetracker.contracts.LoginContract;
 import com.remotearthsolutions.expensetracker.services.FacebookService;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
 import com.remotearthsolutions.expensetracker.services.GoogleService;
-import com.remotearthsolutions.expensetracker.services.InternetCheckerService;
 
 public class LoginViewModel extends ViewModel implements FacebookService.CallBack, FirebaseService.Callback, GoogleService.Callback {
 
@@ -71,7 +70,7 @@ public class LoginViewModel extends ViewModel implements FacebookService.CallBac
     }
 
     @Override
-    public void onFirebaseSigninFailure(String message) {
+        public void onFirebaseSigninFailure(String message) {
         view.hideProgress();
         view.onLoginFailure();
         view.showAlert(null, message, "Ok", null, null);

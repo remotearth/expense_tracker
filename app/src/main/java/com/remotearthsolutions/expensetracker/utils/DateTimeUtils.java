@@ -1,14 +1,17 @@
 package com.remotearthsolutions.expensetracker.utils;
 
+import android.util.Log;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 
-public class DateTimeUtils {
+public final class DateTimeUtils {
+
+    private DateTimeUtils() {}
 
     public static final String dd_MM_yyyy = "dd-MM-yyyy";
     public static final String dd_MM_yyyy_h_mm = "dd-MM-yyyy h:mm a";
@@ -50,7 +53,7 @@ public class DateTimeUtils {
             Date dateObj = dateFormat.parse(date);
             calendar.setTime(dateObj);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.d("Exception", ""+ e.getMessage());
         }
 
         return calendar;
@@ -63,7 +66,7 @@ public class DateTimeUtils {
             Date dateObj = dateFormat.parse(dateStr);
             calendar.setTime(dateObj);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.d("Exception", ""+ e.getMessage());
         }
 
         return calendar.getTimeInMillis();

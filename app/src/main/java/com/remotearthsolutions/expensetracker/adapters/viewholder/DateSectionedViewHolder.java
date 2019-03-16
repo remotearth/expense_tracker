@@ -10,6 +10,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel;
 
 public class DateSectionedViewHolder extends RecyclerView.ViewHolder {
 
+    private static final float TEXT_SIZE = 15f;
     private TextView dateTextView;
     private View underLine;
 
@@ -23,7 +24,7 @@ public class DateSectionedViewHolder extends RecyclerView.ViewHolder {
 
         if(dateModel.getDate().contains("-")){
             dateTextView.setGravity(Gravity.LEFT);
-            dateTextView.setTextSize(15f);
+            dateTextView.setTextSize(TEXT_SIZE);
             underLine.setVisibility(View.VISIBLE);
         }
 

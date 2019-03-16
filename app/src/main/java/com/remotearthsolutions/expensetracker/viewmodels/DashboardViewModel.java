@@ -49,7 +49,7 @@ public class DashboardViewModel extends ViewModel {
                 .subscribe(listOfFilterExpense -> {
                     if (listOfFilterExpense != null) {
                         for (int i = 0; i < listOfFilterExpense.size(); i++) {
-                            if (listOfFilterExpense.get(i).getTotal_amount() > 0) {
+                            if (listOfFilterExpense.get(i).getTotalAmount() > 0) {
                                 stringBuilder.append(listOfFilterExpense.get(i));
                             }
                         }

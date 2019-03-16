@@ -94,11 +94,12 @@ public class ExpenseFragmentViewModel extends ViewModel {
 
     public void deleteExpense(CategoryExpense categoryExpense) {
 
-        if (categoryExpense == null)
+        if (categoryExpense == null) {
             return;
+        }
 
         compositeDisposable.add(Completable.fromAction(() -> {
-            expenseDao.delete(categoryExpense.getExpense_id());
+            expenseDao.delete(categoryExpense.getExpenseId());
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> view.onExpenseDeleted()));
