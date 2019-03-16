@@ -35,12 +35,18 @@ public class FileProcessingServiceImp implements FileProcessingService {
     }
 
     @Override
-    public void writeOnCsvFile(Activity activity, String content, Runnable runnable) {
+    public void writeOnCsvFile(Activity activity, String content, Runnable onSuccessRunnable, Runnable onFailureRunnable) {
         writePermission.writeExternalStoragePermission(activity, new PermissionListener() {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse response) {
                 if (writeExternalFile(content)) {
-                    runnable.run();
+                    if (onSuccessRunnable != null) {
+                        onSuccessRunnable.run();
+                    }
+                } else {
+                    if (onFailureRunnable != null) {
+                        onFailureRunnable.run();
+                    }
                 }
             }
 
@@ -51,7 +57,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
             @Override
             public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-
+                Toast.makeText(activity, permission.getName() + " is neeeded. You can allow this permission from device settings.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -78,7 +84,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
             fileReader.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("Exception", ""+ e.getMessage());
         }
 
         return categoryExpenseList;
@@ -117,12 +123,12 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
             callback.onComplete(categoryModels, expenseModels, accountModels);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.d("Exception", ""+ e.getMessage());
         } finally {
             try {
                 fileReader.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.d("Exception", ""+ e.getMessage());
             }
         }
     }
@@ -149,7 +155,6 @@ public class FileProcessingServiceImp implements FileProcessingService {
         String emailSubject = "Reports From Expense Tracker";
 
         try {
-
             File fileLocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), createFileNameAccordingToDate());
             Uri uri = FileProvider.getUriForFile(activity, "com.remotearthsolutions.expensetracker.provider", fileLocation);
 
@@ -162,8 +167,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
             activity.startActivity(Intent.createChooser(emailIntent, "Choose Email Client To Send Report"));
 
-        } catch (Throwable t) {
-            t.printStackTrace();
+        } catch (Exception t) {
             Toast.makeText(activity, "Report Sending Failed Please Try Again Later ", Toast.LENGTH_LONG).show();
         }
     }
@@ -198,7 +202,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
                     fw.close();
                     printWriter.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.d("error", "Error File Creating"+ e.getMessage());
                 }
             }
         }

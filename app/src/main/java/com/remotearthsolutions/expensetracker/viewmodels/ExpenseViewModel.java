@@ -47,14 +47,14 @@ public class ExpenseViewModel extends ViewModel {
                         if (dateRangeBtnId == R.id.yearlyRangeBtn) {
                             CategoryExpense monthHeader = new CategoryExpense();
                             monthHeader.isHeader = true;
-                            monthHeader.setCategory_name(previousMonth);
+                            monthHeader.setCategoryName(previousMonth);
                             expenseList.add(monthHeader);
                         }
 
                         if (dateRangeBtnId != R.id.dailyRangeBtn) {
                             CategoryExpense header = new CategoryExpense();
                             header.isHeader = true;
-                            header.setCategory_name(DateTimeUtils.getDate(previousDate, DateTimeUtils.dd_MM_yyyy));
+                            header.setCategoryName(DateTimeUtils.getDate(previousDate, DateTimeUtils.dd_MM_yyyy));
                             expenseList.add(header);
                         }
 
@@ -66,7 +66,7 @@ public class ExpenseViewModel extends ViewModel {
                                 if (!monthName.equals(previousMonth)) {
                                     CategoryExpense monthHeader = new CategoryExpense();
                                     monthHeader.isHeader = true;
-                                    monthHeader.setCategory_name(monthName);
+                                    monthHeader.setCategoryName(monthName);
                                     expenseList.add(monthHeader);
                                     previousMonth = monthName;
                                 }
@@ -77,7 +77,7 @@ public class ExpenseViewModel extends ViewModel {
                                         .equals(DateTimeUtils.getDate(previousDate, DateTimeUtils.dd_MM_yyyy))) {
                                     CategoryExpense dummy = new CategoryExpense();
                                     dummy.isHeader = true;
-                                    dummy.setCategory_name(DateTimeUtils.getDate(expense.getDatetime(), DateTimeUtils.dd_MM_yyyy));
+                                    dummy.setCategoryName(DateTimeUtils.getDate(expense.getDatetime(), DateTimeUtils.dd_MM_yyyy));
                                     previousDate = expense.getDatetime();
                                     expenseList.add(dummy);
                                 }

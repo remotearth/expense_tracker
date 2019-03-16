@@ -8,10 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.viewholder.DateSectionedViewHolder;
 import com.remotearthsolutions.expensetracker.adapters.viewholder.ExpenseListViewHolder;
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
-import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 
 import java.util.List;
 
@@ -43,8 +41,7 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == HEADER_ENABLE) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sectioned_date, parent, false);
-            DateSectionedViewHolder dateSectionedViewHolder = new DateSectionedViewHolder(view);
-            return dateSectionedViewHolder;
+            return new DateSectionedViewHolder(view);
         } else {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_all_expense, parent, false);
             return new ExpenseListViewHolder(view,listener);
@@ -57,7 +54,7 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         if (holder instanceof DateSectionedViewHolder) {
             DateSectionedViewHolder viewHolder = (DateSectionedViewHolder) holder;
-            viewHolder.bind(new DateModel(item.getCategory_name()));
+            viewHolder.bind(new DateModel(item.getCategoryName()));
         } else {
             ExpenseListViewHolder viewHolder = (ExpenseListViewHolder) holder;
             viewHolder.bind(item, currencySymbol);

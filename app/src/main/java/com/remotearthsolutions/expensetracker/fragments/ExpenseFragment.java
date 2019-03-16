@@ -78,10 +78,10 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             categoryExpense = Parcels.unwrap(args.getParcelable(Constants.CATEGORYEXPENSE_PARCEL));
 
             if (categoryExpense != null) {
-                categoryBtnIv.setImageResource(CategoryIcons.getIconId(categoryExpense.getCategory_icon()));
-                categoryNameTv.setText(categoryExpense.getCategory_name());
-                if (categoryExpense.getTotal_amount() > 0) {
-                    expenseEdtxt.setText(Double.toString(categoryExpense.getTotal_amount()));
+                categoryBtnIv.setImageResource(CategoryIcons.getIconId(categoryExpense.getCategoryIcon()));
+                categoryNameTv.setText(categoryExpense.getCategoryName());
+                if (categoryExpense.getTotalAmount() > 0) {
+                    expenseEdtxt.setText(Double.toString(categoryExpense.getTotalAmount()));
                 }
                 expenseNoteEdtxt.setText(categoryExpense.getNote());
                 if (categoryExpense.getDatetime() > 0) {
@@ -91,9 +91,9 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
                 viewModel.setDefaultCategory();
             }
 
-            if (categoryExpense != null && categoryExpense.getAccount_icon() != null) {
-                accountBtnIv.setImageResource(CategoryIcons.getIconId(categoryExpense.getAccount_icon()));
-                accountNameTv.setText(categoryExpense.getAccount_name());
+            if (categoryExpense != null && categoryExpense.getAccountIcon() != null) {
+                accountBtnIv.setImageResource(CategoryIcons.getIconId(categoryExpense.getAccountIcon()));
+                accountNameTv.setText(categoryExpense.getAccountName());
             } else {
                 int accountId = SharedPreferenceUtils.getInstance(getActivity()).getInt(Constants.KEY_SELECTED_ACCOUNT_ID, 1);
                 viewModel.setDefaultSourceAccount(accountId);
@@ -127,7 +127,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
             FragmentManager fm = getChildFragmentManager();
             final CategoryDialogFragment categoryDialogFragment = CategoryDialogFragment.newInstance("Select Category");
-            categoryDialogFragment.setCategory(categoryExpense.getCategory_id());
+            categoryDialogFragment.setCategory(categoryExpense.getCategoryId());
             categoryDialogFragment.setCallback(category -> {
                 categoryBtnIv.setImageResource(CategoryIcons.getIconId(category.getIcon()));
                 categoryNameTv.setText(category.getName());
@@ -163,18 +163,16 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             double amount = expenseStr.length() > 0 ? Double.parseDouble(expenseStr) : 0;
 
             ExpenseModel expenseModel = new ExpenseModel();
-            if (categoryExpense.getExpense_id() > 0) {
-                expenseModel.setId(categoryExpense.getExpense_id());
+            if (categoryExpense.getExpenseId() > 0) {
+                expenseModel.setId(categoryExpense.getExpenseId());
             }
             expenseModel.setAmount(amount);
             expenseModel.setDatetime(DateTimeUtils.getTimeInMillisFromDateStr(dateTv.getText().toString()
                     + " " + DateTimeUtils.getCurrentTime(), DateTimeUtils.dd_MM_yyyy_h_mm));
-            expenseModel.setCategoryId(categoryExpense.getCategory_id());
-            expenseModel.setSource(categoryExpense.getAccount_id());
+            expenseModel.setCategoryId(categoryExpense.getCategoryId());
+            expenseModel.setSource(categoryExpense.getAccountId());
             expenseModel.setNote(expenseNoteEdtxt.getText().toString());
             viewModel.addExpense(expenseModel);
-            viewModel.updateAccountAmount(categoryExpense.getAccount_id(), amount);
-
         });
 
         expenseNoteEdtxt.setOnClickListener(v -> {
@@ -192,7 +190,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         });
 
         expenseDeleteBtn.setOnClickListener(v -> {
-            if ((categoryExpense.getExpense_id() > 0)) {
+            if ((categoryExpense.getExpenseId() > 0)) {
 
                 showAlert("Attention",
                         "Are you sure, you want to delete this expense entry",
@@ -217,9 +215,10 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
     }
 
     @Override
-    public void onExpenseAdded() {
+    public void onExpenseAdded(double amount) {
         expenseEdtxt.setText("");
         Toast.makeText(getActivity(), "Successfully added.", Toast.LENGTH_SHORT).show();
+        viewModel.updateAccountAmount(categoryExpense.getAccount_id(), amount);
     }
 
     @Override
@@ -230,8 +229,9 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
     @Override
     public void setSourceAccount(AccountModel account) {
-        if (categoryExpense == null)
+        if (categoryExpense == null) {
             categoryExpense = new CategoryExpense();
+        }
 
         categoryExpense.setAccount(account);
         accountBtnIv.setImageResource(CategoryIcons.getIconId(account.getIcon()));
@@ -241,8 +241,9 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
     @Override
     public void showDefaultCategory(CategoryModel categoryModel) {
-        if (categoryExpense == null)
+        if (categoryExpense == null) {
             categoryExpense = new CategoryExpense();
+        }
 
         categoryExpense.setCategory(categoryModel);
         categoryBtnIv.setImageResource(CategoryIcons.getIconId(categoryModel.getIcon()));

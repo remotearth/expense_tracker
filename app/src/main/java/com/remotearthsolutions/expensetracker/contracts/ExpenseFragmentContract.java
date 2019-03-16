@@ -3,6 +3,7 @@ package com.remotearthsolutions.expensetracker.contracts;
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel;
+import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface ExpenseFragmentContract {
 
         void defineClickListener();
 
-        void onExpenseAdded();
+        void onExpenseAdded(double amount);
 
         void onExpenseDeleted();
 

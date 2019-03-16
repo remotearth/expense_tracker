@@ -12,11 +12,79 @@ public class CategoryExpense {
     private int expense_id;
     private int category_id;
     private String category_name;
+
+    public String getCategory_icon() {
+        return category_icon;
+    }
+
+    public void setCategory_icon(String category_icon) {
+        this.category_icon = category_icon;
+    }
+
     private String category_icon;
+
+    public int getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
+    }
+
+    public double getTotal_amount() {
+        return total_amount;
+    }
+
+    public void setTotal_amount(double total_amount) {
+        this.total_amount = total_amount;
+    }
+
     private double total_amount;
     private long datetime;
     private int account_id;
+
+    public int getExpense_id() {
+        return expense_id;
+    }
+
+    public void setExpense_id(int expense_id) {
+        this.expense_id = expense_id;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
+    }
+
+    public int getAccount_id() {
+        return account_id;
+    }
+
+    public void setAccount_id(int account_id) {
+        this.account_id = account_id;
+    }
+
+    public String getAccount_name() {
+        return account_name;
+    }
+
+    public void setAccount_name(String account_name) {
+        this.account_name = account_name;
+    }
+
     private String account_name;
+
+    public String getAccount_icon() {
+        return account_icon;
+    }
+
+    public void setAccount_icon(String account_icon) {
+        this.account_icon = account_icon;
+    }
+
     private String account_icon;
     private String note;
 
@@ -48,43 +116,43 @@ public class CategoryExpense {
     public CategoryExpense() {
     }
 
-    public int getExpense_id() {
+    public int getExpenseId() {
         return expense_id;
     }
 
-    public void setExpense_id(int expense_id) {
+    public void setExpenseId(int expense_id) {
         this.expense_id = expense_id;
     }
 
-    public int getCategory_id() {
+    public int getCategoryId() {
         return category_id;
     }
 
-    public void setCategory_id(int category_id) {
+    public void setCategoryId(int category_id) {
         this.category_id = category_id;
     }
 
-    public String getCategory_name() {
+    public String getCategoryName() {
         return category_name;
     }
 
-    public void setCategory_name(String category_name) {
+    public void setCategoryName(String category_name) {
         this.category_name = category_name;
     }
 
-    public String getCategory_icon() {
+    public String getCategoryIcon() {
         return category_icon;
     }
 
-    public void setCategory_icon(String category_icon) {
+    public void setCategoryIcon(String category_icon) {
         this.category_icon = category_icon;
     }
 
-    public double getTotal_amount() {
+    public double getTotalAmount() {
         return total_amount;
     }
 
-    public void setTotal_amount(double total_amount) {
+    public void setTotalAmount(double total_amount) {
         this.total_amount = total_amount;
     }
 
@@ -96,27 +164,27 @@ public class CategoryExpense {
         this.datetime = datetime;
     }
 
-    public int getAccount_id() {
+    public int getAccountId() {
         return account_id;
     }
 
-    public void setAccount_id(int account_id) {
+    public void setAccountId(int account_id) {
         this.account_id = account_id;
     }
 
-    public String getAccount_name() {
+    public String getAccountName() {
         return account_name;
     }
 
-    public void setAccount_name(String account_name) {
+    public void setAccountName(String account_name) {
         this.account_name = account_name;
     }
 
-    public String getAccount_icon() {
+    public String getAccountIcon() {
         return account_icon;
     }
 
-    public void setAccount_icon(String account_icon) {
+    public void setAccountIcon(String account_icon) {
         this.account_icon = account_icon;
     }
 

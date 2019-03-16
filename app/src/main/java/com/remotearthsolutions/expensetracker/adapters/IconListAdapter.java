@@ -41,7 +41,9 @@ public class IconListAdapter extends RecyclerView.Adapter<IconViewHolder> {
     @Override
     public int getItemCount() {
 
-        if (iconlist == null) return 0;
+        if (iconlist == null) {
+            return 0;
+        }
         return iconlist.size();
     }
 

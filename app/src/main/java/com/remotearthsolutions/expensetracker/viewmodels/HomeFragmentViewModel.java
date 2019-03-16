@@ -49,14 +49,14 @@ public class HomeFragmentViewModel extends ViewModel {
 
                     double sum = 0;
                     for (CategoryExpense expense : listOfCategoryWithAmount) {
-                        sum += expense.getTotal_amount();
+                        sum += expense.getTotalAmount();
                     }
 
                     List<ExpeneChartData> chartDataList = new ArrayList<>();
                     for (CategoryExpense expense : listOfCategoryWithAmount) {
-                        double val = (expense.getTotal_amount() / sum) * 100;
+                        double val = (expense.getTotalAmount() / sum) * 100;
                         if (val > 0) {
-                            ExpeneChartData data = new ExpeneChartData(val, Utils.getRandomColorHexValue(), expense.getCategory_name());
+                            ExpeneChartData data = new ExpeneChartData(val, Utils.getRandomColorHexValue(), expense.getCategoryName());
                             chartDataList.add(data);
                         }
                     }

@@ -13,13 +13,14 @@ import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.entities.DashboardModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardAdapter extends ArrayAdapter<DashboardModel> {
 
     private Context context;
-    private ArrayList<DashboardModel> dashboardItem;
+    private List<DashboardModel> dashboardItem;
 
-    public DashboardAdapter(Context context, ArrayList<DashboardModel> dashboardItem) {
+    public DashboardAdapter(Context context, List<DashboardModel> dashboardItem) {
         super(context, R.layout.custom_dashboard, dashboardItem);
         this.context = context;
         this.dashboardItem = dashboardItem;

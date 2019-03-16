@@ -31,8 +31,9 @@ public class AccountViewModel extends ViewModel {
     }
 
     public void addOrUpdateAccount(AccountModel accountIncome) {
-        if (accountIncome == null)
+        if (accountIncome == null) {
             return;
+        }
 
         mDisposable.add(Completable.fromAction(() -> {
             if (accountIncome.getId() > 0) {
@@ -46,8 +47,9 @@ public class AccountViewModel extends ViewModel {
     }
 
     public void deleteAccount(AccountModel selectAccountIncome) {
-        if (selectAccountIncome == null)
+        if (selectAccountIncome == null) {
             return;
+        }
 
         mDisposable.add(Completable.fromAction(() -> {
             accountDao.deleteAccount(selectAccountIncome);

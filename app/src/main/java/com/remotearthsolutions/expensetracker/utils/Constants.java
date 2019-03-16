@@ -8,7 +8,7 @@ public interface Constants {
     String URL_PRIVACY_POLICY = "http://www.facebook.com";
     String URL_LICENSES = "http://www.google.com";
     String URL_PRIVACY_POLICY_TAG = "PRIVACYTAG";
-    String URL_lICENSES_TAG = "LICENSESTAG";
+    String URL_LICENSES_TAG = "LICENSESTAG";
     String KEY_DAILY = "Daily";
     String KEY_WEEKLY = "Weekly";
     String KEY_MONTHLY = "Monthly";
