@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.activities.MainActivity;
 import com.remotearthsolutions.expensetracker.databinding.FragmentMainBinding;
 import com.remotearthsolutions.expensetracker.fragments.home.DateFilterButtonClickListener;
 import com.remotearthsolutions.expensetracker.fragments.home.HomeFragment;
@@ -270,6 +271,7 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
             homeFragment.updateChartView(startTime, endTime);
             allExpenseFragment.updateFilterListWithDate(startTime, endTime, buttonId);
         }
+        ((MainActivity) getActivity()).updateSummary(startTime, endTime);
     }
 
     public static class MainFragmentPagerAdapter extends FragmentPagerAdapter {

@@ -11,6 +11,12 @@ public interface MainContract {
 
         void startLoadingApp();
 
+        void showTotalExpense(String amount);
+
+        void showTotalBalance(String amount);
+
         void stayOnCurrencyScreen();
+
+        void setBalanceTextColor(int colorId);
     }
 }
