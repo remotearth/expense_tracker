@@ -137,7 +137,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void startLoadingApp() {
-        viewModel.init();
+        viewModel.init(this);
         checkoutUtils.start();
         checkoutUtils.load(this, productId);
     }
