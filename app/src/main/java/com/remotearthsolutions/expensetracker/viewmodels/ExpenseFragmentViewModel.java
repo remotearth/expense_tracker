@@ -102,6 +102,8 @@ public class ExpenseFragmentViewModel extends ViewModel {
             expenseDao.delete(categoryExpense.getExpenseId());
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> view.onExpenseDeleted()));
+                .subscribe(() -> view.onExpenseDeleted(categoryExpense)));
+
+
     }
 }
