@@ -225,9 +225,10 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
     }
 
     @Override
-    public void onExpenseDeleted() {
+    public void onExpenseDeleted(CategoryExpense categoryExpense) {
         Toast.makeText(getActivity(), "Successfully deleted expense entry.", Toast.LENGTH_SHORT).show();
         getActivity().onBackPressed();
+        viewModel.updateAccountAmount(this.categoryExpense.getAccount_id(), categoryExpense.getTotal_amount() * -1);
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.updateSummary();
     }
