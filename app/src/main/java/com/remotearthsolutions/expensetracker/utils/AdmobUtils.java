@@ -15,8 +15,8 @@ public final class AdmobUtils {
     private static AdmobUtils instance;
     private boolean appShouldShowAds;
 
-    public static AdmobUtils getInstance(Activity activity){
-        if(instance == null){
+    public static AdmobUtils getInstance(Activity activity) {
+        if (instance == null) {
             instance = new AdmobUtils(activity);
         }
 
@@ -47,7 +47,7 @@ public final class AdmobUtils {
         });
     }
 
-    public void appShouldShowAds(boolean state){
+    public void appShouldShowAds(boolean state) {
         this.appShouldShowAds = state;
     }
 
