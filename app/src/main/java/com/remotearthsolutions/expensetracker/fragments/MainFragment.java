@@ -271,7 +271,11 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
             homeFragment.updateChartView(startTime, endTime);
             allExpenseFragment.updateFilterListWithDate(startTime, endTime, buttonId);
         }
-        ((MainActivity) getActivity()).updateSummary(startTime, endTime);
+
+        if(getActivity()!=null){
+            ((MainActivity) getActivity()).updateSummary(startTime, endTime);
+        }
+
     }
 
     public static class MainFragmentPagerAdapter extends FragmentPagerAdapter {

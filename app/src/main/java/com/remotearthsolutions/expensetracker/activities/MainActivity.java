@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
@@ -248,7 +249,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
                     }
                 });
-                binding.drawerLayout.closeDrawer(GravityCompat.START);
+                getDrawerLayout().closeDrawer(GravityCompat.START);
                 return false;
             }
 
@@ -262,16 +263,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
 
             case R.id.nav_privacypolicy: {
-                WebViewFragment webViewFragment = new WebViewFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("screen", "privacy_policy");
-                bundle.putString(Constants.KEY_URL, Constants.URL_PRIVACY_POLICY);
-                webViewFragment.setArguments(bundle);
-                getSupportActionBar().setTitle("Privacy Policy");
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.framelayout, webViewFragment, Constants.URL_PRIVACY_POLICY_TAG);
-                fragmentTransaction.commit();
-                break;
+                getDrawerLayout().closeDrawer(GravityCompat.START);
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.URL_PRIVACY_POLICY));
+                startActivity(browserIntent);
+                return false;
             }
 
             case R.id.nav_licenses: {
@@ -284,7 +279,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
 
         }
-        binding.drawerLayout.closeDrawer(GravityCompat.START);
+        getDrawerLayout().closeDrawer(GravityCompat.START);
         return true;
     }
 
