@@ -222,6 +222,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         viewModel.updateAccountAmount(categoryExpense.getAccount_id(), amount);
         MainActivity mainActivity = (MainActivity) getActivity();
         mainActivity.updateSummary();
+        mainActivity.refreshChart();
     }
 
     @Override

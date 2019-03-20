@@ -355,4 +355,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void updateSummary() {
         viewModel.updateSummary();
     }
+
+    public void refreshChart() {
+        mainFragment.refreshChart();
+    }
 }
