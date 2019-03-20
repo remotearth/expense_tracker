@@ -1,4 +1,4 @@
-package com.remotearthsolutions.expensetracker.fragments.home;
+package com.remotearthsolutions.expensetracker.fragments.main;
 
 import android.util.Log;
 import android.view.View;

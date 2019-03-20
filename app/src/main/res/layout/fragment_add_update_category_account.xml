@@ -21,7 +21,7 @@
             android:layout_height="wrap_content">
         <EditText
                 android:id="@+id/nameEdtxt"
-                android:hint="Enter a Name"
+                android:hint="Enter a name..."
                 android:textSize="18sp"
                 android:inputType="textPersonName"
                 android:imeOptions="actionDone"

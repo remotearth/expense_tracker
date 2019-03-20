@@ -1,4 +1,4 @@
-package com.remotearthsolutions.expensetracker.fragments.home;
+package com.remotearthsolutions.expensetracker.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -24,8 +24,6 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.databinding.FragmentHomeBinding;
 import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
-import com.remotearthsolutions.expensetracker.fragments.AddCategoryDialogFragment;
-import com.remotearthsolutions.expensetracker.fragments.BaseFragment;
 import com.remotearthsolutions.expensetracker.utils.ChartManager;
 import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl;
 import com.remotearthsolutions.expensetracker.utils.Utils;
@@ -99,7 +97,7 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
         this.listOfCategoryWithAmount = listOfCategoryWithAmount;
 
         ChartManager chartManager = new ChartManagerImpl();
-        chartManager.initPierChart(Utils.getDeviceDP(getActivity()));
+        chartManager.initPierChart(Utils.getDeviceDP(getActivity()), Utils.getDeviceScreenSize(getActivity()));
         if (listOfCategoryWithAmount == null || listOfCategoryWithAmount.size() == 0) {
             binding.chartView.setVisibility(View.GONE);
             binding.nodatacontainer.setVisibility(View.VISIBLE);

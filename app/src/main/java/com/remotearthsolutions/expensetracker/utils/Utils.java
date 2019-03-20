@@ -13,6 +13,7 @@ import java.util.Random;
 public class Utils {
 
     private static final int HIGHEST_VALUE_OF_RGB = 255;
+    private static final int DEFAULT_DPI = 360;
 
     public static String getRandomColorHexValue() {
         Random ra = new Random();
@@ -23,12 +24,20 @@ public class Utils {
     }
 
     public static ScreenSize getDeviceScreenSize(Context context) {
+        if(context == null) {
+            return null;
+        }
+
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         return new ScreenSize(displayMetrics.widthPixels, displayMetrics.heightPixels);
     }
 
-    public static int getDeviceDP(Context context){
+    public static int getDeviceDP(Context context) {
+        if (context == null){
+            return 360;
+        }
+
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         return displayMetrics.densityDpi;
@@ -45,6 +54,7 @@ public class Utils {
         public int width;
 
         public int height;
+
         public ScreenSize(int width, int height) {
             this.width = width;
             this.height = height;

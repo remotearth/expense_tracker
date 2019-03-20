@@ -1,4 +1,4 @@
-package com.remotearthsolutions.expensetracker.fragments;
+package com.remotearthsolutions.expensetracker.fragments.main;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
@@ -20,8 +20,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.activities.MainActivity;
 import com.remotearthsolutions.expensetracker.databinding.FragmentMainBinding;
-import com.remotearthsolutions.expensetracker.fragments.home.DateFilterButtonClickListener;
-import com.remotearthsolutions.expensetracker.fragments.home.HomeFragment;
+import com.remotearthsolutions.expensetracker.fragments.AccountsFragment;
+import com.remotearthsolutions.expensetracker.fragments.AllExpenseFragment;
+import com.remotearthsolutions.expensetracker.fragments.DashboardFragment;
+import com.remotearthsolutions.expensetracker.fragments.HomeFragment;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 
@@ -258,17 +260,20 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
         switch (buttonId) {
             case R.id.dailyRangeBtn:
                 binding.dailyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
+                selectedPeriodBtn = binding.dailyRangeBtn;
                 break;
             case R.id.weeklyRangeBtn:
                 binding.weeklyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
+                selectedPeriodBtn = binding.weeklyRangeBtn;
                 break;
             case R.id.monthlyRangeBtn:
                 binding.monthlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
+                selectedPeriodBtn = binding.monthlyRangeBtn;
                 break;
             case R.id.yearlyRangeBtn:
                 binding.yearlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
+                selectedPeriodBtn = binding.yearlyRangeBtn;
                 break;
-
         }
 
         binding.dateTv.setText(date);

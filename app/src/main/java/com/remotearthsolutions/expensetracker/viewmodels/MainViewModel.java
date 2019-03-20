@@ -35,7 +35,7 @@ public class MainViewModel extends ViewModel {
         view.initializeView();
         accountDao.getTotalAmount().observe(lifecycleOwner, amount -> {
             view.showTotalBalance("Balance: " + amount);
-            if (amount != null && Math.abs(amount) < 0) {
+            if (amount != null && amount < 0) {
                 view.setBalanceTextColor(android.R.color.holo_red_dark);
             } else {
                 view.setBalanceTextColor(android.R.color.holo_green_light);

@@ -29,6 +29,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.Category
 import com.remotearthsolutions.expensetracker.databinding.ActivityMainBinding;
 import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.fragments.*;
+import com.remotearthsolutions.expensetracker.fragments.main.MainFragment;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.services.PurchaseListener;
 import com.remotearthsolutions.expensetracker.utils.AdmobUtils;

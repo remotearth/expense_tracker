@@ -18,19 +18,26 @@ public class ChartManagerImpl implements ChartManager {
     }
 
     @Override
-    public void initPierChart(int deviceDp) {
+    public void initPierChart(int deviceDp, Utils.ScreenSize screenSize) {
 
         int defaultDpi = 320;
         int defaultStrokeWidth = 32;
         int defaultTextSize = 25;
+        int defaultPieRadius = 120;
 
         int strokeWidth = (defaultStrokeWidth * deviceDp) / defaultDpi;
         int textSize = (defaultTextSize * deviceDp) / defaultDpi;
+        int pieRadius = (defaultPieRadius * deviceDp) / defaultDpi;
+
+        if (screenSize != null) {
+            pieRadius = screenSize.width / 5;
+        }
 
         config.startAngle(-90)
                 .canTouch(true)
                 .drawText(true)
                 .autoSize(true)
+                .pieRadius(pieRadius)
                 .strokeWidth(strokeWidth)
                 .textSize(textSize)
                 .duration(500);
@@ -46,8 +53,8 @@ public class ChartManagerImpl implements ChartManager {
         for (ExpeneChartData item : data) {
             double val = (item.getValue()) * 100 / sum;
             String catName = item.getCategoryName();
-            if (catName.length() > 7) {
-                catName = catName.substring(0, 5) + "..";
+            if (catName.length() > 9) {
+                catName = catName.substring(0, 7) + "..";
             }
             config.addData(new SimplePieInfo(item.getValue(), Color.parseColor(item.getColor()), catName + "\n(" + df.format(val) + "%)"));
         }
