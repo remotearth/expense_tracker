@@ -28,6 +28,12 @@ public class Utils {
         return new ScreenSize(displayMetrics.widthPixels, displayMetrics.heightPixels);
     }
 
+    public static int getDeviceDP(Context context){
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        return displayMetrics.densityDpi;
+    }
+
     public static String getCurrency(Context context) {
         Resources resources = context.getResources();
         List<String> currencies = Arrays.asList(resources.getStringArray(R.array.currency));

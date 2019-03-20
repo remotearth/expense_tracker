@@ -16,13 +16,21 @@ public class ChartManagerImpl implements ChartManager {
     }
 
     @Override
-    public void initPierChart() {
+    public void initPierChart(int deviceDp) {
+
+        int defaultDpi = 320;
+        int defaultStrokeWidth = 35;
+        int defaultTextSize = 30;
+
+        int strokeWidth = (defaultStrokeWidth * deviceDp) / defaultDpi;
+        int textSize = (defaultTextSize * deviceDp) / defaultDpi;
+
         config.startAngle(-90)
                 .canTouch(true)
                 .drawText(true)
                 .autoSize(true)
-                .strokeWidth(30)
-                .textSize(30)
+                .strokeWidth(strokeWidth)
+                .textSize(textSize)
                 .duration(500);
     }
 

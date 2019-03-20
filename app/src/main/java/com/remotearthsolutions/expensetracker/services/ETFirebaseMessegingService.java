@@ -32,7 +32,7 @@ public class ETFirebaseMessegingService extends FirebaseMessagingService {
 
         builder.setTitle("Remotearth Notification");
         builder.setMessage(message);
-        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setIcon(R.mipmap.ic_logo);
         builder.setCancelable(true);
         builder.setNegativeButton("OK", (dialog, id) -> dialog.cancel());
 
@@ -60,7 +60,7 @@ public class ETFirebaseMessegingService extends FirebaseMessagingService {
         builder.setContentTitle("Remotearth Notification");
         builder.setContentText(remoteMessage.getNotification().getBody());
         builder.setAutoCancel(true);
-        builder.setSmallIcon(R.mipmap.ic_launcher_round);
+        builder.setSmallIcon(R.mipmap.ic_logo);
         builder.setContentIntent(pendingIntent);
 
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

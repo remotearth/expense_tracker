@@ -28,6 +28,7 @@ import com.remotearthsolutions.expensetracker.fragments.AddCategoryDialogFragmen
 import com.remotearthsolutions.expensetracker.fragments.BaseFragment;
 import com.remotearthsolutions.expensetracker.utils.ChartManager;
 import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl;
+import com.remotearthsolutions.expensetracker.utils.Utils;
 import com.remotearthsolutions.expensetracker.viewmodels.HomeFragmentViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.HomeFragmentViewModelFactory;
 
@@ -89,7 +90,7 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
         this.listOfCategoryWithAmount = listOfCategoryWithAmount;
 
         ChartManager chartManager = new ChartManagerImpl();
-        chartManager.initPierChart();
+        chartManager.initPierChart(Utils.getDeviceDP(getActivity()));
         if (listOfCategoryWithAmount == null || listOfCategoryWithAmount.size() == 0) {
             binding.chartView.setVisibility(View.GONE);
             binding.nodatacontainer.setVisibility(View.VISIBLE);

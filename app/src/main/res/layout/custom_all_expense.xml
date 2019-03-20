@@ -28,7 +28,7 @@
 
                 <ImageView
                         android:id="@+id/categoryIMG"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@mipmap/ic_logo"
                         android:layout_width="35dp"
                         android:layout_height="35dp"/>
 

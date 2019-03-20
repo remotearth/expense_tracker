@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ChartManager {
 
-    void initPierChart();
+    void initPierChart(int deviceDp);
     void loadExpensePieChart(ChartManagerImpl.ChartView chartView, List<ExpeneChartData> data);
 
 }
