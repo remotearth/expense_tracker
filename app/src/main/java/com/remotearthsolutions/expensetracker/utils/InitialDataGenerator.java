@@ -27,9 +27,9 @@ public class InitialDataGenerator {
 
     public static AccountModel[] generateAccounts() {
         return new AccountModel[]{
-                new AccountModel("Cash", "cat_taxi", 0, 1),
-                new AccountModel("Bank", "cat_family", 0, 1),
-                new AccountModel("Loan", "cat_transport", 0, 1)
+                new AccountModel("Cash", "ic_cash1", 0, 1),
+                new AccountModel("Bank", "ic_bank", 0, 1),
+                new AccountModel("Loan", "ic_loan1", 0, 1)
         };
     }
 }
