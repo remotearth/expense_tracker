@@ -9,7 +9,7 @@ public class InitialDataGenerator {
         return new CategoryModel[]{
                 new CategoryModel("Bills", "cat_bills", 1),
                 new CategoryModel("Car", "cat_car", 1),
-                new CategoryModel("Cloths", "cat_clothes", 1),
+                new CategoryModel("Clothes", "cat_clothes", 1),
                 new CategoryModel("Communication", "cat_communication", 1),
                 new CategoryModel("Eating out", "cat_eatingout", 1),
                 new CategoryModel("Entertainment", "cat_entertainment", 1),

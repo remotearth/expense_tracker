@@ -16,6 +16,7 @@ import com.remotearthsolutions.expensetracker.contracts.CategoryFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import com.remotearthsolutions.expensetracker.utils.Utils;
 import com.remotearthsolutions.expensetracker.viewmodels.CategoryViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.CategoryViewModelFactory;
 
@@ -79,8 +80,8 @@ public class CategoryDialogFragment extends DialogFragment implements CategoryFr
     public void showCategories(List<CategoryModel> categories) {
 
         categoryListAdapter = new CategoryListAdapter(categories, selectedCategoryId);
+        categoryListAdapter.setScreenSize(Utils.getDeviceScreenSize(getActivity()));
         categoryListAdapter.setOnItemClickListener(category -> callback.onSelectCategory(category));
-
         recyclerView.setAdapter(categoryListAdapter);
         layoutManager.scrollToPosition(getPositionOfSelectedItem(categories, selectedCategoryId));
     }

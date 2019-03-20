@@ -48,6 +48,13 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         binding.addCategoryBtn.setOnClickListener(this);
         binding.fab.setOnClickListener(this);
 
@@ -63,7 +70,8 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
 
         viewModel.getNumberOfItem().observe(getViewLifecycleOwner(), (Integer integer) -> limitOfCategory = integer);
 
-        return binding.getRoot();
+        Utils.ScreenSize screenSize = Utils.getDeviceScreenSize(getActivity());
+        //binding.recyclerView.getLayoutParams().height = screenSize.height / 7;
     }
 
     @Override
@@ -75,6 +83,7 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
     public void showCategories(List<CategoryModel> categories) {
 
         adapter = new CategoryListAdapter(categories);
+        adapter.setScreenSize(Utils.getDeviceScreenSize(getActivity()));
         adapter.setOnItemClickListener(category -> {
             if (getActivity() != null) {
                 CategoryExpense categoryExpense = new CategoryExpense();

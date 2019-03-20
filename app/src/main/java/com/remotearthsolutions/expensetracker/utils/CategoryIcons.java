@@ -151,7 +151,6 @@ public final class CategoryIcons {
             put("ic_card3", R.drawable.ic_card3);
             put("ic_cash", R.drawable.ic_cash);
             put("ic_cash1", R.drawable.ic_cash1);
-            put("ic_cash2", R.drawable.ic_cash2);
             put("ic_loan", R.drawable.ic_loan);
             put("ic_loan1", R.drawable.ic_loan1);
             put("ic_loan2", R.drawable.ic_loan2);
