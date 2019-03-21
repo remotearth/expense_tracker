@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
@@ -39,7 +41,9 @@ public class CurrencyFragment extends PreferenceFragmentCompat {
         preferenceChangeListener = (sharedPreferences, key) -> {
             if (key.equals(Constants.PREF_CURRENCY)) {
                 Preference currencyPreference = findPreference(key);
-                currencyPreference.setSummary(sharedPreferences.getString(key, context.getResources().getString(R.string.default_currency)));
+                String val = sharedPreferences.getString(key, context.getResources().getString(R.string.default_currency));
+                currencyPreference.setSummary(sharedPreferences.getString(key, val));
+                Answers.getInstance().logCustom(new CustomEvent(val));
             }
         };
 
