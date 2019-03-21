@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
@@ -46,6 +47,13 @@ public class DashboardFragment extends BaseFragment implements DashboardContract
     private ListView lv;
     private String productId;
     private CheckoutUtils checkoutUtils;
+    private Context context;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public DashboardFragment() {
 
@@ -55,8 +63,8 @@ public class DashboardFragment extends BaseFragment implements DashboardContract
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        productId = ((ApplicationObject) getActivity().getApplication()).getAdProductId();
-        AppDatabase db = DatabaseClient.getInstance(getContext()).getAppDatabase();
+        productId = ((ApplicationObject) ((Activity) context).getApplication()).getAdProductId();
+        AppDatabase db = DatabaseClient.getInstance(context).getAppDatabase();
         dashboardViewModel = ViewModelProviders.of(this, new DashBoardViewModelFactory(this, db.categoryExpenseDao(), db.expenseDao(),
                 db.categoryDao(), db.accountDao(), new FileProcessingServiceImp())).get(DashboardViewModel.class);
     }
@@ -65,7 +73,7 @@ public class DashboardFragment extends BaseFragment implements DashboardContract
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_share, container, false);
-        checkoutUtils = CheckoutUtils.getInstance(getActivity());
+        checkoutUtils = CheckoutUtils.getInstance((Activity) context);
         lv = view.findViewById(R.id.dashboardlist);
         loaddashboarddata();
         return view;
@@ -76,13 +84,13 @@ public class DashboardFragment extends BaseFragment implements DashboardContract
         dashboardlist.add(new DashboardModel(R.drawable.ic_share, Constants.SHARE_T0_EMAIL));
         dashboardlist.add(new DashboardModel(R.drawable.ic_import, Constants.IMPORT_FILE));
         dashboardlist.add(new DashboardModel(R.drawable.ic_cart, Constants.BUY_THE_PRODUCT));
-        DashboardAdapter adapter = new DashboardAdapter(getActivity(), dashboardlist);
+        DashboardAdapter adapter = new DashboardAdapter(context, dashboardlist);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener((parent, view, position, id) -> {
 
             switch (position) {
                 case 0:
-                    dashboardViewModel.saveExpenseToCSV(getActivity());
+                    dashboardViewModel.saveExpenseToCSV((Activity) context);
                     break;
 
                 case 1:
@@ -93,14 +101,14 @@ public class DashboardFragment extends BaseFragment implements DashboardContract
                                 @Override
                                 public void onOkBtnPressed() {
 
-                                    new PermissionUtils().writeExternalStoragePermission(getActivity(), new PermissionListener() {
+                                    new PermissionUtils().writeExternalStoragePermission((Activity) context, new PermissionListener() {
                                         @Override
                                         public void onPermissionGranted(PermissionGrantedResponse response) {
 
                                             List<String> allCsvFile = dashboardViewModel.getAllCsvFile();
 
                                             if (allCsvFile == null || allCsvFile.size() == 0) {
-                                                Toast.makeText(getActivity(), "No expense tracker supported file is found", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(context, "No expense tracker supported file is found", Toast.LENGTH_SHORT).show();
                                                 return;
                                             }
 
@@ -126,7 +134,7 @@ public class DashboardFragment extends BaseFragment implements DashboardContract
 
                                         @Override
                                         public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-                                            Toast.makeText(getActivity(), "Read/write permission on external storage is needed to export/import data. Please enable it from device settings.",
+                                            Toast.makeText(context, "Read/write permission on external storage is needed to export/import data. Please enable it from device settings.",
                                                     Toast.LENGTH_SHORT).show();
                                         }
                                     });
@@ -159,6 +167,6 @@ public class DashboardFragment extends BaseFragment implements DashboardContract
 
     @Override
     public Context getContext() {
-        return getActivity();
+        return context;
     }
 }

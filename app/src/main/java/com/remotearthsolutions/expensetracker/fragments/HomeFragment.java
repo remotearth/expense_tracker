@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,6 +41,13 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
     private Integer limitOfCategory;
     private long startTime, endTime;
     private List<ExpeneChartData> listOfCategoryWithAmount;
+    private Context context;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     @Nullable
     @Override
@@ -57,7 +65,7 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
         binding.fab.setOnClickListener(this);
 
         binding.recyclerView.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager llm = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         binding.recyclerView.setLayoutManager(llm);
 
         AppDatabase db = DatabaseClient.getInstance(getContext()).getAppDatabase();
@@ -68,8 +76,6 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
 
         viewModel.getNumberOfItem().observe(getViewLifecycleOwner(), (Integer integer) -> limitOfCategory = integer);
 
-        Utils.ScreenSize screenSize = Utils.getDeviceScreenSize(getActivity());
-        //binding.recyclerView.getLayoutParams().height = screenSize.height / 7;
     }
 
     @Override
@@ -81,12 +87,12 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
     public void showCategories(List<CategoryModel> categories) {
 
         adapter = new CategoryListAdapter(categories);
-        adapter.setScreenSize(Utils.getDeviceScreenSize(getActivity()));
+        adapter.setScreenSize(Utils.getDeviceScreenSize(context));
         adapter.setOnItemClickListener(category -> {
-            if (getActivity() != null) {
+            if (context != null) {
                 CategoryExpense categoryExpense = new CategoryExpense();
                 categoryExpense.setCategory(category);
-                ((MainActivity) getActivity()).openAddExpenseScreen(categoryExpense);
+                ((MainActivity) context).openAddExpenseScreen(categoryExpense);
             }
         });
         binding.recyclerView.setAdapter(adapter);
@@ -97,7 +103,7 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
         this.listOfCategoryWithAmount = listOfCategoryWithAmount;
 
         ChartManager chartManager = new ChartManagerImpl();
-        chartManager.initPierChart(Utils.getDeviceDP(getActivity()), Utils.getDeviceScreenSize(getActivity()));
+        chartManager.initPierChart(Utils.getDeviceDP(context), Utils.getDeviceScreenSize(context));
         if (listOfCategoryWithAmount == null || listOfCategoryWithAmount.size() == 0) {
             binding.chartView.setVisibility(View.GONE);
             binding.nodatacontainer.setVisibility(View.VISIBLE);
@@ -105,7 +111,7 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
         } else {
             binding.chartView.setVisibility(View.VISIBLE);
             binding.nodatacontainer.setVisibility(View.GONE);
-            chartManager.loadExpensePieChart(this, listOfCategoryWithAmount);
+            chartManager.loadExpensePieChart(context, this, listOfCategoryWithAmount);
         }
     }
 
@@ -115,7 +121,7 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
         if (v.getId() == R.id.addCategoryBtn) {
 
             if (limitOfCategory < 20 ||
-                    ((ApplicationObject) getActivity().getApplication()).isPremium()) {
+                    ((ApplicationObject) ((Activity) context).getApplication()).isPremium()) {
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 final AddCategoryDialogFragment categoryDialogFragment = AddCategoryDialogFragment.newInstance("Add Category");
                 categoryDialogFragment.setCallback(categoryModel -> categoryDialogFragment.dismiss());
@@ -127,7 +133,7 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
 
         } else if (v.getId() == R.id.fab) {
             binding.fab.setClickable(false);
-            ((MainActivity) getActivity()).openAddExpenseScreen(null);
+            ((MainActivity) context).openAddExpenseScreen(null);
             new Handler().postDelayed(() -> binding.fab.setClickable(true), 500);
         }
 
@@ -145,7 +151,7 @@ public class HomeFragment extends BaseFragment implements ChartManagerImpl.Chart
 
     @Override
     public Context getContext() {
-        return getActivity();
+        return context;
     }
 }
 

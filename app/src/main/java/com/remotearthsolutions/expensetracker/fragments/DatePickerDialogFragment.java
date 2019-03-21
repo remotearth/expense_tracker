@@ -1,6 +1,7 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,13 @@ public class DatePickerDialogFragment extends DialogFragment implements View.OnC
     private TextView todayDateTv, yesterdayDateTv;
     private DatePickerDialogFragment.Callback callback;
     private int cDay, cMonth, cYear;
+    private Context context;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public static DatePickerDialogFragment newInstance(String title) {
         DatePickerDialogFragment frag = new DatePickerDialogFragment();
@@ -82,21 +90,18 @@ public class DatePickerDialogFragment extends DialogFragment implements View.OnC
                 break;
             }
             case R.id.selectdate: {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        cYear = year;
-                        cMonth = month;
-                        cDay = dayOfMonth;
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.set(Calendar.DAY_OF_MONTH, cDay);
-                        calendar.set(Calendar.MONTH, cMonth);
-                        calendar.set(Calendar.YEAR, cYear);
-                        DateFormat dateFormat = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy, Locale.getDefault());
+                DatePickerDialog datePickerDialog = new DatePickerDialog(context, (view, year, month, dayOfMonth) -> {
+                    cYear = year;
+                    cMonth = month;
+                    cDay = dayOfMonth;
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.DAY_OF_MONTH, cDay);
+                    calendar.set(Calendar.MONTH, cMonth);
+                    calendar.set(Calendar.YEAR, cYear);
+                    DateFormat dateFormat = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy, Locale.getDefault());
 
-                        callback.onSelectDate(dateFormat.format(calendar.getTime()));
-                        dismiss();
-                    }
+                    callback.onSelectDate(dateFormat.format(calendar.getTime()));
+                    dismiss();
                 }, cYear, cMonth, cDay);
                 datePickerDialog.show();
                 break;

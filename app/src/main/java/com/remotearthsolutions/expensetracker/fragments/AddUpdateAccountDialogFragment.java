@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,13 @@ public class AddUpdateAccountDialogFragment extends DialogFragment {
     private Button okBtn;
     private String selectedIcon;
     private IconListAdapter iconListAdapter;
+    private Context context;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public void setAccountModel(AccountModel accountModel) {
         this.accountModel = accountModel;
@@ -67,10 +75,10 @@ public class AddUpdateAccountDialogFragment extends DialogFragment {
 
         recyclerView = view.findViewById(R.id.accountrecyclearView);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                (Utils.getDeviceScreenSize(getActivity()).height / 2));
+                (Utils.getDeviceScreenSize(context).height / 2));
         recyclerView.setLayoutParams(params);
         recyclerView.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 4);
         recyclerView.setLayoutManager(gridLayoutManager);
 
         List<String> alliconList = CategoryIcons.getAllIcons();
@@ -98,7 +106,7 @@ public class AddUpdateAccountDialogFragment extends DialogFragment {
         }
 
         if (selectedIcon == null || selectedIcon.isEmpty()) {
-            Toast.makeText(getActivity(), "Select an icon for the account", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Select an icon for the account", Toast.LENGTH_SHORT).show();
             return;
         }
 

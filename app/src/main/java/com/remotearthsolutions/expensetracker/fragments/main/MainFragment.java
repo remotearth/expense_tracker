@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.fragments.main;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -41,7 +42,13 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
     private static AccountsFragment accountsFragment;
     private int dateContainerHeight = -1;
     private Button selectedPeriodBtn;
+    private Context context;
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     @Nullable
     @Override
@@ -63,7 +70,7 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
         binding.yearlyRangeBtn.setOnClickListener(dateFilterButtonClickListener);
 
         new Handler().postDelayed(() -> {
-            String period = SharedPreferenceUtils.getInstance(getActivity()).getString(Constants.PREF_PERIOD, Constants.KEY_DAILY);
+            String period = SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_PERIOD, Constants.KEY_DAILY);
             switch (period) {
                 case Constants.KEY_DAILY:
                     binding.dailyRangeBtn.performClick();
@@ -282,8 +289,8 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
             allExpenseFragment.updateFilterListWithDate(startTime, endTime, buttonId);
         }
 
-        if (getActivity() != null) {
-            ((MainActivity) getActivity()).updateSummary(startTime, endTime);
+        if (context != null) {
+            ((MainActivity) context).updateSummary(startTime, endTime);
         }
 
     }

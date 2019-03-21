@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -33,6 +34,13 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
     private AccountModel selectAccountModel;
     private int limitOfAccount;
     private String currencySymbol;
+    private Context context;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public AccountsFragment() {
     }
@@ -49,8 +57,8 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
         listview = view.findViewById(R.id.accountList);
 
         currencySymbol = "$";
-        if (getActivity() != null) {
-            currencySymbol = Utils.getCurrency(getActivity());
+        if (context != null) {
+            currencySymbol = Utils.getCurrency(context);
         }
 
         AccountDao accountDao = DatabaseClient.getInstance(getContext()).getAppDatabase().accountDao();
@@ -65,7 +73,7 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
         view.findViewById(R.id.addAccountBtn).setOnClickListener(v -> {
 
             if (limitOfAccount < 5 ||
-                    ((ApplicationObject) getActivity().getApplication()).isPremium()) {
+                    ((ApplicationObject) ((Activity) context).getApplication()).isPremium()) {
                 selectAccountModel = null;
                 onClickEditBtn();
             } else {
@@ -77,7 +85,7 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
     @Override
     public void onAccountFetch(List<AccountModel> accounts) {
         if (isAdded()) {
-            adapter = new AccountsAdapter(getActivity(), accounts, currencySymbol);
+            adapter = new AccountsAdapter(context, accounts, currencySymbol);
             listview.setAdapter(adapter);
             listview.setOnItemClickListener((parent, view, position, id) -> {
                 this.selectAccountModel = accounts.get(position);
@@ -90,7 +98,7 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
 
     @Override
     public void onSuccess(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -115,11 +123,11 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
     @Override
     public void onClickDeleteBtn() {
         if (selectAccountModel.getNotremovable() == 1) {
-            Toast.makeText(getActivity(), "You cannot delete this account", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "You cannot delete this account", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        AlertDialogUtils.show(getActivity(), "Warning",
+        AlertDialogUtils.show(context, "Warning",
                 "Deleting this account will remove expenses related to this also. Are you sure, You want to Delete?",
                 "Yes",
                 "Not now",
@@ -138,6 +146,6 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
 
     @Override
     public Context getContext() {
-        return getActivity();
+        return context;
     }
 }

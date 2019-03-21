@@ -1,6 +1,8 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +20,14 @@ import com.remotearthsolutions.expensetracker.activities.MainActivity;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 
 public class WebViewFragment extends Fragment {
+
+    private Context context;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public WebViewFragment() {
     }
@@ -39,9 +49,9 @@ public class WebViewFragment extends Fragment {
         }
 
         if (screen.equals("license_details")) {
-            Toolbar toolbar = ((MainActivity) getActivity()).getToolbar();
-            toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
-            ((MainActivity) getActivity()).getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            Toolbar toolbar = ((MainActivity) context).getToolbar();
+            toolbar.setNavigationOnClickListener(v -> ((Activity) context).onBackPressed());
+            ((MainActivity) context).getDrawerLayout().setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }
 
         webView = view.findViewById(R.id.webview);

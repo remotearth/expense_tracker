@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,7 +32,13 @@ public class CategoryFragment extends BaseFragment implements CategoryFragmentCo
     private CategoryViewModel viewModel;
     private CategoryModel selectedCategory;
     private int limitOfCategory;
+    private Context context;
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public CategoryFragment() {
     }
@@ -44,7 +51,7 @@ public class CategoryFragment extends BaseFragment implements CategoryFragmentCo
         floatingActionButton = view.findViewById(R.id.addcategory);
         recyclerView = view.findViewById(R.id.cat_recycler);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         CategoryDao categoryDao = DatabaseClient.getInstance(getContext()).getAppDatabase().categoryDao();
         viewModel = new CategoryViewModel(this, categoryDao);
@@ -54,7 +61,7 @@ public class CategoryFragment extends BaseFragment implements CategoryFragmentCo
 
         floatingActionButton.setOnClickListener(v -> {
             if (limitOfCategory < 20 ||
-                    ((ApplicationObject) getActivity().getApplication()).isPremium()) {
+                    ((ApplicationObject) ((Activity) context).getApplication()).isPremium()) {
                 selectedCategory = null;
                 onClickEditBtn();
             } else {
@@ -110,7 +117,7 @@ public class CategoryFragment extends BaseFragment implements CategoryFragmentCo
             @Override
             public void onOkBtnPressed() {
                 viewModel.deleteCategory(selectedCategory);
-                Toast.makeText(getActivity(), "Category Deleted Successfully", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Category Deleted Successfully", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -122,6 +129,6 @@ public class CategoryFragment extends BaseFragment implements CategoryFragmentCo
 
     @Override
     public Context getContext() {
-        return getActivity();
+        return context;
     }
 }

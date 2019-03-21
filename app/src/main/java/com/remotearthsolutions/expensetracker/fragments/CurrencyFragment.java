@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +15,14 @@ import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 
 public class CurrencyFragment extends PreferenceFragmentCompat {
 
+    private Context context;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
     public CurrencyFragment() {
     }
 
@@ -24,13 +33,13 @@ public class CurrencyFragment extends PreferenceFragmentCompat {
         addPreferencesFromResource(R.xml.currencypreference);
 
         Preference preferenceCurrency = findPreference(Constants.PREF_CURRENCY);
-        preferenceCurrency.setSummary(SharedPreferenceUtils.getInstance(getActivity()).getString(Constants.PREF_CURRENCY,
-                getActivity().getString(R.string.default_currency)));
+        preferenceCurrency.setSummary(SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_CURRENCY,
+                context.getResources().getString(R.string.default_currency)));
 
         preferenceChangeListener = (sharedPreferences, key) -> {
             if (key.equals(Constants.PREF_CURRENCY)) {
                 Preference currencyPreference = findPreference(key);
-                currencyPreference.setSummary(sharedPreferences.getString(key, getActivity().getString(R.string.default_currency)));
+                currencyPreference.setSummary(sharedPreferences.getString(key, context.getResources().getString(R.string.default_currency)));
             }
         };
 

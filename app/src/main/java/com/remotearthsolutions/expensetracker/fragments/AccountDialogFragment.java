@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,13 @@ public class AccountDialogFragment extends DialogFragment implements AccountDial
     private AccountListAdapter accountListAdapter;
     private RecyclerView accountrecyclerView;
     private AccountDialogFragment.Callback callback;
+    private Context context;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public AccountDialogFragment() {
     }
@@ -55,7 +63,7 @@ public class AccountDialogFragment extends DialogFragment implements AccountDial
 
         accountrecyclerView = view.findViewById(R.id.accountrecyclearView);
         accountrecyclerView.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        LinearLayoutManager llm = new LinearLayoutManager(context);
         accountrecyclerView.setLayoutManager(llm);
 
         AccountDao accountDao = DatabaseClient.getInstance(getContext()).getAppDatabase().accountDao();
