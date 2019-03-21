@@ -1,6 +1,7 @@
 package com.remotearthsolutions.expensetracker.utils;
 
 import android.content.Context;
+import android.content.res.Resources;
 import com.razerdp.widget.animatedpieview.AnimatedPieViewConfig;
 import com.razerdp.widget.animatedpieview.data.SimplePieInfo;
 import com.remotearthsolutions.expensetracker.R;
@@ -56,14 +57,16 @@ public class ChartManagerImpl implements ChartManager {
             sum += item.getValue();
         }
 
+
         int colorPosition = 0;
+        Resources resources = context.getResources();
         for (ExpeneChartData item : data) {
             double val = (item.getValue()) * 100 / sum;
             String catName = item.getCategoryName();
             if (catName.length() > 9) {
                 catName = catName.substring(0, 7) + "..";
             }
-            config.addData(new SimplePieInfo(item.getValue(), context.getResources().getColor(colors[colorPosition]),
+            config.addData(new SimplePieInfo(item.getValue(), resources.getColor(colors[colorPosition]),
                     catName + "\n(" + df.format(val) + "%)"));
 
             colorPosition++;

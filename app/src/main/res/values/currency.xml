@@ -11,13 +11,14 @@
         <item>Argentine Peso - ARS</item>
         <item>Australian Dollar - AUD</item>
         <item>Aruban Florin - AWG</item>
-        <item>Azerbaijani Manat - AZN</item>
+        <item>Azerbaijanian Manat - AZN</item>
         <item>Algerian Dinar - DZD</item>
         <item>Bosnia-Herzegovina Convertible Mark - BAM</item>
-        <item>Barbadian Dollar - BBD</item>
+        <item>Barbados Dollar - BBD</item>
         <item>Bangladeshi Taka - BDT</item>
-        <item>British Pound Sterling - GBP</item>
-        <item>Bulgarian Lev - BHD</item>
+        <item>British Pound - GBP</item>
+        <item>Bulgarian Lev - BGN</item>
+        <item>Bahraini Dinar - BHD</item>
         <item>Burundian Franc - BIF</item>
         <item>Bermudan Dollar - BMD</item>
         <item>Brunei Dollar - BND</item>
@@ -32,9 +33,7 @@
         <item>Canadian Dollar - CAD</item>
         <item>Congolese Franc - CDF</item>
         <item>CFP Franc - XPF</item>
-        <item>Chilean Unit of Account (UF) - CLF</item>
         <item>Chilean Peso - CLP</item>
-        <item>Chinese Yuan (Offshore) - CNH</item>
         <item>Chinese Yuan - CNY</item>
         <item>Cayman Islands Dollar - KYD</item>
         <item>Colombian Peso - COP</item>
@@ -43,12 +42,12 @@
         <item>Cuban Convertible Peso - CUC</item>
         <item>Cuban Peso - CUP</item>
         <item>Cape Verdean Escudo - CVE</item>
-        <item>Czech Republic Koruna - CZK</item>
+        <item>Czech Koruna - CZK</item>
         <item>Cambodian Riel - KHR</item>
         <item>Comorian Franc - KMF</item>
         <item>CFA Franc BEAC - XAF</item>
         <item>CFA Franc BCEAO - XOF</item>
-        <item>Djiboutian Franc - DJF</item>
+        <item>Djibouti Franc - DJF</item>
         <item>Danish Krone - DKK</item>
         <item>Dominican Peso - DOP</item>
         <item>Egyptian Pound - DZD</item>
@@ -56,27 +55,25 @@
         <item>Eritrean Nakfa - ERN</item>
         <item>Ethiopian Birr - ETB</item>
         <item>Euro - EUR</item>
-        <item>Fijian Dollar - FJD</item>
+        <item>Fiji Dollar - FJD</item>
         <item>Falkland Islands Pound - FKP</item>
-        <item>Georgian Lari - GGP</item>
-        <item>Ghanaian Cedi - GGP</item>
+        <item>Georgian Lari - GEL</item>
+        <item>Ghanaian Cedi - GHS</item>
         <item>Gibraltar Pound - GIP</item>
         <item>Gambian Dalasi - GMD</item>
-        <item>Guinean Franc - GNF</item>
+        <item>Guinea Franc - GNF</item>
         <item>Guatemalan Quetzal - GTQ</item>
-        <item>Guyanaese Dollar - GYD</item>
-        <item>Gold Ounce - XAU</item>
+        <item>Guyana Dollar - GYD</item>
         <item>Hong Kong Dollar - HKD</item>
         <item>Honduran Lempira - HNL</item>
         <item>Haitian Gourde - HTG</item>
-        <item>Ft</item>
+        <item>Hungarian Forint - HUF</item>
         <item>Indonesian Rupiah - IDR</item>
-        <item>₹</item>
-        <item>ع.د</item>
-        <item>﷼</item>
-        <item>Kr</item>
-        <item>₪</item>
-        <item>₪</item>
+        <item>Indian Rupee - INR</item>
+        <item>Iraqi Dinar - IQD</item>
+        <item>Iranian Rial - IRR</item>
+        <item>Iceland Krona</item>
+        <item>New Israeli Shekel - ILS</item>
         <item>Jersey Pound - JEP</item>
         <item>Jamaican Dollar - JMD</item>
         <item>Jordanian Dinar - JOD</item>
@@ -95,7 +92,7 @@
         <item>Moldovan Leu - MDL</item>
         <item>Malagasy Ariary - MGA</item>
         <item>Macedonian Denar - MKD</item>
-        <item>Myanma Kyat - MMK</item>
+        <item>Myanmar Kyat - MMK</item>
         <item>Mongolian Tugrik - MNT</item>
         <item>Macanese Pataca - MOP</item>
         <item>Mauritanian Ouguiya (pre-2018) - MRO</item>
@@ -110,11 +107,11 @@
         <item>Netherlands Antillean Guilder - ANG</item>
         <item>Namibian Dollar - NAD</item>
         <item>Nigerian Naira - NGN</item>
-        <item>Nicaraguan Córdoba - NIO</item>
+        <item>Nicaraguan Córdoba Oro- NIO</item>
         <item>Norwegian Krone - NOK</item>
         <item>Nepalese Rupee - NPR</item>
         <item>New Zealand Dollar - NZD</item>
-        <item>New Taiwan Dollar - TWD</item>
+        <item>Taiwan Dollar - TWD</item>
         <item>Omani Rial - OMR</item>
         <item>Panamanian Balboa - PAB</item>
         <item>Peruvian Nuevo Sol - PEN</item>
@@ -123,8 +120,6 @@
         <item>Pakistani Rupee - PKR</item>
         <item>Polish Zloty - PLN</item>
         <item>Paraguayan Guarani - PYG</item>
-        <item>Palladium Ounce - XPD</item>
-        <item>Platinum Ounce - XPT</item>
         <item>Qatari Rial - QAR</item>
         <item>Romanian Leu - RON</item>
         <item>Russian Ruble - RUB</item>
@@ -149,14 +144,12 @@
         <item>Syrian Pound - SYP</item>
         <item>Swazi Lilangeni - SZL</item>
         <item>Serbian Dinar - RSD</item>
-        <item>Silver Ounce - XAG</item>
-        <item>Special Drawing Rights - XDR</item>
         <item>South African Rand - ZAR</item>
         <item>Thai Baht - THB</item>
         <item>Tajikistani Somoni - TJS</item>
         <item>Turkmenistani Manat - TMT</item>
         <item>Tunisian Dinar - TND</item>
-        <item>Tongan Paanga - TOP</item>
+        <item>Tongan Pa’anga - TOP</item>
         <item>Turkish Lira - TRY</item>
         <item>Trinidad and Tobago Dollar - TTD</item>
         <item>Tanzanian Shilling - TZS</item>
@@ -173,9 +166,8 @@
         <item>Yemeni Rial - YER</item>
         <item>Zambian Kwacha - ZMW</item>
         <item>Zimbabwean Dollar - ZWL</item>
+        <item>East Caribbean Dollar - XCD</item>
     </string-array>
-
-
 
 
     <string-array name="currency_code">
@@ -192,6 +184,7 @@
         <item>BBD</item>
         <item>BDT</item>
         <item>GBP</item>
+        <item>BGN</item>
         <item>BHD</item>
         <item>BIF</item>
         <item>BMD</item>
@@ -207,9 +200,7 @@
         <item>CAD</item>
         <item>CDF</item>
         <item>XPF</item>
-        <item>CLF</item>
         <item>CLP</item>
-        <item>CNH</item>
         <item>CNY</item>
         <item>KYD</item>
         <item>COP</item>
@@ -233,14 +224,13 @@
         <item>EUR</item>
         <item>FJD</item>
         <item>FKP</item>
-        <item>GGP</item>
-        <item>GGP</item>
+        <item>GEL</item>
+        <item>GHS</item>
         <item>GIP</item>
         <item>GMD</item>
         <item>GNF</item>
         <item>GTQ</item>
         <item>GYD</item>
-        <item>XAU</item>
         <item>HKD</item>
         <item>HNL</item>
         <item>HTG</item>
@@ -250,7 +240,6 @@
         <item>IQD</item>
         <item>IRR</item>
         <item>ISK</item>
-        <item>IDR</item>
         <item>ILS</item>
         <item>JEP</item>
         <item>JMD</item>
@@ -298,8 +287,6 @@
         <item>PKR</item>
         <item>PLN</item>
         <item>PYG</item>
-        <item>XPD</item>
-        <item>XPT</item>
         <item>QAR</item>
         <item>RON</item>
         <item>RUB</item>
@@ -324,8 +311,6 @@
         <item>SYP</item>
         <item>SZL</item>
         <item>RSD</item>
-        <item>XAG</item>
-        <item>XDR</item>
         <item>ZAR</item>
         <item>THB</item>
         <item>TJS</item>
@@ -348,6 +333,7 @@
         <item>YER</item>
         <item>ZMW</item>
         <item>ZWL</item>
+        <item>XCD</item>
     </string-array>
 
     <string-array name="currency_symbol">
@@ -365,6 +351,7 @@
         <item>৳</item>
         <item>£</item>
         <item>лв</item>
+        <item>ب.د</item>
         <item>₣</item>
         <item>$</item>
         <item>$</item>
@@ -372,18 +359,16 @@
         <item>R$</item>
         <item>$</item>
         <item>₿</item>
-        <item>Nu</item>
+        <item>Nu.</item>
         <item>P</item>
         <item>Br</item>
         <item>$</item>
         <item>$</item>
         <item>₣</item>
         <item>₣</item>
-        <item>UF</item>
         <item>$</item>
-        <item>CNH</item>
         <item>¥</item>
-        <item>v</item>
+        <item>$</item>
         <item>$</item>
         <item>Kn</item>
         <item>₡</item>
@@ -400,7 +385,7 @@
         <item>$</item>
         <item>د.ج</item>
         <item>ج.م</item>
-        <item> نافكا</item>
+        <item>Nfk</item>
         <item>ብር</item>
         <item>€</item>
         <item>$</item>
@@ -409,20 +394,18 @@
         <item>₵</item>
         <item>£</item>
         <item>D</item>
-        <item>GFr</item>
+        <item>₣</item>
         <item>Q</item>
         <item>$</item>
-        <item>XAU</item>
         <item>$</item>
         <item>L</item>
         <item>G</item>
         <item>Ft</item>
         <item>Rp</item>
-        <item>Rs</item>
+        <item>₹</item>
         <item>ع.د</item>
         <item>﷼</item>
-        <item>Íkr</item>
-        <item>INR</item>
+        <item>Kr</item>
         <item>₪</item>
         <item>£</item>
         <item>$</item>
@@ -465,13 +448,11 @@
         <item>ر.ع.</item>
         <item>B/.</item>
         <item>S/.</item>
-        <item>₣</item>
+        <item>K</item>
         <item>₱</item>
         <item>Rs</item>
         <item>zł</item>
         <item>₲</item>
-        <item>XPD</item>
-        <item>XPT</item>
         <item>ر.ق</item>
         <item>L</item>
         <item>р.</item>
@@ -496,8 +477,6 @@
         <item>ل.س</item>
         <item>L</item>
         <item>din</item>
-        <item>ozt</item>
-        <item>SDR</item>
         <item>R</item>
         <item>฿</item>
         <item>ЅМ</item>
@@ -519,6 +498,7 @@
         <item>Vt</item>
         <item>﷼</item>
         <item>ZK</item>
+        <item>$</item>
         <item>$</item>
     </string-array>
 
