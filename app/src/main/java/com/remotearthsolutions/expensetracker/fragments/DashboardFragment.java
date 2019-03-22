@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProviders;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
@@ -119,6 +121,7 @@ public class DashboardFragment extends BaseFragment implements DashboardContract
                                                 String selectedText = csvList[item].toString();
                                                 String filePath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), selectedText).getAbsolutePath();
                                                 dashboardViewModel.importDataFromFile(filePath);
+                                                Answers.getInstance().logCustom(new CustomEvent("Data Imported"));
                                             });
 
                                             AlertDialog alertDialogObject = dialogBuilder.create();
