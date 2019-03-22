@@ -98,7 +98,7 @@ public class LicenseFragment extends Fragment {
 
         WebViewFragment webViewFragment = new WebViewFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("screen", "license_details");
+        bundle.putString(Constants.KEY_SCREEN,getString(R.string.license_details));
         bundle.putString(Constants.KEY_URL, filepath);
         webViewFragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

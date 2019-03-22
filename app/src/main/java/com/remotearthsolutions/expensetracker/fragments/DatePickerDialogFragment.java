@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import com.remotearthsolutions.expensetracker.R;
+import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
 
 import java.text.DateFormat;
@@ -38,7 +39,7 @@ public class DatePickerDialogFragment extends DialogFragment implements View.OnC
     public static DatePickerDialogFragment newInstance(String title) {
         DatePickerDialogFragment frag = new DatePickerDialogFragment();
         Bundle args = new Bundle();
-        args.putString("title", title);
+        args.putString(Constants.KEY_TITLE, title);
         frag.setArguments(args);
         return frag;
     }

@@ -64,13 +64,13 @@ public class AddUpdateAccountDialogFragment extends DialogFragment {
         okBtn = view.findViewById(R.id.okBtn);
 
         if (accountModel != null) {
-            headerTv.setText("Update Account");
-            okBtn.setText("Update");
+            headerTv.setText(getString(R.string.update_account));
+            okBtn.setText(getString(R.string.update));
             nameEdtxt.setText(accountModel.getName());
             nameEdtxt.setSelection(nameEdtxt.getText().length());
         } else {
-            headerTv.setText("Add Account");
-            okBtn.setText("Add");
+            headerTv.setText(getString(R.string.add_account));
+            okBtn.setText(getString(R.string.add));
         }
 
         recyclerView = view.findViewById(R.id.accountrecyclearView);
@@ -100,13 +100,13 @@ public class AddUpdateAccountDialogFragment extends DialogFragment {
         final String accountName = nameEdtxt.getText().toString().trim();
 
         if (accountName.isEmpty()) {
-            nameEdtxt.setError("Enter a name for account");
+            nameEdtxt.setError(getString(R.string.enter_a_name_for_account));
             nameEdtxt.requestFocus();
             return;
         }
 
         if (selectedIcon == null || selectedIcon.isEmpty()) {
-            Toast.makeText(context, "Select an icon for the account", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.select_an_icon_for_the_account), Toast.LENGTH_SHORT).show();
             return;
         }
 

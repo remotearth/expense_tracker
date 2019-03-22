@@ -20,7 +20,7 @@ public class Utils {
         int r = ra.nextInt(HIGHEST_VALUE_OF_RGB);
         int g = ra.nextInt(HIGHEST_VALUE_OF_RGB);
         int b = ra.nextInt(HIGHEST_VALUE_OF_RGB);
-        return String.format("#%02x%02x%02x", r, g, b);
+        return String.format(Constants.KEY_COLOR_FORMAT, r, g, b);
     }
 
     public static ScreenSize getDeviceScreenSize(Context context) {

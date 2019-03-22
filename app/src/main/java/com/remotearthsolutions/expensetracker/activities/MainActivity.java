@@ -182,7 +182,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             fragmentManager.popBackStack();
             ft.commit();
 
-            getSupportActionBar().setTitle("Home");
+            getSupportActionBar().setTitle(getString(R.string.home));
 
         } else if (webViewFragment != null) {
 
@@ -198,7 +198,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             long t = System.currentTimeMillis();
             if (t - backPressedTime > 2000) {
                 backPressedTime = t;
-                Toast.makeText(this, "Press once again to close app", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.press_once_again_to_close_app), Toast.LENGTH_SHORT).show();
             } else {
                 CheckoutUtils.clearInstance();
                 super.onBackPressed();
@@ -238,7 +238,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
             case R.id.nav_logout: {
 
-                showAlert("", "Are you sure you want to logout?", "Yes", "No", new Callback() {
+                showAlert("", getString(R.string.are_you_sure_you_want_to_logout), getString(R.string.yes), getString(R.string.no), new Callback() {
                     @Override
                     public void onOkBtnPressed() {
 

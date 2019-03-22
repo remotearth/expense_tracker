@@ -65,7 +65,7 @@ public class CategoryFragment extends BaseFragment implements CategoryFragmentCo
                 selectedCategory = null;
                 onClickEditBtn();
             } else {
-                showAlert("Attention", "You need to be premium user to add more categories", "Ok", null, null);
+                showAlert(getString(R.string.attention), getString(R.string.you_need_to_be_premium_user_to_add_more_categories), getString(R.string.ok), null, null);
             }
         });
 
@@ -96,7 +96,7 @@ public class CategoryFragment extends BaseFragment implements CategoryFragmentCo
     @Override
     public void onClickEditBtn() {
         FragmentManager fm = getChildFragmentManager();
-        final AddCategoryDialogFragment categoryDialogFragment = AddCategoryDialogFragment.newInstance("Update Category");
+        final AddCategoryDialogFragment categoryDialogFragment = AddCategoryDialogFragment.newInstance(getString(R.string.update_category));
         categoryDialogFragment.setCategory(selectedCategory);
         categoryDialogFragment.setCallback(categoryModel1 -> {
             //viewModel.showCategories();
@@ -110,14 +110,14 @@ public class CategoryFragment extends BaseFragment implements CategoryFragmentCo
     public void onClickDeleteBtn() {
 
         if (selectedCategory.getNotremovable() == 1) {
-            showToast("You cannot delete this expense category");
+            showToast(getString(R.string.you_cannot_delete_this_category));
             return;
         }
-        showAlert("Warning", "Deleting this category will remove expenses related to this also. Are you sure, You want to Delete?", "Yes", "Not now", new Callback() {
+        showAlert(getString(R.string.warning), getString(R.string.deleting_this_category_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete), getString(R.string.yes), getString(R.string.not_now), new Callback() {
             @Override
             public void onOkBtnPressed() {
                 viewModel.deleteCategory(selectedCategory);
-                Toast.makeText(context, "Category Deleted Successfully", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.category_deleted_successfully), Toast.LENGTH_LONG).show();
             }
 
             @Override

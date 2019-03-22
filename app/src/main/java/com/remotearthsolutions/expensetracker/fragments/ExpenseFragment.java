@@ -69,7 +69,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         if (context != null) {
             currencySymbol = Utils.getCurrency(context);
         }
-        expenseEdtxt.setHint(currencySymbol + " 0");
+        expenseEdtxt.setHint(currencySymbol + getString(R.string.initially_zero));
 
         NumpadFragment numpadFragment = (NumpadFragment) getChildFragmentManager().findFragmentById(R.id.numpadContainer);
         NumpadManager numpadManager = new NumpadManager();
@@ -118,7 +118,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
         selectAccountBtn.setOnClickListener(v -> {
             FragmentManager fm = getChildFragmentManager();
-            final AccountDialogFragment accountDialogFragment = AccountDialogFragment.newInstance("Select Account");
+            final AccountDialogFragment accountDialogFragment = AccountDialogFragment.newInstance(getString(R.string.select_account));
             accountDialogFragment.setCallback(account -> {
 
                 categoryExpense.setAccount(account);
@@ -135,8 +135,8 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         selectCategoryBtn.setOnClickListener(v -> {
 
             FragmentManager fm = getChildFragmentManager();
-            final CategoryDialogFragment categoryDialogFragment = CategoryDialogFragment.newInstance("Select Category");
-            categoryDialogFragment.setCategory(categoryExpense.getCategoryId());
+            final CategoryDialogFragment categoryDialogFragment = CategoryDialogFragment.newInstance(getString(R.string.select_category));
+            categoryDialogFragment.setCategory(categoryExpense.getCategory_id());
             categoryDialogFragment.setCallback(category -> {
                 categoryBtnIv.setImageResource(CategoryIcons.getIconId(category.getIcon()));
                 categoryNameTv.setText(category.getName());
@@ -166,7 +166,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
         okBtn.setOnClickListener(v -> {
             String expenseStr = expenseEdtxt.getText().toString();
-            if (expenseStr.equals(".")) {
+            if (expenseStr.equals(getString(R.string.point))) {
                 expenseStr = "";
             }
             double amount = expenseStr.length() > 0 ? Double.parseDouble(expenseStr) : 0;
@@ -201,10 +201,10 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         expenseDeleteBtn.setOnClickListener(v -> {
             if ((categoryExpense.getExpenseId() > 0)) {
 
-                showAlert("Attention",
-                        "Are you sure, you want to delete this expense entry",
-                        "Yes",
-                        "Not now",
+                showAlert(getString(R.string.attention),
+                        getString(R.string.are_you_sure_you_want_to_delete_this_expense_entry),
+                        getString(R.string.yes),
+                        getString(R.string.not_now),
                         new Callback() {
                             @Override
                             public void onOkBtnPressed() {
@@ -226,7 +226,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
     @Override
     public void onExpenseAdded(double amount) {
         expenseEdtxt.setText("");
-        Toast.makeText(context, "Successfully added.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), getString(R.string.successfully_added), Toast.LENGTH_SHORT).show();
         viewModel.updateAccountAmount(categoryExpense.getAccount_id(), amount);
         MainActivity mainActivity = (MainActivity) context;
         mainActivity.updateSummary();
@@ -235,7 +235,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
     @Override
     public void onExpenseDeleted(CategoryExpense categoryExpense) {
-        Toast.makeText(context, "Successfully deleted expense entry.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), getString(R.string.successfully_deleted_expense_entry), Toast.LENGTH_SHORT).show();
         ((Activity) context).onBackPressed();
         viewModel.updateAccountAmount(this.categoryExpense.getAccount_id(), categoryExpense.getTotal_amount() * -1);
         MainActivity mainActivity = (MainActivity) context;

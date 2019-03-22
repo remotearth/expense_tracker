@@ -8,6 +8,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
+import com.remotearthsolutions.expensetracker.utils.Constants;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -56,7 +57,7 @@ public class ExpenseFragmentViewModel extends ViewModel {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(() -> view.onExpenseAdded(expense.getAmount())));
         } else {
-            view.showToast("Please enter an amount");
+            view.showToast(Constants.KEY_ENTER_AMMOUNT_MESSAGE);
         }
     }
 

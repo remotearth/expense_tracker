@@ -34,7 +34,7 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
     private FragmentMainBinding binding;
     private MainFragmentPagerAdapter pagerAdapter;
     private ActionBar actionBar;
-    private String[] tabTitles = new String[]{"Home", "Transactions", "Accounts", "Dashboard",};
+    private String[] tabTitles = new String[]{getString(R.string.home), getString(R.string.transactions), getString(R.string.accounts), getString(R.string.dashboard),};
 
     private static HomeFragment homeFragment;
     private static AllExpenseFragment allExpenseFragment;
@@ -255,7 +255,7 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
 
     public void setActionBar(ActionBar supportActionBar) {
         this.actionBar = supportActionBar;
-        actionBar.setTitle("Home");
+        actionBar.setTitle(getString(R.string.home));
     }
 
     @Override

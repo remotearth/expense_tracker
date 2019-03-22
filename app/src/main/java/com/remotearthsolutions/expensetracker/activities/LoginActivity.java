@@ -102,7 +102,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onLoginFailure() {
-        showAlert(null, "Login failed", "Ok", null, null);
+        showAlert(null, getString(R.string.login_failed), getString(R.string.ok), null, null);
     }
 
     @Override
@@ -110,7 +110,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         GoogleSignInClient mGoogleSignInClient = viewModel.getGoogleSignInClient();
 
         if (mGoogleSignInClient == null) {
-            Log.w(TAG, "mGoogleSignInClient must be initialized");
+            Log.w(TAG, getString(R.string.mGoogleSignInClient_must_be_initialized));
             return;
         }
 

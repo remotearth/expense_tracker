@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.CustomEvent;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.FabricAnswersUtils;
@@ -54,7 +52,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 String val = sharedPreferences.getString(key, resources.getString(R.string.default_currency));
                 currencyPreference.setSummary(val);
                 currencyPreference.setIcon(Utils.getFlagDrawable(context));
-
                 FabricAnswersUtils.logCustom(val);
 
             } else if (key.equals(Constants.PREF_PERIOD)) {

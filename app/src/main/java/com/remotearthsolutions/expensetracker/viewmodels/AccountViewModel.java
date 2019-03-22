@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 import com.remotearthsolutions.expensetracker.contracts.AccountContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
+import com.remotearthsolutions.expensetracker.utils.Constants;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -43,7 +44,7 @@ public class AccountViewModel extends ViewModel {
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> view.onSuccess("Operation successful")));
+                .subscribe(() -> view.onSuccess(Constants.KEY_OPERATION_SUCCESSFULL)));
     }
 
     public void deleteAccount(AccountModel selectAccountIncome) {
@@ -55,7 +56,7 @@ public class AccountViewModel extends ViewModel {
             accountDao.deleteAccount(selectAccountIncome);
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> view.onSuccess("Operation successful")));
+                .subscribe(() -> view.onSuccess(Constants.KEY_OPERATION_SUCCESSFULL)));
     }
 
     public LiveData<Integer> getNumberOfItem() {

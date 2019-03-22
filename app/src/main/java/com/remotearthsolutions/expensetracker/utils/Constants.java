@@ -43,5 +43,38 @@ public interface Constants {
     String PREF_PERIOD = "pref_period_list";
     String PREF_ISFIRSTTIMEVISITED = "PREF_ISFIRSTTIMEVISITED";
 
+    String KEY_TITLE = "title";
+    String KEY_SCREEN = "screen";
+    String KEY_DESH = "-";
+    String KEY_UTF_VERSION = "UTF-8";
+    String KEY_META1 = "meta1";
+    String KEY_META2 = "meta2";
+    String KEY_META3 = "meta3";
+    String KEY_META1_REPLACE = "meta1";
+    String KEY_META2_REPLACE = "meta2";
+    String KEY_META3_REPLACE = "meta3";
+    String KEY_EXPENSE_TRACKER = "expense_tracker_";
+    String KEY_PROVIDER = "com.remotearthsolutions.expensetracker.provider";
+    String KEY_CSV_FILE_EXTENSION = ".csv";
+    String KEY_GOOGLE_CLIENT_ID = "1034332655323-lv5t5fja6ef5co4vsaf9bv476c9rga9r.apps.googleusercontent.com";
+    String KEY_MESSAGE = "message";
+    String KEY_PURCHASED_ITEM_MESSAGE = "You already purchased this item";
+    String KEY_DATE_MONTH_YEAR = "dd-MM-yyyy";
+    String KEY_DATE_MONTH_YEAR_HOUR_MINIT_AM_PM = "dd-MM-yyyy h:mm a";
+    String KEY_MONTH_YEAR = "MMMM,yy";
+    String KEY_YEAR = "yyyy";
+    String KEY_MONTH = "MMMM";
+    String KEY_HOUR_MINIT_AM_PM = "h:mm a";
+    String KEY_PACKAGE = "package";
+    String KEY_COLOR_FORMAT = "#%02x%02x%02x";
+    String KEY_OPERATION_SUCCESSFULL = "Operation successful";
+    String KEY_ENTER_AMMOUNT_MESSAGE = "Please enter an amount";
+    String KEY_WARNING = "Warning";
+    String KEY_WARNING_MESSAGE = "No Internet Connection";
+    String KEY_OK = "OK";
+    String KEY_PLEASE_WAIT = "Please wait...";
+
+
+
 
 }
