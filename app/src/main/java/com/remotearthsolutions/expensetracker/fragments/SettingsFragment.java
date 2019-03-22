@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
@@ -15,7 +14,9 @@ import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.utils.Constants;
+import com.remotearthsolutions.expensetracker.utils.FabricAnswersUtils;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
+import com.remotearthsolutions.expensetracker.utils.Utils;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
@@ -41,7 +42,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         Preference preferencePeriod = findPreference(Constants.PREF_PERIOD);
         preferencePeriod.setSummary(SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_PERIOD, Constants.KEY_DAILY));
         Preference preferenceCurrency = findPreference(Constants.PREF_CURRENCY);
-        preferenceCurrency.setSummary(SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_CURRENCY, resources.getString(R.string.default_currency)));
+        String currencyName = SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_CURRENCY, resources.getString(R.string.default_currency));
+        preferenceCurrency.setSummary(currencyName);
+        preferenceCurrency.setIcon(Utils.getFlagDrawable(context));
 
         preferenceChangeListener = (sharedPreferences, key) -> {
 
@@ -50,7 +53,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 Preference currencyPreference = findPreference(key);
                 String val = sharedPreferences.getString(key, resources.getString(R.string.default_currency));
                 currencyPreference.setSummary(val);
-                Answers.getInstance().logCustom(new CustomEvent(val));
+                currencyPreference.setIcon(Utils.getFlagDrawable(context));
+
+                FabricAnswersUtils.logCustom(val);
 
             } else if (key.equals(Constants.PREF_PERIOD)) {
 

@@ -93,7 +93,7 @@
         <item>Myanmar Kyat - MMK</item>
         <item>Mongolian Tugrik - MNT</item>
         <item>Macanese Pataca - MOP</item>
-        <item>Mauritanian Ouguiya (pre-2018) - MRO</item>
+        <!--<item>Mauritanian Ouguiya (pre-2018) - MRO</item>-->
         <item>Mauritanian Ouguiya - MRU</item>
         <item>Mauritian Rupee - MUR</item>
         <item>Maldivian Rufiyaa - MVR</item>
@@ -136,7 +136,6 @@
         <item>Swiss Franc - CHF</item>
         <item>Samoan Tala - WST</item>
         <item>Surinamese Dollar - SRD</item>
-        <item>São Tomé and Príncipe Dobra (pre-2018) - STD</item>
         <item>São Tomé and Príncipe Dobra - STN</item>
         <item>Salvadoran Colón - SVC</item>
         <item>Syrian Pound - SYP</item>
@@ -157,7 +156,6 @@
         <item>United States Dollar - USD</item>
         <item>Uruguayan Peso - UYU</item>
         <item>Uzbekistan Som - UZS</item>
-        <item>Venezuelan Bolívar Fuerte (Old) - VEF</item>
         <item>Venezuelan Bolívar Soberano - VES</item>
         <item>Vietnamese Dong - VND</item>
         <item>Vanuatu Vatu - VUV</item>
@@ -258,7 +256,7 @@
         <item>MMK</item>
         <item>MNT</item>
         <item>MOP</item>
-        <item>MRO</item>
+        <!--<item>MRO</item>-->
         <item>MRU</item>
         <item>MUR</item>
         <item>MVR</item>
@@ -301,7 +299,6 @@
         <item>CHF</item>
         <item>WST</item>
         <item>SRD</item>
-        <item>STD</item>
         <item>STN</item>
         <item>SVC</item>
         <item>SYP</item>
@@ -322,7 +319,6 @@
         <item>USD</item>
         <item>UYU</item>
         <item>UZS</item>
-        <item>VEF</item>
         <item>VES</item>
         <item>VND</item>
         <item>VUV</item>
@@ -423,7 +419,6 @@
         <item>₮</item>
         <item>P</item>
         <item>UM</item>
-        <item>UM</item>
         <item>Rs</item>
         <item>ރ.</item>
         <item>MK</item>
@@ -466,7 +461,6 @@
         <item>T</item>
         <item>$</item>
         <item>Db</item>
-        <item>Db</item>
         <item>$</item>
         <item>ل.س</item>
         <item>L</item>
@@ -486,7 +480,6 @@
         <item>$</item>
         <item>$</item>
         <item>лв</item>
-        <item>Bs F</item>
         <item>Bs.</item>
         <item>₫</item>
         <item>Vt</item>

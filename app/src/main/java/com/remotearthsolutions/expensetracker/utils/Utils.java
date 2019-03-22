@@ -24,7 +24,7 @@ public class Utils {
     }
 
     public static ScreenSize getDeviceScreenSize(Context context) {
-        if(context == null) {
+        if (context == null) {
             return null;
         }
 
@@ -34,7 +34,7 @@ public class Utils {
     }
 
     public static int getDeviceDP(Context context) {
-        if (context == null){
+        if (context == null) {
             return 360;
         }
 
@@ -48,6 +48,13 @@ public class Utils {
         List<String> currencies = Arrays.asList(resources.getStringArray(R.array.currency));
         String selectedCurrency = SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_CURRENCY, resources.getString(R.string.default_currency));
         return resources.getStringArray(R.array.currency_symbol)[currencies.indexOf(selectedCurrency)];
+    }
+
+    public static int getFlagDrawable(Context context) {
+        Resources resources = context.getResources();
+        List<String> currencies = Arrays.asList(resources.getStringArray(R.array.currency));
+        String selectedCurrency = SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_CURRENCY, resources.getString(R.string.default_currency));
+        return CountryFlagIcons.getIcon(currencies.indexOf(selectedCurrency));
     }
 
     public static class ScreenSize {

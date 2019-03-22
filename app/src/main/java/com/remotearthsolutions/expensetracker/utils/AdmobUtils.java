@@ -43,7 +43,7 @@ public final class AdmobUtils {
 
                 if (((ApplicationObject) activity.getApplication()).isActivityVisible() && appShouldShowAds) {
                     interstitialAd.show();
-                    Answers.getInstance().logCustom(new CustomEvent("Ad shown"));
+                    FabricAnswersUtils.logCustom("Ad shown");
                 }
 
             }

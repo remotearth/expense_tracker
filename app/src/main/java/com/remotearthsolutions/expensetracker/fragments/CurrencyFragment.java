@@ -13,7 +13,9 @@ import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.utils.Constants;
+import com.remotearthsolutions.expensetracker.utils.FabricAnswersUtils;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
+import com.remotearthsolutions.expensetracker.utils.Utils;
 
 public class CurrencyFragment extends PreferenceFragmentCompat {
 
@@ -37,13 +39,15 @@ public class CurrencyFragment extends PreferenceFragmentCompat {
         Preference preferenceCurrency = findPreference(Constants.PREF_CURRENCY);
         preferenceCurrency.setSummary(SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_CURRENCY,
                 context.getResources().getString(R.string.default_currency)));
+        preferenceCurrency.setIcon(Utils.getFlagDrawable(context));
 
         preferenceChangeListener = (sharedPreferences, key) -> {
             if (key.equals(Constants.PREF_CURRENCY)) {
                 Preference currencyPreference = findPreference(key);
                 String val = sharedPreferences.getString(key, context.getResources().getString(R.string.default_currency));
                 currencyPreference.setSummary(sharedPreferences.getString(key, val));
-                Answers.getInstance().logCustom(new CustomEvent(val));
+                currencyPreference.setIcon(Utils.getFlagDrawable(context));
+                FabricAnswersUtils.logCustom(val);
             }
         };
 

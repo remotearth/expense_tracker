@@ -30,6 +30,7 @@ import com.remotearthsolutions.expensetracker.entities.DashboardModel;
 import com.remotearthsolutions.expensetracker.services.FileProcessingServiceImp;
 import com.remotearthsolutions.expensetracker.utils.CheckoutUtils;
 import com.remotearthsolutions.expensetracker.utils.Constants;
+import com.remotearthsolutions.expensetracker.utils.FabricAnswersUtils;
 import com.remotearthsolutions.expensetracker.utils.PermissionUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.DashboardViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.DashBoardViewModelFactory;
@@ -121,7 +122,7 @@ public class DashboardFragment extends BaseFragment implements DashboardContract
                                                 String selectedText = csvList[item].toString();
                                                 String filePath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), selectedText).getAbsolutePath();
                                                 dashboardViewModel.importDataFromFile(filePath);
-                                                Answers.getInstance().logCustom(new CustomEvent("Data Imported"));
+                                                FabricAnswersUtils.logCustom("Data Imported");
                                             });
 
                                             AlertDialog alertDialogObject = dialogBuilder.create();
