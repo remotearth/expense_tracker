@@ -50,7 +50,6 @@
         <item>Djibouti Franc - DJF</item>
         <item>Danish Krone - DKK</item>
         <item>Dominican Peso - DOP</item>
-        <item>Egyptian Pound - DZD</item>
         <item>Egyptian Pound - EGP</item>
         <item>Eritrean Nakfa - ERN</item>
         <item>Ethiopian Birr - ETB</item>
@@ -87,7 +86,6 @@
         <item>Liberian Dollar - LRD</item>
         <item>Lesotho Loti - LSL</item>
         <item>Libyan Dinar - LYD</item>
-        <item>Manx pound - IMP</item>
         <item>Moroccan Dirham - MAD</item>
         <item>Moldovan Leu - MDL</item>
         <item>Malagasy Ariary - MGA</item>
@@ -179,7 +177,6 @@
         <item>AUD</item>
         <item>AWG</item>
         <item>AZN</item>
-        <item>DZD</item>
         <item>BAM</item>
         <item>BBD</item>
         <item>BDT</item>
@@ -254,7 +251,6 @@
         <item>LRD</item>
         <item>LSL</item>
         <item>LYD</item>
-        <item>IMP</item>
         <item>MAD</item>
         <item>MDL</item>
         <item>MGA</item>
@@ -383,7 +379,6 @@
         <item>₣</item>
         <item>kr</item>
         <item>$</item>
-        <item>د.ج</item>
         <item>ج.م</item>
         <item>Nfk</item>
         <item>ብር</item>
@@ -420,7 +415,6 @@
         <item>$</item>
         <item>L</item>
         <item>ل.د</item>
-        <item>£</item>
         <item>د.م.</item>
         <item>L</item>
         <item>Ar</item>
