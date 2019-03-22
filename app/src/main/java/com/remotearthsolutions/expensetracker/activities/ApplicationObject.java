@@ -28,10 +28,9 @@ public class ApplicationObject extends MultiDexApplication implements Applicatio
     @Override
     public void onCreate() {
         super.onCreate();
-        //if(!BuildConfig.DEBUG){
+        if(!BuildConfig.DEBUG){
             Fabric.with(this, new Crashlytics(), new Answers());
-        //}
-
+        }
 
         SharedPreferenceUtils.getInstance(this);
         registerActivityLifecycleCallbacks(this);
