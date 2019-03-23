@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -33,6 +34,13 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
     private AccountModel selectAccountModel;
     private int limitOfAccount;
     private String currencySymbol;
+    private Context context;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public AccountsFragment() {
     }
@@ -48,14 +56,15 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
         super.onViewCreated(view, savedInstanceState);
         listview = view.findViewById(R.id.accountList);
 
+
         currencySymbol = "$";
-        if (getActivity() != null) {
-            currencySymbol = Utils.getCurrency(getActivity());
+        if (context != null) {
+            currencySymbol = Utils.getCurrency(context);
         }
 
         AccountDao accountDao = DatabaseClient.getInstance(getContext()).getAppDatabase().accountDao();
         this.viewModel = ViewModelProviders.of(this,
-                new AccountViewModelFactory(this, accountDao)).
+                new AccountViewModelFactory(context,this, accountDao)).
                 get(AccountViewModel.class);
         this.viewModel.loadAccounts();
 
@@ -65,11 +74,11 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
         view.findViewById(R.id.addAccountBtn).setOnClickListener(v -> {
 
             if (limitOfAccount < 5 ||
-                    ((ApplicationObject) getActivity().getApplication()).isPremium()) {
+                    ((ApplicationObject) ((Activity) context).getApplication()).isPremium()) {
                 selectAccountModel = null;
                 onClickEditBtn();
             } else {
-                showAlert("Attention", "You need to be premium user to add more Account", "Ok", null, null);
+                showAlert(getString(R.string.attention), getString(R.string.you_need_to_be_premium_user_to_add_more_categories), getString(R.string.ok), null, null);
             }
         });
     }
@@ -77,7 +86,7 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
     @Override
     public void onAccountFetch(List<AccountModel> accounts) {
         if (isAdded()) {
-            adapter = new AccountsAdapter(getActivity(), accounts, currencySymbol);
+            adapter = new AccountsAdapter(context, accounts, currencySymbol);
             listview.setAdapter(adapter);
             listview.setOnItemClickListener((parent, view, position, id) -> {
                 this.selectAccountModel = accounts.get(position);
@@ -90,7 +99,7 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
 
     @Override
     public void onSuccess(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -115,14 +124,15 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
     @Override
     public void onClickDeleteBtn() {
         if (selectAccountModel.getNotremovable() == 1) {
-            Toast.makeText(getActivity(), "You cannot delete this account", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.you_cannot_delete_this_account), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        AlertDialogUtils.show(getActivity(), "Warning",
-                "Deleting this account will remove expenses related to this also. Are you sure, You want to Delete?",
-                "Yes",
-                "Not now",
+        AlertDialogUtils.show(
+                getActivity(), getString(R.string.warning),
+                getString(R.string.deleting_this_account_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete),
+                getString(R.string.yes),
+                getString(R.string.not_now),
                 new BaseView.Callback() {
                     @Override
                     public void onOkBtnPressed() {
@@ -138,6 +148,6 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
 
     @Override
     public Context getContext() {
-        return getActivity();
+        return context;
     }
 }

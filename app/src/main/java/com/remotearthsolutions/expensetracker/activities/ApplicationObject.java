@@ -5,6 +5,7 @@ import android.app.Application;
 import android.os.Bundle;
 import androidx.multidex.MultiDexApplication;
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
 import com.remotearthsolutions.expensetracker.BuildConfig;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
@@ -28,9 +29,8 @@ public class ApplicationObject extends MultiDexApplication implements Applicatio
     public void onCreate() {
         super.onCreate();
         if(!BuildConfig.DEBUG){
-            Fabric.with(this, new Crashlytics());
+            Fabric.with(this, new Crashlytics(), new Answers());
         }
-
 
         SharedPreferenceUtils.getInstance(this);
         registerActivityLifecycleCallbacks(this);

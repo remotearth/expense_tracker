@@ -21,10 +21,6 @@ public interface Constants {
     String TEST_PURCHASED_ITEM = "android.test.purchased";
     String PRODUCT_ID = "com.remotearthsolutions.expensetracker.remove_ad";
 
-    String SHARE_T0_EMAIL = "Export Data";
-    String BUY_THE_PRODUCT = "Buy The Product";
-    String IMPORT_FILE = "Import Data";
-
     String RAZERDPANIMATEDPIEVIEW_LICENSE_FILE = "file:///android_asset/licenses/LICENSEAnimatedPieChart";
     String ROOM_LICENSE_FILE = "file:///android_asset/licenses/LICENSERoom";
     String PURCHASEDCHECKOUT_LICENSE_FILE = "file:///android_asset/licenses/LICENSEcheckout.txt";
@@ -43,5 +39,25 @@ public interface Constants {
     String PREF_PERIOD = "pref_period_list";
     String PREF_ISFIRSTTIMEVISITED = "PREF_ISFIRSTTIMEVISITED";
 
+    String KEY_TITLE = "title";
+    String KEY_SCREEN = "screen";
+    String KEY_DESH = "-";
+    String KEY_UTF_VERSION = "UTF-8";
+    String KEY_META1_REPLACE = "meta1:";
+    String KEY_META2_REPLACE = "meta2:";
+    String KEY_META3_REPLACE = "meta3:";
+    String KEY_EXPENSE_TRACKER = "expense_tracker_";
+    String KEY_PROVIDER = "com.remotearthsolutions.expensetracker.provider";
+    String KEY_CSV_FILE_EXTENSION = ".csv";
+    String KEY_GOOGLE_CLIENT_ID = "1034332655323-lv5t5fja6ef5co4vsaf9bv476c9rga9r.apps.googleusercontent.com";
+    String KEY_MESSAGE = "message";
+    String KEY_DATE_MONTH_YEAR = "dd-MM-yyyy";
+    String KEY_DATE_MONTH_YEAR_HOUR_MINIT_AM_PM = "dd-MM-yyyy h:mm a";
+    String KEY_MONTH_YEAR = "MMMM,yy";
+    String KEY_YEAR = "yyyy";
+    String KEY_MONTH = "MMMM";
+    String KEY_HOUR_MINIT_AM_PM = "h:mm a";
+    String KEY_PACKAGE = "package";
+    String KEY_COLOR_FORMAT = "#%02x%02x%02x";
 
 }

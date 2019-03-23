@@ -1,0 +1,186 @@
+<resources>
+    <string name="app_name">Expense Tracker</string>
+    <string name="welcometitle">Bienvenido a Expense Tracker</string>
+    <string name="fb_signin_text">INICIAR SESIÓN USANDO FACEBOOK</string>
+    <string name="gmail_signin_text">INICIA SESIÓN CON GOOGLE</string>
+    <string name="noaccounttext">¿No quieres crear una cuenta ahora?</string>
+    <string name="signin_without_login">Continuar sin iniciar sesión</string>
+
+    <!--Drawer Navigation Strings-->
+    <string name="navigation_drawer_open">Cajón de navegación abierto</string>
+    <string name="navigation_drawer_close">Cerrar el cajon de navegacion</string>
+    <string name="nav_header_title">EXPENSE TRACKER</string>
+    <string name="action_settings">Ajustes</string>
+
+    <!--BottoM Navigation Strings-->
+    <string name="title_home">Casa</string>
+    <string name="title_dashboard">Tablero</string>
+    <string name="title_transaction">Transacción</string>
+
+    <!--BottoM sheet Strings-->
+    <string name="from_account_card">CASH</string>
+    <string name="from_catagory_card">GIFT</string>
+    <string name="from_account">Cuenta</string>
+    <string name="to_account">Categoría</string>
+    <string name="expense">Gastos</string>
+    <string name="balance">Equilibrar</string>
+    <string name="notes">Notas</string>
+    <string name="currentdate">Hoy</string>
+    <string name="previousdate">Ayer</string>
+
+    <string name="menu_home">Casa</string>
+    <string name="menu_categories">Categorías</string>
+    <string name="menu_settings">Ajustes</string>
+    <string name="menu_about">Acerca de</string>
+    <string name="menu_licenses">Licencias</string>
+    <string name="menu_logout">Cerrar sesión</string>
+    <string name="add_expense">Añadir gastos</string>
+    <string name="preferencetitle">Seleccione el tipo de moneda</string>
+    <string name="summarypreftext">Haga clic en mí para elegir su propia moneda</string>
+    <string name="privacy_policy">Política de privacidad</string>
+    <string name="daily">Diario</string>
+    <string name="weekly">Semanal</string>
+    <string name="monthly">Mensual</string>
+    <string name="yearly">Anual</string>
+    <string name="expense_category">Categoría de gastos</string>
+    <string name="timeperiod">Periodo de tiempo</string>
+    <string name="day">Día</string>
+    <string name="selectperiodfromhere">Seleccione el período desde aquí</string>
+
+    <string name="accounts">Cuentas</string>
+    <string name="warning">Advertencia</string>
+    <string name="buy_message">Para disfrutar de este servicio, tienes que comprar.</string>
+    <string name="ok">De acuerdo</string>
+    <string name="no_data_available">Lo sentimos, no hay datos disponibles</string>
+
+    <string name="icons_made_by">Iconos hechos por Freepik de Flaticon</string>
+    <string name="Authentication_with_Firebase_is_failed">La autenticación con Firebase ha fallado</string>
+
+    <string name="login_failed">Error de inicio de sesion</string>
+    <string name="press_once_again_to_close_app">Presiona una vez más para cerrar la aplicación</string>
+    <string name="are_you_sure_you_want_to_logout">¿Estás seguro de que quieres cerrar sesión?</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="add_category">Añadir categoría</string>
+    <string name="attention">Atención</string>
+    <string name="you_need_to_be_premium_user_to_add_more_categories">Necesitas ser usuario premium para agregar más
+        categorías
+    </string>
+    <string name="you_cannot_delete_this_account">No puedes borrar esta cuenta</string>
+    <string name="deleting_this_account_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete">
+        Eliminar esta cuenta también eliminará los gastos relacionados con esto. ¿Estas seguro que quieres borrarlo?
+    </string>
+    <string name="not_now">Ahora no</string>
+    <string name="you_have_to_enter_an_amount">Tienes que ingresar una cantidad</string>
+    <string name="update_category">Actualizar categoría</string>
+    <string name="update">Actualizar</string>
+    <string name="enter_a_name">Ingresa un nombre</string>
+    <string name="select_an_icon">Seleccione un icono</string>
+    <string name="update_account">Actualizar cuenta</string>
+    <string name="add_account">Añadir cuenta</string>
+    <string name="add">Añadir</string>
+    <string name="enter_a_name_for_account">Ingrese un nombre para la cuenta</string>
+    <string name="select_an_icon_for_the_account">Seleccione un icono para la cuenta</string>
+    <string name="you_cannot_delete_this_category">No puedes borrar esta cuenta</string>
+    <string name="deleting_this_category_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete">
+        Eliminar esta cuenta también eliminará los gastos relacionados con esto. ¿Estas seguro que quieres borrarlo?
+    </string>
+    <string name="category_deleted_successfully">Categoría eliminada con éxito</string>
+    <string name="select_account">Seleccionar cuenta</string>
+    <string name="select_category">Selecciona una categoría</string>
+    <string name="are_you_sure_you_want_to_delete_this_expense_entry">¿Está seguro que desea eliminar esta entrada de
+        gastos?
+    </string>
+    <string name="successfully_added">Agregado exitosamente.</string>
+    <string name="successfully_deleted_expense_entry">Se eliminó correctamente la entrada de gastos.</string>
+    <string name="transactions">Actas</string>
+    <string name="dashboard">Tablero</string>
+    <string name="home">Casa</string>
+    <string name="email">correo electrónico</string>
+    <string name="public_profile">Perfil público</string>
+    <string name="report_from_expense_tracker">Informes de Expense Tracker</string>
+    <string name="choose_email_client_to_send_report">Elija un cliente de correo electrónico para enviar el informe
+    </string>
+    <string name="report_sending_failed_please_try_again_later">Informe de envío fallido, inténtalo de nuevo más tarde
+    </string>
+    <string name="authentication_with_firebase_is_failed">La autenticación con Firebase ha fallado</string>
+    <string name="google_signin_failed">Error de inicio de sesión de Google</string>
+    <string name="remotearth_notification">Remotearth Notification</string>
+    <string name="message">message</string>
+    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">Usar esto
+        Características Su necesidad Permiso Para eso, puede acceder a él en la configuración de la aplicación.
+    </string>
+    <string name="go_to_settings">Ir a la configuración</string>
+    <string name="cancel">Cancelar</string>
+    <string name="date_category_amount_from_note">Fecha, Categoría, Cantidad, De, Nota</string>
+    <string name="expense_data_not_available_to_export">No hay datos de gastos disponibles para exportar.</string>
+    <string name="select_your_currency">Seleccione su moneda</string>
+    <string name="go">Ir</string>
+
+
+    <string name="will_replace_your_current_entries">Esto reemplazará sus entradas actuales. ¿Seguro que quieres
+        importar datos?
+    </string>
+    <string name="no_supported_file">No se encuentra ningún archivo de seguimiento de gastos compatible</string>
+    <string name="select_csv">Seleccione un archivo .csv</string>
+
+    <string name="read_write_permission_is_needed">Se necesita permiso de lectura/escritura en el almacenamiento externo
+        para exportar/importar datos.
+    </string>
+    <string name="read_write_permission_is_needed_enable_from_settings">Se necesita permiso de lectura / escritura en el
+        almacenamiento externo para exportar / importar datos. Por favor habilítelo desde la configuración del
+        dispositivo.
+    </string>
+    <string name="internet_connection_needed">Se necesita conexión a internet para realizar esta acción.</string>
+
+    <string name="without_this_app_cannot_export">Sin este permiso, la aplicación no puede exportar datos.</string>
+    <string name="storage_permission_is_needed_to_export_data">Se necesita permiso de escritura en almacenamiento
+        externo para exportar datos. ¿Quieres continuar dando el permiso?
+    </string>
+    <string name="storage_permission_needed_still_can_enable_from_settings">Se necesita permiso de escritura en
+        almacenamiento externo para exportar datos. Aún puede habilitar este permiso desde la configuración de la
+        aplicación.
+    </string>
+
+    <string name="bills">Cuentas</string>
+    <string name="car">Coche</string>
+    <string name="clothes">Ropa</string>
+    <string name="communication">Comunicación</string>
+    <string name="eating_out">Comiendo fuera</string>
+    <string name="entertainment">Entretenimiento</string>
+    <string name="food">Comida</string>
+    <string name="gift">Regalo</string>
+    <string name="health">Salud</string>
+    <string name="pets">Mascotas</string>
+    <string name="sports">Deportes</string>
+    <string name="taxi">Taxi</string>
+    <string name="toiletry">Artículos de aseo</string>
+    <string name="transport">Transporte</string>
+    <string name="family">Familia</string>
+
+    <string name="cash">Efectivo</string>
+    <string name="bank">Banco</string>
+    <string name="loan">Préstamo</string>
+
+    <string name="select_day">Seleccione el día</string>
+    <string name="category">Categoría</string>
+    <string name="choose_icon">Elige un icono</string>
+    <string name="add_btntext">Añadir</string>
+    <string name="account_name">Nombre de la cuenta</string>
+    <string name="enter_amount">Ingrese una cantidad...</string>
+    <string name="add_amount">Añadir cantidad</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Borrar</string>
+    <string name="expense_note">NOTA DE GASTOS</string>
+    <string name="write_a_note_here">Escribe una nota...</string>
+
+    <string name="export_data">Exportar datos</string>
+    <string name="buy_product">Comprar el producto</string>
+    <string name="import_data">Datos de importacion</string>
+
+    <string name="already_purchased">Ya compraste este articulo</string>
+    <string name="no_net_connection">No hay conexión a Internet disponible</string>
+    <string name="please_wait">Por favor espera...</string>
+    <string name="operation_successful">Operación exitosa</string>
+    <string name="please_enter_an_amount">Por favor ingrese una cantidad</string>
+</resources>

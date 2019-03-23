@@ -9,7 +9,7 @@ public final class CheckoutUtils {
 
     private ActivityCheckout mCheckout;
     private static CheckoutUtils instance;
-    private boolean isStarted;
+    private boolean isStarted, purchaseFlowCreated;
 
     public static CheckoutUtils getInstance(Activity activity) {
         if (instance == null) {
@@ -34,7 +34,7 @@ public final class CheckoutUtils {
                 isStarted = true;
             }
         } catch (Exception e) {
-            Log.d("Exception", ""+ e.getMessage());
+            Log.d("Exception", "" + e.getMessage());
         }
     }
 
@@ -44,7 +44,10 @@ public final class CheckoutUtils {
     }
 
     public void createPurchaseFlow(EmptyRequestListener<Purchase> purchaseEmptyRequestListener) {
-        mCheckout.createPurchaseFlow(purchaseEmptyRequestListener);
+        if (!purchaseFlowCreated) {
+            mCheckout.createPurchaseFlow(purchaseEmptyRequestListener);
+            purchaseFlowCreated = true;
+        }
     }
 
     public PurchaseFlow getPurchaseFlow() {

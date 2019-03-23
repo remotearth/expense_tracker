@@ -9,7 +9,7 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="EXPENSE NOTE"
+            android:text="@string/expense_note"
             android:textColor="@color/colorPrimary"
             android:padding="7dp"
             android:textStyle="bold"
@@ -17,7 +17,7 @@
             android:textSize="18sp"/>
         <EditText
                 android:id="@+id/noteEdtxt"
-                android:hint="Write a note here..."
+                android:hint="@string/write_a_note_here"
                 android:layout_width="match_parent"
                 android:textSize="18sp"
                 android:layout_marginBottom="20dp"
@@ -25,7 +25,7 @@
 
         <Button
                 android:id="@+id/okBtn"
-                android:text="OK"
+                android:text="@string/ok"
                 android:textColor="@color/textcolorwhite"
                 android:background="@drawable/btn_selector"
                 android:layout_width="match_parent"

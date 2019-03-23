@@ -27,6 +27,4 @@ public interface ExpenseFragmentContract {
 
         void loadDate(List<DateModel> listOfDate);
     }
-
-
 }

@@ -1,7 +1,9 @@
 package com.remotearthsolutions.expensetracker.viewmodels;
 
+import android.content.Context;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
+import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.AccountContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
@@ -12,11 +14,13 @@ import io.reactivex.schedulers.Schedulers;
 
 public class AccountViewModel extends ViewModel {
 
+    private Context context;
     private AccountContract.View view;
     private AccountDao accountDao;
     private CompositeDisposable mDisposable = new CompositeDisposable();
 
-    public AccountViewModel(AccountContract.View view, AccountDao accountDao) {
+    public AccountViewModel(Context context, AccountContract.View view,AccountDao accountDao) {
+        this.context = context;
         this.view = view;
         this.accountDao = accountDao;
     }
@@ -43,7 +47,7 @@ public class AccountViewModel extends ViewModel {
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> view.onSuccess("Operation successful")));
+                .subscribe(() -> view.onSuccess(context.getString(R.string.operation_successful))));
     }
 
     public void deleteAccount(AccountModel selectAccountIncome) {
@@ -55,7 +59,7 @@ public class AccountViewModel extends ViewModel {
             accountDao.deleteAccount(selectAccountIncome);
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> view.onSuccess("Operation successful")));
+                .subscribe(() -> view.onSuccess(context.getString(R.string.operation_successful))));
     }
 
     public LiveData<Integer> getNumberOfItem() {

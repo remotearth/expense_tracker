@@ -1,8 +1,10 @@
 package com.remotearth.expensetracker;
 
+import android.content.Context;
 import android.content.Intent;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseUser;
+import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.LoginContract;
 import com.remotearthsolutions.expensetracker.services.FacebookService;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
@@ -20,6 +22,9 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LoginViewModelTests {
+
+    @Mock
+    Context context;
 
     @Mock
     LoginContract.View view;
@@ -63,6 +68,9 @@ public class LoginViewModelTests {
     @Test
     public void test_startFacebookLogin_when_deviceIsOffline_will_showNoInternetAlert() {
         when(view.isDeviceOnline()).thenReturn(false);
+        when(context.getString(R.string.warning)).thenReturn("Warning");
+        when(context.getString(R.string.no_net_connection)).thenReturn("No Internet Connection");
+        when(context.getString(R.string.ok)).thenReturn("OK");
         loginViewModel.startFacebookLogin();
 
         verify(view, times(1)).showAlert("Warning", "No Internet Connection", "OK", null, null);
@@ -79,6 +87,9 @@ public class LoginViewModelTests {
     @Test
     public void test_startGoogleLogin_when_deviceIsOffline_will_showNoInternetAlert() {
         when(view.isDeviceOnline()).thenReturn(false);
+        when(context.getString(R.string.warning)).thenReturn("Warning");
+        when(context.getString(R.string.no_net_connection)).thenReturn("No Internet Connection");
+        when(context.getString(R.string.ok)).thenReturn("OK");
         loginViewModel.startGoogleLogin();
 
         verify(view, times(1)).showAlert("Warning", "No Internet Connection", "OK", null, null);
@@ -110,6 +121,7 @@ public class LoginViewModelTests {
 
     @Test
     public void test_onFirebaseSigninFailure_with_StringData_will_call_hideProgress_onLoginFailure_and_showAlert() {
+        when(context.getString(R.string.ok)).thenReturn("Ok");
         loginViewModel.onFirebaseSigninFailure("Failed");
 
         verify(view, times(1)).hideProgress();
@@ -119,6 +131,7 @@ public class LoginViewModelTests {
 
     @Test
     public void test_onSocialLoginSuccess_with_AuthCredential_will_call_showProgress_and_signinWithCredential() {
+        when(context.getString(R.string.please_wait)).thenReturn("Please wait...");
         AuthCredential authCredential = mock(AuthCredential.class);
         loginViewModel.onSocialLoginSuccess(authCredential);
 
@@ -128,6 +141,7 @@ public class LoginViewModelTests {
 
     @Test
     public void test_onSocialLoginFailure_with_StringData_will_call_showAlert() {
+        when(context.getString(R.string.ok)).thenReturn("Ok");
         loginViewModel.onSocialLoginFailure("Failed");
 
         verify(view, only()).showAlert(null, "Failed", "Ok", null, null);

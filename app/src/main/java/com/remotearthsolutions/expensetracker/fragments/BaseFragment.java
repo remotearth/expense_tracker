@@ -17,11 +17,12 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     private InternetCheckerService internetCheckerService;
     private ProgressService progressService;
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        internetCheckerService = new InternetCheckerServiceImpl(getActivity());
+        internetCheckerService = new InternetCheckerServiceImpl(getContext());
         progressService = new ProgressServiceImp(getContext());
     }
 

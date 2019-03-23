@@ -24,7 +24,7 @@ public class AboutFragment extends Fragment {
 
         TextView versionnumber = view.findViewById(R.id.versionno);
         String getVersion = BuildConfig.VERSION_NAME;
-        versionnumber.setText("v"+getVersion);
+        versionnumber.setText(getString(R.string.version)+getVersion);
 
         return view;
     }

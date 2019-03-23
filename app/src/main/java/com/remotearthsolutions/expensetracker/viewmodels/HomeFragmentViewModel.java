@@ -8,7 +8,6 @@ import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
-import com.remotearthsolutions.expensetracker.utils.Utils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -45,8 +44,7 @@ public class HomeFragmentViewModel extends ViewModel {
         disposable.add(categoryExpenseDao.getAllCategoriesWithExpense(startTime, endTime)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((listOfCategoryWithAmount) -> {
-
+                .subscribe(listOfCategoryWithAmount -> {
                     double sum = 0;
                     for (CategoryExpense expense : listOfCategoryWithAmount) {
                         sum += expense.getTotalAmount();
@@ -56,15 +54,14 @@ public class HomeFragmentViewModel extends ViewModel {
                     for (CategoryExpense expense : listOfCategoryWithAmount) {
                         double val = (expense.getTotalAmount() / sum) * 100;
                         if (val > 0) {
-                            ExpeneChartData data = new ExpeneChartData(val, Utils.getRandomColorHexValue(), expense.getCategoryName());
+                            ExpeneChartData data = new ExpeneChartData(val, expense.getCategoryName());
                             chartDataList.add(data);
                         }
                     }
 
                     view.loadExpenseChart(chartDataList);
-
-
                 }));
+
     }
 
     public LiveData<Integer> getNumberOfItem() {

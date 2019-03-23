@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.utils.CategoryIcons;
+import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.Utils;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -34,6 +36,13 @@ public class AddCategoryDialogFragment extends DialogFragment {
     private TextView categorydialogstatus;
     private CategoryModel categoryModel;
     private String selectedIcon;
+    private Context context;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public AddCategoryDialogFragment() {
     }
@@ -42,7 +51,7 @@ public class AddCategoryDialogFragment extends DialogFragment {
     public static AddCategoryDialogFragment newInstance(String title) {
         AddCategoryDialogFragment frag = new AddCategoryDialogFragment();
         Bundle args = new Bundle();
-        args.putString("title", title);
+        args.putString(Constants.KEY_TITLE, title);
         frag.setArguments(args);
         return frag;
     }
@@ -68,18 +77,18 @@ public class AddCategoryDialogFragment extends DialogFragment {
         if (categoryModel != null) {
             categoryNameEdtxt.setText(categoryModel.getName());
             categoryNameEdtxt.setSelection(categoryNameEdtxt.getText().length());
-            categorydialogstatus.setText("Update Category");
-            okBtn.setText("Update");
+            categorydialogstatus.setText(getString(R.string.update_category));
+            okBtn.setText(getString(R.string.update));
         }
 
         okBtn.setOnClickListener(v -> saveCategory());
 
         recyclerView = view.findViewById(R.id.accountrecyclearView);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                (Utils.getDeviceScreenSize(getActivity()).height / 2));
+                (Utils.getDeviceScreenSize(context).height / 2));
         recyclerView.setLayoutParams(params);
         recyclerView.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 4);
         recyclerView.setLayoutManager(gridLayoutManager);
 
         List<String> alliconList = CategoryIcons.getAllIcons();
@@ -99,13 +108,13 @@ public class AddCategoryDialogFragment extends DialogFragment {
         final String categoryName = categoryNameEdtxt.getText().toString().trim();
 
         if (categoryName.isEmpty()) {
-            categoryNameEdtxt.setError("Enter a Name");
+            categoryNameEdtxt.setError(getString(R.string.enter_a_name));
             categoryNameEdtxt.requestFocus();
             return;
         }
 
         if (selectedIcon == null || selectedIcon.isEmpty()) {
-            Toast.makeText(getActivity(), "Select an icon", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.select_an_icon), Toast.LENGTH_SHORT).show();
             return;
         }
 

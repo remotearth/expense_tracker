@@ -1,6 +1,8 @@
 package com.remotearthsolutions.expensetracker.utils;
 
 import android.app.Activity;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -41,6 +43,7 @@ public final class AdmobUtils {
 
                 if (((ApplicationObject) activity.getApplication()).isActivityVisible() && appShouldShowAds) {
                     interstitialAd.show();
+                    FabricAnswersUtils.logCustom("Ad shown");
                 }
 
             }

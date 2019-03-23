@@ -50,37 +50,37 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
 
         if (v.getId() == R.id.digitOne) {
-            listener.onNumpadButtonClick("1");
+            listener.onNumpadButtonClick(getString(R.string.one));
         } else if (v.getId() == R.id.digitTwo) {
-            listener.onNumpadButtonClick("2");
+            listener.onNumpadButtonClick(getString(R.string.two));
         } else if (v.getId() == R.id.digitThree) {
-            listener.onNumpadButtonClick("3");
+            listener.onNumpadButtonClick(getString(R.string.three));
         } else if (v.getId() == R.id.digitFour) {
-            listener.onNumpadButtonClick("4");
+            listener.onNumpadButtonClick(getString(R.string.four));
         } else if (v.getId() == R.id.digitFive) {
-            listener.onNumpadButtonClick("5");
+            listener.onNumpadButtonClick(getString(R.string.five));
         } else if (v.getId() == R.id.digitSix) {
-            listener.onNumpadButtonClick("6");
+            listener.onNumpadButtonClick(getString(R.string.six));
         } else if (v.getId() == R.id.digitSeven) {
-            listener.onNumpadButtonClick("7");
+            listener.onNumpadButtonClick(getString(R.string.seven));
         } else if (v.getId() == R.id.digitEight) {
-            listener.onNumpadButtonClick("8");
+            listener.onNumpadButtonClick(getString(R.string.eight));
         } else if (v.getId() == R.id.digitNine) {
-            listener.onNumpadButtonClick("9");
+            listener.onNumpadButtonClick(getString(R.string.nine));
         } else if (v.getId() == R.id.digitZero) {
-            listener.onNumpadButtonClick("0");
+            listener.onNumpadButtonClick(getString(R.string.zero));
         } else if (v.getId() == R.id.dot) {
-            listener.onNumpadButtonClick(".");
+            listener.onNumpadButtonClick(getString(R.string.point));
         } else if (v.getId() == R.id.addition) {
-            listener.onMathOperationButtonClick("+");
+            listener.onMathOperationButtonClick(getString(R.string.plus));
         } else if (v.getId() == R.id.subtraction) {
-            listener.onMathOperationButtonClick("-");
+            listener.onMathOperationButtonClick(getString(R.string.subtraction));
         } else if (v.getId() == R.id.multiplication) {
-            listener.onMathOperationButtonClick("*");
+            listener.onMathOperationButtonClick(getString(R.string.multiplication));
         } else if (v.getId() == R.id.division) {
-            listener.onMathOperationButtonClick("/");
+            listener.onMathOperationButtonClick(getString(R.string.division));
         } else if (v.getId() == R.id.equalto) {
-            listener.onMathOperationButtonClick("=");
+            listener.onMathOperationButtonClick(getString(R.string.equalto));
         }
     }
 

@@ -2,12 +2,7 @@ package com.remotearthsolutions.expensetracker.services;
 
 import android.app.Activity;
 import android.content.Context;
-import androidx.annotation.NonNull;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.remotearthsolutions.expensetracker.R;
@@ -44,11 +39,11 @@ public class FirebaseServiceImpl implements FirebaseService {
                 .addOnCompleteListener((Activity) context, task -> {
                     if (task.isSuccessful()) {
                         callback.onFirebaseSigninSuccess(task.getResult().getUser());
-
                     } else {
                         callback.onFirebaseSigninFailure(context.getString(R.string.Authentication_with_Firebase_is_failed));
                     }
                 }).addOnFailureListener((Activity) context, e -> callback.onFirebaseSigninFailure(context.getString(R.string.Authentication_with_Firebase_is_failed)));
+
     }
 
     @Override
