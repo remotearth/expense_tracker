@@ -93,7 +93,7 @@ public class LoginViewModel extends ViewModel implements FacebookService.CallBac
 
     @Override
     public void onSocialLoginFailure(String message) {
-        view.showAlert(null, message, context.getResources().getString(R.string.ok), null, null);
+        view.showAlert(null, message, context.getString(R.string.ok), null, null);
     }
 
     @Override
