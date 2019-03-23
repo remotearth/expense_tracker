@@ -70,7 +70,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
             @Override
             public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
                 onFailureRunnable.run();
-                
+
                 AlertDialogUtils.show(activity, activity.getString(R.string.attention),
                         activity.getString(R.string.storage_permission_is_needed_to_export_data),
                         activity.getString(R.string.yes),
@@ -134,15 +134,15 @@ public class FileProcessingServiceImp implements FileProcessingService {
             fileReader.readLine();
 
             while ((line = fileReader.readLine()) != null) {
-                if (line.contains(Constants.KEY_META1)) {
+                if (line.contains(Constants.KEY_META1_REPLACE)) {
                     line = line.replace(Constants.KEY_META1_REPLACE, "");
                     String jsonContent = new String(Base64.decode(line, Base64.NO_WRAP), Constants.KEY_UTF_VERSION);
                     expenseModels = Arrays.asList(new Gson().fromJson(jsonContent, ExpenseModel[].class));
-                } else if (line.contains(Constants.KEY_META2)) {
+                } else if (line.contains(Constants.KEY_META2_REPLACE)) {
                     line = line.replace(Constants.KEY_META2_REPLACE, "");
                     String jsonContent = new String(Base64.decode(line, Base64.NO_WRAP), Constants.KEY_UTF_VERSION);
                     categoryModels = Arrays.asList(new Gson().fromJson(jsonContent, CategoryModel[].class));
-                } else if (line.contains(Constants.KEY_META3)) {
+                } else if (line.contains(Constants.KEY_META3_REPLACE)) {
                     line = line.replace(Constants.KEY_META3_REPLACE, "");
                     String jsonContent = new String(Base64.decode(line, Base64.NO_WRAP), Constants.KEY_UTF_VERSION);
                     accountModels = Arrays.asList(new Gson().fromJson(jsonContent, AccountModel[].class));

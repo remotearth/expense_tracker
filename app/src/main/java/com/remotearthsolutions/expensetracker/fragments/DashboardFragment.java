@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject;
+import com.remotearthsolutions.expensetracker.activities.MainActivity;
 import com.remotearthsolutions.expensetracker.adapters.DashboardAdapter;
 import com.remotearthsolutions.expensetracker.contracts.DashboardContract;
 import com.remotearthsolutions.expensetracker.databaseutils.AppDatabase;
@@ -28,7 +30,6 @@ import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.entities.DashboardModel;
 import com.remotearthsolutions.expensetracker.services.FileProcessingServiceImp;
 import com.remotearthsolutions.expensetracker.utils.CheckoutUtils;
-import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.FabricAnswersUtils;
 import com.remotearthsolutions.expensetracker.utils.PermissionUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.DashboardViewModel;
@@ -125,6 +126,13 @@ public class DashboardFragment extends BaseFragment implements DashboardContract
                                                 String filePath = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), selectedText).getAbsolutePath();
                                                 dashboardViewModel.importDataFromFile(filePath);
                                                 FabricAnswersUtils.logCustom("Data Imported");
+                                                showProgress(resources.getString(R.string.please_wait));
+
+                                                new Handler().postDelayed(() -> {
+                                                    ((MainActivity) context).updateSummary();
+                                                    ((MainActivity) context).refreshChart();
+                                                    hideProgress();
+                                                }, 3000);
                                             });
 
                                             AlertDialog alertDialogObject = dialogBuilder.create();

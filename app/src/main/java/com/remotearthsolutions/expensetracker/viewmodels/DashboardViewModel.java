@@ -46,7 +46,7 @@ public class DashboardViewModel extends ViewModel {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\n\n");
-        stringBuilder.append(R.string.string_append);
+        stringBuilder.append(activity.getString(R.string.date_category_amount_from_note));
         stringBuilder.append("\n");
         if (disposable.isDisposed()) {
             disposable = new CompositeDisposable();
@@ -65,7 +65,7 @@ public class DashboardViewModel extends ViewModel {
 
                         stringBuilder.append("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                         stringBuilder.append("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-                        stringBuilder.append(R.string.dont_edit_this_meta_data);
+                        stringBuilder.append(activity.getString(R.string.dont_edit_this_meta_data));
                         stringBuilder.append("\n\n");
 
                         disposable.add(expenseDao.getAllExpenseEntry().subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe(entries -> {

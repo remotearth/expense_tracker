@@ -43,12 +43,9 @@ public interface Constants {
     String KEY_SCREEN = "screen";
     String KEY_DESH = "-";
     String KEY_UTF_VERSION = "UTF-8";
-    String KEY_META1 = "meta1";
-    String KEY_META2 = "meta2";
-    String KEY_META3 = "meta3";
-    String KEY_META1_REPLACE = "meta1";
-    String KEY_META2_REPLACE = "meta2";
-    String KEY_META3_REPLACE = "meta3";
+    String KEY_META1_REPLACE = "meta1:";
+    String KEY_META2_REPLACE = "meta2:";
+    String KEY_META3_REPLACE = "meta3:";
     String KEY_EXPENSE_TRACKER = "expense_tracker_";
     String KEY_PROVIDER = "com.remotearthsolutions.expensetracker.provider";
     String KEY_CSV_FILE_EXTENSION = ".csv";

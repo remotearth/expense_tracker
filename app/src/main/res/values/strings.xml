@@ -147,7 +147,7 @@
     </string>
     <string name="go_to_settings">Go To Setting</string>
     <string name="cancel">Cancel</string>
-    <string name="string_append">Date,Category,Amount,From,Note</string>
+    <string name="date_category_amount_from_note">Date,Category,Amount,From,Note</string>
     <string name="dont_edit_this_meta_data" translatable="false">(Don\'t edit this meta data)</string>
     <string name="expense_data_not_available_to_export">No expense data available to export.</string>
 

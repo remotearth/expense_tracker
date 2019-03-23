@@ -112,8 +112,8 @@
     </string>
     <string name="go_to_settings">Ir a la configuración</string>
     <string name="cancel">Cancelar</string>
-    <string name="string_append">Fecha, Categoría, Cantidad, De, Nota</string>
-
+    <string name="date_category_amount_from_note">Fecha, Categoría, Cantidad, De, Nota</string>
+    <string name="expense_data_not_available_to_export">No hay datos de gastos disponibles para exportar.</string>
     <string name="select_your_currency">Seleccione su moneda</string>
     <string name="go">Ir</string>
 
