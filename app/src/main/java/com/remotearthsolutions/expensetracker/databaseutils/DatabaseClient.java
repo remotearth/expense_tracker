@@ -29,10 +29,10 @@ public class DatabaseClient {
 
                         Executors.newSingleThreadScheduledExecutor().execute(() -> {
                             CategoryDao categoryDao = getInstance(context).getAppDatabase().categoryDao();
-                            categoryDao.addAllCategories(InitialDataGenerator.generateCategories());
+                            categoryDao.addAllCategories(InitialDataGenerator.generateCategories(context));
 
                             AccountDao accountDao = getInstance(context).getAppDatabase().accountDao();
-                            accountDao.addAllAccounts(InitialDataGenerator.generateAccounts());
+                            accountDao.addAllAccounts(InitialDataGenerator.generateAccounts(context));
                         });
 
                     }

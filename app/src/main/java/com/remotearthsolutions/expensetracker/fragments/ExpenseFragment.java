@@ -78,7 +78,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         numpadFragment.setListener(numpadManager);
 
         AppDatabase db = DatabaseClient.getInstance(context).getAppDatabase();
-        viewModel = ViewModelProviders.of(this, new ExpenseFragmentViewModelFactory(this, db.expenseDao(), db.accountDao(), db.categoryDao()))
+        viewModel = ViewModelProviders.of(this, new ExpenseFragmentViewModelFactory(context, this, db.expenseDao(), db.accountDao(), db.categoryDao()))
                 .get(ExpenseFragmentViewModel.class);
         viewModel.init();
 

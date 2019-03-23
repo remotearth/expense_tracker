@@ -64,7 +64,7 @@ public class AccountsFragment extends BaseFragment implements AccountContract.Vi
 
         AccountDao accountDao = DatabaseClient.getInstance(getContext()).getAppDatabase().accountDao();
         this.viewModel = ViewModelProviders.of(this,
-                new AccountViewModelFactory(this, accountDao)).
+                new AccountViewModelFactory(context,this, accountDao)).
                 get(AccountViewModel.class);
         this.viewModel.loadAccounts();
 

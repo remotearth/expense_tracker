@@ -22,7 +22,7 @@
                 android:id="@+id/accountNameTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Account Name"
+                android:text="@string/account_name"
                 android:textColor="@color/colorPrimary"
                 android:padding="7dp"
                 android:textStyle="bold"
@@ -33,7 +33,7 @@
 
     <EditText
             android:id="@+id/amountEdtxt"
-            android:hint="Enter an amount..."
+            android:hint="@string/enter_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="20"
@@ -43,7 +43,7 @@
 
     <Button
             android:id="@+id/okBtn"
-            android:text="OK"
+            android:text="@string/ok"
             android:textColor="@color/textcolorwhite"
             android:background="@drawable/btn_selector"
             android:layout_width="match_parent"

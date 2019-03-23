@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         checkoutUtils = CheckoutUtils.getInstance(this);
 
         checkoutUtils.start();
-        purchaseListener = new PurchaseListener(this);
+        purchaseListener = new PurchaseListener(this,this);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         AppDatabase db = DatabaseClient.getInstance(getContext()).getAppDatabase();
@@ -146,12 +146,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void showTotalExpense(String amount) {
-        binding.totalExpenseAmountTv.setText(amount);
+        binding.totalExpenseAmountTv.setText(getString(R.string.expense) + ": " + amount);
     }
 
     @Override
     public void showTotalBalance(String amount) {
-        binding.totalAccountAmountTv.setText(amount);
+        binding.totalAccountAmountTv.setText(getString(R.string.balance) + ": " + amount);
     }
 
     @Override
@@ -213,7 +213,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         switch (item.getItemId()) {
             case R.id.nav_home: {
                 mainFragment = new MainFragment();
-                mainFragment.setActionBar(getSupportActionBar());
+                mainFragment.setActionBar(getSupportActionBar(), getString(R.string.home));
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, mainFragment, MainFragment.class.getName());
                 fragmentTransaction.commit();

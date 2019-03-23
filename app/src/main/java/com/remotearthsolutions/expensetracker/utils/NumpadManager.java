@@ -4,12 +4,15 @@ import android.view.View;
 import android.widget.EditText;
 import com.remotearthsolutions.expensetracker.fragments.NumpadFragment;
 
+import java.text.DecimalFormat;
+
 public class NumpadManager implements NumpadFragment.Listener {
 
     private EditText displayEdtxt;
     private boolean isOperationDone;
     private double result = 0;
     private String lastOperation, lastValue = "0";
+    private DecimalFormat df = new DecimalFormat(".#");
 
     public void attachDisplay(EditText inputDigitEdtxt) {
         this.displayEdtxt = inputDigitEdtxt;
@@ -81,7 +84,7 @@ public class NumpadManager implements NumpadFragment.Listener {
             lastValue = Double.toString(result);
         }
 
-        displayEdtxt.setText(Double.toString(result));
+        displayEdtxt.setText(df.format(result));
         isOperationDone = true;
     }
 }

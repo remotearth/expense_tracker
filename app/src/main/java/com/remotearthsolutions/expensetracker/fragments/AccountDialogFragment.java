@@ -79,12 +79,7 @@ public class AccountDialogFragment extends DialogFragment implements AccountDial
     @Override
     public void onAccountFetchSuccess(List<AccountModel> accounts) {
         accountListAdapter = new AccountListAdapter(accounts);
-        accountListAdapter.setOnItemClickListener(new AccountListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(AccountModel account) {
-                callback.onSelectAccount(account);
-            }
-        });
+        accountListAdapter.setOnItemClickListener(account -> callback.onSelectAccount(account));
         accountrecyclerView.setAdapter(accountListAdapter);
     }
 

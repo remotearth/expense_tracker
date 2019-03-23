@@ -32,7 +32,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         setContentView(R.layout.activity_login);
 
         viewModel = ViewModelProviders.of(this,
-                new LoginViewModelFactory(this, new GoogleServiceImpl(this), new FacebookServiceImpl(this), new FirebaseServiceImpl(this))).
+                new LoginViewModelFactory(this, this, new GoogleServiceImpl(this), new FacebookServiceImpl(this), new FirebaseServiceImpl(this))).
                 get(LoginViewModel.class);
         viewModel.init();
 
@@ -87,12 +87,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onLoginSuccess(FirebaseUser user) {
-        
+
         if (SharedPreferenceUtils.getInstance(this).getBoolean(Constants.PREF_ISFIRSTTIMEVISITED, false)) {
-            startActivity(new Intent(this,MainActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
             finish();
-        }
-        else{
+        } else {
             Intent intent = new Intent(this, CurrencySelectionActivity.class);
             startActivity(intent);
             finish();

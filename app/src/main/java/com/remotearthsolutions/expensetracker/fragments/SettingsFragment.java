@@ -38,7 +38,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         addPreferencesFromResource(R.xml.settingspreference);
 
         Preference preferencePeriod = findPreference(Constants.PREF_PERIOD);
-        preferencePeriod.setSummary(SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_PERIOD, Constants.KEY_DAILY));
+        preferencePeriod.setSummary(SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_PERIOD, resources.getString(R.string.daily)));
         Preference preferenceCurrency = findPreference(Constants.PREF_CURRENCY);
         String currencyName = SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_CURRENCY, resources.getString(R.string.default_currency));
         preferenceCurrency.setSummary(currencyName);
@@ -57,7 +57,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             } else if (key.equals(Constants.PREF_PERIOD)) {
 
                 Preference periodPreference = findPreference(key);
-                periodPreference.setSummary(sharedPreferences.getString(key, Constants.KEY_DAILY));
+                periodPreference.setSummary(sharedPreferences.getString(key, resources.getString(R.string.daily)));
 
             }
         };

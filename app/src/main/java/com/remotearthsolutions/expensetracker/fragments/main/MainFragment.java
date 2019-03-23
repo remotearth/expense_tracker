@@ -3,6 +3,7 @@ package com.remotearthsolutions.expensetracker.fragments.main;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -28,13 +29,15 @@ import com.remotearthsolutions.expensetracker.fragments.HomeFragment;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 
+import java.util.Arrays;
+
 
 public class MainFragment extends Fragment implements DateFilterButtonClickListener.Callback {
 
     private FragmentMainBinding binding;
     private MainFragmentPagerAdapter pagerAdapter;
     private ActionBar actionBar;
-    private String[] tabTitles = new String[]{getString(R.string.home), getString(R.string.transactions), getString(R.string.accounts), getString(R.string.dashboard),};
+    private String[] tabTitles;
 
     private static HomeFragment homeFragment;
     private static AllExpenseFragment allExpenseFragment;
@@ -43,17 +46,26 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
     private int dateContainerHeight = -1;
     private Button selectedPeriodBtn;
     private Context context;
+    private Resources resources;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         this.context = context;
+        resources = context.getResources();
+        tabTitles = new String[]{getString(R.string.home), getString(R.string.transactions), getString(R.string.accounts), getString(R.string.dashboard)};
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         pagerAdapter = new MainFragmentPagerAdapter(getChildFragmentManager());
         binding.viewpager.setOffscreenPageLimit(tabTitles.length);
@@ -70,31 +82,34 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
         binding.yearlyRangeBtn.setOnClickListener(dateFilterButtonClickListener);
 
         new Handler().postDelayed(() -> {
-            String period = SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_PERIOD, Constants.KEY_DAILY);
-            switch (period) {
-                case Constants.KEY_DAILY:
-                    binding.dailyRangeBtn.performClick();
+            String period = SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_PERIOD, resources.getString(R.string.daily));
+            int pos = Arrays.asList(resources.getStringArray(R.array.TimePeriod)).indexOf(period);
+            switch (pos) {
+                case 0:
                     selectedPeriodBtn = binding.dailyRangeBtn;
                     selectedPeriodBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
                     break;
-                case Constants.KEY_WEEKLY:
+                case 1:
                     selectedPeriodBtn = binding.weeklyRangeBtn;
                     selectedPeriodBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
                     break;
-                case Constants.KEY_MONTHLY:
+                case 2:
                     selectedPeriodBtn = binding.monthlyRangeBtn;
                     selectedPeriodBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
                     break;
-                case Constants.KEY_YEARLY:
+                case 3:
                     selectedPeriodBtn = binding.yearlyRangeBtn;
                     selectedPeriodBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
+                    break;
+                default:
+                    selectedPeriodBtn = binding.dailyRangeBtn;
+                    selectedPeriodBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
+                    SharedPreferenceUtils.getInstance(context).putString(Constants.PREF_PERIOD, resources.getString(R.string.daily));
                     break;
             }
 
             selectedPeriodBtn.performClick();
         }, 500);
-
-        return binding.getRoot();
     }
 
     private void resetDateRangeBtns() {
@@ -253,9 +268,9 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
         }
     };
 
-    public void setActionBar(ActionBar supportActionBar) {
+    public void setActionBar(ActionBar supportActionBar, String name) {
         this.actionBar = supportActionBar;
-        actionBar.setTitle(getString(R.string.home));
+        actionBar.setTitle(name);
     }
 
     @Override

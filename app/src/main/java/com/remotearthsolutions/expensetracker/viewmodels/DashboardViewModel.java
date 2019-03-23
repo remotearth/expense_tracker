@@ -66,6 +66,7 @@ public class DashboardViewModel extends ViewModel {
                         stringBuilder.append("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                         stringBuilder.append("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                         stringBuilder.append(R.string.dont_edit_this_meta_data);
+                        stringBuilder.append("\n\n");
 
                         disposable.add(expenseDao.getAllExpenseEntry().subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe(entries -> {
                             String json = new Gson().toJson(entries);
@@ -96,7 +97,7 @@ public class DashboardViewModel extends ViewModel {
                         }));
 
                     } else {
-                        view.showAlert("", "No expense data available to export.", "Ok", null, null);
+                        view.showAlert("", activity.getString(R.string.expense_data_not_available_to_export), activity.getString(R.string.ok), null, null);
                         disposable.dispose();
                     }
                 }));

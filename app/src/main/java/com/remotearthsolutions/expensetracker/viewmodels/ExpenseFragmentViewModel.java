@@ -1,6 +1,8 @@
 package com.remotearthsolutions.expensetracker.viewmodels;
 
+import android.content.Context;
 import androidx.lifecycle.ViewModel;
+import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
@@ -8,7 +10,6 @@ import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
-import com.remotearthsolutions.expensetracker.utils.Constants;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -16,13 +17,15 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ExpenseFragmentViewModel extends ViewModel {
 
+    private Context context;
     private ExpenseFragmentContract.View view;
     private ExpenseDao expenseDao;
     private AccountDao accountDao;
     private CategoryDao categoryDao;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    public ExpenseFragmentViewModel(ExpenseFragmentContract.View view, ExpenseDao expenseDao, AccountDao accountDao, CategoryDao categoryDao) {
+    public ExpenseFragmentViewModel(Context context, ExpenseFragmentContract.View view,ExpenseDao expenseDao, AccountDao accountDao, CategoryDao categoryDao) {
+        this.context = context;
         this.view = view;
         this.expenseDao = expenseDao;
         this.accountDao = accountDao;
@@ -57,7 +60,7 @@ public class ExpenseFragmentViewModel extends ViewModel {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(() -> view.onExpenseAdded(expense.getAmount())));
         } else {
-            view.showToast(Constants.KEY_ENTER_AMMOUNT_MESSAGE);
+            view.showToast(context.getString(R.string.please_enter_an_amount));
         }
     }
 
@@ -74,7 +77,7 @@ public class ExpenseFragmentViewModel extends ViewModel {
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(() -> {
                             });
-                    
+
                 })
         );
     }

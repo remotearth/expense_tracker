@@ -56,21 +56,25 @@ public class FileProcessingServiceImp implements FileProcessingService {
 
             @Override
             public void onPermissionDenied(PermissionDeniedResponse response) {
+                onFailureRunnable.run();
+
                 if (response.isPermanentlyDenied()) {
                     forceUserToGrantPermission(activity);
                 } else {
                     AlertDialogUtils.show(activity, "",
-                            "Without this permission, the app cannot export data.",
-                            "Ok", null, null);
+                            activity.getString(R.string.without_this_app_cannot_export),
+                            activity.getString(R.string.ok), null, null);
                 }
             }
 
             @Override
             public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-                AlertDialogUtils.show(activity, "Attention",
-                        "Writing to external storage permission is needed to export data. Do you want to continue by giving the permission?",
-                        "Yes",
-                        "No",
+                onFailureRunnable.run();
+                
+                AlertDialogUtils.show(activity, activity.getString(R.string.attention),
+                        activity.getString(R.string.storage_permission_is_needed_to_export_data),
+                        activity.getString(R.string.yes),
+                        activity.getString(R.string.no),
                         new BaseView.Callback() {
                             @Override
                             public void onOkBtnPressed() {

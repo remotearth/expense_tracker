@@ -34,7 +34,7 @@ public class MainViewModel extends ViewModel {
     public void init(LifecycleOwner lifecycleOwner) {
         view.initializeView();
         accountDao.getTotalAmount().observe(lifecycleOwner, amount -> {
-            view.showTotalBalance("Balance: " + amount);
+            view.showTotalBalance(amount+"");
             if (amount != null && amount < 0) {
                 view.setBalanceTextColor(android.R.color.holo_red_dark);
             } else {
@@ -52,10 +52,10 @@ public class MainViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((amount, throwable) -> {
                     if (throwable == null) {
-                        view.showTotalExpense("Expense: " + amount);
+                        view.showTotalExpense(amount+"");
                     } else {
                         throwable.printStackTrace();
-                        view.showTotalExpense("Expense: " + 0.0);
+                        view.showTotalExpense("0.0");
                     }
                 }));
     }

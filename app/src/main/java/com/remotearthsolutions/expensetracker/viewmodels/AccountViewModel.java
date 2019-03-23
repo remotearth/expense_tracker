@@ -1,11 +1,12 @@
 package com.remotearthsolutions.expensetracker.viewmodels;
 
+import android.content.Context;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
+import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.AccountContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
-import com.remotearthsolutions.expensetracker.utils.Constants;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -13,11 +14,13 @@ import io.reactivex.schedulers.Schedulers;
 
 public class AccountViewModel extends ViewModel {
 
+    private Context context;
     private AccountContract.View view;
     private AccountDao accountDao;
     private CompositeDisposable mDisposable = new CompositeDisposable();
 
-    public AccountViewModel(AccountContract.View view, AccountDao accountDao) {
+    public AccountViewModel(Context context, AccountContract.View view,AccountDao accountDao) {
+        this.context = context;
         this.view = view;
         this.accountDao = accountDao;
     }
@@ -44,7 +47,7 @@ public class AccountViewModel extends ViewModel {
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> view.onSuccess(Constants.KEY_OPERATION_SUCCESSFULL)));
+                .subscribe(() -> view.onSuccess(context.getString(R.string.operation_successful))));
     }
 
     public void deleteAccount(AccountModel selectAccountIncome) {
@@ -56,7 +59,7 @@ public class AccountViewModel extends ViewModel {
             accountDao.deleteAccount(selectAccountIncome);
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> view.onSuccess(Constants.KEY_OPERATION_SUCCESSFULL)));
+                .subscribe(() -> view.onSuccess(context.getString(R.string.operation_successful))));
     }
 
     public LiveData<Integer> getNumberOfItem() {

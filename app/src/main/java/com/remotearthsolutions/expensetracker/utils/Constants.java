@@ -21,10 +21,6 @@ public interface Constants {
     String TEST_PURCHASED_ITEM = "android.test.purchased";
     String PRODUCT_ID = "com.remotearthsolutions.expensetracker.remove_ad";
 
-    String SHARE_T0_EMAIL = "Export Data";
-    String BUY_THE_PRODUCT = "Buy The Product";
-    String IMPORT_FILE = "Import Data";
-
     String RAZERDPANIMATEDPIEVIEW_LICENSE_FILE = "file:///android_asset/licenses/LICENSEAnimatedPieChart";
     String ROOM_LICENSE_FILE = "file:///android_asset/licenses/LICENSERoom";
     String PURCHASEDCHECKOUT_LICENSE_FILE = "file:///android_asset/licenses/LICENSEcheckout.txt";
@@ -58,7 +54,6 @@ public interface Constants {
     String KEY_CSV_FILE_EXTENSION = ".csv";
     String KEY_GOOGLE_CLIENT_ID = "1034332655323-lv5t5fja6ef5co4vsaf9bv476c9rga9r.apps.googleusercontent.com";
     String KEY_MESSAGE = "message";
-    String KEY_PURCHASED_ITEM_MESSAGE = "You already purchased this item";
     String KEY_DATE_MONTH_YEAR = "dd-MM-yyyy";
     String KEY_DATE_MONTH_YEAR_HOUR_MINIT_AM_PM = "dd-MM-yyyy h:mm a";
     String KEY_MONTH_YEAR = "MMMM,yy";
@@ -67,14 +62,5 @@ public interface Constants {
     String KEY_HOUR_MINIT_AM_PM = "h:mm a";
     String KEY_PACKAGE = "package";
     String KEY_COLOR_FORMAT = "#%02x%02x%02x";
-    String KEY_OPERATION_SUCCESSFULL = "Operation successful";
-    String KEY_ENTER_AMMOUNT_MESSAGE = "Please enter an amount";
-    String KEY_WARNING = "Warning";
-    String KEY_WARNING_MESSAGE = "No Internet Connection";
-    String KEY_OK = "OK";
-    String KEY_PLEASE_WAIT = "Please wait...";
-
-
-
 
 }
