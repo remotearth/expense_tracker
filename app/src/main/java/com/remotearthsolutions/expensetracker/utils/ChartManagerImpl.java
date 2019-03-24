@@ -7,7 +7,6 @@ import com.razerdp.widget.animatedpieview.data.SimplePieInfo;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.entities.ExpeneChartData;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 public class ChartManagerImpl implements ChartManager {
@@ -18,7 +17,6 @@ public class ChartManagerImpl implements ChartManager {
             R.color.color31, R.color.color19, R.color.color32, R.color.color24};
 
     private AnimatedPieViewConfig config;
-    private DecimalFormat df = new DecimalFormat(".#");
 
     public ChartManagerImpl() {
         config = new AnimatedPieViewConfig();
@@ -67,7 +65,7 @@ public class ChartManagerImpl implements ChartManager {
                 catName = catName.substring(0, 7) + "..";
             }
             config.addData(new SimplePieInfo(item.getValue(), resources.getColor(colors[colorPosition]),
-                    catName + "\n(" + df.format(val) + "%)"));
+                    catName + "\n(" + Utils.formatDecimalValues(val) + "%)"));
 
             colorPosition++;
             if (colorPosition > 25) {

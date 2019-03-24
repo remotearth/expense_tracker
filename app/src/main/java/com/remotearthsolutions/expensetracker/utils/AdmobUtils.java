@@ -1,8 +1,6 @@
 package com.remotearthsolutions.expensetracker.utils;
 
 import android.app.Activity;
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.CustomEvent;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;

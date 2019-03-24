@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import com.remotearthsolutions.expensetracker.R;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -14,6 +15,7 @@ public class Utils {
 
     private static final int HIGHEST_VALUE_OF_RGB = 255;
     private static final int DEFAULT_DPI = 360;
+    private static DecimalFormat df = new DecimalFormat(".#");
 
     public static String getRandomColorHexValue() {
         Random ra = new Random();
@@ -55,6 +57,10 @@ public class Utils {
         List<String> currencies = Arrays.asList(resources.getStringArray(R.array.currency));
         String selectedCurrency = SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_CURRENCY, resources.getString(R.string.default_currency));
         return CountryFlagIcons.getIcon(currencies.indexOf(selectedCurrency));
+    }
+
+    public static String formatDecimalValues(double val){
+        return df.format(val);
     }
 
     public static class ScreenSize {
