@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel;
 import com.remotearthsolutions.expensetracker.utils.CategoryIcons;
+import com.remotearthsolutions.expensetracker.utils.Utils;
 
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class AccountsAdapter extends ArrayAdapter<AccountModel> {
 
         accountImageIv.setImageResource(CategoryIcons.getIconId(model.getIcon()));
         accountNameTv.setText(model.getName());
-        ammountTv.setText(currencySymbol + " " + String.valueOf(model.getAmount()));
+        ammountTv.setText(currencySymbol + " " + Utils.formatDecimalValues(model.getAmount()));
         if (model.getAmount() < 0) {
             ammountTv.setTextColor(context.getResources().getColor(android.R.color.holo_red_dark));
         } else {

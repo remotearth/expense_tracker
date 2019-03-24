@@ -9,6 +9,7 @@ import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.ExpenseListAdapter;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.utils.CategoryIcons;
+import com.remotearthsolutions.expensetracker.utils.Utils;
 
 public class ExpenseListViewHolder extends RecyclerView.ViewHolder {
 
@@ -35,7 +36,7 @@ public class ExpenseListViewHolder extends RecyclerView.ViewHolder {
     public void bind(CategoryExpense expense, String currencySymbol) {
         this.expense = expense;
         categoryTextView.setText(String.valueOf(expense.getCategoryName()));
-        amountTextView.setText(currencySymbol + " " + String.valueOf(expense.getTotalAmount()));
+        amountTextView.setText(currencySymbol + " " + Utils.formatDecimalValues(expense.getTotalAmount()));
         categoryExpenseIcon.setImageResource(CategoryIcons.getIconId(expense.getCategoryIcon()));
         accountNameTv.setText(expense.getAccountName());
         accountImageIv.setImageResource(CategoryIcons.getIconId(expense.getAccountIcon()));

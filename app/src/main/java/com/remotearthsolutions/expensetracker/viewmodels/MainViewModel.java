@@ -9,6 +9,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
+import com.remotearthsolutions.expensetracker.utils.Utils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -34,7 +35,13 @@ public class MainViewModel extends ViewModel {
     public void init(LifecycleOwner lifecycleOwner) {
         view.initializeView();
         accountDao.getTotalAmount().observe(lifecycleOwner, amount -> {
-            view.showTotalBalance(amount+"");
+            if (amount != null) {
+                view.showTotalBalance(Utils.formatDecimalValues(amount));
+            }
+            else{
+                view.showTotalBalance("0.0");
+            }
+
             if (amount != null && amount < 0) {
                 view.setBalanceTextColor(android.R.color.holo_red_dark);
             } else {
@@ -52,7 +59,7 @@ public class MainViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((amount, throwable) -> {
                     if (throwable == null) {
-                        view.showTotalExpense(amount+"");
+                        view.showTotalExpense(Utils.formatDecimalValues(amount));
                     } else {
                         throwable.printStackTrace();
                         view.showTotalExpense("0.0");

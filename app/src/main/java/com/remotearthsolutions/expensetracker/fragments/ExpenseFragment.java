@@ -189,8 +189,11 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             AlertDialog builder = new AlertDialog.Builder(context).create();
             View dialogView = getLayoutInflater().inflate(R.layout.view_add_note, null);
             final EditText noteEdtxt = dialogView.findViewById(R.id.noteEdtxt);
-            noteEdtxt.setText(categoryExpense.getNote());
-            noteEdtxt.setSelection(categoryExpense.getNote().length());
+            String note = categoryExpense.getNote();
+            if(note!=null){
+                noteEdtxt.setText(categoryExpense.getNote());
+                noteEdtxt.setSelection(categoryExpense.getNote().length());
+            }
             dialogView.findViewById(R.id.okBtn).setOnClickListener(v1 -> {
                 String str = noteEdtxt.getText().toString();
                 categoryExpense.setNote(str);
