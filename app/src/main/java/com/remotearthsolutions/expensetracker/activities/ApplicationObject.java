@@ -16,6 +16,7 @@ public class ApplicationObject extends MultiDexApplication implements Applicatio
 
     private boolean activityVisible;
     private boolean isPremium;
+    private boolean appShouldShowAds;
     private Activity currentActivity;
 
     private final Billing mBilling = new Billing(this, new Billing.DefaultConfiguration() {
@@ -38,6 +39,14 @@ public class ApplicationObject extends MultiDexApplication implements Applicatio
 
     public boolean isActivityVisible() {
         return activityVisible;
+    }
+
+    public void appShouldShowAds(boolean state) {
+        this.appShouldShowAds = state;
+    }
+
+    public boolean isAppShouldShowAds() {
+        return appShouldShowAds;
     }
 
     public void activityResumed() {

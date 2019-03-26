@@ -32,10 +32,7 @@ import com.remotearthsolutions.expensetracker.fragments.*;
 import com.remotearthsolutions.expensetracker.fragments.main.MainFragment;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.services.PurchaseListener;
-import com.remotearthsolutions.expensetracker.utils.AdmobUtils;
-import com.remotearthsolutions.expensetracker.utils.CheckoutUtils;
-import com.remotearthsolutions.expensetracker.utils.Constants;
-import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
+import com.remotearthsolutions.expensetracker.utils.*;
 import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.MainViewModelFactory;
 import org.parceler.Parcels;
@@ -65,7 +62,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         checkoutUtils = CheckoutUtils.getInstance(this);
 
         checkoutUtils.start();
-        purchaseListener = new PurchaseListener(this,this);
+        purchaseListener = new PurchaseListener(this, this);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         AppDatabase db = DatabaseClient.getInstance(getContext()).getAppDatabase();
@@ -311,7 +308,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void onPurchaseSuccessListener(Purchase purchase) {
         ((ApplicationObject) getApplication()).setPremium(true);
         if (purchase.sku.equals(productId)) {
-            AdmobUtils.getInstance(MainActivity.this).appShouldShowAds(false);
+            ((ApplicationObject) getApplication()).appShouldShowAds(false);
         }
     }
 
@@ -327,8 +324,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             ((ApplicationObject) getApplication()).setPremium(false);
 
             int delay = new Random().nextInt(5000 - 2000) + 2000;
-            AdmobUtils.getInstance(MainActivity.this).appShouldShowAds(true);
-            new Handler().postDelayed(() -> AdmobUtils.getInstance(MainActivity.this).showInterstitialAds(), delay);
+            ((ApplicationObject) getApplication()).appShouldShowAds(true);
+
+            new Handler().postDelayed(() -> {
+                Random random = new Random();
+                if (random.nextInt() % 2 == 0) {
+                    AdmobUtils.getInstance(MainActivity.this).showInterstitialAds();
+                } else {
+                    AppbrainAdUtils.getInstance(MainActivity.this).showAds();
+                }
+            }, delay);
 
         } else {
             ((ApplicationObject) getApplication()).setPremium(true);
