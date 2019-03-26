@@ -115,9 +115,7 @@
     <string name="authentication_with_firebase_is_failed">L\'autenticazione con Firebase non è riuscita</string>
     <string name="google_signin_failed">Accesso Google non riuscito</string>
 
-    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">
-        Per utilizzare questa funzionalità Il tuo bisogno Autorizzazione Per questo, puoi accedervi nelle impostazioni
-        dell\'app.
+    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">Per utilizzare questa app per le funzioni è necessario il permesso, è possibile attivarla nelle impostazioni dell\'app.
     </string>
     <string name="go_to_settings">Vai alle impostazioni</string>
     <string name="cancel">Annulla</string>

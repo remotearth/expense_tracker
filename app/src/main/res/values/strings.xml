@@ -155,8 +155,7 @@
     <string name="authentication_with_firebase_is_failed">Authentication with Firebase is failed</string>
     <string name="google_signin_failed">Google signin failed</string>
 
-    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">To use this
-        Features Your need Permission For that, You can access it in app settings.
+    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">To use this feature app needs permission for that, You can enable it in app settings.
     </string>
     <string name="go_to_settings">Go To Setting</string>
     <string name="cancel">Cancel</string>

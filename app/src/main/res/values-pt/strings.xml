@@ -112,7 +112,7 @@
     <string name="authentication_with_firebase_is_failed">Autenticação com o Firebase falhou</string>
     <string name="google_signin_failed">Falha no login do Google</string>
 
-    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">Para usar este recurso Sua necessidade Permissão Para isso, você pode acessá-lo nas configurações do aplicativo.
+    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">Para usar este aplicativo de recurso precisa de permissão para isso, você pode ativá-lo nas configurações do aplicativo.
     </string>
     <string name="go_to_settings">Vá para a configuração</string>
     <string name="cancel">Cancelar</string>

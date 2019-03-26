@@ -106,8 +106,7 @@
     </string>
     <string name="authentication_with_firebase_is_failed">L\'authentification avec Firebase a échoué</string>
     <string name="google_signin_failed">Échec de la connexion à Google</string>
-    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">Pour utiliser
-        ces fonctionnalités Votre besoin Autorisation Vous pouvez y accéder dans les paramètres de l\'application.
+    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">Pour utiliser cette fonctionnalité, une application doit être autorisée, vous pouvez l\'activer dans les paramètres de l\'application.
     </string>
     <string name="go_to_settings">Aller au réglage</string>
     <string name="cancel">Annuler</string>

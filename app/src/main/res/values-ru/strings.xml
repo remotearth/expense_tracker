@@ -119,8 +119,7 @@
     <string name="google_signin_failed">Ошибка входа в Google</string>
 
     <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">Для
-        использования этих функций Вам необходимо Разрешение Для этого, вы можете получить к нему доступ в настройках
-        приложения.
+        использования этой функции приложению необходимо разрешение, вы можете включить его в настройках приложения.
     </string>
     <string name="go_to_settings">Перейти к настройке</string>
     <string name="cancel">отменить</string>
