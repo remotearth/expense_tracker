@@ -3,6 +3,7 @@ package com.remotearthsolutions.expensetracker.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.Expen
 import org.parceler.Parcels;
 
 import java.util.Calendar;
+import java.util.Random;
 
 public class ExpenseFragment extends BaseFragment implements ExpenseFragmentContract.View {
 
@@ -190,7 +192,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             View dialogView = getLayoutInflater().inflate(R.layout.view_add_note, null);
             final EditText noteEdtxt = dialogView.findViewById(R.id.noteEdtxt);
             String note = categoryExpense.getNote();
-            if(note!=null){
+            if (note != null) {
                 noteEdtxt.setText(categoryExpense.getNote());
                 noteEdtxt.setSelection(categoryExpense.getNote().length());
             }
@@ -237,6 +239,21 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
         MainActivity mainActivity = (MainActivity) context;
         mainActivity.updateSummary();
         mainActivity.refreshChart();
+
+
+        if (MainActivity.expenseAddededCount % 3 == 0) {
+            int delay = new Random().nextInt(3000 - 1000) + 1000;
+            new Handler().postDelayed(() -> {
+                Random random = new Random();
+                if (random.nextInt() % 2 == 0) {
+                    AdmobUtils.getInstance((Activity) context).showInterstitialAds();
+                } else {
+                    AppbrainAdUtils.getInstance((Activity) context).showAds();
+                }
+            }, delay);
+        }
+
+        MainActivity.expenseAddededCount++;
     }
 
     @Override

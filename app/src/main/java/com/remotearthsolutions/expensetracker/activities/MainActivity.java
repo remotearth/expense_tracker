@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Parcelable;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -32,7 +31,9 @@ import com.remotearthsolutions.expensetracker.fragments.*;
 import com.remotearthsolutions.expensetracker.fragments.main.MainFragment;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.services.PurchaseListener;
-import com.remotearthsolutions.expensetracker.utils.*;
+import com.remotearthsolutions.expensetracker.utils.CheckoutUtils;
+import com.remotearthsolutions.expensetracker.utils.Constants;
+import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.MainViewModelFactory;
 import org.parceler.Parcels;
@@ -41,7 +42,6 @@ import org.solovyev.android.checkout.ProductTypes;
 import org.solovyev.android.checkout.Purchase;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View, InAppBillingCallback, Inventory.Callback {
 
@@ -54,6 +54,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private CheckoutUtils checkoutUtils;
     private PurchaseListener purchaseListener;
     private String productId;
+    public static int expenseAddededCount  = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -322,18 +323,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         String productId = ((ApplicationObject) getApplication()).getAdProductId();
         if (!products.get(ProductTypes.IN_APP).isPurchased(productId)) {
             ((ApplicationObject) getApplication()).setPremium(false);
-
-            int delay = new Random().nextInt(5000 - 2000) + 2000;
             ((ApplicationObject) getApplication()).appShouldShowAds(true);
-
-            new Handler().postDelayed(() -> {
-                Random random = new Random();
-                if (random.nextInt() % 2 == 0) {
-                    AdmobUtils.getInstance(MainActivity.this).showInterstitialAds();
-                } else {
-                    AppbrainAdUtils.getInstance(MainActivity.this).showAds();
-                }
-            }, delay);
 
         } else {
             ((ApplicationObject) getApplication()).setPremium(true);
