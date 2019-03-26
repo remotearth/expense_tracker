@@ -58,6 +58,7 @@ public class DashboardFragment extends BaseFragment implements DashboardContract
         super.onAttach(context);
         this.context = context;
         resources = context.getResources();
+        checkoutUtils = CheckoutUtils.getInstance((Activity) context);
     }
 
     public DashboardFragment() {
@@ -78,7 +79,7 @@ public class DashboardFragment extends BaseFragment implements DashboardContract
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_share, container, false);
-        checkoutUtils = CheckoutUtils.getInstance((Activity) context);
+
         lv = view.findViewById(R.id.dashboardlist);
         loaddashboarddata();
         return view;
