@@ -184,4 +184,5 @@
     <string name="please_wait">Prosím čakajte...</string>
     <string name="operation_successful">Operácia úspešná</string>
     <string name="please_enter_an_amount">Zadajte čiastku</string>
+    <string name="make_sure_enter_valid_number">Vyskytla sa chyba. Uistite sa, že ste zadali platné číslo</string>
 </resources>

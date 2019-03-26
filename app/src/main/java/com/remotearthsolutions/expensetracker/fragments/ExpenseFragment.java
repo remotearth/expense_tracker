@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -38,11 +39,13 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
     private ExpenseFragmentViewModel viewModel;
     private CategoryExpense categoryExpense;
     private Context context;
+    private Resources resources;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         this.context = context;
+        this.resources = context.getResources();
     }
 
     public ExpenseFragment() {
@@ -171,7 +174,13 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             if (expenseStr.equals(getString(R.string.point))) {
                 expenseStr = "";
             }
-            double amount = expenseStr.length() > 0 ? Double.parseDouble(expenseStr) : 0;
+            double amount = 0;
+            try {
+                amount = expenseStr.length() > 0 ? Double.parseDouble(expenseStr) : 0;
+            } catch (NumberFormatException e) {
+                Toast.makeText(context, resources.getString(R.string.make_sure_enter_valid_number), Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             ExpenseModel expenseModel = new ExpenseModel();
             if (categoryExpense.getExpenseId() > 0) {

@@ -16,13 +16,10 @@ public class NumpadManager implements NumpadFragment.Listener {
     }
 
     public void attachDeleteButton(View deleteButton) {
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int len = displayEdtxt.getText().toString().length();
-                if (len > 0 && !isOperationDone) {
-                    displayEdtxt.setText(displayEdtxt.getText().toString().substring(0, len - 1));
-                }
+        deleteButton.setOnClickListener(v -> {
+            int len = displayEdtxt.getText().toString().length();
+            if (len > 0 && !isOperationDone) {
+                displayEdtxt.setText(displayEdtxt.getText().toString().substring(0, len - 1));
             }
         });
     }
@@ -44,7 +41,7 @@ public class NumpadManager implements NumpadFragment.Listener {
     }
 
     @Override
-    public void onMathOperationButtonClick(String operation) {
+    public void onMathOperationButtonClick(String operation) throws NumberFormatException {
 
         if (isOperationDone && lastOperation != null) {
             lastOperation = operation;

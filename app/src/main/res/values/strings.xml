@@ -229,4 +229,5 @@
     <string name="please_wait">Please wait...</string>
     <string name="operation_successful">Operation successful</string>
     <string name="please_enter_an_amount">Please enter an amount</string>
+    <string name="make_sure_enter_valid_number">Error occurred. Please make sure you enter a valid number</string>
 </resources>

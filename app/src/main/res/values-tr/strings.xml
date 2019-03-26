@@ -99,7 +99,8 @@
     <string name="category_deleted_successfully">Kategori Başarıyla Silindi</string>
     <string name="select_account">Hesap Seç</string>
     <string name="select_category">Kategori seç</string>
-    <string name="are_you_sure_you_want_to_delete_this_expense_entry">Bu gider girişini silmek istediğinizden emin misiniz?
+    <string name="are_you_sure_you_want_to_delete_this_expense_entry">Bu gider girişini silmek istediğinizden emin
+        misiniz?
     </string>
     <string name="successfully_added">Başarıyla Eklendi.</string>
     <string name="successfully_deleted_expense_entry">Gider girişi başarıyla silindi.</string>
@@ -114,7 +115,8 @@
     <string name="authentication_with_firebase_is_failed">Firebase ile kimlik doğrulama başarısız oldu</string>
     <string name="google_signin_failed">Google oturum açma başarısız oldu</string>
 
-    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">Bu özelliği kullanmak için uygulamanın bunun için izin alması gerekir, bunu uygulama ayarlarında etkinleştirebilirsiniz.
+    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">Bu özelliği
+        kullanmak için uygulamanın bunun için izin alması gerekir, bunu uygulama ayarlarında etkinleştirebilirsiniz.
     </string>
     <string name="go_to_settings">Ayara Git</string>
     <string name="cancel">İptal etmek</string>
@@ -125,22 +127,28 @@
 
     <string name="select_your_currency">Para Birimi Seçiniz</string>
     <string name="go">Gitmek</string>
-    <string name="will_replace_your_current_entries">Bu mevcut girişlerin yerini alacak. Veri almak istediğinize emin misiniz?
+    <string name="will_replace_your_current_entries">Bu mevcut girişlerin yerini alacak. Veri almak istediğinize emin
+        misiniz?
     </string>
     <string name="no_supported_file">Gider izleyici tarafından desteklenen bir dosya bulunamadı</string>
     <string name="select_csv">Bir .csv dosyası seçin</string>
 
-    <string name="read_write_permission_is_needed">Verileri almak / vermek için harici depolama biriminde okuma / yazma izni gerekir.
+    <string name="read_write_permission_is_needed">Verileri almak / vermek için harici depolama biriminde okuma / yazma
+        izni gerekir.
     </string>
-    <string name="read_write_permission_is_needed_enable_from_settings">Verileri almak / vermek için harici depolama biriminde okuma / yazma izni gerekir. Lütfen cihaz ayarlarından etkinleştirin.
+    <string name="read_write_permission_is_needed_enable_from_settings">Verileri almak / vermek için harici depolama
+        biriminde okuma / yazma izni gerekir. Lütfen cihaz ayarlarından etkinleştirin.
     </string>
     <string name="internet_connection_needed">Bu işlemi gerçekleştirmek için İnternet bağlantısı gereklidir.</string>
 
     <string name="without_this_app_cannot_export">
-        Bu izin olmadan, uygulama veri veremez.</string>
-    <string name="storage_permission_is_needed_to_export_data">Verileri dışa aktarmak için harici depolama iznine yazma gerekir. İzin vererek devam etmek istiyor musunuz?
+        Bu izin olmadan, uygulama veri veremez.
     </string>
-    <string name="storage_permission_needed_still_can_enable_from_settings">Verileri dışa aktarmak için harici depolama iznine yazma gerekir. Bu izni uygulama ayarlarından yine de etkinleştirebilirsiniz.
+    <string name="storage_permission_is_needed_to_export_data">Verileri dışa aktarmak için harici depolama iznine yazma
+        gerekir. İzin vererek devam etmek istiyor musunuz?
+    </string>
+    <string name="storage_permission_needed_still_can_enable_from_settings">Verileri dışa aktarmak için harici depolama
+        iznine yazma gerekir. Bu izni uygulama ayarlarından yine de etkinleştirebilirsiniz.
     </string>
 
     <string name="bills">Fatura</string>
@@ -184,4 +192,5 @@
     <string name="please_wait">Lütfen bekle...</string>
     <string name="operation_successful">Operasyon başarılı</string>
     <string name="please_enter_an_amount">Lütfen bir miktar girin</string>
+    <string name="make_sure_enter_valid_number">Hata oluştu. Lütfen geçerli bir numara girdiğinizden emin olun</string>
 </resources>

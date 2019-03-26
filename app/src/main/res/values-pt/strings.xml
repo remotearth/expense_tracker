@@ -182,4 +182,5 @@
     <string name="please_wait">Por favor, espere...</string>
     <string name="operation_successful">Operação bem sucedida</string>
     <string name="please_enter_an_amount">Por favor insira uma quantia</string>
+    <string name="make_sure_enter_valid_number">Ocorreu um erro. Por favor, certifique-se de digitar um número válido</string>
 </resources>

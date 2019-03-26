@@ -195,4 +195,5 @@
     <string name="please_wait">пожалуйста, подождите...</string>
     <string name="operation_successful">Операция успешна</string>
     <string name="please_enter_an_amount">Пожалуйста, введите сумму</string>
+    <string name="make_sure_enter_valid_number">Произошла ошибка. Пожалуйста, убедитесь, что вы ввели правильный номер</string>
 </resources>
