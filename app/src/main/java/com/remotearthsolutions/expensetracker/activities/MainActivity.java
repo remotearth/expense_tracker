@@ -54,7 +54,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private CheckoutUtils checkoutUtils;
     private PurchaseListener purchaseListener;
     private String productId;
-    public static int expenseAddededCount  = 0;
+    public static int expenseAddededCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

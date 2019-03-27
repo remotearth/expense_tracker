@@ -186,5 +186,5 @@
     <string name="please_wait">S\'il vous plaît, attendez...</string>
     <string name="operation_successful">Opération réussie</string>
     <string name="please_enter_an_amount">S\'il vous plaît entrer un montant</string>
-    <string name="make_sure_enter_valid_number">Erreur est survenue. S'il vous plaît assurez-vous que vous entrez un numéro valide</string>
+    <string name="make_sure_enter_valid_number">Erreur est survenue. S\'il vous plaît assurez-vous que vous entrez un numéro valide</string>
 </resources>
