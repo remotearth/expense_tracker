@@ -52,8 +52,13 @@ public class NumpadManager implements NumpadFragment.Listener {
         if (val.length() == 0 || val.equals(".")) {
             return;
         }
+        double currentVal;
+        try {
+            currentVal = Double.parseDouble(val);
+        }catch (NumberFormatException e){
+            throw e;
+        }
 
-        double currentVal = Double.parseDouble(val);
         double lastVal = Double.parseDouble(lastValue);
 
         if (lastOperation == null) {
