@@ -85,6 +85,12 @@ public class DashboardFragment extends BaseFragment implements DashboardContract
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        checkoutUtils = CheckoutUtils.getInstance((Activity) context);
+    }
+
     private void loaddashboarddata() {
 
         ArrayList<DashboardModel> dashboardlist = new ArrayList<>();
