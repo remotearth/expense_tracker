@@ -1,4 +1,44 @@
 <resources>
+    <string name="facebook_app_id" translatable="false">379539602796909</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb379539602796909</string>
+    <string name="takahints" translatable="false">৳0</string>
+    <string name="today_14th_january_2019" translatable="false">TODAY 14TH JANUARY, 2019</string>
+    <string name="preferencekey" translatable="false">pref_currency_list</string>
+    <string name="defaultvalue" translatable="false">Bangladeshi Taka - BDT</string>
+    <string name="prefdate" translatable="false">pref_period_list</string>
+    <string name="admob_app_id" translatable="false">ca-app-pub-3996731798982494~9482261632</string>
+    <string name="admob_ad_id" translatable="false">ca-app-pub-3996731798982494/8955771736</string>
+    <string name="admob_test_ad_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="mGoogleSignInClient_must_be_initialized" translatable="false">mGoogleSignInClient must be
+        initialized
+    </string>
+    <string name="database_name" translatable="false">expensetracker_db</string>
+    <string name="version" translatable="false">v</string>
+    <string name="doller_symbol" translatable="false">$</string>
+    <string name="initially_zero" translatable="false">0</string>
+    <string name="point" translatable="false">.</string>
+    <string name="license_details" translatable="false">license_details</string>
+    <string name="one" translatable="false">1</string>
+    <string name="two" translatable="false">2</string>
+    <string name="three" translatable="false">3</string>
+    <string name="four" translatable="false">4</string>
+    <string name="five" translatable="false">5</string>
+    <string name="six" translatable="false">6</string>
+    <string name="seven" translatable="false">7</string>
+    <string name="eight" translatable="false">8</string>
+    <string name="nine" translatable="false">9</string>
+    <string name="zero" translatable="false">0</string>
+    <string name="plus" translatable="false">+</string>
+    <string name="subtraction" translatable="false">-</string>
+    <string name="multiplication" translatable="false">*</string>
+    <string name="division" translatable="false">/</string>
+    <string name="equalto" translatable="false">=</string>
+    <string name="united_states_dollar_usd" translatable="false">United States Dollar - USD</string>
+    <string name="remotearth_notification" translatable="false">Remotearth Notification</string>
+    <string name="message" translatable="false">message</string>
+    <string name="dont_edit_this_meta_data" translatable="false">(Don\'t edit this meta data)</string>
+
+
     <string name="app_name">Expense Tracker</string>
     <string name="welcometitle">Welcome To Expense Tracker</string>
     <string name="fb_signin_text">SIGN IN WITH FACEBOOK</string>
@@ -6,15 +46,11 @@
     <string name="noaccounttext">Don\'t want to create account now?</string>
     <string name="signin_without_login">Continue Without Login</string>
 
-    <string name="facebook_app_id" translatable="false">379539602796909</string>
-    <string name="fb_login_protocol_scheme">fb379539602796909</string>
 
     <!--Drawer Navigation Strings-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">EXPENSE TRACKER</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
     <!--BottoM Navigation Strings-->
@@ -29,9 +65,9 @@
     <string name="to_account">To Category</string>
     <string name="expense">Expense</string>
     <string name="balance">Balance</string>
-    <string name="takahints">৳0</string>
+
     <string name="notes">Notes</string>
-    <string name="today_14th_january_2019">TODAY 14TH JANUARY, 2019</string>
+
     <string name="currentdate">Today</string>
     <string name="previousdate">Yesterday</string>
 
@@ -42,9 +78,9 @@
     <string name="menu_licenses">Licenses</string>
     <string name="menu_logout">Logout</string>
     <string name="add_expense">Add Expense</string>
-    <string name="preferencekey">pref_currency_list</string>
+
     <string name="preferencetitle">Select Currency</string>
-    <string name="defaultvalue">Bangladeshi Taka - BDT</string>
+
     <string name="summarypreftext">Click me to choose your currency</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="daily">Daily</string>
@@ -52,14 +88,12 @@
     <string name="monthly">Monthly</string>
     <string name="yearly">Yearly</string>
     <string name="expense_category">Expense Category</string>
-    <string name="prefdate">pref_period_list</string>
+
     <string name="timeperiod">Time Period</string>
     <string name="day">Day</string>
-    <string name="selectperiodfromhere">Select period from Here</string>
+    <string name="selectperiodfromhere">Select period from here</string>
 
-    <string name="admob_app_id">ca-app-pub-3996731798982494~9482261632</string>
-    <string name="admob_ad_id">ca-app-pub-3996731798982494/8955771736</string>
-    <string name="admob_test_ad_id">ca-app-pub-3940256099942544/1033173712</string>
+
     <string name="accounts">Accounts</string>
     <string name="warning">Warning</string>
     <string name="buy_message">To enjoy this service, You have to buy</string>
@@ -70,24 +104,24 @@
     <string name="Authentication_with_Firebase_is_failed">Authentication with Firebase is failed</string>
 
     <string name="login_failed">Login failed</string>
-    <string name="mGoogleSignInClient_must_be_initialized">mGoogleSignInClient must be initialized</string>
+
     <string name="press_once_again_to_close_app">Press once again to close app</string>
     <string name="are_you_sure_you_want_to_logout">Are you sure you want to logout?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="database_name">expensetracker_db</string>
+
     <string name="add_category">Add Category</string>
     <string name="attention">Attention</string>
     <string name="you_need_to_be_premium_user_to_add_more_categories">You need to be premium user to add more
         categories
     </string>
-    <string name="version">v</string>
+
     <string name="you_cannot_delete_this_account">You cannot delete this account</string>
     <string name="deleting_this_account_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete">
         Deleting this account will remove expenses related to this also. Are you sure, You want to Delete?
     </string>
     <string name="not_now">Not now</string>
-    <string name="doller_symbol">$</string>
+
     <string name="you_have_to_enter_an_amount">You have to enter an amount</string>
     <string name="update_category">Update Category</string>
     <string name="update">Update</string>
@@ -110,61 +144,49 @@
     </string>
     <string name="successfully_added">Successfully added.</string>
     <string name="successfully_deleted_expense_entry">Successfully deleted expense entry.</string>
-    <string name="initially_zero">0</string>
-    <string name="point">.</string>
-    <string name="license_details">license_details</string>
+
     <string name="transactions">Transactions</string>
     <string name="dashboard">Dashboard</string>
     <string name="home">Home</string>
-    <string name="one">1</string>
-    <string name="two">2</string>
-    <string name="three">3</string>
-    <string name="four">4</string>
-    <string name="five">5</string>
-    <string name="six">6</string>
-    <string name="seven">7</string>
-    <string name="eight">8</string>
-    <string name="nine">9</string>
-    <string name="zero">0</string>
-    <string name="plus">+</string>
-    <string name="subtraction">-</string>
-    <string name="multiplication">*</string>
-    <string name="division">/</string>
-    <string name="equalto">=</string>
-    <string name="united_states_dollar_usd">United States Dollar - USD</string>
-    <string name="email">email</string>
-    <string name="public_profile">public_profile</string>
+
     <string name="report_from_expense_tracker">Reports From Expense Tracker</string>
-    <string name="plain_text">plain/text</string>
     <string name="choose_email_client_to_send_report">Choose Email Client To Send Report</string>
     <string name="report_sending_failed_please_try_again_later">Report Sending Failed Please Try Again Later</string>
     <string name="authentication_with_firebase_is_failed">Authentication with Firebase is failed</string>
     <string name="google_signin_failed">Google signin failed</string>
-    <string name="remotearth_notification">Remotearth Notification</string>
-    <string name="message">message</string>
-    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">To use this
-        Features Your need Permission For that, You can access it in app settings.
+
+    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">To use this feature app needs permission for that, You can enable it in app settings.
     </string>
     <string name="go_to_settings">Go To Setting</string>
     <string name="cancel">Cancel</string>
     <string name="date_category_amount_from_note">Date,Category,Amount,From,Note</string>
-    <string name="dont_edit_this_meta_data" translatable="false">(Don\'t edit this meta data)</string>
+
     <string name="expense_data_not_available_to_export">No expense data available to export.</string>
 
 
     <string name="select_your_currency">Select Your Currency</string>
     <string name="go">Go</string>
-    <string name="will_replace_your_current_entries">This will replace your current entries. Are you sure you want to import data?</string>
+    <string name="will_replace_your_current_entries">This will replace your current entries. Are you sure you want to
+        import data?
+    </string>
     <string name="no_supported_file">No expense tracker supported file is found</string>
-    <string name="select_csv">"Select a .csv file"</string>
+    <string name="select_csv">Select a .csv file</string>
 
-    <string name="read_write_permission_is_needed">Read/write permission on external storage is needed to export/import data.</string>
-    <string name="read_write_permission_is_needed_enable_from_settings">Read/write permission on external storage is needed to export/import data. Please enable it from device settings.</string>
+    <string name="read_write_permission_is_needed">Read/write permission on external storage is needed to export/import
+        data.
+    </string>
+    <string name="read_write_permission_is_needed_enable_from_settings">Read/write permission on external storage is
+        needed to export/import data. Please enable it from device settings.
+    </string>
     <string name="internet_connection_needed">Internet connection is needed to perform this action.</string>
 
     <string name="without_this_app_cannot_export">Without this permission, the app cannot export data.</string>
-    <string name="storage_permission_is_needed_to_export_data">Writing to external storage permission is needed to export data. Do you want to continue by giving the permission?</string>
-    <string name="storage_permission_needed_still_can_enable_from_settings">Writing to external storage permission is needed to export data. You can still enable this permission from app settings.</string>
+    <string name="storage_permission_is_needed_to_export_data">Writing to external storage permission is needed to
+        export data. Do you want to continue by giving the permission?
+    </string>
+    <string name="storage_permission_needed_still_can_enable_from_settings">Writing to external storage permission is
+        needed to export data. You can still enable this permission from app settings.
+    </string>
 
     <string name="bills">Bills</string>
     <string name="car">Car</string>
@@ -207,4 +229,5 @@
     <string name="please_wait">Please wait...</string>
     <string name="operation_successful">Operation successful</string>
     <string name="please_enter_an_amount">Please enter an amount</string>
+    <string name="make_sure_enter_valid_number">Error occurred. Please make sure you enter a valid number</string>
 </resources>

@@ -15,7 +15,7 @@ public class Utils {
 
     private static final int HIGHEST_VALUE_OF_RGB = 255;
     private static final int DEFAULT_DPI = 360;
-    private static DecimalFormat df = new DecimalFormat(".#");
+    private static DecimalFormat df = new DecimalFormat("#.#");
 
     public static String getRandomColorHexValue() {
         Random ra = new Random();

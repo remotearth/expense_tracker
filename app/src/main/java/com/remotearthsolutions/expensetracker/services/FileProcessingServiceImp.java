@@ -187,7 +187,7 @@ public class FileProcessingServiceImp implements FileProcessingService {
             Uri uri = FileProvider.getUriForFile(activity, Constants.KEY_PROVIDER, fileLocation);
 
             final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
-            emailIntent.setType(activity.getString(R.string.plain_text));
+            emailIntent.setType("plain/text");
 
             emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
             emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{emailAddress});

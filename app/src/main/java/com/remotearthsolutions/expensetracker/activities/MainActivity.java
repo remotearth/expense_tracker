@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Parcelable;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -32,7 +31,6 @@ import com.remotearthsolutions.expensetracker.fragments.*;
 import com.remotearthsolutions.expensetracker.fragments.main.MainFragment;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.services.PurchaseListener;
-import com.remotearthsolutions.expensetracker.utils.AdmobUtils;
 import com.remotearthsolutions.expensetracker.utils.CheckoutUtils;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
@@ -44,7 +42,6 @@ import org.solovyev.android.checkout.ProductTypes;
 import org.solovyev.android.checkout.Purchase;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View, InAppBillingCallback, Inventory.Callback {
 
@@ -57,6 +54,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private CheckoutUtils checkoutUtils;
     private PurchaseListener purchaseListener;
     private String productId;
+    public static int expenseAddededCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +63,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         checkoutUtils = CheckoutUtils.getInstance(this);
 
         checkoutUtils.start();
-        purchaseListener = new PurchaseListener(this,this);
+        purchaseListener = new PurchaseListener(this, this);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         AppDatabase db = DatabaseClient.getInstance(getContext()).getAppDatabase();
@@ -311,7 +309,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void onPurchaseSuccessListener(Purchase purchase) {
         ((ApplicationObject) getApplication()).setPremium(true);
         if (purchase.sku.equals(productId)) {
-            AdmobUtils.getInstance(MainActivity.this).appShouldShowAds(false);
+            ((ApplicationObject) getApplication()).appShouldShowAds(false);
         }
     }
 
@@ -325,10 +323,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         String productId = ((ApplicationObject) getApplication()).getAdProductId();
         if (!products.get(ProductTypes.IN_APP).isPurchased(productId)) {
             ((ApplicationObject) getApplication()).setPremium(false);
-
-            int delay = new Random().nextInt(5000 - 2000) + 2000;
-            AdmobUtils.getInstance(MainActivity.this).appShouldShowAds(true);
-            new Handler().postDelayed(() -> AdmobUtils.getInstance(MainActivity.this).showInterstitialAds(), delay);
+            ((ApplicationObject) getApplication()).appShouldShowAds(true);
 
         } else {
             ((ApplicationObject) getApplication()).setPremium(true);

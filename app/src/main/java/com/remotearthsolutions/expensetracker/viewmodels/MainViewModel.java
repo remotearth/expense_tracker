@@ -37,9 +37,8 @@ public class MainViewModel extends ViewModel {
         accountDao.getTotalAmount().observe(lifecycleOwner, amount -> {
             if (amount != null) {
                 view.showTotalBalance(Utils.formatDecimalValues(amount));
-            }
-            else{
-                view.showTotalBalance("0.0");
+            } else {
+                view.showTotalBalance(Utils.formatDecimalValues(0.0));
             }
 
             if (amount != null && amount < 0) {
@@ -62,7 +61,7 @@ public class MainViewModel extends ViewModel {
                         view.showTotalExpense(Utils.formatDecimalValues(amount));
                     } else {
                         throwable.printStackTrace();
-                        view.showTotalExpense("0.0");
+                        view.showTotalExpense(Utils.formatDecimalValues(0.0));
                     }
                 }));
     }

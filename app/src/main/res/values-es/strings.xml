@@ -96,8 +96,6 @@
     <string name="transactions">Actas</string>
     <string name="dashboard">Tablero</string>
     <string name="home">Casa</string>
-    <string name="email">correo electrónico</string>
-    <string name="public_profile">Perfil público</string>
     <string name="report_from_expense_tracker">Informes de Expense Tracker</string>
     <string name="choose_email_client_to_send_report">Elija un cliente de correo electrónico para enviar el informe
     </string>
@@ -105,10 +103,7 @@
     </string>
     <string name="authentication_with_firebase_is_failed">La autenticación con Firebase ha fallado</string>
     <string name="google_signin_failed">Error de inicio de sesión de Google</string>
-    <string name="remotearth_notification">Remotearth Notification</string>
-    <string name="message">message</string>
-    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">Usar esto
-        Características Su necesidad Permiso Para eso, puede acceder a él en la configuración de la aplicación.
+    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">Para usar esta característica, la aplicación necesita permiso para eso, puedes habilitarla en la configuración de la aplicación.
     </string>
     <string name="go_to_settings">Ir a la configuración</string>
     <string name="cancel">Cancelar</string>
@@ -183,4 +178,5 @@
     <string name="please_wait">Por favor espera...</string>
     <string name="operation_successful">Operación exitosa</string>
     <string name="please_enter_an_amount">Por favor ingrese una cantidad</string>
+    <string name="make_sure_enter_valid_number">Se produjo un error. Por favor, asegúrese de ingresar un número válido</string>
 </resources>

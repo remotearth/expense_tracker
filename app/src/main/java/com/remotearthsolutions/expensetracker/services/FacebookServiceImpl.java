@@ -34,7 +34,7 @@ public class FacebookServiceImpl implements FacebookService {
     @Override
     public void startFacebookLogin(final CallBack callBack) {
 
-        LoginManager.getInstance().logInWithReadPermissions((Activity) context, Arrays.asList(context.getString(R.string.email), context.getString(R.string.public_profile)));
+        LoginManager.getInstance().logInWithReadPermissions((Activity) context, Arrays.asList("email", "public_profile"));
         LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {

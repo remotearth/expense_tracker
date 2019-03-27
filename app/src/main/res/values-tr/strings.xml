@@ -1,0 +1,196 @@
+<resources>
+    <string name="app_name">Expense Tracker</string>
+    <string name="welcometitle">Gider İzleyiciye Hoşgeldiniz</string>
+    <string name="fb_signin_text">FACEBOOK İLE GİRİŞ</string>
+    <string name="gmail_signin_text">GOOGLE İLE GİRİŞ</string>
+    <string name="noaccounttext">Şimdi hesap oluşturmak istemiyor musunuz?</string>
+    <string name="signin_without_login">Giriş Yapmadan Devam Et</string>
+
+
+    <!--Drawer Navigation Strings-->
+    <string name="navigation_drawer_open">Gezinme çekmecesini aç</string>
+    <string name="navigation_drawer_close">Gezinme çekmecesini kapat</string>
+    <string name="nav_header_title">GİDER TAKİPÇİ</string>
+    <string name="action_settings">Ayarlar</string>
+
+    <!--BottoM Navigation Strings-->
+    <string name="title_home">Ev</string>
+    <string name="title_dashboard">Diğerleri</string>
+    <string name="title_transaction">Işlem</string>
+
+    <!--BottoM sheet Strings-->
+    <string name="from_account_card">NAKİT</string>
+    <string name="from_catagory_card">HEDİYE</string>
+    <string name="from_account">Hesaptan</string>
+    <string name="to_account">Kategoriye</string>
+    <string name="expense">Gider</string>
+    <string name="balance">Denge</string>
+
+    <string name="notes">Notlar</string>
+
+    <string name="currentdate">Bugün</string>
+    <string name="previousdate">Dün</string>
+
+    <string name="menu_home">Ev</string>
+    <string name="menu_categories">Kategoriler</string>
+    <string name="menu_settings">Ayarlar</string>
+    <string name="menu_about">Hakkında</string>
+    <string name="menu_licenses">Lisanslar</string>
+    <string name="menu_logout">Çıkış Yap</string>
+    <string name="add_expense">Gider ekle</string>
+
+    <string name="preferencetitle">Para birimini seçin</string>
+
+    <string name="summarypreftext">Para birimini seçmek için beni tıklayın</string>
+    <string name="privacy_policy">Gizlilik Politikası</string>
+    <string name="daily">Günlük</string>
+    <string name="weekly">Haftalık</string>
+    <string name="monthly">Aylık</string>
+    <string name="yearly">Yıllık</string>
+    <string name="expense_category">Gider Kategorisi</string>
+
+    <string name="timeperiod">Zaman dilimi</string>
+    <string name="day">Gün</string>
+    <string name="selectperiodfromhere">Buradan dönemi seçin</string>
+
+
+    <string name="accounts">Hesaplar</string>
+    <string name="warning">Uyarı</string>
+    <string name="buy_message">Bu hizmetten yararlanmak için, satın almanız gerekir.</string>
+    <string name="ok">Tamam</string>
+    <string name="no_data_available">Üzgünüz, uygun veri yok</string>
+
+    <string name="icons_made_by">Flaticon dan Freepik tarafından yapılan simgeler</string>
+    <string name="Authentication_with_Firebase_is_failed">Firebase ile kimlik doğrulama başarısız oldu</string>
+
+    <string name="login_failed">Giriş başarısız</string>
+
+    <string name="press_once_again_to_close_app">Uygulamayı kapatmak için bir kez daha basın</string>
+    <string name="are_you_sure_you_want_to_logout">Çıkış yapmak istediğinize emin misiniz?</string>
+    <string name="yes">Evet</string>
+    <string name="no">Yok hayır</string>
+
+    <string name="add_category">Kategori ekle</string>
+    <string name="attention">Dikkat</string>
+    <string name="you_need_to_be_premium_user_to_add_more_categories">Daha fazla kategori eklemek için premium kullanıcı
+        olmanız gerekir
+    </string>
+
+    <string name="you_cannot_delete_this_account">Bu hesabı silemezsiniz</string>
+    <string name="deleting_this_account_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete">Bu
+        hesabı silmek, bununla ilgili masrafları da kaldıracak. Silmek istediğine emin misin?
+    </string>
+    <string name="not_now">Şimdi değil</string>
+
+    <string name="you_have_to_enter_an_amount">Bir miktar girmelisin</string>
+    <string name="update_category">Kategoriyi Güncelle</string>
+    <string name="update">Güncelleştirme</string>
+    <string name="enter_a_name">İsim girin...</string>
+    <string name="select_an_icon">Bir simge seçin</string>
+    <string name="update_account">Hesabı güncelle</string>
+    <string name="add_account">Hesap eklemek</string>
+    <string name="add">Eklemek</string>
+    <string name="enter_a_name_for_account">Hesap için bir ad girin</string>
+    <string name="select_an_icon_for_the_account">Hesap için bir simge seçin</string>
+    <string name="you_cannot_delete_this_category">Bu hesabı silemezsiniz</string>
+    <string name="deleting_this_category_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete">Bu
+        hesabı silmek, bununla ilgili masrafları da kaldıracak. Silmek istediğine emin misin?
+    </string>
+    <string name="category_deleted_successfully">Kategori Başarıyla Silindi</string>
+    <string name="select_account">Hesap Seç</string>
+    <string name="select_category">Kategori seç</string>
+    <string name="are_you_sure_you_want_to_delete_this_expense_entry">Bu gider girişini silmek istediğinizden emin
+        misiniz?
+    </string>
+    <string name="successfully_added">Başarıyla Eklendi.</string>
+    <string name="successfully_deleted_expense_entry">Gider girişi başarıyla silindi.</string>
+
+    <string name="transactions">Işlemler</string>
+    <string name="dashboard">Diğerleri</string>
+    <string name="home">Ev</string>
+
+    <string name="report_from_expense_tracker">Gider İzleyiciden Raporlar</string>
+    <string name="choose_email_client_to_send_report">Rapor Göndermek için E-posta İstemcisini Seçin</string>
+    <string name="report_sending_failed_please_try_again_later">Rapor Gönderme Başarısız Oldu</string>
+    <string name="authentication_with_firebase_is_failed">Firebase ile kimlik doğrulama başarısız oldu</string>
+    <string name="google_signin_failed">Google oturum açma başarısız oldu</string>
+
+    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">Bu özelliği
+        kullanmak için uygulamanın bunun için izin alması gerekir, bunu uygulama ayarlarında etkinleştirebilirsiniz.
+    </string>
+    <string name="go_to_settings">Ayara Git</string>
+    <string name="cancel">İptal etmek</string>
+    <string name="date_category_amount_from_note">Tarih, Not itibaren Kategorisi, Tutar</string>
+
+    <string name="expense_data_not_available_to_export">Dışa aktarılacak harcama verileri yok.</string>
+
+
+    <string name="select_your_currency">Para Birimi Seçiniz</string>
+    <string name="go">Gitmek</string>
+    <string name="will_replace_your_current_entries">Bu mevcut girişlerin yerini alacak. Veri almak istediğinize emin
+        misiniz?
+    </string>
+    <string name="no_supported_file">Gider izleyici tarafından desteklenen bir dosya bulunamadı</string>
+    <string name="select_csv">Bir .csv dosyası seçin</string>
+
+    <string name="read_write_permission_is_needed">Verileri almak / vermek için harici depolama biriminde okuma / yazma
+        izni gerekir.
+    </string>
+    <string name="read_write_permission_is_needed_enable_from_settings">Verileri almak / vermek için harici depolama
+        biriminde okuma / yazma izni gerekir. Lütfen cihaz ayarlarından etkinleştirin.
+    </string>
+    <string name="internet_connection_needed">Bu işlemi gerçekleştirmek için İnternet bağlantısı gereklidir.</string>
+
+    <string name="without_this_app_cannot_export">
+        Bu izin olmadan, uygulama veri veremez.
+    </string>
+    <string name="storage_permission_is_needed_to_export_data">Verileri dışa aktarmak için harici depolama iznine yazma
+        gerekir. İzin vererek devam etmek istiyor musunuz?
+    </string>
+    <string name="storage_permission_needed_still_can_enable_from_settings">Verileri dışa aktarmak için harici depolama
+        iznine yazma gerekir. Bu izni uygulama ayarlarından yine de etkinleştirebilirsiniz.
+    </string>
+
+    <string name="bills">Fatura</string>
+    <string name="car">Araba</string>
+    <string name="clothes">Çamaşırlar</string>
+    <string name="communication">İletişim</string>
+    <string name="eating_out">Dışarıda yemek</string>
+    <string name="entertainment">Eğlence</string>
+    <string name="food">Gıda</string>
+    <string name="gift">Hediye</string>
+    <string name="health">Sağlık</string>
+    <string name="pets">Evcil Hayvanlar</string>
+    <string name="sports">Spor Dalları</string>
+    <string name="taxi">Taksi</string>
+    <string name="toiletry">Banyo malzemesi</string>
+    <string name="transport">Taşıma</string>
+    <string name="family">Aile</string>
+
+    <string name="cash">Nakit</string>
+    <string name="bank">Banka</string>
+    <string name="loan">Borç</string>
+
+    <string name="select_day">Gün Seç</string>
+    <string name="category">Kategori</string>
+    <string name="choose_icon">Bir simge seçin</string>
+    <string name="add_btntext">Eklemek</string>
+    <string name="account_name">Hesap adı</string>
+    <string name="enter_amount">Bir miktar girin...</string>
+    <string name="add_amount">Miktar ekle</string>
+    <string name="edit">Düzenle</string>
+    <string name="delete">Silmek</string>
+    <string name="expense_note">GİDER NOTU</string>
+    <string name="write_a_note_here">Not yaz...</string>
+
+    <string name="export_data">Verileri Dışa Aktar</string>
+    <string name="buy_product">Buy The Product</string>
+    <string name="import_data">Verileri İçe Aktar</string>
+
+    <string name="already_purchased">Bu öğeyi zaten satın aldın</string>
+    <string name="no_net_connection">İnternet Bağlantısı Yok</string>
+    <string name="please_wait">Lütfen bekle...</string>
+    <string name="operation_successful">Operasyon başarılı</string>
+    <string name="please_enter_an_amount">Lütfen bir miktar girin</string>
+    <string name="make_sure_enter_valid_number">Hata oluştu. Lütfen geçerli bir numara girdiğinizden emin olun</string>
+</resources>
