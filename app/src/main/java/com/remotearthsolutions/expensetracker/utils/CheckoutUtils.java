@@ -40,7 +40,8 @@ public final class CheckoutUtils {
 
     public void stop() {
         mCheckout.stop();
-        isStarted = false;
+        mCheckout.destroyPurchaseFlow();
+        isStarted = purchaseFlowCreated = false;
     }
 
     public void createPurchaseFlow(EmptyRequestListener<Purchase> purchaseEmptyRequestListener) {
