@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import com.remotearthsolutions.expensetracker.R;
-import com.remotearthsolutions.expensetracker.activities.MainActivity;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 
 public class LicenseFragment extends Fragment {
@@ -22,6 +22,13 @@ public class LicenseFragment extends Fragment {
 
     private ListView listView;
     private ArrayAdapter adapter;
+    private Context context;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public LicenseFragment() {
     }
@@ -33,12 +40,12 @@ public class LicenseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_license, container, false);
         listView = view.findViewById(R.id.licenseFileList);
         String[] licenseFileName = getResources().getStringArray(R.array.license);
-        adapter = new ArrayAdapter(getActivity(),R.layout.custom_license,R.id.custom_text_license,licenseFileName);
+        adapter = new ArrayAdapter(context, R.layout.custom_license, R.id.custom_text_license, licenseFileName);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener((parent, view1, position, id) -> {
 
-            switch (position){
+            switch (position) {
                 case 0:
                     sendLicenseFileToWebFragment(Constants.RAZERDPANIMATEDPIEVIEW_LICENSE_FILE);
                     break;
@@ -82,9 +89,8 @@ public class LicenseFragment extends Fragment {
         return view;
     }
 
-    private void sendLicenseFileToWebFragment(String filepath)
-    {
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+    private void sendLicenseFileToWebFragment(String filepath) {
+        ActionBar actionBar = ((AppCompatActivity) context).getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.mipmap.ic_back);
@@ -92,10 +98,10 @@ public class LicenseFragment extends Fragment {
 
         WebViewFragment webViewFragment = new WebViewFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("screen","license_details");
+        bundle.putString(Constants.KEY_SCREEN,getString(R.string.license_details));
         bundle.putString(Constants.KEY_URL, filepath);
         webViewFragment.setArguments(bundle);
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        FragmentTransaction fragmentTransaction = ((FragmentActivity) context).getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.replace(R.id.framelayout, webViewFragment, WebViewFragment.class.getName());
         fragmentTransaction.addToBackStack(WebViewFragment.class.getName());
         fragmentTransaction.commit();

@@ -2,8 +2,8 @@ package com.remotearthsolutions.expensetracker.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Parcelable;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -28,9 +28,9 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.Category
 import com.remotearthsolutions.expensetracker.databinding.ActivityMainBinding;
 import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.fragments.*;
+import com.remotearthsolutions.expensetracker.fragments.main.MainFragment;
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl;
 import com.remotearthsolutions.expensetracker.services.PurchaseListener;
-import com.remotearthsolutions.expensetracker.utils.AdmobUtils;
 import com.remotearthsolutions.expensetracker.utils.CheckoutUtils;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
@@ -42,7 +42,6 @@ import org.solovyev.android.checkout.ProductTypes;
 import org.solovyev.android.checkout.Purchase;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View, InAppBillingCallback, Inventory.Callback {
 
@@ -55,6 +54,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private CheckoutUtils checkoutUtils;
     private PurchaseListener purchaseListener;
     private String productId;
+    public static int expenseAddededCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         checkoutUtils = CheckoutUtils.getInstance(this);
 
         checkoutUtils.start();
-        purchaseListener = new PurchaseListener(this);
+        purchaseListener = new PurchaseListener(this, this);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         AppDatabase db = DatabaseClient.getInstance(getContext()).getAppDatabase();
@@ -144,12 +144,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void showTotalExpense(String amount) {
-        binding.totalExpenseAmountTv.setText(amount);
+        binding.totalExpenseAmountTv.setText(getString(R.string.expense) + ": " + amount);
     }
 
     @Override
     public void showTotalBalance(String amount) {
-        binding.totalAccountAmountTv.setText(amount);
+        binding.totalAccountAmountTv.setText(getString(R.string.balance) + ": " + amount);
     }
 
     @Override
@@ -180,7 +180,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             fragmentManager.popBackStack();
             ft.commit();
 
-            getSupportActionBar().setTitle("Home");
+            getSupportActionBar().setTitle(getString(R.string.home));
 
         } else if (webViewFragment != null) {
 
@@ -196,7 +196,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             long t = System.currentTimeMillis();
             if (t - backPressedTime > 2000) {
                 backPressedTime = t;
-                Toast.makeText(this, "Press once again to close app", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.press_once_again_to_close_app), Toast.LENGTH_SHORT).show();
             } else {
                 CheckoutUtils.clearInstance();
                 super.onBackPressed();
@@ -211,7 +211,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         switch (item.getItemId()) {
             case R.id.nav_home: {
                 mainFragment = new MainFragment();
-                mainFragment.setActionBar(getSupportActionBar());
+                mainFragment.setActionBar(getSupportActionBar(), getString(R.string.home));
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, mainFragment, MainFragment.class.getName());
                 fragmentTransaction.commit();
@@ -236,7 +236,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
             case R.id.nav_logout: {
 
-                showAlert("", "Are you sure you want to logout?", "Yes", "No", new Callback() {
+                showAlert("", getString(R.string.are_you_sure_you_want_to_logout), getString(R.string.yes), getString(R.string.no), new Callback() {
                     @Override
                     public void onOkBtnPressed() {
 
@@ -248,7 +248,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
                     }
                 });
-                binding.drawerLayout.closeDrawer(GravityCompat.START);
+                getDrawerLayout().closeDrawer(GravityCompat.START);
                 return false;
             }
 
@@ -262,16 +262,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
 
             case R.id.nav_privacypolicy: {
-                WebViewFragment webViewFragment = new WebViewFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("screen", "privacy_policy");
-                bundle.putString(Constants.KEY_URL, Constants.URL_PRIVACY_POLICY);
-                webViewFragment.setArguments(bundle);
-                getSupportActionBar().setTitle("Privacy Policy");
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.framelayout, webViewFragment, Constants.URL_PRIVACY_POLICY_TAG);
-                fragmentTransaction.commit();
-                break;
+                getDrawerLayout().closeDrawer(GravityCompat.START);
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.URL_PRIVACY_POLICY));
+                startActivity(browserIntent);
+                return false;
             }
 
             case R.id.nav_licenses: {
@@ -284,7 +278,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
 
         }
-        binding.drawerLayout.closeDrawer(GravityCompat.START);
+        getDrawerLayout().closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -315,7 +309,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void onPurchaseSuccessListener(Purchase purchase) {
         ((ApplicationObject) getApplication()).setPremium(true);
         if (purchase.sku.equals(productId)) {
-            AdmobUtils.getInstance(MainActivity.this).appShouldShowAds(false);
+            ((ApplicationObject) getApplication()).appShouldShowAds(false);
         }
     }
 
@@ -329,10 +323,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         String productId = ((ApplicationObject) getApplication()).getAdProductId();
         if (!products.get(ProductTypes.IN_APP).isPurchased(productId)) {
             ((ApplicationObject) getApplication()).setPremium(false);
-
-            int delay = new Random().nextInt(5000 - 2000) + 2000;
-            AdmobUtils.getInstance(MainActivity.this).appShouldShowAds(true);
-            new Handler().postDelayed(() -> AdmobUtils.getInstance(MainActivity.this).showInterstitialAds(), delay);
+            ((ApplicationObject) getApplication()).appShouldShowAds(true);
 
         } else {
             ((ApplicationObject) getApplication()).setPremium(true);
@@ -359,5 +350,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public void updateSummary() {
         viewModel.updateSummary();
+    }
+
+    public void refreshChart() {
+        mainFragment.refreshChart();
     }
 }

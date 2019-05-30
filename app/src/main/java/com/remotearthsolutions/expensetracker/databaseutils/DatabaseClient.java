@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.utils.InitialDataGenerator;
@@ -20,7 +21,7 @@ public class DatabaseClient {
     private DatabaseClient(Context context) {
         this.context = context;
         //creating the app database with Room database builder, here ExpenseTracker is the database name
-        appDatabase = Room.databaseBuilder(context, AppDatabase.class, "expensetracker_db")
+        appDatabase = Room.databaseBuilder(context, AppDatabase.class, context.getString(R.string.database_name))
                 .addCallback(new RoomDatabase.Callback() {
                     @Override
                     public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -28,10 +29,10 @@ public class DatabaseClient {
 
                         Executors.newSingleThreadScheduledExecutor().execute(() -> {
                             CategoryDao categoryDao = getInstance(context).getAppDatabase().categoryDao();
-                            categoryDao.addAllCategories(InitialDataGenerator.generateCategories());
+                            categoryDao.addAllCategories(InitialDataGenerator.generateCategories(context));
 
                             AccountDao accountDao = getInstance(context).getAppDatabase().accountDao();
-                            accountDao.addAllAccounts(InitialDataGenerator.generateAccounts());
+                            accountDao.addAllAccounts(InitialDataGenerator.generateAccounts(context));
                         });
 
                     }

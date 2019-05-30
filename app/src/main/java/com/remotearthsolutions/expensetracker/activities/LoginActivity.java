@@ -32,7 +32,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         setContentView(R.layout.activity_login);
 
         viewModel = ViewModelProviders.of(this,
-                new LoginViewModelFactory(this, new GoogleServiceImpl(this), new FacebookServiceImpl(this), new FirebaseServiceImpl(this))).
+                new LoginViewModelFactory(this, this, new GoogleServiceImpl(this), new FacebookServiceImpl(this), new FirebaseServiceImpl(this))).
                 get(LoginViewModel.class);
         viewModel.init();
 
@@ -87,12 +87,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onLoginSuccess(FirebaseUser user) {
-        
+
         if (SharedPreferenceUtils.getInstance(this).getBoolean(Constants.PREF_ISFIRSTTIMEVISITED, false)) {
-            startActivity(new Intent(this,MainActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
             finish();
-        }
-        else{
+        } else {
             Intent intent = new Intent(this, CurrencySelectionActivity.class);
             startActivity(intent);
             finish();
@@ -102,7 +101,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onLoginFailure() {
-        showAlert(null, "Login failed", "Ok", null, null);
+        showAlert(null, getString(R.string.login_failed), getString(R.string.ok), null, null);
     }
 
     @Override
@@ -110,7 +109,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         GoogleSignInClient mGoogleSignInClient = viewModel.getGoogleSignInClient();
 
         if (mGoogleSignInClient == null) {
-            Log.w(TAG, "mGoogleSignInClient must be initialized");
+            Log.w(TAG, getString(R.string.mGoogleSignInClient_must_be_initialized));
             return;
         }
 

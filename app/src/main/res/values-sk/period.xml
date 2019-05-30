@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="TimePeriod">
+        <item>Denná</item>
+        <item>Týždenné</item>
+        <item>Mesačník</item>
+        <item>Ročne</item>
+    </string-array>
+</resources>

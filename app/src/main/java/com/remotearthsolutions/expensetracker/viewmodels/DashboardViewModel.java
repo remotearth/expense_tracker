@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.util.Base64;
 import androidx.lifecycle.ViewModel;
 import com.google.gson.Gson;
+import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.contracts.DashboardContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
@@ -14,6 +15,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel;
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense;
 import com.remotearthsolutions.expensetracker.services.FileProcessingService;
+import com.remotearthsolutions.expensetracker.utils.Constants;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -43,10 +45,13 @@ public class DashboardViewModel extends ViewModel {
     public void saveExpenseToCSV(Activity activity) {
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\n\nDate,Category,Amount,From,Note\n");
+        stringBuilder.append("\n\n");
+        stringBuilder.append(activity.getString(R.string.date_category_amount_from_note));
+        stringBuilder.append("\n");
         if (disposable.isDisposed()) {
             disposable = new CompositeDisposable();
         }
+
         disposable.add(categoryExpenseDao.getAllFilterExpense()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -60,24 +65,26 @@ public class DashboardViewModel extends ViewModel {
 
                         stringBuilder.append("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                         stringBuilder.append("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-                        stringBuilder.append("(Don't edit this meta data)\n");
+                        stringBuilder.append(activity.getString(R.string.dont_edit_this_meta_data));
+                        stringBuilder.append("\n\n");
 
                         disposable.add(expenseDao.getAllExpenseEntry().subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe(entries -> {
                             String json = new Gson().toJson(entries);
-                            String encryptedStr = Base64.encodeToString(json.getBytes("UTF-8"), Base64.NO_WRAP);
-                            stringBuilder.append("meta1:" + encryptedStr + "\n");
+                            String encryptedStr = Base64.encodeToString(json.getBytes(Constants.KEY_UTF_VERSION), Base64.NO_WRAP);
+                            stringBuilder.append(Constants.KEY_META1_REPLACE + encryptedStr + "\n");
 
                             disposable.add(categoryDao.getAllCategories().subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe(
                                     entries1 -> {
                                         String json1 = new Gson().toJson(entries1);
-                                        String encryptedStr1 = Base64.encodeToString(json1.getBytes("UTF-8"), Base64.NO_WRAP);
-                                        stringBuilder.append("meta2:" + encryptedStr1 + "\n");
+                                        String encryptedStr1 = Base64.encodeToString(json1.getBytes(Constants.KEY_UTF_VERSION), Base64.NO_WRAP);
+                                        stringBuilder.append(Constants.KEY_META2_REPLACE + encryptedStr1 + "\n");
 
                                         disposable.add(accountDao.getAllAccounts().subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe(
                                                 entries2 -> {
                                                     String json2 = new Gson().toJson(entries2);
-                                                    String encryptedStr2 = Base64.encodeToString(json2.getBytes("UTF-8"), Base64.NO_WRAP);
-                                                    stringBuilder.append("meta3:" + encryptedStr2 + "\n");
+                                                    String encryptedStr2 = Base64.encodeToString(json2.getBytes(Constants.KEY_UTF_VERSION), Base64.NO_WRAP);
+                                                    stringBuilder.append(Constants.KEY_META3_REPLACE + encryptedStr2 + "\n");
+
                                                     fileProcessingService.writeOnCsvFile(activity, stringBuilder.toString(), () -> {
                                                         shareCSV_FileToMail(activity);
                                                         disposable.dispose();
@@ -90,7 +97,7 @@ public class DashboardViewModel extends ViewModel {
                         }));
 
                     } else {
-                        view.showAlert("", "No expense data available to export.", "Ok", null, null);
+                        view.showAlert("", activity.getString(R.string.expense_data_not_available_to_export), activity.getString(R.string.ok), null, null);
                         disposable.dispose();
                     }
                 }));

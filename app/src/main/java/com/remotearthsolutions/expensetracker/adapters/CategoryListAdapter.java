@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.adapters.viewholder.CategoryViewHolder;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import com.remotearthsolutions.expensetracker.utils.Utils;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryViewHolder
     private List<CategoryModel> categorylist;
     private CategoryListAdapter.OnItemClickListener listener;
     private int selectedCategoryId;
+    private Utils.ScreenSize screenSize;
 
     public CategoryListAdapter(List<CategoryModel> categorylist, int selectedCategoryId) {
         this.categorylist = categorylist;
@@ -32,11 +34,15 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryViewHolder
         this.listener = listener;
     }
 
+    public void setScreenSize(Utils.ScreenSize screenSize) {
+        this.screenSize = screenSize;
+    }
+
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_catagory, parent, false);
-        return new CategoryViewHolder(view, listener);
+        return new CategoryViewHolder(view, listener, screenSize);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,13 @@ public class AddAccountAmountDialogFragment extends DialogFragment {
 
     private AddAccountAmountDialogFragment.Callback callback;
     private AccountModel accountIncome;
+    private Context context;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public void setCallback(Callback callback) {
         this.callback = callback;
@@ -52,7 +60,7 @@ public class AddAccountAmountDialogFragment extends DialogFragment {
         view.findViewById(R.id.okBtn).setOnClickListener(v -> {
             String amount = amountEdtxt.getText().toString();
             if (amount == null || amount.length() == 0) {
-                Toast.makeText(getActivity(), "You have to enter an amount", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.you_have_to_enter_an_amount), Toast.LENGTH_LONG).show();
                 return;
             }
 

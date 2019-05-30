@@ -2,7 +2,6 @@
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,34 +15,38 @@
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="2dp">
 
-        <LinearLayout
+        <RelativeLayout
                 android:id="@+id/container"
                 android:padding="5dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
             <ImageView
                     android:id="@+id/eventtitle"
                     android:src="@drawable/ic_launcher_background"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_above="@+id/eventdate"
                     android:padding="5dp"
                     android:layout_marginTop="3dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"/>
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"/>
 
             <TextView
                     android:id="@+id/eventdate"
-                    android:text="Date"
+                    android:text="@string/category"
                     android:textColor="@color/colorPrimary"
                     android:textSize="13sp"
-                    android:gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
                     android:singleLine="true"
                     android:paddingBottom="3dp"
-                    android:layout_width="match_parent"
+                    android:ellipsize="end"
+                    android:layout_alignEnd="@+id/eventtitle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-        </LinearLayout>
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

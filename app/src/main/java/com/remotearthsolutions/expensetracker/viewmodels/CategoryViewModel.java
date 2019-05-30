@@ -30,12 +30,7 @@ public class CategoryViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        new Consumer<List<CategoryModel>>() {
-                            @Override
-                            public void accept(List<CategoryModel> categories) throws Exception {
-                                view.showCategories(categories);
-                            }
-                        }
+                        categories -> view.showCategories(categories)
                 ));
     }
 

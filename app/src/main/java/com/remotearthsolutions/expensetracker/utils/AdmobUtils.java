@@ -13,7 +13,6 @@ public final class AdmobUtils {
     private Activity activity;
     private InterstitialAd interstitialAd;
     private static AdmobUtils instance;
-    private boolean appShouldShowAds;
 
     public static AdmobUtils getInstance(Activity activity) {
         if (instance == null) {
@@ -39,16 +38,13 @@ public final class AdmobUtils {
         interstitialAd.setAdListener(new AdListener() {
             public void onAdLoaded() {
 
-                if (((ApplicationObject) activity.getApplication()).isActivityVisible() && appShouldShowAds) {
+                ApplicationObject app =  (ApplicationObject)activity.getApplication();
+                if (app.isActivityVisible() && app.isAppShouldShowAds()) {
                     interstitialAd.show();
+                    FabricAnswersUtils.logCustom("Ad shown");
                 }
 
             }
         });
     }
-
-    public void appShouldShowAds(boolean state) {
-        this.appShouldShowAds = state;
-    }
-
 }

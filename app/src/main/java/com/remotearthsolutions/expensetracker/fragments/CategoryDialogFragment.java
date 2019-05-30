@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import com.remotearthsolutions.expensetracker.contracts.CategoryFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel;
+import com.remotearthsolutions.expensetracker.utils.Constants;
+import com.remotearthsolutions.expensetracker.utils.Utils;
 import com.remotearthsolutions.expensetracker.viewmodels.CategoryViewModel;
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.CategoryViewModelFactory;
 
@@ -32,6 +35,13 @@ public class CategoryDialogFragment extends DialogFragment implements CategoryFr
     private CategoryListAdapter categoryListAdapter;
     private CategoryDialogFragment.Callback callback;
     private int selectedCategoryId;
+    private Context context;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public CategoryDialogFragment() {
     }
@@ -39,7 +49,7 @@ public class CategoryDialogFragment extends DialogFragment implements CategoryFr
     public static CategoryDialogFragment newInstance(String title) {
         CategoryDialogFragment frag = new CategoryDialogFragment();
         Bundle args = new Bundle();
-        args.putString("title", title);
+        args.putString(Constants.KEY_TITLE, title);
         frag.setArguments(args);
         return frag;
     }
@@ -68,7 +78,7 @@ public class CategoryDialogFragment extends DialogFragment implements CategoryFr
 
         recyclerView = view.findViewById(R.id.categoryrecyclearView);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_ELEMENT_IN_ROW);
+        layoutManager = new GridLayoutManager(context, NUMBER_OF_ELEMENT_IN_ROW);
         recyclerView.setLayoutManager(layoutManager);
         categoryListAdapter = new CategoryListAdapter(new ArrayList<>());
         recyclerView.setAdapter(categoryListAdapter);
@@ -79,8 +89,8 @@ public class CategoryDialogFragment extends DialogFragment implements CategoryFr
     public void showCategories(List<CategoryModel> categories) {
 
         categoryListAdapter = new CategoryListAdapter(categories, selectedCategoryId);
+        categoryListAdapter.setScreenSize(Utils.getDeviceScreenSize(context));
         categoryListAdapter.setOnItemClickListener(category -> callback.onSelectCategory(category));
-
         recyclerView.setAdapter(categoryListAdapter);
         layoutManager.scrollToPosition(getPositionOfSelectedItem(categories, selectedCategoryId));
     }

@@ -33,6 +33,13 @@ public class AllExpenseFragment extends BaseFragment implements ExpenseFragmentC
     private ExpenseViewModel viewModel;
     private String currencySymbol;
     private LinearLayout layout;
+    private Context context;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public AllExpenseFragment() {
     }
@@ -45,15 +52,15 @@ public class AllExpenseFragment extends BaseFragment implements ExpenseFragmentC
         layout = view.findViewById(R.id.nodata);
         recyclerView = view.findViewById(R.id.expenserecyclearView);
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        LinearLayoutManager llm = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(llm);
 
         currencySymbol = "$";
-        if (getActivity() != null) {
-            currencySymbol = Utils.getCurrency(getActivity());
+        if (context != null) {
+            currencySymbol = Utils.getCurrency(context);
         }
 
-        AppDatabase db = DatabaseClient.getInstance(getContext()).getAppDatabase();
+        AppDatabase db = DatabaseClient.getInstance(context).getAppDatabase();
         viewModel = ViewModelProviders.of(this, new ExpenseViewModelFactory(this, db.expenseDao(), db.categoryExpenseDao())).get(ExpenseViewModel.class);
 
         return view;
@@ -63,7 +70,7 @@ public class AllExpenseFragment extends BaseFragment implements ExpenseFragmentC
     public void loadFilterExpense(List<CategoryExpense> listOffilterExpense) {
 
         adapter = new ExpenseListAdapter(listOffilterExpense, currencySymbol);
-        adapter.setOnItemClickListener(categoryExpense -> ((MainActivity) getActivity()).openAddExpenseScreen(categoryExpense));
+        adapter.setOnItemClickListener(categoryExpense -> ((MainActivity) context).openAddExpenseScreen(categoryExpense));
         if (listOffilterExpense == null || listOffilterExpense.size() == 0) {
             recyclerView.setVisibility(View.GONE);
             layout.setVisibility(View.VISIBLE);
@@ -86,6 +93,6 @@ public class AllExpenseFragment extends BaseFragment implements ExpenseFragmentC
 
     @Override
     public Context getContext() {
-        return getActivity();
+        return context;
     }
 }

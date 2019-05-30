@@ -1,9 +1,12 @@
 package com.remotearthsolutions.expensetracker.fragments;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -16,6 +19,15 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
 
     private NumpadFragment.Listener listener;
     private FragmentNumpadBinding binding;
+    private Context context;
+    private Resources resources;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+        this.resources = context.getResources();
+    }
 
     public void setListener(NumpadFragment.Listener listener) {
         this.listener = listener;
@@ -49,44 +61,49 @@ public class NumpadFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        if (v.getId() == R.id.digitOne) {
-            listener.onNumpadButtonClick("1");
-        } else if (v.getId() == R.id.digitTwo) {
-            listener.onNumpadButtonClick("2");
-        } else if (v.getId() == R.id.digitThree) {
-            listener.onNumpadButtonClick("3");
-        } else if (v.getId() == R.id.digitFour) {
-            listener.onNumpadButtonClick("4");
-        } else if (v.getId() == R.id.digitFive) {
-            listener.onNumpadButtonClick("5");
-        } else if (v.getId() == R.id.digitSix) {
-            listener.onNumpadButtonClick("6");
-        } else if (v.getId() == R.id.digitSeven) {
-            listener.onNumpadButtonClick("7");
-        } else if (v.getId() == R.id.digitEight) {
-            listener.onNumpadButtonClick("8");
-        } else if (v.getId() == R.id.digitNine) {
-            listener.onNumpadButtonClick("9");
-        } else if (v.getId() == R.id.digitZero) {
-            listener.onNumpadButtonClick("0");
-        } else if (v.getId() == R.id.dot) {
-            listener.onNumpadButtonClick(".");
-        } else if (v.getId() == R.id.addition) {
-            listener.onMathOperationButtonClick("+");
-        } else if (v.getId() == R.id.subtraction) {
-            listener.onMathOperationButtonClick("-");
-        } else if (v.getId() == R.id.multiplication) {
-            listener.onMathOperationButtonClick("*");
-        } else if (v.getId() == R.id.division) {
-            listener.onMathOperationButtonClick("/");
-        } else if (v.getId() == R.id.equalto) {
-            listener.onMathOperationButtonClick("=");
+        try {
+            if (v.getId() == R.id.digitOne) {
+                listener.onNumpadButtonClick(getString(R.string.one));
+            } else if (v.getId() == R.id.digitTwo) {
+                listener.onNumpadButtonClick(getString(R.string.two));
+            } else if (v.getId() == R.id.digitThree) {
+                listener.onNumpadButtonClick(getString(R.string.three));
+            } else if (v.getId() == R.id.digitFour) {
+                listener.onNumpadButtonClick(getString(R.string.four));
+            } else if (v.getId() == R.id.digitFive) {
+                listener.onNumpadButtonClick(getString(R.string.five));
+            } else if (v.getId() == R.id.digitSix) {
+                listener.onNumpadButtonClick(getString(R.string.six));
+            } else if (v.getId() == R.id.digitSeven) {
+                listener.onNumpadButtonClick(getString(R.string.seven));
+            } else if (v.getId() == R.id.digitEight) {
+                listener.onNumpadButtonClick(getString(R.string.eight));
+            } else if (v.getId() == R.id.digitNine) {
+                listener.onNumpadButtonClick(getString(R.string.nine));
+            } else if (v.getId() == R.id.digitZero) {
+                listener.onNumpadButtonClick(getString(R.string.zero));
+            } else if (v.getId() == R.id.dot) {
+                listener.onNumpadButtonClick(getString(R.string.point));
+            } else if (v.getId() == R.id.addition) {
+                listener.onMathOperationButtonClick(getString(R.string.plus));
+            } else if (v.getId() == R.id.subtraction) {
+                listener.onMathOperationButtonClick(getString(R.string.subtraction));
+            } else if (v.getId() == R.id.multiplication) {
+                listener.onMathOperationButtonClick(getString(R.string.multiplication));
+            } else if (v.getId() == R.id.division) {
+                listener.onMathOperationButtonClick(getString(R.string.division));
+            } else if (v.getId() == R.id.equalto) {
+                listener.onMathOperationButtonClick(getString(R.string.equalto));
+            }
+
+        } catch (NumberFormatException e) {
+            Toast.makeText(context, resources.getString(R.string.make_sure_enter_valid_number), Toast.LENGTH_SHORT).show();
         }
     }
 
     public interface Listener {
         void onNumpadButtonClick(String value);
 
-        void onMathOperationButtonClick(String operation);
+        void onMathOperationButtonClick(String operation) throws NumberFormatException;
     }
 }
