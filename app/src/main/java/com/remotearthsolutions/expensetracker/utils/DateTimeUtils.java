@@ -13,7 +13,7 @@ public final class DateTimeUtils {
 
     private DateTimeUtils() {}
 
-    public static final String dd_MM_yyyy = Constants.KEY_DATE_MONTH_YEAR;
+    public static final String dd_MM_yyyy = Constants.KEY_DATE_MONTH_YEAR_DEFAULT;
     public static final String dd_MM_yyyy_h_mm = Constants.KEY_DATE_MONTH_YEAR_HOUR_MINIT_AM_PM;
     public static final String MM_yy = Constants.KEY_MONTH_YEAR;
     public static final String yyyy = Constants.KEY_YEAR;

@@ -38,7 +38,7 @@
     <string name="preferencetitle">Seleccione el tipo de moneda</string>
     <string name="summarypreftext">Haga clic en mí para elegir su propia moneda</string>
     <string name="privacy_policy">Política de privacidad</string>
-    <string name="daily">Diario</string>
+    <string name="default_period">Diario</string>
     <string name="weekly">Semanal</string>
     <string name="monthly">Mensual</string>
     <string name="yearly">Anual</string>

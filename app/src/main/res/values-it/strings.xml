@@ -43,7 +43,7 @@
 
     <string name="summarypreftext">Clicca per scegliere la tua valuta</string>
     <string name="privacy_policy">Politica sulla riservatezza</string>
-    <string name="daily">Quotidiano</string>
+    <string name="default_period">Quotidiano</string>
     <string name="weekly">Settimanalmente</string>
     <string name="monthly">Mensile</string>
     <string name="yearly">Annuale</string>

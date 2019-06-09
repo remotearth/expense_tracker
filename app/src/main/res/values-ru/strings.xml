@@ -43,7 +43,7 @@
 
     <string name="summarypreftext">Нажмите меня, чтобы выбрать вашу валюту</string>
     <string name="privacy_policy">политика конфиденциальности</string>
-    <string name="daily">eжедневно</string>
+    <string name="default_period">eжедневно</string>
     <string name="weekly">eженедельно</string>
     <string name="monthly">eжемесячно</string>
     <string name="yearly">каждый год</string>

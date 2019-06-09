@@ -1,10 +1,14 @@
 package com.remotearthsolutions.expensetracker.fragments.main;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.utils.Constants;
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils;
+import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,16 +40,19 @@ public class DateFilterButtonClickListener implements View.OnClickListener {
         String date = null;
         long startTime = 0, endTime = 0;
 
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(v.getContext());
+        String format = sp.getString(Constants.PREF_TIME_FORMAT,"dd-mm-yyyy");
+
         if (v.getId() == R.id.nextDateBtn) {
 
             if (selectedDate.equals(Constants.KEY_DAILY)) {
-
                 if (day < 0) {
                     day = day + 1;
                 }
-                date = DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, day);
-                startTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, date, 0, 0, 0);
-                endTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, date, 23, 59, 59);
+
+                date = DateTimeUtils.getDate(format, day);
+                startTime = getDateTimeInLong(format, date, 0, 0, 0);
+                endTime = getDateTimeInLong(format, date, 23, 59, 59);
             } else if (selectedDate.equals(Constants.KEY_WEEKLY)) {
                 simpleDateFormat = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy, Locale.getDefault());
                 try {

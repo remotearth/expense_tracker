@@ -28,8 +28,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         resources = context.getResources();
     }
 
-    public SettingsFragment() {
-    }
+    public SettingsFragment() {}
 
     private SharedPreferences.OnSharedPreferenceChangeListener preferenceChangeListener;
 
@@ -38,7 +37,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         addPreferencesFromResource(R.xml.settingspreference);
 
         Preference preferencePeriod = findPreference(Constants.PREF_PERIOD);
-        preferencePeriod.setSummary(SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_PERIOD, resources.getString(R.string.daily)));
+        preferencePeriod.setSummary(SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_PERIOD, resources.getString(R.string.default_period)));
+
+        Preference preferenceTimeFormat = findPreference(Constants.PREF_TIME_FORMAT);
+        preferenceTimeFormat.setSummary(SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_TIME_FORMAT, resources.getString(R.string.default_time_format)));
+
         Preference preferenceCurrency = findPreference(Constants.PREF_CURRENCY);
         String currencyName = SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_CURRENCY, resources.getString(R.string.default_currency));
         preferenceCurrency.setSummary(currencyName);
@@ -57,8 +60,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             } else if (key.equals(Constants.PREF_PERIOD)) {
 
                 Preference periodPreference = findPreference(key);
-                periodPreference.setSummary(sharedPreferences.getString(key, resources.getString(R.string.daily)));
+                periodPreference.setSummary(sharedPreferences.getString(key, resources.getString(R.string.default_period)));
 
+            } else if (key.equals(Constants.PREF_TIME_FORMAT)) {
+                Preference timeFormatPreference = findPreference(key);
+                String val = sharedPreferences.getString(key, resources.getString(R.string.default_time_format));
+                timeFormatPreference.setSummary(val);
             }
         };
 

@@ -82,7 +82,7 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
         binding.yearlyRangeBtn.setOnClickListener(dateFilterButtonClickListener);
 
         new Handler().postDelayed(() -> {
-            String period = SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_PERIOD, resources.getString(R.string.daily));
+            String period = SharedPreferenceUtils.getInstance(context).getString(Constants.PREF_PERIOD, resources.getString(R.string.default_period));
             int pos = Arrays.asList(resources.getStringArray(R.array.TimePeriod)).indexOf(period);
             switch (pos) {
                 case 0:
@@ -104,7 +104,7 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
                 default:
                     selectedPeriodBtn = binding.dailyRangeBtn;
                     selectedPeriodBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected);
-                    SharedPreferenceUtils.getInstance(context).putString(Constants.PREF_PERIOD, resources.getString(R.string.daily));
+                    SharedPreferenceUtils.getInstance(context).putString(Constants.PREF_PERIOD, resources.getString(R.string.default_period));
                     break;
             }
 

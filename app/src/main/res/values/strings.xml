@@ -88,7 +88,7 @@
 
     <string name="summarypreftext">Click me to choose your currency</string>
     <string name="privacy_policy">Privacy Policy</string>
-    <string name="daily">Daily</string>
+    <string name="default_period">Daily</string>
     <string name="weekly">Weekly</string>
     <string name="monthly">Monthly</string>
     <string name="yearly">Yearly</string>

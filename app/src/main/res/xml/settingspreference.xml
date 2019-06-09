@@ -14,7 +14,7 @@
     <ListPreference
             android:key="@string/prefdate"
             android:title="@string/timeperiod"
-            android:defaultValue="@string/daily"
+            android:defaultValue="@string/default_period"
             android:entryValues="@array/TimePeriod"
             android:entries="@array/TimePeriod"
             android:icon="@drawable/settings_timeperiod"
@@ -24,7 +24,7 @@
             android:key="@string/preftimeformat"
             android:title="@string/prefTimeFormatTitle"
             android:defaultValue="@string/default_time_format"
-            android:entryValues="@array/TimePeriod"
+            android:entryValues="@array/TimeFormat"
             android:entries="@array/TimeFormat"
             android:icon="@drawable/ic_change_date_formate"
             android:summary="@string/select_time_format_from_here"/>

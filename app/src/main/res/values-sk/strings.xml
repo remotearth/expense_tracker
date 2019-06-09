@@ -43,7 +43,7 @@
 
     <string name="summarypreftext">Kliknite na mňa a vyberte si menu</string>
     <string name="privacy_policy">Zásady ochrany osobných údajov</string>
-    <string name="daily">Denná</string>
+    <string name="default_period">Denná</string>
     <string name="weekly">Týždenné</string>
     <string name="monthly">Mesačník</string>
     <string name="yearly">Ročne</string>

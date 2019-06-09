@@ -43,7 +43,7 @@
 
     <string name="summarypreftext">Clique para escolher sua moeda</string>
     <string name="privacy_policy">Política de Privacidade</string>
-    <string name="daily">Diariamente</string>
+    <string name="default_period">Diariamente</string>
     <string name="weekly">Semanal</string>
     <string name="monthly">Por mês</string>
     <string name="yearly">Anual</string>

@@ -24,7 +24,7 @@
                         android:id="@+id/dailyRangeBtn"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:text="@string/daily"
+                        android:text="@string/default_period"
                         android:background="@drawable/bg_date_range_btn_unselected"
                         android:textColor="@color/textcolorwhite"
                         android:textSize="12dp"

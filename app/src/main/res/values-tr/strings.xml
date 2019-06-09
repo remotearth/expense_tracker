@@ -43,7 +43,7 @@
 
     <string name="summarypreftext">Para birimini seçmek için beni tıklayın</string>
     <string name="privacy_policy">Gizlilik Politikası</string>
-    <string name="daily">Günlük</string>
+    <string name="default_period">Günlük</string>
     <string name="weekly">Haftalık</string>
     <string name="monthly">Aylık</string>
     <string name="yearly">Yıllık</string>

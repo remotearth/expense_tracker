@@ -38,7 +38,7 @@
     <string name="preferencetitle">Sélectionnez la devise</string>
     <string name="summarypreftext">Cliquez moi pour choisir votre devise</string>
     <string name="privacy_policy">Politique de confidentialité</string>
-    <string name="daily">Du quotidien</string>
+    <string name="default_period">Du quotidien</string>
     <string name="weekly">Hebdomadaire</string>
     <string name="monthly">Mensuel</string>
     <string name="yearly">Annuel</string>

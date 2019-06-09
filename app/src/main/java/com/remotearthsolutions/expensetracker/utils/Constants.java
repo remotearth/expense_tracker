@@ -37,6 +37,8 @@ public interface Constants {
 
     String PREF_CURRENCY = "pref_currency_list";
     String PREF_PERIOD = "pref_period_list";
+    String PREF_TIME_FORMAT = "pref_time_format_list";
+
     String PREF_ISFIRSTTIMEVISITED = "PREF_ISFIRSTTIMEVISITED";
 
     String KEY_TITLE = "title";
@@ -51,7 +53,12 @@ public interface Constants {
     String KEY_CSV_FILE_EXTENSION = ".csv";
     String KEY_GOOGLE_CLIENT_ID = "1034332655323-lv5t5fja6ef5co4vsaf9bv476c9rga9r.apps.googleusercontent.com";
     String KEY_MESSAGE = "message";
-    String KEY_DATE_MONTH_YEAR = "dd-MM-yyyy";
+
+    String KEY_DATE_MONTH_YEAR_DEFAULT = "dd-MM-yyyy";
+    String KEY_DATE_MONTH_YEAR_BACKSLASH = "dd/MM/yyyy";
+    String KEY_MONTH_DATE_YEAR_BACKSLASH = "MM/dd/yyyy";
+    String KEY_YEAR_MONTH_DATE_BACKSLASH = "yyyy/mm/dd";
+
     String KEY_DATE_MONTH_YEAR_HOUR_MINIT_AM_PM = "dd-MM-yyyy h:mm a";
     String KEY_MONTH_YEAR = "MMMM,yy";
     String KEY_YEAR = "yyyy";
