@@ -20,5 +20,13 @@
             android:icon="@drawable/settings_timeperiod"
             android:summary="@string/selectperiodfromhere"/>
 
+    <ListPreference
+            android:key="@string/preftimeformat"
+            android:title="@string/prefTimeFormatTitle"
+            android:defaultValue="@string/default_time_format"
+            android:entryValues="@array/TimePeriod"
+            android:entries="@array/TimeFormat"
+            android:icon="@drawable/ic_change_date_formate"
+            android:summary="@string/select_time_format_from_here"/>
 
 </PreferenceScreen>

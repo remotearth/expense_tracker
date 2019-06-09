@@ -3,9 +3,14 @@
     <string name="fb_login_protocol_scheme" translatable="false">fb379539602796909</string>
     <string name="takahints" translatable="false">৳0</string>
     <string name="today_14th_january_2019" translatable="false">TODAY 14TH JANUARY, 2019</string>
+
     <string name="preferencekey" translatable="false">pref_currency_list</string>
     <string name="defaultvalue" translatable="false">Bangladeshi Taka - BDT</string>
     <string name="prefdate" translatable="false">pref_period_list</string>
+
+    <string name="preftimeformat" translatable="false">pref_time_format_list</string>
+    <string name="prefTimeFormatTitle" translatable="false">Change Time Format</string>
+
     <string name="admob_app_id" translatable="false">ca-app-pub-3996731798982494~9482261632</string>
     <string name="admob_ad_id" translatable="false">ca-app-pub-3996731798982494/8955771736</string>
     <string name="admob_test_ad_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
@@ -93,6 +98,8 @@
     <string name="day">Day</string>
     <string name="selectperiodfromhere">Select period from here</string>
 
+    <string name="select_time_format_from_here">Select Time format from here</string>
+    <string name="default_time_format">06-09-2019</string>
 
     <string name="accounts">Accounts</string>
     <string name="warning">Warning</string>
