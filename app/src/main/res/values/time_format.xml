@@ -2,9 +2,9 @@
 
 <resources>
     <string-array name="TimeFormat">
-        <item>June 9, 2019</item>
-        <item>dd/mm/yyyy</item>
-        <item>mm/dd/yyyy</item>
-        <item>yyyy/mm/dd</item>
+        <item>dd MMMM yyyy</item>
+        <item>dd/MM/yyyy</item>
+        <item>MM/dd/yyyy</item>
+        <item>yyyy/MM/dd</item>
     </string-array>
 </resources>

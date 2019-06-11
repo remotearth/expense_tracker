@@ -40,8 +40,8 @@ public class DateFilterButtonClickListener implements View.OnClickListener {
         String date = null;
         long startTime = 0, endTime = 0;
 
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(v.getContext());
-        String format = sp.getString(Constants.PREF_TIME_FORMAT,"dd-mm-yyyy");
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(v.getContext());
+        String format = preferences.getString(Constants.PREF_TIME_FORMAT,"dd-mm-yyyy");
 
         if (v.getId() == R.id.nextDateBtn) {
 
@@ -53,16 +53,17 @@ public class DateFilterButtonClickListener implements View.OnClickListener {
                 date = DateTimeUtils.getDate(format, day);
                 startTime = getDateTimeInLong(format, date, 0, 0, 0);
                 endTime = getDateTimeInLong(format, date, 23, 59, 59);
+
             } else if (selectedDate.equals(Constants.KEY_WEEKLY)) {
-                simpleDateFormat = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy, Locale.getDefault());
+                simpleDateFormat = new SimpleDateFormat(format, Locale.getDefault());
                 try {
 
                     if (endingOfWeek < 0) {
                         endingOfWeek = endingOfWeek + 7;
                         startingOfWeek = startingOfWeek + 7;
                     }
-                    startDate = simpleDateFormat.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, startingOfWeek));
-                    endDate = simpleDateFormat.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, endingOfWeek));
+                    startDate = simpleDateFormat.parse(DateTimeUtils.getDate(format, startingOfWeek));
+                    endDate = simpleDateFormat.parse(DateTimeUtils.getDate(format, endingOfWeek));
 
                 } catch (ParseException e) {
                     Log.d("Exception", ""+ e.getMessage());
@@ -73,8 +74,8 @@ public class DateFilterButtonClickListener implements View.OnClickListener {
                 String weeklastdate = simpleDateFormat.format(endDate);
 
                 date = weekstartdate + " - " + weeklastdate;
-                startTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, weekstartdate, 0, 0, 0);
-                endTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, weeklastdate, 29, 59, 59);
+                startTime = getDateTimeInLong(format, weekstartdate, 0, 0, 0);
+                endTime = getDateTimeInLong(format, weeklastdate, 29, 59, 59);
             } else if (selectedDate.equals(Constants.KEY_MONTHLY)) {
                 simpleDateFormat = new SimpleDateFormat(DateTimeUtils.MM_yy, Locale.getDefault());
                 calendar = Calendar.getInstance();
@@ -112,9 +113,9 @@ public class DateFilterButtonClickListener implements View.OnClickListener {
             if (selectedDate.equals(Constants.KEY_DAILY)) {
                 day = day - 1;
 
-                date = DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, day);
-                startTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, date, 0, 0, 0);
-                endTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, date, 23, 59, 59);
+                date = DateTimeUtils.getDate(format, day);
+                startTime = getDateTimeInLong(format, date, 0, 0, 0);
+                endTime = getDateTimeInLong(format, date, 23, 59, 59);
 
             } else if (selectedDate.equals(Constants.KEY_WEEKLY)) {
                 simpleDateFormat = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy, Locale.getDefault());
@@ -122,8 +123,8 @@ public class DateFilterButtonClickListener implements View.OnClickListener {
                     startingOfWeek = startingOfWeek - 7;
                     endingOfWeek = endingOfWeek - 7;
 
-                    endDate = simpleDateFormat.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, endingOfWeek));
-                    startDate = simpleDateFormat.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, startingOfWeek));
+                    endDate = simpleDateFormat.parse(DateTimeUtils.getDate(format, endingOfWeek));
+                    startDate = simpleDateFormat.parse(DateTimeUtils.getDate(format, startingOfWeek));
 
                 } catch (ParseException e) {
                     Log.d("Exception", ""+ e.getMessage());
@@ -133,8 +134,8 @@ public class DateFilterButtonClickListener implements View.OnClickListener {
                 String weeklastdate = simpleDateFormat.format(endDate);
 
                 date = weekstartdate + " - " + weeklastdate;
-                startTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, weekstartdate, 0, 0, 0);
-                endTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, weeklastdate, 29, 59, 59);
+                startTime = getDateTimeInLong(format, weekstartdate, 0, 0, 0);
+                endTime = getDateTimeInLong(format, weeklastdate, 29, 59, 59);
 
             } else if (selectedDate.equals(Constants.KEY_MONTHLY)) {
                 simpleDateFormat = new SimpleDateFormat(DateTimeUtils.MM_yy, Locale.getDefault());
@@ -168,18 +169,18 @@ public class DateFilterButtonClickListener implements View.OnClickListener {
             resetDate();
             selectedDate = Constants.KEY_DAILY;
 
-            date = DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, day);
-            startTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, date, 0, 0, 0);
-            endTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, date, 23, 59, 59);
+            date = DateTimeUtils.getDate(format, day);
+            startTime = getDateTimeInLong(format, date, 0, 0, 0);
+            endTime = getDateTimeInLong(format, date, 23, 59, 59);
 
         } else if (v.getId() == R.id.weeklyRangeBtn) {
             resetDate();
 
             selectedDate = Constants.KEY_WEEKLY;
-            simpleDateFormat = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy, Locale.getDefault());
+            simpleDateFormat = new SimpleDateFormat(format, Locale.getDefault());
             try {
-                startDate = simpleDateFormat.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, startingOfWeek));
-                endDate = simpleDateFormat.parse(DateTimeUtils.getDate(DateTimeUtils.dd_MM_yyyy, endingOfWeek));
+                startDate = simpleDateFormat.parse(DateTimeUtils.getDate(format, startingOfWeek));
+                endDate = simpleDateFormat.parse(DateTimeUtils.getDate(format, endingOfWeek));
 
             } catch (ParseException e) {
                 Log.d("Exception", ""+ e.getMessage());
@@ -189,8 +190,8 @@ public class DateFilterButtonClickListener implements View.OnClickListener {
             String weeklastdate = simpleDateFormat.format(endDate);
 
             date = weekstartdate + " - " + weeklastdate;
-            startTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, weekstartdate, 0, 0, 0);
-            endTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, weeklastdate, 29, 59, 59);
+            startTime = getDateTimeInLong(format, weekstartdate, 0, 0, 0);
+            endTime = getDateTimeInLong(format, weeklastdate, 29, 59, 59);
 
         } else if (v.getId() == R.id.monthlyRangeBtn) {
             resetDate();
