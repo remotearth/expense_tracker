@@ -118,7 +118,7 @@ public class DateFilterButtonClickListener implements View.OnClickListener {
                 endTime = getDateTimeInLong(format, date, 23, 59, 59);
 
             } else if (selectedDate.equals(Constants.KEY_WEEKLY)) {
-                simpleDateFormat = new SimpleDateFormat(DateTimeUtils.dd_MM_yyyy, Locale.getDefault());
+                simpleDateFormat = new SimpleDateFormat(format, Locale.getDefault());
                 try {
                     startingOfWeek = startingOfWeek - 7;
                     endingOfWeek = endingOfWeek - 7;
