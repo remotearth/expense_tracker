@@ -2,7 +2,7 @@
 
 <resources>
     <string-array name="TimeFormat">
-        <item>dd MMMM yyyy</item>
+        <item>MMMM dd, yyyy</item>
         <item>dd/MM/yyyy</item>
         <item>MM/dd/yyyy</item>
         <item>yyyy/MM/dd</item>

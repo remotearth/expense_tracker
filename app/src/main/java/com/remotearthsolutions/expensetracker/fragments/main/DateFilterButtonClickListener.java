@@ -41,7 +41,7 @@ public class DateFilterButtonClickListener implements View.OnClickListener {
         long startTime = 0, endTime = 0;
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(v.getContext());
-        String format = preferences.getString(Constants.PREF_TIME_FORMAT,"dd-mm-yyyy");
+        String format = preferences.getString(Constants.PREF_TIME_FORMAT,"dd-MM-yyyy");
 
         if (v.getId() == R.id.nextDateBtn) {
 

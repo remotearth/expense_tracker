@@ -76,6 +76,7 @@ public class MainFragment extends Fragment implements DateFilterButtonClickListe
         DateFilterButtonClickListener dateFilterButtonClickListener = new DateFilterButtonClickListener(this);
         binding.nextDateBtn.setOnClickListener(dateFilterButtonClickListener);
         binding.previousDateBtn.setOnClickListener(dateFilterButtonClickListener);
+
         binding.dailyRangeBtn.setOnClickListener(dateFilterButtonClickListener);
         binding.weeklyRangeBtn.setOnClickListener(dateFilterButtonClickListener);
         binding.monthlyRangeBtn.setOnClickListener(dateFilterButtonClickListener);
