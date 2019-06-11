@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +13,7 @@ import android.widget.*;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.preference.PreferenceManager;
 import com.remotearthsolutions.expensetracker.R;
 import com.remotearthsolutions.expensetracker.activities.MainActivity;
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract;
@@ -41,6 +43,8 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
     private Context context;
     private Resources resources;
 
+    private String format;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -53,6 +57,9 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        format = preferences.getString(Constants.PREF_TIME_FORMAT,"dd-MM-yyyy");
 
         View view = inflater.inflate(R.layout.fragment_add_expense, container, false);
 
@@ -99,7 +106,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
                 }
                 expenseNoteEdtxt.setText(categoryExpense.getNote());
                 if (categoryExpense.getDatetime() > 0) {
-                    dateTv.setText(DateTimeUtils.getDate(categoryExpense.getDatetime(), DateTimeUtils.dd_MM_yyyy));
+                    dateTv.setText(DateTimeUtils.getDate(categoryExpense.getDatetime(), format));
                 }
             } else {
                 viewModel.setDefaultCategory();
@@ -152,14 +159,14 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             categoryDialogFragment.show(fm, CategoryDialogFragment.class.getName());
         });
 
-        dateTv.setText(DateTimeUtils.getCurrentDate(DateTimeUtils.dd_MM_yyyy));
+        dateTv.setText(DateTimeUtils.getCurrentDate(format));
 
         calenderBtnIv.setOnClickListener(v -> {
 
             FragmentManager fm = getChildFragmentManager();
             final DatePickerDialogFragment datePickerDialogFragment = DatePickerDialogFragment.newInstance("");
 
-            Calendar cal = DateTimeUtils.getCalendarFromDateString(DateTimeUtils.dd_MM_yyyy, dateTv.getText().toString());
+            Calendar cal = DateTimeUtils.getCalendarFromDateString(format, dateTv.getText().toString());
             datePickerDialogFragment.setInitialDate(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR));
 
             datePickerDialogFragment.setCallback(date -> {
@@ -188,7 +195,7 @@ public class ExpenseFragment extends BaseFragment implements ExpenseFragmentCont
             }
             expenseModel.setAmount(amount);
             expenseModel.setDatetime(DateTimeUtils.getTimeInMillisFromDateStr(dateTv.getText().toString()
-                    + " " + DateTimeUtils.getCurrentTime(), DateTimeUtils.dd_MM_yyyy_h_mm));
+                    + " " + DateTimeUtils.getCurrentTime(), format));
             expenseModel.setCategoryId(categoryExpense.getCategoryId());
             expenseModel.setSource(categoryExpense.getAccountId());
             expenseModel.setNote(expenseNoteEdtxt.getText().toString());
