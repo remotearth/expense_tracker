@@ -301,8 +301,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         toggle.syncState()
     }
 
-    fun openAddExpenseScreen(categoryExpense: CategoryExpense?) {
-        supportActionBar!!.title = getString(R.string.add_expense)
+    fun openAddExpenseScreen(
+        categoryExpense: CategoryExpense?,
+        title: String = getString(R.string.add_expense)
+    ) {
+        supportActionBar!!.title = title
         val expenseFragment = ExpenseFragment()
         val wrappedCategoryExpense = Parcels.wrap(categoryExpense)
         val bundle = Bundle()

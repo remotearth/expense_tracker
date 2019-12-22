@@ -36,6 +36,7 @@ import java.util.*
 
 class ExpenseFragment : BaseFragment(),
     ExpenseFragmentContract.View {
+
     private lateinit var calenderBtnIv: ImageView
     private lateinit var categoryBtnIv: ImageView
     private lateinit var accountBtnIv: ImageView
