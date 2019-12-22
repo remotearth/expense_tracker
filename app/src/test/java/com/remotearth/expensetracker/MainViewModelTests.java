@@ -1,6 +1,9 @@
 package com.remotearth.expensetracker;
 
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.google.firebase.auth.FirebaseUser;
 import com.remotearthsolutions.expensetracker.contracts.MainContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
@@ -8,13 +11,19 @@ import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
 import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.only;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MainViewModelTests {
@@ -39,9 +48,11 @@ public class MainViewModelTests {
 
     //@Test
     public void test_init_will_initializeView() {
+//        LiveData<Double> mockTotalAmount = new MutableLiveData<>();
+//        when(accountDao.getTotalAmount()).thenReturn(mockTotalAmount);
         viewModel.init(mock(LifecycleOwner.class));
         verify(view, only()).initializeView();
-        verify(accountDao, only()).totalAmount;
+        verify(accountDao, only()).getTotalAmount();
 
     }
 

@@ -129,7 +129,7 @@ class DashboardFragment : BaseFragment(),
                                         override fun onPermissionGranted(response: PermissionGrantedResponse) {
                                             val allCsvFile =
                                                 dashboardViewModel!!.allCsvFile
-                                            if (allCsvFile == null || allCsvFile.size == 0) {
+                                            if (allCsvFile == null || allCsvFile.isEmpty()) {
                                                 Toast.makeText(
                                                     context,
                                                     resources.getString(R.string.no_supported_file),
