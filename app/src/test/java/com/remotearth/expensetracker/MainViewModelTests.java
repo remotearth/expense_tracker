@@ -41,7 +41,7 @@ public class MainViewModelTests {
     public void test_init_will_initializeView() {
         viewModel.init(mock(LifecycleOwner.class));
         verify(view, only()).initializeView();
-        verify(accountDao, only()).getTotalAmount();
+        verify(accountDao, only()).totalAmount;
 
     }
 
