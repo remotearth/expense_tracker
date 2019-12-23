@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import androidx.lifecycle.ViewModelProviders
 import com.google.firebase.auth.FirebaseUser
 import com.remotearthsolutions.expensetracker.R
@@ -16,6 +15,7 @@ import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.viewmodels.LoginViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
+import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity(), View.OnClickListener,
     LoginContract.View {
@@ -60,15 +60,9 @@ class LoginActivity : BaseActivity(), View.OnClickListener,
     }
 
     override fun initializeView() {
-        val googleSignInButton =
-            findViewById<Button>(R.id.googlebutton)
-        val facebookSignInButton =
-            findViewById<Button>(R.id.facebook_login_button)
-        val continueWithOutLogin =
-            findViewById<Button>(R.id.withoutloginbutton)
-        googleSignInButton.setOnClickListener(this)
-        facebookSignInButton.setOnClickListener(this)
-        continueWithOutLogin.setOnClickListener(this)
+        googlebutton.setOnClickListener(this)
+        facebook_login_button.setOnClickListener(this)
+        withoutloginbutton.setOnClickListener(this)
     }
 
     override fun onLoginSuccess(user: FirebaseUser?) {
@@ -91,7 +85,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener,
     }
 
     override fun loadUserEmails() {
-        val mGoogleSignInClient = viewModel!!.googleSignInClient
+        val mGoogleSignInClient = viewModel.googleSignInClient
         if (mGoogleSignInClient == null) {
             Log.w(
                 TAG,

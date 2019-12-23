@@ -10,8 +10,6 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.adapters.CategoryListViewAdapter
@@ -22,12 +20,12 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.fragments.OptionBottomSheetFragment.OptionsFor
 import com.remotearthsolutions.expensetracker.viewmodels.CategoryViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
+import kotlinx.android.synthetic.main.fragment_category.view.*
 
 class CategoryFragment : BaseFragment(),
     CategoryFragmentContract.View,
     OptionBottomSheetFragment.Callback {
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var floatingActionButton: FloatingActionButton
+    private lateinit var mView: View
     private lateinit var adapter: CategoryListViewAdapter
     private var viewModel: CategoryViewModel? = null
     private var selectedCategory: CategoryModel? = null
@@ -43,11 +41,9 @@ class CategoryFragment : BaseFragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_category, container, false)
-        floatingActionButton = view.findViewById(R.id.addcategory)
-        recyclerView = view.findViewById(R.id.cat_recycler)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = LinearLayoutManager(mContext)
+        mView = inflater.inflate(R.layout.fragment_category, container, false)
+        mView.cat_recycler.setHasFixedSize(true)
+        mView.cat_recycler.layoutManager = LinearLayoutManager(mContext)
         val categoryDao =
             DatabaseClient.getInstance(mContext!!)?.appDatabase?.categoryDao()
 
@@ -62,7 +58,7 @@ class CategoryFragment : BaseFragment(),
             Observer { count: Int -> limitOfCategory = count }
         )
 
-        floatingActionButton.setOnClickListener {
+        mView.addcategory.setOnClickListener {
             if (limitOfCategory < 20 ||
                 ((mContext as Activity?)!!.application as ApplicationObject).isPremium
             ) {
@@ -78,7 +74,7 @@ class CategoryFragment : BaseFragment(),
                 )
             }
         }
-        return view
+        return mView
     }
 
     override fun showCategories(categories: List<CategoryModel>?) {
@@ -95,7 +91,7 @@ class CategoryFragment : BaseFragment(),
                 )
             }
         })
-        recyclerView.adapter = adapter
+        mView.cat_recycler.adapter = adapter
     }
 
     override fun onClickAddAmountBtn() { //THis is not need for category. need to refactor this somehow so this method will not be needed to implement here.

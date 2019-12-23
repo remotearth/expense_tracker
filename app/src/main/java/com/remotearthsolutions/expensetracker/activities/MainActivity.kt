@@ -8,7 +8,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
-import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
@@ -20,7 +19,6 @@ import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.contracts.MainContract
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
-import com.remotearthsolutions.expensetracker.databinding.ActivityMainBinding
 import com.remotearthsolutions.expensetracker.entities.User
 import com.remotearthsolutions.expensetracker.fragments.*
 import com.remotearthsolutions.expensetracker.fragments.main.MainFragment
@@ -31,6 +29,7 @@ import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
+import kotlinx.android.synthetic.main.activity_main.*
 import org.parceler.Parcels
 import org.solovyev.android.checkout.Inventory
 import org.solovyev.android.checkout.Inventory.Products
@@ -41,7 +40,6 @@ import javax.annotation.Nonnull
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener,
     MainContract.View, InAppBillingCallback, Inventory.Callback {
 
-    private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
     private lateinit var toggle: ActionBarDrawerToggle
     private var mainFragment: MainFragment? = null
@@ -57,7 +55,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         checkoutUtils = CheckoutUtils.getInstance(this)!!
         checkoutUtils.start()
         purchaseListener = PurchaseListener(this, this)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setContentView(R.layout.activity_main)
         val db = DatabaseClient.getInstance(this)?.appDatabase
 
         viewModel =
@@ -97,22 +95,22 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun initializeView() {
         setupActionBar()
-        binding.navView.setNavigationItemSelectedListener(this)
-        val homeNavItem = binding.navView.menu.getItem(0)
+        nav_view.setNavigationItemSelectedListener(this)
+        val homeNavItem = nav_view.menu.getItem(0)
         onNavigationItemSelected(homeNavItem)
         homeNavItem.isChecked = true
     }
 
     private fun setupActionBar() {
-        setSupportActionBar(binding.toolbar)
+        setSupportActionBar(toolbar)
         toggle = ActionBarDrawerToggle(
             this,
-            binding.drawerLayout,
-            binding.toolbar,
+            drawer_layout,
+            toolbar,
             R.string.navigation_drawer_open,
             R.string.navigation_drawer_close
         )
-        binding.drawerLayout.addDrawerListener(toggle)
+        drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
     }
 
@@ -134,12 +132,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun showTotalExpense(amount: String?) {
         val str = "${getString(R.string.expense)}: $amount"
-        binding.totalExpenseAmountTv.text = str
+        totalExpenseAmountTv.text = str
     }
 
     override fun showTotalBalance(amount: String?) {
         val str = "${getString(R.string.balance)}: $amount"
-        binding.totalAccountAmountTv.text = str
+        totalAccountAmountTv.text = str
     }
 
     override fun stayOnCurrencyScreen() {
@@ -149,7 +147,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     override fun setBalanceTextColor(colorId: Int) {
-        binding.totalAccountAmountTv.setTextColor(ContextCompat.getColor(this, colorId))
+        totalAccountAmountTv.setTextColor(ContextCompat.getColor(this, colorId))
     }
 
     override fun onBackPressed() {
@@ -161,8 +159,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             supportFragmentManager.findFragmentByTag(
                 WebViewFragment::class.java.name
             )
-        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
         } else if (expenseFragment != null) {
             val fragmentManager = supportFragmentManager
             val ft = fragmentManager.beginTransaction()
@@ -179,7 +177,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             ft.commit()
             fragmentManager.popBackStack()
             setupActionBar()
-            binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
         } else {
             val t = System.currentTimeMillis()
             if (t - backPressedTime > 2000) {
@@ -244,7 +242,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
                         override fun onCancelBtnPressed() {}
                     })
-                drawerLayout.closeDrawer(GravityCompat.START)
+                drawer_layout.closeDrawer(GravityCompat.START)
                 return false
             }
             R.id.nav_about -> {
@@ -262,7 +260,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
             R.id.nav_privacypolicy -> {
                 supportActionBar!!.title = getString(R.string.privacy_policy)
-                drawerLayout.closeDrawer(GravityCompat.START)
+                drawer_layout.closeDrawer(GravityCompat.START)
 
                 val webViewFragment = WebViewFragment()
                 val bundle = Bundle().apply {
@@ -292,7 +290,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 fragmentTransaction.commit()
             }
         }
-        drawerLayout.closeDrawer(GravityCompat.START)
+        drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
 
@@ -356,11 +354,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         CheckoutUtils.getInstance(this)?.checkout?.onActivityResult(requestCode, resultCode, data)
     }
 
-    val toolbar: Toolbar
-        get() = binding.toolbar
+    val mToolbar: Toolbar
+        get() = toolbar
 
-    val drawerLayout: DrawerLayout
-        get() = binding.drawerLayout
+    val mDrawerLayout: DrawerLayout
+        get() = drawer_layout
 
     fun updateSummary(startTime: Long, endTime: Long) {
         viewModel.updateSummary(startTime, endTime)

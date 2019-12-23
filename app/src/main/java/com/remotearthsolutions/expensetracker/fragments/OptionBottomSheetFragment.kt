@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.remotearthsolutions.expensetracker.R
+import kotlinx.android.synthetic.main.fragment_optionbottomsheet.view.*
 
 class OptionBottomSheetFragment : BottomSheetDialogFragment(),
     View.OnClickListener {
@@ -28,19 +28,17 @@ class OptionBottomSheetFragment : BottomSheetDialogFragment(),
     ): View? {
         val view =
             inflater.inflate(R.layout.fragment_optionbottomsheet, container, false)
-        val addAmountBtn = view.findViewById<LinearLayout>(R.id.addAmountBtn)
-        val border = view.findViewById<View>(R.id.underLine)
-        addAmountBtn.setOnClickListener(this)
-        view.findViewById<View>(R.id.editBtn).setOnClickListener(this)
-        view.findViewById<View>(R.id.deleteBtn).setOnClickListener(this)
+        view.addAmountBtn.setOnClickListener(this)
+        view.editBtn.setOnClickListener(this)
+        view.deleteBtn.setOnClickListener(this)
         when (optionsFor) {
             OptionsFor.CATEGORY -> {
-                addAmountBtn.visibility = View.GONE
-                border.visibility = View.GONE
+                view.addAmountBtn.visibility = View.GONE
+                view.underLine.visibility = View.GONE
             }
             OptionsFor.ACCOUNT -> {
-                addAmountBtn.visibility = View.VISIBLE
-                border.visibility = View.VISIBLE
+                view.addAmountBtn.visibility = View.VISIBLE
+                view.underLine.visibility = View.VISIBLE
             }
         }
         return view

@@ -7,16 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.utils.Constants
+import kotlinx.android.synthetic.main.fragment_license.view.*
 
 class LicenseFragment : Fragment() {
-    private lateinit var listView: ListView
     private lateinit var adapter: ArrayAdapter<*>
     private lateinit var mContext: Context
     override fun onAttach(context: Context) {
@@ -30,7 +29,6 @@ class LicenseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_license, container, false)
-        listView = view.findViewById(R.id.licenseFileList)
         val licenseFileName =
             resources.getStringArray(R.array.license)
         adapter = ArrayAdapter<Any?>(
@@ -39,8 +37,8 @@ class LicenseFragment : Fragment() {
             R.id.custom_text_license,
             licenseFileName
         )
-        listView.adapter = adapter
-        listView.setOnItemClickListener { _: AdapterView<*>?, _: View?, position: Int, _: Long ->
+        view.licenseFileList.adapter = adapter
+        view.licenseFileList.setOnItemClickListener { _: AdapterView<*>?, _: View?, position: Int, _: Long ->
             when (position) {
                 0 -> sendLicenseFileToWebFragment(Constants.RAZERDPANIMATEDPIEVIEW_LICENSE_FILE)
                 1 -> sendLicenseFileToWebFragment(Constants.ROOM_LICENSE_FILE)

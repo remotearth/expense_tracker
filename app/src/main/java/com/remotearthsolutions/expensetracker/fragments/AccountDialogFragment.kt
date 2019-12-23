@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.AccountListAdapter
 import com.remotearthsolutions.expensetracker.contracts.AccountDialogContract
@@ -17,12 +16,13 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.viewmodels.AccountDialogViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
+import kotlinx.android.synthetic.main.fragment_add_account.view.*
 
 class AccountDialogFragment : DialogFragment(),
     AccountDialogContract.View {
     private lateinit var viewModel: AccountDialogViewModel
     private lateinit var accountListAdapter: AccountListAdapter
-    private lateinit var accountrecyclerView: RecyclerView
+    private lateinit var mView: View
     private var callback: Callback? =
         null
     private lateinit var mContext: Context
@@ -40,15 +40,15 @@ class AccountDialogFragment : DialogFragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_add_account, container)
+        mView = inflater.inflate(R.layout.fragment_add_account, container, false)
+        return mView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        accountrecyclerView = view.findViewById(R.id.accountrecyclearView)
-        accountrecyclerView.setHasFixedSize(true)
+        mView.accountrecyclearView.setHasFixedSize(true)
         val llm = LinearLayoutManager(mContext)
-        accountrecyclerView.layoutManager = llm
+        mView.accountrecyclearView.layoutManager = llm
         val accountDao =
             DatabaseClient.getInstance(mContext)?.appDatabase?.accountDao()
 
@@ -69,7 +69,7 @@ class AccountDialogFragment : DialogFragment(),
             }
 
         })
-        accountrecyclerView.adapter = accountListAdapter
+        mView.accountrecyclearView.adapter = accountListAdapter
     }
 
     override fun onAccountFetchFailure() {}

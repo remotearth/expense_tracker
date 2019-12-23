@@ -5,10 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.MainActivity
 import com.remotearthsolutions.expensetracker.adapters.ExpenseListAdapter
@@ -19,13 +17,13 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.Category
 import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
+import kotlinx.android.synthetic.main.fragment_all_expense.view.*
 
 class AllExpenseFragment : BaseFragment(), ExpenseView {
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var mView: View
     private lateinit var adapter: ExpenseListAdapter
     private var viewModel: ExpenseViewModel? = null
     private var currencySymbol: String? = null
-    private var layout: LinearLayout? = null
     private var mContext: Context? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -37,13 +35,10 @@ class AllExpenseFragment : BaseFragment(), ExpenseView {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view =
-            inflater.inflate(R.layout.fragment_all_expense, container, false)
-        layout = view.findViewById(R.id.nodata)
-        recyclerView = view.findViewById(R.id.expenserecyclearView)
-        recyclerView.setHasFixedSize(true)
+        mView = inflater.inflate(R.layout.fragment_all_expense, container, false)
+        mView.expenserecyclearView.setHasFixedSize(true)
         val llm = LinearLayoutManager(mContext)
-        recyclerView.layoutManager = llm
+        mView.expenserecyclearView.layoutManager = llm
         currencySymbol = "$"
         if (mContext != null) {
             currencySymbol = getCurrency(mContext!!)
@@ -55,7 +50,7 @@ class AllExpenseFragment : BaseFragment(), ExpenseView {
                 ExpenseViewModel(this, db?.expenseDao()!!, db.categoryExpenseDao())
             }).get(ExpenseViewModel::class.java)
 
-        return view
+        return mView
     }
 
     override fun loadFilterExpense(listOffilterExpense: List<CategoryExpense>?) {
@@ -70,12 +65,12 @@ class AllExpenseFragment : BaseFragment(), ExpenseView {
         })
 
         if (listOffilterExpense == null || listOffilterExpense.isEmpty()) {
-            recyclerView.visibility = View.GONE
-            layout!!.visibility = View.VISIBLE
+            mView.expenserecyclearView.visibility = View.GONE
+            mView.nodata.visibility = View.VISIBLE
         } else {
-            layout!!.visibility = View.GONE
-            recyclerView.visibility = View.VISIBLE
-            recyclerView.adapter = adapter
+            mView.nodata.visibility = View.GONE
+            mView.expenserecyclearView.visibility = View.VISIBLE
+            mView.expenserecyclearView.adapter = adapter
         }
     }
 

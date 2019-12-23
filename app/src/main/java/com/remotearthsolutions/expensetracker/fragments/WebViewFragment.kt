@@ -9,12 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
-import android.widget.ProgressBar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.MainActivity
 import com.remotearthsolutions.expensetracker.utils.Constants
+import kotlinx.android.synthetic.main.fragment_webview.view.*
 
 class WebViewFragment : Fragment() {
     private lateinit var mContext: Context
@@ -23,8 +23,7 @@ class WebViewFragment : Fragment() {
         mContext = context
     }
 
-    private lateinit var progressBar: ProgressBar
-    private lateinit var webView: WebView
+    private lateinit var mView: View
     private var url: String? = null
     private var screen: String? = null
     @SuppressLint("SetJavaScriptEnabled")
@@ -33,24 +32,22 @@ class WebViewFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_webview, container, false)
+        mView = inflater.inflate(R.layout.fragment_webview, container, false)
         if (arguments != null) {
             url = arguments!!.getString(Constants.KEY_URL)
             screen = arguments!!.getString(Constants.KEY_SCREEN)
         }
         if (screen == getString(R.string.license_details)) {
-            val toolbar = (context as MainActivity).toolbar
+            val toolbar = (context as MainActivity).mToolbar
             toolbar.setNavigationOnClickListener { (context as Activity?)!!.onBackPressed() }
-            (context as MainActivity?)!!.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            (context as MainActivity?)!!.mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         }
-        webView = view.findViewById(R.id.webview)
-        progressBar = view.findViewById(R.id.progressBar)
-        progressBar.visibility = View.GONE
-        webView.settings.javaScriptEnabled = true
-        webView.settings.builtInZoomControls = true
-        webView.webViewClient = WebViewClient()
-        webView.loadUrl(url)
-        return view
+        mView.progressBar.visibility = View.GONE
+        mView.webview.settings.javaScriptEnabled = true
+        mView.webview.settings.builtInZoomControls = true
+        mView.webview.webViewClient = WebViewClient()
+        mView.webview.loadUrl(url)
+        return mView
     }
 
 
@@ -61,7 +58,7 @@ class WebViewFragment : Fragment() {
             favicon: Bitmap?
         ) {
             super.onPageStarted(view, url, favicon)
-            progressBar.visibility = View.VISIBLE
+            mView.progressBar.visibility = View.VISIBLE
         }
 
         override fun shouldOverrideUrlLoading(
@@ -74,7 +71,7 @@ class WebViewFragment : Fragment() {
 
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
-            progressBar.visibility = View.GONE
+            mView.progressBar.visibility = View.GONE
         }
     }
 }

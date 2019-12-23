@@ -11,15 +11,14 @@ import com.remotearthsolutions.expensetracker.fragments.CurrencyFragment
 import com.remotearthsolutions.expensetracker.fragments.SettingsFragment
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
+import kotlinx.android.synthetic.main.activity_currency_selection.*
 
 class CurrencySelectionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState ?: Bundle())
         setContentView(R.layout.activity_currency_selection)
         loadcurrencyfragment()
-        val button =
-            findViewById<Button>(R.id.gotomainactivity)
-        button.setOnClickListener { gohome() }
+        gotomainactivity.setOnClickListener { gohome() }
     }
 
     private fun loadcurrencyfragment() {

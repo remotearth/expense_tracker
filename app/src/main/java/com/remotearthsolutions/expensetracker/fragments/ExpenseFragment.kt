@@ -32,7 +32,6 @@ import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getTimeInMilli
 import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseFragmentViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
-import kotlinx.android.synthetic.main.fragment_add_expense.*
 import kotlinx.android.synthetic.main.fragment_add_expense.view.*
 import org.parceler.Parcels
 import java.util.*

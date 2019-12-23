@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ListView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -23,12 +22,13 @@ import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils.show
 import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
 import com.remotearthsolutions.expensetracker.viewmodels.AccountViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
+import kotlinx.android.synthetic.main.fragment_accounts.view.*
 
 class AccountsFragment : BaseFragment(),
     AccountContract.View,
     OptionBottomSheetFragment.Callback {
     private var viewModel: AccountViewModel? = null
-    private var listview: ListView? = null
+    private lateinit var mView: View
     private var adapter: AccountsAdapter? = null
     private var selectAccountModel: AccountModel? = null
     private var limitOfAccount = 0
@@ -44,7 +44,8 @@ class AccountsFragment : BaseFragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_accounts, container, false)
+        mView = inflater.inflate(R.layout.fragment_accounts, container, false)
+        return mView
     }
 
     override fun onViewCreated(
@@ -52,7 +53,6 @@ class AccountsFragment : BaseFragment(),
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-        listview = view.findViewById(R.id.accountList)
         currencySymbol = "$"
         if (mContext != null) {
             currencySymbol = getCurrency(mContext!!)
@@ -91,8 +91,8 @@ class AccountsFragment : BaseFragment(),
     override fun onAccountFetch(accounts: List<AccountModel>?) {
         if (isAdded) {
             adapter = AccountsAdapter(mContext!!, accounts!!, currencySymbol!!)
-            listview!!.adapter = adapter
-            listview!!.onItemClickListener =
+            mView.accountList.adapter = adapter
+            mView.accountList.onItemClickListener =
                 AdapterView.OnItemClickListener { _: AdapterView<*>?, _: View?, position: Int, _: Long ->
                     selectAccountModel = accounts[position]
                     val optionBottomSheetFragment =

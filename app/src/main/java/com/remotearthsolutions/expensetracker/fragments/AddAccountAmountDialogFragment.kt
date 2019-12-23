@@ -5,16 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
 import com.remotearthsolutions.expensetracker.utils.CategoryIcons.getIconId
+import kotlinx.android.synthetic.main.fragment_addaccountamount.view.*
 
 class AddAccountAmountDialogFragment : DialogFragment() {
+    private lateinit var mView: View
     private lateinit var callback: Callback
     private var accountIncome: AccountModel? = null
     private lateinit var mContext: Context
@@ -32,43 +31,34 @@ class AddAccountAmountDialogFragment : DialogFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_addaccountamount, container, false)
+        mView = inflater.inflate(R.layout.fragment_addaccountamount, container, false)
+        return mView
     }
 
-    override fun onViewCreated(
-        view: View,
-        savedInstanceState: Bundle?
-    ) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val accountNameTv = view.findViewById<TextView>(R.id.accountNameTv)
-        val accountImageIv =
-            view.findViewById<ImageView>(R.id.accountImageIv)
-        val amountEdtxt = view.findViewById<EditText>(R.id.amountEdtxt)
         if (accountIncome != null) {
-            accountNameTv.text = accountIncome!!.name
-            accountImageIv.setImageResource(getIconId(accountIncome!!.icon!!))
-            amountEdtxt.setText(accountIncome!!.amount.toString())
-            amountEdtxt.setSelection(amountEdtxt.text.toString().length)
+            mView.accountNameTv.text = accountIncome!!.name
+            mView.accountImageIv.setImageResource(getIconId(accountIncome!!.icon!!))
+            mView.amountEdtxt.setText(accountIncome!!.amount.toString())
+            mView.amountEdtxt.setSelection(mView.amountEdtxt.text.toString().length)
         }
-        view.findViewById<View>(R.id.okBtn)
-            .setOnClickListener {
-                val amount = amountEdtxt.text.toString()
-                if (amount.isEmpty()) {
-                    Toast.makeText(
-                        activity,
-                        getString(R.string.you_have_to_enter_an_amount),
-                        Toast.LENGTH_LONG
-                    ).show()
-                    return@setOnClickListener
-                }
-                val accountAmount = amount.toDouble()
-                accountIncome!!.amount = accountAmount
-                callback.onAmountAdded(accountIncome)
+        mView.okBtn.setOnClickListener {
+            val amount = mView.amountEdtxt.text.toString()
+            if (amount.isEmpty()) {
+                Toast.makeText(
+                    activity,
+                    getString(R.string.you_have_to_enter_an_amount),
+                    Toast.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
             }
+            val accountAmount = amount.toDouble()
+            accountIncome!!.amount = accountAmount
+            callback.onAmountAdded(accountIncome)
+        }
     }
 
     interface Callback {

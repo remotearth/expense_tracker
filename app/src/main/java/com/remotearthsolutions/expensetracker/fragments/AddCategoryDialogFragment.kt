@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.IconListAdapter
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
@@ -20,14 +20,12 @@ import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_add_update_category_account.view.*
 
 class AddCategoryDialogFragment : DialogFragment() {
+    private lateinit var mView: View
     private lateinit var iconListAdapter: IconListAdapter
-    private lateinit var recyclerView: RecyclerView
-    private var callback: Callback? =
-        null
-    private lateinit var categoryNameEdtxt: EditText
-    private lateinit var categorydialogstatus: TextView
+    private var callback: Callback? = null
     private var categoryModel: CategoryModel? = null
     private var selectedIcon: String? = null
     private lateinit var mContext: Context
@@ -45,7 +43,8 @@ class AddCategoryDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_add_update_category_account, container)
+        mView = inflater.inflate(R.layout.fragment_add_update_category_account, container)
+        return mView
     }
 
     override fun onViewCreated(
@@ -53,25 +52,21 @@ class AddCategoryDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-        categoryNameEdtxt = view.findViewById(R.id.nameEdtxt)
-        categorydialogstatus = view.findViewById(R.id.header)
-        val okBtn = view.findViewById<Button>(R.id.okBtn)
         if (categoryModel != null) {
-            categoryNameEdtxt.setText(categoryModel!!.name)
-            categoryNameEdtxt.setSelection(categoryNameEdtxt.text.length)
-            categorydialogstatus.text = getString(R.string.update_category)
-            okBtn.text = getString(R.string.update)
+            mView.nameEdtxt.setText(categoryModel!!.name)
+            mView.nameEdtxt.setSelection(mView.nameEdtxt.text.length)
+            mView.header.text = getString(R.string.update_category)
+            mView.okBtn.text = getString(R.string.update)
         }
-        okBtn.setOnClickListener { saveCategory() }
-        recyclerView = view.findViewById(R.id.accountrecyclearView)
+        mView.okBtn.setOnClickListener { saveCategory() }
         val params = LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             getDeviceScreenSize(mContext)!!.height / 2
         )
-        recyclerView.layoutParams = params
-        recyclerView.setHasFixedSize(true)
+        mView.accountrecyclearView.layoutParams = params
+        mView.accountrecyclearView.setHasFixedSize(true)
         val gridLayoutManager = GridLayoutManager(mContext, 4)
-        recyclerView.layoutManager = gridLayoutManager
+        mView.accountrecyclearView.layoutManager = gridLayoutManager
         val allIconList = allIcons
         iconListAdapter = IconListAdapter(allIconList, gridLayoutManager)
         iconListAdapter.setSelectedIcon(if (selectedIcon != null) selectedIcon else "")
@@ -83,14 +78,14 @@ class AddCategoryDialogFragment : DialogFragment() {
             }
 
         })
-        recyclerView.adapter = iconListAdapter
+        mView.accountrecyclearView.adapter = iconListAdapter
     }
 
     private fun saveCategory() {
-        val categoryName = categoryNameEdtxt.text.toString().trim { it <= ' ' }
+        val categoryName = mView.nameEdtxt.text.toString().trim { it <= ' ' }
         if (categoryName.isEmpty()) {
-            categoryNameEdtxt.error = getString(R.string.enter_a_name)
-            categoryNameEdtxt.requestFocus()
+            mView.nameEdtxt.error = getString(R.string.enter_a_name)
+            mView.nameEdtxt.requestFocus()
             return
         }
         if (selectedIcon == null || selectedIcon!!.isEmpty()) {

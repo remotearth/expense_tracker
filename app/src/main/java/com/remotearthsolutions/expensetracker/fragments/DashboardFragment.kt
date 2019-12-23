@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProviders
@@ -34,6 +33,7 @@ import com.remotearthsolutions.expensetracker.utils.FabricAnswersUtils.logCustom
 import com.remotearthsolutions.expensetracker.utils.PermissionUtils
 import com.remotearthsolutions.expensetracker.viewmodels.DashboardViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
+import kotlinx.android.synthetic.main.fragment_share.view.*
 import org.solovyev.android.checkout.BillingRequests
 import org.solovyev.android.checkout.Checkout.EmptyListener
 import org.solovyev.android.checkout.ProductTypes
@@ -43,8 +43,8 @@ import javax.annotation.Nonnull
 
 class DashboardFragment : BaseFragment(),
     DashboardContract.View {
+    private lateinit var mView: View
     private var dashboardViewModel: DashboardViewModel? = null
-    private lateinit var lv: ListView
     private var productId: String? = null
     private var checkoutUtils: CheckoutUtils? = null
     private var mContext: Context? = null
@@ -75,10 +75,9 @@ class DashboardFragment : BaseFragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_share, container, false)
-        lv = view.findViewById(R.id.dashboardlist)
+        mView = inflater.inflate(R.layout.fragment_share, container, false)
         loaddashboarddata()
-        return view
+        return mView
     }
 
     override fun onViewCreated(
@@ -111,8 +110,8 @@ class DashboardFragment : BaseFragment(),
             )
         )
         val adapter = DashboardAdapter(mContext!!, dashBoardList)
-        lv.adapter = adapter
-        lv.onItemClickListener =
+        mView.dashboardlist.adapter = adapter
+        mView.dashboardlist.onItemClickListener =
             AdapterView.OnItemClickListener setOnItemClickListener@{ _: AdapterView<*>?, _: View?, position: Int, _: Long ->
                 when (position) {
                     0 -> dashboardViewModel!!.saveExpenseToCSV(context as Activity)

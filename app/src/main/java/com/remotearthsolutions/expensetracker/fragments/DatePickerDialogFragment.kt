@@ -8,25 +8,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getCurrentDate
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getDate
+import kotlinx.android.synthetic.main.add_date.view.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
 class DatePickerDialogFragment : DialogFragment(),
     View.OnClickListener {
-    private lateinit var previousDate: LinearLayout
-    private lateinit var currentDate: LinearLayout
-    private lateinit var selectDate: LinearLayout
-    private lateinit var todayDateTv: TextView
-    private lateinit var yesterdayDateTv: TextView
     private var callback: Callback? = null
     private var cDay = 0
     private var cMonth = 0
@@ -59,16 +53,11 @@ class DatePickerDialogFragment : DialogFragment(),
         view: View,
         savedInstanceState: Bundle?
     ) {
-        previousDate = view.findViewById(R.id.previousdate)
-        currentDate = view.findViewById(R.id.currentdate)
-        selectDate = view.findViewById(R.id.selectdate)
-        yesterdayDateTv = view.findViewById(R.id.showdyesterday)
-        todayDateTv = view.findViewById(R.id.showdtoday)
-        yesterdayDateTv.text = getDate(DateTimeUtils.dd_MM_yyyy, -1)
-        todayDateTv.text = getCurrentDate(DateTimeUtils.dd_MM_yyyy)
-        previousDate.setOnClickListener(this)
-        currentDate.setOnClickListener(this)
-        selectDate.setOnClickListener(this)
+        view.showdyesterday.text = getDate(DateTimeUtils.dd_MM_yyyy, -1)
+        view.showdtoday.text = getCurrentDate(DateTimeUtils.dd_MM_yyyy)
+        view.previousdate.setOnClickListener(this)
+        view.currentdate.setOnClickListener(this)
+        view.selectdate.setOnClickListener(this)
     }
 
     override fun onClick(v: View) {

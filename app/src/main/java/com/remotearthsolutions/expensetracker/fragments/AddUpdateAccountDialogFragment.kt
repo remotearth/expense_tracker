@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.IconListAdapter
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
@@ -19,13 +19,11 @@ import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_add_update_category_account.view.*
 
 class AddUpdateAccountDialogFragment : DialogFragment() {
-    private lateinit var recyclerView: RecyclerView
+    private lateinit var mView: View
     private var accountModel: AccountModel? = null
-    private lateinit var nameEdtxt: EditText
-    private lateinit var headerTv: TextView
-    private lateinit var okBtn: Button
     private var selectedIcon: String? = null
     private lateinit var iconListAdapter: IconListAdapter
     private lateinit var mContext: Context
@@ -54,27 +52,23 @@ class AddUpdateAccountDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-        headerTv = view.findViewById(R.id.header)
-        nameEdtxt = view.findViewById(R.id.nameEdtxt)
-        okBtn = view.findViewById(R.id.okBtn)
         if (accountModel != null) {
-            headerTv.text = getString(R.string.update_account)
-            okBtn.text = getString(R.string.update)
-            nameEdtxt.setText(accountModel!!.name)
-            nameEdtxt.setSelection(nameEdtxt.text.length)
+            mView.header.text = getString(R.string.update_account)
+            mView.okBtn.text = getString(R.string.update)
+            mView.nameEdtxt.setText(accountModel!!.name)
+            mView.nameEdtxt.setSelection(mView.nameEdtxt.text.length)
         } else {
-            headerTv.text = getString(R.string.add_account)
-            okBtn.text = getString(R.string.add)
+            mView.header.text = getString(R.string.add_account)
+            mView.okBtn.text = getString(R.string.add)
         }
-        recyclerView = view.findViewById(R.id.accountrecyclearView)
         val params = LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             getDeviceScreenSize(mContext)!!.height / 2
         )
-        recyclerView.layoutParams = params
-        recyclerView.setHasFixedSize(true)
+        mView.accountrecyclearView.layoutParams = params
+        mView.accountrecyclearView.setHasFixedSize(true)
         val gridLayoutManager = GridLayoutManager(mContext, 4)
-        recyclerView.layoutManager = gridLayoutManager
+        mView.accountrecyclearView.layoutManager = gridLayoutManager
         val alliconList = allIcons
         iconListAdapter = IconListAdapter(alliconList, gridLayoutManager)
         iconListAdapter.setSelectedIcon(if (selectedIcon != null) selectedIcon else "")
@@ -85,15 +79,15 @@ class AddUpdateAccountDialogFragment : DialogFragment() {
                 iconListAdapter.notifyDataSetChanged()
             }
         })
-        recyclerView.adapter = iconListAdapter
-        okBtn.setOnClickListener { saveAccount() }
+        mView.accountrecyclearView.adapter = iconListAdapter
+        mView.okBtn.setOnClickListener { saveAccount() }
     }
 
     private fun saveAccount() {
-        val accountName = nameEdtxt.text.toString().trim { it <= ' ' }
+        val accountName = mView.nameEdtxt.text.toString().trim { it <= ' ' }
         if (accountName.isEmpty()) {
-            nameEdtxt.error = getString(R.string.enter_a_name_for_account)
-            nameEdtxt.requestFocus()
+            mView.nameEdtxt.error = getString(R.string.enter_a_name_for_account)
+            mView.nameEdtxt.requestFocus()
             return
         }
         if (selectedIcon == null || selectedIcon!!.isEmpty()) {

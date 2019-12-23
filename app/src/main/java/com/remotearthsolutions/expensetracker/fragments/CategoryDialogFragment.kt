@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter
 import com.remotearthsolutions.expensetracker.contracts.CategoryFragmentContract
@@ -18,12 +17,13 @@ import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.Utils.getDeviceScreenSize
 import com.remotearthsolutions.expensetracker.viewmodels.CategoryViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
+import kotlinx.android.synthetic.main.fragment_add_category.view.*
 import java.util.*
 
 class CategoryDialogFragment : DialogFragment(),
     CategoryFragmentContract.View {
+    private lateinit var mView: View
     private var viewModel: CategoryViewModel? = null
-    private lateinit var recyclerView: RecyclerView
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var categoryListAdapter: CategoryListAdapter
     private var callback: Callback? =
@@ -56,6 +56,7 @@ class CategoryDialogFragment : DialogFragment(),
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
+        mView = view
         val categoryDao =
             DatabaseClient.getInstance(mContext!!)?.appDatabase?.categoryDao()
 
@@ -63,13 +64,12 @@ class CategoryDialogFragment : DialogFragment(),
             ViewModelProviders.of(this, BaseViewModelFactory {
                 CategoryViewModel(this, categoryDao!!)
             }).get(CategoryViewModel::class.java)
-
-        recyclerView = view.findViewById(R.id.categoryrecyclearView)
-        recyclerView.setHasFixedSize(true)
+        
+        mView.categoryrecyclearView.setHasFixedSize(true)
         layoutManager = GridLayoutManager(mContext, NUMBER_OF_ELEMENT_IN_ROW)
-        recyclerView.layoutManager = layoutManager
+        mView.categoryrecyclearView.layoutManager = layoutManager
         categoryListAdapter = CategoryListAdapter(ArrayList())
-        recyclerView.adapter = categoryListAdapter
+        mView.categoryrecyclearView.adapter = categoryListAdapter
         viewModel!!.showCategories()
     }
 
@@ -87,7 +87,7 @@ class CategoryDialogFragment : DialogFragment(),
             }
         })
 
-        recyclerView.adapter = categoryListAdapter
+        mView.categoryrecyclearView.adapter = categoryListAdapter
         layoutManager.scrollToPosition(getPositionOfSelectedItem(categories, selectedCategoryId))
     }
 
