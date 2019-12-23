@@ -42,8 +42,6 @@ class AddAccountAmountDialogFragment : DialogFragment() {
         if (accountIncome != null) {
             mView.accountNameTv.text = accountIncome!!.name
             mView.accountImageIv.setImageResource(getIconId(accountIncome!!.icon!!))
-            mView.amountEdtxt.setText(accountIncome!!.amount.toString())
-            mView.amountEdtxt.setSelection(mView.amountEdtxt.text.toString().length)
         }
         mView.okBtn.setOnClickListener {
             val amount = mView.amountEdtxt.text.toString()
@@ -56,7 +54,7 @@ class AddAccountAmountDialogFragment : DialogFragment() {
                 return@setOnClickListener
             }
             val accountAmount = amount.toDouble()
-            accountIncome!!.amount = accountAmount
+            accountIncome!!.amount += accountAmount
             callback.onAmountAdded(accountIncome)
         }
     }

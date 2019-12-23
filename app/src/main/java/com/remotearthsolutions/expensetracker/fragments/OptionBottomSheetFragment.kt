@@ -10,8 +10,7 @@ import kotlinx.android.synthetic.main.fragment_optionbottomsheet.view.*
 
 class OptionBottomSheetFragment : BottomSheetDialogFragment(),
     View.OnClickListener {
-    private var callback: Callback? =
-        null
+    private var callback: Callback? = null
     private var optionsFor: OptionsFor? = null
     fun setCallback(
         callback: Callback?,

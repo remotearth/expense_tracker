@@ -95,8 +95,7 @@ class AccountsFragment : BaseFragment(),
             mView.accountList.onItemClickListener =
                 AdapterView.OnItemClickListener { _: AdapterView<*>?, _: View?, position: Int, _: Long ->
                     selectAccountModel = accounts[position]
-                    val optionBottomSheetFragment =
-                        OptionBottomSheetFragment()
+                    val optionBottomSheetFragment = OptionBottomSheetFragment()
                     optionBottomSheetFragment.setCallback(this@AccountsFragment, OptionsFor.ACCOUNT)
                     optionBottomSheetFragment.show(
                         childFragmentManager,
@@ -111,9 +110,7 @@ class AccountsFragment : BaseFragment(),
     }
 
     override fun onClickAddAmountBtn() {
-        val addAccountAmountDialogFragment =
-            AddAccountAmountDialogFragment()
-
+        val addAccountAmountDialogFragment = AddAccountAmountDialogFragment()
         addAccountAmountDialogFragment.setAccountIncome(selectAccountModel)
         addAccountAmountDialogFragment.setCallback(object :
             AddAccountAmountDialogFragment.Callback {
@@ -121,7 +118,6 @@ class AccountsFragment : BaseFragment(),
                 viewModel!!.addOrUpdateAccount(accountIncome)
                 addAccountAmountDialogFragment.dismiss()
             }
-
         })
         addAccountAmountDialogFragment.show(
             childFragmentManager,
@@ -147,8 +143,8 @@ class AccountsFragment : BaseFragment(),
             ).show()
             return
         }
-        show(
-            activity, getString(R.string.warning),
+        show(activity,
+            getString(R.string.warning),
             getString(R.string.deleting_this_account_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete),
             getString(R.string.yes),
             getString(R.string.not_now),
