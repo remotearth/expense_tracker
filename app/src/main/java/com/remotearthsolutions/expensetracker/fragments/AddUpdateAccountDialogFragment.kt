@@ -52,6 +52,7 @@ class AddUpdateAccountDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
+        mView = view
         if (accountModel != null) {
             mView.header.text = getString(R.string.update_account)
             mView.okBtn.text = getString(R.string.update)
