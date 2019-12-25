@@ -96,9 +96,7 @@ class ExpenseFragmentViewModel(
             return
         }
         compositeDisposable.add(Completable.fromAction {
-            expenseDao.delete(
-                categoryExpense.expenseId
-            )
+            expenseDao.delete(categoryExpense.expenseId)
         }.subscribeOn(
             Schedulers.io()
         )
@@ -106,5 +104,4 @@ class ExpenseFragmentViewModel(
             .subscribe { view.onExpenseDeleted(categoryExpense) }
         )
     }
-
 }

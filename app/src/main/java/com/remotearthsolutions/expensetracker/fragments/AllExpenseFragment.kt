@@ -57,9 +57,11 @@ class AllExpenseFragment : BaseFragment(), ExpenseView {
         adapter = ExpenseListAdapter(listOffilterExpense, currencySymbol!!)
         adapter.setOnItemClickListener(object : ExpenseListAdapter.OnItemClickListener {
             override fun onItemClick(categoryExpense: CategoryExpense?) {
+                val copyOfCategoryExpense = categoryExpense!!.copy()
                 (context as MainActivity).openAddExpenseScreen(
-                    categoryExpense!!,
-                    getString(R.string.update_expense)
+                    copyOfCategoryExpense,
+                    getString(R.string.update_expense),
+                    ExpenseFragment.Purpose.UPDATE
                 )
             }
         })

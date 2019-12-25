@@ -24,9 +24,7 @@ class AccountViewModel(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { listOfAccount: List<AccountModel>? ->
-                    view.onAccountFetch(
-                        listOfAccount
-                    )
+                    view.onAccountFetch(listOfAccount)
                 }
         )
     }

@@ -38,9 +38,12 @@ import java.util.*
 
 class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
 
+    var purpose: Purpose? = null
     private lateinit var mView: View
     private var viewModel: ExpenseFragmentViewModel? = null
-    private var categoryExpense: CategoryExpense? = null
+    private var prevCategoryExpense: CategoryExpense? = null
+    private var exisitingSource: Int = 0
+    private var exisitingExpenseId: Int = 0
     private lateinit var mContext: Context
     private lateinit var mResources: Resources
     override fun onAttach(context: Context) {
@@ -80,27 +83,30 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
 
         val args = arguments
         if (args != null) {
-            categoryExpense =
+            prevCategoryExpense =
                 Parcels.unwrap<CategoryExpense>(args.getParcelable(Constants.CATEGORYEXPENSE_PARCEL))
-            if (categoryExpense != null) {
-                mView.showcatimage.setImageResource(getIconId(categoryExpense!!.categoryIcon!!))
-                mView.showcatname.text = categoryExpense!!.categoryName
-                if (categoryExpense!!.totalAmount > 0) {
-                    mView.inputdigit.setText(categoryExpense!!.totalAmount.toString())
+            if (prevCategoryExpense != null) {
+                exisitingSource = prevCategoryExpense!!.accountId
+                exisitingExpenseId = prevCategoryExpense!!.expenseId
+                mView.showcatimage.setImageResource(getIconId(prevCategoryExpense!!.categoryIcon!!))
+                mView.showcatname.text = prevCategoryExpense!!.categoryName
+
+                if (prevCategoryExpense!!.totalAmount > 0) {
+                    mView.inputdigit.setText(prevCategoryExpense!!.totalAmount.toString())
                 }
-                mView.expenseNoteEdtxt.setText(categoryExpense!!.note)
-                if (categoryExpense!!.datetime > 0) {
+                mView.expenseNoteEdtxt.setText(prevCategoryExpense!!.note)
+                if (prevCategoryExpense!!.datetime > 0) {
                     mView.dateTv.text = getDate(
-                        categoryExpense!!.datetime,
+                        prevCategoryExpense!!.datetime,
                         DateTimeUtils.dd_MM_yyyy
                     )
                 }
             } else {
                 viewModel!!.setDefaultCategory()
             }
-            if (categoryExpense != null && categoryExpense!!.accountIcon != null) {
-                mView.accountImageIv.setImageResource(getIconId(categoryExpense!!.accountIcon!!))
-                mView.accountNameTv.text = categoryExpense!!.accountName
+            if (prevCategoryExpense != null && prevCategoryExpense!!.accountIcon != null) {
+                mView.accountImageIv.setImageResource(getIconId(prevCategoryExpense!!.accountIcon!!))
+                mView.accountNameTv.text = prevCategoryExpense!!.accountName
             } else {
                 val accountId = SharedPreferenceUtils.getInstance(mContext)!!.getInt(
                     Constants.KEY_SELECTED_ACCOUNT_ID,
@@ -120,7 +126,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 AccountDialogFragment.newInstance(getString(R.string.select_account))
             accountDialogFragment.setCallback(object : AccountDialogFragment.Callback {
                 override fun onSelectAccount(accountIncome: AccountModel) {
-                    categoryExpense!!.setAccount(accountIncome)
+                    prevCategoryExpense!!.setAccount(accountIncome)
                     mView.accountImageIv.setImageResource(getIconId(accountIncome.icon!!))
                     mView.accountNameTv.text = accountIncome.name
                     accountDialogFragment.dismiss()
@@ -136,13 +142,13 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             val fm = childFragmentManager
             val categoryDialogFragment: CategoryDialogFragment =
                 CategoryDialogFragment.newInstance(getString(R.string.select_category))
-            categoryDialogFragment.setCategory(categoryExpense?.categoryId!!)
+            categoryDialogFragment.setCategory(prevCategoryExpense?.categoryId!!)
             categoryDialogFragment.setCallback(object : CategoryDialogFragment.Callback {
                 override fun onSelectCategory(category: CategoryModel?) {
                     mView.showcatimage.setImageResource(getIconId(category?.icon!!))
                     mView.showcatname.text = category.name
                     categoryDialogFragment.dismiss()
-                    categoryExpense!!.setCategory(category)
+                    prevCategoryExpense!!.setCategory(category)
                 }
             })
             categoryDialogFragment.show(fm, CategoryDialogFragment::class.java.name)
@@ -188,34 +194,44 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 return@setOnClickListener
             }
             val expenseModel = ExpenseModel()
-            if (categoryExpense!!.expenseId > 0) {
-                expenseModel.id = categoryExpense!!.expenseId
-            }
             expenseModel.amount = amount
             expenseModel.datetime = getTimeInMillisFromDateStr(
                 mView.dateTv.text.toString()
                         + " " + currentTime, DateTimeUtils.dd_MM_yyyy_h_mm
             )
-            expenseModel.categoryId = categoryExpense!!.categoryId
-            expenseModel.source = categoryExpense!!.accountId
+            expenseModel.categoryId = prevCategoryExpense!!.categoryId
+            expenseModel.source = prevCategoryExpense!!.accountId
             expenseModel.note = mView.expenseNoteEdtxt.text.toString()
+
+            purpose?.let {
+                if (it == Purpose.UPDATE) {
+                    val existingExp = CategoryExpense()
+                    existingExp.expenseId = exisitingExpenseId
+                    viewModel!!.deleteExpense(existingExp)
+                    viewModel!!.updateAccountAmount(
+                        exisitingSource,
+                        amount * -1
+                    )
+                }
+            }
             viewModel!!.addExpense(expenseModel)
         }
+
         mView.expenseNoteEdtxt.setOnClickListener {
             val builder =
                 AlertDialog.Builder(mContext).create()
             val dialogView =
                 layoutInflater.inflate(R.layout.view_add_note, null)
             val noteEdtxt = dialogView.findViewById<EditText>(R.id.noteEdtxt)
-            val note = categoryExpense!!.note
+            val note = prevCategoryExpense!!.note
             if (note != null) {
-                noteEdtxt.setText(categoryExpense!!.note)
-                noteEdtxt.setSelection(categoryExpense!!.note!!.length)
+                noteEdtxt.setText(prevCategoryExpense!!.note)
+                noteEdtxt.setSelection(prevCategoryExpense!!.note!!.length)
             }
             dialogView.findViewById<View>(R.id.okBtn)
                 .setOnClickListener {
                     val str = noteEdtxt.text.toString()
-                    categoryExpense!!.note = str
+                    prevCategoryExpense!!.note = str
                     mView.expenseNoteEdtxt.setText(str)
                     builder.dismiss()
                 }
@@ -223,14 +239,14 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             builder.show()
         }
         mView.expenseDeleteBtn.setOnClickListener {
-            if (categoryExpense!!.expenseId > 0) {
+            if (prevCategoryExpense!!.expenseId > 0) {
                 showAlert(getString(R.string.attention),
                     getString(R.string.are_you_sure_you_want_to_delete_this_expense_entry),
                     getString(R.string.yes),
                     getString(R.string.not_now),
                     object : BaseView.Callback {
                         override fun onOkBtnPressed() {
-                            viewModel!!.deleteExpense(categoryExpense)
+                            viewModel!!.deleteExpense(prevCategoryExpense)
                         }
 
                         override fun onCancelBtnPressed() {}
@@ -245,7 +261,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         mView.inputdigit.setText("")
         Toast.makeText(activity, getString(R.string.successfully_added), Toast.LENGTH_SHORT)
             .show()
-        viewModel!!.updateAccountAmount(categoryExpense?.accountId!!, amount)
+        viewModel!!.updateAccountAmount(prevCategoryExpense?.accountId!!, amount)
         val mainActivity = mContext as MainActivity?
         mainActivity!!.updateSummary()
         mainActivity.refreshChart()
@@ -271,7 +287,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         ).show()
         (mContext as Activity?)!!.onBackPressed()
         viewModel!!.updateAccountAmount(
-            this.categoryExpense?.accountId!!,
+            this.prevCategoryExpense?.accountId!!,
             categoryExpense?.totalAmount!! * -1
         )
         val mainActivity = mContext as MainActivity?
@@ -279,10 +295,10 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
     }
 
     override fun setSourceAccount(account: AccountModel?) {
-        if (categoryExpense == null) {
-            categoryExpense = CategoryExpense()
+        if (prevCategoryExpense == null) {
+            prevCategoryExpense = CategoryExpense()
         }
-        categoryExpense!!.setAccount(account!!)
+        prevCategoryExpense!!.setAccount(account!!)
         mView.accountImageIv.setImageResource(getIconId(account.icon!!))
         mView.accountNameTv.text = account.name
         SharedPreferenceUtils.getInstance(mContext)!!.putInt(
@@ -292,12 +308,16 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
     }
 
     override fun showDefaultCategory(categoryModel: CategoryModel?) {
-        if (categoryExpense == null) {
-            categoryExpense = CategoryExpense()
+        if (prevCategoryExpense == null) {
+            prevCategoryExpense = CategoryExpense()
         }
-        categoryExpense!!.setCategory(categoryModel!!)
+        prevCategoryExpense!!.setCategory(categoryModel!!)
         mView.showcatimage.setImageResource(getIconId(categoryModel.icon!!))
         mView.showcatname.text = categoryModel.name
+    }
+
+    enum class Purpose {
+        ADD, UPDATE
     }
 
 }

@@ -91,4 +91,20 @@ class CategoryExpense {
         accountName = account.name
         accountIcon = account.icon
     }
+
+    fun copy() : CategoryExpense{
+        val categoryExpense = CategoryExpense()
+        categoryExpense.expenseId = this.expenseId
+        categoryExpense.categoryId = this.categoryId
+        categoryExpense.categoryName = this.categoryName
+        categoryExpense.categoryIcon = this.categoryIcon
+        categoryExpense.totalAmount = this.totalAmount
+        categoryExpense.datetime = this.datetime
+        categoryExpense.accountId = this.accountId
+        categoryExpense.accountName = this.accountName
+        categoryExpense.accountIcon = this.accountIcon
+        categoryExpense.note = this.note
+        categoryExpense.isHeader = this.isHeader
+        return categoryExpense
+    }
 }

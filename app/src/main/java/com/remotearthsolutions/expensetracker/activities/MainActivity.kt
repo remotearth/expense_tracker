@@ -301,10 +301,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     fun openAddExpenseScreen(
         categoryExpense: CategoryExpense?,
-        title: String = getString(R.string.add_expense)
+        title: String = getString(R.string.add_expense),
+        purpose: ExpenseFragment.Purpose = ExpenseFragment.Purpose.ADD
     ) {
         supportActionBar!!.title = title
         val expenseFragment = ExpenseFragment()
+        expenseFragment.purpose = purpose
         val wrappedCategoryExpense = Parcels.wrap(categoryExpense)
         val bundle = Bundle()
         bundle.putParcelable(
