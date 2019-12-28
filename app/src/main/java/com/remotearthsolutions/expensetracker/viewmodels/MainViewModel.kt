@@ -65,11 +65,7 @@ class MainViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { amount: Double?, throwable: Throwable? ->
                     if (throwable == null) {
-                        view.showTotalExpense(
-                            formatDecimalValues(
-                                amount!!
-                            )
-                        )
+                        view.showTotalExpense(formatDecimalValues(amount!!))
                     } else {
                         throwable.printStackTrace()
                         view.showTotalExpense(

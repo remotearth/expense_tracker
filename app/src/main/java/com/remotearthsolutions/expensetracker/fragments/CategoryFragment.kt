@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
+import com.remotearthsolutions.expensetracker.activities.MainActivity
 import com.remotearthsolutions.expensetracker.adapters.CategoryListViewAdapter
 import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.contracts.CategoryFragmentContract
@@ -46,10 +47,14 @@ class CategoryFragment : BaseFragment(),
         mView.cat_recycler.layoutManager = LinearLayoutManager(mContext)
         val categoryDao =
             DatabaseClient.getInstance(mContext!!)?.appDatabase?.categoryDao()
+        val expenseDao =
+            DatabaseClient.getInstance(mContext!!)?.appDatabase?.expenseDao()
+        val accountDao =
+            DatabaseClient.getInstance(mContext!!)?.appDatabase?.accountDao()
 
         viewModel =
             ViewModelProviders.of(this, BaseViewModelFactory {
-                CategoryViewModel(this, categoryDao!!)
+                CategoryViewModel(this, categoryDao!!, expenseDao!!, accountDao!!)
             }).get(CategoryViewModel::class.java)
 
         viewModel!!.showCategories()
@@ -129,6 +134,7 @@ class CategoryFragment : BaseFragment(),
                         getString(R.string.category_deleted_successfully),
                         Toast.LENGTH_LONG
                     ).show()
+                    (activity as MainActivity).updateSummary()
                 }
 
                 override fun onCancelBtnPressed() {}
