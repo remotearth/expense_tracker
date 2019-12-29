@@ -35,5 +35,8 @@ interface ExpenseDao {
     val allExpenseEntry: Flowable<List<ExpenseModel>>
 
     @Query("Select * from expense where category_id = :categoryId")
-    fun getExpensesOfCategory(categoryId: Int) : Flowable<List<ExpenseModel>>
+    fun getExpensesOfCategory(categoryId: Int): Flowable<List<ExpenseModel>>
+
+    @Query("Delete From expense where account_id = :accountId")
+    fun deleteExpensesOfAccounts(accountId: Int)
 }

@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
+import com.remotearthsolutions.expensetracker.activities.MainActivity
 import com.remotearthsolutions.expensetracker.adapters.AccountsAdapter
 import com.remotearthsolutions.expensetracker.contracts.AccountContract
 import com.remotearthsolutions.expensetracker.contracts.BaseView
@@ -19,6 +20,8 @@ import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
 import com.remotearthsolutions.expensetracker.fragments.OptionBottomSheetFragment.OptionsFor
 import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils.show
+import com.remotearthsolutions.expensetracker.utils.Constants
+import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
 import com.remotearthsolutions.expensetracker.viewmodels.AccountViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
@@ -57,12 +60,14 @@ class AccountsFragment : BaseFragment(),
         if (mContext != null) {
             currencySymbol = getCurrency(mContext!!)
         }
-        val accountDao =
-            DatabaseClient.getInstance(mContext!!)?.appDatabase?.accountDao()
 
         viewModel =
             ViewModelProviders.of(this, BaseViewModelFactory {
-                AccountViewModel(mContext!!, this, accountDao!!)
+                AccountViewModel(
+                    mContext!!, this,
+                    DatabaseClient.getInstance(mContext!!)?.appDatabase?.accountDao()!!,
+                    DatabaseClient.getInstance(mContext!!)?.appDatabase?.expenseDao()!!
+                )
             }).get(AccountViewModel::class.java)
 
         viewModel!!.loadAccounts()
@@ -107,6 +112,14 @@ class AccountsFragment : BaseFragment(),
 
     override fun onSuccess(message: String?) {
         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDeleteAccount() {
+        (activity as MainActivity).updateSummary()
+        if (selectAccountModel?.id!! > 3) {
+            SharedPreferenceUtils.getInstance(activity!!)
+                ?.putInt(Constants.KEY_SELECTED_ACCOUNT_ID, 1)
+        }
     }
 
     override fun onClickAddAmountBtn() {

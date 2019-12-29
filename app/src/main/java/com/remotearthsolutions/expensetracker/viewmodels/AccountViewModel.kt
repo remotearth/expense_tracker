@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.contracts.AccountContract
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao
+import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,7 +16,8 @@ import io.reactivex.schedulers.Schedulers
 class AccountViewModel(
     private val context: Context,
     private val view: AccountContract.View,
-    private val accountDao: AccountDao
+    private val accountDao: AccountDao,
+    private val expenseDao: ExpenseDao
 ) : ViewModel() {
     private val mDisposable = CompositeDisposable()
     fun loadAccounts() {
@@ -50,12 +52,14 @@ class AccountViewModel(
             return
         }
         mDisposable.add(Completable.fromAction {
-            accountDao.deleteAccount(
-                selectAccountIncome
-            )
+            accountDao.deleteAccount(selectAccountIncome)
+            expenseDao.deleteExpensesOfAccounts(selectAccountIncome.id)
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { view.onSuccess(context.getString(R.string.operation_successful)) }
+            .subscribe {
+                view.onSuccess(context.getString(R.string.operation_successful))
+                view.onDeleteAccount()
+            }
         )
     }
 

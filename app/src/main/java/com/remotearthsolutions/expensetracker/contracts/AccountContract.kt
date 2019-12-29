@@ -6,5 +6,7 @@ interface AccountContract {
     interface View {
         fun onAccountFetch(accounts: List<AccountModel>?)
         fun onSuccess(message: String?)
+        fun onDeleteAccount()
+
     }
 }
