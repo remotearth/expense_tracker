@@ -22,7 +22,6 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.Category
 import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils.show
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.Constants.Companion.KEY_UTF_VERSION
-import com.remotearthsolutions.expensetracker.utils.DateTimeUtils
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getCurrentDate
 import com.remotearthsolutions.expensetracker.utils.PermissionUtils
 import java.io.*
@@ -122,28 +121,25 @@ class FileProcessingServiceImp : FileProcessingService {
         val file = File(filepath)
         var fileReader: BufferedReader? = null
         try {
-            var line: String
+            var line: String?
             fileReader = BufferedReader(FileReader(file))
-            fileReader.readLine()
+            //fileReader.readLine()
+
             while (fileReader.readLine().also { line = it } != null) {
                 when {
-                    line.contains(Constants.KEY_META1_REPLACE) -> {
-                        line = line.replace(
+                    line!!.contains(Constants.KEY_META1_REPLACE) -> {
+                        line = line!!.replace(
                             Constants.KEY_META1_REPLACE,
                             ""
                         )
                         val jsonContent = String(
                             Base64.decode(line, Base64.NO_WRAP), Charset.forName(KEY_UTF_VERSION)
                         )
-                        expenseModels = listOf(
-                            *Gson().fromJson(
-                                jsonContent,
-                                Array<ExpenseModel>::class.java
-                            )
-                        )
+                        expenseModels =
+                            Gson().fromJson(jsonContent, Array<ExpenseModel>::class.java).toList()
                     }
-                    line.contains(Constants.KEY_META2_REPLACE) -> {
-                        line = line.replace(
+                    line!!.contains(Constants.KEY_META2_REPLACE) -> {
+                        line = line!!.replace(
                             Constants.KEY_META2_REPLACE,
                             ""
                         )
@@ -152,15 +148,11 @@ class FileProcessingServiceImp : FileProcessingService {
                                 KEY_UTF_VERSION
                             )
                         )
-                        categoryModels = listOf(
-                            *Gson().fromJson(
-                                jsonContent,
-                                Array<CategoryModel>::class.java
-                            )
-                        )
+                        categoryModels =
+                            Gson().fromJson(jsonContent, Array<CategoryModel>::class.java).toList()
                     }
-                    line.contains(Constants.KEY_META3_REPLACE) -> {
-                        line = line.replace(
+                    line!!.contains(Constants.KEY_META3_REPLACE) -> {
+                        line = line!!.replace(
                             Constants.KEY_META3_REPLACE,
                             ""
                         )
@@ -169,15 +161,15 @@ class FileProcessingServiceImp : FileProcessingService {
                                 Base64.decode(line, Base64.NO_WRAP),
                                 Charset.forName(KEY_UTF_VERSION)
                             )
-                        accountModels = listOf(
-                            *Gson().fromJson(jsonContent, Array<AccountModel>::class.java)
-                        )
+                        accountModels =
+                            Gson().fromJson(jsonContent, Array<AccountModel>::class.java).toList()
                     }
                 }
             }
             callback!!.onComplete(categoryModels, expenseModels, accountModels)
         } catch (e: Exception) {
             Log.d("Exception", "" + e.message)
+            e.printStackTrace()
         } finally {
             try {
                 fileReader!!.close()
@@ -282,7 +274,7 @@ class FileProcessingServiceImp : FileProcessingService {
 
     private fun createFileNameAccordingToDate(): String {
         return Constants.KEY_EXPENSE_TRACKER + getCurrentDate(
-            DateTimeUtils.dd_MM_yyyy
+            Constants.KEY_DATE_MONTH_YEAR_HOUR_MIN_SEC
         ) + Constants.KEY_CSV_FILE_EXTENSION
     }
 

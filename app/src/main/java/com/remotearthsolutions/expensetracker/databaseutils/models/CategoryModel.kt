@@ -19,8 +19,7 @@ class CategoryModel {
     var notremovable = 0
 
     @Ignore
-    constructor() {
-    }
+    constructor()
 
     constructor(name: String?, icon: String?, notremovable: Int) {
         this.name = name

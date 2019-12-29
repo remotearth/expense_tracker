@@ -58,10 +58,10 @@ class DashboardViewModel(
                             expenseDao.allExpenseEntry.subscribeOn(Schedulers.io()).observeOn(
                                 Schedulers.io()
                             ).subscribe { entries: List<ExpenseModel?>? ->
-                                val json = Gson().toJson(entries)
+                                val expenseJson = Gson().toJson(entries)
                                 val encryptedStr =
                                     Base64.encodeToString(
-                                        json.toByteArray(charset(KEY_UTF_VERSION)),
+                                        expenseJson.toByteArray(charset(KEY_UTF_VERSION)),
                                         Base64.NO_WRAP
                                     )
                                 stringBuilder.append(Constants.KEY_META1_REPLACE + encryptedStr + "\n")
@@ -69,10 +69,10 @@ class DashboardViewModel(
                                     categoryDao.allCategories.subscribeOn(
                                         Schedulers.io()
                                     ).observeOn(Schedulers.io()).subscribe { entries1: List<CategoryModel?>? ->
-                                        Gson().toJson(entries1)
+                                        val categoryJson = Gson().toJson(entries1)
                                         val encryptedStr1 =
                                             Base64.encodeToString(
-                                                json.toByteArray(charset(KEY_UTF_VERSION)),
+                                                categoryJson.toByteArray(charset(KEY_UTF_VERSION)),
                                                 Base64.NO_WRAP
                                             )
                                         stringBuilder.append(Constants.KEY_META2_REPLACE + encryptedStr1 + "\n")
@@ -80,10 +80,10 @@ class DashboardViewModel(
                                             accountDao.allAccounts.subscribeOn(
                                                 Schedulers.io()
                                             ).observeOn(Schedulers.io()).subscribe { entries2: List<AccountModel?>? ->
-                                                val json2 = Gson().toJson(entries2)
+                                                val accountJson = Gson().toJson(entries2)
                                                 val encryptedStr2 =
                                                     Base64.encodeToString(
-                                                        json2.toByteArray(charset(KEY_UTF_VERSION)),
+                                                        accountJson.toByteArray(charset(KEY_UTF_VERSION)),
                                                         Base64.NO_WRAP
                                                     )
                                                 stringBuilder.append(Constants.KEY_META3_REPLACE + encryptedStr2 + "\n")
@@ -94,9 +94,9 @@ class DashboardViewModel(
                                                         shareCSVFileToMail(
                                                             activity
                                                         )
-                                                        disposable.dispose()
+                                                        disposable.clear()
                                                     },
-                                                    Runnable { disposable.dispose() }
+                                                    Runnable { disposable.clear() }
                                                 )
                                             }
                                         )
@@ -112,7 +112,7 @@ class DashboardViewModel(
                             null,
                             null
                         )
-                        disposable.dispose()
+                        disposable.clear()
                     }
                 }
         )
@@ -140,16 +140,17 @@ class DashboardViewModel(
                 ) {
                     Executors.newSingleThreadExecutor().execute {
                         categoryDao.deleteAll()
+                        accountDao.deleteAll()
+                        expenseDao.deleteAll()
+
                         for (categoryModel in categories!!) {
                             categoryDao.addCategory(categoryModel)
                         }
-                        expenseDao.deleteAll()
-                        for (expenseModel in expenseModels!!) {
-                            expenseDao.add(expenseModel)
-                        }
-                        accountDao.deleteAll()
                         for (accountModel in accountModels!!) {
                             accountDao.addAccount(accountModel)
+                        }
+                        for (expenseModel in expenseModels!!) {
+                            expenseDao.add(expenseModel)
                         }
                     }
                 }

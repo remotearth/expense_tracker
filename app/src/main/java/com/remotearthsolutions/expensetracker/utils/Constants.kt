@@ -61,6 +61,7 @@ interface Constants {
         const val KEY_MONTH_DATE_YEAR_BACKSLASH = "MM/dd/yyyy"
         const val KEY_YEAR_MONTH_DATE_BACKSLASH = "yyyy/mm/dd"
         const val KEY_DATE_MONTH_YEAR_HOUR_MINIT_AM_PM = "dd-MM-yyyy h:mm a"
+        const val KEY_DATE_MONTH_YEAR_HOUR_MIN_SEC = "dd-MM-yyyy h:mm:ss"
         const val KEY_MONTH_YEAR = "MMMM,yy"
         const val KEY_YEAR = "yyyy"
         const val KEY_MONTH = "MMMM"
