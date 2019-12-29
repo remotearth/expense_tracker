@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-        xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ListPreference
-        android:key="@string/preferencekey"
-        android:title="@string/preferencetitle"
         android:defaultValue="United States Dollar - USD"
-        android:entryValues="@array/currency"
         android:entries="@array/currency"
+        android:entryValues="@array/currency"
         android:icon="@drawable/settings_currency"
-        android:summary="@string/summarypreftext"/>
+        android:key="@string/preferencekey"
+        android:summary="@string/summarypreftext"
+        android:title="@string/preferencetitle" />
 
     <ListPreference
-            android:key="@string/prefdate"
-            android:title="@string/timeperiod"
-            android:defaultValue="@string/daily"
-            android:entryValues="@array/TimePeriod"
-            android:entries="@array/TimePeriod"
-            android:icon="@drawable/settings_timeperiod"
-            android:summary="@string/selectperiodfromhere"/>
+        android:defaultValue="@string/daily"
+        android:entries="@array/TimePeriod"
+        android:entryValues="@array/TimePeriod"
+        android:icon="@drawable/settings_timeperiod"
+        android:key="@string/prefdate"
+        android:summary="@string/selectperiodfromhere"
+        android:title="@string/timeperiod" />
 
+    <ListPreference
+        android:defaultValue="@string/default_time_format"
+        android:entries="@array/TimeFormat"
+        android:entryValues="@array/TimeFormat"
+        android:icon="@drawable/ic_change_date_formate"
+        android:key="@string/preftimeformat"
+        android:summary="@string/select_time_format_from_here"
+        android:title="@string/prefTimeFormatTitle" />
 
 </PreferenceScreen>

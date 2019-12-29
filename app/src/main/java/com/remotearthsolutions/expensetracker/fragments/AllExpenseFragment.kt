@@ -14,6 +14,8 @@ import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract.
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
+import com.remotearthsolutions.expensetracker.utils.Constants
+import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
@@ -47,7 +49,14 @@ class AllExpenseFragment : BaseFragment(), ExpenseView {
 
         viewModel =
             ViewModelProviders.of(this, BaseViewModelFactory {
-                ExpenseViewModel(this, db?.expenseDao()!!, db.categoryExpenseDao())
+                ExpenseViewModel(
+                    this, db?.expenseDao()!!, db.categoryExpenseDao(),
+                    SharedPreferenceUtils.getInstance(mContext!!)!!
+                        .getString(
+                            Constants.PREF_TIME_FORMAT,
+                            resources.getString(R.string.default_time_format)
+                        )
+                )
             }).get(ExpenseViewModel::class.java)
 
         return mView

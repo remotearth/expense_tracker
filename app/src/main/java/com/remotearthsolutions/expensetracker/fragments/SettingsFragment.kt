@@ -15,6 +15,7 @@ import com.remotearthsolutions.expensetracker.utils.FabricAnswersUtils.logCustom
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils.getFlagDrawable
 
+
 class SettingsFragment : PreferenceFragmentCompat() {
 
     private var preferenceChangeListener: OnSharedPreferenceChangeListener? = null
@@ -27,6 +28,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
             Constants.PREF_PERIOD,
             resources.getString(R.string.daily)
         )
+
+        val preferenceTimeFormat = findPreference<Preference>(Constants.PREF_TIME_FORMAT)
+        preferenceTimeFormat!!.summary = SharedPreferenceUtils.getInstance(context!!)!!.getString(
+            Constants.PREF_TIME_FORMAT,
+            resources.getString(R.string.default_time_format)
+        )
+
         val preferenceCurrency =
             findPreference<Preference>(Constants.PREF_CURRENCY)
         val currencyName = SharedPreferenceUtils.getInstance(context!!)?.getString(
@@ -41,27 +49,34 @@ class SettingsFragment : PreferenceFragmentCompat() {
         )
         preferenceChangeListener =
             OnSharedPreferenceChangeListener { sharedPreferences: SharedPreferences, key: String ->
-                if (key == Constants.PREF_CURRENCY) {
-                    val currencyPreference =
-                        findPreference<Preference>(key)
-                    val `val` = sharedPreferences.getString(
-                        key,
-                        resources.getString(R.string.default_currency)
-                    )
-                    currencyPreference!!.summary = `val`
-                    currencyPreference.setIcon(
-                        getFlagDrawable(
-                            context!!
+                when (key) {
+                    Constants.PREF_CURRENCY -> {
+                        val currencyPreference =
+                            findPreference<Preference>(key)
+                        val `val` = sharedPreferences.getString(
+                            key,
+                            resources.getString(R.string.default_currency)
                         )
-                    )
-                    logCustom(`val`)
-                } else if (key == Constants.PREF_PERIOD) {
-                    val periodPreference =
-                        findPreference<Preference>(key)
-                    periodPreference!!.summary = sharedPreferences.getString(
-                        key,
-                        resources.getString(R.string.daily)
-                    )
+                        currencyPreference!!.summary = `val`
+                        currencyPreference.setIcon(
+                            getFlagDrawable(
+                                context!!
+                            )
+                        )
+                        logCustom(`val`)
+                    }
+                    Constants.PREF_PERIOD -> {
+                        val periodPreference =
+                            findPreference<Preference>(key)
+                        periodPreference!!.summary = sharedPreferences.getString(key, resources.getString(R.string.daily)
+                        )
+                    }
+                    Constants.PREF_TIME_FORMAT -> {
+                        val timeFormatPreference =
+                            findPreference<Preference>(key)
+                        timeFormatPreference!!.summary =
+                            sharedPreferences.getString(key, resources.getString(R.string.default_time_format))
+                    }
                 }
             }
         preferenceScreen.sharedPreferences

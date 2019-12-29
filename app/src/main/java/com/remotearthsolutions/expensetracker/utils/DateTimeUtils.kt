@@ -7,13 +7,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object DateTimeUtils {
-    val dd_MM_yyyy: String =
-        com.remotearthsolutions.expensetracker.utils.Constants.KEY_DATE_MONTH_YEAR
-    val dd_MM_yyyy_h_mm: String =
-        com.remotearthsolutions.expensetracker.utils.Constants.KEY_DATE_MONTH_YEAR_HOUR_MINIT_AM_PM
-    val MM_yy: String = com.remotearthsolutions.expensetracker.utils.Constants.KEY_MONTH_YEAR
-    val yyyy: String = com.remotearthsolutions.expensetracker.utils.Constants.KEY_YEAR
-    val mmmm: String = com.remotearthsolutions.expensetracker.utils.Constants.KEY_MONTH
+    val dd_MM_yyyy: String = Constants.KEY_DATE_MONTH_YEAR_DEFAULT
+    val dd_MM_yyyy_h_mm: String = Constants.KEY_DATE_MONTH_YEAR_HOUR_MINIT_AM_PM
+    val MM_yy: String = Constants.KEY_MONTH_YEAR
+    val yyyy: String = Constants.KEY_YEAR
+    val mmmm: String = Constants.KEY_MONTH
     fun getCurrentDate(format: String?): String {
         val calendar = Calendar.getInstance()
         val dateFormat: DateFormat =
@@ -25,7 +23,7 @@ object DateTimeUtils {
         get() {
             val calendar = Calendar.getInstance()
             val dateFormat: DateFormat = SimpleDateFormat(
-                com.remotearthsolutions.expensetracker.utils.Constants.KEY_HOUR_MINIT_AM_PM,
+                Constants.KEY_HOUR_MINIT_AM_PM,
                 Locale.getDefault()
             )
             return dateFormat.format(calendar.time)

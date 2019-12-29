@@ -16,7 +16,8 @@ import java.util.*
 class ExpenseViewModel(
     private val view: ExpenseView,
     private val expenseDao: ExpenseDao,
-    private val categoryExpenseDao: CategoryExpenseDao
+    private val categoryExpenseDao: CategoryExpenseDao,
+    private val dateFormat: String
 ) : ViewModel() {
     private val disposable = CompositeDisposable()
     private var dateRangeBtnId = 0
@@ -45,7 +46,7 @@ class ExpenseViewModel(
                             val header = CategoryExpense()
                             header.isHeader = true
                             header.categoryName =
-                                getDate(previousDate, DateTimeUtils.dd_MM_yyyy)
+                                getDate(previousDate, dateFormat)
                             expenseList.add(header)
                         }
                         for (i in listOfFilterExpense.indices) {
@@ -64,17 +65,17 @@ class ExpenseViewModel(
                             if (dateRangeBtnId != R.id.dailyRangeBtn) {
                                 if (getDate(
                                         expense.datetime,
-                                        DateTimeUtils.dd_MM_yyyy
+                                        dateFormat
                                     ) != getDate(
                                         previousDate,
-                                        DateTimeUtils.dd_MM_yyyy
+                                        dateFormat
                                     )
                                 ) {
                                     val dummy = CategoryExpense()
                                     dummy.isHeader = true
                                     dummy.categoryName = getDate(
                                         expense.datetime,
-                                        DateTimeUtils.dd_MM_yyyy
+                                        dateFormat
                                     )
                                     previousDate = expense.datetime
                                     expenseList.add(dummy)

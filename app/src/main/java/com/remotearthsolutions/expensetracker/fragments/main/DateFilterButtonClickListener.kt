@@ -7,9 +7,11 @@ import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getCalendarFromDateString
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getDate
+import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class DateFilterButtonClickListener(private val callback: Callback) :
     View.OnClickListener {
@@ -27,6 +29,10 @@ class DateFilterButtonClickListener(private val callback: Callback) :
         var date: String? = null
         var startTime: Long = 0
         var endTime: Long = 0
+
+        val format = SharedPreferenceUtils.getInstance(v.context)
+            ?.getString(Constants.PREF_TIME_FORMAT, Constants.KEY_DATE_MONTH_YEAR_DEFAULT)
+
         when (v.id) {
             R.id.nextDateBtn -> {
                 when (selectedDate) {
@@ -34,13 +40,13 @@ class DateFilterButtonClickListener(private val callback: Callback) :
                         if (day < 0) {
                             day += 1
                         }
-                        date = getDate(DateTimeUtils.dd_MM_yyyy, day)
-                        startTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, date, 0, 0, 0)
-                        endTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, date, 23, 59, 59)
+                        date = getDate(format, day)
+                        startTime = getDateTimeInLong(format!!, date, 0, 0, 0)
+                        endTime = getDateTimeInLong(format, date, 23, 59, 59)
                     }
                     Constants.KEY_WEEKLY -> {
                         simpleDateFormat = SimpleDateFormat(
-                            DateTimeUtils.dd_MM_yyyy,
+                            format,
                             Locale.getDefault()
                         )
                         try {
@@ -49,16 +55,10 @@ class DateFilterButtonClickListener(private val callback: Callback) :
                                 startingOfWeek += 7
                             }
                             startDate = simpleDateFormat!!.parse(
-                                getDate(
-                                    DateTimeUtils.dd_MM_yyyy,
-                                    startingOfWeek
-                                )
+                                getDate(format, startingOfWeek)
                             )
                             endDate = simpleDateFormat!!.parse(
-                                getDate(
-                                    DateTimeUtils.dd_MM_yyyy,
-                                    endingOfWeek
-                                )
+                                getDate(format, endingOfWeek)
                             )
                         } catch (e: ParseException) {
                             Log.d("Exception", "" + e.message)
@@ -67,9 +67,9 @@ class DateFilterButtonClickListener(private val callback: Callback) :
                         val weeklastdate = simpleDateFormat!!.format(endDate)
                         date = "$weekstartdate - $weeklastdate"
                         startTime =
-                            getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, weekstartdate, 0, 0, 0)
+                            getDateTimeInLong(format!!, weekstartdate, 0, 0, 0)
                         endTime =
-                            getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, weeklastdate, 29, 59, 59)
+                            getDateTimeInLong(format, weeklastdate, 29, 59, 59)
                     }
                     Constants.KEY_MONTHLY -> {
                         simpleDateFormat =
@@ -110,13 +110,13 @@ class DateFilterButtonClickListener(private val callback: Callback) :
                 when (selectedDate) {
                     Constants.KEY_DAILY -> {
                         day -= 1
-                        date = getDate(DateTimeUtils.dd_MM_yyyy, day)
-                        startTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, date, 0, 0, 0)
-                        endTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, date, 23, 59, 59)
+                        date = getDate(format, day)
+                        startTime = getDateTimeInLong(format!!, date, 0, 0, 0)
+                        endTime = getDateTimeInLong(format, date, 23, 59, 59)
                     }
                     Constants.KEY_WEEKLY -> {
                         simpleDateFormat = SimpleDateFormat(
-                            DateTimeUtils.dd_MM_yyyy,
+                            format,
                             Locale.getDefault()
                         )
                         try {
@@ -124,13 +124,13 @@ class DateFilterButtonClickListener(private val callback: Callback) :
                             endingOfWeek -= 7
                             endDate = simpleDateFormat!!.parse(
                                 getDate(
-                                    DateTimeUtils.dd_MM_yyyy,
+                                    format,
                                     endingOfWeek
                                 )
                             )
                             startDate = simpleDateFormat!!.parse(
                                 getDate(
-                                    DateTimeUtils.dd_MM_yyyy,
+                                    format,
                                     startingOfWeek
                                 )
                             )
@@ -141,9 +141,9 @@ class DateFilterButtonClickListener(private val callback: Callback) :
                         val weeklastdate = simpleDateFormat!!.format(endDate)
                         date = "$weekstartdate - $weeklastdate"
                         startTime =
-                            getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, weekstartdate, 0, 0, 0)
+                            getDateTimeInLong(format!!, weekstartdate, 0, 0, 0)
                         endTime =
-                            getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, weeklastdate, 29, 59, 59)
+                            getDateTimeInLong(format, weeklastdate, 29, 59, 59)
                     }
                     Constants.KEY_MONTHLY -> {
                         simpleDateFormat =
@@ -179,25 +179,25 @@ class DateFilterButtonClickListener(private val callback: Callback) :
             R.id.dailyRangeBtn -> {
                 resetDate()
                 selectedDate = Constants.KEY_DAILY
-                date = getDate(DateTimeUtils.dd_MM_yyyy, day)
-                startTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, date, 0, 0, 0)
-                endTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, date, 23, 59, 59)
+                date = getDate(format, day)
+                startTime = getDateTimeInLong(format!!, date, 0, 0, 0)
+                endTime = getDateTimeInLong(format, date, 23, 59, 59)
             }
             R.id.weeklyRangeBtn -> {
                 resetDate()
                 selectedDate = Constants.KEY_WEEKLY
                 simpleDateFormat =
-                    SimpleDateFormat(DateTimeUtils.dd_MM_yyyy, Locale.getDefault())
+                    SimpleDateFormat(format, Locale.getDefault())
                 try {
                     startDate = simpleDateFormat!!.parse(
                         getDate(
-                            DateTimeUtils.dd_MM_yyyy,
+                            format,
                             startingOfWeek
                         )
                     )
                     endDate = simpleDateFormat!!.parse(
                         getDate(
-                            DateTimeUtils.dd_MM_yyyy,
+                            format,
                             endingOfWeek
                         )
                     )
@@ -207,8 +207,8 @@ class DateFilterButtonClickListener(private val callback: Callback) :
                 val weekstartdate = simpleDateFormat!!.format(startDate)
                 val weeklastdate = simpleDateFormat!!.format(endDate)
                 date = "$weekstartdate - $weeklastdate"
-                startTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, weekstartdate, 0, 0, 0)
-                endTime = getDateTimeInLong(DateTimeUtils.dd_MM_yyyy, weeklastdate, 29, 59, 59)
+                startTime = getDateTimeInLong(format!!, weekstartdate, 0, 0, 0)
+                endTime = getDateTimeInLong(format, weeklastdate, 29, 59, 59)
             }
             R.id.monthlyRangeBtn -> {
                 resetDate()

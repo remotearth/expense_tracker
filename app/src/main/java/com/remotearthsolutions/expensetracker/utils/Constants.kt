@@ -38,8 +38,10 @@ interface Constants {
         const val MULTIDEX_LICENSE_FILE =
             "file:///android_asset/licenses/LICENSEMultidex.txt"
         const val ADMOB_LICENSE_FILE = "file:///android_asset/licenses/LICENSEAdsense.txt"
+
         const val PREF_CURRENCY = "pref_currency_list"
         const val PREF_PERIOD = "pref_period_list"
+        const val PREF_TIME_FORMAT = "pref_time_format_list"
         const val PREF_ISFIRSTTIMEVISITED = "PREF_ISFIRSTTIMEVISITED"
         const val KEY_TITLE = "title"
         const val KEY_SCREEN = "screen"
@@ -54,7 +56,10 @@ interface Constants {
         const val KEY_GOOGLE_CLIENT_ID =
             "1034332655323-lv5t5fja6ef5co4vsaf9bv476c9rga9r.apps.googleusercontent.com"
         const val KEY_MESSAGE = "message"
-        const val KEY_DATE_MONTH_YEAR = "dd-MM-yyyy"
+        const val KEY_DATE_MONTH_YEAR_DEFAULT = "dd-MM-yyyy"
+        const val KEY_DATE_MONTH_YEAR_BACKSLASH = "dd/MM/yyyy"
+        const val KEY_MONTH_DATE_YEAR_BACKSLASH = "MM/dd/yyyy"
+        const val KEY_YEAR_MONTH_DATE_BACKSLASH = "yyyy/mm/dd"
         const val KEY_DATE_MONTH_YEAR_HOUR_MINIT_AM_PM = "dd-MM-yyyy h:mm a"
         const val KEY_MONTH_YEAR = "MMMM,yy"
         const val KEY_YEAR = "yyyy"

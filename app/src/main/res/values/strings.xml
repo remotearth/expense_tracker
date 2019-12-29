@@ -6,6 +6,8 @@
     <string name="preferencekey" translatable="false">pref_currency_list</string>
     <string name="defaultvalue" translatable="false">Bangladeshi Taka - BDT</string>
     <string name="prefdate" translatable="false">pref_period_list</string>
+    <string name="preftimeformat" translatable="false">pref_time_format_list</string>
+    <string name="prefTimeFormatTitle" translatable="false">Change Date Format</string>
     <string name="admob_app_id" translatable="false">ca-app-pub-3996731798982494~9482261632</string>
     <string name="admob_ad_id" translatable="false">ca-app-pub-3996731798982494/8955771736</string>
     <string name="admob_test_ad_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
@@ -92,8 +94,9 @@
 
     <string name="timeperiod">Time Period</string>
     <string name="day">Day</string>
-    <string name="selectperiodfromhere">Select period from here</string>
-
+    <string name="selectperiodfromhere">Select Period</string>
+    <string name="select_time_format_from_here">Select Date Format</string>
+    <string name="default_time_format">dd-MM-yyyy</string>
 
     <string name="accounts">Accounts</string>
     <string name="warning">Warning</string>

@@ -14,6 +14,7 @@ import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getCurrentDate
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getDate
+import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import kotlinx.android.synthetic.main.add_date.view.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -26,6 +27,8 @@ class DatePickerDialogFragment : DialogFragment(),
     private var cMonth = 0
     private var cYear = 0
     private lateinit var mContext: Context
+
+    private lateinit var format: String
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
@@ -53,8 +56,12 @@ class DatePickerDialogFragment : DialogFragment(),
         view: View,
         savedInstanceState: Bundle?
     ) {
-        view.showdyesterday.text = getDate(DateTimeUtils.dd_MM_yyyy, -1)
-        view.showdtoday.text = getCurrentDate(DateTimeUtils.dd_MM_yyyy)
+        format = SharedPreferenceUtils.getInstance(activity!!)!!.getString(
+            Constants.PREF_TIME_FORMAT,
+            Constants.KEY_DATE_MONTH_YEAR_DEFAULT
+        )
+        view.showdyesterday.text = getDate(format, -1)
+        view.showdtoday.text = getCurrentDate(format)
         view.previousdate.setOnClickListener(this)
         view.currentdate.setOnClickListener(this)
         view.selectdate.setOnClickListener(this)
@@ -63,11 +70,11 @@ class DatePickerDialogFragment : DialogFragment(),
     override fun onClick(v: View) {
         when (v.id) {
             R.id.currentdate -> {
-                val date = getCurrentDate(DateTimeUtils.dd_MM_yyyy)
+                val date = getCurrentDate(format)
                 callback!!.onSelectDate(date)
             }
             R.id.previousdate -> {
-                val date = getDate(DateTimeUtils.dd_MM_yyyy, -1)
+                val date = getDate(format, -1)
                 callback!!.onSelectDate(date)
             }
             R.id.selectdate -> {
@@ -82,7 +89,7 @@ class DatePickerDialogFragment : DialogFragment(),
                         calendar[Calendar.MONTH] = cMonth
                         calendar[Calendar.YEAR] = cYear
                         val dateFormat: DateFormat = SimpleDateFormat(
-                            DateTimeUtils.dd_MM_yyyy,
+                            format,
                             Locale.getDefault()
                         )
                         callback!!.onSelectDate(dateFormat.format(calendar.time))

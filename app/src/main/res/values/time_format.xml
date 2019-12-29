@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="TimeFormat">
+        <item>dd-MM-yyyy</item>
+        <item>dd/MM/yyyy</item>
+        <item>MMM dd, yyyy</item>
+        <item>dd MMM, yyyy</item>
+        <item>MM-dd-yyyy</item>
+        <item>MM/dd/yyyy</item>
+        <item>yyyy-MM-dd</item>
+        <item>yyyy/MM/dd</item>
+    </string-array>
+</resources>

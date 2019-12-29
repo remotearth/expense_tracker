@@ -46,6 +46,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
     //private var prevAccountId: Int = -1
     private lateinit var mContext: Context
     private lateinit var mResources: Resources
+    private lateinit var format: String
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
@@ -57,6 +58,12 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        format = SharedPreferenceUtils.getInstance(activity!!)!!.getString(
+            Constants.PREF_TIME_FORMAT,
+            Constants.KEY_DATE_MONTH_YEAR_DEFAULT
+        )
+
         mView = inflater.inflate(R.layout.fragment_add_expense, container, false)
 
         val currencySymbol = getCurrency(mContext)
@@ -97,7 +104,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 if (categoryExpense!!.datetime > 0) {
                     mView.dateTv.text = getDate(
                         categoryExpense!!.datetime,
-                        DateTimeUtils.dd_MM_yyyy
+                        format
                     )
                 }
             } else {
@@ -152,13 +159,13 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             })
             categoryDialogFragment.show(fm, CategoryDialogFragment::class.java.name)
         }
-        mView.dateTv.text = getCurrentDate(DateTimeUtils.dd_MM_yyyy)
+        mView.dateTv.text = getCurrentDate(format)
         mView.selectdate.setOnClickListener {
             val fm = childFragmentManager
             val datePickerDialogFragment: DatePickerDialogFragment =
                 DatePickerDialogFragment.newInstance("")
             val cal = getCalendarFromDateString(
-                DateTimeUtils.dd_MM_yyyy,
+                format,
                 mView.dateTv.text.toString()
             )
             datePickerDialogFragment.setInitialDate(
@@ -197,7 +204,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             expenseModel.amount = amount
             expenseModel.datetime = getTimeInMillisFromDateStr(
                 mView.dateTv.text.toString()
-                        + " " + currentTime, DateTimeUtils.dd_MM_yyyy_h_mm
+                        + " " + currentTime, format
             )
             expenseModel.categoryId = categoryExpense!!.categoryId
             expenseModel.source = categoryExpense!!.accountId
@@ -206,12 +213,10 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
 
             purpose?.let {
                 if (it == Purpose.UPDATE) {
-                    if (prevExpense!!.accountId != categoryExpense!!.accountId) {
-                        viewModel!!.updateAccountAmount(
-                            prevExpense!!.accountId,
-                            prevExpense!!.totalAmount * -1
-                        )
-                    }
+                    viewModel!!.updateAccountAmount(
+                        prevExpense!!.accountId,
+                        prevExpense!!.totalAmount * -1
+                    )
                 }
             }
         }
