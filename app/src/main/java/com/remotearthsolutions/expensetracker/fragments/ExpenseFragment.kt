@@ -204,7 +204,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             expenseModel.amount = amount
             expenseModel.datetime = getTimeInMillisFromDateStr(
                 mView.dateTv.text.toString()
-                        + " " + currentTime, format
+                        + " " + currentTime, format + " " + Constants.KEY_HOUR_MIN_SEC
             )
             expenseModel.categoryId = categoryExpense!!.categoryId
             expenseModel.source = categoryExpense!!.accountId

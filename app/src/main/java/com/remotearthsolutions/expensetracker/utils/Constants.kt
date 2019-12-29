@@ -65,7 +65,7 @@ interface Constants {
         const val KEY_MONTH_YEAR = "MMMM,yy"
         const val KEY_YEAR = "yyyy"
         const val KEY_MONTH = "MMMM"
-        const val KEY_HOUR_MINIT_AM_PM = "h:mm a"
+        const val KEY_HOUR_MIN_SEC = "h:mm:ss"
         const val KEY_PACKAGE = "package"
         const val KEY_COLOR_FORMAT = "#%02x%02x%02x"
     }

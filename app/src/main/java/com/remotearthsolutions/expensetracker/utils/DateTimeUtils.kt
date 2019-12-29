@@ -23,7 +23,7 @@ object DateTimeUtils {
         get() {
             val calendar = Calendar.getInstance()
             val dateFormat: DateFormat = SimpleDateFormat(
-                Constants.KEY_HOUR_MINIT_AM_PM,
+                Constants.KEY_HOUR_MIN_SEC,
                 Locale.getDefault()
             )
             return dateFormat.format(calendar.time)
