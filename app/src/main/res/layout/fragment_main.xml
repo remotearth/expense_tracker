@@ -1,135 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-                android:id="@+id/dateRangeContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+            android:id="@+id/dateRangeContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <LinearLayout
 
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:gravity="center"
-                    android:layout_margin="5dp"
-                    android:weightSum="4">
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:weightSum="4">
 
-                <Button
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <Button
                         android:id="@+id/dailyRangeBtn"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_date_range_btn_unselected"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:text="@string/daily"
-                        android:background="@drawable/bg_date_range_btn_unselected"
                         android:textColor="@color/textcolorwhite"
-                        android:textSize="12dp"
-                        android:singleLine="true"
-                        android:ellipsize="end"
-                        android:layout_margin="3dp"
-                        android:layout_height="wrap_content"/>
+                        android:textSize="12dp" />
 
-                <Button
+                    <Button
+                        android:id="@+id/dailyBtnSelectionIndicatior"
+                        android:layout_width="match_parent"
+                        android:layout_height="7dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/period_selection_indicator"
+                        android:clickable="false"
+                        android:visibility="invisible" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <Button
                         android:id="@+id/weeklyRangeBtn"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_date_range_btn_unselected"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:text="@string/weekly"
-                        android:background="@drawable/bg_date_range_btn_unselected"
                         android:textColor="@color/textcolorwhite"
-                        android:textSize="12dp"
-                        android:singleLine="true"
-                        android:ellipsize="end"
-                        android:layout_margin="3dp"
-                        android:layout_height="wrap_content"/>
+                        android:textSize="12dp" />
 
-                <Button
+                    <Button
+                        android:id="@+id/weeklyBtnSelectionIndicatior"
+                        android:layout_width="match_parent"
+                        android:layout_height="7dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/period_selection_indicator"
+                        android:clickable="false"
+                        tools:visibility="invisible" />
+
+                </RelativeLayout>
+
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <Button
                         android:id="@+id/monthlyRangeBtn"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:background="@drawable/bg_date_range_btn_unselected"
-                        android:textColor="@color/textcolorwhite"
-                        android:textSize="12dp"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:text="@string/monthly"
-                        android:singleLine="true"
-                        android:ellipsize="end"
-                        android:layout_margin="3dp"
-                        android:layout_height="wrap_content"/>
-
-                <Button
-                        android:id="@+id/yearlyRangeBtn"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_date_range_btn_unselected"
                         android:textColor="@color/textcolorwhite"
-                        android:textSize="12dp"
-                        android:text="@string/yearly"
-                        android:singleLine="true"
+                        android:textSize="12dp" />
+
+                    <Button
+                        android:id="@+id/monthlyBtnSelectionIndicatior"
+                        android:layout_width="match_parent"
+                        android:layout_height="7dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/period_selection_indicator"
+                        android:clickable="false"
+                        tools:visibility="invisible" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white" />
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/yearlyRangeBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_date_range_btn_unselected"
                         android:ellipsize="end"
-                        android:layout_margin="3dp"
-                        android:layout_height="wrap_content"/>
+                        android:singleLine="true"
+                        android:text="@string/yearly"
+                        android:textColor="@color/textcolorwhite"
+                        android:textSize="12dp" />
+
+
+                    <Button
+                        android:id="@+id/yearlyBtnSelectionIndicatior"
+                        android:layout_width="match_parent"
+                        android:layout_height="7dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@color/period_selection_indicator"
+                        android:clickable="false"
+                        tools:visibility="invisible" />
+                </RelativeLayout>
+
             </LinearLayout>
 
             <LinearLayout
-                    android:id="@+id/monthcontainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:weightSum="2">
+                android:id="@+id/monthcontainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:weightSum="2">
 
                 <ImageView
-                        android:id="@+id/previousDateBtn"
-                        android:layout_width="0dp"
-                        android:layout_weight="0.3"
-                        android:tint="@color/colorPrimary"
-                        android:src="@drawable/ic_previous"
-                        android:layout_height="35dp"/>
+                    android:id="@+id/previousDateBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="0.3"
+                    android:src="@drawable/ic_previous"
+                    android:tint="@color/colorPrimary" />
 
                 <TextView
-                        android:id="@+id/dateTv"
-                        android:layout_width="0dp"
-                        android:layout_weight="1.4"
-                        tools:text="MONTH NAME"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="15sp"
-                        android:layout_height="match_parent"/>
+                    android:id="@+id/dateTv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.4"
+                    android:gravity="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"
+                    tools:text="MONTH NAME" />
 
                 <ImageView
-                        android:id="@+id/nextDateBtn"
-                        android:layout_width="0dp"
-                        android:layout_weight="0.3"
-                        android:src="@drawable/ic_next"
-                        android:tint="@color/colorPrimary"
-                        android:layout_height="35dp"/>
+                    android:id="@+id/nextDateBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="0.3"
+                    android:src="@drawable/ic_next"
+                    android:tint="@color/colorPrimary" />
 
             </LinearLayout>
         </LinearLayout>
+
         <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewpager"
-                android:layout_below="@id/dateRangeContainer"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/navigation">
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/navigation"
+            android:layout_below="@id/dateRangeContainer"
+            android:layout_marginTop="10dp">
 
         </androidx.viewpager.widget.ViewPager>
 
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/navigation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="0dp"
-                android:layout_alignParentBottom="true"
-                android:background="?android:attr/windowBackground"
-                app:labelVisibilityMode="labeled"
-                app:menu="@menu/navigation"/>
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:background="?android:attr/windowBackground"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/navigation" />
 
     </RelativeLayout>
 </layout>

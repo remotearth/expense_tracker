@@ -93,29 +93,25 @@ class MainFragment : Fragment(),
             when (pos) {
                 0 -> {
                     selectedPeriodBtn = binding!!.dailyRangeBtn
-                    selectedPeriodBtn?.setBackgroundResource(R.drawable.bg_date_range_btn_selected)
                 }
                 1 -> {
                     selectedPeriodBtn = binding!!.weeklyRangeBtn
-                    selectedPeriodBtn?.setBackgroundResource(R.drawable.bg_date_range_btn_selected)
                 }
                 2 -> {
                     selectedPeriodBtn = binding!!.monthlyRangeBtn
-                    selectedPeriodBtn?.setBackgroundResource(R.drawable.bg_date_range_btn_selected)
                 }
                 3 -> {
                     selectedPeriodBtn = binding!!.yearlyRangeBtn
-                    selectedPeriodBtn?.setBackgroundResource(R.drawable.bg_date_range_btn_selected)
                 }
                 else -> {
                     selectedPeriodBtn = binding!!.dailyRangeBtn
-                    selectedPeriodBtn?.setBackgroundResource(R.drawable.bg_date_range_btn_selected)
                     SharedPreferenceUtils.getInstance(mContext)!!.putString(
                         Constants.PREF_PERIOD,
                         resources.getString(R.string.daily)
                     )
                 }
             }
+            selectedPeriodBtn?.setBackgroundResource(R.drawable.bg_date_range_btn_selected)
             selectedPeriodBtn?.performClick()
         }, 500)
     }
@@ -125,6 +121,10 @@ class MainFragment : Fragment(),
         binding!!.weeklyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_unselected)
         binding!!.monthlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_unselected)
         binding!!.yearlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_unselected)
+        binding!!.dailyBtnSelectionIndicatior.visibility = View.INVISIBLE
+        binding!!.weeklyBtnSelectionIndicatior.visibility = View.INVISIBLE
+        binding!!.monthlyBtnSelectionIndicatior.visibility = View.INVISIBLE
+        binding!!.yearlyBtnSelectionIndicatior.visibility = View.INVISIBLE
     }
 
     private val mOnNavigationItemSelectedListener =
@@ -274,24 +274,30 @@ class MainFragment : Fragment(),
         if (btnId != R.id.nextDateBtn && btnId != R.id.previousDateBtn) {
             resetDateRangeBtns()
         }
+        var periodSelector: Button? = null
         when (btnId) {
             R.id.dailyRangeBtn -> {
-                binding!!.dailyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected)
                 selectedPeriodBtn = binding!!.dailyRangeBtn
+                periodSelector = binding!!.dailyBtnSelectionIndicatior
             }
             R.id.weeklyRangeBtn -> {
-                binding!!.weeklyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected)
                 selectedPeriodBtn = binding!!.weeklyRangeBtn
+                periodSelector = binding!!.weeklyBtnSelectionIndicatior
+
             }
             R.id.monthlyRangeBtn -> {
-                binding!!.monthlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected)
                 selectedPeriodBtn = binding!!.monthlyRangeBtn
+                periodSelector = binding!!.monthlyBtnSelectionIndicatior
+
             }
             R.id.yearlyRangeBtn -> {
-                binding!!.yearlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_selected)
                 selectedPeriodBtn = binding!!.yearlyRangeBtn
+                periodSelector = binding!!.yearlyBtnSelectionIndicatior
             }
         }
+        selectedPeriodBtn?.setBackgroundResource(R.drawable.bg_date_range_btn_selected)
+        periodSelector?.visibility = View.VISIBLE
+
         binding!!.dateTv.text = date
         if (homeFragment != null && allExpenseFragment != null) {
             homeFragment!!.updateChartView(startTime, endTime)

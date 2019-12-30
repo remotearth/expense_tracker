@@ -13,4 +13,5 @@
     <color name="facebookbuttoncolor">#4268B1</color>
     <color name="yellow">#FFFA00</color>
     <color name="light_ash">#C0C0C0</color>
+    <color name="period_selection_indicator">#C0C0C0</color>
 </resources>
