@@ -96,7 +96,7 @@
     <string name="day">Day</string>
     <string name="selectperiodfromhere">Select Period</string>
     <string name="select_time_format_from_here">Select Date Format</string>
-    <string name="default_time_format">dd-MM-yyyy</string>
+    <string name="default_time_format" translatable="false">dd-MM-yyyy</string>
 
     <string name="accounts">Accounts</string>
     <string name="warning">Warning</string>
@@ -129,7 +129,7 @@
     <string name="you_have_to_enter_an_amount">You have to enter an amount</string>
     <string name="update_category">Update Category</string>
     <string name="update">Update</string>
-    <string name="enter_a_name">Enter a name...</string>
+    <string name="enter_a_name">Enter a name…</string>
     <string name="select_an_icon">Select an icon</string>
     <string name="update_account">Update Account</string>
     <string name="add_account">Add Account</string>
@@ -234,4 +234,8 @@
     <string name="operation_successful">Operation successful</string>
     <string name="please_enter_an_amount">Please enter an amount</string>
     <string name="make_sure_enter_valid_number">Error occurred. Please make sure you enter a valid number</string>
+
+
+    <string name="whatsinpremium">What\'s in premium version?</string>
+    <string name="premium_features">\n\n1. There is no limit adding new categories and accounts.\n\n2. No ads\n\n</string>
 </resources>

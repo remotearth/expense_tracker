@@ -191,26 +191,40 @@ class DashboardFragment : BaseFragment(),
                             override fun onCancelBtnPressed() {}
                         })
                     2 -> {
-                        if (!isDeviceOnline) {
-                            showAlert(
-                                "",
-                                resources.getString(R.string.internet_connection_needed),
-                                resources.getString(R.string.ok),
-                                null,
-                                null
-                            )
-                            return@setOnItemClickListener
-                        }
-                        checkoutUtils!!.checkout.whenReady(object : EmptyListener() {
-                            override fun onReady(@Nonnull requests: BillingRequests) {
-                                requests.purchase(
-                                    ProductTypes.IN_APP,
-                                    productId!!,
-                                    null,
-                                    checkoutUtils!!.purchaseFlow
-                                )
-                            }
-                        })
+                        showAlert(resources.getString(R.string.whatsinpremium),
+                            resources.getString(R.string.premium_features),
+                            resources.getString(R.string.ok),
+                            null,
+                            object : BaseView.Callback {
+                                override fun onOkBtnPressed() {
+
+                                    if (!isDeviceOnline) {
+                                        showAlert(
+                                            "",
+                                            resources.getString(R.string.internet_connection_needed),
+                                            resources.getString(R.string.ok),
+                                            null,
+                                            null
+                                        )
+                                        return
+                                    }
+                                    checkoutUtils!!.checkout.whenReady(object : EmptyListener() {
+                                        override fun onReady(@Nonnull requests: BillingRequests) {
+                                            requests.purchase(
+                                                ProductTypes.IN_APP,
+                                                productId!!,
+                                                null,
+                                                checkoutUtils!!.purchaseFlow
+                                            )
+                                        }
+                                    })
+                                }
+
+                                override fun onCancelBtnPressed() {
+                                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                                }
+
+                            })
                     }
                 }
             }

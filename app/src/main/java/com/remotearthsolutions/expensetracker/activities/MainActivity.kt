@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -11,8 +12,11 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.gson.Gson
+import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.callbacks.InAppBillingCallback
 import com.remotearthsolutions.expensetracker.contracts.BaseView
@@ -70,6 +74,19 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 User::class.java
             )
         viewModel.checkAuthectication(user)
+
+        if (BuildConfig.DEBUG) {
+            FirebaseInstanceId.getInstance().instanceId
+                .addOnCompleteListener(OnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        Log.w(MainActivity::class.java.name, "getInstanceId failed", task.exception)
+                        return@OnCompleteListener
+                    }
+                    // Get new Instance ID token
+                    val token = task.result?.token
+                    Log.d(MainActivity::class.java.name, "Firebase Token: $token")
+                })
+        }
     }
 
     override fun onStart() {

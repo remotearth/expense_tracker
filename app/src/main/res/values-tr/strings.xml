@@ -193,4 +193,8 @@
     <string name="operation_successful">Operasyon başarılı</string>
     <string name="please_enter_an_amount">Lütfen bir miktar girin</string>
     <string name="make_sure_enter_valid_number">Hata oluştu. Lütfen geçerli bir numara girdiğinizden emin olun</string>
+    <string name="update_expense">Gider güncelleme</string>
+    <string name="whatsinpremium">Premium sürümde neler var?</string>
+    <string name="select_time_format_from_here">Tarih Formatını Seçin</string>
+    <string name="premium_features">\n\n1. Yeni kategori ve hesap eklemenin bir sınırı yoktur.\n\n2. Reklam yok\n\n</string>
 </resources>

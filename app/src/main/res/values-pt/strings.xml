@@ -183,4 +183,8 @@
     <string name="operation_successful">Operação bem sucedida</string>
     <string name="please_enter_an_amount">Por favor insira uma quantia</string>
     <string name="make_sure_enter_valid_number">Ocorreu um erro. Por favor, certifique-se de digitar um número válido</string>
+    <string name="update_expense">Atualizar despesa</string>
+    <string name="whatsinpremium">O que há na versão premium?</string>
+    <string name="select_time_format_from_here">Selecione o formato da data</string>
+    <string name="premium_features">\n\n1. Não há limite para adicionar novas categorias e contas.\n\n2. Nenhum anúncio\n\n</string>
 </resources>
