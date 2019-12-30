@@ -210,15 +210,6 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             expenseModel.source = categoryExpense!!.accountId
             expenseModel.note = mView.expenseNoteEdtxt.text.toString()
             viewModel!!.addExpense(expenseModel)
-
-            purpose?.let {
-                if (it == Purpose.UPDATE) {
-                    viewModel!!.updateAccountAmount(
-                        prevExpense!!.accountId,
-                        prevExpense!!.totalAmount * -1
-                    )
-                }
-            }
         }
 
         mView.expenseNoteEdtxt.setOnClickListener {
@@ -266,6 +257,15 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         Toast.makeText(activity, getString(R.string.successfully_added), Toast.LENGTH_SHORT)
             .show()
         viewModel!!.updateAccountAmount(categoryExpense?.accountId!!, amount)
+        purpose?.let {
+            if (it == Purpose.UPDATE) {
+                viewModel!!.updateAccountAmount(
+                    prevExpense!!.accountId,
+                    prevExpense!!.totalAmount * -1
+                )
+            }
+        }
+
         val mainActivity = mContext as MainActivity?
         mainActivity!!.updateSummary()
         mainActivity.refreshChart()
