@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
@@ -30,6 +31,7 @@ import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl
 import com.remotearthsolutions.expensetracker.services.PurchaseListener
 import com.remotearthsolutions.expensetracker.utils.CheckoutUtils
 import com.remotearthsolutions.expensetracker.utils.Constants
+import com.remotearthsolutions.expensetracker.utils.InAppUpdateUtils
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
@@ -74,6 +76,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 User::class.java
             )
         viewModel.checkAuthectication(user)
+
+        Handler().postDelayed({
+            InAppUpdateUtils().requestUpdateApp(this@MainActivity)
+        }, 2000)
 
         if (BuildConfig.DEBUG) {
             FirebaseInstanceId.getInstance().instanceId
