@@ -256,15 +256,22 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         mView.inputdigit.setText("")
         Toast.makeText(activity, getString(R.string.successfully_added), Toast.LENGTH_SHORT)
             .show()
-        viewModel!!.updateAccountAmount(categoryExpense?.accountId!!, amount)
+        var mutableAmount = amount
+
         purpose?.let {
             if (it == Purpose.UPDATE) {
-                viewModel!!.updateAccountAmount(
-                    prevExpense!!.accountId,
-                    prevExpense!!.totalAmount * -1
-                )
+                if (categoryExpense?.accountId == prevExpense!!.accountId) {
+                    mutableAmount += (prevExpense!!.totalAmount * -1)
+                } else {
+                    viewModel!!.updateAccountAmount(
+                        prevExpense!!.accountId,
+                        prevExpense!!.totalAmount * -1
+                    )
+                }
             }
         }
+        viewModel!!.updateAccountAmount(categoryExpense?.accountId!!, mutableAmount)
+
 
         val mainActivity = mContext as MainActivity?
         mainActivity!!.updateSummary()
