@@ -19,132 +19,46 @@
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:weightSum="4">
-
-                <RelativeLayout
+                <com.remotearthsolutions.expensetracker.views.PeriodButton
+                    android:id="@+id/dailyRangeBtn"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <Button
-                        android:id="@+id/dailyRangeBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_date_range_btn_unselected"
-                        android:ellipsize="end"
-                        android:singleLine="true"
-                        android:text="@string/daily"
-                        android:textColor="@color/textcolorwhite"
-                        android:textSize="12dp" />
-
-                    <Button
-                        android:id="@+id/dailyBtnSelectionIndicatior"
-                        android:layout_width="match_parent"
-                        android:layout_height="7dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/period_selection_indicator"
-                        android:clickable="false"
-                        android:visibility="invisible" />
-
-                </RelativeLayout>
-
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:btnTitle="@string/daily"
+                    tools:layout="@layout/view_periodbutton"/>
                 <View
                     android:layout_width="1dp"
                     android:layout_height="wrap_content"
                     android:background="@android:color/white" />
-
-                <RelativeLayout
+                <com.remotearthsolutions.expensetracker.views.PeriodButton
+                    android:id="@+id/weeklyRangeBtn"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <Button
-                        android:id="@+id/weeklyRangeBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_date_range_btn_unselected"
-                        android:ellipsize="end"
-                        android:singleLine="true"
-                        android:text="@string/weekly"
-                        android:textColor="@color/textcolorwhite"
-                        android:textSize="12dp" />
-
-                    <Button
-                        android:id="@+id/weeklyBtnSelectionIndicatior"
-                        android:layout_width="match_parent"
-                        android:layout_height="7dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/period_selection_indicator"
-                        android:clickable="false"
-                        tools:visibility="invisible" />
-
-                </RelativeLayout>
-
-
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:btnTitle="@string/weekly"
+                    tools:layout="@layout/view_periodbutton"/>
                 <View
                     android:layout_width="1dp"
                     android:layout_height="wrap_content"
                     android:background="@android:color/white" />
-
-                <RelativeLayout
+                <com.remotearthsolutions.expensetracker.views.PeriodButton
+                    android:id="@+id/monthlyRangeBtn"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <Button
-                        android:id="@+id/monthlyRangeBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_date_range_btn_unselected"
-                        android:ellipsize="end"
-                        android:singleLine="true"
-                        android:text="@string/monthly"
-                        android:textColor="@color/textcolorwhite"
-                        android:textSize="12dp" />
-
-                    <Button
-                        android:id="@+id/monthlyBtnSelectionIndicatior"
-                        android:layout_width="match_parent"
-                        android:layout_height="7dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/period_selection_indicator"
-                        android:clickable="false"
-                        tools:visibility="invisible" />
-
-                </RelativeLayout>
-
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:btnTitle="@string/monthly"
+                    tools:layout="@layout/view_periodbutton"/>
                 <View
                     android:layout_width="1dp"
                     android:layout_height="wrap_content"
                     android:background="@android:color/white" />
-
-
-                <RelativeLayout
+                <com.remotearthsolutions.expensetracker.views.PeriodButton
+                    android:id="@+id/yearlyRangeBtn"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <Button
-                        android:id="@+id/yearlyRangeBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_date_range_btn_unselected"
-                        android:ellipsize="end"
-                        android:singleLine="true"
-                        android:text="@string/yearly"
-                        android:textColor="@color/textcolorwhite"
-                        android:textSize="12dp" />
-
-
-                    <Button
-                        android:id="@+id/yearlyBtnSelectionIndicatior"
-                        android:layout_width="match_parent"
-                        android:layout_height="7dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@color/period_selection_indicator"
-                        android:clickable="false"
-                        tools:visibility="invisible" />
-                </RelativeLayout>
-
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:btnTitle="@string/yearly"
+                    tools:layout="@layout/view_periodbutton"/>
             </LinearLayout>
 
             <LinearLayout

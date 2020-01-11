@@ -27,6 +27,7 @@ import com.remotearthsolutions.expensetracker.fragments.DashboardFragment
 import com.remotearthsolutions.expensetracker.fragments.HomeFragment
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
+import com.remotearthsolutions.expensetracker.views.PeriodButton
 
 class MainFragment : Fragment(),
     DateFilterButtonClickListener.Callback {
@@ -35,7 +36,7 @@ class MainFragment : Fragment(),
     private var actionBar: ActionBar? = null
     private lateinit var tabTitles: Array<String>
     private var dateContainerHeight = -1
-    private var selectedPeriodBtn: Button? = null
+    private var selectedPeriodBtn: PeriodButton? = null
     private lateinit var mContext: Context
     private lateinit var mResources: Resources
     override fun onAttach(context: Context) {
@@ -111,20 +112,15 @@ class MainFragment : Fragment(),
                     )
                 }
             }
-            selectedPeriodBtn?.setBackgroundResource(R.drawable.bg_date_range_btn_selected)
             selectedPeriodBtn?.performClick()
         }, 500)
     }
 
     private fun resetDateRangeBtns() {
-        binding!!.dailyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_unselected)
-        binding!!.weeklyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_unselected)
-        binding!!.monthlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_unselected)
-        binding!!.yearlyRangeBtn.setBackgroundResource(R.drawable.bg_date_range_btn_unselected)
-        binding!!.dailyBtnSelectionIndicatior.visibility = View.INVISIBLE
-        binding!!.weeklyBtnSelectionIndicatior.visibility = View.INVISIBLE
-        binding!!.monthlyBtnSelectionIndicatior.visibility = View.INVISIBLE
-        binding!!.yearlyBtnSelectionIndicatior.visibility = View.INVISIBLE
+        binding!!.dailyRangeBtn.setIsSelected(false)
+        binding!!.weeklyRangeBtn.setIsSelected(false)
+        binding!!.monthlyRangeBtn.setIsSelected(false)
+        binding!!.yearlyRangeBtn.setIsSelected(false)
     }
 
     private val mOnNavigationItemSelectedListener =
@@ -274,29 +270,22 @@ class MainFragment : Fragment(),
         if (btnId != R.id.nextDateBtn && btnId != R.id.previousDateBtn) {
             resetDateRangeBtns()
         }
-        var periodSelector: Button? = null
         when (btnId) {
             R.id.dailyRangeBtn -> {
                 selectedPeriodBtn = binding!!.dailyRangeBtn
-                periodSelector = binding!!.dailyBtnSelectionIndicatior
             }
             R.id.weeklyRangeBtn -> {
                 selectedPeriodBtn = binding!!.weeklyRangeBtn
-                periodSelector = binding!!.weeklyBtnSelectionIndicatior
-
             }
             R.id.monthlyRangeBtn -> {
                 selectedPeriodBtn = binding!!.monthlyRangeBtn
-                periodSelector = binding!!.monthlyBtnSelectionIndicatior
-
             }
             R.id.yearlyRangeBtn -> {
                 selectedPeriodBtn = binding!!.yearlyRangeBtn
-                periodSelector = binding!!.yearlyBtnSelectionIndicatior
             }
         }
-        selectedPeriodBtn?.setBackgroundResource(R.drawable.bg_date_range_btn_selected)
-        periodSelector?.visibility = View.VISIBLE
+        //selectedPeriodBtn?.setBackgroundResource(R.drawable.bg_date_range_btn_selected)
+        selectedPeriodBtn?.setIsSelected(true)
 
         binding!!.dateTv.text = date
         if (homeFragment != null && allExpenseFragment != null) {
