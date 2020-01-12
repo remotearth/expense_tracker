@@ -4,4 +4,9 @@
         <attr name="btnTitle" format="string" />
         <attr name="isSelected" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="SourceTargetButton">
+        <attr name="btnHeader" format="string" />
+        <attr name="btnName" format="string" />
+        <attr name="btnIcon" format="string" />
+    </declare-styleable>
 </resources>

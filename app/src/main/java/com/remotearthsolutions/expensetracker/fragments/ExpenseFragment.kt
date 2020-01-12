@@ -23,7 +23,6 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.utils.*
-import com.remotearthsolutions.expensetracker.utils.CategoryIcons.getIconId
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.currentTime
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getCalendarFromDateString
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getCurrentDate
@@ -94,8 +93,10 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 Parcels.unwrap<CategoryExpense>(args.getParcelable(Constants.CATEGORYEXPENSE_PARCEL))
             if (categoryExpense != null) {
                 prevExpense = categoryExpense!!.copy()
-                mView.showcatimage.setImageResource(getIconId(categoryExpense!!.categoryIcon!!))
-                mView.showcatname.text = categoryExpense!!.categoryName
+                mView.toCategoryBtn.update(
+                    categoryExpense?.categoryName!!,
+                    categoryExpense?.categoryIcon!!
+                )
 
                 if (categoryExpense!!.totalAmount > 0) {
                     mView.inputdigit.setText(categoryExpense!!.totalAmount.toString())
@@ -111,8 +112,10 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 viewModel!!.setDefaultCategory()
             }
             if (categoryExpense != null && categoryExpense!!.accountIcon != null) {
-                mView.accountImageIv.setImageResource(getIconId(categoryExpense!!.accountIcon!!))
-                mView.accountNameTv.text = categoryExpense!!.accountName
+                mView.fromAccountBtn.update(
+                    categoryExpense?.accountName!!,
+                    categoryExpense?.accountIcon!!
+                )
             } else {
                 val accountId = SharedPreferenceUtils.getInstance(mContext)!!.getInt(
                     Constants.KEY_SELECTED_ACCOUNT_ID,
@@ -133,8 +136,10 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             accountDialogFragment.setCallback(object : AccountDialogFragment.Callback {
                 override fun onSelectAccount(accountIncome: AccountModel) {
                     categoryExpense!!.setAccount(accountIncome)
-                    mView.accountImageIv.setImageResource(getIconId(accountIncome.icon!!))
-                    mView.accountNameTv.text = accountIncome.name
+                    mView.fromAccountBtn.update(
+                        accountIncome.name!!,
+                        accountIncome.icon!!
+                    )
                     accountDialogFragment.dismiss()
                     SharedPreferenceUtils.getInstance(mContext)!!.putInt(
                         Constants.KEY_SELECTED_ACCOUNT_ID,
@@ -151,8 +156,10 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             categoryDialogFragment.setCategory(categoryExpense?.categoryId!!)
             categoryDialogFragment.setCallback(object : CategoryDialogFragment.Callback {
                 override fun onSelectCategory(category: CategoryModel?) {
-                    mView.showcatimage.setImageResource(getIconId(category?.icon!!))
-                    mView.showcatname.text = category.name
+                    mView.toCategoryBtn.update(
+                        category?.name!!,
+                        category.icon!!
+                    )
                     categoryDialogFragment.dismiss()
                     categoryExpense!!.setCategory(category)
                 }
@@ -310,8 +317,10 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             categoryExpense = CategoryExpense()
         }
         categoryExpense!!.setAccount(account!!)
-        mView.accountImageIv.setImageResource(getIconId(account.icon!!))
-        mView.accountNameTv.text = account.name
+        mView.fromAccountBtn.update(
+            account.name!!,
+            account.icon!!
+        )
         SharedPreferenceUtils.getInstance(mContext)!!.putInt(
             Constants.KEY_SELECTED_ACCOUNT_ID,
             account.id
@@ -323,8 +332,10 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             categoryExpense = CategoryExpense()
         }
         categoryExpense!!.setCategory(categoryModel!!)
-        mView.showcatimage.setImageResource(getIconId(categoryModel.icon!!))
-        mView.showcatname.text = categoryModel.name
+        mView.toCategoryBtn.update(
+            categoryModel?.name!!,
+            categoryModel.icon!!
+        )
     }
 
     enum class Purpose {

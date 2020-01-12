@@ -1,227 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:clickable="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true">
 
     <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
         <LinearLayout
-                android:id="@+id/contentLayout"
+            android:id="@+id/contentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#bdc3c7"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/background_gradient"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <com.remotearthsolutions.expensetracker.views.SourceTargetButton
+                    android:id="@+id/fromAccountBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    app:btnHeader="@string/from_account"
+                    app:btnIcon="cat_food"
+                    app:btnName="@string/from_account_card"
+                    tools:layout="@layout/custom_expense_source_target_btn" />
+
+                <com.remotearthsolutions.expensetracker.views.SourceTargetButton
+                    android:id="@+id/toCategoryBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    app:btnHeader="@string/to_account"
+                    app:btnIcon="cat_bills"
+                    app:btnName="categoryname"
+                    tools:layout="@layout/custom_expense_source_target_btn" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="#bdc3c7">
+                android:padding="5dp">
 
-            <LinearLayout
-                    android:padding="5dp"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:background="@drawable/background_gradient">
-
-                <RelativeLayout
-                        android:id="@+id/fromAccountBtn"
-                        android:layout_weight="1"
-                        android:layout_margin="2dp"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content">
-
-                    <TextView
-                            android:id="@+id/accountTitleTv"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/from_account"
-                            android:textSize="11dp"
-                            android:background="@drawable/bg_top_corner"
-                            android:backgroundTint="@color/colorAccent"
-                            android:textColor="@color/white"
-                            android:layout_above="@id/accountNameTv"
-                            android:padding="2dp"/>
-
-                    <TextView
-                            android:id="@+id/accountNameTv"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/from_account_card"
-                            android:textSize="18dp"
-                            android:maxLines="1"
-                            android:ellipsize="end"
-                            android:background="@drawable/bg_bottom_corner"
-                            android:backgroundTint="@color/colorAccent"
-                            android:textColor="@color/white"
-                            android:layout_alignParentBottom="true"
-                            android:padding="2dp"/>
-
-                    <ImageView
-                            android:id="@+id/accountImageIv"
-                            android:layout_height="50dp"
-                            android:layout_width="50dp"
-                            android:padding="5dp"
-                            android:src="@drawable/cat_food"
-                            android:layout_above="@id/accountNameTv"
-                            android:layout_alignParentRight="true"/>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                        android:id="@+id/toCategoryBtn"
-                        android:layout_weight="1"
-                        android:layout_margin="2dp"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content">
-
-                    <TextView
-                            android:id="@+id/categoryTitleTv"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/to_account"
-                            android:textSize="11dp"
-                            android:background="@drawable/bg_top_corner"
-                            android:backgroundTint="@color/colorPrimary"
-                            android:textColor="@color/white"
-                            android:layout_above="@+id/showcatname"
-                            android:padding="2dp"/>
-
-                    <TextView
-                            android:id="@+id/showcatname"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="18dp"
-                            android:maxLines="1"
-                            android:ellipsize="end"
-                            android:text="Categoryname"
-                            android:background="@drawable/bg_bottom_corner"
-                            android:backgroundTint="@color/colorPrimary"
-                            android:textColor="@color/white"
-                            android:layout_alignParentBottom="true"
-                            android:padding="2dp"/>
-
-                    <ImageView
-                            android:id="@+id/showcatimage"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:padding="5dp"
-                            android:src="@drawable/cat_bills"
-                            android:layout_alignParentRight="true"
-                            android:layout_above="@id/showcatname"
-                    />
-
-                </RelativeLayout>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                    android:padding="5dp"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:orientation="vertical">
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:orientation="vertical"
-                        android:layout_marginTop="5dp"
-                        android:layout_height="wrap_content">
 
                     <TextView
-                            android:text="@string/expense"
-                            android:textSize="15sp"
-                            android:textAlignment="center"
-                            android:textColor="@color/colorPrimary"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/expense"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15sp" />
 
                     <EditText
-                            android:id="@+id/inputdigit"
-                            android:textSize="25sp"
-                            android:textColor="@color/colorPrimary"
-                            android:textAlignment="center"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:ellipsize="end"
-                            android:hint="@string/takahints"
-                            android:textColorHint="@color/colorPrimary"
-                            android:enabled="false"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                        android:id="@+id/inputdigit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:enabled="false"
+                        android:gravity="center"
+                        android:hint="@string/takahints"
+                        android:maxLines="1"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+                        android:textColorHint="@color/colorPrimary"
+                        android:textSize="25sp" />
 
                     <EditText
-                            android:id="@+id/expenseNoteEdtxt"
-                            android:textColor="@color/colorPrimary"
-                            android:textAlignment="center"
-                            android:gravity="center"
-                            android:hint="@string/notes"
-                            android:textSize="15sp"
-                            android:focusable="false"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                        android:id="@+id/expenseNoteEdtxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:hint="@string/notes"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15sp" />
 
                 </LinearLayout>
 
-            <LinearLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:orientation="horizontal">
 
-                <ImageView
+                    <ImageView
                         android:id="@+id/selectdate"
                         android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_calendar"
-                        android:layout_height="match_parent"/>
+                        android:src="@drawable/ic_calendar" />
 
-                <ImageView
+                    <ImageView
                         android:id="@+id/expenseDeleteBtn"
                         android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_delete"
-                        android:layout_height="match_parent"/>
+                        android:src="@drawable/ic_delete" />
 
-                <ImageView
+                    <ImageView
                         android:id="@+id/deleteBtn"
                         android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_backspace"
-                        android:layout_height="match_parent"/>
+                        android:src="@drawable/ic_backspace" />
 
-                <ImageView
+                    <ImageView
                         android:id="@+id/okBtn"
                         android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_check"
-                        android:layout_height="match_parent"/>
+                        android:src="@drawable/ic_check" />
 
 
-            </LinearLayout>
+                </LinearLayout>
 
-            <fragment
+                <fragment
                     android:id="@+id/numpadContainer"
+                    android:name="com.remotearthsolutions.expensetracker.fragments.NumpadFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:name="com.remotearthsolutions.expensetracker.fragments.NumpadFragment"
-                    tools:layout="@layout/fragment_numpad">
-            </fragment>
+                    tools:layout="@layout/fragment_numpad" />
 
-            <TextView
+                <TextView
                     android:id="@+id/dateTv"
-                    android:text="@string/today_14th_january_2019"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:textSize="15sp"
+                    android:padding="10dp"
+                    android:text="@string/today_14th_january_2019"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
-                    android:layout_width="match_parent"
-                    android:padding="10dp"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    android:layout_height="0dp"/>
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
         </LinearLayout>
