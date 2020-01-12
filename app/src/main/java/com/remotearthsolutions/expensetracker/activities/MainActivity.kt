@@ -144,6 +144,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     override fun onLogoutSuccess() {
+        SharedPreferenceUtils.getInstance(this)?.putString(Constants.KEY_USER, "")
         goBackToLoginScreen()
     }
 
