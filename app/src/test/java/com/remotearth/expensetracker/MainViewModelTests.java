@@ -1,14 +1,15 @@
 package com.remotearth.expensetracker;
 
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.remotearthsolutions.expensetracker.contracts.MainContract;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao;
+import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryExpenseDao;
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.entities.User;
+import com.remotearthsolutions.expensetracker.services.FileProcessingService;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
 import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel;
 
@@ -42,6 +43,15 @@ public class MainViewModelTests {
 
     @Mock
     ExpenseDao expenseDao;
+
+    @Mock
+    CategoryDao categoryDao;
+
+    @Mock
+    CategoryExpenseDao categoryExpenseDao;
+
+    @Mock
+    FileProcessingService fileProcessingService;
 
     @InjectMocks
     private MainViewModel viewModel;
