@@ -1,7 +1,7 @@
 package com.remotearthsolutions.expensetracker.contracts
 
 interface MainContract {
-    interface View {
+    interface View : BaseView {
         fun initializeView()
         fun goBackToLoginScreen()
         fun onLogoutSuccess()

@@ -104,7 +104,7 @@
     <string name="ok">Ok</string>
     <string name="no_data_available">No Data Available</string>
 
-    <string name="icons_made_by">Icons made by Freepik from Flaticon</string>
+    <string name="icons_made_by">Category and Account - Icons made by Freepik from Flaticon</string>
     <string name="Authentication_with_Firebase_is_failed">Authentication with Firebase is failed</string>
 
     <string name="login_failed">Login failed</string>
@@ -225,7 +225,7 @@
     <string name="write_a_note_here">Write a note...</string>
 
     <string name="export_data">Export Data</string>
-    <string name="buy_product">Buy The Product</string>
+    <string name="buy_product">Purchase</string>
     <string name="import_data">Import Data</string>
 
     <string name="already_purchased">You already purchased this item</string>
@@ -246,6 +246,7 @@
     <string name="enter_amount_greater_than_zero">Enter an amount greater than zero</string>
     <string name="select_different_accounts">Select different accounts for source and target</string>
     <string name="source_acc_not_have_amount">Source account does not have enough amount to transfer</string>
+    <string name="others">Others</string>
 
 
 </resources>

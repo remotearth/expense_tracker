@@ -1,12 +1,15 @@
 package com.remotearthsolutions.expensetracker.activities
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
@@ -17,6 +20,11 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.gson.Gson
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.callbacks.InAppBillingCallback
@@ -27,20 +35,17 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.Category
 import com.remotearthsolutions.expensetracker.entities.User
 import com.remotearthsolutions.expensetracker.fragments.*
 import com.remotearthsolutions.expensetracker.fragments.main.MainFragment
+import com.remotearthsolutions.expensetracker.services.FileProcessingServiceImp
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl
 import com.remotearthsolutions.expensetracker.services.PurchaseListener
-import com.remotearthsolutions.expensetracker.utils.CheckoutUtils
-import com.remotearthsolutions.expensetracker.utils.Constants
-import com.remotearthsolutions.expensetracker.utils.InAppUpdateUtils
-import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
+import com.remotearthsolutions.expensetracker.utils.*
 import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 import org.parceler.Parcels
-import org.solovyev.android.checkout.Inventory
+import org.solovyev.android.checkout.*
 import org.solovyev.android.checkout.Inventory.Products
-import org.solovyev.android.checkout.ProductTypes
-import org.solovyev.android.checkout.Purchase
+import java.io.File
 import javax.annotation.Nonnull
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener,
@@ -66,7 +71,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         viewModel =
             ViewModelProviders.of(this, BaseViewModelFactory {
-                MainViewModel(this, FirebaseServiceImpl(this), db?.accountDao()!!, db.expenseDao())
+                MainViewModel(
+                    this,
+                    FirebaseServiceImpl(this),
+                    db?.accountDao()!!,
+                    db.expenseDao(),
+                    db.categoryDao(),
+                    db.categoryExpenseDao(),
+                    FileProcessingServiceImp()
+                )
             }).get(MainViewModel::class.java)
 
         val userStr = SharedPreferenceUtils.getInstance(this)?.getString(Constants.KEY_USER, "")
@@ -312,6 +325,128 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     AboutFragment::class.java.name
                 )
                 fragmentTransaction.commit()
+            }
+            R.id.nav_export_data -> {
+                viewModel.saveExpenseToCSV(this)
+                drawer_layout.closeDrawer(GravityCompat.START)
+                return false
+            }
+            R.id.nav_import_data -> {
+
+                showAlert(
+                    resources.getString(R.string.attention),
+                    resources.getString(R.string.will_replace_your_current_entries),
+                    resources.getString(R.string.yes),
+                    resources.getString(R.string.cancel),
+                    object : BaseView.Callback {
+                        override fun onOkBtnPressed() {
+                            PermissionUtils().writeExternalStoragePermission(
+                                this@MainActivity,
+                                object : PermissionListener {
+                                    override fun onPermissionGranted(response: PermissionGrantedResponse) {
+                                        val allCsvFile =
+                                            viewModel.allCsvFile
+                                        if (allCsvFile == null || allCsvFile.isEmpty()) {
+                                            Toast.makeText(
+                                                this@MainActivity,
+                                                resources.getString(R.string.no_supported_file),
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                            return
+                                        }
+                                        val csvList: Array<String> =
+                                            allCsvFile.toTypedArray()
+                                        val dialogBuilder =
+                                            AlertDialog.Builder(this@MainActivity)
+                                        dialogBuilder.setTitle(resources.getString(R.string.select_csv))
+                                        dialogBuilder.setItems(
+                                            csvList
+                                        ) { _: DialogInterface?, item: Int ->
+                                            val selectedText =
+                                                csvList[item]
+                                            val filePath = File(
+                                                Environment.getExternalStorageDirectory().absolutePath,
+                                                selectedText
+                                            ).absolutePath
+                                            viewModel.importDataFromFile(filePath)
+                                            FabricAnswersUtils.logCustom("Data Imported")
+                                            showProgress(resources.getString(R.string.please_wait))
+                                            Handler()
+                                                .postDelayed({
+                                                    updateSummary()
+                                                    refreshChart()
+                                                    hideProgress()
+                                                }, 3000)
+                                        }
+                                        val alertDialogObject =
+                                            dialogBuilder.create()
+                                        alertDialogObject.show()
+                                    }
+
+                                    override fun onPermissionDenied(response: PermissionDeniedResponse) {
+                                        showAlert(
+                                            "",
+                                            resources.getString(R.string.read_write_permission_is_needed),
+                                            resources.getString(R.string.ok),
+                                            null,
+                                            null
+                                        )
+                                    }
+
+                                    override fun onPermissionRationaleShouldBeShown(
+                                        permission: PermissionRequest,
+                                        token: PermissionToken
+                                    ) {
+                                        Toast.makeText(
+                                            this@MainActivity,
+                                            resources.getString(R.string.read_write_permission_is_needed_enable_from_settings),
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                })
+                        }
+
+                        override fun onCancelBtnPressed() {}
+                    })
+                drawer_layout.closeDrawer(GravityCompat.START)
+                return false
+            }
+            R.id.nav_purchase -> {
+                showAlert(resources.getString(R.string.whatsinpremium),
+                    resources.getString(R.string.premium_features),
+                    resources.getString(R.string.ok),
+                    null,
+                    object : BaseView.Callback {
+                        override fun onOkBtnPressed() {
+
+                            if (!isDeviceOnline) {
+                                showAlert(
+                                    "",
+                                    resources.getString(R.string.internet_connection_needed),
+                                    resources.getString(R.string.ok),
+                                    null,
+                                    null
+                                )
+                                return
+                            }
+                            checkoutUtils.checkout.whenReady(object : Checkout.EmptyListener() {
+                                override fun onReady(@Nonnull requests: BillingRequests) {
+                                    requests.purchase(
+                                        ProductTypes.IN_APP,
+                                        productId!!,
+                                        null,
+                                        checkoutUtils.purchaseFlow
+                                    )
+                                }
+                            })
+                        }
+
+                        override fun onCancelBtnPressed() {
+                            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        }
+                    })
+                drawer_layout.closeDrawer(GravityCompat.START)
+                return false
             }
         }
         drawer_layout.closeDrawer(GravityCompat.START)

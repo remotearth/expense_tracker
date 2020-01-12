@@ -13,10 +13,21 @@
                 android:id="@+id/nav_categories"
                 android:icon="@drawable/ic_categories"
                 android:title="@string/menu_categories"/>
+
         <item
-                android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_settings"
-                android:title="@string/menu_settings"/>
+            android:id="@+id/nav_import_data"
+            android:icon="@drawable/ic_import_data"
+            android:title="@string/import_data"/>
+
+        <item
+            android:id="@+id/nav_export_data"
+            android:icon="@drawable/ic_export_data"
+            android:title="@string/export_data"/>
+
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/menu_settings"/>
 
         <item
                 android:id="@+id/nav_logout"
@@ -25,10 +36,15 @@
 
     </group>
 
-    <item android:title="Others">
+    <item android:title="@string/others">
 
         <menu>
             <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_purchase"
+                    android:icon="@drawable/ic_purchase"
+                    android:title="@string/buy_product"/>
+
                 <item
                         android:id="@+id/nav_about"
                         android:icon="@drawable/ic_about"
