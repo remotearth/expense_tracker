@@ -102,7 +102,7 @@
     <string name="warning">Warning</string>
     <string name="buy_message">To enjoy this service, You have to buy</string>
     <string name="ok">Ok</string>
-    <string name="no_data_available">Sorry, No Data Available</string>
+    <string name="no_data_available">No Data Available</string>
 
     <string name="icons_made_by">Icons made by Freepik from Flaticon</string>
     <string name="Authentication_with_Firebase_is_failed">Authentication with Firebase is failed</string>
@@ -238,4 +238,14 @@
 
     <string name="whatsinpremium">What\'s in premium version?</string>
     <string name="premium_features">\n\n1. There is no limit adding new categories and accounts.\n\n2. No ads\n\n</string>
+
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="transfer_balance">Transfer Balance</string>
+    <string name="enter_amount_to_transfer">Please enter an amount to transfer</string>
+    <string name="enter_amount_greater_than_zero">Enter an amount greater than zero</string>
+    <string name="select_different_accounts">Select different accounts for source and target</string>
+    <string name="source_acc_not_have_amount">Source account does not have enough amount to transfer</string>
+
+
 </resources>

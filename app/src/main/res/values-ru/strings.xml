@@ -200,4 +200,12 @@
     <string name="whatsinpremium">Что в премиум-версии?</string>
     <string name="select_time_format_from_here">Выберите формат даты</string>
     <string name="premium_features">\n\n1. Нет ограничений по добавлению новых категорий и учетных записей.\n\n2. Нет рекламы\n\n</string>
+
+    <string name="from">Из</string>
+    <string name="to">к</string>
+    <string name="transfer_balance">Перевод баланса</string>
+    <string name="enter_amount_to_transfer">Пожалуйста, введите сумму перевода</string>
+    <string name="enter_amount_greater_than_zero">Введите сумму больше нуля</string>
+    <string name="select_different_accounts">Выберите разные учетные записи для источника и цели</string>
+    <string name="source_acc_not_have_amount">Исходный аккаунт не имеет достаточной суммы для перевода</string>
 </resources>

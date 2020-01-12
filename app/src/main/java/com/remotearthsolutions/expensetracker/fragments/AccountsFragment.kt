@@ -25,6 +25,7 @@ import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
 import com.remotearthsolutions.expensetracker.viewmodels.AccountViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
+import kotlinx.android.synthetic.main.fragment_accounts.*
 import kotlinx.android.synthetic.main.fragment_accounts.view.*
 
 class AccountsFragment : BaseFragment(),
@@ -74,23 +75,31 @@ class AccountsFragment : BaseFragment(),
         viewModel!!.numberOfItem.observe(this,
             Observer { count: Int -> limitOfAccount = count }
         )
-        view.findViewById<View>(R.id.addAccountBtn)
-            .setOnClickListener {
-                if (limitOfAccount < 5 ||
-                    ((mContext as Activity?)!!.application as ApplicationObject).isPremium
-                ) {
-                    selectAccountModel = null
-                    onClickEditBtn()
-                } else {
-                    showAlert(
-                        getString(R.string.attention),
-                        getString(R.string.you_need_to_be_premium_user_to_add_more_categories),
-                        getString(R.string.ok),
-                        null,
-                        null
-                    )
-                }
+        addAccountBtn.setOnClickListener {
+            if (limitOfAccount < 5 ||
+                ((mContext as Activity?)!!.application as ApplicationObject).isPremium
+            ) {
+                selectAccountModel = null
+                onClickEditBtn()
+            } else {
+                showAlert(
+                    getString(R.string.attention),
+                    getString(R.string.you_need_to_be_premium_user_to_add_more_categories),
+                    getString(R.string.ok),
+                    null,
+                    null
+                )
             }
+        }
+
+        transferAmountBtn.setOnClickListener {
+            val transferBalanceDialogFragment = TransferBalanceDialogFragment()
+            transferBalanceDialogFragment.setViewModel(viewModel!!)
+            transferBalanceDialogFragment.show(
+                childFragmentManager,
+                TransferBalanceDialogFragment::class.java.name
+            )
+        }
     }
 
     override fun onAccountFetch(accounts: List<AccountModel>?) {

@@ -197,4 +197,12 @@
     <string name="whatsinpremium">Premium sürümde neler var?</string>
     <string name="select_time_format_from_here">Tarih Formatını Seçin</string>
     <string name="premium_features">\n\n1. Yeni kategori ve hesap eklemenin bir sınırı yoktur.\n\n2. Reklam yok\n\n</string>
+
+    <string name="from">itibaren</string>
+    <string name="to">için</string>
+    <string name="transfer_balance">Transfer Bakiyesi</string>
+    <string name="enter_amount_to_transfer">Lütfen aktarılacak tutarı girin</string>
+    <string name="enter_amount_greater_than_zero">Sıfırdan büyük bir tutar girin</string>
+    <string name="select_different_accounts">Kaynak ve hedef için farklı hesaplar seçin</string>
+    <string name="source_acc_not_have_amount">Kaynak hesapta aktarılacak yeterli miktar yok</string>
 </resources>
