@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.appcompat.app.ActionBar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -23,8 +22,8 @@ import com.remotearthsolutions.expensetracker.activities.MainActivity
 import com.remotearthsolutions.expensetracker.databinding.FragmentMainBinding
 import com.remotearthsolutions.expensetracker.fragments.AccountsFragment
 import com.remotearthsolutions.expensetracker.fragments.AllExpenseFragment
-import com.remotearthsolutions.expensetracker.fragments.DashboardFragment
 import com.remotearthsolutions.expensetracker.fragments.HomeFragment
+import com.remotearthsolutions.expensetracker.fragments.OverViewFragment
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.views.PeriodButton
@@ -44,10 +43,10 @@ class MainFragment : Fragment(),
         mContext = context
         mResources = mContext.resources
         tabTitles = arrayOf(
-            getString(R.string.home),
-            getString(R.string.transactions),
-            getString(R.string.accounts),
-            getString(R.string.dashboard)
+            getString(R.string.title_home),
+            getString(R.string.title_transaction),
+            getString(R.string.title_overview),
+            getString(R.string.title_accounts)
         )
     }
 
@@ -134,11 +133,11 @@ class MainFragment : Fragment(),
                     binding!!.viewpager.setCurrentItem(1, true)
                     actionBar!!.title = tabTitles[1]
                 }
-                R.id.navigation_accounts -> {
+                R.id.navigation_overview -> {
                     binding!!.viewpager.setCurrentItem(2, true)
                     actionBar!!.title = tabTitles[2]
                 }
-                R.id.navigation_dashboard -> {
+                R.id.navigation_accounts -> {
                     binding!!.viewpager.setCurrentItem(3, true)
                     actionBar!!.title = tabTitles[3]
                 }
@@ -208,24 +207,41 @@ class MainFragment : Fragment(),
                     binding!!.navigation.selectedItemId = R.id.navigation_transaction
                 }
                 2 -> {
-                    if (binding!!.dateRangeContainer.measuredHeight == dateContainerHeight) {
-                        binding!!.dateRangeContainer.animate().alpha(0f)
-                            .translationY(-binding!!.dateRangeContainer.height.toFloat()).duration =
-                            200
+                    if (binding!!.dateRangeContainer.measuredHeight == 0) {
+                        val anim = ValueAnimator.ofInt(0, dateContainerHeight)
+                        anim.addUpdateListener { valueAnimator: ValueAnimator ->
+                            val `val` = valueAnimator.animatedValue as Int
+                            val layoutParams =
+                                binding!!.dateRangeContainer.layoutParams
+                            layoutParams.height = `val`
+                            binding!!.dateRangeContainer.layoutParams = layoutParams
+                        }
+                        anim.duration = 200
+                        anim.start()
                         Handler().postDelayed({
-                            val anim = ValueAnimator.ofInt(dateContainerHeight, 0)
-                            anim.addUpdateListener { valueAnimator: ValueAnimator ->
-                                val `val` = valueAnimator.animatedValue as Int
-                                val layoutParams =
-                                    binding!!.dateRangeContainer.layoutParams
-                                layoutParams.height = `val`
-                                binding!!.dateRangeContainer.layoutParams = layoutParams
-                            }
-                            anim.duration = 200
-                            anim.start()
-                        }, 300)
+                            binding!!.dateRangeContainer.animate().alpha(1.0f).translationY(0f)
+                                .duration = 200
+                        }, 100)
                     }
-                    binding!!.navigation.selectedItemId = R.id.navigation_accounts
+                    binding!!.navigation.selectedItemId = R.id.navigation_overview
+//                    if (binding!!.dateRangeContainer.measuredHeight == dateContainerHeight) {
+//                        binding!!.dateRangeContainer.animate().alpha(0f)
+//                            .translationY(-binding!!.dateRangeContainer.height.toFloat()).duration =
+//                            200
+//                        Handler().postDelayed({
+//                            val anim = ValueAnimator.ofInt(dateContainerHeight, 0)
+//                            anim.addUpdateListener { valueAnimator: ValueAnimator ->
+//                                val `val` = valueAnimator.animatedValue as Int
+//                                val layoutParams =
+//                                    binding!!.dateRangeContainer.layoutParams
+//                                layoutParams.height = `val`
+//                                binding!!.dateRangeContainer.layoutParams = layoutParams
+//                            }
+//                            anim.duration = 200
+//                            anim.start()
+//                        }, 300)
+//                    }
+//                    binding!!.navigation.selectedItemId = R.id.navigation_accounts
                 }
                 3 -> {
                     if (binding!!.dateRangeContainer.measuredHeight == dateContainerHeight) {
@@ -245,7 +261,7 @@ class MainFragment : Fragment(),
                             anim.start()
                         }, 300)
                     }
-                    binding!!.navigation.selectedItemId = R.id.navigation_dashboard
+                    binding!!.navigation.selectedItemId = R.id.navigation_accounts
                 }
             }
         }
@@ -318,12 +334,12 @@ class MainFragment : Fragment(),
                     allExpenseFragment!!
                 }
                 2 -> {
-                    accountsFragment = AccountsFragment()
-                    accountsFragment!!
+                    overViewFragment = OverViewFragment()
+                    overViewFragment!!
                 }
                 3 -> {
-                    dashboardFragment = DashboardFragment()
-                    dashboardFragment!!
+                    accountsFragment = AccountsFragment()
+                    accountsFragment!!
                 }
                 else -> {
                     homeFragment = HomeFragment()
@@ -344,7 +360,7 @@ class MainFragment : Fragment(),
     companion object {
         private var homeFragment: HomeFragment? = null
         private var allExpenseFragment: AllExpenseFragment? = null
-        private var dashboardFragment: DashboardFragment? = null
+        private var overViewFragment: OverViewFragment? = null
         private var accountsFragment: AccountsFragment? = null
     }
 }

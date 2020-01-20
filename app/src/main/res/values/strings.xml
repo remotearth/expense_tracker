@@ -57,8 +57,9 @@
 
     <!--BottoM Navigation Strings-->
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_overview">Overview</string>
     <string name="title_transaction">Transaction</string>
+    <string name="title_accounts">Accounts</string>
 
     <!--BottoM sheet Strings-->
     <string name="from_account_card">CASH</string>
@@ -98,7 +99,7 @@
     <string name="select_time_format_from_here">Select Date Format</string>
     <string name="default_time_format" translatable="false">dd-MM-yyyy</string>
 
-    <string name="accounts">Accounts</string>
+
     <string name="warning">Warning</string>
     <string name="buy_message">To enjoy this service, You have to buy</string>
     <string name="ok">Ok</string>
@@ -148,10 +149,6 @@
     </string>
     <string name="successfully_added">Successfully added.</string>
     <string name="successfully_deleted_expense_entry">Successfully deleted expense entry.</string>
-
-    <string name="transactions">Transactions</string>
-    <string name="dashboard">Dashboard</string>
-    <string name="home">Home</string>
 
     <string name="report_from_expense_tracker">Reports From Expense Tracker</string>
     <string name="choose_email_client_to_send_report">Choose Email Client To Send Report</string>
@@ -247,6 +244,9 @@
     <string name="select_different_accounts">Select different accounts for source and target</string>
     <string name="source_acc_not_have_amount">Source account does not have enough amount to transfer</string>
     <string name="others">Others</string>
+    <string name="entry_count">Count</string>
+    <string name="daily_avg">Daily(avg.)</string>
+
 
 
 </resources>

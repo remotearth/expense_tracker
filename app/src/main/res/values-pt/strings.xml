@@ -15,7 +15,7 @@
 
     <!--BottoM Navigation Strings-->
     <string name="title_home">Casa</string>
-    <string name="title_dashboard">Painel de controle</string>
+    <string name="title_overview">Painel de controle</string>
     <string name="title_transaction">Transação</string>
 
     <!--BottoM sheet Strings-->
@@ -103,7 +103,7 @@
     <string name="successfully_deleted_expense_entry">Entrada de despesa excluída com sucesso.</string>
 
     <string name="transactions">Transações</string>
-    <string name="dashboard">Painel de controle</string>
+    <string name="overview">Painel de controle</string>
     <string name="home">Casa</string>
 
     <string name="report_from_expense_tracker">Relatórios do Expense Tracker</string>

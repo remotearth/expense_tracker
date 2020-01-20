@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.viewmodels
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract.ExpenseView
@@ -13,22 +14,24 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
-class ExpenseViewModel(
-    private val view: ExpenseView,
+class AllTransactionsViewModel(
+    private val view: ExpenseView?,
     private val expenseDao: ExpenseDao,
     private val categoryExpenseDao: CategoryExpenseDao,
     private val dateFormat: String
 ) : ViewModel() {
     private val disposable = CompositeDisposable()
     private var dateRangeBtnId = 0
+    var chartDataRequirementLiveData = MutableLiveData<ChartDataRequirement>()
+
     fun loadFilterExpense(startTime: Long, endTime: Long, btnId: Int) {
         disposable.add(
             categoryExpenseDao.getExpenseWithinRange(startTime, endTime)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { listOfFilterExpense: List<CategoryExpense> ->
-                    val expenseList: MutableList<CategoryExpense> =
-                        ArrayList()
+
+                    val expenseList: MutableList<CategoryExpense> = ArrayList()
                     if (listOfFilterExpense.isNotEmpty()) {
                         var previousDate = listOfFilterExpense[0].datetime
                         var previousMonth =
@@ -63,13 +66,8 @@ class ExpenseViewModel(
                                 }
                             }
                             if (dateRangeBtnId != R.id.dailyRangeBtn) {
-                                if (getDate(
-                                        expense.datetime,
-                                        dateFormat
-                                    ) != getDate(
-                                        previousDate,
-                                        dateFormat
-                                    )
+                                if (getDate(expense.datetime, dateFormat) !=
+                                    getDate(previousDate, dateFormat)
                                 ) {
                                     val dummy = CategoryExpense()
                                     dummy.isHeader = true
@@ -84,9 +82,18 @@ class ExpenseViewModel(
                             expenseList.add(expense)
                         }
                     }
-                    view.loadFilterExpense(expenseList)
+                    view?.loadFilterExpense(expenseList)
+                    this.chartDataRequirementLiveData.value =
+                        ChartDataRequirement(startTime, endTime, dateRangeBtnId, listOfFilterExpense)
                 }
         )
     }
+
+    data class ChartDataRequirement(
+        val startTime: Long,
+        val endTime: Long,
+        val selectedFilterBtnId: Int,
+        val filteredList: List<CategoryExpense>
+    )
 
 }

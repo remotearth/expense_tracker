@@ -17,14 +17,14 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.Category
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
-import com.remotearthsolutions.expensetracker.viewmodels.ExpenseViewModel
+import com.remotearthsolutions.expensetracker.viewmodels.AllTransactionsViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
 import kotlinx.android.synthetic.main.fragment_all_expense.view.*
 
 class AllExpenseFragment : BaseFragment(), ExpenseView {
     private lateinit var mView: View
     private lateinit var adapter: ExpenseListAdapter
-    private var viewModel: ExpenseViewModel? = null
+    private var viewModel: AllTransactionsViewModel? = null
     private var currencySymbol: String? = null
     private var mContext: Context? = null
     override fun onAttach(context: Context) {
@@ -48,8 +48,8 @@ class AllExpenseFragment : BaseFragment(), ExpenseView {
         val db = DatabaseClient.getInstance(mContext!!)?.appDatabase
 
         viewModel =
-            ViewModelProviders.of(this, BaseViewModelFactory {
-                ExpenseViewModel(
+            ViewModelProviders.of(requireActivity(), BaseViewModelFactory {
+                AllTransactionsViewModel(
                     this, db?.expenseDao()!!, db.categoryExpenseDao(),
                     SharedPreferenceUtils.getInstance(mContext!!)!!
                         .getString(
@@ -57,7 +57,7 @@ class AllExpenseFragment : BaseFragment(), ExpenseView {
                             resources.getString(R.string.default_time_format)
                         )
                 )
-            }).get(ExpenseViewModel::class.java)
+            }).get(AllTransactionsViewModel::class.java)
 
         return mView
     }

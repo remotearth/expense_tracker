@@ -4,7 +4,9 @@ import android.util.Log
 import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.time.YearMonth
 import java.util.*
+import kotlin.math.abs
 
 object DateTimeUtils {
     val dd_MM_yyyy: String = Constants.KEY_DATE_MONTH_YEAR_DEFAULT
@@ -73,5 +75,13 @@ object DateTimeUtils {
             Log.d("Exception", "" + e.message)
         }
         return calendar.timeInMillis
+    }
+
+    fun getCurrentTimeInMills(): Long {
+        return Calendar.getInstance().timeInMillis
+    }
+
+    fun daysBetween(d1:Long, d2:Long) : Int{
+        return (( abs(d2 - d1) / (1000 * 60 * 60 * 24)).toInt())
     }
 }

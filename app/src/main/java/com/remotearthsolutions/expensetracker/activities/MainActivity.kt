@@ -205,7 +205,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             ft.remove(expenseFragment)
             fragmentManager.popBackStack()
             ft.commit()
-            supportActionBar!!.title = getString(R.string.home)
+            supportActionBar!!.title = getString(R.string.title_home)
         } else if (webViewFragment != null) {
             val fragmentManager = supportFragmentManager
             val ft = fragmentManager.beginTransaction()
@@ -235,7 +235,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         when (item.itemId) {
             R.id.nav_home -> {
                 mainFragment = MainFragment()
-                mainFragment!!.setActionBar(supportActionBar, getString(R.string.home))
+                mainFragment!!.setActionBar(supportActionBar, getString(R.string.title_home))
                 val fragmentTransaction =
                     supportFragmentManager.beginTransaction()
                 fragmentTransaction.replace(

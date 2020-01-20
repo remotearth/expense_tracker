@@ -15,7 +15,7 @@
 
     <!--BottoM Navigation Strings-->
     <string name="title_home">Главная</string>
-    <string name="title_dashboard">Приборная доска</string>
+    <string name="title_overview">Приборная доска</string>
     <string name="title_transaction">Сделка</string>
 
     <!--BottoM sheet Strings-->
@@ -108,7 +108,7 @@
     <string name="successfully_deleted_expense_entry">Успешно удалена запись о расходах.</string>
 
     <string name="transactions">операции</string>
-    <string name="dashboard">Приборная доска</string>
+    <string name="overview">Приборная доска</string>
     <string name="home">Главная</string>
 
     <string name="report_from_expense_tracker">Отчеты от отслеживания расходов</string>

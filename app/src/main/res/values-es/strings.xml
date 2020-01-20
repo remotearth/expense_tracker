@@ -14,7 +14,7 @@
 
     <!--BottoM Navigation Strings-->
     <string name="title_home">Casa</string>
-    <string name="title_dashboard">Tablero</string>
+    <string name="title_overview">Tablero</string>
     <string name="title_transaction">Transacción</string>
 
     <!--BottoM sheet Strings-->
@@ -94,7 +94,7 @@
     <string name="successfully_added">Agregado exitosamente.</string>
     <string name="successfully_deleted_expense_entry">Se eliminó correctamente la entrada de gastos.</string>
     <string name="transactions">Actas</string>
-    <string name="dashboard">Tablero</string>
+    <string name="overview">Tablero</string>
     <string name="home">Casa</string>
     <string name="report_from_expense_tracker">Informes de Expense Tracker</string>
     <string name="choose_email_client_to_send_report">Elija un cliente de correo electrónico para enviar el informe

@@ -15,7 +15,7 @@
 
     <!--BottoM Navigation Strings-->
     <string name="title_home">Ev</string>
-    <string name="title_dashboard">Diğerleri</string>
+    <string name="title_overview">Diğerleri</string>
     <string name="title_transaction">Işlem</string>
 
     <!--BottoM sheet Strings-->
@@ -106,7 +106,7 @@
     <string name="successfully_deleted_expense_entry">Gider girişi başarıyla silindi.</string>
 
     <string name="transactions">Işlemler</string>
-    <string name="dashboard">Diğerleri</string>
+    <string name="overview">Diğerleri</string>
     <string name="home">Ev</string>
 
     <string name="report_from_expense_tracker">Gider İzleyiciden Raporlar</string>

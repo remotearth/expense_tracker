@@ -15,7 +15,7 @@
 
     <!--BottoM Navigation Strings-->
     <string name="title_home">Casa</string>
-    <string name="title_dashboard">Cruscotto</string>
+    <string name="title_overview">Cruscotto</string>
     <string name="title_transaction">Transazione</string>
 
     <!--BottoM sheet Strings-->
@@ -105,7 +105,7 @@
     <string name="successfully_deleted_expense_entry">Entrata di spesa cancellata con successo.</string>
 
     <string name="transactions">Le transazioni</string>
-    <string name="dashboard">Cruscotto</string>
+    <string name="overview">Cruscotto</string>
     <string name="home">Casa</string>
 
     <string name="report_from_expense_tracker">Rapporti dal rilevatore di spese</string>

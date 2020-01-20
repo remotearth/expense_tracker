@@ -14,7 +14,7 @@
 
     <!--BottoM Navigation Strings-->
     <string name="title_home">Accueil</string>
-    <string name="title_dashboard">Autres</string>
+    <string name="title_overview">Autres</string>
     <string name="title_transaction">Transaction</string>
 
     <!--BottoM sheet Strings-->
@@ -96,7 +96,7 @@
     <string name="successfully_added">Ajouté avec succès.</string>
     <string name="successfully_deleted_expense_entry">Entrée de dépenses supprimée avec succès.</string>
     <string name="transactions">Transactions</string>
-    <string name="dashboard">Autres</string>
+    <string name="overview">Autres</string>
     <string name="home">Accueil</string>
     <string name="report_from_expense_tracker">Rapports de suivi des dépenses</string>
     <string name="choose_email_client_to_send_report">Choisissez le client de messagerie pour envoyer le rapport

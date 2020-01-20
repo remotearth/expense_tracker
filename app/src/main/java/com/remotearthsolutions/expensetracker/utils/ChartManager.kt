@@ -8,7 +8,7 @@ interface ChartManager {
     fun initPierChart(deviceDp: Int, screenSize: ScreenSize?)
     fun loadExpensePieChart(
         context: Context?,
-        chartView: com.remotearthsolutions.expensetracker.utils.ChartManagerImpl.ChartView?,
+        chartView: ChartManagerImpl.ChartView?,
         data: List<ExpeneChartData?>?
     )
 }

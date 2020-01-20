@@ -9,4 +9,10 @@
         <attr name="btnName" format="string" />
         <attr name="btnIcon" format="string" />
     </declare-styleable>
+    <declare-styleable name="CustomViewWithTwoTextView">
+        <attr name="title" format="string" />
+        <attr name="titleColor" format="color" />
+        <attr name="info" format="string" />
+        <attr name="infoColor" format="color" />
+    </declare-styleable>
 </resources>

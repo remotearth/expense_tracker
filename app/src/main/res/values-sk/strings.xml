@@ -15,7 +15,7 @@
 
     <!--BottoM Navigation Strings-->
     <string name="title_home">Domov</string>
-    <string name="title_dashboard">Iní</string>
+    <string name="title_overview">Iní</string>
     <string name="title_transaction">Transakcie</string>
 
     <!--BottoM sheet Strings-->
@@ -105,7 +105,7 @@
     <string name="successfully_deleted_expense_entry">Úspešne odstránený záznam o výdavkoch.</string>
 
     <string name="transactions">Transakcie</string>
-    <string name="dashboard">Iní</string>
+    <string name="overview">Iní</string>
     <string name="home">Domov</string>
 
     <string name="report_from_expense_tracker">Správy z Expense Tracker</string>
