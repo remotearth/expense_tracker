@@ -31,7 +31,7 @@ import com.remotearthsolutions.expensetracker.callbacks.InAppBillingCallback
 import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.contracts.MainContract
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
-import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
 import com.remotearthsolutions.expensetracker.entities.User
 import com.remotearthsolutions.expensetracker.fragments.*
 import com.remotearthsolutions.expensetracker.fragments.main.MainFragment

@@ -3,7 +3,7 @@ package com.remotearthsolutions.expensetracker.contracts
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
 
 interface ExpenseFragmentContract {
     interface View : BaseView {

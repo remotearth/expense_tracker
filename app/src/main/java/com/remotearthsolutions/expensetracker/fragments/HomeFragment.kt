@@ -19,7 +19,7 @@ import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter
 import com.remotearthsolutions.expensetracker.contracts.HomeFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
 import com.remotearthsolutions.expensetracker.databinding.FragmentHomeBinding
 import com.remotearthsolutions.expensetracker.entities.ExpeneChartData
 import com.remotearthsolutions.expensetracker.utils.ChartManager
@@ -103,7 +103,8 @@ class HomeFragment : BaseFragment(), ChartView,
         )
         adapter.setOnItemClickListener(object : CategoryListAdapter.OnItemClickListener {
             override fun onItemClick(category: CategoryModel?) {
-                val categoryExpense = CategoryExpense()
+                val categoryExpense =
+                    CategoryExpense()
                 categoryExpense.setCategory(category!!)
                 (mContext as MainActivity).openAddExpenseScreen(categoryExpense)
             }

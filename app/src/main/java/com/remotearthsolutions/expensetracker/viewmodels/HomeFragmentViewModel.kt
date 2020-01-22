@@ -7,7 +7,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryExpenseDao
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
 import com.remotearthsolutions.expensetracker.entities.ExpeneChartData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

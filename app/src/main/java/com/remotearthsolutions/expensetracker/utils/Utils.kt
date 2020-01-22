@@ -63,7 +63,7 @@ object Utils {
             Constants.PREF_CURRENCY,
             resources.getString(R.string.default_currency)
         )
-        return com.remotearthsolutions.expensetracker.utils.CountryFlagIcons.getIcon(
+        return CountryFlagIcons.getIcon(
             currencies.indexOf(
                 selectedCurrency
             )

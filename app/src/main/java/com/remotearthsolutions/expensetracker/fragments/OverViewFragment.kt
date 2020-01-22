@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.components.YAxis.AxisDependency
 import com.github.mikephil.charting.data.BarData
@@ -21,7 +22,9 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.utils.MPPointF
 import com.remotearthsolutions.expensetracker.R
+import com.remotearthsolutions.expensetracker.adapters.OverviewListAdapter
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryOverviewItemDto
 import com.remotearthsolutions.expensetracker.utils.*
 import com.remotearthsolutions.expensetracker.viewmodels.AllTransactionsViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
@@ -29,12 +32,16 @@ import com.remotearthsolutions.expensetracker.views.XYMarkerView
 import kotlinx.android.synthetic.main.fragment_overview.*
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
     private lateinit var mView: View
     private lateinit var viewModel: AllTransactionsViewModel
+    private lateinit var listOfCategoryWithExpense: ArrayList<CategoryOverviewItemDto>
+    private var map: MutableMap<Int, Int> = HashMap()
 
+    private var currencySymbol: String? = null
     private var mContext: Context? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -53,16 +60,20 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val maxWidthOfBar = Utils.getDeviceScreenSize(requireActivity())
+            ?.width?.minus(resources.getDimension(R.dimen.dp_45))
         val height = Utils.getDeviceScreenSize(requireActivity())?.height?.div(4)
         val param = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height!!)
         barChart.layoutParams = param
 
         val db = DatabaseClient.getInstance(mContext!!)?.appDatabase
+        currencySymbol = Utils.getCurrency(requireContext())
 
         viewModel =
             ViewModelProviders.of(requireActivity(), BaseViewModelFactory {
                 AllTransactionsViewModel(
                     null, db?.expenseDao()!!, db.categoryExpenseDao(),
+                    db.categoryDao(),
                     SharedPreferenceUtils.getInstance(mContext!!)!!
                         .getString(
                             Constants.PREF_TIME_FORMAT,
@@ -71,13 +82,27 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
                 )
             }).get(AllTransactionsViewModel::class.java)
 
+        recyclerView.setHasFixedSize(true)
+        val llm = LinearLayoutManager(mContext)
+        recyclerView.layoutManager = llm
+
+        viewModel.getAllCategory()
+        viewModel.listOfCateogoryLiveData.observe(this, Observer {
+            listOfCategoryWithExpense = ArrayList()
+            it.forEachIndexed { index, ctg ->
+                val item = CategoryOverviewItemDto()
+                item.categoryIcon = ctg.icon
+                item.categoryName = ctg.name
+                item.currencySymbol = currencySymbol
+                listOfCategoryWithExpense.add(item)
+                map[ctg.id] = index
+            }
+        })
+
         setupChart()
-
-
 
         viewModel.chartDataRequirementLiveData.observe(this, Observer {
             barChart.clear()
-            val currencySymbol = Utils.getCurrency(requireContext())
 
             when (it.selectedFilterBtnId) {
                 R.id.dailyRangeBtn -> {
@@ -120,7 +145,21 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
                 }
             }
 
+            listOfCategoryWithExpense.forEach { item ->
+                item.totalExpenseOfCateogry = 0.0
+            }
+            var sum = 0.0
+            it.filteredList.forEach { exp ->
+                val index = map[exp.categoryId]
+                val item = listOfCategoryWithExpense[index!!]
+                item.totalExpenseOfCateogry += exp.totalAmount
+                sum += exp.totalAmount
+            }
 
+            var sortedList =
+                listOfCategoryWithExpense.sortedWith(compareByDescending { item -> item.totalExpenseOfCateogry })
+            val adapter = OverviewListAdapter(sortedList, sum, maxWidthOfBar!!.toInt())
+            recyclerView.adapter = adapter
         })
 
     }
@@ -141,7 +180,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
 
         //add previous date of the starting day to show in the graph
         cal.add(calendarValueType, -1)
-        var date = DateTimeUtils.getDate(cal.timeInMillis, dateFormat)
+        val date = DateTimeUtils.getDate(cal.timeInMillis, dateFormat)
         xVals.add(date)
         barEntry.add(BarEntry(i.toFloat(), 0f))
         i++
@@ -149,7 +188,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
 
         cal.timeInMillis = it.startTime
         while (true) {
-            var date = DateTimeUtils.getDate(cal.timeInMillis, dateFormat)
+            val date = DateTimeUtils.getDate(cal.timeInMillis, dateFormat)
 
             xVals.add(date)
             barEntry.add(BarEntry(i.toFloat(), 0f))
@@ -208,7 +247,6 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         barChart.legend.isEnabled = false
         barChart.setFitBars(true)
 
-
     }
 
     override fun onNothingSelected() {
@@ -217,21 +255,11 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
 
     private val onValueSelectedRectF = RectF()
     override fun onValueSelected(e: Entry?, h: Highlight?) {
-        if (e == null || e.y == 0.0f) return
+        if (e == null) return
 
         val bounds = onValueSelectedRectF
         barChart.getBarBounds(e as BarEntry?, bounds)
         val position: MPPointF = barChart.getPosition(e, AxisDependency.LEFT)
-
-//        Log.i("bounds", bounds.toString())
-//        Log.i("position", position.toString())
-//
-//        Log.i(
-//            "x-index",
-//            "low: " + chart.getLowestVisibleX() + ", high: "
-//                    + chart.getHighestVisibleX()
-//        )
-
         MPPointF.recycleInstance(position)
     }
 }

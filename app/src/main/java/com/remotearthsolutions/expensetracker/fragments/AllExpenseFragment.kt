@@ -13,7 +13,7 @@ import com.remotearthsolutions.expensetracker.adapters.ExpenseListAdapter
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract.ExpenseView
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
@@ -50,7 +50,7 @@ class AllExpenseFragment : BaseFragment(), ExpenseView {
         viewModel =
             ViewModelProviders.of(requireActivity(), BaseViewModelFactory {
                 AllTransactionsViewModel(
-                    this, db?.expenseDao()!!, db.categoryExpenseDao(),
+                    this, db?.expenseDao()!!, db.categoryExpenseDao(),db.categoryDao(),
                     SharedPreferenceUtils.getInstance(mContext!!)!!
                         .getString(
                             Constants.PREF_TIME_FORMAT,

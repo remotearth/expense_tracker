@@ -1,9 +1,7 @@
-package com.remotearthsolutions.expensetracker.databaseutils.models.dtos
+package com.remotearthsolutions.expensetracker.databaseutils.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Ignore
-import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils
 import org.parceler.Parcel
 
@@ -92,8 +90,9 @@ class CategoryExpense {
         accountIcon = account.icon
     }
 
-    fun copy() : CategoryExpense{
-        val categoryExpense = CategoryExpense()
+    fun copy() : CategoryExpense {
+        val categoryExpense =
+            CategoryExpense()
         categoryExpense.expenseId = this.expenseId
         categoryExpense.categoryId = this.categoryId
         categoryExpense.categoryName = this.categoryName

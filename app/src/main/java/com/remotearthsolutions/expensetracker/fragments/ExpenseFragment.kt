@@ -19,9 +19,9 @@ import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.utils.*
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.currentTime
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getCalendarFromDateString
@@ -42,7 +42,6 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
     private var viewModel: ExpenseFragmentViewModel? = null
     private var categoryExpense: CategoryExpense? = null
     private var prevExpense: CategoryExpense? = null
-    //private var prevAccountId: Int = -1
     private lateinit var mContext: Context
     private lateinit var mResources: Resources
     private lateinit var format: String
@@ -314,7 +313,8 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
 
     override fun setSourceAccount(account: AccountModel?) {
         if (categoryExpense == null) {
-            categoryExpense = CategoryExpense()
+            categoryExpense =
+                CategoryExpense()
         }
         categoryExpense!!.setAccount(account!!)
         mView.fromAccountBtn.update(
@@ -329,11 +329,12 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
 
     override fun showDefaultCategory(categoryModel: CategoryModel?) {
         if (categoryExpense == null) {
-            categoryExpense = CategoryExpense()
+            categoryExpense =
+                CategoryExpense()
         }
         categoryExpense!!.setCategory(categoryModel!!)
         mView.toCategoryBtn.update(
-            categoryModel?.name!!,
+            categoryModel.name!!,
             categoryModel.icon!!
         )
     }

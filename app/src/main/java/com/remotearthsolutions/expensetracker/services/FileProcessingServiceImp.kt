@@ -18,7 +18,7 @@ import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
 import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils.show
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.Constants.Companion.KEY_UTF_VERSION
@@ -94,13 +94,14 @@ class FileProcessingServiceImp : FileProcessingService {
             while (fileReader.readLine().also { line = it } != null) {
                 val tokens = line.split(", ").toTypedArray()
                 if (tokens.isNotEmpty()) {
-                    val categoryExpense = CategoryExpense(
-                        tokens[0].toInt(),
-                        tokens[1],
-                        tokens[2],
-                        tokens[3].toDouble(),
-                        tokens[4].toLong()
-                    )
+                    val categoryExpense =
+                        CategoryExpense(
+                            tokens[0].toInt(),
+                            tokens[1],
+                            tokens[2],
+                            tokens[3].toDouble(),
+                            tokens[4].toLong()
+                        )
                     categoryExpenseList.add(categoryExpense)
                 }
             }
