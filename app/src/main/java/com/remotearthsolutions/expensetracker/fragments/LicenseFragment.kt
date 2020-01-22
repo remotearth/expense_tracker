@@ -51,7 +51,7 @@ class LicenseFragment : Fragment() {
                 8 -> sendLicenseFileToWebFragment(Constants.FIREBASE_LICENSE_FILE)
                 9 -> sendLicenseFileToWebFragment(Constants.RXANROID_LICENSE_FILE)
                 10 -> sendLicenseFileToWebFragment(Constants.MULTIDEX_LICENSE_FILE)
-                11 -> sendLicenseFileToWebFragment(Constants.ADMOB_LICENSE_FILE)
+                11 -> sendLicenseFileToWebFragment(Constants.MPANDROIDCHART_LICENSE_FILE)
             }
         }
         return view

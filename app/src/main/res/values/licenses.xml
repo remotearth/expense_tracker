@@ -12,5 +12,6 @@
         <item>firebase-android-sdk - firebase</item>
         <item>RxAndroid - ReactiveX</item>
         <item>multidex - casidiablo</item>
+        <item>MPAndroidChart - PhilJay</item>
     </string-array>
 </resources>

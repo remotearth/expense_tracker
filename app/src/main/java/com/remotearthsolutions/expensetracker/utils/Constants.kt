@@ -37,7 +37,7 @@ interface Constants {
             "file:///android_asset/licenses/LICENSERxandroid.txt"
         const val MULTIDEX_LICENSE_FILE =
             "file:///android_asset/licenses/LICENSEMultidex.txt"
-        const val ADMOB_LICENSE_FILE = "file:///android_asset/licenses/LICENSEAdsense.txt"
+        const val MPANDROIDCHART_LICENSE_FILE = "file:///android_asset/licenses/LICENSEMPAndroidChart.txt"
 
         const val PREF_CURRENCY = "pref_currency_list"
         const val PREF_PERIOD = "pref_period_list"
