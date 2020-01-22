@@ -1,7 +1,9 @@
 package com.remotearthsolutions.expensetracker.activities
 
+import android.content.ActivityNotFoundException
 import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
@@ -11,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -257,80 +260,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 )
                 fragmentTransaction.commit()
             }
-            R.id.nav_settings -> {
-                val settingsFragment = SettingsFragment()
-                supportActionBar!!.title = getString(R.string.menu_settings)
-                supportFragmentManager.beginTransaction().replace(
-                    R.id.framelayout,
-                    settingsFragment,
-                    SettingsFragment::class.java.name
-                ).commit()
-            }
-            R.id.nav_logout -> {
-                showAlert(
-                    "",
-                    getString(R.string.are_you_sure_you_want_to_logout),
-                    getString(R.string.yes),
-                    getString(R.string.no),
-                    object : BaseView.Callback {
-                        override fun onOkBtnPressed() {
-                            viewModel.performLogout()
-                        }
-
-                        override fun onCancelBtnPressed() {}
-                    })
-                drawer_layout.closeDrawer(GravityCompat.START)
-                return false
-            }
-            R.id.nav_about -> {
-                supportActionBar!!.title = getString(R.string.menu_about)
-                val aboutFragment = AboutFragment()
-                val fragmentTransaction =
-                    supportFragmentManager.beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                fragmentTransaction.replace(
-                    R.id.framelayout,
-                    aboutFragment,
-                    AboutFragment::class.java.name
-                )
-                fragmentTransaction.commit()
-            }
-            R.id.nav_privacypolicy -> {
-                supportActionBar!!.title = getString(R.string.privacy_policy)
-                drawer_layout.closeDrawer(GravityCompat.START)
-
-                val webViewFragment = WebViewFragment()
-                val bundle = Bundle().apply {
-                    putString(Constants.KEY_URL, Constants.URL_PRIVACY_POLICY)
-                }
-                webViewFragment.arguments = bundle
-
-                val fragmentTransaction =
-                    supportFragmentManager.beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                fragmentTransaction.replace(
-                    R.id.framelayout, webViewFragment, "privacy_screen"
-                ).commit()
-
-            }
-            R.id.nav_licenses -> {
-                supportActionBar!!.title = getString(R.string.menu_licenses)
-                val licenseFragment = LicenseFragment()
-                val fragmentTransaction =
-                    supportFragmentManager.beginTransaction()
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                fragmentTransaction.replace(
-                    R.id.framelayout,
-                    licenseFragment,
-                    AboutFragment::class.java.name
-                )
-                fragmentTransaction.commit()
-            }
-            R.id.nav_export_data -> {
-                viewModel.saveExpenseToCSV(this)
-                drawer_layout.closeDrawer(GravityCompat.START)
-                return false
-            }
             R.id.nav_import_data -> {
 
                 showAlert(
@@ -411,6 +340,36 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 drawer_layout.closeDrawer(GravityCompat.START)
                 return false
             }
+            R.id.nav_export_data -> {
+                viewModel.saveExpenseToCSV(this)
+                drawer_layout.closeDrawer(GravityCompat.START)
+                return false
+            }
+            R.id.nav_settings -> {
+                val settingsFragment = SettingsFragment()
+                supportActionBar!!.title = getString(R.string.menu_settings)
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.framelayout,
+                    settingsFragment,
+                    SettingsFragment::class.java.name
+                ).commit()
+            }
+            R.id.nav_logout -> {
+                showAlert(
+                    "",
+                    getString(R.string.are_you_sure_you_want_to_logout),
+                    getString(R.string.yes),
+                    getString(R.string.no),
+                    object : BaseView.Callback {
+                        override fun onOkBtnPressed() {
+                            viewModel.performLogout()
+                        }
+
+                        override fun onCancelBtnPressed() {}
+                    })
+                drawer_layout.closeDrawer(GravityCompat.START)
+                return false
+            }
             R.id.nav_purchase -> {
                 showAlert(resources.getString(R.string.whatsinpremium),
                     resources.getString(R.string.premium_features),
@@ -448,6 +407,84 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 drawer_layout.closeDrawer(GravityCompat.START)
                 return false
             }
+            R.id.nav_contact_us -> {
+
+                ShareCompat.IntentBuilder.from(this)
+                    .setType("message/rfc822")
+                    .addEmailTo("remotearth.solutions@gmail.com")
+                    .setSubject("About Expense Tracker")
+                    //.setText(body)
+                    //.setHtmlText(body) //If you are using HTML in your body text
+                    //.setChooserTitle()
+                    .startChooser()
+                drawer_layout.closeDrawer(GravityCompat.START)
+                return false
+            }
+            R.id.nav_rate_us -> {
+
+                val uri = Uri.parse("market://details?id=$packageName")
+                val goToMarket = Intent(Intent.ACTION_VIEW, uri)
+                goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+                try {
+                    startActivity(goToMarket);
+                } catch (e: ActivityNotFoundException) {
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("http://play.google.com/store/apps/details?id=$packageName")
+                        )
+                    )
+                }
+
+                drawer_layout.closeDrawer(GravityCompat.START)
+                return false
+            }
+            R.id.nav_about -> {
+                supportActionBar!!.title = getString(R.string.menu_about)
+                val aboutFragment = AboutFragment()
+                val fragmentTransaction =
+                    supportFragmentManager.beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                fragmentTransaction.replace(
+                    R.id.framelayout,
+                    aboutFragment,
+                    AboutFragment::class.java.name
+                )
+                fragmentTransaction.commit()
+            }
+            R.id.nav_privacypolicy -> {
+                supportActionBar!!.title = getString(R.string.privacy_policy)
+                drawer_layout.closeDrawer(GravityCompat.START)
+
+                val webViewFragment = WebViewFragment()
+                val bundle = Bundle().apply {
+                    putString(Constants.KEY_URL, Constants.URL_PRIVACY_POLICY)
+                }
+                webViewFragment.arguments = bundle
+
+                val fragmentTransaction =
+                    supportFragmentManager.beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                fragmentTransaction.replace(
+                    R.id.framelayout, webViewFragment, "privacy_screen"
+                ).commit()
+
+            }
+            R.id.nav_licenses -> {
+                supportActionBar!!.title = getString(R.string.menu_licenses)
+                val licenseFragment = LicenseFragment()
+                val fragmentTransaction =
+                    supportFragmentManager.beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                fragmentTransaction.replace(
+                    R.id.framelayout,
+                    licenseFragment,
+                    AboutFragment::class.java.name
+                )
+                fragmentTransaction.commit()
+            }
+
+
         }
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
