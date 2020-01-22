@@ -61,7 +61,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         super.onViewCreated(view, savedInstanceState)
 
         val maxWidthOfBar = Utils.getDeviceScreenSize(requireActivity())
-            ?.width?.minus(resources.getDimension(R.dimen.dp_45))
+            ?.width?.minus(resources.getDimension(R.dimen.dp_50))
         val height = Utils.getDeviceScreenSize(requireActivity())?.height?.div(4)
         val param = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height!!)
         barChart.layoutParams = param
