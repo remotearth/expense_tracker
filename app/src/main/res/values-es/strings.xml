@@ -47,7 +47,7 @@
     <string name="day">Día</string>
     <string name="selectperiodfromhere">Seleccione el período desde aquí</string>
 
-    <string name="accounts">Cuentas</string>
+    <string name="title_accounts">Cuentas</string>
     <string name="warning">Advertencia</string>
     <string name="buy_message">Para disfrutar de este servicio, tienes que comprar.</string>
     <string name="ok">De acuerdo</string>
@@ -93,9 +93,6 @@
     </string>
     <string name="successfully_added">Agregado exitosamente.</string>
     <string name="successfully_deleted_expense_entry">Se eliminó correctamente la entrada de gastos.</string>
-    <string name="transactions">Actas</string>
-    <string name="overview">Tablero</string>
-    <string name="home">Casa</string>
     <string name="report_from_expense_tracker">Informes de Expense Tracker</string>
     <string name="choose_email_client_to_send_report">Elija un cliente de correo electrónico para enviar el informe
     </string>
@@ -170,7 +167,7 @@
     <string name="write_a_note_here">Escribe una nota...</string>
 
     <string name="export_data">Exportar datos</string>
-    <string name="buy_product">Comprar el producto</string>
+    <string name="buy_product">Compra</string>
     <string name="import_data">Datos de importacion</string>
 
     <string name="already_purchased">Ya compraste este articulo</string>
@@ -191,4 +188,9 @@
     <string name="enter_amount_greater_than_zero">Ingrese una cantidad mayor que cero</string>
     <string name="select_different_accounts">Seleccione diferentes cuentas para origen y destino</string>
     <string name="source_acc_not_have_amount">La cuenta de origen no tiene suficiente cantidad para transferir</string>
+    <string name="others">Otros</string>
+    <string name="entry_count">Contar</string>
+    <string name="rate_us">Nos califica</string>
+    <string name="contact_us">Contáctenos</string>
+    <string name="daily_avg">Promedio diario</string>
 </resources>

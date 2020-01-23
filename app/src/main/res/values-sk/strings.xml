@@ -54,8 +54,7 @@
     <string name="day">Deň</string>
     <string name="selectperiodfromhere">Tu vyberte obdobie</string>
 
-
-    <string name="accounts">účty</string>
+    <string name="title_accounts">účty</string>
     <string name="warning">Výstraha</string>
     <string name="buy_message">Ak si chcete túto službu vychutnať, musíte si ju kúpiť</string>
     <string name="ok">Ok</string>
@@ -103,10 +102,6 @@
     </string>
     <string name="successfully_added">Úspešne pridané.</string>
     <string name="successfully_deleted_expense_entry">Úspešne odstránený záznam o výdavkoch.</string>
-
-    <string name="transactions">Transakcie</string>
-    <string name="overview">Iní</string>
-    <string name="home">Domov</string>
 
     <string name="report_from_expense_tracker">Správy z Expense Tracker</string>
     <string name="choose_email_client_to_send_report">Zvoľte Email Client To Send Report</string>
@@ -176,7 +171,7 @@
     <string name="write_a_note_here">Napíąte poznámku...</string>
 
     <string name="export_data">Exportovať údaje</string>
-    <string name="buy_product">Kúpiť produkt</string>
+    <string name="buy_product">nákup</string>
     <string name="import_data">Importovať údaje</string>
 
     <string name="already_purchased">Túto položku ste už zakúpili</string>
@@ -197,4 +192,9 @@
     <string name="enter_amount_greater_than_zero">Zadajte sumu väčšiu ako nula</string>
     <string name="select_different_accounts">Vyberte rôzne účty pre zdroj a cieľ</string>
     <string name="source_acc_not_have_amount">Zdrojový účet nemá dostatok prostriedkov na prevod</string>
+    <string name="others">iní</string>
+    <string name="entry_count">počítať</string>
+    <string name="rate_us">Ohodnoť nás</string>
+    <string name="contact_us">Kontaktuj nás</string>
+    <string name="daily_avg">Denný priemer</string>
 </resources>

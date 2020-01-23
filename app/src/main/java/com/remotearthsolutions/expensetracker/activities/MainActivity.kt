@@ -472,16 +472,20 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
             R.id.nav_licenses -> {
                 supportActionBar!!.title = getString(R.string.menu_licenses)
-                val licenseFragment = LicenseFragment()
+                drawer_layout.closeDrawer(GravityCompat.START)
+
+                val webViewFragment = WebViewFragment()
+                val bundle = Bundle().apply {
+                    putString(Constants.KEY_URL, Constants.URL_THIRD_PARTY_LICENSES)
+                }
+                webViewFragment.arguments = bundle
+
                 val fragmentTransaction =
                     supportFragmentManager.beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 fragmentTransaction.replace(
-                    R.id.framelayout,
-                    licenseFragment,
-                    AboutFragment::class.java.name
-                )
-                fragmentTransaction.commit()
+                    R.id.framelayout, webViewFragment, "licenses_screen"
+                ).commit()
             }
 
 

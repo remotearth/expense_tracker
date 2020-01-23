@@ -45,7 +45,7 @@
         android:layout_marginTop="2dp"
         android:layout_toEndOf="@+id/categoryIconIv"
         android:background="@color/colorAccent"
-        android:orientation="horizontal"></LinearLayout>
+        android:orientation="horizontal" />
 
     <LinearLayout
         android:id="@+id/guideBarView"
@@ -57,7 +57,7 @@
         android:layout_toEndOf="@+id/categoryIconIv"
         android:background="@color/colorAccent"
         android:orientation="horizontal"
-        android:visibility="invisible"></LinearLayout>
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/expensePercentTv"

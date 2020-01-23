@@ -7,6 +7,8 @@ interface Constants {
         const val KEY_URL = "KEY"
         const val URL_PRIVACY_POLICY =
             "https://remotearth.github.io/expensetracker/privacy/"
+        const val URL_THIRD_PARTY_LICENSES =
+            "https://remotearth.github.io/expensetracker/all_license.html"
         const val URL_PRIVACY_POLICY_TAG = "PRIVACYTAG"
         const val URL_LICENSES_TAG = "LICENSESTAG"
         const val KEY_DAILY = "Daily"
@@ -37,7 +39,8 @@ interface Constants {
             "file:///android_asset/licenses/LICENSERxandroid.txt"
         const val MULTIDEX_LICENSE_FILE =
             "file:///android_asset/licenses/LICENSEMultidex.txt"
-        const val MPANDROIDCHART_LICENSE_FILE = "file:///android_asset/licenses/LICENSEMPAndroidChart.txt"
+        const val MPANDROIDCHART_LICENSE_FILE =
+            "file:///android_asset/licenses/LICENSEMPAndroidChart.txt"
 
         const val PREF_CURRENCY = "pref_currency_list"
         const val PREF_PERIOD = "pref_period_list"

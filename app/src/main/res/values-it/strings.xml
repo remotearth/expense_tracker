@@ -54,7 +54,8 @@
     <string name="selectperiodfromhere">Seleziona il periodo da qui</string>
 
 
-    <string name="accounts">Conti</string>
+    <string name="title_accounts">Conti</string>
+
     <string name="warning">Avvertimento</string>
     <string name="buy_message">Per godere di questo servizio, devi comprare</string>
     <string name="ok">Ok</string>
@@ -103,10 +104,6 @@
     </string>
     <string name="successfully_added">Aggiunto con successo</string>
     <string name="successfully_deleted_expense_entry">Entrata di spesa cancellata con successo.</string>
-
-    <string name="transactions">Le transazioni</string>
-    <string name="overview">Cruscotto</string>
-    <string name="home">Casa</string>
 
     <string name="report_from_expense_tracker">Rapporti dal rilevatore di spese</string>
     <string name="choose_email_client_to_send_report">Scegli il client di posta elettronica per inviare un rapporto
@@ -182,7 +179,7 @@
     <string name="write_a_note_here">Scrivi una nota...</string>
 
     <string name="export_data">Esporta dati</string>
-    <string name="buy_product">Acquista il prodotto</string>
+    <string name="buy_product">Acquista</string>
     <string name="import_data">Importa dati</string>
 
     <string name="already_purchased">Hai già acquistato questo articolo</string>
@@ -203,4 +200,9 @@
     <string name="enter_amount_greater_than_zero">Inserisci un importo maggiore di zero</string>
     <string name="select_different_accounts">Seleziona account diversi per origine e destinazione</string>
     <string name="source_acc_not_have_amount">L\'account di origine non ha un importo sufficiente per il trasferimento</string>
+    <string name="others">Altri</string>
+    <string name="entry_count">Contare</string>
+    <string name="rate_us">Valutaci</string>
+    <string name="contact_us">Contattaci</string>
+    <string name="daily_avg">Media giornaliera</string>
 </resources>

@@ -53,8 +53,7 @@
     <string name="day">Gün</string>
     <string name="selectperiodfromhere">Buradan dönemi seçin</string>
 
-
-    <string name="accounts">Hesaplar</string>
+    <string name="title_accounts">Hesaplar</string>
     <string name="warning">Uyarı</string>
     <string name="buy_message">Bu hizmetten yararlanmak için, satın almanız gerekir.</string>
     <string name="ok">Tamam</string>
@@ -104,10 +103,6 @@
     </string>
     <string name="successfully_added">Başarıyla Eklendi.</string>
     <string name="successfully_deleted_expense_entry">Gider girişi başarıyla silindi.</string>
-
-    <string name="transactions">Işlemler</string>
-    <string name="overview">Diğerleri</string>
-    <string name="home">Ev</string>
 
     <string name="report_from_expense_tracker">Gider İzleyiciden Raporlar</string>
     <string name="choose_email_client_to_send_report">Rapor Göndermek için E-posta İstemcisini Seçin</string>
@@ -184,7 +179,7 @@
     <string name="write_a_note_here">Not yaz...</string>
 
     <string name="export_data">Verileri Dışa Aktar</string>
-    <string name="buy_product">Buy The Product</string>
+    <string name="buy_product">Satın alma</string>
     <string name="import_data">Verileri İçe Aktar</string>
 
     <string name="already_purchased">Bu öğeyi zaten satın aldın</string>
@@ -205,4 +200,9 @@
     <string name="enter_amount_greater_than_zero">Sıfırdan büyük bir tutar girin</string>
     <string name="select_different_accounts">Kaynak ve hedef için farklı hesaplar seçin</string>
     <string name="source_acc_not_have_amount">Kaynak hesapta aktarılacak yeterli miktar yok</string>
+    <string name="others">Diğerleri</string>
+    <string name="entry_count">Miktar</string>
+    <string name="rate_us">Bizi değerlendirin</string>
+    <string name="contact_us">Bize Ulaşın</string>
+    <string name="daily_avg">Günlük ortalama</string>
 </resources>
