@@ -48,7 +48,7 @@ class AddAccountAmountDialogFragment : DialogFragment() {
             if (amount.isEmpty()) {
                 Toast.makeText(
                     activity,
-                    getString(R.string.you_have_to_enter_an_amount),
+                    getString(R.string.enter_an_amount),
                     Toast.LENGTH_LONG
                 ).show()
                 return@setOnClickListener

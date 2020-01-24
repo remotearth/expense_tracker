@@ -71,7 +71,6 @@
         Eliminar esta cuenta también eliminará los gastos relacionados con esto. ¿Estas seguro que quieres borrarlo?
     </string>
     <string name="not_now">Ahora no</string>
-    <string name="you_have_to_enter_an_amount">Tienes que ingresar una cantidad</string>
     <string name="update_category">Actualizar categoría</string>
     <string name="update">Actualizar</string>
     <string name="enter_a_name">Ingresa un nombre</string>

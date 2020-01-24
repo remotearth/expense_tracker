@@ -82,8 +82,6 @@
         L\'eliminazione di questo account rimuoverà anche le spese relative a questo. Sei sicuro di voler eliminare?
     </string>
     <string name="not_now">Non adesso</string>
-
-    <string name="you_have_to_enter_an_amount">Devi inserire un importo</string>
     <string name="update_category">Aggiorna categoria</string>
     <string name="update">Aggiornare</string>
     <string name="enter_a_name">Inserisci un nome...</string>

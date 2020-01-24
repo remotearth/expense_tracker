@@ -81,8 +81,6 @@
         удалить?
     </string>
     <string name="not_now">Не сейчас</string>
-
-    <string name="you_have_to_enter_an_amount">Вы должны ввести сумму</string>
     <string name="update_category">Обновить категорию</string>
     <string name="update">Обновить</string>
     <string name="enter_a_name">Введите имя...</string>

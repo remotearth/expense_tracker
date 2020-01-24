@@ -78,8 +78,6 @@
     <string name="deleting_this_account_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete">Se você excluir esta conta, as despesas relacionadas a isso também serão removidas. Tem certeza de que deseja excluir?
     </string>
     <string name="not_now">Agora não</string>
-
-    <string name="you_have_to_enter_an_amount">Você precisa inserir um valor</string>
     <string name="update_category">Atualizar Categoria</string>
     <string name="update">Atualizar</string>
     <string name="enter_a_name">Insira o nome...</string>

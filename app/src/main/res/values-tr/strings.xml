@@ -80,8 +80,6 @@
         hesabı silmek, bununla ilgili masrafları da kaldıracak. Silmek istediğine emin misin?
     </string>
     <string name="not_now">Şimdi değil</string>
-
-    <string name="you_have_to_enter_an_amount">Bir miktar girmelisin</string>
     <string name="update_category">Kategoriyi Güncelle</string>
     <string name="update">Güncelleştirme</string>
     <string name="enter_a_name">İsim girin...</string>

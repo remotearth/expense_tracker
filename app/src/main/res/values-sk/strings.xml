@@ -80,8 +80,6 @@
         Odstránením tohto účtu sa odstránia aj výdavky súvisiace s týmto účtom. Naozaj chcete odstrániť?
     </string>
     <string name="not_now">Teraz nie</string>
-
-    <string name="you_have_to_enter_an_amount">Musíte zadať čiastku</string>
     <string name="update_category">Aktualizovať kategóriu</string>
     <string name="update">Aktualizovať</string>
     <string name="enter_a_name">Zadajte názov...</string>

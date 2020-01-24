@@ -126,8 +126,6 @@
         Deleting this account will remove expenses related to this also. Are you sure, You want to Delete?
     </string>
     <string name="not_now">Not now</string>
-
-    <string name="you_have_to_enter_an_amount">You have to enter an amount</string>
     <string name="update_category">Update Category</string>
     <string name="update">Update</string>
     <string name="enter_a_name">Enter a name…</string>
