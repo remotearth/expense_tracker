@@ -12,8 +12,8 @@ import com.remotearthsolutions.expensetracker.activities.MainActivity
 import com.remotearthsolutions.expensetracker.adapters.ExpenseListAdapter
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract.ExpenseView
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
-import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
+import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.fragment_all_expense.view.*
 
 class AllExpenseFragment : BaseFragment(), ExpenseView {
     private lateinit var mView: View
-    private lateinit var adapter: ExpenseListAdapter
     private var viewModel: AllTransactionsViewModel? = null
     private var currencySymbol: String? = null
     private var mContext: Context? = null
@@ -38,6 +37,11 @@ class AllExpenseFragment : BaseFragment(), ExpenseView {
         savedInstanceState: Bundle?
     ): View? {
         mView = inflater.inflate(R.layout.fragment_all_expense, container, false)
+        return mView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mView.expenserecyclearView.setHasFixedSize(true)
         val llm = LinearLayoutManager(mContext)
         mView.expenserecyclearView.layoutManager = llm
@@ -50,7 +54,7 @@ class AllExpenseFragment : BaseFragment(), ExpenseView {
         viewModel =
             ViewModelProviders.of(requireActivity(), BaseViewModelFactory {
                 AllTransactionsViewModel(
-                    this, db?.expenseDao()!!, db.categoryExpenseDao(),db.categoryDao(),
+                    this, db?.expenseDao()!!, db.categoryExpenseDao(), db.categoryDao(),
                     SharedPreferenceUtils.getInstance(mContext!!)!!
                         .getString(
                             Constants.PREF_TIME_FORMAT,
@@ -58,27 +62,25 @@ class AllExpenseFragment : BaseFragment(), ExpenseView {
                         )
                 )
             }).get(AllTransactionsViewModel::class.java)
-
-        return mView
     }
 
     override fun loadFilterExpense(listOffilterExpense: List<CategoryExpense>?) {
-        adapter = ExpenseListAdapter(listOffilterExpense, currencySymbol!!)
-        adapter.setOnItemClickListener(object : ExpenseListAdapter.OnItemClickListener {
-            override fun onItemClick(categoryExpense: CategoryExpense?) {
-                val copyOfCategoryExpense = categoryExpense!!.copy()
-                (context as MainActivity).openAddExpenseScreen(
-                    copyOfCategoryExpense,
-                    getString(R.string.update_expense),
-                    ExpenseFragment.Purpose.UPDATE
-                )
-            }
-        })
-
         if (listOffilterExpense == null || listOffilterExpense.isEmpty()) {
             mView.expenserecyclearView.visibility = View.GONE
             mView.nodata.visibility = View.VISIBLE
         } else {
+            val adapter = ExpenseListAdapter(listOffilterExpense, currencySymbol!!)
+            adapter.setOnItemClickListener(object : ExpenseListAdapter.OnItemClickListener {
+                override fun onItemClick(categoryExpense: CategoryExpense?) {
+                    val copyOfCategoryExpense = categoryExpense!!.copy()
+                    (context as MainActivity).openAddExpenseScreen(
+                        copyOfCategoryExpense,
+                        getString(R.string.update_expense),
+                        ExpenseFragment.Purpose.UPDATE
+                    )
+                }
+            })
+
             mView.nodata.visibility = View.GONE
             mView.expenserecyclearView.visibility = View.VISIBLE
             mView.expenserecyclearView.adapter = adapter
