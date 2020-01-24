@@ -191,7 +191,7 @@
     <string name="update_expense">Gider güncelleme</string>
     <string name="whatsinpremium">Premium sürümde neler var?</string>
     <string name="select_time_format_from_here">Tarih Formatını Seçin</string>
-    <string name="premium_features">\n\n1. Yeni kategori ve hesap eklemenin bir sınırı yoktur.\n\n2. Reklam yok\n\n</string>
+    <string name="premium_features">\n\n1. Yeni kategori ve hesap eklemenin bir sınırı yoktur.\n\n2. Reklam yok</string>
 
     <string name="from">itibaren</string>
     <string name="to">için</string>

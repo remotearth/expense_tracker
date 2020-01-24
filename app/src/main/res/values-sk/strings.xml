@@ -183,7 +183,7 @@
     <string name="update_expense">" Aktualizácia výdavkov"</string>
     <string name="whatsinpremium">Čo je v prémiovej verzii?</string>
     <string name="select_time_format_from_here">Vyberte formát dátumu</string>
-    <string name="premium_features">\n\n1. Neexistuje žiadny limit pre pridávanie nových kategórií a účtov.\n\n2. Žiadne reklamy\n\n</string>
+    <string name="premium_features">\n\n1. Neexistuje žiadny limit pre pridávanie nových kategórií a účtov.\n\n2. Žiadne reklamy</string>
 
     <string name="from">z</string>
     <string name="to">na</string>
