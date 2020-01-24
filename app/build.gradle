@@ -36,8 +36,8 @@ android {
         minSdkVersion 17
         targetSdkVersion 28
         multiDexEnabled true
-        versionCode 28
-        versionName "1.2.28"
+        versionCode 29
+        versionName "1.2.29"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.release
         vectorDrawables.useSupportLibrary true
