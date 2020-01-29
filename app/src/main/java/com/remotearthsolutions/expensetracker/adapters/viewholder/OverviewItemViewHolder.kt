@@ -12,7 +12,7 @@ import com.remotearthsolutions.expensetracker.utils.CategoryIcons
 import com.remotearthsolutions.expensetracker.utils.Utils
 
 
-class OverviewItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class OverviewItemViewHolder(view: View, val currencySymbol: String) : RecyclerView.ViewHolder(view) {
 
     private val categoryIconIv: ImageView = view.findViewById(R.id.categoryIconIv)
     private val categoryNameTv: TextView = view.findViewById(R.id.categoryNameTv)
@@ -25,7 +25,7 @@ class OverviewItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(item: CategoryOverviewItemDto, totalExpense: Double, maxWidthOfBar: Int) {
         categoryIconIv.setImageResource(CategoryIcons.getIconId(item.categoryIcon!!))
         categoryNameTv.text = item.categoryName
-        totalExpenseTv.text = "${item.totalExpenseOfCateogry} ${item.currencySymbol}"
+        totalExpenseTv.text = "${item.totalExpenseOfCateogry} $currencySymbol"
 
         val percentage = if (totalExpense == 0.0) {
             0.0

@@ -41,7 +41,6 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
     private lateinit var listOfCategoryWithExpense: ArrayList<CategoryOverviewItemDto>
     private var map: MutableMap<Int, Int> = HashMap()
 
-    private var currencySymbol: String? = null
     private var mContext: Context? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -67,7 +66,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         barChart.layoutParams = param
 
         val db = DatabaseClient.getInstance(mContext!!)?.appDatabase
-        currencySymbol = Utils.getCurrency(requireContext())
+
 
         viewModel =
             ViewModelProviders.of(requireActivity(), BaseViewModelFactory {
@@ -93,7 +92,6 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
                 val item = CategoryOverviewItemDto()
                 item.categoryIcon = ctg.icon
                 item.categoryName = ctg.name
-                item.currencySymbol = currencySymbol
                 listOfCategoryWithExpense.add(item)
                 map[ctg.id] = index
             }
@@ -102,6 +100,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         setupChart()
 
         viewModel.chartDataRequirementLiveData.observe(this, Observer {
+            val currencySymbol = Utils.getCurrency(requireContext())
             barChart.clear()
 
             when (it.selectedFilterBtnId) {
@@ -156,9 +155,9 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
                 sum += exp.totalAmount
             }
 
-            var sortedList =
+            val sortedList =
                 listOfCategoryWithExpense.sortedWith(compareByDescending { item -> item.totalExpenseOfCateogry })
-            val adapter = OverviewListAdapter(sortedList, sum, maxWidthOfBar!!.toInt())
+            val adapter = OverviewListAdapter(sortedList, sum, maxWidthOfBar!!.toInt(), currencySymbol)
             recyclerView.adapter = adapter
         })
 
@@ -208,7 +207,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         var sum = 0.0
         it.filteredList.forEach { exp ->
             sum += exp.totalAmount
-            var date = DateTimeUtils.getDate(exp.datetime, dateFormat)
+            val date = DateTimeUtils.getDate(exp.datetime, dateFormat)
             val pos = xVals.indexOf(date)
             if (pos > 0) {
                 val entry = barEntry[pos]

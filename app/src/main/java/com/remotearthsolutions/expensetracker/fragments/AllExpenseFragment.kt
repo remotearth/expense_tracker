@@ -16,7 +16,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpen
 import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
-import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
+import com.remotearthsolutions.expensetracker.utils.Utils
 import com.remotearthsolutions.expensetracker.viewmodels.AllTransactionsViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
 import kotlinx.android.synthetic.main.fragment_all_expense.view.*
@@ -24,7 +24,6 @@ import kotlinx.android.synthetic.main.fragment_all_expense.view.*
 class AllExpenseFragment : BaseFragment(), ExpenseView {
     private lateinit var mView: View
     private var viewModel: AllTransactionsViewModel? = null
-    private var currencySymbol: String? = null
     private var mContext: Context? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -45,10 +44,6 @@ class AllExpenseFragment : BaseFragment(), ExpenseView {
         mView.expenserecyclearView.setHasFixedSize(true)
         val llm = LinearLayoutManager(mContext)
         mView.expenserecyclearView.layoutManager = llm
-        currencySymbol = "$"
-        if (mContext != null) {
-            currencySymbol = getCurrency(mContext!!)
-        }
         val db = DatabaseClient.getInstance(mContext!!)?.appDatabase
 
         viewModel =
@@ -69,6 +64,8 @@ class AllExpenseFragment : BaseFragment(), ExpenseView {
             mView.expenserecyclearView.visibility = View.GONE
             mView.nodata.visibility = View.VISIBLE
         } else {
+            val currencySymbol = Utils.getCurrency(mContext!!)
+
             val adapter = ExpenseListAdapter(listOffilterExpense, currencySymbol!!)
             adapter.setOnItemClickListener(object : ExpenseListAdapter.OnItemClickListener {
                 override fun onItemClick(categoryExpense: CategoryExpense?) {

@@ -11,13 +11,14 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.Category
 class OverviewListAdapter(
     private val listOfItems: List<CategoryOverviewItemDto>,
     private val totalExpense: Double,
-    private val maxWidthOfBar: Int
+    private val maxWidthOfBar: Int,
+    private val currencySymbol: String
 ) :
     RecyclerView.Adapter<OverviewItemViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OverviewItemViewHolder {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.view_overview_expense_item, parent, false)
-        return OverviewItemViewHolder(v)
+        return OverviewItemViewHolder(v, currencySymbol)
     }
 
     override fun getItemCount(): Int {

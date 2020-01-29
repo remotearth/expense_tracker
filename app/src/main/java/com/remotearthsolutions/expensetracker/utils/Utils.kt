@@ -48,7 +48,7 @@ object Utils {
     fun getCurrency(context: Context): String {
         val resources = context.resources
         val currencies =
-            Arrays.asList(*resources.getStringArray(R.array.currency))
+            listOf(*resources.getStringArray(R.array.currency))
         val selectedCurrency = SharedPreferenceUtils.getInstance(context)!!.getString(
             Constants.PREF_CURRENCY,
             resources.getString(R.string.default_currency)
