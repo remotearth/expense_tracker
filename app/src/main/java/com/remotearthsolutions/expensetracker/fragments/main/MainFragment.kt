@@ -224,24 +224,6 @@ class MainFragment : Fragment(),
                         }, 100)
                     }
                     binding!!.navigation.selectedItemId = R.id.navigation_overview
-//                    if (binding!!.dateRangeContainer.measuredHeight == dateContainerHeight) {
-//                        binding!!.dateRangeContainer.animate().alpha(0f)
-//                            .translationY(-binding!!.dateRangeContainer.height.toFloat()).duration =
-//                            200
-//                        Handler().postDelayed({
-//                            val anim = ValueAnimator.ofInt(dateContainerHeight, 0)
-//                            anim.addUpdateListener { valueAnimator: ValueAnimator ->
-//                                val `val` = valueAnimator.animatedValue as Int
-//                                val layoutParams =
-//                                    binding!!.dateRangeContainer.layoutParams
-//                                layoutParams.height = `val`
-//                                binding!!.dateRangeContainer.layoutParams = layoutParams
-//                            }
-//                            anim.duration = 200
-//                            anim.start()
-//                        }, 300)
-//                    }
-//                    binding!!.navigation.selectedItemId = R.id.navigation_accounts
                 }
                 3 -> {
                     if (binding!!.dateRangeContainer.measuredHeight == dateContainerHeight) {
@@ -322,7 +304,7 @@ class MainFragment : Fragment(),
     }
 
     class MainFragmentPagerAdapter(fm: FragmentManager?) :
-        FragmentPagerAdapter(fm!!) {
+        FragmentPagerAdapter(fm!!, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         override fun getItem(position: Int): Fragment {
             return when (position) {
                 0 -> {
