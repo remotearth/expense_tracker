@@ -39,6 +39,7 @@
             android:background="@drawable/btn_for_facebook"
             android:drawableStart="@drawable/ic_facebook"
             android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:layout_marginTop="30dp"/>
 
 
@@ -54,6 +55,7 @@
             android:textColor="@android:color/black"
             android:drawableStart="@drawable/ic_google"
             android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:background="@drawable/btn_for_google"
             android:textSize="15sp"/>
 
@@ -78,6 +80,7 @@
             android:layout_marginLeft="10dp"
             android:drawableStart="@drawable/ic_withoutlogin"
             android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:layout_marginRight="10dp"
             android:textColor="@color/textcolorwhite"
             android:background="@drawable/btn_background"
