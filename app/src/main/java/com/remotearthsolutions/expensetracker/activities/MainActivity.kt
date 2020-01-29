@@ -651,6 +651,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     companion object {
         @JvmField
-        var expenseAddededCount = 0
+        var expenseAddededCount = 1
     }
 }
