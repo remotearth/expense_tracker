@@ -127,19 +127,19 @@ class MainFragment : Fragment(),
             when (item.itemId) {
                 R.id.navigation_home -> {
                     binding!!.viewpager.setCurrentItem(0, true)
-                    actionBar!!.title = tabTitles[0]
+                    actionBar?.title = tabTitles[0]
                 }
                 R.id.navigation_transaction -> {
                     binding!!.viewpager.setCurrentItem(1, true)
-                    actionBar!!.title = tabTitles[1]
+                    actionBar?.title = tabTitles[1]
                 }
                 R.id.navigation_overview -> {
                     binding!!.viewpager.setCurrentItem(2, true)
-                    actionBar!!.title = tabTitles[2]
+                    actionBar?.title = tabTitles[2]
                 }
                 R.id.navigation_accounts -> {
                     binding!!.viewpager.setCurrentItem(3, true)
-                    actionBar!!.title = tabTitles[3]
+                    actionBar?.title = tabTitles[3]
                 }
             }
             true
@@ -154,7 +154,7 @@ class MainFragment : Fragment(),
         }
 
         override fun onPageSelected(position: Int) {
-            actionBar!!.title = tabTitles[position]
+            actionBar?.title = tabTitles[position]
             if (dateContainerHeight == -1) {
                 dateContainerHeight = binding!!.dateRangeContainer.measuredHeight
             }
@@ -274,7 +274,7 @@ class MainFragment : Fragment(),
         name: String?
     ) {
         actionBar = supportActionBar
-        actionBar!!.title = name
+        actionBar?.title = name
     }
 
     override fun onDateChanged(
