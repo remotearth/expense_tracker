@@ -5,12 +5,13 @@ import android.content.Context
 import android.util.DisplayMetrics
 import com.remotearthsolutions.expensetracker.R
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import java.util.*
 
 object Utils {
     private const val HIGHEST_VALUE_OF_RGB = 255
     private const val DEFAULT_DPI = 360
-    private val df = DecimalFormat("#.#")
+    private val df = DecimalFormat("#.#", DecimalFormatSymbols.getInstance(Locale.US))
     val randomColorHexValue: String
         get() {
             val ra = Random()
