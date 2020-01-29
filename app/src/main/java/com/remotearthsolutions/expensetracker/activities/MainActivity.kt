@@ -1,9 +1,7 @@
 package com.remotearthsolutions.expensetracker.activities
 
-import android.content.ActivityNotFoundException
 import android.content.DialogInterface
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
@@ -18,7 +16,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.navigation.NavigationView
@@ -278,7 +275,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 supportActionBar!!.title = getString(R.string.menu_categories)
                 val categoryFragment = CategoryFragment()
                 val fragmentTransaction = supportFragmentManager.beginTransaction()
-                fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down)
+                fragmentTransaction.setCustomAnimations(
+                    R.anim.slide_in_up,
+                    0,
+                    0,
+                    R.anim.slide_out_down
+                )
                 fragmentTransaction.add(
                     R.id.framelayout,
                     categoryFragment,
@@ -380,7 +382,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 val settingsFragment = SettingsFragment()
                 supportActionBar!!.title = getString(R.string.menu_settings)
                 val fragmentTransaction = supportFragmentManager.beginTransaction()
-                fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down)
+                fragmentTransaction.setCustomAnimations(
+                    R.anim.slide_in_up,
+                    0,
+                    0,
+                    R.anim.slide_out_down
+                )
                 fragmentTransaction.addToBackStack(SettingsFragment::class.java.name)
                 fragmentTransaction.add(
                     R.id.framelayout,
@@ -459,21 +466,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 return false
             }
             R.id.nav_rate_us -> {
-
-                val uri = Uri.parse("market://details?id=$packageName")
-                val goToMarket = Intent(Intent.ACTION_VIEW, uri)
-                goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-                try {
-                    startActivity(goToMarket);
-                } catch (e: ActivityNotFoundException) {
-                    startActivity(
-                        Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse("http://play.google.com/store/apps/details?id=$packageName")
-                        )
-                    )
-                }
-
+                RequestReviewUtils.openApplinkForReview(this)
                 drawer_layout.closeDrawer(GravityCompat.START)
                 return false
             }
@@ -482,7 +475,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 val aboutFragment = AboutFragment()
                 val fragmentTransaction =
                     supportFragmentManager.beginTransaction()
-                fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down)
+                fragmentTransaction.setCustomAnimations(
+                    R.anim.slide_in_up,
+                    0,
+                    0,
+                    R.anim.slide_out_down
+                )
                 fragmentTransaction.add(
                     R.id.framelayout,
                     aboutFragment,
@@ -507,7 +505,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
                 val fragmentTransaction =
                     supportFragmentManager.beginTransaction()
-                fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down)
+                fragmentTransaction.setCustomAnimations(
+                    R.anim.slide_in_up,
+                    0,
+                    0,
+                    R.anim.slide_out_down
+                )
                 fragmentTransaction.addToBackStack(AboutFragment::class.java.name)
                 fragmentTransaction.add(
                     R.id.framelayout, webViewFragment, WebViewFragment::class.java.name
@@ -529,7 +532,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
                 val fragmentTransaction =
                     supportFragmentManager.beginTransaction()
-                fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down)
+                fragmentTransaction.setCustomAnimations(
+                    R.anim.slide_in_up,
+                    0,
+                    0,
+                    R.anim.slide_out_down
+                )
                 fragmentTransaction.addToBackStack(AboutFragment::class.java.name)
                 fragmentTransaction.add(
                     R.id.framelayout, webViewFragment, WebViewFragment::class.java.name

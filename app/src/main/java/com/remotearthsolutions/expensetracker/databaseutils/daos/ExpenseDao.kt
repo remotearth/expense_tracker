@@ -39,4 +39,7 @@ interface ExpenseDao {
 
     @Query("Delete From expense where account_id = :accountId")
     fun deleteExpensesOfAccounts(accountId: Int)
+
+    @Query("Select Count(*) from expense")
+    fun getNumberOfExpenseEntry(): Single<Int>
 }

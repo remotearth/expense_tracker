@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.viewmodels
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.remotearthsolutions.expensetracker.R
@@ -8,12 +9,15 @@ import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
+import com.remotearthsolutions.expensetracker.utils.Constants
 import io.reactivex.Completable
+import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlin.math.abs
 
@@ -103,5 +107,28 @@ class ExpenseFragmentViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { view.onExpenseDeleted(categoryExpense) }
         )
+    }
+
+    @SuppressLint("CheckResult")
+    fun requestToReviewApp(callback: () -> Unit) {
+        expenseDao.getNumberOfExpenseEntry()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : SingleObserver<Int> {
+                override fun onSuccess(count: Int) {
+                    if (count > Constants.NUMBER_OF_ENTRY_NEEDED_BEFORE_ASKING_TO_REVIEW) {
+                        callback.invoke()
+                    }
+                }
+
+                override fun onSubscribe(d: Disposable) {
+                    compositeDisposable.add(d)
+                }
+
+                override fun onError(e: Throwable) {
+                    e.printStackTrace()
+                }
+
+            })
     }
 }

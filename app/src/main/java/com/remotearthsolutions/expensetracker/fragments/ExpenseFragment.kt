@@ -22,15 +22,12 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel
-import com.remotearthsolutions.expensetracker.utils.AdmobUtils
-import com.remotearthsolutions.expensetracker.utils.Constants
+import com.remotearthsolutions.expensetracker.utils.*
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.currentTime
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getCalendarFromDateString
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getCurrentDate
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getDate
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getTimeInMillisFromDateStr
-import com.remotearthsolutions.expensetracker.utils.NumpadManager
-import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseFragmentViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
@@ -288,10 +285,21 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         if (MainActivity.expenseAddededCount % 3 == 0) {
             val delay = Random().nextInt(3000 - 1000) + 1000
             Handler().postDelayed({
-
                 AdmobUtils.getInstance((mContext as Activity))?.showInterstitialAds()
-
             }, delay.toLong())
+        } else {
+            if (!SharedPreferenceUtils.getInstance(mainActivity)?.getBoolean(
+                    Constants.ASKED_TO_REVIEW,
+                    false
+                )!!
+            ) {
+                viewModel!!.requestToReviewApp {
+                    SharedPreferenceUtils.getInstance(mainActivity)
+                        ?.putBoolean(Constants.ASKED_TO_REVIEW, true)
+                    RequestReviewUtils.request(mainActivity)
+                }
+            }
+
         }
         MainActivity.expenseAddededCount++
     }
