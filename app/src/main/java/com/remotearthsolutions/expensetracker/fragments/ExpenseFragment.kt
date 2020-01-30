@@ -294,6 +294,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 )!!
             ) {
                 viewModel!!.requestToReviewApp {
+                    mainActivity.onBackPressed()
                     SharedPreferenceUtils.getInstance(mainActivity)
                         ?.putBoolean(Constants.ASKED_TO_REVIEW, true)
                     RequestReviewUtils.request(mainActivity)
