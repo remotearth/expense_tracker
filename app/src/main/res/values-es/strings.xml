@@ -192,4 +192,6 @@
     <string name="rate_us">Nos califica</string>
     <string name="contact_us">Contáctenos</string>
     <string name="daily_avg">Promedio diario</string>
+    <string name="review">Revisión</string>
+    <string name="share_experience">Parece que la aplicación es útil para ti. ¿Quieres compartir tu experiencia con otros?</string>
 </resources>

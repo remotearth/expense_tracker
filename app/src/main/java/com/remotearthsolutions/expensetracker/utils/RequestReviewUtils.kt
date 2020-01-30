@@ -10,7 +10,7 @@ import com.remotearthsolutions.expensetracker.contracts.BaseView
 
 object RequestReviewUtils {
     fun request(activity: Activity) {
-        AlertDialogUtils.show(activity, "Review",
+        AlertDialogUtils.show(activity, activity.getString(R.string.review),
             "It seems the app is useful for you. Do you want to share your experience with others?",
             activity.getString(R.string.yes), activity.getString(R.string.no), object :
                 BaseView.Callback {

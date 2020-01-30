@@ -200,5 +200,7 @@
     <string name="contact_us">Nous contacter</string>
     <string name="rate_us">Évaluez nous</string>
     <string name="daily_avg">Moyenne quotidienne</string>
+    <string name="review">La revue</string>
+    <string name="share_experience">Il semble que l\'application vous soit utile. Voulez-vous partager votre expérience avec d\'autres?</string>
 
 </resources>

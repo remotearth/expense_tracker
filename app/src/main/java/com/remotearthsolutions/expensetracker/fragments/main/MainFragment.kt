@@ -69,7 +69,7 @@ class MainFragment : Fragment(),
             getString(R.string.title_overview),
             getString(R.string.title_accounts)
         )
-        
+
         pagerAdapter = MainFragmentPagerAdapter(childFragmentManager)
         binding!!.viewpager.offscreenPageLimit = 4
         binding!!.viewpager.adapter = pagerAdapter

@@ -246,5 +246,7 @@
     <string name="daily_avg">Daily(avg.)</string>
     <string name="contact_us">Contact Us</string>
     <string name="rate_us">Rate Us</string>
+    <string name="review">Review</string>
+    <string name="share_experience">It seems the app is useful for you. Do you want to share your experience with others?</string>
 
 </resources>

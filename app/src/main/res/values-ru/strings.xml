@@ -206,4 +206,6 @@
     <string name="rate_us">Оцените нас</string>
     <string name="contact_us">Связаться с нами</string>
     <string name="daily_avg">Среднесуточный</string>
+    <string name="review">Рассмотрение</string>
+    <string name="share_experience">Кажется, приложение полезно для вас. Хотите поделиться своим опытом с другими?</string>
 </resources>

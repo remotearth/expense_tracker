@@ -195,4 +195,6 @@
     <string name="rate_us">Ohodnoť nás</string>
     <string name="contact_us">Kontaktuj nás</string>
     <string name="daily_avg">Denný priemer</string>
+    <string name="review">Preskúmanie</string>
+    <string name="share_experience">Zdá sa, že aplikácia je pre vás užitočná. Chcete sa podeliť o svoje skúsenosti s ostatnými?</string>
 </resources>
