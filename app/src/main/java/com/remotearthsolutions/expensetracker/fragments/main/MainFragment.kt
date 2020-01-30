@@ -42,12 +42,6 @@ class MainFragment : Fragment(),
         super.onAttach(context)
         mContext = context
         mResources = mContext.resources
-        tabTitles = arrayOf(
-            getString(R.string.title_home),
-            getString(R.string.title_transaction),
-            getString(R.string.title_overview),
-            getString(R.string.title_accounts)
-        )
     }
 
     override fun onCreateView(
@@ -69,6 +63,13 @@ class MainFragment : Fragment(),
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
+        tabTitles = arrayOf(
+            getString(R.string.title_home),
+            getString(R.string.title_transaction),
+            getString(R.string.title_overview),
+            getString(R.string.title_accounts)
+        )
+        
         pagerAdapter = MainFragmentPagerAdapter(childFragmentManager)
         binding!!.viewpager.offscreenPageLimit = 4
         binding!!.viewpager.adapter = pagerAdapter
