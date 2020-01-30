@@ -90,7 +90,7 @@
     <string name="add">добавлять</string>
     <string name="enter_a_name_for_account">Введите имя для учетной записи</string>
     <string name="select_an_icon_for_the_account">Выберите значок для учетной записи</string>
-    <string name="you_cannot_delete_this_category">Вы не можете удалить эту учетную запись</string>
+    <string name="you_cannot_delete_this_category">Вы не можете удалить эту категорию</string>
     <string name="deleting_this_category_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete">
         Удаление этой учетной записи также приведет к удалению связанных с этим расходов. Вы уверены, что хотите
         удалить?

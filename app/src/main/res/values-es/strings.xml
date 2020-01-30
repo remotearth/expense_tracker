@@ -80,7 +80,7 @@
     <string name="add">Añadir</string>
     <string name="enter_a_name_for_account">Ingrese un nombre para la cuenta</string>
     <string name="select_an_icon_for_the_account">Seleccione un icono para la cuenta</string>
-    <string name="you_cannot_delete_this_category">No puedes borrar esta cuenta</string>
+    <string name="you_cannot_delete_this_category">No puedes eliminar esta categoría</string>
     <string name="deleting_this_category_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete">
         Eliminar esta cuenta también eliminará los gastos relacionados con esto. ¿Estas seguro que quieres borrarlo?
     </string>

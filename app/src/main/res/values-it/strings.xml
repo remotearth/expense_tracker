@@ -91,7 +91,7 @@
     <string name="add">Inserisci</string>
     <string name="enter_a_name_for_account">Inserisci un nome per l\'account</string>
     <string name="select_an_icon_for_the_account">Seleziona un\'icona per l\'account</string>
-    <string name="you_cannot_delete_this_category">Non puoi cancellare questo account</string>
+    <string name="you_cannot_delete_this_category">Non è possibile eliminare questa categoria</string>
     <string name="deleting_this_category_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete">
         L\'eliminazione di questo account rimuoverà anche le spese relative a questo. Sei sicuro di voler eliminare?
     </string>

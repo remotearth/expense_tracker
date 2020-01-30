@@ -135,7 +135,7 @@
     <string name="add">Add</string>
     <string name="enter_a_name_for_account">Enter a name for account</string>
     <string name="select_an_icon_for_the_account">Select an icon for the account</string>
-    <string name="you_cannot_delete_this_category">You cannot delete this account</string>
+    <string name="you_cannot_delete_this_category">You cannot delete this category</string>
     <string name="deleting_this_category_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete">
         Deleting this account will remove expenses related to this also. Are you sure, You want to Delete?
     </string>
