@@ -33,7 +33,7 @@ class MainFragment : Fragment(),
     private var binding: FragmentMainBinding? = null
     private var pagerAdapter: MainFragmentPagerAdapter? = null
     private var actionBar: ActionBar? = null
-    private lateinit var tabTitles: Array<String>
+    private var tabTitles: Array<String>? = null
     private var dateContainerHeight = -1
     private var selectedPeriodBtn: PeriodButton? = null
     private lateinit var mContext: Context
@@ -70,7 +70,7 @@ class MainFragment : Fragment(),
     ) {
         super.onViewCreated(view, savedInstanceState)
         pagerAdapter = MainFragmentPagerAdapter(childFragmentManager)
-        binding!!.viewpager.offscreenPageLimit = tabTitles.size
+        binding!!.viewpager.offscreenPageLimit = 4
         binding!!.viewpager.adapter = pagerAdapter
         binding!!.viewpager.addOnPageChangeListener(viewPagerPageChangeListener)
         binding!!.navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
@@ -127,19 +127,19 @@ class MainFragment : Fragment(),
             when (item.itemId) {
                 R.id.navigation_home -> {
                     binding!!.viewpager.setCurrentItem(0, true)
-                    actionBar?.title = tabTitles[0]
+                    actionBar?.title = tabTitles?.get(0)
                 }
                 R.id.navigation_transaction -> {
                     binding!!.viewpager.setCurrentItem(1, true)
-                    actionBar?.title = tabTitles[1]
+                    actionBar?.title = tabTitles?.get(1)
                 }
                 R.id.navigation_overview -> {
                     binding!!.viewpager.setCurrentItem(2, true)
-                    actionBar?.title = tabTitles[2]
+                    actionBar?.title = tabTitles?.get(2)
                 }
                 R.id.navigation_accounts -> {
                     binding!!.viewpager.setCurrentItem(3, true)
-                    actionBar?.title = tabTitles[3]
+                    actionBar?.title = tabTitles?.get(3)
                 }
             }
             true
@@ -154,7 +154,7 @@ class MainFragment : Fragment(),
         }
 
         override fun onPageSelected(position: Int) {
-            actionBar?.title = tabTitles[position]
+            actionBar?.title = tabTitles?.get(position)
             if (dateContainerHeight == -1) {
                 dateContainerHeight = binding!!.dateRangeContainer.measuredHeight
             }
@@ -282,7 +282,7 @@ class MainFragment : Fragment(),
                 selectedPeriodBtn = binding!!.yearlyRangeBtn
             }
         }
-        //selectedPeriodBtn?.setBackgroundResource(R.drawable.bg_date_range_btn_selected)
+        
         selectedPeriodBtn?.setIsSelected(true)
 
         binding!!.dateTv.text = date
