@@ -248,5 +248,6 @@
     <string name="rate_us">Rate Us</string>
     <string name="review">Review</string>
     <string name="share_experience">It seems the app is useful for you. Do you want to share your experience with others?</string>
+    <string name="total_expense">Total Expense</string>
 
 </resources>

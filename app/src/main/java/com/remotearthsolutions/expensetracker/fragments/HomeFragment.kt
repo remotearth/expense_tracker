@@ -11,26 +11,23 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.razerdp.widget.animatedpieview.AnimatedPieViewConfig
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.activities.MainActivity
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter
 import com.remotearthsolutions.expensetracker.contracts.HomeFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databinding.FragmentHomeBinding
-import com.remotearthsolutions.expensetracker.entities.ExpeneChartData
-import com.remotearthsolutions.expensetracker.utils.ChartManager
-import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl
-import com.remotearthsolutions.expensetracker.utils.ChartManagerImpl.ChartView
-import com.remotearthsolutions.expensetracker.utils.Utils.getDeviceDP
+import com.remotearthsolutions.expensetracker.entities.ExpenseChartData
+import com.remotearthsolutions.expensetracker.utils.MPPieChart
+import com.remotearthsolutions.expensetracker.utils.Utils
 import com.remotearthsolutions.expensetracker.utils.Utils.getDeviceScreenSize
 import com.remotearthsolutions.expensetracker.viewmodels.HomeFragmentViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
 
-class HomeFragment : BaseFragment(), ChartView,
+class HomeFragment : BaseFragment(),
     HomeFragmentContract.View, View.OnClickListener {
     private lateinit var adapter: CategoryListAdapter
     private var viewModel: HomeFragmentViewModel? = null
@@ -38,8 +35,9 @@ class HomeFragment : BaseFragment(), ChartView,
     private var limitOfCategory: Int? = null
     private var startTime: Long = 0
     private var endTime: Long = 0
-    private var listOfCategoryWithAmount: List<ExpeneChartData>? = null
+    private var listOfCategoryWithAmount: List<ExpenseChartData>? = null
     private lateinit var mContext: Context
+    private lateinit var chartManager: MPPieChart
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
@@ -72,6 +70,9 @@ class HomeFragment : BaseFragment(), ChartView,
         binding.recyclerView.layoutManager = llm
         val db = DatabaseClient.getInstance(mContext)?.appDatabase
 
+        chartManager = MPPieChart()
+        chartManager.initPierChart(binding.chartView, getDeviceScreenSize(mContext))
+
         viewModel =
             ViewModelProviders.of(this, BaseViewModelFactory {
                 HomeFragmentViewModel(
@@ -92,10 +93,6 @@ class HomeFragment : BaseFragment(), ChartView,
         )
     }
 
-    override fun loadChartConfig(config: AnimatedPieViewConfig?) {
-        binding.chartView.applyConfig(config).start()
-    }
-
     override fun showCategories(categories: List<CategoryModel>?) {
         adapter = CategoryListAdapter(categories)
         adapter.setScreenSize(
@@ -113,19 +110,18 @@ class HomeFragment : BaseFragment(), ChartView,
         binding.recyclerView.adapter = adapter
     }
 
-    override fun loadExpenseChart(listOfCategoryWithAmount: List<ExpeneChartData>?) {
+    override fun loadExpenseChart(listOfCategoryWithAmount: List<ExpenseChartData>?) {
         this.listOfCategoryWithAmount = listOfCategoryWithAmount
-        val chartManager: ChartManager = ChartManagerImpl()
-        chartManager.initPierChart(
-            getDeviceDP(mContext), getDeviceScreenSize(mContext)
-        )
         if (listOfCategoryWithAmount == null || listOfCategoryWithAmount.isEmpty()) {
             binding.chartView.visibility = View.GONE
             binding.nodatacontainer.visibility = View.VISIBLE
         } else {
             binding.chartView.visibility = View.VISIBLE
             binding.nodatacontainer.visibility = View.GONE
-            chartManager.loadExpensePieChart(mContext, this, listOfCategoryWithAmount)
+            chartManager.loadExpensePieChart(
+                mContext, binding.chartView, listOfCategoryWithAmount,
+                Utils.getCurrency(mContext)
+            )
         }
     }
 

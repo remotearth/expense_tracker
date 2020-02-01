@@ -6,9 +6,9 @@ import com.remotearthsolutions.expensetracker.contracts.HomeFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryExpenseDao
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
-import com.remotearthsolutions.expensetracker.entities.ExpeneChartData
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
+import com.remotearthsolutions.expensetracker.entities.ExpenseChartData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -42,12 +42,16 @@ class HomeFragmentViewModel(
                     for (expense in listOfCategoryWithAmount) {
                         sum += expense.totalAmount
                     }
-                    val chartDataList: MutableList<ExpeneChartData> =
+                    val chartDataList: MutableList<ExpenseChartData> =
                         ArrayList()
                     for (expense in listOfCategoryWithAmount) {
-                        val `val` = expense.totalAmount / sum * 100
-                        if (`val` > 0) {
-                            val data = ExpeneChartData(`val`, expense.categoryName!!)
+                        val expensePercentVal = expense.totalAmount / sum * 100
+                        if (expensePercentVal > 0) {
+                            val data = ExpenseChartData(
+                                expense.totalAmount,
+                                expensePercentVal,
+                                expense.categoryName!!
+                            )
                             chartDataList.add(data)
                         }
                     }
