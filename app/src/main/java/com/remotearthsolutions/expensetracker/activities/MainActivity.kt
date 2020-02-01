@@ -331,7 +331,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                                                 selectedText
                                             ).absolutePath
                                             viewModel.importDataFromFile(filePath)
-                                            FabricAnswersUtils.logCustom("Data Imported")
+                                            FirebaseEventLogUtils.logCustom(
+                                                this@MainActivity,
+                                                "Data Imported"
+                                            )
                                             showProgress(resources.getString(R.string.please_wait))
                                             Handler()
                                                 .postDelayed({

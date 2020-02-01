@@ -303,6 +303,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
 
         }
         MainActivity.expenseAddededCount++
+        FirebaseEventLogUtils.logCustom(mainActivity,"Expense_Added")
     }
 
     override fun onExpenseDeleted(categoryExpense: CategoryExpense?) {

@@ -11,7 +11,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.utils.Constants
-import com.remotearthsolutions.expensetracker.utils.FabricAnswersUtils.logCustom
+import com.remotearthsolutions.expensetracker.utils.FirebaseEventLogUtils.logCustom
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils.getFlagDrawable
 
@@ -63,19 +63,25 @@ class SettingsFragment : PreferenceFragmentCompat() {
                                 context!!
                             )
                         )
-                        logCustom(`val`)
+                        logCustom(context!!, `val`)
                     }
                     Constants.PREF_PERIOD -> {
                         val periodPreference =
                             findPreference<Preference>(key)
-                        periodPreference!!.summary = sharedPreferences.getString(key, resources.getString(R.string.daily)
+                        periodPreference!!.summary = sharedPreferences.getString(
+                            key, resources.getString(R.string.daily)
                         )
+                        logCustom(context!!, key)
                     }
                     Constants.PREF_TIME_FORMAT -> {
                         val timeFormatPreference =
                             findPreference<Preference>(key)
                         timeFormatPreference!!.summary =
-                            sharedPreferences.getString(key, resources.getString(R.string.default_time_format))
+                            sharedPreferences.getString(
+                                key,
+                                resources.getString(R.string.default_time_format)
+                            )
+                        logCustom(context!!, key)
                     }
                 }
             }

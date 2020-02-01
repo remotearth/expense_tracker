@@ -11,7 +11,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.utils.Constants
-import com.remotearthsolutions.expensetracker.utils.FabricAnswersUtils
+import com.remotearthsolutions.expensetracker.utils.FirebaseEventLogUtils
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils
 
@@ -39,7 +39,7 @@ class CurrencyFragment : PreferenceFragmentCompat() {
                     )
                     currencyPreference!!.summary = sharedPreferences.getString(key, `val`)
                     currencyPreference.setIcon(Utils.getFlagDrawable(context!!))
-                    FabricAnswersUtils.logCustom(`val`)
+                    FirebaseEventLogUtils.logCustom(context!!, `val`)
                 }
             }
         preferenceScreen.sharedPreferences
