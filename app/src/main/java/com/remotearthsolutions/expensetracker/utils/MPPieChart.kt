@@ -23,6 +23,8 @@ import com.remotearthsolutions.expensetracker.entities.ExpenseChartData
 
 class MPPieChart : OnChartValueSelectedListener {
     private lateinit var data: List<ExpenseChartData>
+    private lateinit var context: Context
+    private lateinit var currencySymbol: String
 
     fun initPierChart(chart: PieChart, screenSize: Utils.ScreenSize?) {
         val deviceWidthDivTen = (screenSize!!.width / 10) / 3
@@ -67,6 +69,8 @@ class MPPieChart : OnChartValueSelectedListener {
         currencySymbol: String
     ) {
         this.data = data!!
+        this.context = context
+        this.currencySymbol = currencySymbol
         val entries = ArrayList<PieEntry>()
 
         data?.let {
@@ -134,6 +138,12 @@ class MPPieChart : OnChartValueSelectedListener {
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         val selectedValue = data[h?.x?.toInt()!!]
-        println(selectedValue)
+        val categoryTitle = "${context.getString(R.string.category)}:   "
+        val expenseTitle = "${context.getString(R.string.expense)}:   "
+        val s = "$categoryTitle${selectedValue.categoryName}\n" +
+                "$expenseTitle${Utils.formatDecimalValues(selectedValue.value)} $currencySymbol  " +
+                "(${Utils.formatDecimalValues(selectedValue.percentValue)}%)"
+
+        AlertDialogUtils.show(context, "", s, context.getString(R.string.ok), null, null)
     }
 }
