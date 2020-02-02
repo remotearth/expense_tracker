@@ -51,7 +51,7 @@ class MPPieChart : OnChartValueSelectedListener {
 
         chart.setOnChartValueSelectedListener(this)
         chart.animateY(1500, Easing.EaseInOutQuad)
-        // chart.spin(2000, 0, 360);
+
         val l = chart.legend
         l.verticalAlignment = Legend.LegendVerticalAlignment.TOP
         l.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
@@ -73,50 +73,48 @@ class MPPieChart : OnChartValueSelectedListener {
         this.currencySymbol = currencySymbol
         val entries = ArrayList<PieEntry>()
 
-        data?.let {
-            var sum = 0.0
-            for (item in data) {
-                sum += item!!.value
+
+        var sum = 0.0
+        for (item in data) {
+            sum += item.value
+        }
+        chartView.centerText = generateCenterSpannableText(context, sum, currencySymbol)
+        for (item in data) {
+            val expensePercent = Utils.formatDecimalValues(item.percentValue).toFloat()
+            var catName = item.categoryName
+            if (catName.length > 9) {
+                catName = catName.substring(0, 7) + ".."
             }
-            chartView.centerText = generateCenterSpannableText(context, sum, currencySymbol)
-            for (item in data) {
-                val expensePecent = Utils.formatDecimalValues(item!!.percentValue).toFloat()
-                var catName = item.categoryName
-                if (catName.length > 9) {
-                    catName = catName.substring(0, 7) + ".."
-                }
-                entries.add(PieEntry(expensePecent, catName))
-            }
-
-            val dataSet = PieDataSet(entries, "")
-
-            dataSet.setDrawIcons(false)
-
-            dataSet.sliceSpace = 3f
-            dataSet.iconsOffset = MPPointF(0.0f, 40.0f)
-            dataSet.selectionShift = 5f
-            // add a lot of colors
-            val colors = ArrayList<Int>()
-            for (c in ColorTemplate.VORDIPLOM_COLORS) colors.add(c)
-            for (c in ColorTemplate.JOYFUL_COLORS) colors.add(c)
-            for (c in ColorTemplate.COLORFUL_COLORS) colors.add(c)
-            for (c in ColorTemplate.LIBERTY_COLORS) colors.add(c)
-            for (c in ColorTemplate.PASTEL_COLORS) colors.add(c)
-
-            colors.add(ColorTemplate.getHoloBlue())
-            dataSet.colors = colors
-
-            val data = PieData(dataSet)
-            data.setValueFormatter(PercentFormatter(chartView))
-            data.setValueTextSize(11f)
-            data.setValueTextColor(Color.BLACK)
-            chartView.data = data
-
-            chartView.highlightValues(null)
-
-            chartView.invalidate()
+            entries.add(PieEntry(expensePercent, catName))
         }
 
+        val dataSet = PieDataSet(entries, "")
+
+        dataSet.setDrawIcons(false)
+
+        dataSet.sliceSpace = 3f
+        dataSet.iconsOffset = MPPointF(0.0f, 40.0f)
+        dataSet.selectionShift = 5f
+        // add a lot of colors
+        val colors = ArrayList<Int>()
+        for (c in ColorTemplate.VORDIPLOM_COLORS) colors.add(c)
+        for (c in ColorTemplate.JOYFUL_COLORS) colors.add(c)
+        for (c in ColorTemplate.COLORFUL_COLORS) colors.add(c)
+        for (c in ColorTemplate.LIBERTY_COLORS) colors.add(c)
+        for (c in ColorTemplate.PASTEL_COLORS) colors.add(c)
+
+        colors.add(ColorTemplate.getHoloBlue())
+        dataSet.colors = colors
+
+        val data1 = PieData(dataSet)
+        data1.setValueFormatter(PercentFormatter(chartView))
+        data1.setValueTextSize(11f)
+        data1.setValueTextColor(Color.BLACK)
+        chartView.data = data1
+
+        chartView.highlightValues(null)
+
+        chartView.invalidate()
     }
 
     private fun generateCenterSpannableText(
