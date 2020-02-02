@@ -208,4 +208,5 @@
     <string name="daily_avg">Среднесуточный</string>
     <string name="review">Рассмотрение</string>
     <string name="share_experience">Кажется, приложение полезно для вас. Хотите поделиться своим опытом с другими?</string>
+    <string name="total_expense">Всего расходов</string>
 </resources>

@@ -202,5 +202,6 @@
     <string name="daily_avg">Moyenne quotidienne</string>
     <string name="review">La revue</string>
     <string name="share_experience">Il semble que l\'application vous soit utile. Voulez-vous partager votre expérience avec d\'autres?</string>
+    <string name="total_expense">Dépense totale</string>
 
 </resources>

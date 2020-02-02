@@ -205,4 +205,5 @@
     <string name="daily_avg">Media giornaliera</string>
     <string name="review">Revisione</string>
     <string name="share_experience">Sembra che l\'app sia utile per te. Vuoi condividere la tua esperienza con gli altri?</string>
+    <string name="total_expense">Spesa totale</string>
 </resources>
