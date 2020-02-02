@@ -37,13 +37,11 @@ class SharedPreferenceUtils private constructor(context: Context) {
     }
 
     companion object {
-        private var instance: SharedPreferenceUtils? =
-            null
+        private var instance: SharedPreferenceUtils? = null
 
         fun getInstance(context: Context): SharedPreferenceUtils? {
             if (instance == null) {
-                instance =
-                    SharedPreferenceUtils(context)
+                instance = SharedPreferenceUtils(context)
             }
             return instance
         }

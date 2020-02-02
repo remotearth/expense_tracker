@@ -2,9 +2,11 @@ package com.remotearthsolutions.expensetracker.activities
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
+import android.preference.PreferenceManager
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
@@ -50,7 +52,8 @@ import java.io.File
 import javax.annotation.Nonnull
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener,
-    MainContract.View, InAppBillingCallback, Inventory.Callback {
+    MainContract.View, InAppBillingCallback, Inventory.Callback,
+    SharedPreferences.OnSharedPreferenceChangeListener {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var toggle: ActionBarDrawerToggle
@@ -113,11 +116,16 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         super.onStart()
         checkoutUtils.start()
         checkoutUtils.createPurchaseFlow(purchaseListener)
+        PreferenceManager.getDefaultSharedPreferences(this)
+            .registerOnSharedPreferenceChangeListener(this)
+
     }
 
     override fun onStop() {
         super.onStop()
         checkoutUtils.stop()
+        PreferenceManager.getDefaultSharedPreferences(this)
+            .unregisterOnSharedPreferenceChangeListener(this)
     }
 
     override fun onResume() {
@@ -669,5 +677,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     companion object {
         @JvmField
         var expenseAddededCount = 1
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        when (key) {
+            Constants.PREF_CURRENCY, Constants.PREF_TIME_FORMAT -> {
+                refreshChart()
+            }
+        }
     }
 }
