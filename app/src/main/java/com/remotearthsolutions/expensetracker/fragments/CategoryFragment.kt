@@ -36,7 +36,7 @@ class CategoryFragment : BaseFragment(),
         super.onAttach(context)
         mContext = context
     }
-
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -97,9 +97,6 @@ class CategoryFragment : BaseFragment(),
             }
         })
         mView.cat_recycler.adapter = adapter
-    }
-
-    override fun onClickAddAmountBtn() { //THis is not need for category. need to refactor this somehow so this method will not be needed to implement here.
     }
 
     override fun onClickEditBtn() {

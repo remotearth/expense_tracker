@@ -91,6 +91,11 @@ class AddUpdateAccountDialogFragment : DialogFragment() {
             mView.nameEdtxt.requestFocus()
             return
         }
+        if(accountName.length>20){
+            mView.nameEdtxt.error = getString(R.string.name_should_be_less_than_20_char)
+            mView.nameEdtxt.requestFocus()
+            return
+        }
         if (selectedIcon == null || selectedIcon!!.isEmpty()) {
             Toast.makeText(
                 activity,

@@ -199,4 +199,5 @@
     <string name="share_experience">Zdá sa, že aplikácia je pre vás užitočná. Chcete sa podeliť o svoje skúsenosti s ostatnými?</string>
     <string name="total_expense">Celkové náklady</string>
     <string name="prefTimeFormatTitle">Zmeniť formát dátumu</string>
+    <string name="name_should_be_less_than_20_char">Názov by mal mať najviac dvadsať znakov</string>
 </resources>

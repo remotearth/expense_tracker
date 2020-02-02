@@ -204,4 +204,5 @@
     <string name="share_experience">Il semble que l\'application vous soit utile. Voulez-vous partager votre expérience avec d\'autres?</string>
     <string name="total_expense">Dépense totale</string>
     <string name="prefTimeFormatTitle">Changer le format de la date</string>
+    <string name="name_should_be_less_than_20_char">Le nom doit comporter au maximum vingt caractères</string>
 </resources>

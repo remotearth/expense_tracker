@@ -56,7 +56,8 @@ class OptionBottomSheetFragment : BottomSheetDialogFragment(),
     }
 
     interface Callback {
-        fun onClickAddAmountBtn()
+        fun onClickAddAmountBtn(){
+        }
         fun onClickEditBtn()
         fun onClickDeleteBtn()
     }

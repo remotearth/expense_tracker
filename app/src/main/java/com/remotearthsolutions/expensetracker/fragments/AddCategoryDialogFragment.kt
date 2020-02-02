@@ -88,6 +88,11 @@ class AddCategoryDialogFragment : DialogFragment() {
             mView.nameEdtxt.requestFocus()
             return
         }
+        if(categoryName.length>20){
+            mView.nameEdtxt.error = getString(R.string.name_should_be_less_than_20_char)
+            mView.nameEdtxt.requestFocus()
+            return
+        }
         if (selectedIcon == null || selectedIcon!!.isEmpty()) {
             Toast.makeText(activity, getString(R.string.select_an_icon), Toast.LENGTH_SHORT)
                 .show()

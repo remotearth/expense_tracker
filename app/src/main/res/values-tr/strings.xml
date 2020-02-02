@@ -207,4 +207,5 @@
     <string name="share_experience">Uygulama sizin için yararlı görünüyor. Deneyiminizi başkalarıyla paylaşmak ister misiniz?</string>
     <string name="total_expense">Toplam Gider</string>
     <string name="prefTimeFormatTitle">Tarih Biçimini Değiştir</string>
+    <string name="name_should_be_less_than_20_char">Ad en fazla yirmi karakter uzunluğunda olmalıdır</string>
 </resources>

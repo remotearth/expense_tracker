@@ -201,5 +201,6 @@
     <string name="review">Rezension</string>
     <string name="share_experience">Es scheint, dass die App für Sie nützlich ist. Möchten Sie Ihre Erfahrungen mit anderen teilen?</string>
     <string name="total_expense">Gesamtausgaben</string>
+    <string name="name_should_be_less_than_20_char">Der Name sollte höchstens zwanzig Zeichen lang sein</string>
 
 </resources>
