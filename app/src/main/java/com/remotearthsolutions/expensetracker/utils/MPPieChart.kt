@@ -18,6 +18,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.utils.MPPointF
 import com.remotearthsolutions.expensetracker.R
+import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.entities.ExpenseChartData
 
 
@@ -25,6 +26,7 @@ class MPPieChart : OnChartValueSelectedListener {
     private lateinit var data: List<ExpenseChartData>
     private lateinit var context: Context
     private lateinit var currencySymbol: String
+    private var chartView: PieChart? = null
 
     fun initPierChart(chart: PieChart, screenSize: Utils.ScreenSize?) {
         val deviceWidthDivTen = (screenSize!!.width / 10) / 3
@@ -71,6 +73,7 @@ class MPPieChart : OnChartValueSelectedListener {
         this.data = data!!
         this.context = context
         this.currencySymbol = currencySymbol
+        this.chartView = chartView
         val entries = ArrayList<PieEntry>()
 
 
@@ -113,7 +116,6 @@ class MPPieChart : OnChartValueSelectedListener {
         chartView.data = data1
 
         chartView.highlightValues(null)
-
         chartView.invalidate()
     }
 
@@ -142,6 +144,20 @@ class MPPieChart : OnChartValueSelectedListener {
                 "$expenseTitle${Utils.formatDecimalValues(selectedValue.value)} $currencySymbol  " +
                 "(${Utils.formatDecimalValues(selectedValue.percentValue)}%)"
 
-        AlertDialogUtils.show(context, "", s, context.getString(R.string.ok), null, null)
+        AlertDialogUtils.show(
+            context,
+            "",
+            s,
+            context.getString(R.string.ok),
+            null,
+            object : BaseView.Callback {
+                override fun onOkBtnPressed() {
+                    chartView?.highlightValues(null)
+                }
+
+                override fun onCancelBtnPressed() {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+            })
     }
 }
