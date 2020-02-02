@@ -1,8 +1,7 @@
 package com.remotearthsolutions.expensetracker.utils
 
 import android.content.Context
-import android.content.DialogInterface
-import androidx.appcompat.app.AlertDialog
+import com.rahman.dialog.Utilities.SmartDialogBuilder
 import com.remotearthsolutions.expensetracker.contracts.BaseView
 
 object AlertDialogUtils {
@@ -15,24 +14,25 @@ object AlertDialogUtils {
         callback: BaseView.Callback?
     ) {
 
-        AlertDialog.Builder(context!!).apply {
+        SmartDialogBuilder(context!!).apply {
             setTitle(title)
-            setCancelable(false)
-            setMessage(message)
-            setPositiveButton(
-                btnOk
-            ) { _: DialogInterface?, _: Int ->
+            setSubTitle(message)
+            setCancalable(false)
+            setPositiveButton(btnOk) {
+                it.dismiss()
                 callback?.onOkBtnPressed()
+
             }
             if (btnCancel != null) {
-                setNegativeButton(
-                    btnCancel
-                ) { _: DialogInterface?, _: Int ->
+                setNegativeButtonHide(false)
+                setNegativeButton(btnCancel) {
+                    it.dismiss()
                     callback?.onCancelBtnPressed()
                 }
+            } else {
+                setNegativeButtonHide(true)
             }
-            create()
-            show()
+            build().show()
         }
     }
 }
