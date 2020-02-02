@@ -259,16 +259,22 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_home -> {
-                mainFragment = MainFragment()
-                mainFragment!!.setActionBar(supportActionBar, getString(R.string.title_home))
-                val fragmentTransaction =
-                    supportFragmentManager.beginTransaction()
-                fragmentTransaction.replace(
-                    R.id.framelayout,
-                    mainFragment!!,
-                    MainFragment::class.java.name
-                )
-                fragmentTransaction.commit()
+                val fragment =
+                    supportFragmentManager.findFragmentByTag(MainFragment::class.java.name)
+                if (fragment == null) {
+                    mainFragment = MainFragment()
+                    mainFragment!!.setActionBar(supportActionBar, getString(R.string.title_home))
+                    val fragmentTransaction =
+                        supportFragmentManager.beginTransaction()
+                    fragmentTransaction.replace(
+                        R.id.framelayout,
+                        mainFragment!!,
+                        MainFragment::class.java.name
+                    )
+                    fragmentTransaction.commit()
+                } else {
+                    refreshChart()
+                }
             }
             R.id.nav_categories -> {
                 val tag = CategoryFragment::class.java.name
