@@ -195,4 +195,5 @@
     <string name="review">Revisión</string>
     <string name="share_experience">Parece que la aplicación es útil para ti. ¿Quieres compartir tu experiencia con otros?</string>
     <string name="total_expense">Gasto total</string>
+    <string name="prefTimeFormatTitle">Cambiar formato de fecha</string>
 </resources>
