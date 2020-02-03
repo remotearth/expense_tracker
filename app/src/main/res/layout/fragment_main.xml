@@ -84,7 +84,8 @@
                     android:layout_weight="1.4"
                     android:gravity="center"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="15sp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold"
                     tools:text="MONTH NAME" />
 
                 <ImageView
@@ -92,7 +93,7 @@
                     android:layout_width="0dp"
                     android:layout_height="35dp"
                     android:layout_weight="0.3"
-                    android:src="@drawable/ic_next"
+                    app:srcCompat="@drawable/ic_next"
                     android:tint="@color/colorPrimary" />
 
             </LinearLayout>
