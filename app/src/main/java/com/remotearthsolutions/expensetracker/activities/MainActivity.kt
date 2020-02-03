@@ -511,9 +511,17 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 return false
             }
             R.id.nav_privacypolicy -> {
-                supportActionBar!!.title = getString(R.string.privacy_policy)
                 drawer_layout.closeDrawer(GravityCompat.START)
+                if (!isDeviceOnline) {
+                    showAlert(
+                        getString(R.string.warning),
+                        getString(R.string.internet_connection_needed),
+                        getString(R.string.ok), null, null
+                    )
+                    return false
+                }
 
+                supportActionBar!!.title = getString(R.string.privacy_policy)
                 val webViewFragment = WebViewFragment()
                 val bundle = Bundle().apply {
                     putString(Constants.KEY_URL, Constants.URL_PRIVACY_POLICY)
@@ -538,9 +546,17 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 return false
             }
             R.id.nav_licenses -> {
-                supportActionBar!!.title = getString(R.string.menu_licenses)
                 drawer_layout.closeDrawer(GravityCompat.START)
+                if (!isDeviceOnline) {
+                    showAlert(
+                        getString(R.string.warning),
+                        getString(R.string.internet_connection_needed),
+                        getString(R.string.ok), null, null
+                    )
+                    return false
+                }
 
+                supportActionBar!!.title = getString(R.string.menu_licenses)
                 val webViewFragment = WebViewFragment()
                 val bundle = Bundle().apply {
                     putString(Constants.KEY_URL, Constants.URL_THIRD_PARTY_LICENSES)
@@ -559,7 +575,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 fragmentTransaction.add(
                     R.id.framelayout, webViewFragment, WebViewFragment::class.java.name
                 ).commit()
-
                 showBackButton()
                 drawer_layout.closeDrawer(GravityCompat.START)
                 return false
