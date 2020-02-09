@@ -225,7 +225,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     mainFragment = MainFragment()
                     FragmentLoader.load(
                         this, mainFragment!!, getString(R.string.menu_home),
-                        MainFragment::class.java.name
+                        MainFragment::class.java.name,1
                     )
                 } else {
                     refreshChart()
@@ -484,6 +484,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         toolbar.setNavigationOnClickListener {
             mDrawerLayout.openDrawer(GravityCompat.START)
         }
+
+        val fragment = supportFragmentManager.findFragmentByTag(ViewShadeFragment::class.java.name)
+        if (fragment != null) {
+            val ft = supportFragmentManager.beginTransaction()
+            ft.setCustomAnimations(R.anim.fade_in, 0, 0, R.anim.fade_out)
+            ft.remove(fragment)
+            supportFragmentManager.popBackStack()
+            ft.commit()
+        }
     }
 
 
@@ -497,6 +506,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         title: String = getString(R.string.add_expense),
         purpose: ExpenseFragment.Purpose = ExpenseFragment.Purpose.ADD
     ) {
+        //blur back screen
+        FragmentLoader.load(this, ViewShadeFragment(), null, ViewShadeFragment::class.java.name, 1)
+
         supportActionBar!!.title = title
         val expenseFragment = ExpenseFragment()
         expenseFragment.purpose = purpose
@@ -509,6 +521,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         expenseFragment.arguments = bundle
         FragmentLoader.load(this, expenseFragment, title, ExpenseFragment::class.java.name)
         showBackButton()
+
     }
 
     override fun onPurchaseSuccessListener(purchase: Purchase?) {

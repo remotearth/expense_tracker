@@ -260,6 +260,8 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         }
     }
 
+
+
     override fun onExpenseAdded(amount: Double) {
         mView.inputdigit.setText("")
         Toast.makeText(activity, getString(R.string.successfully_added), Toast.LENGTH_SHORT)

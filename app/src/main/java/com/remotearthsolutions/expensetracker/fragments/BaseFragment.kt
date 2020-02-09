@@ -49,13 +49,17 @@ abstract class BaseFragment : Fragment(), BaseView {
     }
 
 
-    fun registerBackButton(callBack: OnBackPressedCallback? = null) {
+    fun registerBackButton(callBack: OnBackPressedCallback? = null, animationType: Int = 0) {
         val activity = requireActivity()
         val defaultCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val fragmentManager = activity.supportFragmentManager
                 val ft = fragmentManager.beginTransaction()
-                ft.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down)
+                if (animationType == 0) {
+                    ft.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down)
+                } else {
+                    ft.setCustomAnimations(R.anim.fade_in, 0, 0, R.anim.fade_out)
+                }
                 ft.remove(this@BaseFragment)
                 fragmentManager.popBackStack()
                 ft.commit()
