@@ -79,6 +79,7 @@ class CategoryFragment : BaseFragment(),
                 )
             }
         }
+        registerBackButton()
         return mView
     }
 

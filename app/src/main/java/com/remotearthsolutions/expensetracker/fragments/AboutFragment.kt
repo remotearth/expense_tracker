@@ -5,12 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.R
+import com.remotearthsolutions.expensetracker.activities.MainActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_about.view.*
 
-class AboutFragment : Fragment() {
+class AboutFragment : BaseFragment() {
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,5 +25,10 @@ class AboutFragment : Fragment() {
             BuildConfig.VERSION_NAME
         view.versionno.text = "${getString(R.string.version)} $getVersion"
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        registerBackButton()
     }
 }

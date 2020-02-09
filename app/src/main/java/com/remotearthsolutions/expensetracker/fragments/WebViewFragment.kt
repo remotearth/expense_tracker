@@ -16,7 +16,7 @@ import com.remotearthsolutions.expensetracker.activities.MainActivity
 import com.remotearthsolutions.expensetracker.utils.Constants
 import kotlinx.android.synthetic.main.fragment_webview.view.*
 
-class WebViewFragment : Fragment() {
+class WebViewFragment : BaseFragment() {
     private lateinit var mContext: Context
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -47,6 +47,8 @@ class WebViewFragment : Fragment() {
         mView.webview.settings.builtInZoomControls = true
         mView.webview.webViewClient = WebViewClient()
         mView.webview.loadUrl(url)
+
+        registerBackButton()
         return mView
     }
 

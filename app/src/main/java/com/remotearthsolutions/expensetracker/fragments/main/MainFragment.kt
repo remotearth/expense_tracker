@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -20,15 +21,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.MainActivity
 import com.remotearthsolutions.expensetracker.databinding.FragmentMainBinding
-import com.remotearthsolutions.expensetracker.fragments.AccountsFragment
-import com.remotearthsolutions.expensetracker.fragments.AllExpenseFragment
-import com.remotearthsolutions.expensetracker.fragments.HomeFragment
-import com.remotearthsolutions.expensetracker.fragments.OverViewFragment
+import com.remotearthsolutions.expensetracker.fragments.*
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.views.PeriodButton
 
-class MainFragment : Fragment(),
+class MainFragment : BaseFragment(),
     DateFilterButtonClickListener.Callback {
     private var binding: FragmentMainBinding? = null
     private var pagerAdapter: MainFragmentPagerAdapter? = null
@@ -63,6 +61,12 @@ class MainFragment : Fragment(),
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
+        registerBackButton(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                (activity as MainActivity).onBackButtonPressed()
+            }
+        })
+
         tabTitles = arrayOf(
             getString(R.string.title_home),
             getString(R.string.title_transaction),
@@ -283,7 +287,7 @@ class MainFragment : Fragment(),
                 selectedPeriodBtn = binding!!.yearlyRangeBtn
             }
         }
-        
+
         selectedPeriodBtn?.setIsSelected(true)
 
         binding!!.dateTv.text = date

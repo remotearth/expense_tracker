@@ -123,6 +123,8 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 viewModel!!.setDefaultSourceAccount(accountId)
             }
         }
+
+        registerBackButton()
         return mView
     }
 
@@ -303,7 +305,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
 
         }
         MainActivity.expenseAddededCount++
-        FirebaseEventLogUtils.logCustom(mainActivity,"Expense_Added")
+        FirebaseEventLogUtils.logCustom(mainActivity, "Expense_Added")
     }
 
     override fun onExpenseDeleted(categoryExpense: CategoryExpense?) {

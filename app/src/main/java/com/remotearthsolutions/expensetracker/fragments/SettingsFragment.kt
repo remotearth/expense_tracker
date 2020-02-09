@@ -6,14 +6,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.remotearthsolutions.expensetracker.R
+import com.remotearthsolutions.expensetracker.activities.MainActivity
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.FirebaseEventLogUtils.logCustom
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils.getFlagDrawable
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -98,6 +101,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         context?.let {
             view!!.setBackgroundColor(ContextCompat.getColor(context!!, android.R.color.white))
         }
+        registerBackButton()
         return view
     }
 
@@ -105,5 +109,22 @@ class SettingsFragment : PreferenceFragmentCompat() {
         super.onStop()
         preferenceScreen.sharedPreferences
             .unregisterOnSharedPreferenceChangeListener(preferenceChangeListener)
+    }
+
+    fun registerBackButton(callBack: OnBackPressedCallback? = null) {
+        val activity = requireActivity()
+        val defaultCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val fragmentManager = activity.supportFragmentManager
+                val ft = fragmentManager.beginTransaction()
+                ft.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down)
+                ft.remove(this@SettingsFragment)
+                fragmentManager.popBackStack()
+                ft.commit()
+                activity.toolbar!!.title = getString(R.string.title_home)
+                (activity as MainActivity).hideBackButton()
+            }
+        }
+        activity.onBackPressedDispatcher.addCallback(this, callBack ?: defaultCallback)
     }
 }

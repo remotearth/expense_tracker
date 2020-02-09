@@ -17,7 +17,6 @@ import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.navigation.NavigationView
@@ -118,7 +117,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         checkoutUtils.createPurchaseFlow(purchaseListener)
         PreferenceManager.getDefaultSharedPreferences(this)
             .registerOnSharedPreferenceChangeListener(this)
-
     }
 
     override fun onStop() {
@@ -197,41 +195,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         totalAccountAmountTv.setTextColor(ContextCompat.getColor(this, colorId))
     }
 
-    override fun onBackPressed() {
-        val expenseFragment =
-            supportFragmentManager.findFragmentByTag(
-                ExpenseFragment::class.java.name
-            )
-        val categoryFragment =
-            supportFragmentManager.findFragmentByTag(
-                CategoryFragment::class.java.name
-            )
-        val aboutFragment =
-            supportFragmentManager.findFragmentByTag(
-                AboutFragment::class.java.name
-            )
-        val settingFragment =
-            supportFragmentManager.findFragmentByTag(
-                SettingsFragment::class.java.name
-            )
-        val webViewFragment =
-            supportFragmentManager.findFragmentByTag(
-                WebViewFragment::class.java.name
-            )
-
+    fun onBackButtonPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
-        } else if (expenseFragment != null || categoryFragment != null
-            || aboutFragment != null || settingFragment != null || webViewFragment != null
-        ) {
-            removeFragment(expenseFragment)
-            removeFragment(categoryFragment)
-            removeFragment(aboutFragment)
-            removeFragment(settingFragment)
-            removeFragment(webViewFragment)
-
-            hideBackButton()
         } else {
+
             val t = System.currentTimeMillis()
             if (t - backPressedTime > 2000) {
                 backPressedTime = t
@@ -242,26 +210,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 ).show()
             } else {
                 CheckoutUtils.clearInstance()
-                super.onBackPressed()
+                finish()
             }
         }
-    }
-
-    private fun removeFragment(fragment: Fragment?) {
-        fragment?.let {
-            val fragmentManager = supportFragmentManager
-            val ft = fragmentManager.beginTransaction()
-            ft.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down)
-            ft.remove(it)
-            fragmentManager.popBackStack()
-            ft.commit()
-            supportActionBar!!.title = getString(R.string.title_home)
-        }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -579,8 +530,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 drawer_layout.closeDrawer(GravityCompat.START)
                 return false
             }
-
-
         }
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
