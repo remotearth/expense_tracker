@@ -507,17 +507,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             wrappedCategoryExpense
         )
         expenseFragment.arguments = bundle
-        val fragmentTransaction =
-            supportFragmentManager.beginTransaction()
-        fragmentTransaction.setCustomAnimations(R.anim.slide_in_up, 0, 0, R.anim.slide_out_down)
-        fragmentTransaction.add(
-            R.id.framelayout,
-            expenseFragment,
-            ExpenseFragment::class.java.name
-        )
-        fragmentTransaction.addToBackStack(ExpenseFragment::class.java.name)
-        fragmentTransaction.commit()
-
+        FragmentLoader.load(this, expenseFragment, title, ExpenseFragment::class.java.name)
         showBackButton()
     }
 
