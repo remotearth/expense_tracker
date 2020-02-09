@@ -249,12 +249,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     resources.getString(R.string.cancel),
                     object : BaseView.Callback {
                         override fun onOkBtnPressed() {
-                            PermissionUtils().writeExternalStoragePermission(
-                                this@MainActivity,
+                            PermissionUtils().writeExternalStoragePermission(this@MainActivity,
                                 object : PermissionListener {
                                     override fun onPermissionGranted(response: PermissionGrantedResponse) {
-                                        val allCsvFile =
-                                            viewModel.allCsvFile
+                                        val allCsvFile = viewModel.allCsvFile
                                         if (allCsvFile == null || allCsvFile.isEmpty()) {
                                             Toast.makeText(
                                                 this@MainActivity,
@@ -263,16 +261,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                                             ).show()
                                             return
                                         }
-                                        val csvList: Array<String> =
-                                            allCsvFile.toTypedArray()
-                                        val dialogBuilder =
-                                            AlertDialog.Builder(this@MainActivity)
+                                        val csvList: Array<String> = allCsvFile.toTypedArray()
+                                        val dialogBuilder = AlertDialog.Builder(this@MainActivity)
                                         dialogBuilder.setTitle(resources.getString(R.string.select_csv))
-                                        dialogBuilder.setItems(
-                                            csvList
-                                        ) { _: DialogInterface?, item: Int ->
-                                            val selectedText =
-                                                csvList[item]
+                                        dialogBuilder.setItems(csvList) { _: DialogInterface?, item: Int ->
+                                            val selectedText = csvList[item]
                                             val filePath = File(
                                                 Environment.getExternalStorageDirectory().absolutePath,
                                                 selectedText
@@ -290,8 +283,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                                                     hideProgress()
                                                 }, 3000)
                                         }
-                                        val alertDialogObject =
-                                            dialogBuilder.create()
+                                        val alertDialogObject = dialogBuilder.create()
                                         alertDialogObject.show()
                                     }
 
@@ -299,15 +291,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                                         showAlert(
                                             "",
                                             resources.getString(R.string.read_write_permission_is_needed),
-                                            resources.getString(R.string.ok),
-                                            null,
-                                            null
+                                            resources.getString(R.string.ok), null, null
                                         )
                                     }
 
                                     override fun onPermissionRationaleShouldBeShown(
-                                        permission: PermissionRequest,
-                                        token: PermissionToken
+                                        permission: PermissionRequest, token: PermissionToken
                                     ) {
                                         Toast.makeText(
                                             this@MainActivity,
@@ -510,10 +499,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         expenseFragment.purpose = purpose
         val wrappedCategoryExpense = Parcels.wrap(categoryExpense)
         val bundle = Bundle()
-        bundle.putParcelable(
-            Constants.CATEGORYEXPENSE_PARCEL,
-            wrappedCategoryExpense
-        )
+        bundle.putParcelable(Constants.CATEGORYEXPENSE_PARCEL, wrappedCategoryExpense)
         expenseFragment.arguments = bundle
         FragmentLoader.load(this, expenseFragment, title, ExpenseFragment::class.java.name)
         showBackButton()
