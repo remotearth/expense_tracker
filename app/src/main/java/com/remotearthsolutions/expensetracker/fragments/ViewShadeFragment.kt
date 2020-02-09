@@ -15,9 +15,4 @@ class ViewShadeFragment : BaseFragment() {
     ): View? {
         return inflater.inflate(R.layout.view_shade, container, false)
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        registerBackButton()
-    }
 }
