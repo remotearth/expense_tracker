@@ -256,14 +256,6 @@ class MainFragment : BaseFragment(),
         override fun onPageScrollStateChanged(state: Int) {}
     }
 
-    fun setActionBar(
-        supportActionBar: ActionBar?,
-        name: String?
-    ) {
-        actionBar = supportActionBar
-        actionBar?.title = name
-    }
-
     override fun onDateChanged(
         btnId: Int,
         date: String?,

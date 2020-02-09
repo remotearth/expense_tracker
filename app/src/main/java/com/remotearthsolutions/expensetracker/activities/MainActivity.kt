@@ -29,6 +29,7 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.R
+import com.remotearthsolutions.expensetracker.activities.helpers.FragmentLoader
 import com.remotearthsolutions.expensetracker.callbacks.InAppBillingCallback
 import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.contracts.MainContract
@@ -222,38 +223,19 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     supportFragmentManager.findFragmentByTag(MainFragment::class.java.name)
                 if (fragment == null) {
                     mainFragment = MainFragment()
-                    mainFragment!!.setActionBar(supportActionBar, getString(R.string.title_home))
-                    val fragmentTransaction =
-                        supportFragmentManager.beginTransaction()
-                    fragmentTransaction.replace(
-                        R.id.framelayout,
-                        mainFragment!!,
+                    FragmentLoader.load(
+                        this, mainFragment!!, getString(R.string.menu_home),
                         MainFragment::class.java.name
                     )
-                    fragmentTransaction.commit()
                 } else {
                     refreshChart()
                 }
             }
             R.id.nav_categories -> {
-                val tag = CategoryFragment::class.java.name
-                supportActionBar!!.title = getString(R.string.menu_categories)
-                val categoryFragment = CategoryFragment()
-                val fragmentTransaction = supportFragmentManager.beginTransaction()
-                fragmentTransaction.setCustomAnimations(
-                    R.anim.slide_in_up,
-                    0,
-                    0,
-                    R.anim.slide_out_down
+                FragmentLoader.load(
+                    this, CategoryFragment(), getString(R.string.menu_categories),
+                    CategoryFragment::class.java.name
                 )
-                fragmentTransaction.add(
-                    R.id.framelayout,
-                    categoryFragment,
-                    tag
-                )
-                fragmentTransaction.addToBackStack(tag)
-                fragmentTransaction.commit()
-
                 showBackButton()
                 drawer_layout.closeDrawer(GravityCompat.START)
                 return false
@@ -347,22 +329,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 return false
             }
             R.id.nav_settings -> {
-                val settingsFragment = SettingsFragment()
-                supportActionBar!!.title = getString(R.string.menu_settings)
-                val fragmentTransaction = supportFragmentManager.beginTransaction()
-                fragmentTransaction.setCustomAnimations(
-                    R.anim.slide_in_up,
-                    0,
-                    0,
-                    R.anim.slide_out_down
-                )
-                fragmentTransaction.addToBackStack(SettingsFragment::class.java.name)
-                fragmentTransaction.add(
-                    R.id.framelayout,
-                    settingsFragment,
+                FragmentLoader.load(
+                    this, SettingsFragment(), getString(R.string.menu_categories),
                     SettingsFragment::class.java.name
-                ).commit()
-
+                )
                 showBackButton()
                 drawer_layout.closeDrawer(GravityCompat.START)
                 return false
@@ -386,8 +356,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             R.id.nav_purchase -> {
                 showAlert(resources.getString(R.string.whatsinpremium),
                     resources.getString(R.string.premium_features),
-                    resources.getString(R.string.ok),
-                    null,
+                    resources.getString(R.string.ok), null,
                     object : BaseView.Callback {
                         override fun onOkBtnPressed() {
 
@@ -412,10 +381,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                                 }
                             })
                         }
-
-                        override fun onCancelBtnPressed() {
-                            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                        }
                     })
                 drawer_layout.closeDrawer(GravityCompat.START)
                 return false
@@ -439,24 +404,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 return false
             }
             R.id.nav_about -> {
-                supportActionBar!!.title = getString(R.string.menu_about)
-                val aboutFragment = AboutFragment()
-                val fragmentTransaction =
-                    supportFragmentManager.beginTransaction()
-                fragmentTransaction.setCustomAnimations(
-                    R.anim.slide_in_up,
-                    0,
-                    0,
-                    R.anim.slide_out_down
-                )
-                fragmentTransaction.add(
-                    R.id.framelayout,
-                    aboutFragment,
+                FragmentLoader.load(
+                    this, AboutFragment(), getString(R.string.menu_about),
                     AboutFragment::class.java.name
                 )
-                fragmentTransaction.addToBackStack(AboutFragment::class.java.name)
-                fragmentTransaction.commit()
-
                 showBackButton()
                 drawer_layout.closeDrawer(GravityCompat.START)
                 return false
@@ -465,33 +416,22 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 drawer_layout.closeDrawer(GravityCompat.START)
                 if (!isDeviceOnline) {
                     showAlert(
-                        getString(R.string.warning),
-                        getString(R.string.internet_connection_needed),
+                        getString(R.string.warning), getString(R.string.internet_connection_needed),
                         getString(R.string.ok), null, null
                     )
                     return false
                 }
 
-                supportActionBar!!.title = getString(R.string.privacy_policy)
                 val webViewFragment = WebViewFragment()
                 val bundle = Bundle().apply {
                     putString(Constants.KEY_URL, Constants.URL_PRIVACY_POLICY)
                 }
                 webViewFragment.arguments = bundle
 
-                val fragmentTransaction =
-                    supportFragmentManager.beginTransaction()
-                fragmentTransaction.setCustomAnimations(
-                    R.anim.slide_in_up,
-                    0,
-                    0,
-                    R.anim.slide_out_down
+                FragmentLoader.load(
+                    this, webViewFragment, getString(R.string.privacy_policy),
+                    WebViewFragment::class.java.name
                 )
-                fragmentTransaction.addToBackStack(AboutFragment::class.java.name)
-                fragmentTransaction.add(
-                    R.id.framelayout, webViewFragment, WebViewFragment::class.java.name
-                ).commit()
-
                 showBackButton()
                 drawer_layout.closeDrawer(GravityCompat.START)
                 return false
@@ -507,25 +447,16 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     return false
                 }
 
-                supportActionBar!!.title = getString(R.string.menu_licenses)
                 val webViewFragment = WebViewFragment()
                 val bundle = Bundle().apply {
                     putString(Constants.KEY_URL, Constants.URL_THIRD_PARTY_LICENSES)
                 }
                 webViewFragment.arguments = bundle
 
-                val fragmentTransaction =
-                    supportFragmentManager.beginTransaction()
-                fragmentTransaction.setCustomAnimations(
-                    R.anim.slide_in_up,
-                    0,
-                    0,
-                    R.anim.slide_out_down
+                FragmentLoader.load(
+                    this, webViewFragment, getString(R.string.menu_licenses),
+                    WebViewFragment::class.java.name
                 )
-                fragmentTransaction.addToBackStack(AboutFragment::class.java.name)
-                fragmentTransaction.add(
-                    R.id.framelayout, webViewFragment, WebViewFragment::class.java.name
-                ).commit()
                 showBackButton()
                 drawer_layout.closeDrawer(GravityCompat.START)
                 return false
@@ -535,7 +466,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         return true
     }
 
-    fun showBackButton() {
+    private fun showBackButton() {
         toggle.isDrawerIndicatorEnabled = false
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)

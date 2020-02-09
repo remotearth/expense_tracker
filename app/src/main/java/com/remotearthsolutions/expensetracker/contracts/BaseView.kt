@@ -15,6 +15,8 @@ interface BaseView {
     fun hideProgress()
     interface Callback {
         fun onOkBtnPressed()
-        fun onCancelBtnPressed()
+        fun onCancelBtnPressed(){
+
+        }
     }
 }

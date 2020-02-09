@@ -111,7 +111,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             .unregisterOnSharedPreferenceChangeListener(preferenceChangeListener)
     }
 
-    fun registerBackButton(callBack: OnBackPressedCallback? = null) {
+    private fun registerBackButton(callBack: OnBackPressedCallback? = null) {
         val activity = requireActivity()
         val defaultCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
