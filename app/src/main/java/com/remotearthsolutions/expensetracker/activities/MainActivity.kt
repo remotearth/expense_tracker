@@ -561,7 +561,17 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         when (key) {
-            Constants.PREF_CURRENCY, Constants.PREF_TIME_FORMAT -> {
+            Constants.PREF_CURRENCY -> {
+                refreshChart()
+            }
+            Constants.PREF_TIME_FORMAT -> {
+                MainFragment.allExpenseFragment?.updateDateFormat(
+                    SharedPreferenceUtils.getInstance(this)!!
+                        .getString(
+                            Constants.PREF_TIME_FORMAT,
+                            resources.getString(R.string.default_time_format)
+                        )
+                )
                 refreshChart()
             }
         }

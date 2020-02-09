@@ -21,7 +21,7 @@ class AllTransactionsViewModel(
     private val expenseDao: ExpenseDao,
     private val categoryExpenseDao: CategoryExpenseDao,
     private val categoryDao: CategoryDao,
-    private val dateFormat: String
+    private var dateFormat: String
 ) : ViewModel() {
     private val disposable = CompositeDisposable()
     private var dateRangeBtnId = 0
@@ -64,8 +64,7 @@ class AllTransactionsViewModel(
                                 val monthName =
                                     getDate(expense.datetime, DateTimeUtils.mmmm)
                                 if (monthName != previousMonth) {
-                                    val monthHeader =
-                                        CategoryExpense()
+                                    val monthHeader = CategoryExpense()
                                     monthHeader.isHeader = true
                                     monthHeader.categoryName = monthName
                                     expenseList.add(monthHeader)
@@ -109,6 +108,10 @@ class AllTransactionsViewModel(
             .subscribe {
                 listOfCateogoryLiveData.value = it
             })
+    }
+
+    fun updateDateFormat(updatedDateFormat:String){
+        this.dateFormat = updatedDateFormat
     }
 
     data class ChartDataRequirement(

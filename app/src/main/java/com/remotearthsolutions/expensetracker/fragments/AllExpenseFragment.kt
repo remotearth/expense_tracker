@@ -92,4 +92,8 @@ class AllExpenseFragment : BaseFragment(), ExpenseView {
     ) {
         viewModel!!.loadFilterExpense(startTime, endTime, btnId)
     }
+
+    fun updateDateFormat(updatedDateFormat:String){
+        viewModel?.updateDateFormat(updatedDateFormat)
+    }
 }

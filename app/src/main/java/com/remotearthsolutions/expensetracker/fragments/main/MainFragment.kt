@@ -338,7 +338,7 @@ class MainFragment : BaseFragment(),
 
     companion object {
         private var homeFragment: HomeFragment? = null
-        private var allExpenseFragment: AllExpenseFragment? = null
+        var allExpenseFragment: AllExpenseFragment? = null
         private var overViewFragment: OverViewFragment? = null
         private var accountsFragment: AccountsFragment? = null
     }
