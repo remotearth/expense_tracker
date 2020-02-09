@@ -46,7 +46,7 @@ class ExpenseListAdapter(
     ) {
         val item = categoryExpenseList!![position]
         if (holder is DateSectionedViewHolder) {
-            holder.bind(DateModel(item.categoryName!!))
+            holder.bind(DateModel(item.categoryName!!,item.isDateSection))
         } else {
             val viewHolder = holder as ExpenseListViewHolder
             viewHolder.bind(item, currencySymbol)

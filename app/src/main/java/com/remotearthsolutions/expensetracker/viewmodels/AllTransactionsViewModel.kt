@@ -44,8 +44,7 @@ class AllTransactionsViewModel(
                             dateRangeBtnId = btnId
                         }
                         if (dateRangeBtnId == R.id.yearlyRangeBtn) {
-                            val monthHeader =
-                                CategoryExpense()
+                            val monthHeader = CategoryExpense()
                             monthHeader.isHeader = true
                             monthHeader.categoryName = previousMonth
                             expenseList.add(monthHeader)
@@ -54,6 +53,7 @@ class AllTransactionsViewModel(
                             val header =
                                 CategoryExpense()
                             header.isHeader = true
+                            header.isDateSection = true
                             header.categoryName =
                                 getDate(previousDate, dateFormat)
                             expenseList.add(header)
@@ -78,6 +78,7 @@ class AllTransactionsViewModel(
                                     val dummy =
                                         CategoryExpense()
                                     dummy.isHeader = true
+                                    dummy.isDateSection = true
                                     dummy.categoryName = getDate(
                                         expense.datetime,
                                         dateFormat

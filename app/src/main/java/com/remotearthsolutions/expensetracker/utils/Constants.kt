@@ -28,7 +28,6 @@ interface Constants {
         const val PREF_ISFIRSTTIMEVISITED = "PREF_ISFIRSTTIMEVISITED"
         const val KEY_TITLE = "title"
         const val KEY_SCREEN = "screen"
-        const val KEY_DESH = "-"
         const val KEY_UTF_VERSION = "UTF-8"
         const val KEY_META1_REPLACE = "meta1:"
         const val KEY_META2_REPLACE = "meta2:"

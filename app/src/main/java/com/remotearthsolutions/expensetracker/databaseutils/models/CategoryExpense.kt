@@ -29,6 +29,8 @@ class CategoryExpense {
     var note: String? = null
     @Ignore
     var isHeader = false
+    @Ignore
+    var isDateSection = false
 
     constructor(
         category_id: Int,

@@ -1,3 +1,3 @@
 package com.remotearthsolutions.expensetracker.databaseutils.models
 
-class DateModel(var date: String)
+class DateModel(val date: String, val isDateSection: Boolean)
