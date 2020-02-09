@@ -225,7 +225,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     mainFragment = MainFragment()
                     FragmentLoader.load(
                         this, mainFragment!!, getString(R.string.menu_home),
-                        MainFragment::class.java.name,1
+                        MainFragment::class.java.name, 1
                     )
                 } else {
                     refreshChart()
@@ -485,16 +485,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             mDrawerLayout.openDrawer(GravityCompat.START)
         }
 
+        //hide background blur
         val fragment = supportFragmentManager.findFragmentByTag(ViewShadeFragment::class.java.name)
         if (fragment != null) {
-            val ft = supportFragmentManager.beginTransaction()
-            ft.setCustomAnimations(R.anim.fade_in, 0, 0, R.anim.fade_out)
-            ft.remove(fragment)
-            supportFragmentManager.popBackStack()
-            ft.commit()
+            FragmentLoader.remove(this, fragment, null, 1)
         }
     }
-
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
