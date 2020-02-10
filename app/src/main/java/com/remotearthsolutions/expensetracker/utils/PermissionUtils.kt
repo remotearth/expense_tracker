@@ -37,7 +37,7 @@ class PermissionUtils {
         builder.setMessage(activity.getString(R.string.storage_permission_needed_still_can_enable_from_settings))
         builder.setPositiveButton(
             activity.getString(R.string.go_to_settings)
-        ) { dialog: DialogInterface, which: Int ->
+        ) { dialog: DialogInterface, _: Int ->
             dialog.cancel()
             openSettings(activity)
         }

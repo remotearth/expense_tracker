@@ -84,7 +84,7 @@ class AccountViewModel(
             return Response(Response.FAILURE, context.getString(R.string.select_different_accounts))
         }
 
-        var listOfAccount = listOfAccountLiveData.value
+        val listOfAccount = listOfAccountLiveData.value
         if (amount > listOfAccount!![fromAccountSelection].amount) {
             return Response(
                 Response.FAILURE,
@@ -92,9 +92,9 @@ class AccountViewModel(
             )
         }
 
-        val fromAccount = listOfAccount!![fromAccountSelection]
+        val fromAccount = listOfAccount[fromAccountSelection]
         fromAccount.amount -= amount
-        val toAccount = listOfAccount!![toAccountSelection]
+        val toAccount = listOfAccount[toAccountSelection]
         toAccount.amount += amount
 
         addOrUpdateAccount(fromAccount)

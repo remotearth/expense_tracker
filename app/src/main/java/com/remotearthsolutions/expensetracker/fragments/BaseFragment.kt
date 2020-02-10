@@ -48,8 +48,7 @@ abstract class BaseFragment : Fragment(), BaseView {
     override fun hideProgress() {
         progressService!!.hideProgressBar()
     }
-
-
+    
     fun registerBackButton(callBack: OnBackPressedCallback? = null, animationType: Int = 0) {
         val activity = requireActivity()
         val defaultCallback = object : OnBackPressedCallback(true) {
@@ -57,7 +56,8 @@ abstract class BaseFragment : Fragment(), BaseView {
                 FragmentLoader.remove(
                     activity as AppCompatActivity,
                     this@BaseFragment,
-                    getString(R.string.title_home)
+                    getString(R.string.title_home),
+                    animationType
                 )
                 (activity as MainActivity).hideBackButton()
             }

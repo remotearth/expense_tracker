@@ -1,9 +1,8 @@
 package com.remotearthsolutions.expensetracker.contracts
 
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 
 interface ExpenseFragmentContract {
     interface View : BaseView {
@@ -12,10 +11,5 @@ interface ExpenseFragmentContract {
         fun onExpenseDeleted(categoryExpense: CategoryExpense?)
         fun setSourceAccount(account: AccountModel?)
         fun showDefaultCategory(categoryModel: CategoryModel?)
-    }
-
-    interface ExpenseView : BaseView {
-        fun loadFilterExpense(listOffilterExpense: List<CategoryExpense>?)
-        fun loadDate(listOfDate: List<DateModel?>?)
     }
 }

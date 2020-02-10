@@ -79,8 +79,7 @@ class MainFragment : BaseFragment(),
         binding!!.viewpager.adapter = pagerAdapter
         binding!!.viewpager.addOnPageChangeListener(viewPagerPageChangeListener)
         binding!!.navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        val dateFilterButtonClickListener =
-            DateFilterButtonClickListener(this)
+        val dateFilterButtonClickListener = DateFilterButtonClickListener(this)
         binding!!.nextDateBtn.setOnClickListener(dateFilterButtonClickListener)
         binding!!.previousDateBtn.setOnClickListener(dateFilterButtonClickListener)
         binding!!.dailyRangeBtn.setOnClickListener(dateFilterButtonClickListener)
@@ -117,7 +116,7 @@ class MainFragment : BaseFragment(),
                 }
             }
             selectedPeriodBtn?.performClick()
-        }, 500)
+        }, 0)
     }
 
     private fun resetDateRangeBtns() {

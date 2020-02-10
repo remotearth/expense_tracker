@@ -45,21 +45,14 @@ class DateFilterButtonClickListener(private val callback: Callback) :
                         endTime = getDateTimeInLong(format, date, 23, 59, 59)
                     }
                     Constants.KEY_WEEKLY -> {
-                        simpleDateFormat = SimpleDateFormat(
-                            format,
-                            Locale.getDefault()
-                        )
+                        simpleDateFormat = SimpleDateFormat(format, Locale.getDefault())
                         try {
                             if (endingOfWeek < 0) {
                                 endingOfWeek += 7
                                 startingOfWeek += 7
                             }
-                            startDate = simpleDateFormat!!.parse(
-                                getDate(format, startingOfWeek)
-                            )
-                            endDate = simpleDateFormat!!.parse(
-                                getDate(format, endingOfWeek)
-                            )
+                            startDate = simpleDateFormat!!.parse(getDate(format, startingOfWeek))
+                            endDate = simpleDateFormat!!.parse(getDate(format, endingOfWeek))
                         } catch (e: ParseException) {
                             Log.d("Exception", "" + e.message)
                         }
@@ -89,8 +82,7 @@ class DateFilterButtonClickListener(private val callback: Callback) :
                     }
                     Constants.KEY_YEARLY -> {
                         selectedDate = Constants.KEY_YEARLY
-                        simpleDateFormat =
-                            SimpleDateFormat(DateTimeUtils.yyyy, Locale.getDefault())
+                        simpleDateFormat = SimpleDateFormat(DateTimeUtils.yyyy, Locale.getDefault())
                         calendar = Calendar.getInstance()
                         if (year < 0) {
                             year += 1
@@ -115,10 +107,7 @@ class DateFilterButtonClickListener(private val callback: Callback) :
                         endTime = getDateTimeInLong(format, date, 23, 59, 59)
                     }
                     Constants.KEY_WEEKLY -> {
-                        simpleDateFormat = SimpleDateFormat(
-                            format,
-                            Locale.getDefault()
-                        )
+                        simpleDateFormat = SimpleDateFormat(format, Locale.getDefault())
                         try {
                             startingOfWeek -= 7
                             endingOfWeek -= 7
@@ -161,8 +150,7 @@ class DateFilterButtonClickListener(private val callback: Callback) :
                     }
                     Constants.KEY_YEARLY -> {
                         selectedDate = Constants.KEY_YEARLY
-                        simpleDateFormat =
-                            SimpleDateFormat(DateTimeUtils.yyyy, Locale.getDefault())
+                        simpleDateFormat = SimpleDateFormat(DateTimeUtils.yyyy, Locale.getDefault())
                         calendar = Calendar.getInstance()
                         year -= 1
                         calendar.add(Calendar.YEAR, year)
@@ -186,21 +174,10 @@ class DateFilterButtonClickListener(private val callback: Callback) :
             R.id.weeklyRangeBtn -> {
                 resetDate()
                 selectedDate = Constants.KEY_WEEKLY
-                simpleDateFormat =
-                    SimpleDateFormat(format, Locale.getDefault())
+                simpleDateFormat = SimpleDateFormat(format, Locale.getDefault())
                 try {
-                    startDate = simpleDateFormat!!.parse(
-                        getDate(
-                            format,
-                            startingOfWeek
-                        )
-                    )
-                    endDate = simpleDateFormat!!.parse(
-                        getDate(
-                            format,
-                            endingOfWeek
-                        )
-                    )
+                    startDate = simpleDateFormat!!.parse(getDate(format, startingOfWeek))
+                    endDate = simpleDateFormat!!.parse(getDate(format, endingOfWeek))
                 } catch (e: ParseException) {
                     Log.d("Exception", "" + e.message)
                 }
@@ -213,8 +190,7 @@ class DateFilterButtonClickListener(private val callback: Callback) :
             R.id.monthlyRangeBtn -> {
                 resetDate()
                 selectedDate = Constants.KEY_MONTHLY
-                simpleDateFormat =
-                    SimpleDateFormat(DateTimeUtils.MM_yy, Locale.getDefault())
+                simpleDateFormat = SimpleDateFormat(DateTimeUtils.MM_yy, Locale.getDefault())
                 calendar = Calendar.getInstance()
                 calendar.add(Calendar.MONTH, month)
                 date = simpleDateFormat!!.format(calendar.time)
@@ -226,8 +202,7 @@ class DateFilterButtonClickListener(private val callback: Callback) :
             R.id.yearlyRangeBtn -> {
                 resetDate()
                 selectedDate = Constants.KEY_YEARLY
-                val sdf =
-                    SimpleDateFormat(DateTimeUtils.yyyy, Locale.getDefault())
+                val sdf = SimpleDateFormat(DateTimeUtils.yyyy, Locale.getDefault())
                 calendar = Calendar.getInstance()
                 calendar.add(Calendar.YEAR, year)
                 date = sdf.format(calendar.time)
@@ -247,8 +222,7 @@ class DateFilterButtonClickListener(private val callback: Callback) :
         min: Int,
         sec: Int
     ): Long {
-        val calendarForWeekLastDay =
-            getCalendarFromDateString(format, dateStr)
+        val calendarForWeekLastDay = getCalendarFromDateString(format, dateStr)
         calendarForWeekLastDay[Calendar.HOUR_OF_DAY] = hour
         calendarForWeekLastDay[Calendar.MINUTE] = min
         calendarForWeekLastDay[Calendar.SECOND] = sec
@@ -263,8 +237,7 @@ class DateFilterButtonClickListener(private val callback: Callback) :
         min: Int,
         sec: Int
     ): Long {
-        val calendarForWeekLastDay =
-            getCalendarFromDateString(format, dateStr)
+        val calendarForWeekLastDay = getCalendarFromDateString(format, dateStr)
         calendarForWeekLastDay[Calendar.DATE] = dateType
         calendarForWeekLastDay[Calendar.HOUR_OF_DAY] = hour
         calendarForWeekLastDay[Calendar.MINUTE] = min

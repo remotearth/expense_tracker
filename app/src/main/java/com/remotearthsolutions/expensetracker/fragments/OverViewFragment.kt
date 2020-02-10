@@ -71,7 +71,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         viewModel =
             ViewModelProviders.of(requireActivity(), BaseViewModelFactory {
                 AllTransactionsViewModel(
-                    null, db?.expenseDao()!!, db.categoryExpenseDao(),
+                    db?.categoryExpenseDao()!!,
                     db.categoryDao(),
                     SharedPreferenceUtils.getInstance(mContext!!)!!
                         .getString(
