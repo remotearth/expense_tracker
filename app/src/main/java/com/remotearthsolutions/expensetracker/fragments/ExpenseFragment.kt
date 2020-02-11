@@ -286,7 +286,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         val mainActivity = mContext as MainActivity?
         mainActivity!!.updateSummary()
         mainActivity.refreshChart()
-        if (MainActivity.expenseAddededCount % 3 == 0) {
+        if (MainActivity.expenseAddededCount % 2 == 0) {
             val delay = Random().nextInt(3000 - 1000) + 1000
             Handler().postDelayed({
                 AdmobUtils.getInstance((mContext as Activity))?.showInterstitialAds()

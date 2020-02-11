@@ -52,6 +52,6 @@ interface Constants {
         const val KEY_COLOR_FORMAT = "#%02x%02x%02x"
 
         const val ASKED_TO_REVIEW = "asked_to_review"
-        const val NUMBER_OF_ENTRY_NEEDED_BEFORE_ASKING_TO_REVIEW = 50
+        const val NUMBER_OF_ENTRY_NEEDED_BEFORE_ASKING_TO_REVIEW = 30
     }
 }
