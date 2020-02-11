@@ -68,8 +68,7 @@ public class MainViewModelTests {
 
     @Test
     public void test_checkAuthentication_when_guestUserAndFireBaseUserIsNull_will_goBackToLogin() {
-        when(firebaseService.getUser()).thenReturn(null);
-        viewModel.checkAuthectication(null);
+        viewModel.checkAuthectication("");
 
         verify(view, times(1)).goBackToLoginScreen();
         verify(view, never()).startLoadingApp();
@@ -77,8 +76,7 @@ public class MainViewModelTests {
 
     @Test
     public void test_checkAuthentication_when_guestUserIsNull_AndFireBaseUserIsNotNull_will_startLoadingApp() {
-        when(firebaseService.getUser()).thenReturn(firebaseUser);
-        viewModel.checkAuthectication(null);
+        viewModel.checkAuthectication("validUserId");
 
         verify(view, times(1)).startLoadingApp();
         verify(view, never()).goBackToLoginScreen();
@@ -86,7 +84,6 @@ public class MainViewModelTests {
 
     @Test
     public void test_checkAuthentication_when_guestUserIsNotNull_AndFireBaseUserIsNull_will_startLoadingApp() {
-        when(firebaseService.getUser()).thenReturn(null);
         viewModel.checkAuthectication("guest");
 
         verify(view, times(1)).startLoadingApp();
@@ -95,7 +92,6 @@ public class MainViewModelTests {
 
     @Test
     public void test_checkAuthentication_when_guestUserAndFireBaseUserNotNull_will_starLoadingApp() {
-        when(firebaseService.getUser()).thenReturn(firebaseUser);
         viewModel.checkAuthectication("guest");
 
         verify(view, times(1)).startLoadingApp();
