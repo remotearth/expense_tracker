@@ -161,6 +161,7 @@
     <string name="date_category_amount_from_note">Date,Category,Amount,From,Note</string>
 
     <string name="expense_data_not_available_to_export">No expense data available to export.</string>
+    <string name="expense_data_not_available_to_upload">No expense data available to upload.</string>
 
 
     <string name="select_your_currency">Select Your Currency</string>
@@ -250,5 +251,5 @@
     <string name="share_experience">It seems the app is useful for you. Do you want to share your experience with others?</string>
     <string name="total_expense">Total Expense</string>
     <string name="name_should_be_less_than_20_char">Name should be at most twenty characters long</string>
-
+    <string name="backup_sync">Cloud Backup</string>
 </resources>

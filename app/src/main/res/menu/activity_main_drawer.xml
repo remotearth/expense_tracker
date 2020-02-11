@@ -25,6 +25,11 @@
             android:title="@string/export_data"/>
 
         <item
+            android:id="@+id/nav_backup_sync"
+            android:icon="@drawable/ic_cloud"
+            android:title="@string/backup_sync"/>
+
+        <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
             android:title="@string/menu_settings"/>

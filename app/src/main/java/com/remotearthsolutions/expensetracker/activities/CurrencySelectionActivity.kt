@@ -31,8 +31,6 @@ class CurrencySelectionActivity : AppCompatActivity() {
     }
 
     private fun gohome() {
-        val user = User()
-        SharedPreferenceUtils.getInstance(this)?.putString(Constants.KEY_USER, Gson().toJson(user))
         SharedPreferenceUtils.getInstance(this)?.putBoolean(Constants.PREF_ISFIRSTTIMEVISITED, true)
         startActivity(Intent(this@CurrencySelectionActivity, MainActivity::class.java))
         finish()

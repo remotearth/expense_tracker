@@ -21,7 +21,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.iid.FirebaseInstanceId
-import com.google.gson.Gson
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
@@ -35,7 +34,6 @@ import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.contracts.MainContract
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
-import com.remotearthsolutions.expensetracker.entities.User
 import com.remotearthsolutions.expensetracker.fragments.*
 import com.remotearthsolutions.expensetracker.fragments.main.MainFragment
 import com.remotearthsolutions.expensetracker.services.FileProcessingServiceImp
@@ -87,12 +85,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }).get(MainViewModel::class.java)
 
         val userStr = SharedPreferenceUtils.getInstance(this)?.getString(Constants.KEY_USER, "")
-        val user =
-            Gson().fromJson(
-                userStr,
-                User::class.java
-            )
-        viewModel.checkAuthectication(user)
+        viewModel.checkAuthectication(userStr!!)
 
         Handler().postDelayed({
             InAppUpdateUtils().requestUpdateApp(this@MainActivity)
@@ -314,6 +307,33 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
             R.id.nav_export_data -> {
                 viewModel.saveExpenseToCSV(this)
+                drawer_layout.closeDrawer(GravityCompat.START)
+                return false
+            }
+            R.id.nav_backup_sync -> {
+                val user =
+                    SharedPreferenceUtils.getInstance(this)?.getString(Constants.KEY_USER, "")!!
+                val isLoggedIn = user != "guest" && user.isNotEmpty()
+
+                viewModel.backupOrSync(
+                    this, (application as ApplicationObject).isPremium,
+                    isDeviceOnline, isLoggedIn
+                ) {
+                    AlertDialogUtils.show(this, "",
+                        "You can backup your data in the cloud or download data from cloud for this account.\n\n" +
+                                "What you want to do?",
+                        "Backup", "Download", object : BaseView.Callback {
+                            override fun onOkBtnPressed() {
+                                viewModel.backupToCloud(this@MainActivity, user)
+                            }
+
+                            override fun onCancelBtnPressed() {
+                                viewModel.downloadFromCloud(this@MainActivity, user)
+                            }
+                        }, true
+                    )
+                }
+
                 drawer_layout.closeDrawer(GravityCompat.START)
                 return false
             }

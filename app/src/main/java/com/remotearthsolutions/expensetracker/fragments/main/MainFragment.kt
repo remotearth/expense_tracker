@@ -116,7 +116,7 @@ class MainFragment : BaseFragment(),
                 }
             }
             selectedPeriodBtn?.performClick()
-        }, 0)
+        }, 500)
     }
 
     private fun resetDateRangeBtns() {

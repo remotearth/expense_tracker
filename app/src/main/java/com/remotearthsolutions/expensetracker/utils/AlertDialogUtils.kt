@@ -11,13 +11,14 @@ object AlertDialogUtils {
         message: String?,
         btnOk: String?,
         btnCancel: String?,
-        callback: BaseView.Callback?
+        callback: BaseView.Callback?,
+        cancellable: Boolean = false
     ) {
 
         SmartDialogBuilder(context!!).apply {
             setTitle(title)
             setSubTitle(message)
-            setCancalable(false)
+            setCancalable(cancellable)
             setPositiveButton(btnOk) {
                 it.dismiss()
                 callback?.onOkBtnPressed()

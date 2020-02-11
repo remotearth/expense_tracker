@@ -6,10 +6,8 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import com.google.firebase.auth.FirebaseUser
-import com.google.gson.Gson
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.contracts.LoginContract
-import com.remotearthsolutions.expensetracker.entities.User
 import com.remotearthsolutions.expensetracker.services.FacebookServiceImpl
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl
 import com.remotearthsolutions.expensetracker.services.GoogleServiceImpl
@@ -68,14 +66,20 @@ class LoginActivity : BaseActivity(), View.OnClickListener,
     }
 
     override fun onLoginSuccess(user: FirebaseUser?) {
+        if (user == null) {
+            SharedPreferenceUtils.getInstance(this)
+                ?.putString(Constants.KEY_USER, "guest")
+        } else {
+            println(user.uid)
+            SharedPreferenceUtils.getInstance(this)
+                ?.putString(Constants.KEY_USER, user.uid)
+        }
+
         if (SharedPreferenceUtils.getInstance(this)?.getBoolean(
                 Constants.PREF_ISFIRSTTIMEVISITED,
                 false
             )!!
         ) {
-            val user = User()
-            SharedPreferenceUtils.getInstance(this)
-                ?.putString(Constants.KEY_USER, Gson().toJson(user))
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         } else {

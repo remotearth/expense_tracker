@@ -27,11 +27,9 @@ class GoogleServiceImpl(private val context: Context) : GoogleService {
         data: Intent?,
         callback: GoogleService.Callback?
     ) {
-        val task =
-            GoogleSignIn.getSignedInAccountFromIntent(data)
+        val task = GoogleSignIn.getSignedInAccountFromIntent(data)
         try {
-            val account =
-                task.getResult(ApiException::class.java)
+            val account = task.getResult(ApiException::class.java)
             val token = account!!.idToken
             val credential = GoogleAuthProvider.getCredential(token, null)
             callback!!.onSocialLoginSuccess(credential)
