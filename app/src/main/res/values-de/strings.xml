@@ -184,7 +184,7 @@
 
 
     <string name="whatsinpremium">Was ist in der Premium-Version?</string>
-    <string name="premium_features">\n\n1. Das Hinzufügen neuer Kategorien und Konten ist unbegrenzt.\n\n2. Keine Werbung</string>
+    <string name="premium_features">\n\n1. Der Benutzer kann alle Aufwandsdaten in der Cloud sichern.\n\n2. Das Hinzufügen neuer Kategorien und Konten ist unbegrenzt.\n\n3. Keine Werbung</string>
 
     <string name="from">Von</string>
     <string name="to">Bis</string>

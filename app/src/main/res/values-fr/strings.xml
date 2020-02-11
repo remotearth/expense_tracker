@@ -186,7 +186,7 @@
     <string name="update_expense">Dépense de mise à jour</string>
     <string name="whatsinpremium">Qu\'y a-t-il dans la version premium?</string>
     <string name="select_time_format_from_here">Sélectionnez le format de la date</string>
-    <string name="premium_features">\n\n1. Il n\'y a pas de limite pour ajouter de nouvelles catégories et de nouveaux comptes.\n\n2. Aucune annonce</string>
+    <string name="premium_features">\n\n1. L\'utilisateur peut sauvegarder toutes les données de dépenses dans le cloud.\n\n2. Il n\'y a pas de limite pour ajouter de nouvelles catégories et de nouveaux comptes.\n\n3. Aucune annonce</string>
 
     <string name="from">De</string>
     <string name="to">À</string>

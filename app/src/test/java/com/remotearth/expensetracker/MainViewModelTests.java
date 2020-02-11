@@ -87,7 +87,7 @@ public class MainViewModelTests {
     @Test
     public void test_checkAuthentication_when_guestUserIsNotNull_AndFireBaseUserIsNull_will_startLoadingApp() {
         when(firebaseService.getUser()).thenReturn(null);
-        viewModel.checkAuthectication(new User());
+        viewModel.checkAuthectication("guest");
 
         verify(view, times(1)).startLoadingApp();
         verify(view, never()).goBackToLoginScreen();
@@ -96,7 +96,7 @@ public class MainViewModelTests {
     @Test
     public void test_checkAuthentication_when_guestUserAndFireBaseUserNotNull_will_starLoadingApp() {
         when(firebaseService.getUser()).thenReturn(firebaseUser);
-        viewModel.checkAuthectication(new User());
+        viewModel.checkAuthectication("guest");
 
         verify(view, times(1)).startLoadingApp();
         verify(view, never()).goBackToLoginScreen();

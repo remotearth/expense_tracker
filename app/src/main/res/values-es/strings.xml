@@ -178,7 +178,7 @@
     <string name="update_expense">Actualizar gastos</string>
     <string name="whatsinpremium">¿Qué hay en la versión premium?</string>
     <string name="select_time_format_from_here">" Seleccionar formato de fecha"</string>
-    <string name="premium_features">\n\n1. No hay límite para agregar nuevas categorías y cuentas.\n\n2. Sin anuncios</string>
+    <string name="premium_features">\n\n1. El usuario puede hacer una copia de seguridad de todos los datos de gastos en la nube.\n\n2. No hay límite para agregar nuevas categorías y cuentas.\n\n3. Sin anuncios</string>
 
     <string name="from">Desde</string>
     <string name="to">Objetivo</string>

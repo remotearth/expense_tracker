@@ -190,7 +190,7 @@
     <string name="update_expense">Обновить счет</string>
     <string name="whatsinpremium">Что в премиум-версии?</string>
     <string name="select_time_format_from_here">Выберите формат даты</string>
-    <string name="premium_features">\n\n1. Нет ограничений по добавлению новых категорий и учетных записей.\n\n2. Нет рекламы</string>
+    <string name="premium_features">\n\n1. Пользователь может создавать резервные копии всех данных о расходах в облаке.\n\n2. Нет ограничений по добавлению новых категорий и учетных записей.\n\n3. Нет рекламы</string>
 
     <string name="from">Из</string>
     <string name="to">к</string>
