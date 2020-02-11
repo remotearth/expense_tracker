@@ -111,9 +111,7 @@
     <string name="authentication_with_firebase_is_failed">Аутентификация с помощью Firebase не удалась</string>
     <string name="google_signin_failed">Ошибка входа в Google</string>
 
-    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">Для
-        использования этой функции приложению необходимо разрешение, вы можете включить его в настройках приложения.
-    </string>
+    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">"Для использования этой функции приложению необходимо разрешение, вы можете включить его в настройках приложения.     "</string>
     <string name="go_to_settings">Перейти к настройке</string>
     <string name="cancel">отменить</string>
     <string name="date_category_amount_from_note">Дата, Категория, Количество, С, Примечание</string>
@@ -211,4 +209,15 @@
     <string name="total_expense">Всего расходов</string>
     <string name="prefTimeFormatTitle">Изменить формат даты</string>
     <string name="name_should_be_less_than_20_char">Имя должно содержать не более двадцати символов</string>
+    <string name="expense_data_not_available_to_upload">Нет данных о расходах для резервного копирования.</string>
+    <string name="backup_sync">Резервный</string>
+    <string name="you_can_backup">Вы можете сделать резервную копию своих данных в облаке или загрузить данные из облака для этой учетной записи.</string>
+    <string name="what_you_want_to_do">Что ты хочешь делать?</string>
+    <string name="download">Скачать</string>
+    <string name="login_to_sync">Пожалуйста, войдите, используя Facebook или Google, чтобы безопасно загрузить свои данные в облако.</string>
+    <string name="will_overwrite_in_cloud">Это перезапишет данные в облаке для этой учетной записи. Вы уверены, что продолжить?</string>
+    <string name="data_not_available_to_download">Нет данных для загрузки для этого аккаунта</string>
+    <string name="overwrite_device_data">Это перезапишет все данные о расходах на вашем устройстве. Вы уверены, что продолжить?</string>
+    <string name="something_went_wrong">Что-то пошло не так. Пожалуйста, попробуйте позже.</string>
+    <string name="successfully_uploaded">Успешно загружено</string>
 </resources>

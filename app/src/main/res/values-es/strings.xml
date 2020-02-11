@@ -197,4 +197,15 @@
     <string name="total_expense">Gasto total</string>
     <string name="prefTimeFormatTitle">Cambiar formato de fecha</string>
     <string name="name_should_be_less_than_20_char">El nombre debe tener como máximo veinte caracteres</string>
+    <string name="expense_data_not_available_to_upload">No hay datos de gastos disponibles para la copia de seguridad.</string>
+    <string name="backup_sync">Apoyo</string>
+    <string name="you_can_backup">Puede hacer una copia de seguridad de sus datos en la nube o descargar datos de la nube para esta cuenta.</string>
+    <string name="what_you_want_to_do">¿Qué quieres hacer?</string>
+    <string name="download">Descargar</string>
+    <string name="login_to_sync">Inicie sesión con Facebook o Google para cargar sus datos en la nube de forma segura.</string>
+    <string name="will_overwrite_in_cloud">Esto sobrescribirá los datos en la nube para esta cuenta. ¿Estás seguro de proceder?</string>
+    <string name="data_not_available_to_download">No hay datos disponibles para descargar para esta cuenta</string>
+    <string name="overwrite_device_data">Esto sobrescribirá todos los datos de gastos en su dispositivo. ¿Estás seguro de proceder?</string>
+    <string name="something_went_wrong">Algo salió mal. Por favor, inténtelo de nuevo más tarde.</string>
+    <string name="successfully_uploaded">Cargado correctamente</string>
 </resources>

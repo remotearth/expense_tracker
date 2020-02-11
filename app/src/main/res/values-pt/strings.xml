@@ -198,4 +198,15 @@
     <string name="total_expense">Custo total</string>
     <string name="prefTimeFormatTitle">Alterar formato da data</string>
     <string name="name_should_be_less_than_20_char">O nome deve ter no máximo vinte caracteres</string>
+    <string name="expense_data_not_available_to_upload">Nenhum dado de despesa está disponível para backup.</string>
+    <string name="backup_sync">Cópia de segurança</string>
+    <string name="you_can_backup">Você pode fazer backup de seus dados na nuvem ou fazer download de dados da nuvem para esta conta.</string>
+    <string name="what_you_want_to_do">O que você quer fazer?</string>
+    <string name="download">Baixar</string>
+    <string name="login_to_sync">Faça login usando o facebook ou o google para enviar seus dados na nuvem com segurança.</string>
+    <string name="will_overwrite_in_cloud">Isso substituirá os dados na nuvem para esta conta. Tem certeza de que continua?</string>
+    <string name="data_not_available_to_download">Não há dados disponíveis para baixar para esta conta</string>
+    <string name="overwrite_device_data">Isso substituirá todos os dados de despesas no seu dispositivo. Tem certeza de que continua?</string>
+    <string name="something_went_wrong">Algo deu errado. Por favor, tente novamente mais tarde.</string>
+    <string name="successfully_uploaded">Carregado com sucesso</string>
 </resources>

@@ -108,9 +108,7 @@
     <string name="authentication_with_firebase_is_failed">Firebase ile kimlik doğrulama başarısız oldu</string>
     <string name="google_signin_failed">Google oturum açma başarısız oldu</string>
 
-    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">Bu özelliği
-        kullanmak için uygulamanın bunun için izin alması gerekir, bunu uygulama ayarlarında etkinleştirebilirsiniz.
-    </string>
+    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">"Bu özelliği kullanmak için uygulamanın bunun için izin alması gerekir, bunu uygulama ayarlarında etkinleştirebilirsiniz.     "</string>
     <string name="go_to_settings">Ayara Git</string>
     <string name="cancel">İptal etmek</string>
     <string name="date_category_amount_from_note">Tarih, Not itibaren Kategorisi, Tutar</string>
@@ -134,9 +132,7 @@
     </string>
     <string name="internet_connection_needed">Bu işlemi gerçekleştirmek için İnternet bağlantısı gereklidir.</string>
 
-    <string name="without_this_app_cannot_export">
-        Bu izin olmadan, uygulama veri veremez.
-    </string>
+    <string name="without_this_app_cannot_export">"Bu izin olmadan, uygulama veri veremez.     "</string>
     <string name="storage_permission_is_needed_to_export_data">Verileri dışa aktarmak için harici depolama iznine yazma
         gerekir. İzin vererek devam etmek istiyor musunuz?
     </string>
@@ -208,4 +204,15 @@
     <string name="total_expense">Toplam Gider</string>
     <string name="prefTimeFormatTitle">Tarih Biçimini Değiştir</string>
     <string name="name_should_be_less_than_20_char">Ad en fazla yirmi karakter uzunluğunda olmalıdır</string>
+    <string name="expense_data_not_available_to_upload">Yedeklenecek gider verisi yok.</string>
+    <string name="backup_sync">Destek olmak</string>
+    <string name="you_can_backup">Bu hesap için verilerinizi bulutta yedekleyebilir veya buluttan veri indirebilirsiniz.</string>
+    <string name="what_you_want_to_do">Ne yapmak istiyorsun?</string>
+    <string name="download">İndir</string>
+    <string name="login_to_sync">Verilerinizi buluta güvenle yüklemek için lütfen facebook veya google kullanarak giriş yapın.</string>
+    <string name="will_overwrite_in_cloud">Bu işlem, bu hesap için buluttaki verilerin üzerine yazar. Devam etmek istediğinizden emin misiniz?</string>
+    <string name="data_not_available_to_download">Bu hesap için indirilebilecek veri yok</string>
+    <string name="overwrite_device_data">Bu, cihazınızdaki tüm gider verilerinin üzerine yazacaktır. Devam etmek istediğinizden emin misiniz?</string>
+    <string name="something_went_wrong">Bir şeyler yanlış gitti. Lütfen daha sonra tekrar deneyiniz.</string>
+    <string name="successfully_uploaded">Başarıyla yüklendi</string>
 </resources>

@@ -37,9 +37,9 @@ class MainViewModel(
     private val categoryExpenseDao: CategoryExpenseDao,
     private val fileProcessingService: FileProcessingService
 ) : ViewModel() {
-    private var KEY_EXPENSES = "expenses"
-    private var KEY_CATEGORIES = "categories"
-    private var KEY_ACCOUNTS = "accounts"
+    private val KEY_EXPENSES = "expenses"
+    private val KEY_CATEGORIES = "categories"
+    private val KEY_ACCOUNTS = "accounts"
     private var disposable = CompositeDisposable()
     var startTime: Long = 0
         private set
@@ -320,7 +320,7 @@ class MainViewModel(
     ) {
         if (!isPremium) {
             view.showAlert(
-                "", "This is a premium feature. Please purchase the app first.",
+                "", context.getString(R.string.buy_message),
                 context.getString(R.string.ok), null, null
             )
             return
@@ -329,7 +329,7 @@ class MainViewModel(
         if (!isLoggedIn) {
             view.showAlert(
                 "",
-                "Please login using facebook or google to sync your data in the cloud securely",
+                context.getString(R.string.login_to_sync),
                 context.getString(R.string.ok), null, null
             )
             return
@@ -349,7 +349,7 @@ class MainViewModel(
     fun backupToCloud(context: Context, user: String) {
         getDataMapToUpload(context) {
             view.showAlert(context.getString(R.string.warning),
-                "This will overwrite the data in the cloud for this account, if you have any. Are you sure to proceed?",
+                context.getString(R.string.will_overwrite_in_cloud),
                 context.getString(R.string.yes), context.getString(R.string.no),
                 object : BaseView.Callback {
                     override fun onOkBtnPressed() {
@@ -359,13 +359,13 @@ class MainViewModel(
                             firebaseService.uploadToFireStore(user, it, {
                                 view.hideProgress()
                                 view.showAlert(
-                                    "", "Successfully uploaded",
+                                    "", context.getString(R.string.successfully_uploaded),
                                     context.getString(R.string.ok), null, null
                                 )
                             }, {
                                 view.hideProgress()
                                 view.showAlert(
-                                    "", "Something went wrong. Please try again later.",
+                                    "", context.getString(R.string.something_went_wrong),
                                     context.getString(R.string.ok), null, null
                                 )
                             })
@@ -377,7 +377,7 @@ class MainViewModel(
 
     fun downloadFromCloud(context: Context, user: String) {
         view.showAlert(context.getString(R.string.warning),
-            "This will overwrite all data in your device. Are you sure to proceed?",
+            context.getString(R.string.overwrite_device_data),
             context.getString(R.string.yes), context.getString(R.string.no),
             object : BaseView.Callback {
                 override fun onOkBtnPressed() {
@@ -385,8 +385,10 @@ class MainViewModel(
                     firebaseService.downloadFromCloud(user, {
                         view.hideProgress()
                         if (it.isEmpty()) {
-                            view.showAlert("","No data available to download for this account",
-                                context.getString(R.string.ok),null,null)
+                            view.showAlert(
+                                "", context.getString(R.string.data_not_available_to_download),
+                                context.getString(R.string.ok), null, null
+                            )
                             return@downloadFromCloud
                         }
 

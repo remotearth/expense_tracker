@@ -200,4 +200,15 @@
     <string name="total_expense">Celkové náklady</string>
     <string name="prefTimeFormatTitle">Zmeniť formát dátumu</string>
     <string name="name_should_be_less_than_20_char">Názov by mal mať najviac dvadsať znakov</string>
+    <string name="expense_data_not_available_to_upload">Na zálohovanie nie sú k dispozícii žiadne údaje o nákladoch.</string>
+    <string name="backup_sync">Zálohovanie</string>
+    <string name="you_can_backup">Pre tento účet môžete zálohovať údaje v cloude alebo sťahovať údaje z cloudu.</string>
+    <string name="what_you_want_to_do">Čo chceš robiť?</string>
+    <string name="download">Stiahnuť</string>
+    <string name="login_to_sync">Ak chcete bezpečne vkladať svoje údaje do cloudu, prihláste sa pomocou Facebooku alebo google.</string>
+    <string name="will_overwrite_in_cloud">Týmto sa prepíšu údaje v cloude tohto účtu. Naozaj chcete pokračovať?</string>
+    <string name="data_not_available_to_download">Pre tento účet nie sú k dispozícii žiadne údaje na stiahnutie</string>
+    <string name="overwrite_device_data">Týmto sa prepíšu všetky údaje o výdavkoch vo vašom zariadení. Naozaj chcete pokračovať?</string>
+    <string name="something_went_wrong">Niečo sa pokazilo. Skúste neskôr prosím.</string>
+    <string name="successfully_uploaded">Úspešne nahrané</string>
 </resources>

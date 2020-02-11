@@ -202,5 +202,16 @@
     <string name="share_experience">Es scheint, dass die App für Sie nützlich ist. Möchten Sie Ihre Erfahrungen mit anderen teilen?</string>
     <string name="total_expense">Gesamtausgaben</string>
     <string name="name_should_be_less_than_20_char">Der Name sollte höchstens zwanzig Zeichen lang sein</string>
+    <string name="expense_data_not_available_to_upload">Es sind keine Aufwandsdaten zum Sichern verfügbar.</string>
+    <string name="backup_sync">Backup</string>
+    <string name="you_can_backup">Sie können Ihre Daten in der Cloud sichern oder Daten aus der Cloud für dieses Konto herunterladen.</string>
+    <string name="what_you_want_to_do">Was möchten Sie tun?</string>
+    <string name="download">Herunterladen</string>
+    <string name="login_to_sync">Bitte melden Sie sich über Facebook oder Google an, um Ihre Daten sicher in die Cloud hochzuladen.</string>
+    <string name="will_overwrite_in_cloud">Dadurch werden die Daten in der Cloud für dieses Konto überschrieben. Sind Sie sicher, dass Sie fortfahren möchten?</string>
+    <string name="data_not_available_to_download">Für dieses Konto können keine Daten heruntergeladen werden</string>
+    <string name="overwrite_device_data">Dadurch werden alle Aufwandsdaten auf Ihrem Gerät überschrieben. Sind Sie sicher, dass Sie fortfahren möchten?</string>
+    <string name="something_went_wrong">Etwas ist schief gelaufen. Bitte versuchen Sie es später noch einmal.</string>
+    <string name="successfully_uploaded">Erfolgreich hochgeladen</string>
 
 </resources>

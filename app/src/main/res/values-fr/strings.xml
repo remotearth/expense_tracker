@@ -205,4 +205,15 @@
     <string name="total_expense">Dépense totale</string>
     <string name="prefTimeFormatTitle">Changer le format de la date</string>
     <string name="name_should_be_less_than_20_char">Le nom doit comporter au maximum vingt caractères</string>
+    <string name="expense_data_not_available_to_upload">Aucune donnée de dépenses n\'est disponible pour la sauvegarde.</string>
+    <string name="backup_sync">Sauvegarde</string>
+    <string name="you_can_backup">Vous pouvez sauvegarder vos données dans le cloud ou télécharger des données depuis le cloud pour ce compte.</string>
+    <string name="what_you_want_to_do">Qu\'est-ce que tu veux faire?</string>
+    <string name="download">Télécharger</string>
+    <string name="login_to_sync">Veuillez vous connecter en utilisant Facebook ou Google pour télécharger vos données dans le cloud en toute sécurité.</string>
+    <string name="will_overwrite_in_cloud">Cela écrasera les données dans le cloud pour ce compte. Voulez-vous vraiment continuer?</string>
+    <string name="data_not_available_to_download">Aucune donnée n\'est disponible en téléchargement pour ce compte</string>
+    <string name="overwrite_device_data">Cela écrasera toutes les données de dépenses dans votre appareil. Voulez-vous vraiment continuer?</string>
+    <string name="something_went_wrong">Quelque chose a mal tourné. Veuillez réessayer plus tard.</string>
+    <string name="successfully_uploaded">Téléchargement réussi</string>
 </resources>

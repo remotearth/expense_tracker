@@ -320,9 +320,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     isDeviceOnline, isLoggedIn
                 ) {
                     AlertDialogUtils.show(this, "",
-                        "You can backup your data in the cloud or download data from cloud for this account.\n\n" +
-                                "What you want to do?",
-                        "Backup", "Download", object : BaseView.Callback {
+                        getString(R.string.you_can_backup)+"\n\n" +
+                                getString(R.string.what_you_want_to_do),
+                        getString(R.string.backup_sync), getString(R.string.download), object : BaseView.Callback {
                             override fun onOkBtnPressed() {
                                 viewModel.backupToCloud(this@MainActivity, user)
                             }
