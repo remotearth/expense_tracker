@@ -3,6 +3,7 @@ package com.remotearthsolutions.expensetracker.activities
 import android.app.Activity
 import android.app.Application.ActivityLifecycleCallbacks
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.remotearthsolutions.expensetracker.BuildConfig
@@ -10,6 +11,7 @@ import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import org.solovyev.android.checkout.Billing
 import org.solovyev.android.checkout.Billing.DefaultConfiguration
+
 
 class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
     var isActivityVisible = false
@@ -27,7 +29,7 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
 
     override fun onCreate() {
         super.onCreate()
-
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(!BuildConfig.DEBUG)
         SharedPreferenceUtils.getInstance(this)
         registerActivityLifecycleCallbacks(this)
