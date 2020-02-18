@@ -178,7 +178,7 @@ class MainFragment : BaseFragment(),
                         anim.addListener(object : Animator.AnimatorListener {
                             override fun onAnimationStart(animation: Animator) {}
                             override fun onAnimationEnd(animation: Animator) {
-                                homeFragment!!.refresh()
+                                homeFragment?.refresh()
                             }
 
                             override fun onAnimationCancel(animation: Animator) {}
