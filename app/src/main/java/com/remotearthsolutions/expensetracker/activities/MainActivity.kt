@@ -54,7 +54,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     SharedPreferences.OnSharedPreferenceChangeListener {
 
     private lateinit var viewModel: MainViewModel
-    private lateinit var toggle: ActionBarDrawerToggle
+    private var toggle: ActionBarDrawerToggle? =null
     private var mainFragment: MainFragment? = null
     private lateinit var checkoutUtils: CheckoutUtils
 
@@ -147,8 +147,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             R.string.navigation_drawer_open,
             R.string.navigation_drawer_close
         )
-        drawer_layout.addDrawerListener(toggle)
-        toggle.syncState()
+        toggle?.syncState()
+        drawer_layout.addDrawerListener(toggle!!)
 
     }
 
@@ -476,20 +476,20 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun showBackButton() {
-        toggle.isDrawerIndicatorEnabled = false
+        toggle?.isDrawerIndicatorEnabled = false
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-        toggle.syncState()
+        toggle?.syncState()
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
     }
 
     fun hideBackButton() {
-        toggle.isDrawerIndicatorEnabled = true
+        toggle?.isDrawerIndicatorEnabled = true
         supportActionBar!!.setDisplayHomeAsUpEnabled(false)
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-        toggle.syncState()
+        toggle?.syncState()
         toolbar.setNavigationOnClickListener {
             mDrawerLayout.openDrawer(GravityCompat.START)
         }
@@ -503,7 +503,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-        toggle.syncState()
+        toggle?.syncState()
     }
 
     fun openAddExpenseScreen(
