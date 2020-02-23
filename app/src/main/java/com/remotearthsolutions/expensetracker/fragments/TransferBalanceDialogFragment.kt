@@ -42,9 +42,6 @@ class TransferBalanceDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (viewModel == null) {
-            throw Exception("viewmodel must be initialized")
-        }
         initialize()
 
         mView.okBtn.setOnClickListener {
@@ -55,7 +52,7 @@ class TransferBalanceDialogFragment : DialogFragment() {
                 val response = viewModel?.transferAmount(amount, pos1, pos2)
 
                 if (response?.code == Response.FAILURE) {
-                    Toast.makeText(mContext, response?.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(mContext, response.message, Toast.LENGTH_SHORT).show()
                 } else {
                     dismiss()
                 }

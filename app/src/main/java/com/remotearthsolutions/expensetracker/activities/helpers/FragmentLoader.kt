@@ -26,7 +26,7 @@ object FragmentLoader {
         fragmentTransaction.add(
             R.id.framelayout, fragment, tag
         )
-        fragmentTransaction.commit()
+        fragmentTransaction.commitAllowingStateLoss()
     }
 
     fun remove(
