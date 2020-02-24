@@ -97,42 +97,136 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp">
+                        android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:layout_centerVertical="true"
-                            android:id="@+id/selectdate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_toStartOf="@id/dateTv"
-                            app:srcCompat="@drawable/ic_calendar" />
-
-                        <TextView
-                            android:id="@+id/dateTv"
+                        <RelativeLayout
+                            android:id="@+id/singleEntryView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:padding="10dp"
-                            android:text="@string/today_14th_january_2019"
-                            android:textAlignment="center"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="10dp"
+                            android:visibility="visible">
 
-                        <View
-                            android:layout_width="wrap_content"
-                            android:layout_height="1dp"
-                            android:layout_alignStart="@id/dateTv"
-                            android:layout_alignEnd="@id/dateTv"
-                            android:layout_below="@id/dateTv"
-                            android:background="@color/Ashcolor"
-                            />
+                            <TextView
+                                android:id="@+id/dateTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:padding="10dp"
+                                android:text="@string/today_14th_january_2019"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
 
+                            <View
+                                android:layout_width="wrap_content"
+                                android:layout_height="1dp"
+                                android:layout_below="@id/dateTv"
+                                android:layout_alignStart="@id/dateTv"
+                                android:layout_alignEnd="@id/dateTv"
+                                android:background="@color/Ashcolor" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/repeatEntryView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/repeatTitleTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="Repeat:"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/everyTitleTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@id/repeatTitleTv"
+                                android:padding="10dp"
+                                android:text="Every"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/numberTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_toEndOf="@+id/everyTitleTv"
+                                android:ems="4"
+                                android:padding="10dp"
+                                android:text="1"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <View
+                                android:layout_width="wrap_content"
+                                android:layout_height="1dp"
+                                android:layout_below="@id/numberTv"
+                                android:layout_alignStart="@id/numberTv"
+                                android:layout_alignEnd="@id/numberTv"
+                                android:background="@color/colorPrimaryDark" />
+
+                            <Spinner
+                                android:id="@+id/repeatTypeSpnr"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignTop="@+id/numberTv"
+                                android:layout_alignBottom="@+id/numberTv"
+                                android:layout_toEndOf="@+id/numberTv"
+                                android:entries="@array/repeatType"
+                                android:textAlignment="center" />
+
+                            <androidx.appcompat.widget.AppCompatSeekBar
+                                android:id="@+id/numberSeekbar"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/numberTv"
+                                android:layout_margin="10dp"
+                                android:max="29" />
+
+                            <TextView
+                                android:id="@+id/endAfterTitleTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/numberSeekbar"
+                                android:padding="10dp"
+                                android:text="End After:"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/endAfterDateTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignTop="@+id/endAfterTitleTv"
+                                android:layout_toEndOf="@+id/endAfterTitleTv"
+                                android:padding="10dp"
+                                android:text="@string/today_14th_january_2019"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <View
+                                android:layout_width="wrap_content"
+                                android:layout_height="1dp"
+                                android:layout_below="@id/endAfterDateTv"
+                                android:layout_alignStart="@id/endAfterDateTv"
+                                android:layout_alignEnd="@id/endAfterDateTv"
+                                android:background="@color/Ashcolor" />
+                        </RelativeLayout>
                     </RelativeLayout>
-
-
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -147,7 +241,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/ic_repeat" />
+                        app:srcCompat="@drawable/ic_single" />
 
                     <ImageView
                         android:id="@+id/expenseDeleteBtn"

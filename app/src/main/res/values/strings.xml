@@ -17,7 +17,6 @@
     <string name="database_name" translatable="false">expensetracker_db</string>
     <string name="version" translatable="false">v</string>
     <string name="doller_symbol" translatable="false">$</string>
-    <string name="initially_zero" translatable="false">0</string>
     <string name="point" translatable="false">.</string>
     <string name="license_details" translatable="false">license_details</string>
     <string name="one" translatable="false">1</string>

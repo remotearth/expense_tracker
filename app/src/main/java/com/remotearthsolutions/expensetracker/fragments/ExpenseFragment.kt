@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.fragments
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.res.Resources
 import android.os.Bundle
@@ -9,6 +10,8 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -22,6 +25,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel
+import com.remotearthsolutions.expensetracker.fragments.helpers.RepeatDayListener
 import com.remotearthsolutions.expensetracker.utils.*
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.currentTime
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getCalendarFromDateString
@@ -33,6 +37,8 @@ import com.remotearthsolutions.expensetracker.viewmodels.ExpenseFragmentViewMode
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
 import kotlinx.android.synthetic.main.fragment_add_expense.view.*
 import org.parceler.Parcels
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
@@ -45,6 +51,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
     private lateinit var mContext: Context
     private lateinit var mResources: Resources
     private lateinit var format: String
+    private var isRepeatEnabled = false
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
@@ -64,8 +71,12 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
 
         mView = inflater.inflate(R.layout.fragment_add_expense, container, false)
 
+        val repeatTypes = requireContext().resources.getStringArray(R.array.repeatType)
+        mView.repeatTypeSpnr.adapter =
+            ArrayAdapter<String>(requireContext(), R.layout.repeat_type_spinner_item, repeatTypes)
+
         val currencySymbol = getCurrency(mContext)
-        mView.inputdigit.hint = currencySymbol + getString(R.string.initially_zero)
+        mView.inputdigit.hint = "$currencySymbol 0"
         val numpadFragment =
             childFragmentManager.findFragmentById(R.id.numpadContainer) as NumpadFragment?
         val numpadManager = NumpadManager()
@@ -168,8 +179,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             categoryDialogFragment.show(fm, CategoryDialogFragment::class.java.name)
         }
         mView.dateTv.text = getCurrentDate(format)
-        mView.selectdate.setOnClickListener {
-            val fm = childFragmentManager
+        mView.singleEntryView.setOnClickListener {
             val datePickerDialogFragment: DatePickerDialogFragment =
                 DatePickerDialogFragment.newInstance("")
             val cal = getCalendarFromDateString(
@@ -188,8 +198,10 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 }
 
             })
-
-            datePickerDialogFragment.show(fm, DatePickerDialogFragment::class.java.name)
+            datePickerDialogFragment.show(
+                childFragmentManager,
+                DatePickerDialogFragment::class.java.name
+            )
         }
         mView.okBtn.setOnClickListener {
             var expenseStr = mView.inputdigit.text.toString()
@@ -219,7 +231,6 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             expenseModel.note = mView.expenseNoteEdtxt.text.toString()
             viewModel!!.addExpense(expenseModel)
         }
-
         mView.expenseNoteEdtxt.setOnClickListener {
             val builder =
                 AlertDialog.Builder(mContext).create()
@@ -258,8 +269,48 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 (mContext as Activity?)!!.onBackPressed()
             }
         }
+        mView.enableRepeatBtn.setOnClickListener {
+            isRepeatEnabled = !isRepeatEnabled
+            if (isRepeatEnabled) {
+                mView.enableRepeatBtn.setImageResource(R.drawable.ic_repeat)
+                mView.singleEntryView.visibility = View.GONE
+                mView.repeatEntryView.visibility = View.VISIBLE
+            } else {
+                mView.enableRepeatBtn.setImageResource(R.drawable.ic_single)
+                mView.singleEntryView.visibility = View.VISIBLE
+                mView.repeatEntryView.visibility = View.GONE
+            }
+        }
+        mView.numberSeekbar.setOnSeekBarChangeListener(RepeatDayListener {
+            mView.numberTv.text = (it + 1).toString()
+        })
+        mView.endAfterDateTv.text = getCurrentDate(format)
+        mView.endAfterDateTv.setOnClickListener {
+            val cal = getCalendarFromDateString(
+                format,
+                mView.endAfterDateTv.text.toString()
+            )
+            val datePickerDialog = DatePickerDialog(
+                mContext,
+                DatePickerDialog.OnDateSetListener { _: DatePicker?, year: Int, month: Int, dayOfMonth: Int ->
+                    val calendar = Calendar.getInstance()
+                    calendar[Calendar.DAY_OF_MONTH] = dayOfMonth
+                    calendar[Calendar.MONTH] = month
+                    calendar[Calendar.YEAR] = year
+                    val dateFormat: DateFormat = SimpleDateFormat(
+                        format,
+                        Locale.getDefault()
+                    )
+                    mView.endAfterDateTv.text = dateFormat.format(calendar.time)
+                },
+                cal[Calendar.YEAR],
+                cal[Calendar.MONTH],
+                cal[Calendar.DAY_OF_MONTH]
+            )
+            datePickerDialog.datePicker.minDate = DateTimeUtils.getCurrentTimeInMills()
+            datePickerDialog.show()
+        }
     }
-
 
 
     override fun onExpenseAdded(amount: Double) {
