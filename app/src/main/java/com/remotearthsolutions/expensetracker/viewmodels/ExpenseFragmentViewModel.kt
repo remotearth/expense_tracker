@@ -8,10 +8,8 @@ import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao
-import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel
+import com.remotearthsolutions.expensetracker.databaseutils.daos.ScheduledExpenseDao
+import com.remotearthsolutions.expensetracker.databaseutils.models.*
 import com.remotearthsolutions.expensetracker.utils.Constants
 import io.reactivex.Completable
 import io.reactivex.SingleObserver
@@ -26,7 +24,8 @@ class ExpenseFragmentViewModel(
     private val view: ExpenseFragmentContract.View,
     private val expenseDao: ExpenseDao,
     private val accountDao: AccountDao,
-    private val categoryDao: CategoryDao
+    private val categoryDao: CategoryDao,
+    private val scheduleExpenseDao: ScheduledExpenseDao
 ) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
     fun init() {
@@ -130,5 +129,30 @@ class ExpenseFragmentViewModel(
                 }
 
             })
+    }
+
+    fun scheduleExpense(
+        expenseModel: ExpenseModel,
+        period: Int,
+        repeatType: Int,
+        repeatCount: Int
+    ) {
+        val scheduledExpenseModel = ScheduledExpenseModel(
+            period,
+            repeatType,
+            repeatCount,
+            112313,
+            expenseModel.categoryId,
+            expenseModel.source,
+            expenseModel.amount,
+            expenseModel.note
+        )
+        compositeDisposable.add(Completable.fromAction {
+            scheduleExpenseDao.add(scheduledExpenseModel)
+        }.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe {
+                view.onScheduleExpense(scheduledExpenseModel)
+            }
+        )
     }
 }

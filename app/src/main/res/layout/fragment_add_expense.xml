@@ -142,6 +142,7 @@
                                 android:layout_height="wrap_content"
                                 android:padding="10dp"
                                 android:text="Repeat:"
+                                android:layout_marginBottom="10dp"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
@@ -161,7 +162,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toEndOf="@+id/everyTitleTv"
-                                android:ems="4"
+                                android:minEms="4"
                                 android:padding="10dp"
                                 android:text="1"
                                 android:textAlignment="center"
@@ -187,44 +188,40 @@
                                 android:entries="@array/repeatType"
                                 android:textAlignment="center" />
 
-                            <androidx.appcompat.widget.AppCompatSeekBar
-                                android:id="@+id/numberSeekbar"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/numberTv"
-                                android:layout_margin="10dp"
-                                android:max="29" />
-
                             <TextView
-                                android:id="@+id/endAfterTitleTv"
+                                android:id="@+id/timesTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/numberSeekbar"
+                                android:layout_below="@+id/repeatTitleTv"
                                 android:padding="10dp"
-                                android:text="End After:"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/endAfterDateTv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignTop="@+id/endAfterTitleTv"
-                                android:layout_toEndOf="@+id/endAfterTitleTv"
-                                android:padding="10dp"
-                                android:text="@string/today_14th_january_2019"
+                                android:minEms="4"
+                                android:text="1"
                                 android:textAlignment="center"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@color/colorPrimaryDark"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
                             <View
                                 android:layout_width="wrap_content"
                                 android:layout_height="1dp"
-                                android:layout_below="@id/endAfterDateTv"
-                                android:layout_alignStart="@id/endAfterDateTv"
-                                android:layout_alignEnd="@id/endAfterDateTv"
-                                android:background="@color/Ashcolor" />
+                                android:layout_below="@id/timesTv"
+                                android:layout_alignStart="@id/timesTv"
+                                android:layout_alignEnd="@id/timesTv"
+                                android:background="@color/colorPrimaryDark" />
+
+                            <TextView
+                                android:id="@+id/timesTitleTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/repeatTitleTv"
+                                android:layout_toEndOf="@+id/timesTv"
+                                android:padding="10dp"
+                                android:text="Times"
+                                android:layout_marginRight="2dp"
+                                android:textAlignment="center"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
                         </RelativeLayout>
                     </RelativeLayout>
                 </LinearLayout>

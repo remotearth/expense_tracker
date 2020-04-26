@@ -35,6 +35,8 @@ import com.remotearthsolutions.expensetracker.contracts.MainContract
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
 import com.remotearthsolutions.expensetracker.fragments.*
+import com.remotearthsolutions.expensetracker.fragments.addexpensescreen.ExpenseFragment
+import com.remotearthsolutions.expensetracker.fragments.addexpensescreen.Purpose
 import com.remotearthsolutions.expensetracker.fragments.main.MainFragment
 import com.remotearthsolutions.expensetracker.services.FileProcessingServiceImp
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl
@@ -509,13 +511,14 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     fun openAddExpenseScreen(
         categoryExpense: CategoryExpense?,
         title: String = getString(R.string.add_expense),
-        purpose: ExpenseFragment.Purpose = ExpenseFragment.Purpose.ADD
+        purpose: Purpose = Purpose.ADD
     ) {
         //blur back screen
         FragmentLoader.load(this, ViewShadeFragment(), null, ViewShadeFragment::class.java.name, 1)
 
         supportActionBar!!.title = title
-        val expenseFragment = ExpenseFragment()
+        val expenseFragment =
+            ExpenseFragment()
         expenseFragment.purpose = purpose
         val wrappedCategoryExpense = Parcels.wrap(categoryExpense)
         val bundle = Bundle()

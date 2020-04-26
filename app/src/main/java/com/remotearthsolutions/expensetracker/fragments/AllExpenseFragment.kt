@@ -13,6 +13,8 @@ import com.remotearthsolutions.expensetracker.activities.MainActivity
 import com.remotearthsolutions.expensetracker.adapters.ExpenseListAdapter
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
+import com.remotearthsolutions.expensetracker.fragments.addexpensescreen.ExpenseFragment
+import com.remotearthsolutions.expensetracker.fragments.addexpensescreen.Purpose
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils
@@ -72,7 +74,7 @@ class AllExpenseFragment : BaseFragment() {
                         (context as MainActivity).openAddExpenseScreen(
                             copyOfCategoryExpense,
                             getString(R.string.update_expense),
-                            ExpenseFragment.Purpose.UPDATE
+                            Purpose.UPDATE
                         )
                     }
                 })

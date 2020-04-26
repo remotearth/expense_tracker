@@ -84,4 +84,6 @@ object DateTimeUtils {
     fun daysBetween(d1:Long, d2:Long) : Int{
         return (( abs(d2 - d1) / (1000 * 60 * 60 * 24)).toInt())
     }
+
+
 }

@@ -3,6 +3,7 @@ package com.remotearthsolutions.expensetracker.databaseutils
 import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.utils.InitialDataGenerator.generateAccounts
@@ -24,7 +25,16 @@ class DatabaseClient private constructor(private val context: Context) {
     }
 
     init {
-        //creating the app database with Room database builder, here ExpenseTracker is the database name
+
+        val migrationFrom1to2 = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("CREATE TABLE IF NOT EXISTS `scheduled_expense` (" +
+                        "`id` INTEGER NOT NULL, `period` INTEGER NOT NULL, `periodtype` INTEGER NOT NULL, " +
+                        "`occurrence` INTEGER NOT NULL, `nextoccurrencedate` INTEGER NOT NULL, `categoryid` INTEGER NOT NULL," +
+                        "`accountid` INTEGER NOT NULL,`amount` REAL NOT NULL,`note` TEXT, PRIMARY KEY(`id`))")
+            }
+        }
+
         appDatabase = Room.databaseBuilder(
             context,
             AppDatabase::class.java,
@@ -39,9 +49,7 @@ class DatabaseClient private constructor(private val context: Context) {
                                 getInstance(context)!!.appDatabase
                                     .categoryDao()
                             categoryDao.addAllCategories(
-                                *generateCategories(
-                                    context
-                                )
+                                *generateCategories(context)
                             )
                             val accountDao =
                                 getInstance(context)!!.appDatabase
@@ -49,7 +57,9 @@ class DatabaseClient private constructor(private val context: Context) {
                             accountDao.addAllAccounts(*generateAccounts(context))
                         }
                 }
+
             })
+            .addMigrations(migrationFrom1to2)
             .build()
     }
 }

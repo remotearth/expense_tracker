@@ -1,8 +1,7 @@
-package com.remotearthsolutions.expensetracker.fragments
+package com.remotearthsolutions.expensetracker.fragments.addexpensescreen
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.DatePickerDialog
 import android.content.Context
 import android.content.res.Resources
 import android.os.Bundle
@@ -11,34 +10,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.DatePicker
-import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProviders
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.MainActivity
 import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
-import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel
-import com.remotearthsolutions.expensetracker.fragments.helpers.RepeatDayListener
+import com.remotearthsolutions.expensetracker.databaseutils.models.*
+import com.remotearthsolutions.expensetracker.fragments.*
 import com.remotearthsolutions.expensetracker.utils.*
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.currentTime
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getCalendarFromDateString
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getCurrentDate
-import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getDate
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getTimeInMillisFromDateStr
 import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseFragmentViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
 import kotlinx.android.synthetic.main.fragment_add_expense.view.*
 import org.parceler.Parcels
-import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.util.*
 
 class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
@@ -92,7 +82,8 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                     this,
                     db?.expenseDao()!!,
                     db.accountDao(),
-                    db.categoryDao()
+                    db.categoryDao(),
+                    db.scheduleExpenseDao()
                 )
             }).get(ExpenseFragmentViewModel::class.java)
         viewModel!!.init()
@@ -103,29 +94,13 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 Parcels.unwrap<CategoryExpense>(args.getParcelable(Constants.CATEGORYEXPENSE_PARCEL))
             if (categoryExpense != null) {
                 prevExpense = categoryExpense!!.copy()
-                mView.toCategoryBtn.update(
-                    categoryExpense?.categoryName!!,
-                    categoryExpense?.categoryIcon!!
-                )
-
-                if (categoryExpense!!.totalAmount > 0) {
-                    mView.inputdigit.setText(categoryExpense!!.totalAmount.toString())
-                }
-                mView.expenseNoteEdtxt.setText(categoryExpense!!.note)
-                if (categoryExpense!!.datetime > 0) {
-                    mView.dateTv.text = getDate(
-                        categoryExpense!!.datetime,
-                        format
-                    )
-                }
+                Helpers.updateUI(mView, categoryExpense, format)
             } else {
                 viewModel!!.setDefaultCategory()
             }
+
             if (categoryExpense != null && categoryExpense!!.accountIcon != null) {
-                mView.fromAccountBtn.update(
-                    categoryExpense?.accountName!!,
-                    categoryExpense?.accountIcon!!
-                )
+                Helpers.updateAccountBtn(mView,categoryExpense)
             } else {
                 val accountId = SharedPreferenceUtils.getInstance(mContext)!!.getInt(
                     Constants.KEY_SELECTED_ACCOUNT_ID,
@@ -144,8 +119,11 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         mView.fromAccountBtn.setOnClickListener {
             val fm = childFragmentManager
             val accountDialogFragment: AccountDialogFragment =
-                AccountDialogFragment.newInstance(getString(R.string.select_account))
-            accountDialogFragment.setCallback(object : AccountDialogFragment.Callback {
+                AccountDialogFragment.newInstance(
+                    getString(R.string.select_account)
+                )
+            accountDialogFragment.setCallback(object :
+                AccountDialogFragment.Callback {
                 override fun onSelectAccount(accountIncome: AccountModel) {
                     categoryExpense!!.setAccount(accountIncome)
                     mView.fromAccountBtn.update(
@@ -164,9 +142,12 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         mView.toCategoryBtn.setOnClickListener {
             val fm = childFragmentManager
             val categoryDialogFragment: CategoryDialogFragment =
-                CategoryDialogFragment.newInstance(getString(R.string.select_category))
+                CategoryDialogFragment.newInstance(
+                    getString(R.string.select_category)
+                )
             categoryDialogFragment.setCategory(categoryExpense?.categoryId!!)
-            categoryDialogFragment.setCallback(object : CategoryDialogFragment.Callback {
+            categoryDialogFragment.setCallback(object :
+                CategoryDialogFragment.Callback {
                 override fun onSelectCategory(category: CategoryModel?) {
                     mView.toCategoryBtn.update(
                         category?.name!!,
@@ -181,7 +162,9 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         mView.dateTv.text = getCurrentDate(format)
         mView.singleEntryView.setOnClickListener {
             val datePickerDialogFragment: DatePickerDialogFragment =
-                DatePickerDialogFragment.newInstance("")
+                DatePickerDialogFragment.newInstance(
+                    ""
+                )
             val cal = getCalendarFromDateString(
                 format,
                 mView.dateTv.text.toString()
@@ -191,7 +174,8 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 cal[Calendar.MONTH],
                 cal[Calendar.YEAR]
             )
-            datePickerDialogFragment.setCallback(object : DatePickerDialogFragment.Callback {
+            datePickerDialogFragment.setCallback(object :
+                DatePickerDialogFragment.Callback {
                 override fun onSelectDate(date: String?) {
                     mView.dateTv.text = date
                     datePickerDialogFragment.dismiss()
@@ -230,27 +214,17 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             expenseModel.source = categoryExpense!!.accountId
             expenseModel.note = mView.expenseNoteEdtxt.text.toString()
             viewModel!!.addExpense(expenseModel)
+
+            if (mView.repeatEntryView.visibility == View.VISIBLE) {
+                val period = mView.numberTv.text.toString().toInt()
+                val repeatType = mView.repeatTypeSpnr.selectedItemPosition
+                val repeatCount = mView.timesTv.text.toString().toInt()
+
+                viewModel!!.scheduleExpense(expenseModel, period, repeatType, repeatCount)
+            }
         }
         mView.expenseNoteEdtxt.setOnClickListener {
-            val builder =
-                AlertDialog.Builder(mContext).create()
-            val dialogView =
-                layoutInflater.inflate(R.layout.view_add_note, null)
-            val noteEdtxt = dialogView.findViewById<EditText>(R.id.noteEdtxt)
-            val note = categoryExpense!!.note
-            if (note != null) {
-                noteEdtxt.setText(categoryExpense!!.note)
-                noteEdtxt.setSelection(categoryExpense!!.note!!.length)
-            }
-            dialogView.findViewById<View>(R.id.okBtn)
-                .setOnClickListener {
-                    val str = noteEdtxt.text.toString()
-                    categoryExpense!!.note = str
-                    mView.expenseNoteEdtxt.setText(str)
-                    builder.dismiss()
-                }
-            builder.setView(dialogView)
-            builder.show()
+            DialogHelper.showExpenseNoteInput(mContext, layoutInflater, mView, categoryExpense)
         }
         mView.expenseDeleteBtn.setOnClickListener {
             if (categoryExpense!!.expenseId > 0) {
@@ -281,37 +255,13 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 mView.repeatEntryView.visibility = View.GONE
             }
         }
-        mView.numberSeekbar.setOnSeekBarChangeListener(RepeatDayListener {
-            mView.numberTv.text = (it + 1).toString()
-        })
-        mView.endAfterDateTv.text = getCurrentDate(format)
-        mView.endAfterDateTv.setOnClickListener {
-            val cal = getCalendarFromDateString(
-                format,
-                mView.endAfterDateTv.text.toString()
-            )
-            val datePickerDialog = DatePickerDialog(
-                mContext,
-                DatePickerDialog.OnDateSetListener { _: DatePicker?, year: Int, month: Int, dayOfMonth: Int ->
-                    val calendar = Calendar.getInstance()
-                    calendar[Calendar.DAY_OF_MONTH] = dayOfMonth
-                    calendar[Calendar.MONTH] = month
-                    calendar[Calendar.YEAR] = year
-                    val dateFormat: DateFormat = SimpleDateFormat(
-                        format,
-                        Locale.getDefault()
-                    )
-                    mView.endAfterDateTv.text = dateFormat.format(calendar.time)
-                },
-                cal[Calendar.YEAR],
-                cal[Calendar.MONTH],
-                cal[Calendar.DAY_OF_MONTH]
-            )
-            datePickerDialog.datePicker.minDate = DateTimeUtils.getCurrentTimeInMills()
-            datePickerDialog.show()
+        mView.numberTv.setOnClickListener {
+            DialogHelper.getInputFor(mView.numberTv, mContext, layoutInflater)
+        }
+        mView.timesTv.setOnClickListener {
+            DialogHelper.getInputFor(mView.timesTv, mContext, layoutInflater)
         }
     }
-
 
     override fun onExpenseAdded(amount: Double) {
         mView.inputdigit.setText("")
@@ -333,7 +283,6 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         }
         viewModel!!.updateAccountAmount(categoryExpense?.accountId!!, mutableAmount)
 
-
         val mainActivity = mContext as MainActivity?
         mainActivity!!.updateSummary()
         mainActivity.refreshChart()
@@ -343,19 +292,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 AdmobUtils.getInstance((mContext as Activity))?.showInterstitialAds()
             }, delay.toLong())
         } else {
-            if (!SharedPreferenceUtils.getInstance(mainActivity)?.getBoolean(
-                    Constants.ASKED_TO_REVIEW,
-                    false
-                )!!
-            ) {
-                viewModel!!.requestToReviewApp {
-                    mainActivity.onBackPressed()
-                    SharedPreferenceUtils.getInstance(mainActivity)
-                        ?.putBoolean(Constants.ASKED_TO_REVIEW, true)
-                    RequestReviewUtils.request(mainActivity)
-                }
-            }
-
+            Helpers.requestToReviewApp(mainActivity, viewModel!!)
         }
         MainActivity.expenseAddededCount++
         FirebaseEventLogUtils.logCustom(mainActivity, "Expense_Added")
@@ -404,8 +341,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         )
     }
 
-    enum class Purpose {
-        ADD, UPDATE
+    override fun onScheduleExpense(scheduledExpenseModel: ScheduledExpenseModel) {
+        showToast("Expense is scheduled to be added")
     }
-
 }
