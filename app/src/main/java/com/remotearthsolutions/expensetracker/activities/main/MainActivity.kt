@@ -1,7 +1,6 @@
 package com.remotearthsolutions.expensetracker.activities.main
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.preference.PreferenceManager
@@ -41,27 +40,27 @@ import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseV
 import kotlinx.android.synthetic.main.activity_main.*
 import org.parceler.Parcels
 
-class MainActivity : BaseActivity(), MainContract.View,
-    SharedPreferences.OnSharedPreferenceChangeListener {
+class MainActivity : BaseActivity(), MainContract.View {
 
     private var toggle: ActionBarDrawerToggle? = null
     private var backPressedTime: Long = 0
     private var purchaseListener: PurchaseListener? = null
+    private var preferencesChangeListener: PreferencesChangeListener? = null
+    private lateinit var inAppPurchaseCallback: InAppPurchaseCallback
 
     lateinit var viewModel: MainViewModel
     lateinit var checkoutUtils: CheckoutUtils
-    var productId: String? = null
-
-    lateinit var inAppPurchaseCallback: InAppPurchaseCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        productId = (application as ApplicationObject).adProductId
+        setContentView(R.layout.activity_main)
+
         checkoutUtils = CheckoutUtils.getInstance(this)!!
         checkoutUtils.start()
         inAppPurchaseCallback = InAppPurchaseCallback(this)
         purchaseListener = PurchaseListener(this, inAppPurchaseCallback)
-        setContentView(R.layout.activity_main)
+        preferencesChangeListener = PreferencesChangeListener(this)
+
         val db = DatabaseClient.getInstance(this)?.appDatabase
 
         viewModel =
@@ -102,15 +101,19 @@ class MainActivity : BaseActivity(), MainContract.View,
         super.onStart()
         checkoutUtils.start()
         checkoutUtils.createPurchaseFlow(purchaseListener)
+
+        if (preferencesChangeListener == null) {
+            preferencesChangeListener = PreferencesChangeListener(this)
+        }
         PreferenceManager.getDefaultSharedPreferences(this)
-            .registerOnSharedPreferenceChangeListener(this)
+            .registerOnSharedPreferenceChangeListener(preferencesChangeListener)
     }
 
     override fun onStop() {
         super.onStop()
         checkoutUtils.stop()
         PreferenceManager.getDefaultSharedPreferences(this)
-            .unregisterOnSharedPreferenceChangeListener(this)
+            .unregisterOnSharedPreferenceChangeListener(preferencesChangeListener)
     }
 
     override fun onResume() {
@@ -143,7 +146,6 @@ class MainActivity : BaseActivity(), MainContract.View,
         )
         toggle?.syncState()
         drawer_layout.addDrawerListener(toggle!!)
-
     }
 
     override fun goBackToLoginScreen() {
@@ -160,6 +162,7 @@ class MainActivity : BaseActivity(), MainContract.View,
     override fun startLoadingApp() {
         viewModel.init(this)
         checkoutUtils.start()
+        val productId = (application as ApplicationObject).adProductId
         checkoutUtils.load(inAppPurchaseCallback, productId)
     }
 
@@ -187,7 +190,6 @@ class MainActivity : BaseActivity(), MainContract.View,
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
-
             val t = System.currentTimeMillis()
             if (t - backPressedTime > 2000) {
                 backPressedTime = t
@@ -252,7 +254,6 @@ class MainActivity : BaseActivity(), MainContract.View,
         expenseFragment.arguments = bundle
         FragmentLoader.load(this, expenseFragment, title, ExpenseFragment::class.java.name)
         showBackButton()
-
     }
 
     override fun onActivityResult(
@@ -287,23 +288,5 @@ class MainActivity : BaseActivity(), MainContract.View,
     companion object {
         @JvmField
         var addedExpenseCount = 1
-    }
-
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        when (key) {
-            Constants.PREF_CURRENCY -> {
-                refreshChart()
-            }
-            Constants.PREF_TIME_FORMAT -> {
-                MainFragment.allExpenseFragment?.updateDateFormat(
-                    SharedPreferenceUtils.getInstance(this)!!
-                        .getString(
-                            Constants.PREF_TIME_FORMAT,
-                            resources.getString(R.string.default_time_format)
-                        )
-                )
-                refreshChart()
-            }
-        }
     }
 }

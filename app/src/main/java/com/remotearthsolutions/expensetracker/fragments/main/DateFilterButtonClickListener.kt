@@ -12,7 +12,6 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class DateFilterButtonClickListener(private val callback: Callback) :
     View.OnClickListener {
     private var selectedDate: String? = null
@@ -261,5 +260,4 @@ class DateFilterButtonClickListener(private val callback: Callback) :
             endTime: Long
         )
     }
-
 }

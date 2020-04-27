@@ -53,17 +53,15 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         format = SharedPreferenceUtils.getInstance(activity!!)!!.getString(
             Constants.PREF_TIME_FORMAT,
             Constants.KEY_DATE_MONTH_YEAR_DEFAULT
         )
 
         mView = inflater.inflate(R.layout.fragment_add_expense, container, false)
-
         val repeatTypes = requireContext().resources.getStringArray(R.array.repeatType)
         mView.repeatTypeSpnr.adapter =
-            ArrayAdapter<String>(requireContext(), R.layout.repeat_type_spinner_item, repeatTypes)
+            ArrayAdapter(requireContext(), R.layout.repeat_type_spinner_item, repeatTypes)
 
         val currencySymbol = getCurrency(mContext)
         mView.inputdigit.hint = "$currencySymbol 0"
@@ -100,7 +98,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             }
 
             if (categoryExpense != null && categoryExpense!!.accountIcon != null) {
-                Helpers.updateAccountBtn(mView,categoryExpense)
+                Helpers.updateAccountBtn(mView, categoryExpense)
             } else {
                 val accountId = SharedPreferenceUtils.getInstance(mContext)!!.getInt(
                     Constants.KEY_SELECTED_ACCOUNT_ID,
@@ -119,11 +117,8 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         mView.fromAccountBtn.setOnClickListener {
             val fm = childFragmentManager
             val accountDialogFragment: AccountDialogFragment =
-                AccountDialogFragment.newInstance(
-                    getString(R.string.select_account)
-                )
-            accountDialogFragment.setCallback(object :
-                AccountDialogFragment.Callback {
+                AccountDialogFragment.newInstance(getString(R.string.select_account))
+            accountDialogFragment.setCallback(object : AccountDialogFragment.Callback {
                 override fun onSelectAccount(accountIncome: AccountModel) {
                     categoryExpense!!.setAccount(accountIncome)
                     mView.fromAccountBtn.update(
@@ -142,9 +137,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         mView.toCategoryBtn.setOnClickListener {
             val fm = childFragmentManager
             val categoryDialogFragment: CategoryDialogFragment =
-                CategoryDialogFragment.newInstance(
-                    getString(R.string.select_category)
-                )
+                CategoryDialogFragment.newInstance(getString(R.string.select_category))
             categoryDialogFragment.setCategory(categoryExpense?.categoryId!!)
             categoryDialogFragment.setCallback(object :
                 CategoryDialogFragment.Callback {
@@ -162,13 +155,8 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         mView.dateTv.text = getCurrentDate(format)
         mView.singleEntryView.setOnClickListener {
             val datePickerDialogFragment: DatePickerDialogFragment =
-                DatePickerDialogFragment.newInstance(
-                    ""
-                )
-            val cal = getCalendarFromDateString(
-                format,
-                mView.dateTv.text.toString()
-            )
+                DatePickerDialogFragment.newInstance("")
+            val cal = getCalendarFromDateString(format, mView.dateTv.text.toString())
             datePickerDialogFragment.setInitialDate(
                 cal[Calendar.DAY_OF_MONTH],
                 cal[Calendar.MONTH],
@@ -180,12 +168,8 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                     mView.dateTv.text = date
                     datePickerDialogFragment.dismiss()
                 }
-
             })
-            datePickerDialogFragment.show(
-                childFragmentManager,
-                DatePickerDialogFragment::class.java.name
-            )
+            datePickerDialogFragment.show(childFragmentManager, DatePickerDialogFragment::class.java.name)
         }
         mView.okBtn.setOnClickListener {
             var expenseStr = mView.inputdigit.text.toString()
@@ -236,7 +220,6 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                         override fun onOkBtnPressed() {
                             viewModel!!.deleteExpense(categoryExpense)
                         }
-
                         override fun onCancelBtnPressed() {}
                     })
             } else {
@@ -265,8 +248,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
 
     override fun onExpenseAdded(amount: Double) {
         mView.inputdigit.setText("")
-        Toast.makeText(activity, getString(R.string.successfully_added), Toast.LENGTH_SHORT)
-            .show()
+        Toast.makeText(activity, getString(R.string.successfully_added), Toast.LENGTH_SHORT).show()
         var mutableAmount = amount
 
         purpose?.let {

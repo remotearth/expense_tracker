@@ -15,11 +15,11 @@ class CurrencySelectionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState ?: Bundle())
         setContentView(R.layout.activity_currency_selection)
-        loadcurrencyfragment()
+        loadCurrencyFragment()
         gotomainactivity.setOnClickListener { gohome() }
     }
 
-    private fun loadcurrencyfragment() {
+    private fun loadCurrencyFragment() {
         val currencyFragment = CurrencyFragment()
         supportFragmentManager.beginTransaction()
             .replace(
