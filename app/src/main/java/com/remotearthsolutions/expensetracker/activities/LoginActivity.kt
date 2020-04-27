@@ -7,6 +7,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import com.google.firebase.auth.FirebaseUser
 import com.remotearthsolutions.expensetracker.R
+import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.contracts.LoginContract
 import com.remotearthsolutions.expensetracker.services.FacebookServiceImpl
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl

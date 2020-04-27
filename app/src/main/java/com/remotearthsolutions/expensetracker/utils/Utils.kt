@@ -3,6 +3,7 @@ package com.remotearthsolutions.expensetracker.utils
 import android.app.Activity
 import android.content.Context
 import android.util.DisplayMetrics
+import android.widget.Toast
 import com.remotearthsolutions.expensetracker.R
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -73,6 +74,10 @@ object Utils {
 
     fun formatDecimalValues(`val`: Double): String {
         return df.format(`val`)
+    }
+
+    fun showToast(context: Context, message:String){
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     class ScreenSize(var width: Int, var height: Int)

@@ -13,7 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.remotearthsolutions.expensetracker.R
-import com.remotearthsolutions.expensetracker.activities.MainActivity
+import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
@@ -286,7 +286,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         val mainActivity = mContext as MainActivity?
         mainActivity!!.updateSummary()
         mainActivity.refreshChart()
-        if (MainActivity.expenseAddededCount % 2 == 0) {
+        if (MainActivity.addedExpenseCount % 2 == 0) {
             val delay = Random().nextInt(3000 - 1000) + 1000
             Handler().postDelayed({
                 AdmobUtils.getInstance((mContext as Activity))?.showInterstitialAds()
@@ -294,7 +294,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         } else {
             Helpers.requestToReviewApp(mainActivity, viewModel!!)
         }
-        MainActivity.expenseAddededCount++
+        MainActivity.addedExpenseCount++
         FirebaseEventLogUtils.logCustom(mainActivity, "Expense_Added")
     }
 

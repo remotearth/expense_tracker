@@ -10,9 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import com.remotearthsolutions.expensetracker.R
-import com.remotearthsolutions.expensetracker.activities.MainActivity
+import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.utils.Constants
 import kotlinx.android.synthetic.main.fragment_webview.view.*
 

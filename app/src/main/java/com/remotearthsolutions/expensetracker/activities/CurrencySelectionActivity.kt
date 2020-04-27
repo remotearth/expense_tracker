@@ -2,11 +2,9 @@ package com.remotearthsolutions.expensetracker.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.google.gson.Gson
 import com.remotearthsolutions.expensetracker.R
-import com.remotearthsolutions.expensetracker.entities.User
+import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.fragments.CurrencyFragment
 import com.remotearthsolutions.expensetracker.fragments.SettingsFragment
 import com.remotearthsolutions.expensetracker.utils.Constants

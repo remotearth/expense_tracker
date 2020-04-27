@@ -5,7 +5,7 @@
         android:layout_height="match_parent"
         android:id="@+id/bottombar"
         xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".activities.MainActivity">
+        tools:context=".activities.main.MainActivity">
 
 
     <android.support.design.widget.BottomNavigationView
