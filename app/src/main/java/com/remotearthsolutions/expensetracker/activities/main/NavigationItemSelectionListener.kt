@@ -32,7 +32,10 @@ import org.solovyev.android.checkout.ProductTypes
 import java.io.File
 import javax.annotation.Nonnull
 
-class NavigationItemSelectionListener(private val mainActivity: MainActivity) :
+class NavigationItemSelectionListener(
+    private val mainActivity: MainActivity,
+    val productId: String
+) :
     NavigationView.OnNavigationItemSelectedListener {
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -215,7 +218,7 @@ class NavigationItemSelectionListener(private val mainActivity: MainActivity) :
                                     override fun onReady(@Nonnull requests: BillingRequests) {
                                         requests.purchase(
                                             ProductTypes.IN_APP,
-                                            productId!!,
+                                            productId,
                                             null,
                                             checkoutUtils.purchaseFlow
                                         )

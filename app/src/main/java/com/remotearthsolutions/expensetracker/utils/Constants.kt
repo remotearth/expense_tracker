@@ -6,7 +6,7 @@ interface Constants {
         const val KEY_USER = "KEY_USER"
         const val KEY_URL = "KEY"
         const val URL_PRIVACY_POLICY =
-            "https://remotearth.github.io/expensetracker/privacy/"
+            "https://sites.google.com/view/expense-spending-tracker/privacy"
         const val URL_THIRD_PARTY_LICENSES =
             "https://remotearth.github.io/expensetracker/all_license.html"
 
@@ -53,5 +53,10 @@ interface Constants {
 
         const val ASKED_TO_REVIEW = "asked_to_review"
         const val NUMBER_OF_ENTRY_NEEDED_BEFORE_ASKING_TO_REVIEW = 30
+
+        const val DONOT_EDIT_META_DATA = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +
+                "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +
+                "(Don\'t edit this meta data)\n\n"
+
     }
 }

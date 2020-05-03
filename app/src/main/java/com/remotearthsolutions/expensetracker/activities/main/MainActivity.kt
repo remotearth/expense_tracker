@@ -128,7 +128,10 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun initializeView() {
         setupActionBar()
-        val navigationItemSelectionListener = NavigationItemSelectionListener(this)
+        val navigationItemSelectionListener = NavigationItemSelectionListener(
+            this,
+            (application as ApplicationObject).adProductId
+        )
         nav_view.setNavigationItemSelectedListener(navigationItemSelectionListener)
         val homeNavItem = nav_view.menu.getItem(0)
         navigationItemSelectionListener.onNavigationItemSelected(homeNavItem)
@@ -162,8 +165,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun startLoadingApp() {
         viewModel.init(this)
         checkoutUtils.start()
-        val productId = (application as ApplicationObject).adProductId
-        checkoutUtils.load(inAppPurchaseCallback, productId)
+        checkoutUtils.load(inAppPurchaseCallback, (application as ApplicationObject).adProductId)
     }
 
     override fun showTotalExpense(amount: String?) {

@@ -130,10 +130,7 @@ class MainViewModel(
                                 stringBuilder.append(listOfFilterExpense[i])
                             }
                         }
-                        stringBuilder.append("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-                        stringBuilder.append("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-                        stringBuilder.append(activity.getString(R.string.dont_edit_this_meta_data))
-                        stringBuilder.append("\n\n")
+                        stringBuilder.append(Constants.DONOT_EDIT_META_DATA)
                         disposable.add(
                             expenseDao.allExpenseEntry.subscribeOn(Schedulers.io()).observeOn(
                                 Schedulers.io()
@@ -148,38 +145,40 @@ class MainViewModel(
                                 disposable.add(
                                     categoryDao.allCategories.subscribeOn(
                                         Schedulers.io()
-                                    ).observeOn(Schedulers.io()).subscribe { entries1: List<CategoryModel?>? ->
-                                        val categoryJson = Gson().toJson(entries1)
-                                        val encryptedStr1 =
-                                            Base64.encodeToString(
-                                                categoryJson.toByteArray(charset(Constants.KEY_UTF_VERSION)),
-                                                Base64.NO_WRAP
-                                            )
-                                        stringBuilder.append(Constants.KEY_META2_REPLACE + encryptedStr1 + "\n")
-                                        disposable.add(
-                                            accountDao.allAccounts.subscribeOn(Schedulers.io())
-                                                .observeOn(Schedulers.io()).subscribe { entries2: List<AccountModel?>? ->
-                                                    val accountJson = Gson().toJson(entries2)
-                                                    val encryptedStr2 =
-                                                        Base64.encodeToString(
-                                                            accountJson.toByteArray(
-                                                                charset(Constants.KEY_UTF_VERSION)
-                                                            ),
-                                                            Base64.NO_WRAP
+                                    ).observeOn(Schedulers.io())
+                                        .subscribe { entries1: List<CategoryModel?>? ->
+                                            val categoryJson = Gson().toJson(entries1)
+                                            val encryptedStr1 =
+                                                Base64.encodeToString(
+                                                    categoryJson.toByteArray(charset(Constants.KEY_UTF_VERSION)),
+                                                    Base64.NO_WRAP
+                                                )
+                                            stringBuilder.append(Constants.KEY_META2_REPLACE + encryptedStr1 + "\n")
+                                            disposable.add(
+                                                accountDao.allAccounts.subscribeOn(Schedulers.io())
+                                                    .observeOn(Schedulers.io())
+                                                    .subscribe { entries2: List<AccountModel?>? ->
+                                                        val accountJson = Gson().toJson(entries2)
+                                                        val encryptedStr2 =
+                                                            Base64.encodeToString(
+                                                                accountJson.toByteArray(
+                                                                    charset(Constants.KEY_UTF_VERSION)
+                                                                ),
+                                                                Base64.NO_WRAP
+                                                            )
+                                                        stringBuilder.append(Constants.KEY_META3_REPLACE + encryptedStr2 + "\n")
+                                                        fileProcessingService.writeOnCsvFile(
+                                                            activity,
+                                                            stringBuilder.toString(),
+                                                            Runnable {
+                                                                shareCSVFileToMail(activity)
+                                                                disposable.clear()
+                                                            },
+                                                            Runnable { disposable.clear() }
                                                         )
-                                                    stringBuilder.append(Constants.KEY_META3_REPLACE + encryptedStr2 + "\n")
-                                                    fileProcessingService.writeOnCsvFile(
-                                                        activity,
-                                                        stringBuilder.toString(),
-                                                        Runnable {
-                                                            shareCSVFileToMail(activity)
-                                                            disposable.clear()
-                                                        },
-                                                        Runnable { disposable.clear() }
-                                                    )
-                                                }
-                                        )
-                                    }
+                                                    }
+                                            )
+                                        }
                                 )
                             }
                         )
