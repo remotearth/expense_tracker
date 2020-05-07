@@ -35,7 +35,7 @@ import com.remotearthsolutions.expensetracker.utils.CheckoutUtils
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.InAppUpdateUtils
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
-import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel
+import com.remotearthsolutions.expensetracker.viewmodels.mainview.MainViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 import org.parceler.Parcels

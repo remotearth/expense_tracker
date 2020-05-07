@@ -11,7 +11,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao;
 import com.remotearthsolutions.expensetracker.entities.User;
 import com.remotearthsolutions.expensetracker.services.FileProcessingService;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
-import com.remotearthsolutions.expensetracker.viewmodels.MainViewModel;
+import com.remotearthsolutions.expensetracker.viewmodels.mainview.MainViewModel;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

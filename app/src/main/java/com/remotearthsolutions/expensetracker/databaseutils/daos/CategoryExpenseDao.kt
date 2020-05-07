@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
 import io.reactivex.Flowable
+import io.reactivex.Single
 
 @Dao
 interface CategoryExpenseDao {
@@ -17,7 +18,7 @@ interface CategoryExpenseDao {
                 "ON exp.account_id = acc.id " +
                 "ORDER BY exp.datetime ASC"
     )
-    val allFilterExpense: Flowable<List<CategoryExpense>>
+    val allFilterExpense: Single<List<CategoryExpense>>
 
     @Query(
         "SELECT ctg.id AS category_id, ctg.category_name, ctg.icon_name as category_icon, exp.id as expense_id,  exp.account_id, acc.name as account_name, " +

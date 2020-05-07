@@ -73,7 +73,7 @@ class CategoryExpense {
     constructor() {}
 
     override fun toString(): String {
-        return DateTimeUtils.getDate(datetime, DateTimeUtils.dd_MM_yyyy_h_mm).toString() + ", " +
+        return DateTimeUtils.getDate(datetime, DateTimeUtils.dd_MM_yyyy_h_mm) + ", " +
                 categoryName + ", " +
                 totalAmount + ", " +
                 accountName + ", " +

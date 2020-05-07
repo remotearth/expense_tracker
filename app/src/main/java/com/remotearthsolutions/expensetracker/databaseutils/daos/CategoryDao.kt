@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import io.reactivex.Flowable
+import io.reactivex.Single
 
 @Dao
 interface CategoryDao {
@@ -14,7 +15,7 @@ interface CategoryDao {
     fun addAllCategories(vararg categoryModels: CategoryModel)
 
     @get:Query("Select * from category")
-    val allCategories: Flowable<List<CategoryModel>>
+    val allCategories: Single<List<CategoryModel>>
 
     @Delete
     fun deleteCategory(categoryModel: CategoryModel)

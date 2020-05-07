@@ -11,6 +11,7 @@ import com.remotearthsolutions.expensetracker.utils.DateTimeUtils
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getDate
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.BiConsumer
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
@@ -92,12 +93,16 @@ class AllTransactionsViewModel(
     }
 
     fun getAllCategory() {
-        disposable.add(categoryDao.allCategories
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                listOfCateogoryLiveData.value = it
-            })
+        disposable.add(
+            categoryDao.allCategories
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { result, error ->
+                    if (error == null) {
+                        listOfCateogoryLiveData.value = result
+                    }
+                }
+        )
     }
 
     fun updateDateFormat(updatedDateFormat: String) {

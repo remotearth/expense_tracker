@@ -150,9 +150,11 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
             var sum = 0.0
             it.filteredList.forEach { exp ->
                 val index = map[exp.categoryId]
-                val item = listOfCategoryWithExpense[index!!]
-                item.totalExpenseOfCateogry += exp.totalAmount
-                sum += exp.totalAmount
+                index?.let {
+                    val item = listOfCategoryWithExpense[index]
+                    item.totalExpenseOfCateogry += exp.totalAmount
+                    sum += exp.totalAmount
+                }
             }
 
             val sortedList =

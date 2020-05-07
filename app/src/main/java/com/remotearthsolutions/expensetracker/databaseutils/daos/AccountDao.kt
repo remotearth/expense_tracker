@@ -15,7 +15,7 @@ interface AccountDao {
     fun addAllAccounts(vararg accountModels: AccountModel)
 
     @get:Query("Select * from account")
-    val allAccounts: Flowable<List<AccountModel>>
+    val allAccounts: Single<List<AccountModel>>
 
     @Query("SELECT * FROM account WHERE id=:id")
     fun getAccountById(id: Int): Single<AccountModel>
