@@ -17,7 +17,7 @@ class ScheduledExpenseListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduledExpenseViewHolder {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.listitem_scheduledexpense, parent, false)
-        return ScheduledExpenseViewHolder(v, currencySymbol, format, listener)
+        return ScheduledExpenseViewHolder(parent.context, v, currencySymbol, format, listener)
     }
 
     override fun getItemCount(): Int {

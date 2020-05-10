@@ -103,7 +103,7 @@
     <string name="warning">Warning</string>
     <string name="buy_message">To enjoy this service, You have to buy the app</string>
     <string name="ok">Ok</string>
-    <string name="no_data_available">No Data Available</string>
+    <string name="no_data_available">No expense entry is available for this date range</string>
 
     <string name="icons_made_by">Category and Account - Icons made by Freepik from Flaticon</string>
     <string name="Authentication_with_Firebase_is_failed">Authentication with Firebase is failed</string>

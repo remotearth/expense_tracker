@@ -74,8 +74,6 @@ class ScheduledExpenseFragment : BaseFragment() {
                 mView.nodatacontainer.visibility = View.VISIBLE
                 mView.recyclerView.visibility = View.GONE
                 mView.noEntryMessage.text = getString(R.string.no_scheduled_expenses)
-                mView.fromTitleTv.text = "${getString(R.string.from)}:  "
-                mView.scheduledOnTitle.text = "${getString(R.string.scheduled_on)}:  "
             } else {
                 mView.nodatacontainer.visibility = View.GONE
                 mView.recyclerView.visibility = View.VISIBLE
