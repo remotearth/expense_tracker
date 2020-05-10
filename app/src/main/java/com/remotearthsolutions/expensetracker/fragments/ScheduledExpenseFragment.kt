@@ -51,9 +51,6 @@ class ScheduledExpenseFragment : BaseFragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mView.fromTitleTv.text = "${getString(R.string.from)}:  "
-        mView.scheduledOnTitle.text = "${getString(R.string.scheduled_on)}:  "
-
         currencySymbol = Utils.getCurrency(activity!!)
         format = SharedPreferenceUtils.getInstance(activity!!)!!.getString(
             Constants.PREF_TIME_FORMAT,
@@ -70,13 +67,15 @@ class ScheduledExpenseFragment : BaseFragment() {
 
         mView.recyclerView.setHasFixedSize(true)
         val llm = LinearLayoutManager(mContext)
-
         mView.recyclerView.layoutManager = llm
+
         viewModel.scheduledExpensesLiveData.observe(this, Observer {
             if (it == null || it.isEmpty()) {
                 mView.nodatacontainer.visibility = View.VISIBLE
                 mView.recyclerView.visibility = View.GONE
                 mView.noEntryMessage.text = getString(R.string.no_scheduled_expenses)
+                mView.fromTitleTv.text = "${getString(R.string.from)}:  "
+                mView.scheduledOnTitle.text = "${getString(R.string.scheduled_on)}:  "
             } else {
                 mView.nodatacontainer.visibility = View.GONE
                 mView.recyclerView.visibility = View.VISIBLE
