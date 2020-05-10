@@ -33,6 +33,7 @@
 
     <string name="menu_home">Domov</string>
     <string name="menu_categories">Kategórie</string>
+    <string name="menu_scheduled_expense">Scheduled Expense</string>
     <string name="menu_settings">Nastavenie</string>
     <string name="menu_about">O aplikácii</string>
     <string name="menu_licenses">Licencií</string>
@@ -82,7 +83,7 @@
     <string name="not_now">Teraz nie</string>
     <string name="update_category">Aktualizovať kategóriu</string>
     <string name="update">Aktualizovať</string>
-    <string name="enter_a_name">Zadajte názov...</string>
+    <string name="enter_a_name">Zadajte názov…</string>
     <string name="select_an_icon">Vyberte ikonu</string>
     <string name="update_account">Aktualizovať účet</string>
     <string name="add_account">Pridať účet</string>
@@ -161,12 +162,12 @@
     <string name="choose_icon">Vyberte ikonu</string>
     <string name="add_btntext">Pridať</string>
     <string name="account_name">Názov účtu</string>
-    <string name="enter_amount">Zadajte čiastku...</string>
+    <string name="enter_amount">Zadajte čiastku…</string>
     <string name="add_amount">Pridať čiastku</string>
     <string name="edit">Editovať</string>
     <string name="delete">Vymazať</string>
     <string name="expense_note">POZNÁMKA</string>
-    <string name="write_a_note_here">Napíąte poznámku...</string>
+    <string name="write_a_note_here">Napíąte poznámku…</string>
 
     <string name="export_data">Exportovať údaje</string>
     <string name="buy_product">nákup</string>
@@ -174,7 +175,7 @@
 
     <string name="already_purchased">Túto položku ste už zakúpili</string>
     <string name="no_net_connection">Nie je k dispozícii žiadne internetové pripojenie</string>
-    <string name="please_wait">Prosím čakajte...</string>
+    <string name="please_wait">Prosím čakajte…</string>
     <string name="operation_successful">Operácia úspešná</string>
     <string name="please_enter_an_amount">Zadajte čiastku</string>
     <string name="make_sure_enter_valid_number">Vyskytla sa chyba. Uistite sa, že ste zadali platné číslo</string>
@@ -211,4 +212,9 @@
     <string name="overwrite_device_data">Týmto sa prepíšu všetky údaje o výdavkoch vo vašom zariadení. Naozaj chcete pokračovať?</string>
     <string name="something_went_wrong">Niečo sa pokazilo. Skúste neskôr prosím.</string>
     <string name="successfully_uploaded">Úspešne nahrané</string>
+
+    <string name="scheduled_on">Scheduled on:  </string>
+    <string name="source">Source:  </string>
+    <string name="no_scheduled_expenses">Currently, there is no scheduled expense</string>
+    <string name="confirm_delete_scheduled_entry">Are you sure to delete this scheduled expense entry?</string>
 </resources>

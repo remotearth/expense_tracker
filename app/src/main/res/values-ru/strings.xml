@@ -33,6 +33,7 @@
 
     <string name="menu_home">Главная</string>
     <string name="menu_categories">категории</string>
+    <string name="menu_scheduled_expense">Scheduled Expense</string>
     <string name="menu_settings">настройки</string>
     <string name="menu_about">Около</string>
     <string name="menu_licenses">Лицензии</string>
@@ -83,7 +84,7 @@
     <string name="not_now">Не сейчас</string>
     <string name="update_category">Обновить категорию</string>
     <string name="update">Обновить</string>
-    <string name="enter_a_name">Введите имя...</string>
+    <string name="enter_a_name">Введите имя…</string>
     <string name="select_an_icon">Выберите значок</string>
     <string name="update_account">Обновить аккаунт</string>
     <string name="add_account">Добавить аккаунт</string>
@@ -170,12 +171,12 @@
     <string name="choose_icon">Выберите иконку</string>
     <string name="add_btntext">добавлять</string>
     <string name="account_name">Имя пользователя</string>
-    <string name="enter_amount">Введите сумму...</string>
+    <string name="enter_amount">Введите сумму…</string>
     <string name="add_amount">Добавить сумму</string>
     <string name="edit">редактировать</string>
     <string name="delete">удалять</string>
     <string name="expense_note">ЗАТРАТЫ НА ЗАМЕТКУ</string>
-    <string name="write_a_note_here">Написать заметку...</string>
+    <string name="write_a_note_here">Написать заметку…</string>
 
     <string name="export_data">Экспорт данных</string>
     <string name="buy_product">покупка</string>
@@ -220,4 +221,9 @@
     <string name="overwrite_device_data">Это перезапишет все данные о расходах на вашем устройстве. Вы уверены, что продолжить?</string>
     <string name="something_went_wrong">Что-то пошло не так. Пожалуйста, попробуйте позже.</string>
     <string name="successfully_uploaded">Успешно загружено</string>
+
+    <string name="scheduled_on">Scheduled on:  </string>
+    <string name="source">Source:  </string>
+    <string name="no_scheduled_expenses">Currently, there is no scheduled expense</string>
+    <string name="confirm_delete_scheduled_entry">Are you sure to delete this scheduled expense entry?</string>
 </resources>

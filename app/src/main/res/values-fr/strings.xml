@@ -30,6 +30,7 @@
 
     <string name="menu_home">Accueil</string>
     <string name="menu_categories">Les catégories</string>
+    <string name="menu_scheduled_expense">Scheduled Expense</string>
     <string name="menu_settings">Réglages</string>
     <string name="menu_about">Sur</string>
     <string name="menu_licenses">Les licences</string>
@@ -166,12 +167,12 @@
     <string name="choose_icon">Choisissez un icône</string>
     <string name="add_btntext">Ajouter</string>
     <string name="account_name">Nom du compte</string>
-    <string name="enter_amount">Entrez un montant...</string>
+    <string name="enter_amount">Entrez un montant…</string>
     <string name="add_amount">Ajouter le montant</string>
     <string name="edit">Modifier</string>
     <string name="delete">Effacer</string>
     <string name="expense_note">NOTE DE DÉPENSES</string>
-    <string name="write_a_note_here">Écrire une note...</string>
+    <string name="write_a_note_here">Écrire une note…</string>
 
     <string name="export_data">Exporter des données</string>
     <string name="buy_product">Achat</string>
@@ -179,7 +180,7 @@
 
     <string name="already_purchased">Vous avez déjà acheté cet article</string>
     <string name="no_net_connection">Aucune connexion Internet n\'est disponible</string>
-    <string name="please_wait">S\'il vous plaît, attendez...</string>
+    <string name="please_wait">S\'il vous plaît, attendez…</string>
     <string name="operation_successful">Opération réussie</string>
     <string name="please_enter_an_amount">S\'il vous plaît entrer un montant</string>
     <string name="make_sure_enter_valid_number">Erreur est survenue. S\'il vous plaît assurez-vous que vous entrez un numéro valide</string>
@@ -216,4 +217,9 @@
     <string name="overwrite_device_data">Cela écrasera toutes les données de dépenses dans votre appareil. Voulez-vous vraiment continuer?</string>
     <string name="something_went_wrong">Quelque chose a mal tourné. Veuillez réessayer plus tard.</string>
     <string name="successfully_uploaded">Téléchargement réussi</string>
+
+    <string name="scheduled_on">Scheduled on:  </string>
+    <string name="source">Source:  </string>
+    <string name="no_scheduled_expenses">Currently, there is no scheduled expense</string>
+    <string name="confirm_delete_scheduled_entry">Are you sure to delete this scheduled expense entry?</string>
 </resources>

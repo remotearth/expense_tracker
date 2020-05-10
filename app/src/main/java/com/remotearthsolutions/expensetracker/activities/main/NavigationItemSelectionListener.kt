@@ -19,10 +19,7 @@ import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.activities.helpers.FragmentLoader
 import com.remotearthsolutions.expensetracker.contracts.BaseView
-import com.remotearthsolutions.expensetracker.fragments.AboutFragment
-import com.remotearthsolutions.expensetracker.fragments.CategoryFragment
-import com.remotearthsolutions.expensetracker.fragments.SettingsFragment
-import com.remotearthsolutions.expensetracker.fragments.WebViewFragment
+import com.remotearthsolutions.expensetracker.fragments.*
 import com.remotearthsolutions.expensetracker.fragments.main.MainFragment
 import com.remotearthsolutions.expensetracker.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -58,6 +55,17 @@ class NavigationItemSelectionListener(
                     FragmentLoader.load(
                         this, CategoryFragment(), getString(R.string.menu_categories),
                         CategoryFragment::class.java.name
+                    )
+                    showBackButton()
+                    drawer_layout.closeDrawer(GravityCompat.START)
+                    return false
+                }
+                R.id.nav_scheduled_expense -> {
+                    FragmentLoader.load(
+                        this,
+                        ScheduledExpenseFragment(),
+                        getString(R.string.menu_scheduled_expense),
+                        ScheduledExpenseFragment::class.java.name
                     )
                     showBackButton()
                     drawer_layout.closeDrawer(GravityCompat.START)
@@ -311,7 +319,6 @@ class NavigationItemSelectionListener(
             }
             drawer_layout.closeDrawer(GravityCompat.START)
         }
-
         return true
     }
 }

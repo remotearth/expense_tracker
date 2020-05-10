@@ -33,6 +33,7 @@
 
     <string name="menu_home">Ev</string>
     <string name="menu_categories">Kategoriler</string>
+    <string name="menu_scheduled_expense">Scheduled Expense</string>
     <string name="menu_settings">Ayarlar</string>
     <string name="menu_about">Hakkında</string>
     <string name="menu_licenses">Lisanslar</string>
@@ -82,7 +83,7 @@
     <string name="not_now">Şimdi değil</string>
     <string name="update_category">Kategoriyi Güncelle</string>
     <string name="update">Güncelleştirme</string>
-    <string name="enter_a_name">İsim girin...</string>
+    <string name="enter_a_name">İsim girin…</string>
     <string name="select_an_icon">Bir simge seçin</string>
     <string name="update_account">Hesabı güncelle</string>
     <string name="add_account">Hesap eklemek</string>
@@ -165,12 +166,12 @@
     <string name="choose_icon">Bir simge seçin</string>
     <string name="add_btntext">Eklemek</string>
     <string name="account_name">Hesap adı</string>
-    <string name="enter_amount">Bir miktar girin...</string>
+    <string name="enter_amount">Bir miktar girin…</string>
     <string name="add_amount">Miktar ekle</string>
     <string name="edit">Düzenle</string>
     <string name="delete">Silmek</string>
     <string name="expense_note">GİDER NOTU</string>
-    <string name="write_a_note_here">Not yaz...</string>
+    <string name="write_a_note_here">Not yaz…</string>
 
     <string name="export_data">Verileri Dışa Aktar</string>
     <string name="buy_product">Satın alma</string>
@@ -178,7 +179,7 @@
 
     <string name="already_purchased">Bu öğeyi zaten satın aldın</string>
     <string name="no_net_connection">İnternet Bağlantısı Yok</string>
-    <string name="please_wait">Lütfen bekle...</string>
+    <string name="please_wait">Lütfen bekle…</string>
     <string name="operation_successful">Operasyon başarılı</string>
     <string name="please_enter_an_amount">Lütfen bir miktar girin</string>
     <string name="make_sure_enter_valid_number">Hata oluştu. Lütfen geçerli bir numara girdiğinizden emin olun</string>
@@ -215,4 +216,9 @@
     <string name="overwrite_device_data">Bu, cihazınızdaki tüm gider verilerinin üzerine yazacaktır. Devam etmek istediğinizden emin misiniz?</string>
     <string name="something_went_wrong">Bir şeyler yanlış gitti. Lütfen daha sonra tekrar deneyiniz.</string>
     <string name="successfully_uploaded">Başarıyla yüklendi</string>
+
+    <string name="scheduled_on">Scheduled on:  </string>
+    <string name="source">Source:  </string>
+    <string name="no_scheduled_expenses">Currently, there is no scheduled expense</string>
+    <string name="confirm_delete_scheduled_entry">Are you sure to delete this scheduled expense entry?</string>
 </resources>

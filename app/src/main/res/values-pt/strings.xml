@@ -33,6 +33,7 @@
 
     <string name="menu_home">Casa</string>
     <string name="menu_categories">Categorias</string>
+    <string name="menu_scheduled_expense">Scheduled Expense</string>
     <string name="menu_settings">Definições</string>
     <string name="menu_about">Sobre</string>
     <string name="menu_licenses">Licenças</string>
@@ -80,7 +81,7 @@
     <string name="not_now">Agora não</string>
     <string name="update_category">Atualizar Categoria</string>
     <string name="update">Atualizar</string>
-    <string name="enter_a_name">Insira o nome...</string>
+    <string name="enter_a_name">Insira o nome…</string>
     <string name="select_an_icon">Selecione um ícone</string>
     <string name="update_account">Atualizar conta</string>
     <string name="add_account">Adicionar Conta</string>
@@ -159,12 +160,12 @@
     <string name="choose_icon">Escolha um ícone</string>
     <string name="add_btntext">Adicionar</string>
     <string name="account_name">Nome da conta</string>
-    <string name="enter_amount">Insira um valor...</string>
+    <string name="enter_amount">Insira um valor…</string>
     <string name="add_amount">Adicionar valor</string>
     <string name="edit">Editar</string>
     <string name="delete">Excluir</string>
     <string name="expense_note">NOTA DE DESPESA</string>
-    <string name="write_a_note_here">Escreva uma nota...</string>
+    <string name="write_a_note_here">Escreva uma nota…</string>
 
     <string name="export_data">Exportar dados</string>
     <string name="buy_product">Compra</string>
@@ -172,7 +173,7 @@
 
     <string name="already_purchased">Você já comprou este item</string>
     <string name="no_net_connection">Nenhuma conexão com a Internet está disponível</string>
-    <string name="please_wait">Por favor, espere...</string>
+    <string name="please_wait">Por favor, espere…</string>
     <string name="operation_successful">Operação bem sucedida</string>
     <string name="please_enter_an_amount">Por favor insira uma quantia</string>
     <string name="make_sure_enter_valid_number">Ocorreu um erro. Por favor, certifique-se de digitar um número válido</string>
@@ -209,4 +210,9 @@
     <string name="overwrite_device_data">Isso substituirá todos os dados de despesas no seu dispositivo. Tem certeza de que continua?</string>
     <string name="something_went_wrong">Algo deu errado. Por favor, tente novamente mais tarde.</string>
     <string name="successfully_uploaded">Carregado com sucesso</string>
+
+    <string name="scheduled_on">Scheduled on:  </string>
+    <string name="source">Source:  </string>
+    <string name="no_scheduled_expenses">Currently, there is no scheduled expense</string>
+    <string name="confirm_delete_scheduled_entry">Are you sure to delete this scheduled expense entry?</string>
 </resources>

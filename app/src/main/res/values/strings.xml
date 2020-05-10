@@ -213,12 +213,12 @@
     <string name="choose_icon">Choose an icon</string>
     <string name="add_btntext">Add</string>
     <string name="account_name">Account Name</string>
-    <string name="enter_amount">Enter an amount...</string>
+    <string name="enter_amount">Enter an amount…</string>
     <string name="add_amount">Add amount</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="expense_note">EXPENSE NOTE</string>
-    <string name="write_a_note_here">Write a note...</string>
+    <string name="write_a_note_here">Write a note…</string>
 
     <string name="export_data">Export Data</string>
     <string name="buy_product">Purchase</string>
@@ -226,7 +226,7 @@
 
     <string name="already_purchased">You already purchased this item</string>
     <string name="no_net_connection">No Internet Connection Is Available</string>
-    <string name="please_wait">Please wait...</string>
+    <string name="please_wait">Please wait…</string>
     <string name="operation_successful">Operation successful</string>
     <string name="please_enter_an_amount">Please enter an amount</string>
     <string name="make_sure_enter_valid_number">Error occurred. Please make sure you enter a valid number</string>
@@ -261,4 +261,9 @@
     <string name="something_went_wrong">Something went wrong. Please try again later.</string>
     <string name="overwrite_device_data">This will overwrite all expense data in your device. Are you sure to proceed?</string>
     <string name="data_not_available_to_download">No data is available to download for this account</string>
+
+    <string name="scheduled_on">Scheduled on:  </string>
+    <string name="source">Source:  </string>
+    <string name="no_scheduled_expenses">Currently, there is no scheduled expense</string>
+    <string name="confirm_delete_scheduled_entry">Are you sure to delete this scheduled expense entry?</string>
 </resources>

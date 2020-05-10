@@ -30,6 +30,7 @@
 
     <string name="menu_home">Casa</string>
     <string name="menu_categories">Categorías</string>
+    <string name="menu_scheduled_expense">Scheduled Expense</string>
     <string name="menu_settings">Ajustes</string>
     <string name="menu_about">Acerca de</string>
     <string name="menu_licenses">Licencias</string>
@@ -158,12 +159,12 @@
     <string name="choose_icon">Elige un icono</string>
     <string name="add_btntext">Añadir</string>
     <string name="account_name">Nombre de la cuenta</string>
-    <string name="enter_amount">Ingrese una cantidad...</string>
+    <string name="enter_amount">Ingrese una cantidad…</string>
     <string name="add_amount">Añadir cantidad</string>
     <string name="edit">Editar</string>
     <string name="delete">Borrar</string>
     <string name="expense_note">NOTA DE GASTOS</string>
-    <string name="write_a_note_here">Escribe una nota...</string>
+    <string name="write_a_note_here">Escribe una nota…</string>
 
     <string name="export_data">Exportar datos</string>
     <string name="buy_product">Compra</string>
@@ -171,7 +172,7 @@
 
     <string name="already_purchased">Ya compraste este articulo</string>
     <string name="no_net_connection">No hay conexión a Internet disponible</string>
-    <string name="please_wait">Por favor espera...</string>
+    <string name="please_wait">Por favor espera…</string>
     <string name="operation_successful">Operación exitosa</string>
     <string name="please_enter_an_amount">Por favor ingrese una cantidad</string>
     <string name="make_sure_enter_valid_number">Se produjo un error. Por favor, asegúrese de ingresar un número válido</string>
@@ -208,4 +209,9 @@
     <string name="overwrite_device_data">Esto sobrescribirá todos los datos de gastos en su dispositivo. ¿Estás seguro de proceder?</string>
     <string name="something_went_wrong">Algo salió mal. Por favor, inténtelo de nuevo más tarde.</string>
     <string name="successfully_uploaded">Cargado correctamente</string>
+
+    <string name="scheduled_on">Scheduled on:  </string>
+    <string name="source">Source:  </string>
+    <string name="no_scheduled_expenses">Currently, there is no scheduled expense</string>
+    <string name="confirm_delete_scheduled_entry">Are you sure to delete this scheduled expense entry?</string>
 </resources>

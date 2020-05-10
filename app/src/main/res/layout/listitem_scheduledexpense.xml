@@ -17,7 +17,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="5dp">
-
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="0.3"
@@ -25,8 +24,9 @@
                 android:layout_gravity="center"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:id="@+id/categoryIMG"
+                    android:id="@+id/categoryIconIv"
                     android:src="@mipmap/ic_logo"
+                    android:contentDescription="@string/category"
                     android:layout_width="35dp"
                     android:layout_height="35dp"/>
             </LinearLayout>
@@ -36,13 +36,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.7"
                 android:padding="10dp">
-
                 <LinearLayout
                     android:id="@+id/categoryDataContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
                     <TextView
                         android:id="@+id/amountTv"
                         android:layout_width="wrap_content"
@@ -62,48 +60,42 @@
                         android:textColor="@color/Ashcolor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
-
                     <LinearLayout
                         android:id="@+id/accountContainer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:orientation="horizontal">
-
                         <TextView
                             android:id="@+id/textView5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
-                            android:text="Source:  " />
-
+                            android:text="@string/source" />
                         <ImageView
                             android:id="@+id/accountImageIv"
                             android:layout_width="16dp"
                             android:layout_height="16dp"
                             android:layout_marginEnd="5dp"
+                            android:contentDescription="@string/account_name"
                             app:srcCompat="@drawable/ic_account" />
-
                         <TextView
                             android:id="@+id/accountNameTv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
-
                             android:maxLines="1"
                             tools:text="accou asdsad asdasdasdasdasdntasfg asdsad asdasdasd asas"
                             android:textSize="16sp" />
                     </LinearLayout>
                 </LinearLayout>
-
                 <TextView
                     android:id="@+id/scheduledOnTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/categoryDataContainer"
                     android:textStyle="bold"
-                    android:text="Scheduled on:  " />
-
+                    android:text="@string/scheduled_on"/>
                 <TextView
                     android:id="@+id/scheduledOnTv"
                     android:layout_width="wrap_content"
@@ -112,14 +104,14 @@
                     android:layout_toEndOf="@id/scheduledOnTitle"
                     tools:text="May 15, 2020" />
             </RelativeLayout>
-
             <ImageView
                 android:id="@+id/deleteBtn"
                 android:layout_margin="10dp"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                app:srcCompat="@drawable/cat_bills" />
+                android:contentDescription="@string/delete"
+                app:srcCompat="@drawable/ic_delete" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>
