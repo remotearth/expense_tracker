@@ -1,7 +1,9 @@
-package com.remotearthsolutions.expensetracker.databaseutils.models
+package com.remotearthsolutions.expensetracker.databaseutils.models.dtos
 
 import androidx.room.ColumnInfo
 import androidx.room.Ignore
+import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils
 import org.parceler.Parcel
 

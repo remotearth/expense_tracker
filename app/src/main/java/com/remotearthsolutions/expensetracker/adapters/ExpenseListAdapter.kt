@@ -7,7 +7,7 @@ import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.viewholder.DateSectionedViewHolder
 import com.remotearthsolutions.expensetracker.adapters.viewholder.ExpenseListViewHolder
 import com.remotearthsolutions.expensetracker.databaseutils.models.DateModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 
 class ExpenseListAdapter(
     private val categoryExpenseList: List<CategoryExpense>?,

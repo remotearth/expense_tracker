@@ -12,7 +12,7 @@ import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.adapters.ExpenseListAdapter
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.fragments.addexpensescreen.Purpose
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils

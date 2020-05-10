@@ -10,6 +10,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ScheduledExpenseDao
 import com.remotearthsolutions.expensetracker.databaseutils.models.*
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.utils.Constants
 import io.reactivex.Completable
 import io.reactivex.SingleObserver

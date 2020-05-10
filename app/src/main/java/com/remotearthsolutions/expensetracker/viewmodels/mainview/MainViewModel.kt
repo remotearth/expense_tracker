@@ -13,7 +13,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryExpenseDao
 import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel
 import com.remotearthsolutions.expensetracker.services.FileProcessingService

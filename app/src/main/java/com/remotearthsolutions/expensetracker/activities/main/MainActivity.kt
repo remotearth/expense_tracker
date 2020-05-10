@@ -23,7 +23,7 @@ import com.remotearthsolutions.expensetracker.activities.LoginActivity
 import com.remotearthsolutions.expensetracker.activities.helpers.FragmentLoader
 import com.remotearthsolutions.expensetracker.contracts.MainContract
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.fragments.ViewShadeFragment
 import com.remotearthsolutions.expensetracker.fragments.addexpensescreen.ExpenseFragment
 import com.remotearthsolutions.expensetracker.fragments.addexpensescreen.Purpose

@@ -67,11 +67,11 @@
                         android:gravity="center"
                         android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/textView5"
+                            android:id="@+id/fromTitleTv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
-                            android:text="@string/source" />
+                            android:text="@string/from" />
                         <ImageView
                             android:id="@+id/accountImageIv"
                             android:layout_width="16dp"

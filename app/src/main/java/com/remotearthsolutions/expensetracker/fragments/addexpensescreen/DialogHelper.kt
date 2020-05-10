@@ -9,7 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.remotearthsolutions.expensetracker.R
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import kotlinx.android.synthetic.main.fragment_add_expense.view.*
 
 

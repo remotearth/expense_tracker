@@ -18,7 +18,7 @@ import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils.show
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.Constants.Companion.KEY_UTF_VERSION

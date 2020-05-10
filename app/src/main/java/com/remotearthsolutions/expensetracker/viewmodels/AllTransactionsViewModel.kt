@@ -5,13 +5,12 @@ import androidx.lifecycle.ViewModel
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryExpenseDao
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getDate
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.BiConsumer
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
@@ -40,13 +39,15 @@ class AllTransactionsViewModel(
                             dateRangeBtnId = btnId
                         }
                         if (dateRangeBtnId == R.id.yearlyRangeBtn) {
-                            val monthHeader = CategoryExpense()
+                            val monthHeader =
+                                CategoryExpense()
                             monthHeader.isHeader = true
                             monthHeader.categoryName = previousMonth
                             expenseList.add(monthHeader)
                         }
                         if (dateRangeBtnId != R.id.dailyRangeBtn) {
-                            val header = CategoryExpense()
+                            val header =
+                                CategoryExpense()
                             header.isHeader = true
                             header.isDateSection = true
                             header.categoryName = getDate(previousDate, dateFormat)
@@ -57,7 +58,8 @@ class AllTransactionsViewModel(
                             if (dateRangeBtnId == R.id.yearlyRangeBtn) {
                                 val monthName = getDate(expense.datetime, DateTimeUtils.mmmm)
                                 if (monthName != previousMonth) {
-                                    val monthHeader = CategoryExpense()
+                                    val monthHeader =
+                                        CategoryExpense()
                                     monthHeader.isHeader = true
                                     monthHeader.categoryName = monthName
                                     expenseList.add(monthHeader)
@@ -68,7 +70,8 @@ class AllTransactionsViewModel(
                                 if (getDate(expense.datetime, dateFormat) !=
                                     getDate(previousDate, dateFormat)
                                 ) {
-                                    val dummy = CategoryExpense()
+                                    val dummy =
+                                        CategoryExpense()
                                     dummy.isHeader = true
                                     dummy.isDateSection = true
                                     dummy.categoryName = getDate(expense.datetime, dateFormat)

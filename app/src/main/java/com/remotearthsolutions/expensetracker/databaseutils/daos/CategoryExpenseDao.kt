@@ -2,7 +2,7 @@ package com.remotearthsolutions.expensetracker.databaseutils.daos
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import io.reactivex.Flowable
 import io.reactivex.Single
 

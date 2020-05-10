@@ -2,7 +2,7 @@ package com.remotearthsolutions.expensetracker.fragments.addexpensescreen
 
 import android.app.Activity
 import android.view.View
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryExpense
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils
 import com.remotearthsolutions.expensetracker.utils.RequestReviewUtils

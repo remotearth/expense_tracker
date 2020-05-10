@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,6 +22,7 @@ import com.remotearthsolutions.expensetracker.utils.Utils
 import com.remotearthsolutions.expensetracker.viewmodels.ScheduledExpenseViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
 import kotlinx.android.synthetic.main.fragment_recyclerview.view.*
+import kotlinx.android.synthetic.main.listitem_scheduledexpense.view.*
 
 class ScheduledExpenseFragment : BaseFragment() {
 
@@ -46,8 +48,12 @@ class ScheduledExpenseFragment : BaseFragment() {
         return mView
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mView.fromTitleTv.text = "${getString(R.string.from)}:  "
+        mView.scheduledOnTitle.text = "${getString(R.string.scheduled_on)}:  "
+
         currencySymbol = Utils.getCurrency(activity!!)
         format = SharedPreferenceUtils.getInstance(activity!!)!!.getString(
             Constants.PREF_TIME_FORMAT,

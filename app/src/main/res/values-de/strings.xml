@@ -216,7 +216,6 @@
     <string name="successfully_uploaded">Erfolgreich hochgeladen</string>
 
     <string name="scheduled_on">Scheduled on:  </string>
-    <string name="source">Source:  </string>
     <string name="no_scheduled_expenses">Currently, there is no scheduled expense</string>
     <string name="confirm_delete_scheduled_entry">Are you sure to delete this scheduled expense entry?</string>
 </resources>
