@@ -65,7 +65,7 @@ class ETFirebaseMessegingService : FirebaseMessagingService() {
             intent,
             PendingIntent.FLAG_ONE_SHOT
         )
-        val builder = NotificationCompat.Builder(this)
+        val builder = NotificationCompat.Builder(this,"expense_tracker_channel_id")
         builder.setContentTitle(getString(R.string.remotearth_notification))
         builder.setContentText(remoteMessage.notification!!.body)
         builder.setAutoCancel(true)

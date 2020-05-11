@@ -1,99 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent" android:padding="20dp"
-        android:layout_height="wrap_content">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+
     <LinearLayout
-            android:id="@+id/selectdate"
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
+        android:id="@+id/selectdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <ImageView
-                android:src="@drawable/ic_calendar"
-                android:layout_width="50dp"
-                android:layout_gravity="center"
-                android:layout_height="50dp"/>
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_calendar" />
 
         <TextView
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:text="@string/select_day"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-    </LinearLayout>
-    <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:weightSum="2"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_below="@+id/selectdate"
-            android:layout_height="wrap_content">
+            android:text="@string/select_day"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/selectdate"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
         <LinearLayout
-                android:id="@+id/previousdate"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_height="wrap_content">
+            android:id="@+id/previousdate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
-                    android:src="@drawable/ic_moon"
-                    android:layout_width="50dp"
-                    android:layout_gravity="center"
-                    android:layout_height="50dp"/>
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_moon" />
 
             <TextView
-                    android:text="@string/previousdate"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/previousdate"
+                android:textAlignment="center"
+                android:textSize="20sp" />
 
             <TextView
-                    android:id="@+id/showdyesterday"
-                    android:text="@string/previousdate"
-                    android:textAlignment="center"
-                    android:textSize="15sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                android:id="@+id/showdyesterday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/previousdate"
+                android:textAlignment="center"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <View
-                android:background="@color/Ashcolor"
-                android:layout_width="1dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_height="match_parent"/>
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/Ashcolor" />
+
         <LinearLayout
-                android:id="@+id/currentdate"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
+            android:id="@+id/currentdate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
             <ImageView
-                    android:src="@drawable/ic_sunny"
-                    android:layout_width="50dp"
-                    android:layout_gravity="center"
-                    android:layout_height="50dp"/>
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_sunny" />
 
             <TextView
-                    android:text="@string/currentdate"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/currentdate"
+                android:textAlignment="center"
+                android:textSize="20sp" />
 
             <TextView
-                    android:id="@+id/showdtoday"
-                    android:text="@string/currentdate"
-                    android:textAlignment="center"
-                    android:textSize="15sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                android:id="@+id/showdtoday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/currentdate"
+                android:textAlignment="center"
+                android:textSize="15sp" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

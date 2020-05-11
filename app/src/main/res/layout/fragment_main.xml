@@ -19,46 +19,53 @@
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:weightSum="4">
+
                 <com.remotearthsolutions.expensetracker.views.PeriodButton
                     android:id="@+id/dailyRangeBtn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:btnTitle="@string/daily"
-                    tools:layout="@layout/view_periodbutton"/>
+                    tools:layout="@layout/view_periodbutton" />
+
                 <View
                     android:layout_width="1dp"
                     android:layout_height="wrap_content"
                     android:background="@android:color/white" />
+
                 <com.remotearthsolutions.expensetracker.views.PeriodButton
                     android:id="@+id/weeklyRangeBtn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:btnTitle="@string/weekly"
-                    tools:layout="@layout/view_periodbutton"/>
+                    tools:layout="@layout/view_periodbutton" />
+
                 <View
                     android:layout_width="1dp"
                     android:layout_height="wrap_content"
                     android:background="@android:color/white" />
+
                 <com.remotearthsolutions.expensetracker.views.PeriodButton
                     android:id="@+id/monthlyRangeBtn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:btnTitle="@string/monthly"
-                    tools:layout="@layout/view_periodbutton"/>
+                    tools:layout="@layout/view_periodbutton" />
+
                 <View
                     android:layout_width="1dp"
                     android:layout_height="wrap_content"
                     android:background="@android:color/white" />
+
                 <com.remotearthsolutions.expensetracker.views.PeriodButton
                     android:id="@+id/yearlyRangeBtn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     app:btnTitle="@string/yearly"
-                    tools:layout="@layout/view_periodbutton"/>
+                    tools:layout="@layout/view_periodbutton" />
             </LinearLayout>
 
             <LinearLayout
@@ -73,8 +80,8 @@
                     android:layout_width="0dp"
                     android:layout_height="35dp"
                     android:layout_weight="0.3"
-                    android:src="@drawable/ic_previous"
-                    android:tint="@color/colorPrimary" />
+                    android:tint="@color/colorPrimary"
+                    app:srcCompat="@drawable/ic_previous" />
 
                 <TextView
                     android:id="@+id/dateTv"
@@ -83,8 +90,8 @@
                     android:layout_gravity="center"
                     android:layout_weight="1.4"
                     android:gravity="center"
-                    android:textColor="@color/colorPrimary"
                     android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorPrimary"
                     android:textStyle="bold"
                     tools:text="MONTH NAME" />
 
@@ -93,8 +100,8 @@
                     android:layout_width="0dp"
                     android:layout_height="35dp"
                     android:layout_weight="0.3"
-                    app:srcCompat="@drawable/ic_next"
-                    android:tint="@color/colorPrimary" />
+                    android:tint="@color/colorPrimary"
+                    app:srcCompat="@drawable/ic_next" />
 
             </LinearLayout>
         </LinearLayout>

@@ -20,5 +20,4 @@ class ProgressServiceImp(private val mContext: Context) : ProgressService {
             mProgressDialog!!.dismiss()
         }
     }
-
 }

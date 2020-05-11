@@ -12,8 +12,7 @@ import com.remotearthsolutions.expensetracker.utils.CategoryIcons.getIconId
 
 class IconViewHolder(
     view: View,
-    listener: IconListAdapter.OnItemClickListener,
-    layoutManager: GridLayoutManager?
+    listener: IconListAdapter.OnItemClickListener
 ) : RecyclerView.ViewHolder(view) {
     private val container: LinearLayout = view.findViewById(R.id.container)
     private val categoryIconIv: ImageView = view.findViewById(R.id.iconIv)

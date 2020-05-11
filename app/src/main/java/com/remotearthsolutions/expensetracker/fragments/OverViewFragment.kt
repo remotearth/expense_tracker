@@ -189,12 +189,12 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
 
         cal.timeInMillis = it.startTime
         while (true) {
-            val date = DateTimeUtils.getDate(cal.timeInMillis, dateFormat)
+            val date1 = DateTimeUtils.getDate(cal.timeInMillis, dateFormat)
 
-            xVals.add(date)
+            xVals.add(date1)
             barEntry.add(BarEntry(i.toFloat(), 0f))
             i++
-            if (date == endTime)
+            if (date1 == endTime)
                 break
             cal.add(calendarValueType, 1)
         }
@@ -209,8 +209,8 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         var sum = 0.0
         it.filteredList.forEach { exp ->
             sum += exp.totalAmount
-            val date = DateTimeUtils.getDate(exp.datetime, dateFormat)
-            val pos = xVals.indexOf(date)
+            val date1 = DateTimeUtils.getDate(exp.datetime, dateFormat)
+            val pos = xVals.indexOf(date1)
             if (pos > 0) {
                 val entry = barEntry[pos]
                 entry.y += exp.totalAmount.toFloat()

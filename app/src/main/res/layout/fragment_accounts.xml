@@ -1,35 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ListView
-            android:id="@+id/accountList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/accountList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addAccountBtn"
-            android:layout_width="wrap_content"
-            android:src="@drawable/ic_add"
-            app:rippleColor="@color/colorPrimary"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="10dp"
-            app:elevation="3dp"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/addAccountBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        app:elevation="3dp"
+        app:rippleColor="@color/colorPrimary"
+        app:srcCompat="@drawable/ic_add" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/transferAmountBtn"
         android:layout_width="wrap_content"
-        android:src="@drawable/ic_transfer"
-        app:rippleColor="@color/colorPrimary"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/addAccountBtn"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp"
         app:elevation="3dp"
-        android:layout_height="wrap_content"/>
+        app:rippleColor="@color/colorPrimary"
+        app:srcCompat="@drawable/ic_transfer" />
 </RelativeLayout>

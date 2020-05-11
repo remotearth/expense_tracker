@@ -17,7 +17,8 @@
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:ignore="Autofill" />
 
     <TextView
         android:id="@+id/textView3"
@@ -26,8 +27,8 @@
         android:layout_marginTop="30dp"
         android:text="@string/from"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold"
         android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/fromAccountSpnr"
         app:layout_constraintTop_toBottomOf="@+id/amountEdtxt" />
 
@@ -50,8 +51,8 @@
         android:layout_marginTop="50dp"
         android:text="@string/to"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold"
         android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/toAccountSpnr"
         app:layout_constraintTop_toBottomOf="@+id/fromAccountSpnr" />
 
@@ -71,8 +72,8 @@
         android:id="@+id/okBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="3dp"
         android:background="@drawable/btn_selector"
         android:text="@string/ok"
@@ -105,10 +106,10 @@
         android:layout_marginEnd="5dp"
         android:background="@drawable/btn_selector"
         android:padding="10dp"
-        android:src="@drawable/ic_switch"
         app:layout_constraintBottom_toTopOf="@+id/toAccountSpnr"
         app:layout_constraintEnd_toEndOf="@+id/fromAccountSpnr"
-        app:layout_constraintTop_toBottomOf="@+id/fromAccountSpnr" />
+        app:layout_constraintTop_toBottomOf="@+id/fromAccountSpnr"
+        app:srcCompat="@drawable/ic_switch" />
 
     <TextView
         android:id="@+id/textView"
@@ -117,9 +118,9 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:text="@string/transfer_balance"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimaryDark"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

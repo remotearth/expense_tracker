@@ -17,7 +17,7 @@ class IconListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IconViewHolder {
         val v =
             LayoutInflater.from(parent.context).inflate(R.layout.custom_icon, parent, false)
-        return IconViewHolder(v, listener!!, layoutManager)
+        return IconViewHolder(v, listener!!)
     }
 
     override fun onBindViewHolder(holder: IconViewHolder, position: Int) {

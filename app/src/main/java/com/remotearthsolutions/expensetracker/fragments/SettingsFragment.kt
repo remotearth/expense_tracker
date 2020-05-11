@@ -56,17 +56,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     Constants.PREF_CURRENCY -> {
                         val currencyPreference =
                             findPreference<Preference>(key)
-                        val `val` = sharedPreferences.getString(
+                        val currency = sharedPreferences.getString(
                             key,
                             resources.getString(R.string.default_currency)
                         )
-                        currencyPreference!!.summary = `val`
+                        currencyPreference!!.summary = currency
                         currencyPreference.setIcon(
                             getFlagDrawable(
                                 context!!
                             )
                         )
-                        logCustom(context!!, `val`)
+                        logCustom(context!!, currency!!)
                     }
                     Constants.PREF_PERIOD -> {
                         val periodPreference =

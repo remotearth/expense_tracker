@@ -8,24 +8,24 @@ class SharedPreferenceUtils private constructor(context: Context) {
 
     private val sp: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     private val editor: SharedPreferences.Editor
-    fun putInt(key: String?, `val`: Int) {
-        editor.putInt(key, `val`).apply()
+    fun putInt(key: String?, value: Int) {
+        editor.putInt(key, value).apply()
     }
 
     fun getInt(key: String?, defaultVal: Int): Int {
         return sp.getInt(key, defaultVal)
     }
 
-    fun putString(key: String?, `val`: String?) {
-        editor.putString(key, `val`).apply()
+    fun putString(key: String?, value: String?) {
+        editor.putString(key, value).apply()
     }
 
-    fun getString(key: String?, defaultVal: String?): String {
+    fun getString(key: String, defaultVal: String): String {
         return sp.getString(key, defaultVal)
     }
 
-    fun putBoolean(key: String?, `val`: Boolean) {
-        editor.putBoolean(key, `val`).apply()
+    fun putBoolean(key: String?, value: Boolean) {
+        editor.putBoolean(key, value).apply()
     }
 
     fun getBoolean(key: String?, defaultVal: Boolean): Boolean {

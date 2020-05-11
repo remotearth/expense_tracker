@@ -22,7 +22,6 @@ import com.remotearthsolutions.expensetracker.utils.Utils
 import com.remotearthsolutions.expensetracker.viewmodels.ScheduledExpenseViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
 import kotlinx.android.synthetic.main.fragment_recyclerview.view.*
-import kotlinx.android.synthetic.main.listitem_scheduledexpense.view.*
 
 class ScheduledExpenseFragment : BaseFragment() {
 
@@ -71,11 +70,11 @@ class ScheduledExpenseFragment : BaseFragment() {
 
         viewModel.scheduledExpensesLiveData.observe(this, Observer {
             if (it == null || it.isEmpty()) {
-                mView.nodatacontainer.visibility = View.VISIBLE
+                mView.noEntryMessage.visibility = View.VISIBLE
                 mView.recyclerView.visibility = View.GONE
                 mView.noEntryMessage.text = getString(R.string.no_scheduled_expenses)
             } else {
-                mView.nodatacontainer.visibility = View.GONE
+                mView.noEntryMessage.visibility = View.GONE
                 mView.recyclerView.visibility = View.VISIBLE
                 adapter = ScheduledExpenseListAdapter(it, currencySymbol, format, onItemClick)
                 mView.recyclerView.adapter = adapter

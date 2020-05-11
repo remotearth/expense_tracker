@@ -33,13 +33,13 @@ class CurrencyFragment : PreferenceFragmentCompat() {
                 if (key == Constants.PREF_CURRENCY) {
                     val currencyPreference =
                         findPreference<Preference>(key)
-                    val `val` = sharedPreferences.getString(
+                    val currency = sharedPreferences.getString(
                         key,
                         context!!.resources.getString(R.string.default_currency)
                     )
-                    currencyPreference!!.summary = sharedPreferences.getString(key, `val`)
+                    currencyPreference!!.summary = sharedPreferences.getString(key, currency)
                     currencyPreference.setIcon(Utils.getFlagDrawable(context!!))
-                    FirebaseEventLogUtils.logCustom(context!!, `val`)
+                    FirebaseEventLogUtils.logCustom(context!!, currency!!)
                 }
             }
         preferenceScreen.sharedPreferences

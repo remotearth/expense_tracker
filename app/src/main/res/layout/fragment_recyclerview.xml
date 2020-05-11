@@ -5,35 +5,22 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <LinearLayout
-        android:id="@+id/nodatacontainer"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/noEntryMessage"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:alpha=".5"
+        android:layout_marginTop="5dp"
         android:gravity="center"
-        android:orientation="vertical"
+        android:padding="5dp"
+        android:alpha="0.5"
+        android:drawableTop="@drawable/ic_nodata"
+        android:text="@string/no_data_available"
+        android:textColor="@color/Ashcolor"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_nodata" />
-
-        <TextView
-            android:id="@+id/noEntryMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="@string/no_data_available"
-            android:textColor="@color/Ashcolor"
-            android:textSize="16sp" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
