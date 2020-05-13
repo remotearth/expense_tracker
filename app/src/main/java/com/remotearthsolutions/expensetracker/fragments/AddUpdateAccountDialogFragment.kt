@@ -105,7 +105,7 @@ class AddUpdateAccountDialogFragment : DialogFragment() {
             return
         }
         val accountDao =
-            DatabaseClient.getInstance(mContext)?.appDatabase?.accountDao()
+            DatabaseClient.getInstance(mContext).appDatabase.accountDao()
         if (accountModel == null) {
             accountModel = AccountModel()
         }
@@ -114,9 +114,9 @@ class AddUpdateAccountDialogFragment : DialogFragment() {
         val compositeDisposable = CompositeDisposable()
         compositeDisposable.add(Completable.fromAction {
             if (accountModel?.id!! > 0) {
-                accountDao?.updateAccount(accountModel!!)
+                accountDao.updateAccount(accountModel!!)
             } else {
-                accountDao?.addAccount(accountModel!!)
+                accountDao.addAccount(accountModel!!)
             }
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

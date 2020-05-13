@@ -61,14 +61,14 @@ class MainActivity : BaseActivity(), MainContract.View {
         purchaseListener = PurchaseListener(this, inAppPurchaseCallback)
         preferencesChangeListener = PreferencesChangeListener(this)
 
-        val db = DatabaseClient.getInstance(this)?.appDatabase
+        val db = DatabaseClient.getInstance(this).appDatabase
 
         viewModel =
             ViewModelProviders.of(this, BaseViewModelFactory {
                 MainViewModel(
                     this,
                     FirebaseServiceImpl(this),
-                    db?.accountDao()!!,
+                    db.accountDao(),
                     db.expenseDao(),
                     db.categoryDao(),
                     db.categoryExpenseDao(),

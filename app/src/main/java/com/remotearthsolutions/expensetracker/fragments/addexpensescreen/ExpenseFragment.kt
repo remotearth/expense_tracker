@@ -17,7 +17,10 @@ import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
-import com.remotearthsolutions.expensetracker.databaseutils.models.*
+import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
+import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
+import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel
+import com.remotearthsolutions.expensetracker.databaseutils.models.ScheduledExpenseModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.fragments.*
 import com.remotearthsolutions.expensetracker.utils.*
@@ -54,7 +57,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        format = SharedPreferenceUtils.getInstance(activity!!)!!.getString(
+        format = SharedPreferenceUtils.getInstance(requireActivity())!!.getString(
             Constants.PREF_TIME_FORMAT,
             Constants.KEY_DATE_MONTH_YEAR_DEFAULT
         )
@@ -72,14 +75,14 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         numpadManager.attachDisplay(mView.inputdigit)
         numpadManager.attachDeleteButton(mView.deleteBtn)
         numpadFragment!!.setListener(numpadManager)
-        val db = DatabaseClient.getInstance(mContext)?.appDatabase
+        val db = DatabaseClient.getInstance(mContext).appDatabase
 
         viewModel =
             ViewModelProviders.of(this, BaseViewModelFactory {
                 ExpenseFragmentViewModel(
                     mContext,
                     this,
-                    db?.expenseDao()!!,
+                    db.expenseDao(),
                     db.accountDao(),
                     db.categoryDao(),
                     db.scheduleExpenseDao()
@@ -170,7 +173,10 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                     datePickerDialogFragment.dismiss()
                 }
             })
-            datePickerDialogFragment.show(childFragmentManager, DatePickerDialogFragment::class.java.name)
+            datePickerDialogFragment.show(
+                childFragmentManager,
+                DatePickerDialogFragment::class.java.name
+            )
         }
         mView.okBtn.setOnClickListener {
             var expenseStr = mView.inputdigit.text.toString()
@@ -221,6 +227,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                         override fun onOkBtnPressed() {
                             viewModel!!.deleteExpense(categoryExpense)
                         }
+
                         override fun onCancelBtnPressed() {}
                     })
             } else {
@@ -272,7 +279,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         if (MainActivity.addedExpenseCount % 2 == 0) {
             val delay = Random().nextInt(3000 - 1000) + 1000
             Handler().postDelayed({
-                AdmobUtils.getInstance((mContext as Activity))?.showInterstitialAds()
+                AdmobUtils.getInstance((mContext as Activity)).showInterstitialAds()
             }, delay.toLong())
         } else {
             Helpers.requestToReviewApp(mainActivity, viewModel!!)

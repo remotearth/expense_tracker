@@ -68,7 +68,7 @@ class HomeFragment : BaseFragment(),
         val llm =
             LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerView.layoutManager = llm
-        val db = DatabaseClient.getInstance(mContext)?.appDatabase
+        val db = DatabaseClient.getInstance(mContext).appDatabase
 
         chartManager = MPPieChart()
         chartManager.initPierChart(binding.chartView, getDeviceScreenSize(mContext))
@@ -77,7 +77,7 @@ class HomeFragment : BaseFragment(),
             ViewModelProviders.of(this, BaseViewModelFactory {
                 HomeFragmentViewModel(
                     this,
-                    db?.categoryExpenseDao()!!,
+                    db.categoryExpenseDao(),
                     db.categoryDao(),
                     db.accountDao()
                 )

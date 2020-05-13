@@ -36,7 +36,7 @@ class CategoryFragment : BaseFragment(),
         super.onAttach(context)
         mContext = context
     }
-    
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,15 +46,15 @@ class CategoryFragment : BaseFragment(),
         mView.cat_recycler.setHasFixedSize(true)
         mView.cat_recycler.layoutManager = LinearLayoutManager(mContext)
         val categoryDao =
-            DatabaseClient.getInstance(mContext!!)?.appDatabase?.categoryDao()
+            DatabaseClient.getInstance(mContext!!).appDatabase.categoryDao()
         val expenseDao =
-            DatabaseClient.getInstance(mContext!!)?.appDatabase?.expenseDao()
+            DatabaseClient.getInstance(mContext!!).appDatabase.expenseDao()
         val accountDao =
-            DatabaseClient.getInstance(mContext!!)?.appDatabase?.accountDao()
+            DatabaseClient.getInstance(mContext!!).appDatabase.accountDao()
 
         viewModel =
             ViewModelProviders.of(this, BaseViewModelFactory {
-                CategoryViewModel(this, categoryDao!!, expenseDao!!, accountDao!!)
+                CategoryViewModel(this, categoryDao, expenseDao, accountDao)
             }).get(CategoryViewModel::class.java)
 
         viewModel!!.showCategories()

@@ -44,12 +44,12 @@ class AllExpenseFragment : BaseFragment() {
         mView.expenserecyclearView.setHasFixedSize(true)
         val llm = LinearLayoutManager(mContext)
         mView.expenserecyclearView.layoutManager = llm
-        val db = DatabaseClient.getInstance(mContext!!)?.appDatabase
+        val db = DatabaseClient.getInstance(mContext!!).appDatabase
 
         viewModel =
             ViewModelProviders.of(requireActivity(), BaseViewModelFactory {
                 AllTransactionsViewModel(
-                    db!!.categoryExpenseDao(), db.categoryDao(),
+                    db.categoryExpenseDao(), db.categoryDao(),
                     SharedPreferenceUtils.getInstance(mContext!!)!!
                         .getString(
                             Constants.PREF_TIME_FORMAT,
@@ -58,7 +58,7 @@ class AllExpenseFragment : BaseFragment() {
                 )
             }).get(AllTransactionsViewModel::class.java)
 
-        viewModel?.expenseListLiveData?.observe(this, Observer {
+        viewModel?.expenseListLiveData?.observe(requireActivity(), Observer {
             val listOffilterExpense = it
             if (listOffilterExpense == null || listOffilterExpense.isEmpty()) {
                 mView.expenserecyclearView.visibility = View.GONE

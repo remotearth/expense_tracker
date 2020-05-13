@@ -65,13 +65,13 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         val param = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height!!)
         barChart.layoutParams = param
 
-        val db = DatabaseClient.getInstance(mContext!!)?.appDatabase
+        val db = DatabaseClient.getInstance(mContext!!).appDatabase
 
 
         viewModel =
             ViewModelProviders.of(requireActivity(), BaseViewModelFactory {
                 AllTransactionsViewModel(
-                    db?.categoryExpenseDao()!!,
+                    db.categoryExpenseDao(),
                     db.categoryDao(),
                     SharedPreferenceUtils.getInstance(mContext!!)!!
                         .getString(
@@ -86,7 +86,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         recyclerView.layoutManager = llm
 
         viewModel.getAllCategory()
-        viewModel.listOfCateogoryLiveData.observe(this, Observer {
+        viewModel.listOfCateogoryLiveData.observe(requireActivity(), Observer {
             listOfCategoryWithExpense = ArrayList()
             it.forEachIndexed { index, ctg ->
                 val item = CategoryOverviewItemDto()
@@ -99,7 +99,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
 
         setupChart()
 
-        viewModel.chartDataRequirementLiveData.observe(this, Observer {
+        viewModel.chartDataRequirementLiveData.observe(requireActivity(), Observer {
             val currencySymbol = Utils.getCurrency(requireContext())
             barChart.clear()
 
@@ -159,7 +159,8 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
 
             val sortedList =
                 listOfCategoryWithExpense.sortedWith(compareByDescending { item -> item.totalExpenseOfCateogry })
-            val adapter = OverviewListAdapter(sortedList, sum, maxWidthOfBar!!.toInt(), currencySymbol)
+            val adapter =
+                OverviewListAdapter(sortedList, sum, maxWidthOfBar!!.toInt(), currencySymbol)
             recyclerView.adapter = adapter
         })
 
@@ -251,7 +252,6 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
     }
 
     override fun onNothingSelected() {
-
     }
 
     private val onValueSelectedRectF = RectF()

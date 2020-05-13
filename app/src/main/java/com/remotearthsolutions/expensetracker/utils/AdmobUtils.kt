@@ -10,37 +10,29 @@ import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.utils.FirebaseEventLogUtils.logCustom
 
 class AdmobUtils private constructor(private val activity: Activity) {
-    private var interstitialAd: InterstitialAd? = null
+    private var interstitialAd: InterstitialAd = InterstitialAd(activity)
+
     fun showInterstitialAds() {
-        interstitialAd = InterstitialAd(activity)
-        if (BuildConfig.DEBUG) {
-            interstitialAd!!.adUnitId = activity.getString(R.string.admob_test_ad_id)
-        } else {
-            interstitialAd!!.adUnitId = activity.getString(R.string.admob_ad_id)
-        }
-        val adRequest =
-            AdRequest.Builder().build()
-        interstitialAd!!.loadAd(adRequest)
-        interstitialAd!!.adListener = object : AdListener() {
-            override fun onAdLoaded() {
-                val app = activity.application as ApplicationObject
-                if (app.isActivityVisible && app.isAppShouldShowAds) {
-                    interstitialAd!!.show()
-                    logCustom(activity,"Ad shown")
+        interstitialAd.let {
+            if (BuildConfig.DEBUG) {
+                it.adUnitId = activity.getString(R.string.admob_test_ad_id)
+            } else {
+                it.adUnitId = activity.getString(R.string.admob_ad_id)
+            }
+            val adRequest =
+                AdRequest.Builder().build()
+            it.loadAd(adRequest)
+            it.adListener = object : AdListener() {
+                override fun onAdLoaded() {
+                    val app = activity.application as ApplicationObject
+                    if (app.isActivityVisible && app.isAppShouldShowAds) {
+                        it.show()
+                        logCustom(activity,"Ad shown")
+                    }
                 }
             }
         }
     }
 
-    companion object {
-        private var instance: AdmobUtils? = null
-        fun getInstance(activity: Activity): AdmobUtils? {
-            if (instance == null) {
-                instance =
-                    AdmobUtils(activity)
-            }
-            return instance
-        }
-    }
-
+    companion object : SingletonHolder<AdmobUtils, Activity>(::AdmobUtils)
 }

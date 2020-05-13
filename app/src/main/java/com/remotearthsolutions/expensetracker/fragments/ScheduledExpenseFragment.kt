@@ -50,17 +50,17 @@ class ScheduledExpenseFragment : BaseFragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        currencySymbol = Utils.getCurrency(activity!!)
-        format = SharedPreferenceUtils.getInstance(activity!!)!!.getString(
+        currencySymbol = Utils.getCurrency(requireActivity())
+        format = SharedPreferenceUtils.getInstance(requireActivity())!!.getString(
             Constants.PREF_TIME_FORMAT,
             Constants.KEY_DATE_MONTH_YEAR_DEFAULT
         )
 
-        val db = DatabaseClient.getInstance(mContext!!)?.appDatabase
+        val db = DatabaseClient.getInstance(mContext!!).appDatabase
 
         viewModel = ViewModelProviders.of(requireActivity(), BaseViewModelFactory {
             ScheduledExpenseViewModel(
-                db?.scheduleExpenseDao()!!
+                db.scheduleExpenseDao()
             )
         }).get(ScheduledExpenseViewModel::class.java)
 
@@ -68,7 +68,7 @@ class ScheduledExpenseFragment : BaseFragment() {
         val llm = LinearLayoutManager(mContext)
         mView.recyclerView.layoutManager = llm
 
-        viewModel.scheduledExpensesLiveData.observe(this, Observer {
+        viewModel.scheduledExpensesLiveData.observe(requireActivity(), Observer {
             if (it == null || it.isEmpty()) {
                 mView.noEntryMessage.visibility = View.VISIBLE
                 mView.recyclerView.visibility = View.GONE

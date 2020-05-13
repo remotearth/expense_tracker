@@ -66,13 +66,13 @@ class AccountsFragment : BaseFragment(),
             ViewModelProviders.of(this, BaseViewModelFactory {
                 AccountViewModel(
                     mContext!!, this,
-                    DatabaseClient.getInstance(mContext!!)?.appDatabase?.accountDao()!!,
-                    DatabaseClient.getInstance(mContext!!)?.appDatabase?.expenseDao()!!
+                    DatabaseClient.getInstance(mContext!!).appDatabase.accountDao(),
+                    DatabaseClient.getInstance(mContext!!).appDatabase.expenseDao()
                 )
             }).get(AccountViewModel::class.java)
 
         viewModel!!.loadAccounts()
-        viewModel!!.numberOfItem.observe(this,
+        viewModel!!.numberOfItem.observe(requireActivity(),
             Observer { count: Int -> limitOfAccount = count }
         )
         addAccountBtn.setOnClickListener {
@@ -126,7 +126,7 @@ class AccountsFragment : BaseFragment(),
     override fun onDeleteAccount() {
         (activity as MainActivity).updateSummary()
         if (selectAccountModel?.id!! > 3) {
-            SharedPreferenceUtils.getInstance(activity!!)
+            SharedPreferenceUtils.getInstance(requireActivity())
                 ?.putInt(Constants.KEY_SELECTED_ACCOUNT_ID, 1)
         }
     }

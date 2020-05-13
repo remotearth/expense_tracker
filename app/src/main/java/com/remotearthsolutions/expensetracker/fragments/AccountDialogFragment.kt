@@ -50,11 +50,11 @@ class AccountDialogFragment : DialogFragment(),
         val llm = LinearLayoutManager(mContext)
         mView.accountrecyclearView.layoutManager = llm
         val accountDao =
-            DatabaseClient.getInstance(mContext)?.appDatabase?.accountDao()
+            DatabaseClient.getInstance(mContext).appDatabase.accountDao()
 
         viewModel =
             ViewModelProviders.of(this, BaseViewModelFactory {
-                AccountDialogViewModel(this, accountDao!!)
+                AccountDialogViewModel(this, accountDao)
             }).get(AccountDialogViewModel::class.java).apply {
                 this.init()
             }

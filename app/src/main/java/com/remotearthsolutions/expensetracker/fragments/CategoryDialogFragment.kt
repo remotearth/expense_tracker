@@ -58,15 +58,15 @@ class CategoryDialogFragment : DialogFragment(),
         super.onViewCreated(view, savedInstanceState)
         mView = view
         val categoryDao =
-            DatabaseClient.getInstance(mContext!!)?.appDatabase?.categoryDao()
+            DatabaseClient.getInstance(mContext!!).appDatabase.categoryDao()
         val expenseDao =
-            DatabaseClient.getInstance(mContext!!)?.appDatabase?.expenseDao()
+            DatabaseClient.getInstance(mContext!!).appDatabase.expenseDao()
         val accountDao =
-            DatabaseClient.getInstance(mContext!!)?.appDatabase?.accountDao()
+            DatabaseClient.getInstance(mContext!!).appDatabase.accountDao()
 
         viewModel =
             ViewModelProviders.of(this, BaseViewModelFactory {
-                CategoryViewModel(this, categoryDao!!,expenseDao!!, accountDao!!)
+                CategoryViewModel(this, categoryDao, expenseDao, accountDao)
             }).get(CategoryViewModel::class.java)
         
         mView.categoryrecyclearView.setHasFixedSize(true)

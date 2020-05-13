@@ -99,7 +99,7 @@ class AddCategoryDialogFragment : DialogFragment() {
             return
         }
         val categoryDao =
-            DatabaseClient.getInstance(mContext)?.appDatabase?.categoryDao()
+            DatabaseClient.getInstance(mContext).appDatabase.categoryDao()
         if (categoryModel == null) {
             categoryModel = CategoryModel()
         }
@@ -108,9 +108,9 @@ class AddCategoryDialogFragment : DialogFragment() {
         val compositeDisposable = CompositeDisposable()
         compositeDisposable.add(Completable.fromAction {
             if (categoryModel!!.id > 0) {
-                categoryDao?.updateCategory(categoryModel)
+                categoryDao.updateCategory(categoryModel)
             } else {
-                categoryDao?.addCategory(categoryModel!!)
+                categoryDao.addCategory(categoryModel!!)
             }
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
