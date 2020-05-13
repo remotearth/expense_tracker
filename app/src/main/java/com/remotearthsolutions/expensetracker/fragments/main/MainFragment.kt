@@ -24,6 +24,7 @@ import com.remotearthsolutions.expensetracker.databinding.FragmentMainBinding
 import com.remotearthsolutions.expensetracker.fragments.*
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
+import com.remotearthsolutions.expensetracker.utils.findViewPagerFragmentByTag
 import com.remotearthsolutions.expensetracker.views.PeriodButton
 
 class MainFragment : BaseFragment(),
@@ -75,6 +76,7 @@ class MainFragment : BaseFragment(),
         )
 
         pagerAdapter = MainFragmentPagerAdapter(childFragmentManager)
+
         binding!!.viewpager.offscreenPageLimit = 4
         binding!!.viewpager.adapter = pagerAdapter
         binding!!.viewpager.addOnPageChangeListener(viewPagerPageChangeListener)
@@ -178,6 +180,11 @@ class MainFragment : BaseFragment(),
                         anim.addListener(object : Animator.AnimatorListener {
                             override fun onAnimationStart(animation: Animator) {}
                             override fun onAnimationEnd(animation: Animator) {
+                                val homeFragment =
+                                    childFragmentManager.findViewPagerFragmentByTag<HomeFragment>(
+                                        R.id.viewpager,
+                                        0
+                                    )
                                 homeFragment?.refresh()
                             }
 
@@ -278,13 +285,16 @@ class MainFragment : BaseFragment(),
                 selectedPeriodBtn = binding!!.yearlyRangeBtn
             }
         }
-
         selectedPeriodBtn?.setIsSelected(true)
 
         binding!!.dateTv.text = date
+        val homeFragment =
+            childFragmentManager.findViewPagerFragmentByTag<HomeFragment>(R.id.viewpager, 0)
+        val allExpenseFragment =
+            childFragmentManager.findViewPagerFragmentByTag<AllExpenseFragment>(R.id.viewpager, 1)
         if (homeFragment != null && allExpenseFragment != null) {
-            homeFragment!!.updateChartView(startTime, endTime)
-            allExpenseFragment!!.updateFilterListWithDate(
+            homeFragment.updateChartView(startTime, endTime)
+            allExpenseFragment.updateFilterListWithDate(
                 startTime,
                 endTime,
                 btnId
@@ -304,24 +314,23 @@ class MainFragment : BaseFragment(),
         override fun getItem(position: Int): Fragment {
             return when (position) {
                 0 -> {
-                    homeFragment = HomeFragment()
-                    homeFragment!!
+                    val homeFragment = HomeFragment()
+                    homeFragment
                 }
                 1 -> {
-                    allExpenseFragment = AllExpenseFragment()
-                    allExpenseFragment!!
+                    val allExpenseFragment = AllExpenseFragment()
+                    allExpenseFragment
                 }
                 2 -> {
-                    overViewFragment = OverViewFragment()
-                    overViewFragment!!
+                    val overViewFragment = OverViewFragment()
+                    overViewFragment
                 }
                 3 -> {
-                    accountsFragment = AccountsFragment()
-                    accountsFragment!!
+                    val accountsFragment = AccountsFragment()
+                    accountsFragment
                 }
                 else -> {
-                    homeFragment = HomeFragment()
-                    homeFragment!!
+                    Fragment()
                 }
             }
         }
@@ -335,10 +344,12 @@ class MainFragment : BaseFragment(),
         }
     }
 
-    companion object {
-        private var homeFragment: HomeFragment? = null
-        var allExpenseFragment: AllExpenseFragment? = null
-        private var overViewFragment: OverViewFragment? = null
-        private var accountsFragment: AccountsFragment? = null
-    }
+//    private fun <T : Fragment> findViewPagerFragmentByTag(
+//        fragmentManager: FragmentManager,
+//        fragmentPosition: Int
+//    ): T? {
+//        val fragmentTag = "android:switcher:${R.id.viewpager}:${fragmentPosition}"
+//        return fragmentManager.findFragmentByTag(fragmentTag) as T?
+//    }
+
 }

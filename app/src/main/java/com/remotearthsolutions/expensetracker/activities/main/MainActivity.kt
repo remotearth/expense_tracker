@@ -283,8 +283,8 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     fun refreshChart() {
         val fragment =
-            supportFragmentManager.findFragmentByTag(MainFragment::class.java.name)
-        fragment?.let { (it as MainFragment).refreshChart() }
+            supportFragmentManager.findFragmentByTag(MainFragment::class.java.name) as MainFragment?
+        fragment?.refreshChart()
     }
 
     companion object {

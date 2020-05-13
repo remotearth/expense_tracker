@@ -2,10 +2,11 @@ package com.remotearthsolutions.expensetracker.activities.main
 
 import android.content.SharedPreferences
 import com.remotearthsolutions.expensetracker.R
+import com.remotearthsolutions.expensetracker.fragments.AllExpenseFragment
 import com.remotearthsolutions.expensetracker.fragments.main.MainFragment
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
-
+import com.remotearthsolutions.expensetracker.utils.findViewPagerFragmentByTag
 
 class PreferencesChangeListener(private val mainActivity: MainActivity) :
     SharedPreferences.OnSharedPreferenceChangeListener {
@@ -16,7 +17,14 @@ class PreferencesChangeListener(private val mainActivity: MainActivity) :
                     refreshChart()
                 }
                 Constants.PREF_TIME_FORMAT -> {
-                    MainFragment.allExpenseFragment?.updateDateFormat(
+                    val mainFragment =
+                        supportFragmentManager.findFragmentByTag(MainFragment::class.java.name) as MainFragment?
+                    val allExpenseFragment =
+                        mainFragment?.childFragmentManager?.findViewPagerFragmentByTag<AllExpenseFragment>(
+                            R.id.viewpager,
+                            1
+                        )
+                    allExpenseFragment?.updateDateFormat(
                         SharedPreferenceUtils.getInstance(this)!!
                             .getString(
                                 Constants.PREF_TIME_FORMAT,
