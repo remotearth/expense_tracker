@@ -222,6 +222,9 @@
     <string name="something_went_wrong">Что-то пошло не так. Пожалуйста, попробуйте позже.</string>
     <string name="successfully_uploaded">Успешно загружено</string>
 
+    <string name="repeat">Repeat:</string>
+    <string name="every">Every</string>
+    <string name="times">Times</string>
     <string name="scheduled_on">Scheduled on:  </string>
     <string name="no_scheduled_expenses">Currently, there is no scheduled expense</string>
     <string name="confirm_delete_scheduled_entry">Are you sure to delete this scheduled expense entry?</string>

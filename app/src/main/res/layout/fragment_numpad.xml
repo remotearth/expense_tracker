@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -7,7 +8,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.2"
         android:orientation="horizontal">
 
         <Button
@@ -17,7 +17,7 @@
             android:layout_margin="1dp"
             android:layout_weight="0.25"
             android:background="@drawable/selector"
-            android:text="1"
+            android:text="@string/one"
             android:textColor="#ecf0f1"
             android:textSize="20sp" />
 
@@ -28,7 +28,7 @@
             android:layout_margin="1dp"
             android:layout_weight="0.25"
             android:background="@drawable/selector"
-            android:text="2"
+            android:text="@string/two"
             android:textColor="#ecf0f1"
             android:textSize="20sp" />
 
@@ -39,7 +39,7 @@
             android:layout_margin="1dp"
             android:layout_weight="0.25"
             android:background="@drawable/selector"
-            android:text="3"
+            android:text="@string/three"
             android:textColor="#ecf0f1"
             android:textSize="20sp" />
 
@@ -50,7 +50,7 @@
             android:layout_margin="1dp"
             android:layout_weight="0.25"
             android:background="@drawable/operator_selector"
-            android:text="/"
+            android:text="@string/division"
             android:textColor="#ecf0f1"
             android:textSize="20sp" />
     </LinearLayout>
@@ -58,7 +58,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.2"
         android:orientation="horizontal">
 
         <Button
@@ -68,7 +67,7 @@
             android:layout_margin="1dp"
             android:layout_weight="0.25"
             android:background="@drawable/selector"
-            android:text="4"
+            android:text="@string/four"
             android:textColor="#ecf0f1"
             android:textSize="20sp" />
 
@@ -79,7 +78,7 @@
             android:layout_margin="1dp"
             android:layout_weight="0.25"
             android:background="@drawable/selector"
-            android:text="5"
+            android:text="@string/five"
             android:textColor="#ecf0f1"
             android:textSize="20sp" />
 
@@ -90,7 +89,7 @@
             android:layout_margin="1dp"
             android:layout_weight="0.25"
             android:background="@drawable/selector"
-            android:text="6"
+            android:text="@string/six"
             android:textColor="#ecf0f1"
             android:textSize="20sp" />
 
@@ -101,7 +100,7 @@
             android:layout_margin="1dp"
             android:layout_weight="0.25"
             android:background="@drawable/operator_selector"
-            android:text="-"
+            android:text="@string/subtraction"
             android:textColor="#ecf0f1"
             android:textSize="25sp" />
     </LinearLayout>
@@ -109,7 +108,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.2"
         android:orientation="horizontal">
 
         <Button
@@ -119,7 +117,7 @@
             android:layout_margin="1dp"
             android:layout_weight="0.25"
             android:background="@drawable/selector"
-            android:text="7"
+            android:text="@string/seven"
             android:textColor="#ecf0f1"
             android:textSize="20sp" />
 
@@ -130,7 +128,7 @@
             android:layout_margin="1dp"
             android:layout_weight="0.25"
             android:background="@drawable/selector"
-            android:text="8"
+            android:text="@string/eight"
             android:textColor="#ecf0f1"
             android:textSize="20sp" />
 
@@ -141,7 +139,7 @@
             android:layout_margin="1dp"
             android:layout_weight="0.25"
             android:background="@drawable/selector"
-            android:text="9"
+            android:text="@string/nine"
             android:textColor="#ecf0f1"
             android:textSize="20sp" />
 
@@ -154,13 +152,14 @@
             android:background="@drawable/operator_selector"
             android:text="x"
             android:textColor="#ecf0f1"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.2">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/dot"
@@ -169,7 +168,7 @@
             android:layout_margin="1dp"
             android:layout_weight="0.25"
             android:background="@drawable/selector"
-            android:text="."
+            android:text="@string/point"
             android:textColor="#ecf0f1"
             android:textSize="20sp" />
 
@@ -180,7 +179,7 @@
             android:layout_margin="1dp"
             android:layout_weight="0.25"
             android:background="@drawable/selector"
-            android:text="0"
+            android:text="@string/zero"
             android:textColor="#ecf0f1"
             android:textSize="20sp" />
 
@@ -191,7 +190,7 @@
             android:layout_margin="1dp"
             android:layout_weight="0.25"
             android:background="@drawable/selector"
-            android:text="="
+            android:text="@string/equalto"
             android:textColor="#ecf0f1"
             android:textSize="25sp" />
 
@@ -202,7 +201,7 @@
             android:layout_margin="1dp"
             android:layout_weight="0.25"
             android:background="@drawable/operator_selector"
-            android:text="+"
+            android:text="@string/plus"
             android:textColor="#ecf0f1"
             android:textSize="25sp" />
     </LinearLayout>

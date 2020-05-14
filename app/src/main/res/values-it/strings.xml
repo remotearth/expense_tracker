@@ -59,7 +59,7 @@
 
     <string name="warning">Avvertimento</string>
     <string name="buy_message">Per godere di questo servizio, devi comprare</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="no_data_available">Siamo spiacenti, nessun dato disponibile</string>
 
     <string name="icons_made_by">Icone realizzate da Freepik di Flaticon</string>
@@ -221,6 +221,9 @@
     <string name="something_went_wrong">Qualcosa è andato storto. Per favore riprova più tardi.</string>
     <string name="successfully_uploaded">Caricato correttamente</string>
 
+    <string name="repeat">Repeat:</string>
+    <string name="every">Every</string>
+    <string name="times">Times</string>
     <string name="scheduled_on">Scheduled on:  </string>
     <string name="no_scheduled_expenses">Currently, there is no scheduled expense</string>
     <string name="confirm_delete_scheduled_entry">Are you sure to delete this scheduled expense entry?</string>

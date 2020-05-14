@@ -58,7 +58,7 @@
     <string name="title_accounts">účty</string>
     <string name="warning">Výstraha</string>
     <string name="buy_message">Ak si chcete túto službu vychutnať, musíte si ju kúpiť</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="no_data_available">Ľutujeme, nie sú k dispozícii žiadne údaje</string>
 
     <string name="icons_made_by">Ikony Freepik od Flaticon</string>
@@ -213,6 +213,9 @@
     <string name="something_went_wrong">Niečo sa pokazilo. Skúste neskôr prosím.</string>
     <string name="successfully_uploaded">Úspešne nahrané</string>
 
+    <string name="repeat">Repeat:</string>
+    <string name="every">Every</string>
+    <string name="times">Times</string>
     <string name="scheduled_on">Scheduled on:  </string>
     <string name="no_scheduled_expenses">Currently, there is no scheduled expense</string>
     <string name="confirm_delete_scheduled_entry">Are you sure to delete this scheduled expense entry?</string>

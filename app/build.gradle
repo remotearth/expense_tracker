@@ -43,6 +43,7 @@ android {
 
     lintOptions {
         abortOnError false
+        disable 'ContentDescription','UnusedResources','VectorPath','ButtonStyle','ButtonCase','Autofill'
     }
 
     productFlavors {
