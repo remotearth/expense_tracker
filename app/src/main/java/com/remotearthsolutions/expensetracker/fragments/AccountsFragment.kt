@@ -72,7 +72,7 @@ class AccountsFragment : BaseFragment(),
             }).get(AccountViewModel::class.java)
 
         viewModel!!.loadAccounts()
-        viewModel!!.numberOfItem.observe(requireActivity(),
+        viewModel!!.numberOfItem.observe(viewLifecycleOwner,
             Observer { count: Int -> limitOfAccount = count }
         )
         addAccountBtn.setOnClickListener {

@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 
 class ScheduledExpenseDto {
     @ColumnInfo(name = "id")
-    var id: Int = 0
+    var id: Long = 0
 
     @ColumnInfo(name = "period")
     var period: Int = 1

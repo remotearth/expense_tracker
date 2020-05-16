@@ -30,7 +30,7 @@ class ScheduledExpenseViewModel(
     fun removeScheduledExpense(scheduledExpense: ScheduledExpenseModel) {
         mDisposable.add(
             Completable.fromAction {
-                scheduledExpenseDao.delete(scheduledExpense)
+                scheduledExpenseDao.delete(scheduledExpense.id)
             }.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {

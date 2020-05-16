@@ -12,15 +12,13 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
+import androidx.work.Data
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
-import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.ScheduledExpenseModel
+import com.remotearthsolutions.expensetracker.databaseutils.models.*
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.fragments.*
 import com.remotearthsolutions.expensetracker.utils.*
@@ -63,7 +61,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         )
 
         mView = inflater.inflate(R.layout.fragment_add_expense, container, false)
-        val repeatTypes = requireContext().resources.getStringArray(R.array.repeatType)
+        val repeatTypes = getResourceStringArray(R.array.repeatType)
         mView.repeatTypeSpnr.adapter =
             ArrayAdapter(requireContext(), R.layout.repeat_type_spinner_item, repeatTypes)
 
@@ -121,7 +119,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         mView.fromAccountBtn.setOnClickListener {
             val fm = childFragmentManager
             val accountDialogFragment: AccountDialogFragment =
-                AccountDialogFragment.newInstance(getString(R.string.select_account))
+                AccountDialogFragment.newInstance(getResourceString(R.string.select_account))
             accountDialogFragment.setCallback(object : AccountDialogFragment.Callback {
                 override fun onSelectAccount(accountIncome: AccountModel) {
                     categoryExpense!!.setAccount(accountIncome)
@@ -141,7 +139,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         mView.toCategoryBtn.setOnClickListener {
             val fm = childFragmentManager
             val categoryDialogFragment: CategoryDialogFragment =
-                CategoryDialogFragment.newInstance(getString(R.string.select_category))
+                CategoryDialogFragment.newInstance(getResourceString(R.string.select_category))
             categoryDialogFragment.setCategory(categoryExpense?.categoryId!!)
             categoryDialogFragment.setCallback(object :
                 CategoryDialogFragment.Callback {
@@ -180,16 +178,15 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         }
         mView.okBtn.setOnClickListener {
             var expenseStr = mView.inputdigit.text.toString()
-            if (expenseStr == getString(R.string.point)) {
+            if (expenseStr == getResourceString(R.string.point)) {
                 expenseStr = ""
             }
-            val amount: Double
-            amount = try {
+            val amount = try {
                 if (expenseStr.isNotEmpty()) expenseStr.toDouble() else 0.0
             } catch (e: NumberFormatException) {
                 Toast.makeText(
                     mContext,
-                    resources.getString(R.string.make_sure_enter_valid_number),
+                    getResourceString(R.string.make_sure_enter_valid_number),
                     Toast.LENGTH_SHORT
                 ).show()
                 return@setOnClickListener
@@ -210,8 +207,10 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 val period = mView.numberTv.text.toString().toInt()
                 val repeatType = mView.repeatTypeSpnr.selectedItemPosition
                 val repeatCount = mView.timesTv.text.toString().toInt()
-
-                viewModel!!.scheduleExpense(expenseModel, period, repeatType, repeatCount)
+                val nextDate = ExpenseScheduler.nextOcurrenceDate(
+                    Calendar.getInstance().timeInMillis, period, repeatType
+                )
+                viewModel!!.scheduleExpense(expenseModel, period, repeatType, repeatCount, nextDate)
             }
         }
         mView.expenseNoteEdtxt.setOnClickListener {
@@ -219,10 +218,10 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         }
         mView.expenseDeleteBtn.setOnClickListener {
             if (categoryExpense!!.expenseId > 0) {
-                showAlert(getString(R.string.attention),
-                    getString(R.string.are_you_sure_you_want_to_delete_this_expense_entry),
-                    getString(R.string.yes),
-                    getString(R.string.not_now),
+                showAlert(getResourceString(R.string.attention),
+                    getResourceString(R.string.are_you_sure_you_want_to_delete_this_expense_entry),
+                    getResourceString(R.string.yes),
+                    getResourceString(R.string.not_now),
                     object : BaseView.Callback {
                         override fun onOkBtnPressed() {
                             viewModel!!.deleteExpense(categoryExpense)
@@ -256,7 +255,8 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
 
     override fun onExpenseAdded(amount: Double) {
         mView.inputdigit.setText("")
-        Toast.makeText(activity, getString(R.string.successfully_added), Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, getResourceString(R.string.successfully_added), Toast.LENGTH_SHORT)
+            .show()
         var mutableAmount = amount
 
         purpose?.let {
@@ -272,7 +272,6 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             }
         }
         viewModel!!.updateAccountAmount(categoryExpense?.accountId!!, mutableAmount)
-
         val mainActivity = mContext as MainActivity?
         mainActivity!!.updateSummary()
         mainActivity.refreshChart()
@@ -291,7 +290,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
     override fun onExpenseDeleted(categoryExpense: CategoryExpense?) {
         Toast.makeText(
             activity,
-            getString(R.string.successfully_deleted_expense_entry),
+            getResourceString(R.string.successfully_deleted_expense_entry),
             Toast.LENGTH_SHORT
         ).show()
         (mContext as Activity?)!!.onBackPressed()
@@ -332,6 +331,20 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
     }
 
     override fun onScheduleExpense(scheduledExpenseModel: ScheduledExpenseModel) {
-        showToast("Expense is scheduled to be added")
+        val delay = scheduledExpenseModel.nextoccurrencedate - Calendar.getInstance().timeInMillis
+        val data = Data.Builder()
+        data.putLong(ExpenseScheduler.SCHEDULED_EXPENSE_ID, scheduledExpenseModel.id)
+        val workRequestId = WorkManagerEnqueuer().enqueue<AddScheduledExpenseWorker>(
+            requireContext(),
+            WorkRequestType.PERIODIC,
+            delay,
+            data.build()
+        )
+        Thread(Runnable {
+            DatabaseClient.getInstance(mContext)
+                .appDatabase
+                .workerIdDao()
+                .add(WorkerIdModel(scheduledExpenseModel.id, workRequestId))
+        }).start()
     }
 }

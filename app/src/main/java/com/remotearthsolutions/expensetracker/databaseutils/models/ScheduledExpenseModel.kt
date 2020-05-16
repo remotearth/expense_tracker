@@ -9,7 +9,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.Schedule
 @Entity(tableName = "scheduled_expense")
 class ScheduledExpenseModel {
     @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
+    var id: Long = 0
 
     @ColumnInfo(name = "period")
     var period: Int = 1

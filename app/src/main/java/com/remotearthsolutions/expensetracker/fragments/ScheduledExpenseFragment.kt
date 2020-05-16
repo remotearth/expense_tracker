@@ -68,13 +68,13 @@ class ScheduledExpenseFragment : BaseFragment() {
         val llm = LinearLayoutManager(mContext)
         mView.recyclerView.layoutManager = llm
 
-        viewModel.scheduledExpensesLiveData.observe(requireActivity(), Observer {
+        viewModel.scheduledExpensesLiveData.observe(viewLifecycleOwner, Observer {
             if (it == null || it.isEmpty()) {
                 mView.noEntryMessage.visibility = View.VISIBLE
-                mView.recyclerView.visibility = View.GONE
-                mView.noEntryMessage.text = getString(R.string.no_scheduled_expenses)
+                mView.recyclerView.visibility = View.INVISIBLE
+                mView.noEntryMessage.text = getResourceString(R.string.no_scheduled_expenses)
             } else {
-                mView.noEntryMessage.visibility = View.GONE
+                mView.noEntryMessage.visibility = View.INVISIBLE
                 mView.recyclerView.visibility = View.VISIBLE
                 adapter = ScheduledExpenseListAdapter(it, currencySymbol, format, onItemClick)
                 mView.recyclerView.adapter = adapter
@@ -88,10 +88,10 @@ class ScheduledExpenseFragment : BaseFragment() {
         override fun onItemDeleteButtonClick(scheduledExpense: ScheduledExpenseDto) {
             AlertDialogUtils.show(mContext,
                 null,
-                getString(R.string.confirm_delete_scheduled_entry),
-                getString(R.string.ok)
+                getResourceString(R.string.confirm_delete_scheduled_entry),
+                getResourceString(R.string.ok)
                 ,
-                getString(R.string.cancel),
+                getResourceString(R.string.cancel),
                 object : BaseView.Callback {
                     override fun onOkBtnPressed() {
                         val scheduleExpenseModel = ScheduledExpenseModel().fromDto(scheduledExpense)

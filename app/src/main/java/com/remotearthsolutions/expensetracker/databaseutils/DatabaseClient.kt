@@ -23,6 +23,10 @@ class DatabaseClient private constructor(private val context: Context) {
                             "`occurrence` INTEGER NOT NULL, `nextoccurrencedate` INTEGER NOT NULL, `categoryid` INTEGER NOT NULL," +
                             "`accountid` INTEGER NOT NULL,`amount` REAL NOT NULL,`note` TEXT, PRIMARY KEY(`id`))"
                 )
+                database.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `workers_ids` (" +
+                            "`id` INTEGER NOT NULL, `scheduled_expense_id` INTEGER NOT NULL, `worker_id` TEXT, PRIMARY KEY(`id`))"
+                )
             }
         }
 

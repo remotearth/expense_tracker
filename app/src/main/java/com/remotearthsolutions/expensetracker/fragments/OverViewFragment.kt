@@ -60,12 +60,12 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         super.onViewCreated(view, savedInstanceState)
 
         val maxWidthOfBar = Utils.getDeviceScreenSize(requireActivity())
-            ?.width?.minus(resources.getDimension(R.dimen.dp_50))
-        val height = Utils.getDeviceScreenSize(requireActivity())?.height?.div(4)
+            ?.width?.minus(requireContext().resources.getDimension(R.dimen.dp_50))
+        val height = Utils.getDeviceScreenSize(requireContext())?.height?.div(4)
         val param = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height!!)
         barChart.layoutParams = param
 
-        val db = DatabaseClient.getInstance(mContext!!).appDatabase
+        val db = DatabaseClient.getInstance(requireContext()).appDatabase
 
 
         viewModel =
@@ -73,7 +73,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
                 AllTransactionsViewModel(
                     db.categoryExpenseDao(),
                     db.categoryDao(),
-                    SharedPreferenceUtils.getInstance(mContext!!)!!
+                    SharedPreferenceUtils.getInstance(requireActivity())!!
                         .getString(
                             Constants.PREF_TIME_FORMAT,
                             resources.getString(R.string.default_time_format)
@@ -86,7 +86,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         recyclerView.layoutManager = llm
 
         viewModel.getAllCategory()
-        viewModel.listOfCateogoryLiveData.observe(requireActivity(), Observer {
+        viewModel.listOfCateogoryLiveData.observe(viewLifecycleOwner, Observer {
             listOfCategoryWithExpense = ArrayList()
             it.forEachIndexed { index, ctg ->
                 val item = CategoryOverviewItemDto()
@@ -99,7 +99,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
 
         setupChart()
 
-        viewModel.chartDataRequirementLiveData.observe(requireActivity(), Observer {
+        viewModel.chartDataRequirementLiveData.observe(viewLifecycleOwner, Observer {
             val currencySymbol = Utils.getCurrency(requireContext())
             barChart.clear()
 

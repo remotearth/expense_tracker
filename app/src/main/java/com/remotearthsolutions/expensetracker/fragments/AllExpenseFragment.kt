@@ -58,7 +58,7 @@ class AllExpenseFragment : BaseFragment() {
                 )
             }).get(AllTransactionsViewModel::class.java)
 
-        viewModel?.expenseListLiveData?.observe(requireActivity(), Observer {
+        viewModel?.expenseListLiveData?.observe(viewLifecycleOwner, Observer {
             val listOffilterExpense = it
             if (listOffilterExpense == null || listOffilterExpense.isEmpty()) {
                 mView.expenserecyclearView.visibility = View.GONE

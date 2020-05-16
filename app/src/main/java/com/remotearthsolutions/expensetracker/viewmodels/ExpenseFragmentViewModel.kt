@@ -136,22 +136,25 @@ class ExpenseFragmentViewModel(
         expenseModel: ExpenseModel,
         period: Int,
         repeatType: Int,
-        repeatCount: Int
+        repeatCount: Int,
+        nextOccurrenceDate: Long
     ) {
         val scheduledExpenseModel = ScheduledExpenseModel(
             period,
             repeatType,
             repeatCount,
-            112313,
+            nextOccurrenceDate,
             expenseModel.categoryId,
             expenseModel.source,
             expenseModel.amount,
             expenseModel.note
         )
+        var rowId:Long = -100
         compositeDisposable.add(Completable.fromAction {
-            scheduleExpenseDao.add(scheduledExpenseModel)
+            rowId = scheduleExpenseDao.add(scheduledExpenseModel).blockingGet()
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe {
+                scheduledExpenseModel.id = rowId
                 view.onScheduleExpense(scheduledExpenseModel)
             }
         )
