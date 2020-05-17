@@ -110,6 +110,10 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             }
         }
 
+        if(purpose?.equals(Purpose.UPDATE)!!){
+            mView.enableRepeatBtn.visibility = View.GONE
+        }
+
         registerBackButton()
         return mView
     }
@@ -210,9 +214,23 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 val nextDate = ExpenseScheduler.nextOcurrenceDate(
                     Calendar.getInstance().timeInMillis, period, repeatType
                 )
-                viewModel!!.scheduleExpense(expenseModel, period, repeatType, repeatCount, nextDate)
+                AlertDialogUtils.show(requireActivity(), null,
+                    "This expense is added now. It will be repeated $repeatCount time(s) according to the selected frequency",
+                    getResourceString(R.string.ok), null, object : BaseView.Callback {
+                        override fun onOkBtnPressed() {
+                            viewModel!!.scheduleExpense(
+                                expenseModel,
+                                period,
+                                repeatType,
+                                repeatCount,
+                                nextDate
+                            )
+                        }
+                    }
+                )
             }
         }
+
         mView.expenseNoteEdtxt.setOnClickListener {
             DialogHelper.showExpenseNoteInput(mContext, layoutInflater, mView, categoryExpense)
         }

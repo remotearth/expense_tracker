@@ -6,14 +6,24 @@ import java.util.concurrent.TimeUnit
 
 class WorkManagerEnqueuer {
 
+    /**
+     * Use this method to enqueue WorkRequest
+     *
+     * @param context   the current context
+     * @param workRequestType   {@code WorkRequestType.ONETIME} or {@code WorkRequestType.PERIODIC}
+     * @param delayMills    time between the work defined in milliseconds
+     * @param data  inputData to include in workrequest so that it can be used in doWork method of the worker class
+     * @param initialDelayMills set an initial delay for first occurrence of periodic request, Not used for ONETIME WorkRequestType
+     * @return id of the WorkRequest
+     */
     inline fun <reified T : Worker> enqueue(
         context: Context,
         workRequestType: WorkRequestType,
         delayMills: Long,
         data: Data,
-        initialDelayMills: Long? = -1 // not used for WorkRequestType.ONETIME
+        initialDelayMills: Long = -1 // not used for WorkRequestType.ONETIME
     ): String {
-        val workRequest = getWorkRequest<T>(workRequestType, data, delayMills, initialDelayMills!!)
+        val workRequest = getWorkRequest<T>(workRequestType, data, delayMills, initialDelayMills)
         WorkManager.getInstance(context).enqueue(workRequest)
         return workRequest.id.toString()
     }

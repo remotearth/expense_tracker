@@ -149,6 +149,10 @@ class ExpenseFragmentViewModel(
             expenseModel.amount,
             expenseModel.note
         )
+        if (abs(expenseModel.amount) == 0.0) {
+            return
+        }
+
         var rowId:Long = -100
         compositeDisposable.add(Completable.fromAction {
             rowId = scheduleExpenseDao.add(scheduledExpenseModel).blockingGet()

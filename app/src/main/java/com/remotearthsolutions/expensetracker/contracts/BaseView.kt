@@ -16,7 +16,6 @@ interface BaseView {
     interface Callback {
         fun onOkBtnPressed()
         fun onCancelBtnPressed(){
-
         }
     }
 }
