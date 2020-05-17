@@ -1,6 +1,7 @@
 package com.remotearthsolutions.expensetracker.viewmodels
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.remotearthsolutions.expensetracker.contracts.HomeFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao
@@ -21,13 +22,14 @@ class HomeFragmentViewModel(
     private val accountDao: AccountDao
 ) : ViewModel() {
     private val disposable = CompositeDisposable()
+    val categoryListLiveData = MutableLiveData<List<CategoryModel>>()
     fun init() {
         disposable.add(
             categoryDao.allCategories
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { categories: List<CategoryModel>? ->
-                    view.showCategories(categories)
+                    categoryListLiveData.postValue(categories)
                 }
         )
     }

@@ -81,33 +81,35 @@ class HomeFragment : BaseFragment(),
                     db.categoryDao(),
                     db.accountDao()
                 )
-            }).get(HomeFragmentViewModel::class.java).apply {
-                this.init()
-            }
+            }).get(HomeFragmentViewModel::class.java)
 
-        viewModel!!.init()
-        viewModel!!.loadExpenseChart(startTime, endTime)
+        viewModel?.categoryListLiveData?.observe(viewLifecycleOwner, Observer {
+            adapter = CategoryListAdapter(it)
+            adapter.setScreenSize(getDeviceScreenSize(mContext))
+            adapter.setOnItemClickListener(object : CategoryListAdapter.OnItemClickListener {
+                override fun onItemClick(category: CategoryModel?) {
+                    val categoryExpense =
+                        CategoryExpense()
+                    categoryExpense.setCategory(category!!)
+                    (mContext as MainActivity).openAddExpenseScreen(categoryExpense)
+                }
+            })
+            binding.recyclerView.adapter = adapter
+        })
         viewModel!!.numberOfItem.observe(
             viewLifecycleOwner,
             Observer { integer: Int? -> limitOfCategory = integer }
         )
+        init()
+    }
+
+    fun init(){
+        viewModel!!.init()
+        viewModel!!.loadExpenseChart(startTime, endTime)
     }
 
     override fun showCategories(categories: List<CategoryModel>?) {
-        adapter = CategoryListAdapter(categories)
-        adapter.setScreenSize(
-            getDeviceScreenSize(mContext)
-        )
-        adapter.setOnItemClickListener(object : CategoryListAdapter.OnItemClickListener {
-            override fun onItemClick(category: CategoryModel?) {
-                val categoryExpense =
-                    CategoryExpense()
-                categoryExpense.setCategory(category!!)
-                (mContext as MainActivity).openAddExpenseScreen(categoryExpense)
-            }
 
-        })
-        binding.recyclerView.adapter = adapter
     }
 
     override fun loadExpenseChart(listOfCategoryWithAmount: List<ExpenseChartData>?) {
@@ -136,6 +138,9 @@ class HomeFragment : BaseFragment(),
                     AddCategoryDialogFragment.newInstance(getString(R.string.add_category))
                 categoryDialogFragment.setCallback(object : AddCategoryDialogFragment.Callback {
                     override fun onCategoryAdded(categoryModel: CategoryModel?) {
+                        val listOfCategory = viewModel?.categoryListLiveData?.value?.toMutableList()
+                        listOfCategory?.add(categoryModel!!)
+                        viewModel?.categoryListLiveData?.postValue(listOfCategory)
                         categoryDialogFragment.dismiss()
                     }
                 })

@@ -254,6 +254,10 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
     override fun onNothingSelected() {
     }
 
+    fun onUpdateCategory(){
+        viewModel.getAllCategory()
+    }
+
     private val onValueSelectedRectF = RectF()
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         if (e == null) return

@@ -258,7 +258,6 @@ class MainFragment : BaseFragment(),
                 }
             }
         }
-
         override fun onPageScrollStateChanged(state: Int) {}
     }
 
@@ -305,7 +304,7 @@ class MainFragment : BaseFragment(),
 
     fun refreshChart() {
         if (selectedPeriodBtn != null) {
-            selectedPeriodBtn!!.performClick()
+            selectedPeriodBtn?.performClick()
         }
     }
 
@@ -343,13 +342,4 @@ class MainFragment : BaseFragment(),
             return null
         }
     }
-
-//    private fun <T : Fragment> findViewPagerFragmentByTag(
-//        fragmentManager: FragmentManager,
-//        fragmentPosition: Int
-//    ): T? {
-//        val fragmentTag = "android:switcher:${R.id.viewpager}:${fragmentPosition}"
-//        return fragmentManager.findFragmentByTag(fragmentTag) as T?
-//    }
-
 }

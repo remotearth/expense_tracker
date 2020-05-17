@@ -109,6 +109,7 @@ class CategoryFragment : BaseFragment(),
             override fun onCategoryAdded(categoryModel: CategoryModel?) {
                 viewModel?.showCategories()
                 categoryDialogFragment.dismiss()
+                (activity as MainActivity).onUpdateCategory()
             }
         })
         categoryDialogFragment.show(fm, AddCategoryDialogFragment::class.java.name)
@@ -132,7 +133,7 @@ class CategoryFragment : BaseFragment(),
                         getResourceString(R.string.category_deleted_successfully),
                         Toast.LENGTH_LONG
                     ).show()
-                    (activity as MainActivity).updateSummary()
+                    (activity as MainActivity).onUpdateCategory()
                 }
 
                 override fun onCancelBtnPressed() {}

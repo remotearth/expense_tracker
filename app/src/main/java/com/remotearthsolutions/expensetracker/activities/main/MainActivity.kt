@@ -24,6 +24,8 @@ import com.remotearthsolutions.expensetracker.activities.helpers.FragmentLoader
 import com.remotearthsolutions.expensetracker.contracts.MainContract
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
+import com.remotearthsolutions.expensetracker.fragments.HomeFragment
+import com.remotearthsolutions.expensetracker.fragments.OverViewFragment
 import com.remotearthsolutions.expensetracker.fragments.ViewShadeFragment
 import com.remotearthsolutions.expensetracker.fragments.addexpensescreen.ExpenseFragment
 import com.remotearthsolutions.expensetracker.fragments.addexpensescreen.Purpose
@@ -31,10 +33,7 @@ import com.remotearthsolutions.expensetracker.fragments.main.MainFragment
 import com.remotearthsolutions.expensetracker.services.FileProcessingServiceImp
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl
 import com.remotearthsolutions.expensetracker.services.PurchaseListener
-import com.remotearthsolutions.expensetracker.utils.CheckoutUtils
-import com.remotearthsolutions.expensetracker.utils.Constants
-import com.remotearthsolutions.expensetracker.utils.InAppUpdateUtils
-import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
+import com.remotearthsolutions.expensetracker.utils.*
 import com.remotearthsolutions.expensetracker.viewmodels.mainview.MainViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
@@ -285,6 +284,25 @@ class MainActivity : BaseActivity(), MainContract.View {
         val fragment =
             supportFragmentManager.findFragmentByTag(MainFragment::class.java.name) as MainFragment?
         fragment?.refreshChart()
+    }
+
+    fun onUpdateCategory() {
+        updateSummary()
+        val mainFragment =
+            supportFragmentManager.findFragmentByTag(MainFragment::class.java.name) as MainFragment?
+        val homeFragment =
+            mainFragment?.childFragmentManager?.findViewPagerFragmentByTag<HomeFragment>(
+                R.id.viewpager,
+                0
+            )
+        homeFragment?.init()
+        val overViewFragment =
+            mainFragment?.childFragmentManager?.findViewPagerFragmentByTag<OverViewFragment>(
+                R.id.viewpager,
+                2
+            )
+        overViewFragment?.onUpdateCategory()
+        mainFragment?.refreshChart()
     }
 
     companion object {

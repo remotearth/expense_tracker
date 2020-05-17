@@ -79,15 +79,11 @@ class CategoryDialogFragment : DialogFragment(),
 
     override fun showCategories(categories: List<CategoryModel>?) {
         categoryListAdapter = CategoryListAdapter(categories, selectedCategoryId)
-        categoryListAdapter.setScreenSize(
-            getDeviceScreenSize(mContext)
-        )
+        categoryListAdapter.setScreenSize(getDeviceScreenSize(mContext))
         categoryListAdapter.setOnItemClickListener(object :
             CategoryListAdapter.OnItemClickListener {
             override fun onItemClick(category: CategoryModel?) {
-                callback!!.onSelectCategory(
-                    category
-                )
+                callback!!.onSelectCategory(category)
             }
         })
 

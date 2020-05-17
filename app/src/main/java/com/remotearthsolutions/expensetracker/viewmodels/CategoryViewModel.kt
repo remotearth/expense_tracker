@@ -26,22 +26,8 @@ class CategoryViewModel(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { categories: List<CategoryModel> ->
-                    view.showCategories(
-                        categories
-                    )
+                    view.showCategories(categories)
                 }
-        )
-    }
-
-    fun updateCategory(categoryModel: CategoryModel) {
-        disposable.add(Completable.fromAction {
-            categoryDao.updateCategory(
-                categoryModel
-            )
-        }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { showCategories() }
         )
     }
 
