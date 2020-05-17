@@ -12,23 +12,23 @@ import com.remotearthsolutions.expensetracker.utils.FirebaseEventLogUtils.logCus
 class AdmobUtils private constructor(private val activity: Activity) {
     private var interstitialAd: InterstitialAd = InterstitialAd(activity)
 
-    fun showInterstitialAds() {
-        interstitialAd.let {
-            if (BuildConfig.DEBUG) {
-                it.adUnitId = activity.getString(R.string.admob_test_ad_id)
-            } else {
-                it.adUnitId = activity.getString(R.string.admob_ad_id)
-            }
-            val adRequest =
-                AdRequest.Builder().build()
-            it.loadAd(adRequest)
-            it.adListener = object : AdListener() {
-                override fun onAdLoaded() {
-                    val app = activity.application as ApplicationObject
-                    if (app.isActivityVisible && app.isAppShouldShowAds) {
-                        it.show()
-                        logCustom(activity,"Ad shown")
-                    }
+    init {
+        if (BuildConfig.DEBUG) {
+            interstitialAd.adUnitId = activity.getString(R.string.admob_test_ad_id)
+        } else {
+            interstitialAd.adUnitId = activity.getString(R.string.admob_ad_id)
+        }
+    }
+
+    fun showInterstitialAds() = interstitialAd.let {
+        val adRequest = AdRequest.Builder().build()
+        it.loadAd(adRequest)
+        it.adListener = object : AdListener() {
+            override fun onAdLoaded() {
+                val app = activity.application as ApplicationObject
+                if (app.isActivityVisible && app.isAppShouldShowAds) {
+                    it.show()
+                    logCustom(activity, "Ad shown")
                 }
             }
         }
