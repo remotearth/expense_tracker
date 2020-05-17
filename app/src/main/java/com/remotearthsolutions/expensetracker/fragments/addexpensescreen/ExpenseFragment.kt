@@ -215,6 +215,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                     Calendar.getInstance().timeInMillis, period, repeatType
                 )
                 AlertDialogUtils.show(requireActivity(), null,
+                    // TODO: move string to string.xml
                     "This expense is added now. It will be repeated $repeatCount time(s) according to the selected frequency",
                     getResourceString(R.string.ok), null, object : BaseView.Callback {
                         override fun onOkBtnPressed() {

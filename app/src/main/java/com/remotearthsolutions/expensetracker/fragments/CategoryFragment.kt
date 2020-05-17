@@ -71,9 +71,9 @@ class CategoryFragment : BaseFragment(),
                 onClickEditBtn()
             } else {
                 showAlert(
-                    getString(R.string.attention),
-                    getString(R.string.you_need_to_be_premium_user_to_add_more_categories),
-                    getString(R.string.ok),
+                    getResourceString(R.string.attention),
+                    getResourceString(R.string.you_need_to_be_premium_user_to_add_more_categories),
+                    getResourceString(R.string.ok),
                     null,
                     null
                 )
@@ -103,11 +103,11 @@ class CategoryFragment : BaseFragment(),
     override fun onClickEditBtn() {
         val fm = childFragmentManager
         val categoryDialogFragment: AddCategoryDialogFragment =
-            AddCategoryDialogFragment.newInstance(getString(R.string.update_category))
+            AddCategoryDialogFragment.newInstance(getResourceString(R.string.update_category))
         categoryDialogFragment.setCategory(selectedCategory)
         categoryDialogFragment.setCallback(object : AddCategoryDialogFragment.Callback {
             override fun onCategoryAdded(categoryModel: CategoryModel?) {
-                //viewModel.showCategories();
+                viewModel?.showCategories()
                 categoryDialogFragment.dismiss()
             }
         })
@@ -116,20 +116,20 @@ class CategoryFragment : BaseFragment(),
 
     override fun onClickDeleteBtn() {
         if (selectedCategory!!.notremovable == 1) {
-            showToast(getString(R.string.you_cannot_delete_this_category))
+            showToast(getResourceString(R.string.you_cannot_delete_this_category))
             return
         }
         showAlert(
-            getString(R.string.warning),
-            getString(R.string.deleting_this_category_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete),
-            getString(R.string.yes),
-            getString(R.string.not_now),
+            getResourceString(R.string.warning),
+            getResourceString(R.string.deleting_this_category_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete),
+            getResourceString(R.string.yes),
+            getResourceString(R.string.not_now),
             object : BaseView.Callback {
                 override fun onOkBtnPressed() {
                     viewModel!!.deleteCategory(selectedCategory!!)
                     Toast.makeText(
                         activity,
-                        getString(R.string.category_deleted_successfully),
+                        getResourceString(R.string.category_deleted_successfully),
                         Toast.LENGTH_LONG
                     ).show()
                     (activity as MainActivity).updateSummary()
