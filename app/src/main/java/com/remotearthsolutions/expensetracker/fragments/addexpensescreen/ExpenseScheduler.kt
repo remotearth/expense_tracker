@@ -2,7 +2,6 @@ package com.remotearthsolutions.expensetracker.fragments.addexpensescreen
 
 import java.util.*
 
-
 object ExpenseScheduler {
     const val SCHEDULED_EXPENSE_ID = "SCHEDULED_EXPENSE_ID"
     fun nextOcurrenceDate(currentDateTime: Long, period: Int, periodType: Int): Long {

@@ -359,7 +359,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         val workRequestId = WorkManagerEnqueuer()
             .enqueue<AddScheduledExpenseWorker>(
                 requireContext(),
-                WorkRequestType.PERIODIC,
+                WorkRequestType.ONETIME,
                 delay,
                 data.build()
             )

@@ -1,9 +1,6 @@
 package com.remotearthsolutions.expensetracker.databaseutils.daos
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.remotearthsolutions.expensetracker.databaseutils.models.WorkerIdModel
 import io.reactivex.Single
 
@@ -11,6 +8,9 @@ import io.reactivex.Single
 interface WorkerIdsDao {
     @Insert
     fun add(workerIdModel: WorkerIdModel)
+
+    @Update
+    fun update(workerIdModel: WorkerIdModel)
 
     @Delete
     fun delete(workerIdModel: WorkerIdModel)
