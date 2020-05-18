@@ -8,6 +8,7 @@ import androidx.multidex.MultiDexApplication
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.utils.Constants
+import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import org.solovyev.android.checkout.Billing
 import org.solovyev.android.checkout.Billing.DefaultConfiguration
@@ -33,7 +34,7 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
         FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(!BuildConfig.DEBUG)
         SharedPreferenceUtils.getInstance(this)
         registerActivityLifecycleCallbacks(this)
-
+        LocalNotificationManager.createNotificationChannel(this)
     }
 
     fun appShouldShowAds(state: Boolean) {

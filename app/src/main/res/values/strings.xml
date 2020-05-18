@@ -7,6 +7,7 @@
     <string name="defaultvalue" translatable="false">Bangladeshi Taka - BDT</string>
     <string name="prefdate" translatable="false">pref_period_list</string>
     <string name="preftimeformat" translatable="false">pref_time_format_list</string>
+    <string name="prefremindtoexport" translatable="false">pref_remind_to_export</string>
 
     <string name="admob_app_id" translatable="false">ca-app-pub-3996731798982494~9482261632</string>
     <string name="admob_ad_id" translatable="false">ca-app-pub-3996731798982494/8955771736</string>
@@ -271,4 +272,6 @@
     <string name="scheduled_on">Scheduled on</string>
     <string name="no_scheduled_expenses">Currently, there is no scheduled expense</string>
     <string name="confirm_delete_scheduled_entry">Are you sure to delete this scheduled expense entry?</string>
+
+    <string name="time_to_export_data">It is time to export your expense data</string>
 </resources>

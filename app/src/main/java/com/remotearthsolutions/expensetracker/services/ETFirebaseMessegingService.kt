@@ -2,19 +2,17 @@ package com.remotearthsolutions.expensetracker.services
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.utils.Constants
+import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
 
 class ETFirebaseMessegingService : FirebaseMessagingService() {
 
@@ -22,6 +20,7 @@ class ETFirebaseMessegingService : FirebaseMessagingService() {
         super.onNewToken(token)
         println("Firebase token: $token")
     }
+
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         if ((applicationContext as ApplicationObject).isActivityVisible) {
             val activity = (applicationContext as ApplicationObject).currentActivity
@@ -65,14 +64,11 @@ class ETFirebaseMessegingService : FirebaseMessagingService() {
             intent,
             PendingIntent.FLAG_ONE_SHOT
         )
-        val builder = NotificationCompat.Builder(this,"expense_tracker_channel_id")
-        builder.setContentTitle(getString(R.string.remotearth_notification))
-        builder.setContentText(remoteMessage.notification!!.body)
-        builder.setAutoCancel(true)
-        builder.setSmallIcon(R.mipmap.ic_logo)
-        builder.setContentIntent(pendingIntent)
-        val manager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        manager.notify(0, builder.build())
+        LocalNotificationManager.showNotification(
+            this,
+            getString(R.string.remotearth_notification),
+            remoteMessage.notification!!.body!!,
+            pendingIntent
+        )
     }
 }

@@ -28,4 +28,12 @@
         android:summary="@string/select_time_format_from_here"
         android:title="@string/prefTimeFormatTitle" />
 
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:icon="@drawable/ic_change_date_formate"
+        android:key="@string/prefremindtoexport"
+        android:summary="On 1st day of every month"
+        android:title="Remind to export data" />
+
+
 </PreferenceScreen>

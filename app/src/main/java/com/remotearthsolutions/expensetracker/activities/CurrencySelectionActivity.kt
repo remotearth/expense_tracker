@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.fragments.CurrencyFragment
-import com.remotearthsolutions.expensetracker.fragments.SettingsFragment
+import com.remotearthsolutions.expensetracker.fragments.settings.SettingsFragment
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import kotlinx.android.synthetic.main.activity_currency_selection.*

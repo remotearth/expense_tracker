@@ -21,6 +21,7 @@ import com.remotearthsolutions.expensetracker.activities.helpers.FragmentLoader
 import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.fragments.*
 import com.remotearthsolutions.expensetracker.fragments.main.MainFragment
+import com.remotearthsolutions.expensetracker.fragments.settings.SettingsFragment
 import com.remotearthsolutions.expensetracker.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.solovyev.android.checkout.BillingRequests
@@ -182,7 +183,8 @@ class NavigationItemSelectionListener(
                 }
                 R.id.nav_settings -> {
                     FragmentLoader.load(
-                        this, SettingsFragment(), getString(R.string.menu_categories),
+                        this,
+                        SettingsFragment(), getString(R.string.menu_categories),
                         SettingsFragment::class.java.name
                     )
                     showBackButton()

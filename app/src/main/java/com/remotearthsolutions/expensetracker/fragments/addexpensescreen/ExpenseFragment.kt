@@ -27,6 +27,8 @@ import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getCalendarFro
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getCurrentDate
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getTimeInMillisFromDateStr
 import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
+import com.remotearthsolutions.expensetracker.utils.workmanager.WorkManagerEnqueuer
+import com.remotearthsolutions.expensetracker.utils.workmanager.WorkRequestType
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseFragmentViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
 import kotlinx.android.synthetic.main.fragment_add_expense.view.*
@@ -354,7 +356,8 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         val delay = scheduledExpenseModel.nextoccurrencedate - Calendar.getInstance().timeInMillis
         val data = Data.Builder()
         data.putLong(ExpenseScheduler.SCHEDULED_EXPENSE_ID, scheduledExpenseModel.id)
-        val workRequestId = WorkManagerEnqueuer().enqueue<AddScheduledExpenseWorker>(
+        val workRequestId = WorkManagerEnqueuer()
+            .enqueue<AddScheduledExpenseWorker>(
             requireContext(),
             WorkRequestType.PERIODIC,
             delay,

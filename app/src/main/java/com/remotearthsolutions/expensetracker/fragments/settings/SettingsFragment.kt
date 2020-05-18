@@ -1,4 +1,4 @@
-package com.remotearthsolutions.expensetracker.fragments
+package com.remotearthsolutions.expensetracker.fragments.settings
 
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
@@ -27,28 +27,28 @@ class SettingsFragment : PreferenceFragmentCompat() {
         addPreferencesFromResource(R.xml.settingspreference)
         val preferencePeriod =
             findPreference<Preference>(Constants.PREF_PERIOD)
-        preferencePeriod!!.summary = SharedPreferenceUtils.getInstance(context!!)!!.getString(
-            Constants.PREF_PERIOD,
-            resources.getString(R.string.daily)
-        )
+        preferencePeriod!!.summary =
+            SharedPreferenceUtils.getInstance(requireContext())!!.getString(
+                Constants.PREF_PERIOD,
+                resources.getString(R.string.daily)
+            )
 
         val preferenceTimeFormat = findPreference<Preference>(Constants.PREF_TIME_FORMAT)
-        preferenceTimeFormat!!.summary = SharedPreferenceUtils.getInstance(context!!)!!.getString(
-            Constants.PREF_TIME_FORMAT,
-            resources.getString(R.string.default_time_format)
-        )
+        preferenceTimeFormat!!.summary =
+            SharedPreferenceUtils.getInstance(requireContext())!!.getString(
+                Constants.PREF_TIME_FORMAT,
+                resources.getString(R.string.default_time_format)
+            )
 
         val preferenceCurrency =
             findPreference<Preference>(Constants.PREF_CURRENCY)
-        val currencyName = SharedPreferenceUtils.getInstance(context!!)?.getString(
+        val currencyName = SharedPreferenceUtils.getInstance(requireContext())?.getString(
             Constants.PREF_CURRENCY,
             resources.getString(R.string.default_currency)
         )
         preferenceCurrency!!.summary = currencyName
         preferenceCurrency.setIcon(
-            getFlagDrawable(
-                context!!
-            )
+            getFlagDrawable(requireContext())
         )
         preferenceChangeListener =
             OnSharedPreferenceChangeListener { sharedPreferences: SharedPreferences, key: String ->
@@ -61,12 +61,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             resources.getString(R.string.default_currency)
                         )
                         currencyPreference!!.summary = currency
-                        currencyPreference.setIcon(
-                            getFlagDrawable(
-                                context!!
-                            )
-                        )
-                        logCustom(context!!, currency!!)
+                        currencyPreference.setIcon(getFlagDrawable(requireContext()))
+                        logCustom(requireContext(), currency!!)
                     }
                     Constants.PREF_PERIOD -> {
                         val periodPreference =
@@ -74,7 +70,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         periodPreference!!.summary = sharedPreferences.getString(
                             key, resources.getString(R.string.daily)
                         )
-                        logCustom(context!!, key)
+                        logCustom(requireContext(), key)
                     }
                     Constants.PREF_TIME_FORMAT -> {
                         val timeFormatPreference =
@@ -84,7 +80,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
                                 key,
                                 resources.getString(R.string.default_time_format)
                             )
-                        logCustom(context!!, key)
+                        logCustom(requireContext(), key)
+                    }
+                    Constants.PREF_REMIND_TO_EXPORT -> {
+                        val shouldRemindToExport = sharedPreferences.getBoolean(key, false)
+                        if (shouldRemindToExport) {
+                            ExportReminderHelper.setReminderToExport(requireContext())
+                        } else {
+                            ExportReminderHelper.cancelExportReminder(requireContext())
+                        }
                     }
                 }
             }
@@ -99,7 +103,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
     ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         context?.let {
-            view!!.setBackgroundColor(ContextCompat.getColor(context!!, android.R.color.white))
+            view?.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    android.R.color.white
+                )
+            )
         }
         registerBackButton()
         return view
@@ -125,6 +134,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 (activity as MainActivity).hideBackButton()
             }
         }
-        activity.onBackPressedDispatcher.addCallback(this, callBack ?: defaultCallback)
+        activity.onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            callBack ?: defaultCallback
+        )
     }
 }
