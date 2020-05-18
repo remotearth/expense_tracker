@@ -32,6 +32,7 @@ import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseV
 import kotlinx.android.synthetic.main.fragment_add_expense.view.*
 import org.parceler.Parcels
 import java.util.*
+import kotlin.math.abs
 
 class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
 
@@ -78,12 +79,12 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         viewModel =
             ViewModelProviders.of(this, BaseViewModelFactory {
                 ExpenseFragmentViewModel(
-                    mContext,
                     this,
                     db.expenseDao(),
                     db.accountDao(),
                     db.categoryDao(),
-                    db.scheduleExpenseDao()
+                    db.scheduleExpenseDao(),
+                    db.workerIdDao()
                 )
             }).get(ExpenseFragmentViewModel::class.java)
         viewModel!!.init()
@@ -110,7 +111,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             }
         }
 
-        if(purpose?.equals(Purpose.UPDATE)!!){
+        if (purpose?.equals(Purpose.UPDATE)!!) {
             mView.enableRepeatBtn.visibility = View.GONE
         }
 
@@ -195,6 +196,12 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 ).show()
                 return@setOnClickListener
             }
+
+            if (abs(amount) == 0.0) {
+                showToast(getResourceString(R.string.please_enter_an_amount))
+                return@setOnClickListener
+            }
+
             val expenseModel = ExpenseModel()
             expenseModel.id = categoryExpense?.expenseId!!
             expenseModel.amount = amount
@@ -205,30 +212,17 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             expenseModel.categoryId = categoryExpense!!.categoryId
             expenseModel.source = categoryExpense!!.accountId
             expenseModel.note = mView.expenseNoteEdtxt.text.toString()
-            viewModel!!.addExpense(expenseModel)
 
-            if (mView.repeatEntryView.visibility == View.VISIBLE) {
+            if (mView.repeatEntryView.visibility != View.VISIBLE) {
+                viewModel!!.addExpense(expenseModel)
+            } else {
                 val period = mView.numberTv.text.toString().toInt()
                 val repeatType = mView.repeatTypeSpnr.selectedItemPosition
                 val repeatCount = mView.timesTv.text.toString().toInt()
                 val nextDate = ExpenseScheduler.nextOcurrenceDate(
                     Calendar.getInstance().timeInMillis, period, repeatType
                 )
-                AlertDialogUtils.show(requireActivity(), null,
-                    // TODO: move string to string.xml
-                    "This expense is added now. It will be repeated $repeatCount time(s) according to the selected frequency",
-                    getResourceString(R.string.ok), null, object : BaseView.Callback {
-                        override fun onOkBtnPressed() {
-                            viewModel!!.scheduleExpense(
-                                expenseModel,
-                                period,
-                                repeatType,
-                                repeatCount,
-                                nextDate
-                            )
-                        }
-                    }
-                )
+                viewModel!!.scheduleExpense(expenseModel, period, repeatType, repeatCount, nextDate)
             }
         }
 
@@ -258,10 +252,14 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 mView.enableRepeatBtn.setImageResource(R.drawable.ic_repeat)
                 mView.singleEntryView.visibility = View.GONE
                 mView.repeatEntryView.visibility = View.VISIBLE
+                (mContext as MainActivity?)?.supportActionBar?.title =
+                    getResourceString(R.string.schedule_expense)
             } else {
                 mView.enableRepeatBtn.setImageResource(R.drawable.ic_single)
                 mView.singleEntryView.visibility = View.VISIBLE
                 mView.repeatEntryView.visibility = View.GONE
+                (mContext as MainActivity?)?.supportActionBar?.title =
+                    getResourceString(R.string.add_expense)
             }
         }
         mView.numberTv.setOnClickListener {
@@ -350,6 +348,9 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
     }
 
     override fun onScheduleExpense(scheduledExpenseModel: ScheduledExpenseModel) {
+        mView.inputdigit.setText("")
+        showToast(getResourceString(R.string.expense_is_scheduled))
+
         val delay = scheduledExpenseModel.nextoccurrencedate - Calendar.getInstance().timeInMillis
         val data = Data.Builder()
         data.putLong(ExpenseScheduler.SCHEDULED_EXPENSE_ID, scheduledExpenseModel.id)
@@ -359,11 +360,6 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             delay,
             data.build()
         )
-        Thread(Runnable {
-            DatabaseClient.getInstance(mContext)
-                .appDatabase
-                .workerIdDao()
-                .add(WorkerIdModel(scheduledExpenseModel.id, workRequestId))
-        }).start()
+        viewModel?.saveWorkerId(WorkerIdModel(scheduledExpenseModel.id, workRequestId))
     }
 }

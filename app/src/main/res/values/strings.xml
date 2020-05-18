@@ -81,7 +81,10 @@
     <string name="menu_licenses">Licenses</string>
     <string name="menu_logout">Logout</string>
     <string name="add_expense">Add Expense</string>
+    <string name="schedule_expense">Schedule Expense</string>
     <string name="update_expense">Update Expense</string>
+
+    <string name="expense_is_scheduled">Expense is scheduled</string>
 
     <string name="preferencetitle">Select Currency</string>
 
@@ -229,7 +232,7 @@
     <string name="please_wait">Please wait…</string>
     <string name="operation_successful">Operation successful</string>
     <string name="please_enter_an_amount">Please enter an amount</string>
-    <string name="make_sure_enter_valid_number">Error occurred. Please make sure you enter a valid number</string>
+    <string name="make_sure_enter_valid_number">Please make sure you enter a valid number</string>
 
 
     <string name="whatsinpremium">What\'s in premium version?</string>
