@@ -1,7 +1,7 @@
 package com.remotearthsolutions.expensetracker.fragments
 
-import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -16,13 +16,18 @@ import com.remotearthsolutions.expensetracker.services.ProgressService
 import com.remotearthsolutions.expensetracker.services.ProgressServiceImp
 import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils.show
 
-abstract class BaseFragment : Fragment(), BaseView {
+abstract class BaseFragment : Fragment(), BaseView, Observer {
     private var internetCheckerService: InternetCheckerService? = null
     private var progressService: ProgressService? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         internetCheckerService = InternetCheckerServiceImpl(requireActivity())
         progressService = ProgressServiceImp(requireActivity())
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observe()
     }
 
     override fun showAlert(
@@ -72,5 +77,11 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     fun getResourceStringArray(id: Int): Array<String> {
         return requireActivity().resources.getStringArray(id)
+    }
+
+}
+
+interface Observer {
+    fun observe() {
     }
 }

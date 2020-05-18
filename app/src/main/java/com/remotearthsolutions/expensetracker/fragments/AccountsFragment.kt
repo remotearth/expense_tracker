@@ -56,7 +56,6 @@ class AccountsFragment : BaseFragment(),
         view: View,
         savedInstanceState: Bundle?
     ) {
-        super.onViewCreated(view, savedInstanceState)
         currencySymbol = "$"
         if (mContext != null) {
             currencySymbol = getCurrency(mContext!!)
@@ -100,30 +99,43 @@ class AccountsFragment : BaseFragment(),
                 TransferBalanceDialogFragment::class.java.name
             )
         }
+
+        super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun onAccountFetch(accounts: List<AccountModel>?) {
-        if (isAdded) {
-            adapter = AccountsAdapter(mContext!!, accounts!!, currencySymbol!!)
-            mView.accountList.adapter = adapter
-            mView.accountList.onItemClickListener =
-                AdapterView.OnItemClickListener { _: AdapterView<*>?, _: View?, position: Int, _: Long ->
-                    selectAccountModel = accounts[position]
-                    val optionBottomSheetFragment = OptionBottomSheetFragment()
-                    optionBottomSheetFragment.setCallback(this@AccountsFragment, OptionsFor.ACCOUNT)
-                    optionBottomSheetFragment.show(
-                        childFragmentManager,
-                        OptionBottomSheetFragment::class.java.name
-                    )
-                }
-        }
+    override fun observe() {
+
+        viewModel!!.listOfAccountLiveData.observe(viewLifecycleOwner, Observer {
+            if (isAdded) {
+                adapter = AccountsAdapter(mContext!!, it, currencySymbol!!)
+                mView.accountList.adapter = adapter
+                mView.accountList.onItemClickListener =
+                    AdapterView.OnItemClickListener { _: AdapterView<*>?, _: View?, position: Int, _: Long ->
+                        selectAccountModel = it[position]
+                        val optionBottomSheetFragment = OptionBottomSheetFragment()
+                        optionBottomSheetFragment.setCallback(
+                            this@AccountsFragment,
+                            OptionsFor.ACCOUNT
+                        )
+                        optionBottomSheetFragment.show(
+                            childFragmentManager,
+                            OptionBottomSheetFragment::class.java.name
+                        )
+                    }
+            }
+        })
     }
 
     override fun onSuccess(message: String?) {
         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
     }
 
+    override fun onUpdateAccount() {
+        viewModel!!.loadAccounts()
+    }
+
     override fun onDeleteAccount() {
+        viewModel?.loadAccounts()
         (activity as MainActivity).updateSummary()
         if (selectAccountModel?.id!! > 3) {
             SharedPreferenceUtils.getInstance(requireActivity())
@@ -149,7 +161,7 @@ class AccountsFragment : BaseFragment(),
 
     override fun onClickEditBtn() {
         val dialogFragment = AddUpdateAccountDialogFragment()
-        dialogFragment.setAccountModel(selectAccountModel)
+        dialogFragment.initialize(selectAccountModel, viewModel)
         dialogFragment.show(
             childFragmentManager,
             AddUpdateAccountDialogFragment::class.java.name

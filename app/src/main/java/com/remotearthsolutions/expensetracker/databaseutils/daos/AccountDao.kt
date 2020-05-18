@@ -3,7 +3,6 @@ package com.remotearthsolutions.expensetracker.databaseutils.daos
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
-import io.reactivex.Flowable
 import io.reactivex.Single
 
 @Dao

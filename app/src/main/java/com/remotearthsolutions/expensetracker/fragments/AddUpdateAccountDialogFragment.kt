@@ -11,18 +11,15 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.IconListAdapter
-import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
 import com.remotearthsolutions.expensetracker.utils.CategoryIcons.allIcons
 import com.remotearthsolutions.expensetracker.utils.Utils.getDeviceScreenSize
-import io.reactivex.Completable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import com.remotearthsolutions.expensetracker.viewmodels.AccountViewModel
 import kotlinx.android.synthetic.main.fragment_add_update_category_account.view.*
 
 class AddUpdateAccountDialogFragment : DialogFragment() {
     private lateinit var mView: View
+    private var viewModel: AccountViewModel? = null
     private var accountModel: AccountModel? = null
     private var selectedIcon: String? = null
     private lateinit var iconListAdapter: IconListAdapter
@@ -32,8 +29,9 @@ class AddUpdateAccountDialogFragment : DialogFragment() {
         mContext = context
     }
 
-    fun setAccountModel(accountModel: AccountModel?) {
+    fun initialize(accountModel: AccountModel?, viewModel: AccountViewModel?) {
         this.accountModel = accountModel
+        this.viewModel = viewModel
         if (accountModel != null) {
             selectedIcon = accountModel.icon
         }
@@ -91,7 +89,7 @@ class AddUpdateAccountDialogFragment : DialogFragment() {
             mView.nameEdtxt.requestFocus()
             return
         }
-        if(accountName.length>20){
+        if (accountName.length > 20) {
             mView.nameEdtxt.error = getString(R.string.name_should_be_less_than_20_char)
             mView.nameEdtxt.requestFocus()
             return
@@ -104,24 +102,13 @@ class AddUpdateAccountDialogFragment : DialogFragment() {
             ).show()
             return
         }
-        val accountDao =
-            DatabaseClient.getInstance(mContext).appDatabase.accountDao()
+
         if (accountModel == null) {
             accountModel = AccountModel()
         }
         accountModel!!.name = accountName
         accountModel!!.icon = selectedIcon
-        val compositeDisposable = CompositeDisposable()
-        compositeDisposable.add(Completable.fromAction {
-            if (accountModel?.id!! > 0) {
-                accountDao.updateAccount(accountModel!!)
-            } else {
-                accountDao.addAccount(accountModel!!)
-            }
-        }.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {}
-        )
+        viewModel?.addOrUpdateAccount(accountModel)
         dismiss()
     }
 }

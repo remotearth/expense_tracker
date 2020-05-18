@@ -31,7 +31,6 @@ class AccountViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { listOfAccount: List<AccountModel>? ->
                     listOfAccountLiveData.value = listOfAccount
-                    view.onAccountFetch(listOfAccount)
                 }
         )
     }
@@ -48,7 +47,9 @@ class AccountViewModel(
             }
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { }
+            .subscribe {
+                view.onUpdateAccount()
+            }
         )
     }
 
