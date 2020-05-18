@@ -82,10 +82,7 @@
     <string name="menu_licenses">Licenses</string>
     <string name="menu_logout">Logout</string>
     <string name="add_expense">Add Expense</string>
-    <string name="schedule_expense">Schedule Expense</string>
     <string name="update_expense">Update Expense</string>
-
-    <string name="expense_is_scheduled">Expense is scheduled</string>
 
     <string name="preferencetitle">Select Currency</string>
 
@@ -274,4 +271,9 @@
     <string name="confirm_delete_scheduled_entry">Are you sure to delete this scheduled expense entry?</string>
 
     <string name="time_to_export_data">It is time to export your expense data</string>
+    <string name="remind_to_export">Remind to export data</string>
+    <string name="first_day_of_month">On 1st day of every month</string>
+    <string name="schedule_expense">Schedule Expense</string>
+    <string name="expense_scheduled">Expense is scheduled</string>
+
 </resources>

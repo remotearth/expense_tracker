@@ -351,18 +351,18 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
 
     override fun onScheduleExpense(scheduledExpenseModel: ScheduledExpenseModel) {
         mView.inputdigit.setText("")
-        showToast(getResourceString(R.string.expense_is_scheduled))
+        showToast(getResourceString(R.string.expense_scheduled))
 
         val delay = scheduledExpenseModel.nextoccurrencedate - Calendar.getInstance().timeInMillis
         val data = Data.Builder()
         data.putLong(ExpenseScheduler.SCHEDULED_EXPENSE_ID, scheduledExpenseModel.id)
         val workRequestId = WorkManagerEnqueuer()
             .enqueue<AddScheduledExpenseWorker>(
-            requireContext(),
-            WorkRequestType.PERIODIC,
-            delay,
-            data.build()
-        )
+                requireContext(),
+                WorkRequestType.PERIODIC,
+                delay,
+                data.build()
+            )
         viewModel?.saveWorkerId(WorkerIdModel(scheduledExpenseModel.id, workRequestId))
     }
 }

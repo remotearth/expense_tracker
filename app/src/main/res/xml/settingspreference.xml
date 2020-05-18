@@ -30,10 +30,9 @@
 
     <SwitchPreferenceCompat
         android:defaultValue="false"
-        android:icon="@drawable/ic_change_date_formate"
+        android:icon="@drawable/ic_reminder"
         android:key="@string/prefremindtoexport"
-        android:summary="On 1st day of every month"
-        android:title="Remind to export data" />
-
+        android:summary="@string/first_day_of_month"
+        android:title="@string/remind_to_export" />
 
 </PreferenceScreen>
