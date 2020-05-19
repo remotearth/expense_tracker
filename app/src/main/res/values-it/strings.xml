@@ -234,4 +234,5 @@
     <string name="schedule_expense">Schedule Expense</string>
     <string name="expense_scheduled">Expense is scheduled</string>
     <string name="occurrence_left">Occurrence left</string>
+    <string name="safe_to_export">It is safe to export your expense data periodically. If you are a premium user, you can backup your data to cloud</string>
 </resources>

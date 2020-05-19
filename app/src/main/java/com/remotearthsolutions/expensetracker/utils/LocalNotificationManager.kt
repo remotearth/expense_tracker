@@ -32,7 +32,7 @@ object LocalNotificationManager {
         context: Context,
         title: String,
         content: String,
-        pendingIntent: PendingIntent?
+        pendingIntent: PendingIntent? = null
     ) {
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.mipmap.ic_logo)

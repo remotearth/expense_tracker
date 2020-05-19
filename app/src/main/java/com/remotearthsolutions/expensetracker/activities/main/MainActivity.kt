@@ -53,6 +53,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        onNewIntent(intent)
 
         checkoutUtils = CheckoutUtils.getInstance(this)!!
         checkoutUtils.start()
@@ -91,6 +92,7 @@ class MainActivity : BaseActivity(), MainContract.View {
                     }
                     // Get new Instance ID token
                     val token = task.result?.token
+                    println("Firebase Token: $token")
                     Log.d(MainActivity::class.java.name, "Firebase Token: $token")
                 })
         }
@@ -303,6 +305,14 @@ class MainActivity : BaseActivity(), MainContract.View {
             )
         overViewFragment?.onUpdateCategory()
         mainFragment?.refreshChart()
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        val message = intent?.getStringExtra("message")
+        if (!message.isNullOrEmpty()) {
+            AlertDialogUtils.show(this, null, message, getString(R.string.ok), null, null)
+        }
     }
 
     companion object {
