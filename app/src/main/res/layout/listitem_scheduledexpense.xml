@@ -1,77 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="#FFFFFF"
         android:layout_margin="2dp"
         android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="2dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="5dp">
+
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="0.3"
-                android:padding="5dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_height="wrap_content">
+                android:layout_weight="0.3"
+                android:padding="5dp">
+
                 <ImageView
                     android:id="@+id/categoryIconIv"
-                    android:src="@mipmap/ic_logo"
-                    android:contentDescription="@string/category"
                     android:layout_width="35dp"
-                    android:layout_height="35dp"/>
+                    android:layout_height="35dp"
+                    android:contentDescription="@string/category"
+                    android:src="@mipmap/ic_logo" />
             </LinearLayout>
+
             <RelativeLayout
                 android:id="@+id/container"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.7"
                 android:padding="10dp">
+
                 <LinearLayout
                     android:id="@+id/categoryDataContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/amountTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        tools:text="$10500"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        tools:text="$10500" />
+
                     <TextView
                         android:id="@+id/categoryNameTv"
-                        tools:text="Bills asdasdasdasdasdasdasdas adasdasd asdasdasd"
-                        android:textSize="16sp"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:layout_marginBottom="10dp"
-                        android:textColor="@color/Ashcolor"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/Ashcolor"
+                        android:textSize="16sp"
+                        tools:text="Bills asdasdasdasdasdasdasdas adasdasd asdasdasd" />
+
                     <LinearLayout
                         android:id="@+id/accountContainer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/fromTitleTv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:text="@string/from" />
+                            android:text="@string/from"
+                            android:textStyle="bold" />
+
                         <ImageView
                             android:id="@+id/accountImageIv"
                             android:layout_width="16dp"
@@ -79,37 +89,60 @@
                             android:layout_marginEnd="5dp"
                             android:contentDescription="@string/account_name"
                             app:srcCompat="@drawable/ic_account" />
+
                         <TextView
                             android:id="@+id/accountNameTv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            tools:text="accou asdsad asdasdasdasdasdntasfg asdsad asdasdasd asas"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            tools:text="accou asdsad asdasdasdasdasdntasfg asdsad asdasdasd asas" />
                     </LinearLayout>
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/repeatTitleTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/categoryDataContainer"
+                    android:layout_marginEnd="10dp"
+                    android:textStyle="bold"
+                    tools:text="@string/occurrence_left" />
+
+                <TextView
+                    android:id="@+id/repeatTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/categoryDataContainer"
+                    android:layout_toEndOf="@id/repeatTitleTv"
+                    tools:text="1" />
+
                 <TextView
                     android:id="@+id/scheduledOnTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/categoryDataContainer"
-                    android:textStyle="bold"
-                    android:text="@string/scheduled_on"/>
+                    android:layout_below="@id/repeatTv"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/scheduled_on"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/scheduledOnTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/categoryDataContainer"
+                    android:layout_below="@id/repeatTv"
                     android:layout_toEndOf="@id/scheduledOnTitle"
                     tools:text="May 15, 2020" />
+
             </RelativeLayout>
+
             <ImageView
                 android:id="@+id/deleteBtn"
-                android:layout_margin="10dp"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
                 android:contentDescription="@string/delete"
                 app:srcCompat="@drawable/ic_delete" />
         </LinearLayout>

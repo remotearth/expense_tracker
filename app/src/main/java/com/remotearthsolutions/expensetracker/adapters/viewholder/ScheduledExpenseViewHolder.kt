@@ -29,8 +29,11 @@ class ScheduledExpenseViewHolder(
             view.accountImageIv.setImageResource(getIconId(accountIcon!!))
             view.accountNameTv.text = accountName
             view.scheduledOnTv.text = DateTimeUtils.getDate(nextoccurrencedate, dateFormat)
+            view.repeatTv.text = "$occurrence"
+
             view.fromTitleTv.text = "${context.getString(R.string.from)}:  "
             view.scheduledOnTitle.text = "${context.getString(R.string.scheduled_on)}:  "
+            view.repeatTitleTv.text = "${context.getString(R.string.occurrence_left)}:  "
         }
 
         view.deleteBtn.setOnClickListener {

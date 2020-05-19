@@ -223,4 +223,5 @@
     <string name="first_day_of_month">On 1st day of every month</string>
     <string name="schedule_expense">Schedule Expense</string>
     <string name="expense_scheduled">Expense is scheduled</string>
+    <string name="occurrence_left">Occurrence left</string>
 </resources>
