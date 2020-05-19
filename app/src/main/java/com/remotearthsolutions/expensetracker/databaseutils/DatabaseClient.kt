@@ -25,7 +25,7 @@ class DatabaseClient private constructor(private val context: Context) {
                 )
                 database.execSQL(
                     "CREATE TABLE IF NOT EXISTS `workers_ids` (" +
-                            "`id` INTEGER NOT NULL, `scheduled_expense_id` INTEGER NOT NULL, `worker_id` TEXT, PRIMARY KEY(`id`))"
+                            "`id` INTEGER NOT NULL, `scheduled_expense_id` INTEGER NOT NULL, `worker_id` TEXT NOT NULL, PRIMARY KEY(`id`))"
                 )
             }
         }
