@@ -60,7 +60,9 @@ class ScheduledExpenseFragment : BaseFragment() {
 
         viewModel = ViewModelProviders.of(requireActivity(), BaseViewModelFactory {
             ScheduledExpenseViewModel(
-                db.scheduleExpenseDao()
+                requireActivity(),
+                db.scheduleExpenseDao(),
+                db.workerIdDao()
             )
         }).get(ScheduledExpenseViewModel::class.java)
 
@@ -96,6 +98,7 @@ class ScheduledExpenseFragment : BaseFragment() {
                     override fun onOkBtnPressed() {
                         val scheduleExpenseModel = ScheduledExpenseModel().fromDto(scheduledExpense)
                         viewModel.removeScheduledExpense(scheduleExpenseModel)
+
                     }
                 })
         }
