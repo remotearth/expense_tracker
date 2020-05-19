@@ -146,6 +146,12 @@ class MainFragment : BaseFragment(),
                 R.id.navigation_accounts -> {
                     binding!!.viewpager.setCurrentItem(3, true)
                     actionBar?.title = tabTitles?.get(3)
+                    val accountsFragment =
+                        childFragmentManager.findViewPagerFragmentByTag<AccountsFragment>(
+                            R.id.viewpager,
+                            3
+                        )
+                    accountsFragment?.onUpdateAccount()
                 }
             }
             true
@@ -258,6 +264,7 @@ class MainFragment : BaseFragment(),
                 }
             }
         }
+
         override fun onPageScrollStateChanged(state: Int) {}
     }
 
