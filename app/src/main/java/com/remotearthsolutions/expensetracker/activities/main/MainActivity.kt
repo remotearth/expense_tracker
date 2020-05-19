@@ -91,9 +91,8 @@ class MainActivity : BaseActivity(), MainContract.View {
                         return@OnCompleteListener
                     }
                     // Get new Instance ID token
-                    val token = task.result?.token
-                    println("Firebase Token: $token")
-                    Log.d(MainActivity::class.java.name, "Firebase Token: $token")
+                    // val token = task.result?.token
+                    // println("Firebase Token: $token")
                 })
         }
     }
