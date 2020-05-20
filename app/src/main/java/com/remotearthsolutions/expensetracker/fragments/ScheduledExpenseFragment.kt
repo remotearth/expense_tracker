@@ -72,11 +72,11 @@ class ScheduledExpenseFragment : BaseFragment() {
 
         viewModel.scheduledExpensesLiveData.observe(viewLifecycleOwner, Observer {
             if (it == null || it.isEmpty()) {
-                mView.noEntryMessage.visibility = View.VISIBLE
+                mView.nodatacontainer.visibility = View.VISIBLE
                 mView.recyclerView.visibility = View.INVISIBLE
                 mView.noEntryMessage.text = getResourceString(R.string.no_scheduled_expenses)
             } else {
-                mView.noEntryMessage.visibility = View.INVISIBLE
+                mView.nodatacontainer.visibility = View.INVISIBLE
                 mView.recyclerView.visibility = View.VISIBLE
                 adapter = ScheduledExpenseListAdapter(it, currencySymbol, format, onItemClick)
                 mView.recyclerView.adapter = adapter
