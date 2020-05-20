@@ -33,7 +33,6 @@
 
     <string name="menu_home">Domov</string>
     <string name="menu_categories">Kategórie</string>
-    <string name="menu_scheduled_expense">Scheduled Expense</string>
     <string name="menu_settings">Nastavenie</string>
     <string name="menu_about">O aplikácii</string>
     <string name="menu_licenses">Licencií</string>
@@ -213,18 +212,19 @@
     <string name="something_went_wrong">Niečo sa pokazilo. Skúste neskôr prosím.</string>
     <string name="successfully_uploaded">Úspešne nahrané</string>
 
-    <string name="repeat">Repeat:</string>
-    <string name="every">Every</string>
-    <string name="times">Times</string>
-    <string name="scheduled_on">Scheduled on:  </string>
-    <string name="no_scheduled_expenses">Currently, there is no scheduled expense</string>
-    <string name="confirm_delete_scheduled_entry">Are you sure to delete this scheduled expense entry?</string>
+    <string name="repeat">opakovať:</string>
+    <string name="every">každý</string>
+    <string name="times">krát</string>
+    <string name="scheduled_on">Ďalší výskyt</string>
+    <string name="no_scheduled_expenses">Neexistujú žiadne plánované výdavky</string>
+    <string name="confirm_delete_scheduled_entry">Naozaj chcete odstrániť tento záznam naplánovaných výdavkov?</string>
 
-    <string name="time_to_export_data">It is time to export your expense data</string>
-    <string name="remind_to_export">Remind to export data</string>
-    <string name="first_day_of_month">On 1st day of every month</string>
-    <string name="schedule_expense">Schedule Expense</string>
-    <string name="expense_scheduled">Expense is scheduled</string>
-    <string name="occurrence_left">Occurrence left</string>
-    <string name="safe_to_export">It is safe to export your expense data periodically. If you are a premium user, you can backup your data to cloud</string>
+    <string name="menu_scheduled_expense">Plánované výdavky</string>
+    <string name="time_to_export_data">Je čas exportovať údaje o výdavkoch</string>
+    <string name="remind_to_export">Pripomenúť na export údajov</string>
+    <string name="first_day_of_month">Prvý deň každého mesiaca</string>
+    <string name="schedule_expense">Rozvrh výdavkov</string>
+    <string name="expense_scheduled">Výdavky sú naplánované</string>
+    <string name="occurrence_left">Výskyt zostal</string>
+    <string name="safe_to_export">Je bezpečné exportovať údaje o výdavkoch pravidelne. Ak ste prémiovým používateľom, môžete si svoje dáta zálohovať.</string>
 </resources>

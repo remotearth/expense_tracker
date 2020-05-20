@@ -33,7 +33,6 @@
 
     <string name="menu_home">Casa</string>
     <string name="menu_categories">Categorias</string>
-    <string name="menu_scheduled_expense">Scheduled Expense</string>
     <string name="menu_settings">Definições</string>
     <string name="menu_about">Sobre</string>
     <string name="menu_licenses">Licenças</string>
@@ -211,18 +210,19 @@
     <string name="something_went_wrong">Algo deu errado. Por favor, tente novamente mais tarde.</string>
     <string name="successfully_uploaded">Carregado com sucesso</string>
 
-    <string name="repeat">Repeat:</string>
-    <string name="every">Every</string>
-    <string name="times">Times</string>
-    <string name="scheduled_on">Scheduled on:  </string>
-    <string name="no_scheduled_expenses">Currently, there is no scheduled expense</string>
-    <string name="confirm_delete_scheduled_entry">Are you sure to delete this scheduled expense entry?</string>
+    <string name="repeat">Repetir:</string>
+    <string name="every">Cada</string>
+    <string name="times">Vezes</string>
+    <string name="scheduled_on">Próxima ocorrência</string>
+    <string name="no_scheduled_expenses">Não há despesa programada</string>
+    <string name="confirm_delete_scheduled_entry">Tem certeza de que deseja excluir esta entrada de despesa agendada?</string>
 
-    <string name="time_to_export_data">It is time to export your expense data</string>
-    <string name="remind_to_export">Remind to export data</string>
-    <string name="first_day_of_month">On 1st day of every month</string>
-    <string name="schedule_expense">Schedule Expense</string>
-    <string name="expense_scheduled">Expense is scheduled</string>
-    <string name="occurrence_left">Occurrence left</string>
-    <string name="safe_to_export">It is safe to export your expense data periodically. If you are a premium user, you can backup your data to cloud</string>
+    <string name="menu_scheduled_expense">Despesas agendadas</string>
+    <string name="time_to_export_data">É hora de exportar seus dados de despesas</string>
+    <string name="remind_to_export">Lembre-se de exportar dados</string>
+    <string name="first_day_of_month">No primeiro dia de cada mês</string>
+    <string name="schedule_expense">Agendar despesa</string>
+    <string name="expense_scheduled">A despesa está agendada</string>
+    <string name="occurrence_left">Ocorrência restante</string>
+    <string name="safe_to_export">É seguro exportar seus dados de despesas periodicamente. Se você é um usuário premium, pode fazer backup de seus dados.</string>
 </resources>

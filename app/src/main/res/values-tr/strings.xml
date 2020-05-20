@@ -217,18 +217,18 @@
     <string name="something_went_wrong">Bir şeyler yanlış gitti. Lütfen daha sonra tekrar deneyiniz.</string>
     <string name="successfully_uploaded">Başarıyla yüklendi</string>
 
-    <string name="repeat">Repeat:</string>
-    <string name="every">Every</string>
-    <string name="times">Times</string>
-    <string name="scheduled_on">Scheduled on:  </string>
-    <string name="no_scheduled_expenses">Currently, there is no scheduled expense</string>
-    <string name="confirm_delete_scheduled_entry">Are you sure to delete this scheduled expense entry?</string>
+    <string name="repeat">Tekrar et:</string>
+    <string name="every">Her</string>
+    <string name="times">Kez</string>
+    <string name="scheduled_on">Sonraki olay</string>
+    <string name="no_scheduled_expenses">Planlanmış bir masraf yok</string>
+    <string name="confirm_delete_scheduled_entry">Bu zamanlanmış gider girişini silmek istediğinizden emin misiniz?</string>
 
-    <string name="time_to_export_data">It is time to export your expense data</string>
-    <string name="remind_to_export">Remind to export data</string>
-    <string name="first_day_of_month">On 1st day of every month</string>
-    <string name="schedule_expense">Schedule Expense</string>
-    <string name="expense_scheduled">Expense is scheduled</string>
-    <string name="occurrence_left">Occurrence left</string>
-    <string name="safe_to_export">It is safe to export your expense data periodically. If you are a premium user, you can backup your data to cloud</string>
+    <string name="time_to_export_data">Gider verilerinizi dışa aktarmanın zamanı geldi</string>
+    <string name="remind_to_export">Verileri dışa aktarmayı hatırlat</string>
+    <string name="first_day_of_month">Her ayın ilk günü</string>
+    <string name="schedule_expense">Gider Planla</string>
+    <string name="expense_scheduled">Gider planlandı</string>
+    <string name="occurrence_left">Oluşan sol</string>
+    <string name="safe_to_export">Gider verilerinizi periyodik olarak dışa aktarmak güvenlidir. Premium kullanıcıysanız verilerinizi buluta yedekleyebilirsiniz.</string>
 </resources>

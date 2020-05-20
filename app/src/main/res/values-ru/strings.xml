@@ -33,7 +33,6 @@
 
     <string name="menu_home">Главная</string>
     <string name="menu_categories">категории</string>
-    <string name="menu_scheduled_expense">Scheduled Expense</string>
     <string name="menu_settings">настройки</string>
     <string name="menu_about">Около</string>
     <string name="menu_licenses">Лицензии</string>
@@ -222,18 +221,19 @@
     <string name="something_went_wrong">Что-то пошло не так. Пожалуйста, попробуйте позже.</string>
     <string name="successfully_uploaded">Успешно загружено</string>
 
-    <string name="repeat">Repeat:</string>
-    <string name="every">Every</string>
-    <string name="times">Times</string>
-    <string name="scheduled_on">Scheduled on:  </string>
-    <string name="no_scheduled_expenses">Currently, there is no scheduled expense</string>
-    <string name="confirm_delete_scheduled_entry">Are you sure to delete this scheduled expense entry?</string>
+    <string name="repeat">Повторение:</string>
+    <string name="every">каждый</string>
+    <string name="times">раза</string>
+    <string name="scheduled_on">Следующее вхождение</string>
+    <string name="no_scheduled_expenses">Там нет запланированных расходов</string>
+    <string name="confirm_delete_scheduled_entry">Вы уверены, что хотите удалить эту запись запланированных расходов?</string>
 
-    <string name="time_to_export_data">It is time to export your expense data</string>
-    <string name="remind_to_export">Remind to export data</string>
-    <string name="first_day_of_month">On 1st day of every month</string>
-    <string name="schedule_expense">Schedule Expense</string>
-    <string name="expense_scheduled">Expense is scheduled</string>
-    <string name="occurrence_left">Occurrence left</string>
-    <string name="safe_to_export">It is safe to export your expense data periodically. If you are a premium user, you can backup your data to cloud</string>
+    <string name="menu_scheduled_expense">Запланированные расходы</string>
+    <string name="time_to_export_data">Настало время экспортировать данные о расходах</string>
+    <string name="remind_to_export">Напомнить экспортировать данные</string>
+    <string name="first_day_of_month">В первый день каждого месяца</string>
+    <string name="schedule_expense">Расписание расходов</string>
+    <string name="expense_scheduled">Расход запланирован</string>
+    <string name="occurrence_left">Появление осталось</string>
+    <string name="safe_to_export">Периодически безопасно экспортировать данные о ваших расходах. Если вы являетесь премиум-пользователем, вы можете сделать резервную копию ваших данных.</string>
 </resources>
