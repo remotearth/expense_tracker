@@ -46,8 +46,7 @@ class ScheduledExpenseViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     val list = scheduledExpensesLiveData.value!!
-                    scheduledExpensesLiveData.value =
-                        list.filter { it.id == scheduledExpense.id }
+                    scheduledExpensesLiveData.value = list.filter { it.id != scheduledExpense.id }
                 }
         )
     }
