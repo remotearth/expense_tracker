@@ -93,7 +93,7 @@
     <string name="yearly">Yearly</string>
     <string name="expense_category">Expense Category</string>
 
-    <string name="timeperiod">Time Period</string>
+    <string name="timeperiod">Time Period On App Start</string>
     <string name="day">Day</string>
     <string name="selectperiodfromhere">Select Period</string>
     <string name="select_time_format_from_here">Select Date Format</string>
@@ -271,7 +271,7 @@
 
     <string name="menu_scheduled_expense">Scheduled Expense</string>
     <string name="time_to_export_data">It is time to export your expense data</string>
-    <string name="remind_to_export">Remind to export data</string>
+    <string name="remind_to_export">Remind To Export Data</string>
     <string name="first_day_of_month">On 1st day of every month</string>
     <string name="schedule_expense">Schedule Expense</string>
     <string name="expense_scheduled">Expense is scheduled</string>

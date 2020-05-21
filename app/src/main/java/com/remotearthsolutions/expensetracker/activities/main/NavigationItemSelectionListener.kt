@@ -184,7 +184,7 @@ class NavigationItemSelectionListener(
                 R.id.nav_settings -> {
                     FragmentLoader.load(
                         this,
-                        SettingsFragment(), getString(R.string.menu_categories),
+                        SettingsFragment(), getString(R.string.menu_settings),
                         SettingsFragment::class.java.name
                     )
                     showBackButton()
