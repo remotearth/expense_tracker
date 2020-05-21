@@ -72,7 +72,7 @@
                 android:id="@+id/monthcontainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:weightSum="2">
 
@@ -81,8 +81,7 @@
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="0.3"
-                    android:tint="@color/colorPrimary"
-                    app:srcCompat="@drawable/ic_previous" />
+                    app:srcCompat="@drawable/btn_prev_date" />
 
                 <TextView
                     android:id="@+id/dateTv"
@@ -101,8 +100,7 @@
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="0.3"
-                    android:tint="@color/colorPrimary"
-                    app:srcCompat="@drawable/ic_next" />
+                    app:srcCompat="@drawable/btn_next_date" />
 
             </LinearLayout>
         </LinearLayout>
@@ -116,7 +114,6 @@
             android:layout_marginTop="10dp">
 
         </androidx.viewpager.widget.ViewPager>
-
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/navigation"

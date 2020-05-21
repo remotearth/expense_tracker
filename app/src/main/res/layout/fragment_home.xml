@@ -31,8 +31,7 @@
                 android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_weight="0.2"
-                app:srcCompat="@drawable/ic_add_cat" />
-
+                app:srcCompat="@drawable/btn_add_cat" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
