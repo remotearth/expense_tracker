@@ -13,6 +13,7 @@
             android:id="@+id/addcategorycontainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal"
             android:padding="7dp"
             android:weightSum="2">
@@ -28,9 +29,9 @@
             <ImageView
                 android:id="@+id/addCategoryBtn"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_weight="0.2"
-                app:srcCompat="@drawable/ic_plus" />
+                app:srcCompat="@drawable/ic_add_cat" />
 
         </LinearLayout>
 
