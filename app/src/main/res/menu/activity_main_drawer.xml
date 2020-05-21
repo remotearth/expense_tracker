@@ -1,48 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:showIn="navigation_view">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
         <item
-                android:id="@+id/nav_home"
-                android:icon="@drawable/ic_home"
-                android:title="@string/menu_home"/>
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/menu_home" />
         <item
-                android:id="@+id/nav_categories"
-                android:icon="@drawable/ic_categories"
-                android:title="@string/menu_categories"/>
+            android:id="@+id/nav_categories"
+            android:icon="@drawable/ic_categories"
+            android:title="@string/menu_categories" />
 
         <item
             android:id="@+id/nav_scheduled_expense"
-            android:icon="@drawable/ic_categories"
-            android:title="@string/menu_scheduled_expense"/>
+            android:icon="@drawable/ic_schedule"
+            android:title="@string/menu_scheduled_expense" />
 
         <item
             android:id="@+id/nav_import_data"
             android:icon="@drawable/ic_import_data"
-            android:title="@string/import_data"/>
+            android:title="@string/import_data" />
 
         <item
             android:id="@+id/nav_export_data"
             android:icon="@drawable/ic_export_data"
-            android:title="@string/export_data"/>
+            android:title="@string/export_data" />
 
         <item
             android:id="@+id/nav_backup_sync"
             android:icon="@drawable/ic_cloud"
-            android:title="@string/backup_sync"/>
+            android:title="@string/backup_sync" />
 
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
-            android:title="@string/menu_settings"/>
+            android:title="@string/menu_settings" />
 
         <item
-                android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_logout"
-                android:title="@string/menu_logout"/>
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/menu_logout" />
 
     </group>
 
@@ -53,32 +52,32 @@
                 <item
                     android:id="@+id/nav_purchase"
                     android:icon="@drawable/ic_purchase"
-                    android:title="@string/buy_product"/>
+                    android:title="@string/buy_product" />
 
                 <item
                     android:id="@+id/nav_contact_us"
                     android:icon="@drawable/ic_contact_us"
-                    android:title="@string/contact_us"/>
+                    android:title="@string/contact_us" />
 
                 <item
                     android:id="@+id/nav_rate_us"
                     android:icon="@drawable/ic_rate_us"
-                    android:title="@string/rate_us"/>
+                    android:title="@string/rate_us" />
 
                 <item
-                        android:id="@+id/nav_about"
-                        android:icon="@drawable/ic_about"
-                        android:title="@string/menu_about"/>
+                    android:id="@+id/nav_about"
+                    android:icon="@drawable/ic_about"
+                    android:title="@string/menu_about" />
 
                 <item
-                        android:id="@+id/nav_privacypolicy"
-                        android:icon="@drawable/ic_privacypolicy"
-                        android:title="@string/privacy_policy"/>
+                    android:id="@+id/nav_privacypolicy"
+                    android:icon="@drawable/ic_privacypolicy"
+                    android:title="@string/privacy_policy" />
 
                 <item
-                        android:id="@+id/nav_licenses"
-                        android:icon="@drawable/ic_license"
-                        android:title="@string/menu_licenses"/>
+                    android:id="@+id/nav_licenses"
+                    android:icon="@drawable/ic_license"
+                    android:title="@string/menu_licenses" />
             </group>
         </menu>
     </item>
