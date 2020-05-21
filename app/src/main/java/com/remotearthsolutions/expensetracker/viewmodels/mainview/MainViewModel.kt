@@ -143,8 +143,9 @@ class MainViewModel(
             expenseDao.allExpenseEntry,
             categoryDao.allCategories,
             accountDao.allAccounts,
-            Function4<List<CategoryExpense>?, List<ExpenseModel>?, List<CategoryModel>?, List<AccountModel>?, Unit>
+            Function4<List<CategoryExpense>?, List<ExpenseModel>?, List<CategoryModel>?, List<AccountModel>?, SaveExpenseToFileData>
             { listOfFilterExpense, allExpenses, allCategories, allAccounts ->
+                // TODO: fix here
                 if (listOfFilterExpense.isNotEmpty()) {
                     for (i in listOfFilterExpense.indices) {
                         if (listOfFilterExpense[i].totalAmount > 0) {
@@ -152,29 +153,54 @@ class MainViewModel(
                         }
                     }
                     stringBuilder.append(Constants.DONOT_EDIT_META_DATA)
-                    saveToFile(
-                        activity,
+                    SaveExpenseToFileData(
                         allExpenses,
                         allCategories,
                         allAccounts,
                         stringBuilder
                     )
-                    view.hideProgress()
                 } else {
-                    view.hideProgress()
-                    view.showAlert(
-                        "",
-                        activity.getString(R.string.expense_data_not_available_to_export),
-                        activity.getString(R.string.ok),
-                        null,
-                        null
-                    )
-                    disposable.clear()
+                    SaveExpenseToFileData(allExpenses, allCategories, allAccounts, null)
                 }
             }
         ).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe()
+            .doOnError { throwable ->
+                throwable.printStackTrace()
+                view.hideProgress()
+            }
+            .subscribe { data, throwable: Throwable? ->
+                view.hideProgress()
+                if (throwable != null) {
+                    throwable.printStackTrace()
+                    view.showAlert(
+                        "",
+                        activity.getString(R.string.something_went_wrong),
+                        activity.getString(R.string.ok),
+                        null,
+                        null
+                    )
+                } else {
+                    if (data.stringBuilder == null) {
+                        view.showAlert(
+                            "",
+                            activity.getString(R.string.expense_data_not_available_to_export),
+                            activity.getString(R.string.ok),
+                            null,
+                            null
+                        )
+                    } else {
+                        saveToFile(
+                            activity,
+                            data.expneses!!,
+                            data.categories!!,
+                            data.accounts!!,
+                            data.stringBuilder!!
+                        )
+                    }
+                }
+                disposable.clear()
+            }
         )
     }
 
@@ -201,7 +227,10 @@ class MainViewModel(
             }
         ).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnError { throwable -> throwable.printStackTrace() }
+            .doOnError { throwable ->
+                throwable.printStackTrace()
+                view.hideProgress()
+            }
             .subscribe { result: HashMap<String, String>, throwable: Throwable? ->
                 view.hideProgress()
                 if (throwable != null) {
@@ -302,27 +331,36 @@ class MainViewModel(
 
     fun backupToCloud(context: Context, user: String) {
         getDataMapToUpload(context) {
+            if (it.isEmpty()) {
+                view.showAlert(
+                    "",
+                    context.getString(R.string.expense_data_not_available_to_upload),
+                    context.getString(R.string.ok),
+                    null,
+                    null
+                )
+                return@getDataMapToUpload
+            }
+
             view.showAlert(context.getString(R.string.warning),
                 context.getString(R.string.will_overwrite_in_cloud),
                 context.getString(R.string.yes), context.getString(R.string.no),
                 object : BaseView.Callback {
                     override fun onOkBtnPressed() {
-                        if (it.isNotEmpty()) {
-                            view.showProgress(context.getString(R.string.please_wait))
-                            firebaseService.uploadToFireStore(user, it, {
-                                view.hideProgress()
-                                view.showAlert(
-                                    "", context.getString(R.string.successfully_uploaded),
-                                    context.getString(R.string.ok), null, null
-                                )
-                            }, {
-                                view.hideProgress()
-                                view.showAlert(
-                                    "", context.getString(R.string.something_went_wrong),
-                                    context.getString(R.string.ok), null, null
-                                )
-                            })
-                        }
+                        view.showProgress(context.getString(R.string.please_wait))
+                        firebaseService.uploadToFireStore(user, it, {
+                            view.hideProgress()
+                            view.showAlert(
+                                "", context.getString(R.string.successfully_uploaded),
+                                context.getString(R.string.ok), null, null
+                            )
+                        }, {
+                            view.hideProgress()
+                            view.showAlert(
+                                "", context.getString(R.string.something_went_wrong),
+                                context.getString(R.string.ok), null, null
+                            )
+                        })
                     }
                 })
         }
@@ -365,4 +403,11 @@ class MainViewModel(
                 }
             })
     }
+
+    data class SaveExpenseToFileData(
+        var expneses: List<ExpenseModel>?,
+        var categories: List<CategoryModel>?,
+        var accounts: List<AccountModel>?,
+        var stringBuilder: java.lang.StringBuilder?
+    )
 }
