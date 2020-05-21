@@ -178,7 +178,7 @@ class MainViewModel(
         )
     }
 
-    private fun getDataMapToUpload(context: Context, callback: (Map<String, String>?) -> Unit) {
+    private fun getDataMapToUpload(context: Context, callback: (Map<String, String>) -> Unit) {
         val map = HashMap<String, String>()
         if (disposable.isDisposed) {
             disposable = CompositeDisposable()
@@ -190,31 +190,34 @@ class MainViewModel(
             expenseDao.allExpenseEntry,
             categoryDao.allCategories,
             accountDao.allAccounts,
-            Function4<List<CategoryExpense>?, List<ExpenseModel>?, List<CategoryModel>?, List<AccountModel>?, Unit>
+            Function4<List<CategoryExpense>?, List<ExpenseModel>?, List<CategoryModel>?, List<AccountModel>?, HashMap<String, String>>
             { listOfFilterExpense, allExpenses, allCategories, allAccounts ->
                 if (listOfFilterExpense.isNotEmpty()) {
                     map[KEY_EXPENSES] = getMetaString(allExpenses)
                     map[KEY_CATEGORIES] = getMetaString(allCategories)
                     map[KEY_ACCOUNTS] = getMetaString(allAccounts)
-                    view.hideProgress()
-                    callback(map)
-                    disposable.clear()
-                } else {
-                    view.hideProgress()
+                }
+                map
+            }
+        ).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError { throwable -> throwable.printStackTrace() }
+            .subscribe { result: HashMap<String, String>, throwable: Throwable? ->
+                view.hideProgress()
+                if (throwable != null) {
+                    throwable.printStackTrace()
                     view.showAlert(
                         "",
-                        context.getString(R.string.expense_data_not_available_to_upload),
+                        context.getString(R.string.something_went_wrong),
                         context.getString(R.string.ok),
                         null,
                         null
                     )
-                    callback(null)
-                    disposable.clear()
+                } else {
+                    callback(result)
                 }
+                disposable.clear()
             }
-        ).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe()
         )
     }
 
@@ -304,7 +307,7 @@ class MainViewModel(
                 context.getString(R.string.yes), context.getString(R.string.no),
                 object : BaseView.Callback {
                     override fun onOkBtnPressed() {
-                        it?.let {
+                        if (it.isNotEmpty()) {
                             view.showProgress(context.getString(R.string.please_wait))
                             firebaseService.uploadToFireStore(user, it, {
                                 view.hideProgress()
