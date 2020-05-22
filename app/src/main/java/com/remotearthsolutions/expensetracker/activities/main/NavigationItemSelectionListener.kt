@@ -19,7 +19,10 @@ import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.activities.helpers.FragmentLoader
 import com.remotearthsolutions.expensetracker.contracts.BaseView
-import com.remotearthsolutions.expensetracker.fragments.*
+import com.remotearthsolutions.expensetracker.fragments.AboutFragment
+import com.remotearthsolutions.expensetracker.fragments.CategoryFragment
+import com.remotearthsolutions.expensetracker.fragments.ScheduledExpenseFragment
+import com.remotearthsolutions.expensetracker.fragments.WebViewFragment
 import com.remotearthsolutions.expensetracker.fragments.main.MainFragment
 import com.remotearthsolutions.expensetracker.fragments.settings.SettingsFragment
 import com.remotearthsolutions.expensetracker.utils.*
@@ -103,10 +106,7 @@ class NavigationItemSelectionListener(
                                                     selectedText
                                                 ).absolutePath
                                                 viewModel.importDataFromFile(filePath)
-                                                FirebaseEventLogUtils.logCustom(
-                                                    this@with,
-                                                    "Data Imported"
-                                                )
+                                                AmplitudeUtils.logEvent(AmplitudeUtils.DATA_IMPORTED)
                                                 showProgress(resources.getString(R.string.please_wait))
                                                 Handler()
                                                     .postDelayed({

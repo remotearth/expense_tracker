@@ -18,6 +18,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.services.FileProcessingService
 import com.remotearthsolutions.expensetracker.services.FirebaseService
+import com.remotearthsolutions.expensetracker.utils.AmplitudeUtils
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.Utils.formatDecimalValues
 import com.remotearthsolutions.expensetracker.viewmodels.mainview.MainViewModelHelper.getContentFromMetaString
@@ -354,6 +355,7 @@ class MainViewModel(
                                 "", context.getString(R.string.successfully_uploaded),
                                 context.getString(R.string.ok), null, null
                             )
+                            AmplitudeUtils.logEvent(AmplitudeUtils.CLOUD_BACKUP)
                         }, {
                             view.hideProgress()
                             view.showAlert(
@@ -396,6 +398,7 @@ class MainViewModel(
                             Array<AccountModel>::class.java
                         )
                         saveAllData(categories, expenseModels, accountModels)
+                        AmplitudeUtils.logEvent(AmplitudeUtils.CLOUD_DOWNLOAD)
                     }, {
                         view.hideProgress()
                         view.showAlert("", it, context.getString(R.string.ok), null, null)

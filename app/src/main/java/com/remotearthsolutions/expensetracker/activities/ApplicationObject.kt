@@ -5,6 +5,7 @@ import android.app.Application.ActivityLifecycleCallbacks
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
+import com.amplitude.api.Amplitude
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.utils.Constants
@@ -30,6 +31,8 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
 
     override fun onCreate() {
         super.onCreate()
+        Amplitude.getInstance().initialize(this, "16fe1813be6bb5b257217ea9d1c16039")
+            .enableForegroundTracking(this)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(!BuildConfig.DEBUG)
         SharedPreferenceUtils.getInstance(this)

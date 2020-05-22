@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id" translatable="false">379539602796909</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb379539602796909</string>
+
+    <string name="admob_app_id" translatable="false">ca-app-pub-3996731798982494~9482261632</string>
+    <string name="admob_ad_id" translatable="false">ca-app-pub-3996731798982494/8955771736</string>
+    <string name="admob_test_ad_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+
+    <string name="amplitude_id" translatable="false">16fe1813be6bb5b257217ea9d1c16039</string>
+</resources>

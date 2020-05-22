@@ -12,8 +12,8 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
+import com.remotearthsolutions.expensetracker.utils.AmplitudeUtils
 import com.remotearthsolutions.expensetracker.utils.Constants
-import com.remotearthsolutions.expensetracker.utils.FirebaseEventLogUtils.logCustom
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils.getFlagDrawable
 import kotlinx.android.synthetic.main.activity_main.*
@@ -62,7 +62,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         )
                         currencyPreference!!.summary = currency
                         currencyPreference.setIcon(getFlagDrawable(requireContext()))
-                        logCustom(requireContext(), currency!!)
+                        AmplitudeUtils.logEvent(currency)
                     }
                     Constants.PREF_PERIOD -> {
                         val periodPreference =
@@ -70,7 +70,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         periodPreference!!.summary = sharedPreferences.getString(
                             key, resources.getString(R.string.daily)
                         )
-                        logCustom(requireContext(), key)
+                        AmplitudeUtils.logEvent(key)
                     }
                     Constants.PREF_TIME_FORMAT -> {
                         val timeFormatPreference =
@@ -80,7 +80,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                                 key,
                                 resources.getString(R.string.default_time_format)
                             )
-                        logCustom(requireContext(), key)
+                        AmplitudeUtils.logEvent(key)
                     }
                     Constants.PREF_REMIND_TO_EXPORT -> {
                         val shouldRemindToExport = sharedPreferences.getBoolean(key, false)
@@ -89,6 +89,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         } else {
                             ExportReminderHelper.cancelExportReminder(requireContext())
                         }
+                        AmplitudeUtils.logEvent("ExportReminder-$shouldRemindToExport")
                     }
                 }
             }

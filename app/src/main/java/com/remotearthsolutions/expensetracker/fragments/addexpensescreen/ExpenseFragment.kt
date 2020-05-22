@@ -225,6 +225,9 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                     Calendar.getInstance().timeInMillis, period, repeatType
                 )
                 viewModel!!.scheduleExpense(expenseModel, period, repeatType, repeatCount, nextDate)
+                AmplitudeUtils.logEvent(AmplitudeUtils.EXPENSE_TYPE_SCHEDULED)
+                AmplitudeUtils.logEvent("CAT-${categoryExpense?.categoryName?.toUpperCase()}")
+                AmplitudeUtils.logEvent("ACC-${categoryExpense?.accountName?.toUpperCase()}")
             }
         }
 
@@ -303,7 +306,9 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             Helpers.requestToReviewApp(mainActivity, viewModel!!)
         }
         MainActivity.addedExpenseCount++
-        FirebaseEventLogUtils.logCustom(mainActivity, "Expense_Added")
+        AmplitudeUtils.logEvent(AmplitudeUtils.EXPENSE_TYPE_DEFAULT)
+        AmplitudeUtils.logEvent("CAT-${categoryExpense?.categoryName!!.toUpperCase()}")
+        AmplitudeUtils.logEvent("ACC-${categoryExpense?.accountName!!.toUpperCase()}")
     }
 
     override fun onExpenseDeleted(categoryExpense: CategoryExpense?) {

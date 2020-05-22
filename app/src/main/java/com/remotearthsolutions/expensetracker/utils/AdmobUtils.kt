@@ -7,7 +7,6 @@ import com.google.android.gms.ads.InterstitialAd
 import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
-import com.remotearthsolutions.expensetracker.utils.FirebaseEventLogUtils.logCustom
 
 class AdmobUtils private constructor(private val activity: Activity) {
     private var interstitialAd: InterstitialAd = InterstitialAd(activity)
@@ -28,7 +27,7 @@ class AdmobUtils private constructor(private val activity: Activity) {
                 val app = activity.application as ApplicationObject
                 if (app.isActivityVisible && app.isAppShouldShowAds) {
                     it.show()
-                    logCustom(activity, "Ad shown")
+                    AmplitudeUtils.logEvent(AmplitudeUtils.AD_SHOWN)
                 }
             }
         }

@@ -1,6 +1,4 @@
 <resources>
-    <string name="facebook_app_id" translatable="false">379539602796909</string>
-    <string name="fb_login_protocol_scheme" translatable="false">fb379539602796909</string>
     <string name="takahints" translatable="false">৳0</string>
     <string name="today_14th_january_2019" translatable="false">TODAY 14TH JANUARY, 2019</string>
     <string name="preferencekey" translatable="false">pref_currency_list</string>
@@ -9,9 +7,6 @@
     <string name="preftimeformat" translatable="false">pref_time_format_list</string>
     <string name="prefremindtoexport" translatable="false">pref_remind_to_export</string>
 
-    <string name="admob_app_id" translatable="false">ca-app-pub-3996731798982494~9482261632</string>
-    <string name="admob_ad_id" translatable="false">ca-app-pub-3996731798982494/8955771736</string>
-    <string name="admob_test_ad_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
     <string name="mGoogleSignInClient_must_be_initialized" translatable="false">mGoogleSignInClient must be
         initialized
     </string>

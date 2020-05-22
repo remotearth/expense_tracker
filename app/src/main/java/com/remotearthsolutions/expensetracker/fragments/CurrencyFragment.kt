@@ -11,7 +11,6 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.utils.Constants
-import com.remotearthsolutions.expensetracker.utils.FirebaseEventLogUtils
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils
 
@@ -39,7 +38,6 @@ class CurrencyFragment : PreferenceFragmentCompat() {
                     )
                     currencyPreference!!.summary = sharedPreferences.getString(key, currency)
                     currencyPreference.setIcon(Utils.getFlagDrawable(context!!))
-                    FirebaseEventLogUtils.logCustom(context!!, currency!!)
                 }
             }
         preferenceScreen.sharedPreferences
@@ -53,7 +51,7 @@ class CurrencyFragment : PreferenceFragmentCompat() {
         savedInstanceState: Bundle?
     ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
-        view!!.setBackgroundColor(ContextCompat.getColor(context!!,R.color.lightAccent))
+        view!!.setBackgroundColor(ContextCompat.getColor(context!!, R.color.lightAccent))
         return view
     }
 
