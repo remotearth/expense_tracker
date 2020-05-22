@@ -20,7 +20,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils.show
-import com.remotearthsolutions.expensetracker.utils.AmplitudeUtils
+import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.Constants.Companion.KEY_UTF_VERSION
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getCurrentDate
@@ -225,7 +225,7 @@ class FileProcessingServiceImp : FileProcessingService {
                     activity.getString(R.string.choose_email_client_to_send_report)
                 )
             )
-            AmplitudeUtils.logEvent(AmplitudeUtils.DATA_EXPORTED)
+            AnalyticsManager.logEvent(AnalyticsManager.DATA_EXPORTED)
         } catch (t: Throwable) {
             t.printStackTrace()
             Toast.makeText(

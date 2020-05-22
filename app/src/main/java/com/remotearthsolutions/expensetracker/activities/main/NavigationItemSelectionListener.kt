@@ -106,7 +106,7 @@ class NavigationItemSelectionListener(
                                                     selectedText
                                                 ).absolutePath
                                                 viewModel.importDataFromFile(filePath)
-                                                AmplitudeUtils.logEvent(AmplitudeUtils.DATA_IMPORTED)
+                                                AnalyticsManager.logEvent(AnalyticsManager.DATA_IMPORTED)
                                                 showProgress(resources.getString(R.string.please_wait))
                                                 Handler()
                                                     .postDelayed({

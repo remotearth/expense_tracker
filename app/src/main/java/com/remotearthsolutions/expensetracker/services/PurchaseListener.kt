@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.callbacks.InAppBillingCallback
-import com.remotearthsolutions.expensetracker.utils.AmplitudeUtils
+import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import org.solovyev.android.checkout.EmptyRequestListener
 import org.solovyev.android.checkout.Purchase
 import org.solovyev.android.checkout.ResponseCodes
@@ -16,7 +16,7 @@ class PurchaseListener(
     override fun onSuccess(purchase: Purchase) {
         Log.d("Success", "onSuccess: ")
         billingCallback.onPurchaseSuccessListener(purchase)
-        AmplitudeUtils.logEvent("App purchase")
+        AnalyticsManager.logEvent("App purchase")
     }
 
     override fun onError(response: Int, e: Exception) {

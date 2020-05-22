@@ -8,4 +8,5 @@
     <string name="admob_test_ad_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
 
     <string name="amplitude_id" translatable="false">16fe1813be6bb5b257217ea9d1c16039</string>
+    <string name="flurry_id" translatable="false">H34CQSGBSDW3HV8VZ6YP</string>
 </resources>

@@ -1,10 +1,11 @@
 package com.remotearthsolutions.expensetracker.utils
 
 import com.amplitude.api.Amplitude
+import com.flurry.android.FlurryAgent
 import com.remotearthsolutions.expensetracker.BuildConfig
 
 
-object AmplitudeUtils {
+object AnalyticsManager {
     const val EXPENSE_TYPE_DEFAULT = "EXPENSE_TYPE_DEFAULT"
     const val EXPENSE_TYPE_SCHEDULED = "EXPENSE_TYPE_SCHEDULED"
     const val AD_SHOWN = "AD_SHOWN"
@@ -18,6 +19,7 @@ object AmplitudeUtils {
     fun logEvent(eventName: String) {
         if (!BuildConfig.DEBUG) {
             Amplitude.getInstance().logEvent(eventName)
+            FlurryAgent.logEvent(eventName)
         }
     }
 }

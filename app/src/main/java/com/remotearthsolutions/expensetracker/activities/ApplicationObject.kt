@@ -6,8 +6,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
 import com.amplitude.api.Amplitude
+import com.flurry.android.FlurryAgent
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.remotearthsolutions.expensetracker.BuildConfig
+import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
@@ -31,8 +33,13 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
 
     override fun onCreate() {
         super.onCreate()
-        Amplitude.getInstance().initialize(this, "16fe1813be6bb5b257217ea9d1c16039")
+        Amplitude.getInstance().initialize(this, getString(R.string.amplitude_id))
             .enableForegroundTracking(this)
+        FlurryAgent.Builder()
+            .withCaptureUncaughtExceptions(true)
+            .withLogEnabled(true)
+            .build(this, getString(R.string.flurry_id))
+
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(!BuildConfig.DEBUG)
         SharedPreferenceUtils.getInstance(this)

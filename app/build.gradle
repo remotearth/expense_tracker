@@ -113,8 +113,9 @@ dependencies {
     def work_version = "2.3.4"
     implementation "androidx.work:work-runtime-ktx:$work_version"
 
-    //analytics - amplitude
+    //analytics
     implementation 'com.amplitude:android-sdk:2.23.2'
+    implementation 'com.flurry.android:analytics:12.3.0@aar'
 
     // to fix problem the following problem
     // "Duplicate class com.google.common.util.concurrent.ListenableFuture found in modules

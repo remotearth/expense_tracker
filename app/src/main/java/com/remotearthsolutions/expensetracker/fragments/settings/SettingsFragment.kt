@@ -12,7 +12,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
-import com.remotearthsolutions.expensetracker.utils.AmplitudeUtils
+import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils.getFlagDrawable
@@ -62,7 +62,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         )
                         currencyPreference!!.summary = currency
                         currencyPreference.setIcon(getFlagDrawable(requireContext()))
-                        AmplitudeUtils.logEvent(currency)
+                        AnalyticsManager.logEvent(currency)
                     }
                     Constants.PREF_PERIOD -> {
                         val periodPreference =
@@ -70,7 +70,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         periodPreference!!.summary = sharedPreferences.getString(
                             key, resources.getString(R.string.daily)
                         )
-                        AmplitudeUtils.logEvent(key)
+                        AnalyticsManager.logEvent(key)
                     }
                     Constants.PREF_TIME_FORMAT -> {
                         val timeFormatPreference =
@@ -80,7 +80,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                                 key,
                                 resources.getString(R.string.default_time_format)
                             )
-                        AmplitudeUtils.logEvent(key)
+                        AnalyticsManager.logEvent(key)
                     }
                     Constants.PREF_REMIND_TO_EXPORT -> {
                         val shouldRemindToExport = sharedPreferences.getBoolean(key, false)
@@ -89,7 +89,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         } else {
                             ExportReminderHelper.cancelExportReminder(requireContext())
                         }
-                        AmplitudeUtils.logEvent("ExportReminder-$shouldRemindToExport")
+                        AnalyticsManager.logEvent("ExportReminder-$shouldRemindToExport")
                     }
                 }
             }
