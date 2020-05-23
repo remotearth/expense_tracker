@@ -227,6 +227,7 @@
     <string name="expense_scheduled">Výdavky sú naplánované</string>
     <string name="occurrence_left">Výskyt zostal</string>
     <string name="safe_to_export">Je bezpečné exportovať údaje o výdavkoch pravidelne. Ak ste prémiovým používateľom, môžete si svoje dáta zálohovať.</string>
-    <string name="remind_to_addexpense">Remind to add expense</string>
-    <string name="daily_at_endofday">Daily at end of the day</string>
+
+    <string name="remind_to_addexpense">Pripomenúť výdavky</string>
+    <string name="daily_at_endofday">Na konci dňa</string>
 </resources>

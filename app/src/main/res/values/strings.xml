@@ -273,9 +273,9 @@
     <string name="expense_scheduled">Expense is scheduled</string>
     <string name="occurrence_left">Occurrence left</string>
     <string name="safe_to_export">It is safe to export your expense data periodically. If you are a premium user, you can backup your data to cloud</string>
-    <string name="remind_to_addexpense">Remind to add expense</string>
-    <string name="daily_at_endofday">Daily at end of the day</string>
 
+    <string name="remind_to_addexpense">Remind To Add Expense</string>
+    <string name="daily_at_endofday">Daily, at the end of the day</string>
 
     <string-array name="daily_reminder_messages">
         <item>You ask me to remind you about adding daily expenses. Add your expenses for today.</item>

@@ -231,6 +231,7 @@
     <string name="expense_scheduled">Gider planlandı</string>
     <string name="occurrence_left">Oluşan sol</string>
     <string name="safe_to_export">Gider verilerinizi periyodik olarak dışa aktarmak güvenlidir. Premium kullanıcıysanız verilerinizi buluta yedekleyebilirsiniz.</string>
-    <string name="remind_to_addexpense">Remind to add expense</string>
-    <string name="daily_at_endofday">Daily at end of the day</string>
+
+    <string name="remind_to_addexpense">Gider eklemeyi hatırlat</string>
+    <string name="daily_at_endofday">Günün sonunda</string>
 </resources>

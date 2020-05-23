@@ -229,6 +229,7 @@
     <string name="expense_scheduled">Ausgaben sind geplant</string>
     <string name="occurrence_left">Vorkommen links</string>
     <string name="safe_to_export">Es ist sicher, Ihre Spesenangaben regelmäßig zu exportieren. Wenn Sie ein Premium-Benutzer sind, können Sie Ihre Daten in der Cloud sichern.</string>
-    <string name="remind_to_addexpense">Remind to add expense</string>
-    <string name="daily_at_endofday">Daily at end of the day</string>
+
+    <string name="remind_to_addexpense">Erinnern Sie daran, Kosten hinzuzufügen</string>
+    <string name="daily_at_endofday">Täglich, am Ende des Tages</string>
 </resources>

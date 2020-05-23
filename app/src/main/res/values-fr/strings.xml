@@ -232,6 +232,7 @@
     <string name="expense_scheduled">Les dépenses sont prévues</string>
     <string name="occurrence_left">Occurrence gauche</string>
     <string name="safe_to_export">Vous pouvez exporter vos données de dépenses régulièrement en toute sécurité. Si vous êtes un utilisateur premium, vous pouvez sauvegarder vos données.</string>
-    <string name="remind_to_addexpense">Remind to add expense</string>
-    <string name="daily_at_endofday">Daily at end of the day</string>
+
+    <string name="remind_to_addexpense">Rappeler d\'ajouter des dépenses</string>
+    <string name="daily_at_endofday">À la fin de la journée</string>
 </resources>
