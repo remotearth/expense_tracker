@@ -25,7 +25,6 @@ import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
 import com.remotearthsolutions.expensetracker.viewmodels.AccountViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
-import kotlinx.android.synthetic.main.fragment_accounts.*
 import kotlinx.android.synthetic.main.fragment_accounts.view.*
 
 class AccountsFragment : BaseFragment(),
@@ -74,7 +73,8 @@ class AccountsFragment : BaseFragment(),
         viewModel!!.numberOfItem.observe(viewLifecycleOwner,
             Observer { count: Int -> limitOfAccount = count }
         )
-        addAccountBtn.setOnClickListener {
+        view.addAccountBtn.setOnClickListener {
+            view.fabMenu.close(true)
             if (limitOfAccount < 5 ||
                 ((mContext as Activity?)!!.application as ApplicationObject).isPremium
             ) {
@@ -91,13 +91,18 @@ class AccountsFragment : BaseFragment(),
             }
         }
 
-        transferAmountBtn.setOnClickListener {
+        view.transferAmountBtn.setOnClickListener {
+            view.fabMenu.close(true)
             val transferBalanceDialogFragment = TransferBalanceDialogFragment()
             transferBalanceDialogFragment.setViewModel(viewModel!!)
             transferBalanceDialogFragment.show(
                 childFragmentManager,
                 TransferBalanceDialogFragment::class.java.name
             )
+        }
+
+        view.container.setOnClickListener {
+            view.fabMenu.close(true)
         }
 
         super.onViewCreated(view, savedInstanceState)
@@ -111,6 +116,7 @@ class AccountsFragment : BaseFragment(),
                 mView.accountList.adapter = adapter
                 mView.accountList.onItemClickListener =
                     AdapterView.OnItemClickListener { _: AdapterView<*>?, _: View?, position: Int, _: Long ->
+                        mView.fabMenu.close(true)
                         selectAccountModel = it[position]
                         val optionBottomSheetFragment = OptionBottomSheetFragment()
                         optionBottomSheetFragment.setCallback(

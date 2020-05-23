@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,25 +11,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addAccountBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/fabMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
-        app:elevation="3dp"
-        app:rippleColor="@color/colorPrimary"
-        app:srcCompat="@drawable/ic_add" />
+        android:paddingEnd="10dp"
+        android:paddingBottom="10dp"
+        app:menu_buttonSpacing="5dp"
+        app:menu_colorNormal="@color/colorAccent"
+        app:menu_colorPressed="@color/colorPrimaryDark"
+        app:menu_colorRipple="@color/colorPrimaryDark"
+        app:menu_icon="@drawable/ic_float_menu"
+        app:menu_showShadow="false"
+        tools:ignore="RtlSymmetry">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/transferAmountBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/addAccountBtn"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="10dp"
-        app:elevation="3dp"
-        app:rippleColor="@color/colorPrimary"
-        app:srcCompat="@drawable/ic_transfer" />
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/addAccountBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add"
+            app:fab_colorNormal="@color/colorPrimary"
+            app:fab_colorPressed="@color/colorAccent"
+            app:fab_elevationCompat="2dp"
+            app:fab_label="Create Account"
+            app:fab_size="mini" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/transferAmountBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_transfer"
+            app:fab_colorNormal="@color/colorPrimary"
+            app:fab_colorPressed="@color/colorAccent"
+            app:fab_elevationCompat="2dp"
+            app:fab_label="Transfer Amount"
+            app:fab_size="mini" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/setSalaryBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_salary"
+            app:fab_colorNormal="@color/colorPrimary"
+            app:fab_colorPressed="@color/colorAccent"
+            app:fab_elevationCompat="2dp"
+            app:fab_label="Set Your Salary"
+            app:fab_size="mini" />
+    </com.github.clans.fab.FloatingActionMenu>
 </RelativeLayout>
