@@ -8,6 +8,7 @@ import com.remotearthsolutions.expensetracker.R
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.*
+import kotlin.random.Random
 
 object Utils {
     private const val HIGHEST_VALUE_OF_RGB = 255
@@ -15,13 +16,9 @@ object Utils {
     private val df = DecimalFormat("#.#", DecimalFormatSymbols.getInstance(Locale.US))
     val randomColorHexValue: String
         get() {
-            val ra = Random()
-            val r =
-                ra.nextInt(HIGHEST_VALUE_OF_RGB)
-            val g =
-                ra.nextInt(HIGHEST_VALUE_OF_RGB)
-            val b =
-                ra.nextInt(HIGHEST_VALUE_OF_RGB)
+            val r = Random.nextInt(HIGHEST_VALUE_OF_RGB)
+            val g = Random.nextInt(HIGHEST_VALUE_OF_RGB)
+            val b = Random.nextInt(HIGHEST_VALUE_OF_RGB)
             return String.format(Constants.KEY_COLOR_FORMAT, r, g, b)
         }
 
@@ -76,7 +73,7 @@ object Utils {
         return df.format(`val`)
     }
 
-    fun showToast(context: Context, message:String){
+    fun showToast(context: Context, message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 

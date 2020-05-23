@@ -236,4 +236,6 @@
     <string name="expense_scheduled">Расход запланирован</string>
     <string name="occurrence_left">Появление осталось</string>
     <string name="safe_to_export">Периодически безопасно экспортировать данные о ваших расходах. Если вы являетесь премиум-пользователем, вы можете сделать резервную копию ваших данных.</string>
+    <string name="remind_to_addexpense">Remind to add expense</string>
+    <string name="daily_at_endofday">Daily at end of the day</string>
 </resources>

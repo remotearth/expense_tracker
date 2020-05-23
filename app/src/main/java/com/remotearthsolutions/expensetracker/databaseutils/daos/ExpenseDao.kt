@@ -42,4 +42,7 @@ interface ExpenseDao {
 
     @Query("Select Count(*) from expense")
     fun getNumberOfExpenseEntry(): Single<Int>
+
+    @Query("Select Count(*) from expense where datetime>=:startTime and datetime<=:endTime")
+    fun getNumberOfExpenseEntryWithinRange(startTime: Long, endTime: Long): Single<Int>
 }

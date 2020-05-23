@@ -85,11 +85,26 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     Constants.PREF_REMIND_TO_EXPORT -> {
                         val shouldRemindToExport = sharedPreferences.getBoolean(key, false)
                         if (shouldRemindToExport) {
-                            ExportReminderHelper.setReminderToExport(requireContext())
+                            ReminderWorkerHelper.setExportReminder(requireContext())
                         } else {
-                            ExportReminderHelper.cancelExportReminder(requireContext())
+                            ReminderWorkerHelper.cancelReminder(
+                                requireContext(),
+                                Constants.KEY_EXPORT_REMINDER_WORKREQUEST_ID
+                            )
                         }
                         AnalyticsManager.logEvent("ExportReminder-$shouldRemindToExport")
+                    }
+                    Constants.PREF_REMIND_TO_ADDEXPENSE -> {
+                        val shouldRemindToAddExpense = sharedPreferences.getBoolean(key, false)
+                        if (shouldRemindToAddExpense) {
+                            ReminderWorkerHelper.setAddExpenseReminder(requireContext())
+                        } else {
+                            ReminderWorkerHelper.cancelReminder(
+                                requireContext(),
+                                Constants.KEY_ADDEXPENSE_REMINDER_WORKREQUEST_ID
+                            )
+                        }
+                        AnalyticsManager.logEvent("AddExpenseReminder-$shouldRemindToAddExpense")
                     }
                 }
             }

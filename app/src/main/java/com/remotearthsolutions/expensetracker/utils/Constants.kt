@@ -25,6 +25,7 @@ interface Constants {
         const val PREF_CURRENCY = "pref_currency_list"
         const val PREF_PERIOD = "pref_period_list"
         const val PREF_TIME_FORMAT = "pref_time_format_list"
+        const val PREF_REMIND_TO_ADDEXPENSE = "pref_remind_add_expense"
         const val PREF_REMIND_TO_EXPORT = "pref_remind_to_export"
         const val PREF_ISFIRSTTIMEVISITED = "PREF_ISFIRSTTIMEVISITED"
         const val KEY_TITLE = "title"
@@ -52,6 +53,7 @@ interface Constants {
         const val KEY_PACKAGE = "package"
         const val KEY_COLOR_FORMAT = "#%02x%02x%02x"
         const val KEY_EXPORT_REMINDER_WORKREQUEST_ID = "KEY_EXPORT_REMINDER_WORKREQUEST_ID"
+        const val KEY_ADDEXPENSE_REMINDER_WORKREQUEST_ID = "KEY_ADDEXPENSE_REMINDER_WORKREQUEST_ID"
 
         const val ASKED_TO_REVIEW = "asked_to_review"
         const val NUMBER_OF_ENTRY_NEEDED_BEFORE_ASKING_TO_REVIEW = 30

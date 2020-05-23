@@ -49,7 +49,7 @@ object LocalNotificationManager {
             builder.setContentIntent(pendingIntent)
         }
         with(NotificationManagerCompat.from(context)) {
-            notify(Random(10).nextInt(), builder.build())
+            notify(Random.nextInt(), builder.build())
         }
     }
 }

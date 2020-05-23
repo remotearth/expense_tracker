@@ -30,6 +30,13 @@
 
     <SwitchPreferenceCompat
         android:defaultValue="false"
+        android:icon="@drawable/ic_daily_reminder"
+        android:key="@string/prefremindaddexpense"
+        android:summary="@string/daily_at_endofday"
+        android:title="@string/remind_to_addexpense" />
+
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
         android:icon="@drawable/ic_reminder"
         android:key="@string/prefremindtoexport"
         android:summary="@string/first_day_of_month"

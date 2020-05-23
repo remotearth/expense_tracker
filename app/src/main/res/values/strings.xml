@@ -5,6 +5,7 @@
     <string name="defaultvalue" translatable="false">Bangladeshi Taka - BDT</string>
     <string name="prefdate" translatable="false">pref_period_list</string>
     <string name="preftimeformat" translatable="false">pref_time_format_list</string>
+    <string name="prefremindaddexpense" translatable="false">pref_remind_add_expense</string>
     <string name="prefremindtoexport" translatable="false">pref_remind_to_export</string>
 
     <string name="mGoogleSignInClient_must_be_initialized" translatable="false">mGoogleSignInClient must be
@@ -272,5 +273,19 @@
     <string name="expense_scheduled">Expense is scheduled</string>
     <string name="occurrence_left">Occurrence left</string>
     <string name="safe_to_export">It is safe to export your expense data periodically. If you are a premium user, you can backup your data to cloud</string>
+    <string name="remind_to_addexpense">Remind to add expense</string>
+    <string name="daily_at_endofday">Daily at end of the day</string>
 
+
+    <string-array name="daily_reminder_messages">
+        <item>You ask me to remind you about adding daily expenses. Add your expenses for today.</item>
+        <item>Hope you had a good day. Don\'t forget to add your expenses for today.</item>
+        <item>It is time to add your expenses for today.</item>
+        <item>Don\'t forget to add your expenses for today.</item>
+        <item>Hey! Don\'t forget to add your expenses for today.</item>
+        <item>Stick to your budget. Always track you expenses. It is time to add for today.</item>
+        <item>Remember you should save something for a rainy day. Add your expenses right away!!</item>
+        <item>Did you forget something? Yes.... Add your today\'s expenses now!!</item>
+        <item>Cut your coat according to your cloth. Never forget to add your daily expenses.</item>
+    </string-array>
 </resources>
