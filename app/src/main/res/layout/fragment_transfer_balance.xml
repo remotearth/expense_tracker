@@ -9,7 +9,7 @@
 
     <EditText
         android:id="@+id/amountEdtxt"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:ems="6"
@@ -115,8 +115,8 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:ems="30"
         android:text="@string/transfer_balance"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/colorPrimaryDark"

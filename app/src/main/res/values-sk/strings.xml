@@ -230,4 +230,12 @@
 
     <string name="remind_to_addexpense">Pripomenúť výdavky</string>
     <string name="daily_at_endofday">Na konci dňa</string>
+    <string name="set_salary">Set Your Salary</string>
+    <string name="set_your_salary">Set Your Salary</string>
+    <string name="add_salary_every_month">Automatically Add Your Salary On Every Month</string>
+    <string name="what_is_your_monthly_salary">What Is Your Monthly Salary?</string>
+    <string name="amount">Amount</string>
+    <string name="next_salary_date">Next Salary Date</string>
+    <string name="change">Change</string>
+    <string name="select_account_to_receive_salary">Select Account To Receive Salary</string>
 </resources>

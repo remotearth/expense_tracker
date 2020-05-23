@@ -101,6 +101,15 @@ class AccountsFragment : BaseFragment(),
             )
         }
 
+        view.setSalaryBtn.setOnClickListener {
+            view.fabMenu.close(true)
+            val salaryFragment = SalaryFragment()
+            salaryFragment.show(
+                childFragmentManager,
+                SalaryFragment::class.java.name
+            )
+        }
+
         view.container.setOnClickListener {
             view.fabMenu.close(true)
         }
