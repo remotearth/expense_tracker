@@ -33,6 +33,7 @@ interface Constants {
         const val KEY_SALARY_AUTOMATIC_AMOUNT = "KEY_SALARY_AUTOMATIC_AMOUNT"
         const val KEY_SALARY_AUTOMATIC_DATE = "KEY_SALARY_AUTOMATIC_DATE"
         const val KEY_SALARY_AUTOMATIC_ACCOUNT_ID = "KEY_SALARY_AUTOMATIC_ACCOUNT_ID"
+        const val KEY_SALARY_AUTOMATIC_WORKER_ID = "KEY_SALARY_AUTOMATIC_WORKER_ID"
 
         const val KEY_TITLE = "title"
         const val KEY_SCREEN = "screen"

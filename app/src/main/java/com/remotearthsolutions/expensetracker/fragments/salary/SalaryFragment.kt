@@ -98,17 +98,20 @@ class SalaryFragment : DialogFragment() {
                         mView.dateTv.text.toString(),
                         dateFormat
                     )
-                val accountId = (mView.salaryAccountSpnr.selectedItem as AccountModel).id
 
+                val accountId = (mView.salaryAccountSpnr.selectedItem as AccountModel).id
                 sharedPreferenceUtils.putBoolean(Constants.KEY_SALARY_AUTOMATIC, true)
                 sharedPreferenceUtils.putString(Constants.KEY_SALARY_AUTOMATIC_AMOUNT, amount)
                 sharedPreferenceUtils.putLong(
                     Constants.KEY_SALARY_AUTOMATIC_DATE,
                     nextSalaryDateLong
                 )
+
                 sharedPreferenceUtils.putInt(Constants.KEY_SALARY_AUTOMATIC_ACCOUNT_ID, accountId)
+                SalaryWorkerHelper.setAutomaticSalary(requireContext(), nextSalaryDateLong)
             } else {
                 sharedPreferenceUtils.putBoolean(Constants.KEY_SALARY_AUTOMATIC, false)
+                SalaryWorkerHelper.cancelAutomaticSalary(requireContext())
             }
             dismiss()
         }
@@ -153,8 +156,7 @@ class SalaryFragment : DialogFragment() {
 
     private fun updateSalaryAccount() {
         val accountList = viewModel?.listOfAccountLiveData?.value!!
-        var currencySymbol = "$"
-        currencySymbol = Utils.getCurrency(requireContext())
+        val currencySymbol = Utils.getCurrency(requireContext())
         val adapter = AccountsAdapter(requireContext(), accountList, currencySymbol)
         mView.salaryAccountSpnr.adapter = adapter
         val accountId = sharedPreferenceUtils.getInt(
