@@ -243,4 +243,5 @@
     <string name="next_salary_date">Next Salary Date</string>
     <string name="change">Change</string>
     <string name="select_account_to_receive_salary">Select Account To Receive Salary</string>
+    <string name="salary_is_added">Your salary for this month is added to your selected account</string>
 </resources>
