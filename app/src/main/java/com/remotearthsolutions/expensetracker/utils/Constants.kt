@@ -28,6 +28,12 @@ interface Constants {
         const val PREF_REMIND_TO_ADDEXPENSE = "pref_remind_add_expense"
         const val PREF_REMIND_TO_EXPORT = "pref_remind_to_export"
         const val PREF_ISFIRSTTIMEVISITED = "PREF_ISFIRSTTIMEVISITED"
+
+        const val KEY_SALARY_AUTOMATIC = "KEY_SALARY_AUTOMATIC"
+        const val KEY_SALARY_AUTOMATIC_AMOUNT = "KEY_SALARY_AUTOMATIC_AMOUNT"
+        const val KEY_SALARY_AUTOMATIC_DATE = "KEY_SALARY_AUTOMATIC_DATE"
+        const val KEY_SALARY_AUTOMATIC_ACCOUNT_ID = "KEY_SALARY_AUTOMATIC_ACCOUNT_ID"
+
         const val KEY_TITLE = "title"
         const val KEY_SCREEN = "screen"
         const val KEY_UTF_VERSION = "UTF-8"

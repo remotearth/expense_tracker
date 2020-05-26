@@ -19,6 +19,7 @@ import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
 import com.remotearthsolutions.expensetracker.fragments.OptionBottomSheetFragment.OptionsFor
+import com.remotearthsolutions.expensetracker.fragments.salary.SalaryFragment
 import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils.show
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
@@ -104,6 +105,7 @@ class AccountsFragment : BaseFragment(),
         view.setSalaryBtn.setOnClickListener {
             view.fabMenu.close(true)
             val salaryFragment = SalaryFragment()
+            salaryFragment.setViewModel(viewModel!!)
             salaryFragment.show(
                 childFragmentManager,
                 SalaryFragment::class.java.name

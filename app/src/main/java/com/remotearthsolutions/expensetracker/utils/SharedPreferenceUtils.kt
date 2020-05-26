@@ -16,6 +16,14 @@ class SharedPreferenceUtils private constructor(context: Context) {
         return sp.getInt(key, defaultVal)
     }
 
+    fun putLong(key: String?, value: Long) {
+        editor.putLong(key, value).apply()
+    }
+
+    fun getLong(key: String?, defaultVal: Long): Long {
+        return sp.getLong(key, defaultVal)
+    }
+
     fun putString(key: String?, value: String?) {
         editor.putString(key, value).apply()
     }
