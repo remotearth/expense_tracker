@@ -8,7 +8,7 @@ interface Constants {
         const val URL_PRIVACY_POLICY =
             "https://sites.google.com/view/expense-spending-tracker/privacy"
         const val URL_THIRD_PARTY_LICENSES =
-            "https://remotearth.github.io/expensetracker/all_license.html"
+            "https://sites.google.com/view/expense-spending-tracker/licenses"
 
         const val KEY_DAILY = "Daily"
         const val KEY_WEEKLY = "Weekly"
