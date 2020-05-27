@@ -57,7 +57,7 @@
             app:fab_colorNormal="@color/colorPrimary"
             app:fab_colorPressed="@color/colorAccent"
             app:fab_elevationCompat="2dp"
-            app:fab_label="@string/set_salary"
+            app:fab_label="@string/set_your_salary"
             app:fab_size="mini" />
     </com.github.clans.fab.FloatingActionMenu>
 </RelativeLayout>

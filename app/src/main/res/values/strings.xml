@@ -276,15 +276,14 @@
 
     <string name="remind_to_addexpense">Remind To Add Expense</string>
     <string name="daily_at_endofday">Daily, at the end of the day</string>
-    <string name="set_salary">Set Your Salary</string>
     <string name="set_your_salary">Set Your Salary</string>
     <string name="add_salary_every_month">Automatically Add Your Salary Every Month</string>
     <string name="what_is_your_monthly_salary">What Is Your Monthly Salary?</string>
     <string name="amount">Amount</string>
     <string name="next_salary_date">Next Salary Date</string>
-    <string name="change">Change</string>
     <string name="select_account_to_receive_salary">Select Account To Receive Salary</string>
     <string name="salary_is_added">Your salary for this month is added to your selected account</string>
+    <string name="sure_to_cancel_change">Are you sure to cancel the change?</string>
 
     <string-array name="daily_reminder_messages">
         <item>You ask me to remind you about adding daily expenses. Add your expenses for today.</item>

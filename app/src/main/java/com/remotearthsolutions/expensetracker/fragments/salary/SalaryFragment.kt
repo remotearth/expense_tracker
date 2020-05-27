@@ -9,11 +9,9 @@ import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.AccountsAdapter
+import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
-import com.remotearthsolutions.expensetracker.utils.Constants
-import com.remotearthsolutions.expensetracker.utils.DateTimeUtils
-import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
-import com.remotearthsolutions.expensetracker.utils.Utils
+import com.remotearthsolutions.expensetracker.utils.*
 import com.remotearthsolutions.expensetracker.viewmodels.AccountViewModel
 import kotlinx.android.synthetic.main.fragment_salary.*
 import kotlinx.android.synthetic.main.fragment_salary.view.*
@@ -54,7 +52,21 @@ class SalaryFragment : DialogFragment() {
         }
 
         mView.cancelBtn.setOnClickListener {
-            dismiss()
+            val prevState = sharedPreferenceUtils.getBoolean(Constants.KEY_SALARY_AUTOMATIC, false)
+            if (mView.salaryToggleBtn.isChecked != prevState) {
+                AlertDialogUtils.show(requireContext(),
+                    "",
+                    getString(R.string.sure_to_cancel_change),
+                    getString(R.string.yes),
+                    getString(R.string.no),
+                    object : BaseView.Callback {
+                        override fun onOkBtnPressed() {
+                            dismiss()
+                        }
+                    })
+            } else {
+                dismiss()
+            }
         }
 
         mView.dateTv.setOnClickListener {

@@ -230,13 +230,12 @@
 
     <string name="remind_to_addexpense">Pripomenúť výdavky</string>
     <string name="daily_at_endofday">Na konci dňa</string>
-    <string name="set_salary">Set Your Salary</string>
-    <string name="set_your_salary">Set Your Salary</string>
-    <string name="add_salary_every_month">Automatically Add Your Salary On Every Month</string>
-    <string name="what_is_your_monthly_salary">What Is Your Monthly Salary?</string>
-    <string name="amount">Amount</string>
-    <string name="next_salary_date">Next Salary Date</string>
-    <string name="change">Change</string>
-    <string name="select_account_to_receive_salary">Select Account To Receive Salary</string>
-    <string name="salary_is_added">Your salary for this month is added to your selected account</string>
+    <string name="set_your_salary">Nastavte si plat</string>
+    <string name="add_salary_every_month">Automaticky pridajte plat každý mesiac</string>
+    <string name="what_is_your_monthly_salary">Aký je váš mesačný plat?</string>
+    <string name="amount">čiastka</string>
+    <string name="next_salary_date">Ďalší platový dátum</string>
+    <string name="select_account_to_receive_salary">Vyberte účet na príjem mzdy</string>
+    <string name="salary_is_added">Váš plat za tento mesiac sa pripočíta k vybratému účtu</string>
+    <string name="sure_to_cancel_change">Naozaj chcete zmenu zrušiť?</string>
 </resources>

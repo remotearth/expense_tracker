@@ -228,13 +228,12 @@
 
     <string name="remind_to_addexpense">Lembre-se de adicionar despesa</string>
     <string name="daily_at_endofday">No fim do dia</string>
-    <string name="set_salary">Set Your Salary</string>
-    <string name="set_your_salary">Set Your Salary</string>
-    <string name="add_salary_every_month">Automatically Add Your Salary On Every Month</string>
-    <string name="what_is_your_monthly_salary">What Is Your Monthly Salary?</string>
-    <string name="amount">Amount</string>
-    <string name="next_salary_date">Next Salary Date</string>
-    <string name="change">Change</string>
-    <string name="select_account_to_receive_salary">Select Account To Receive Salary</string>
-    <string name="salary_is_added">Your salary for this month is added to your selected account</string>
+    <string name="set_your_salary">Defina seu salário</string>
+    <string name="add_salary_every_month">Adicione seu salário automaticamente todos os meses</string>
+    <string name="what_is_your_monthly_salary">Qual é o seu salário mensal?</string>
+    <string name="amount">Montante</string>
+    <string name="next_salary_date">Data do próximo salário</string>
+    <string name="select_account_to_receive_salary">Selecionar conta para receber salário</string>
+    <string name="salary_is_added">Seu salário para este mês é adicionado à sua conta selecionada</string>
+    <string name="sure_to_cancel_change">Tem certeza de que deseja cancelar a alteração?</string>
 </resources>

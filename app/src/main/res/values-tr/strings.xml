@@ -234,13 +234,12 @@
 
     <string name="remind_to_addexpense">Gider eklemeyi hatırlat</string>
     <string name="daily_at_endofday">Günün sonunda</string>
-    <string name="set_salary">Set Your Salary</string>
-    <string name="set_your_salary">Set Your Salary</string>
-    <string name="add_salary_every_month">Automatically Add Your Salary On Every Month</string>
-    <string name="what_is_your_monthly_salary">What Is Your Monthly Salary?</string>
-    <string name="amount">Amount</string>
-    <string name="next_salary_date">Next Salary Date</string>
-    <string name="change">Change</string>
-    <string name="select_account_to_receive_salary">Select Account To Receive Salary</string>
-    <string name="salary_is_added">Your salary for this month is added to your selected account</string>
+    <string name="set_your_salary">Maaşınızı Belirleyin</string>
+    <string name="add_salary_every_month">Her Ay Maaşınızı Otomatik Olarak Ekleyin</string>
+    <string name="what_is_your_monthly_salary">Aylık Maaşınız Nedir?</string>
+    <string name="amount">Miktar</string>
+    <string name="next_salary_date">Sonraki Maaş Tarihi</string>
+    <string name="select_account_to_receive_salary">Maaş Alacak Hesabı Seçin</string>
+    <string name="salary_is_added">Bu ayın maaşınız seçtiğiniz hesaba eklenir</string>
+    <string name="sure_to_cancel_change">Değişikliği iptal etmek istediğinizden emin misiniz?</string>
 </resources>

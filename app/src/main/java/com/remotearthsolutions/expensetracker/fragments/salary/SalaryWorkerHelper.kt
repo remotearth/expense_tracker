@@ -25,10 +25,12 @@ object SalaryWorkerHelper {
     }
 
     fun cancelAutomaticSalary(context: Context) {
-        val requestId = SharedPreferenceUtils.getInstance(context)
-            ?.getString(Constants.KEY_SALARY_AUTOMATIC_WORKER_ID, "")
-        (requestId?.length!! > 0).let {
+        val sharedPreferenceUtils = SharedPreferenceUtils.getInstance(context)
+        val requestId =
+            sharedPreferenceUtils?.getString(Constants.KEY_SALARY_AUTOMATIC_WORKER_ID, "")
+        if (requestId?.length!! > 0) {
             WorkManagerHelper.cancelWorkRequest(context, requestId)
+            sharedPreferenceUtils.putString(Constants.KEY_SALARY_AUTOMATIC_WORKER_ID, "")
         }
     }
 }

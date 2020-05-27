@@ -146,7 +146,6 @@ class MainViewModel(
             accountDao.allAccounts,
             Function4<List<CategoryExpense>?, List<ExpenseModel>?, List<CategoryModel>?, List<AccountModel>?, SaveExpenseToFileData>
             { listOfFilterExpense, allExpenses, allCategories, allAccounts ->
-                // TODO: fix here
                 if (listOfFilterExpense.isNotEmpty()) {
                     for (i in listOfFilterExpense.indices) {
                         if (listOfFilterExpense[i].totalAmount > 0) {
