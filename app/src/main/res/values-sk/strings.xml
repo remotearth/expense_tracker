@@ -238,4 +238,6 @@
     <string name="select_account_to_receive_salary">Vyberte účet na príjem mzdy</string>
     <string name="salary_is_added">Váš plat za tento mesiac sa pripočíta k vybratému účtu</string>
     <string name="sure_to_cancel_change">Naozaj chcete zmenu zrušiť?</string>
+    <string name="periodic_ask_to_add_expense">Za posledných pár dní ste nepridali svoje výdavky. Ak chcete denné pripomenutie, môžete ho nastaviť na stránke nastavení.</string>
+    <string name="periodic_remind_notification">Zdá sa, že svoje výdavky nepridávate pravidelne. Chcete, aby som vám každý deň pripomenul?</string>
 </resources>

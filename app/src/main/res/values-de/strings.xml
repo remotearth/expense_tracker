@@ -240,4 +240,6 @@
     <string name="select_account_to_receive_salary">Wählen Sie Konto, um das Gehalt zu erhalten</string>
     <string name="salary_is_added">Ihr Gehalt für diesen Monat wird Ihrem ausgewählten Konto hinzugefügt</string>
     <string name="sure_to_cancel_change">Sind Sie sicher, die Änderung abzubrechen?</string>
+    <string name="periodic_ask_to_add_expense">Sie haben Ihre Ausgaben in den letzten Tagen nicht hinzugefügt. Wenn Sie eine tägliche Erinnerung wünschen, können Sie diese auf der Einstellungsseite festlegen.</string>
+    <string name="periodic_remind_notification">Es scheint, dass Sie Ihre Ausgaben nicht regelmäßig hinzufügen. Soll ich dich jeden Tag daran erinnern?</string>
 </resources>

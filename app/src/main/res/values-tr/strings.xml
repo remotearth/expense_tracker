@@ -242,4 +242,6 @@
     <string name="select_account_to_receive_salary">Maaş Alacak Hesabı Seçin</string>
     <string name="salary_is_added">Bu ayın maaşınız seçtiğiniz hesaba eklenir</string>
     <string name="sure_to_cancel_change">Değişikliği iptal etmek istediğinizden emin misiniz?</string>
+    <string name="periodic_ask_to_add_expense">Son birkaç gün içinde harcamalarınızı eklemediniz. Günlük bir hatırlatıcı istiyorsanız, ayarlar sayfasında ayarlayabilirsiniz.</string>
+    <string name="periodic_remind_notification">Giderlerinizi düzenli olarak eklemediğiniz anlaşılıyor. Sana her gün hatırlatmamı ister misin?</string>
 </resources>

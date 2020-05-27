@@ -34,6 +34,8 @@ import com.remotearthsolutions.expensetracker.services.FileProcessingServiceImp
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl
 import com.remotearthsolutions.expensetracker.services.PurchaseListener
 import com.remotearthsolutions.expensetracker.utils.*
+import com.remotearthsolutions.expensetracker.utils.workmanager.WorkManagerEnqueuer
+import com.remotearthsolutions.expensetracker.utils.workmanager.WorkRequestType
 import com.remotearthsolutions.expensetracker.viewmodels.mainview.MainViewModel
 import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
@@ -82,6 +84,13 @@ class MainActivity : BaseActivity(), MainContract.View {
         Handler().postDelayed({
             InAppUpdateUtils().requestUpdateApp(this@MainActivity)
         }, 2000)
+
+        val requestId = WorkManagerEnqueuer().enqueue<AskToAddEntryWorker>(
+            this,
+            WorkRequestType.PERIODIC,
+            Constants.DELAY_PERIODIC_REMINDER_TO_ADD_EXPENSE,
+            null
+        )
 
         if (BuildConfig.DEBUG) {
             FirebaseInstanceId.getInstance().instanceId

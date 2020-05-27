@@ -47,7 +47,7 @@ class WorkManagerEnqueuer {
                         if (initialDelayMills < 0) delayMills else initialDelayMills,
                         TimeUnit.MILLISECONDS
                     )
-                data?.let { request.setInputData(data) }
+                data?.let { request.setInputData(it) }
                 return request.build()
             }
         }
