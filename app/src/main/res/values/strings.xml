@@ -282,7 +282,7 @@
     <string name="amount">Amount</string>
     <string name="next_salary_date">Next Salary Date</string>
     <string name="select_account_to_receive_salary">Select Account To Receive Salary</string>
-    <string name="salary_is_added">Your salary for this month is added to your selected account</string>
+    <string name="salary_is_added">Your monthly salary is added to your preferred account just now!</string>
     <string name="sure_to_cancel_change">Are you sure to cancel the change?</string>
     <string name="periodic_ask_to_add_expense">You did not add your expenses in last few days. If you want a daily reminder, you can set in settings page.</string>
     <string name="periodic_remind_notification">It seems you are not adding your expense regularly. Do you want me to remind you everyday?</string>

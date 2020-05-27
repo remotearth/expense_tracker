@@ -245,7 +245,7 @@
     <string name="amount">Количество</string>
     <string name="next_salary_date">Следующая дата зарплаты</string>
     <string name="select_account_to_receive_salary">Выберите аккаунт для получения зарплаты</string>
-    <string name="salary_is_added">Ваша зарплата за этот месяц добавляется в выбранную вами учетную запись</string>
+    <string name="salary_is_added">Ваша месячная зарплата добавляется в ваш любимый аккаунт прямо сейчас!</string>
     <string name="sure_to_cancel_change">Вы уверены, что отмените изменение?</string>
     <string name="periodic_ask_to_add_expense">Вы не добавили свои расходы в последние несколько дней. Если вы хотите ежедневное напоминание, вы можете установить на странице настроек.</string>
     <string name="periodic_remind_notification">Кажется, вы не добавляете свои расходы регулярно. Вы хотите, чтобы я напоминал вам каждый день?</string>

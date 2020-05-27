@@ -244,7 +244,7 @@
     <string name="amount">Quantità</string>
     <string name="next_salary_date">Prossimo stipendio</string>
     <string name="select_account_to_receive_salary">Seleziona Account per ricevere lo stipendio</string>
-    <string name="salary_is_added">Il tuo stipendio per questo mese viene aggiunto al tuo account selezionato</string>
+    <string name="salary_is_added">Il tuo stipendio mensile viene aggiunto al tuo account preferito proprio ora!</string>
     <string name="sure_to_cancel_change">Annullare la modifica?</string>
     <string name="periodic_ask_to_add_expense">Non hai aggiunto le tue spese negli ultimi giorni. Se si desidera un promemoria giornaliero, è possibile impostare nella pagina delle impostazioni.</string>
     <string name="periodic_remind_notification">Sembra che tu non stia aggiungendo le tue spese regolarmente. Vuoi che te lo ricordi tutti i giorni?</string>

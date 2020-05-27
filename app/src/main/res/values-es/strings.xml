@@ -233,7 +233,7 @@
     <string name="amount">Cantidad</string>
     <string name="next_salary_date">Próxima fecha de salario</string>
     <string name="select_account_to_receive_salary">Seleccione cuenta para recibir salario</string>
-    <string name="salary_is_added">Su salario para este mes se agrega a su cuenta seleccionada</string>
+    <string name="salary_is_added">¡Su salario mensual se agrega a su cuenta preferida ahora mismo!</string>
     <string name="sure_to_cancel_change">¿Estás segura de cancelar el cambio?</string>
     <string name="periodic_ask_to_add_expense">No agregó sus gastos en los últimos días. Si desea un recordatorio diario, puede configurarlo en la página de configuración.</string>
     <string name="periodic_remind_notification">Parece que no agrega sus gastos regularmente. ¿Quieres que te lo recuerde todos los días?</string>
