@@ -56,6 +56,9 @@ class AddUpdateAccountDialogFragment : DialogFragment() {
             mView.okBtn.text = getString(R.string.update)
             mView.nameEdtxt.setText(accountModel!!.name)
             mView.nameEdtxt.setSelection(mView.nameEdtxt.text.length)
+            if (accountModel!!.id <= 2) {
+                mView.nameEdtxt.keyListener = null
+            }
         } else {
             mView.header.text = getString(R.string.add_account)
             mView.okBtn.text = getString(R.string.add)
