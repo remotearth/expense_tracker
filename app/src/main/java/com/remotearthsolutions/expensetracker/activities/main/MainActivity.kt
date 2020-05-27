@@ -85,12 +85,7 @@ class MainActivity : BaseActivity(), MainContract.View {
             InAppUpdateUtils().requestUpdateApp(this@MainActivity)
         }, 2000)
 
-        val requestId = WorkManagerEnqueuer().enqueue<AskToAddEntryWorker>(
-            this,
-            WorkRequestType.PERIODIC,
-            Constants.DELAY_PERIODIC_REMINDER_TO_ADD_EXPENSE,
-            null
-        )
+        setPeriodicReminderToAskAddingExpense()
 
         if (BuildConfig.DEBUG) {
             FirebaseInstanceId.getInstance().instanceId
@@ -320,6 +315,26 @@ class MainActivity : BaseActivity(), MainContract.View {
         val message = intent?.getStringExtra("message")
         if (!message.isNullOrEmpty()) {
             AlertDialogUtils.show(this, null, message, getString(R.string.ok), null, null)
+        }
+    }
+
+    private fun setPeriodicReminderToAskAddingExpense() {
+        val sharedPreferenceUtils = SharedPreferenceUtils.getInstance(this)
+        if (sharedPreferenceUtils?.getString(
+                Constants.KEY_PERIODIC_ADD_EXPENSE_REMINDER_WORKER_ID,
+                ""
+            )!!.isEmpty()
+        ) {
+            val requestId = WorkManagerEnqueuer().enqueue<AskToAddEntryWorker>(
+                this,
+                WorkRequestType.PERIODIC,
+                Constants.DELAY_PERIODIC_REMINDER_TO_ADD_EXPENSE,
+                null
+            )
+            sharedPreferenceUtils.putString(
+                Constants.KEY_PERIODIC_ADD_EXPENSE_REMINDER_WORKER_ID,
+                requestId
+            )
         }
     }
 

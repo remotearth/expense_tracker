@@ -25,8 +25,8 @@ class AddSalaryWorker(
         val sharedPreferenceUtils = SharedPreferenceUtils.getInstance(appContext)
         val amount =
             sharedPreferenceUtils?.getString(Constants.KEY_SALARY_AUTOMATIC_AMOUNT, "0")?.toDouble()
-        val accountId = sharedPreferenceUtils?.getInt(Constants.KEY_SELECTED_ACCOUNT_ID, 1)
-
+        val accountId = sharedPreferenceUtils?.getInt(Constants.KEY_SALARY_AUTOMATIC_ACCOUNT_ID, 1)
+        
         val accountDao = DatabaseClient.getInstance(appContext).appDatabase.accountDao()
         val accountModel = accountDao.getAccountById(accountId!!).blockingGet()
         accountModel.amount += amount!!

@@ -111,7 +111,6 @@ class SalaryFragment : DialogFragment() {
                         dateFormat
                     )
 
-                val accountId = (mView.salaryAccountSpnr.selectedItem as AccountModel).id
                 sharedPreferenceUtils.putBoolean(Constants.KEY_SALARY_AUTOMATIC, true)
                 sharedPreferenceUtils.putString(Constants.KEY_SALARY_AUTOMATIC_AMOUNT, amount)
                 sharedPreferenceUtils.putLong(
@@ -119,6 +118,7 @@ class SalaryFragment : DialogFragment() {
                     nextSalaryDateLong
                 )
 
+                val accountId = (mView.salaryAccountSpnr.selectedItem as AccountModel).id
                 sharedPreferenceUtils.putInt(Constants.KEY_SALARY_AUTOMATIC_ACCOUNT_ID, accountId)
                 SalaryWorkerHelper.setAutomaticSalary(requireContext(), nextSalaryDateLong)
             } else {
