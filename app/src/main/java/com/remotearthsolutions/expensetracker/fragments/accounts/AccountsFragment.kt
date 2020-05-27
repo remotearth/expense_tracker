@@ -1,4 +1,4 @@
-package com.remotearthsolutions.expensetracker.fragments
+package com.remotearthsolutions.expensetracker.fragments.accounts
 
 import android.app.Activity
 import android.content.Context
@@ -18,6 +18,7 @@ import com.remotearthsolutions.expensetracker.contracts.AccountContract
 import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
+import com.remotearthsolutions.expensetracker.fragments.*
 import com.remotearthsolutions.expensetracker.fragments.OptionBottomSheetFragment.OptionsFor
 import com.remotearthsolutions.expensetracker.fragments.salary.SalaryFragment
 import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils.show
@@ -94,7 +95,8 @@ class AccountsFragment : BaseFragment(),
 
         view.transferAmountBtn.setOnClickListener {
             view.fabMenu.close(true)
-            val transferBalanceDialogFragment = TransferBalanceDialogFragment()
+            val transferBalanceDialogFragment =
+                TransferBalanceDialogFragment()
             transferBalanceDialogFragment.setViewModel(viewModel!!)
             transferBalanceDialogFragment.show(
                 childFragmentManager,
@@ -129,7 +131,8 @@ class AccountsFragment : BaseFragment(),
                     AdapterView.OnItemClickListener { _: AdapterView<*>?, _: View?, position: Int, _: Long ->
                         mView.fabMenu.close(true)
                         selectAccountModel = it[position]
-                        val optionBottomSheetFragment = OptionBottomSheetFragment()
+                        val optionBottomSheetFragment =
+                            OptionBottomSheetFragment()
                         optionBottomSheetFragment.setCallback(
                             this@AccountsFragment,
                             OptionsFor.ACCOUNT
@@ -161,7 +164,8 @@ class AccountsFragment : BaseFragment(),
     }
 
     override fun onClickAddAmountBtn() {
-        val addAccountAmountDialogFragment = AddAccountAmountDialogFragment()
+        val addAccountAmountDialogFragment =
+            AddAccountAmountDialogFragment()
         addAccountAmountDialogFragment.setAccountIncome(selectAccountModel)
         addAccountAmountDialogFragment.setCallback(object :
             AddAccountAmountDialogFragment.Callback {
@@ -177,7 +181,8 @@ class AccountsFragment : BaseFragment(),
     }
 
     override fun onClickEditBtn() {
-        val dialogFragment = AddUpdateAccountDialogFragment()
+        val dialogFragment =
+            AddUpdateAccountDialogFragment()
         dialogFragment.initialize(selectAccountModel, viewModel)
         dialogFragment.show(
             childFragmentManager,

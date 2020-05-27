@@ -1,4 +1,4 @@
-package com.remotearthsolutions.expensetracker.fragments
+package com.remotearthsolutions.expensetracker.fragments.accounts
 
 import android.content.Context
 import android.os.Bundle

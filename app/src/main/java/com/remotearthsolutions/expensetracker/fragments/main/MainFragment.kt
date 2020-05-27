@@ -22,6 +22,7 @@ import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.databinding.FragmentMainBinding
 import com.remotearthsolutions.expensetracker.fragments.*
+import com.remotearthsolutions.expensetracker.fragments.accounts.AccountsFragment
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.findViewPagerFragmentByTag
@@ -332,7 +333,8 @@ class MainFragment : BaseFragment(),
                     overViewFragment
                 }
                 3 -> {
-                    val accountsFragment = AccountsFragment()
+                    val accountsFragment =
+                        AccountsFragment()
                     accountsFragment
                 }
                 else -> {
