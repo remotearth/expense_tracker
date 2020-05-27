@@ -98,11 +98,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         val shouldRemindToAddExpense = sharedPreferences.getBoolean(key, false)
                         if (shouldRemindToAddExpense) {
                             ReminderWorkerHelper.setAddExpenseReminder(requireContext())
+                            AnalyticsManager.logEvent(AnalyticsManager.ADD_EXPENSE_DAILY_REMINDER_ENABLED)
                         } else {
                             ReminderWorkerHelper.cancelReminder(
                                 requireContext(),
                                 Constants.KEY_ADDEXPENSE_REMINDER_WORKREQUEST_ID
                             )
+                            AnalyticsManager.logEvent(AnalyticsManager.ADD_EXPENSE_DAILY_REMINDER_DISABLED)
                         }
                         AnalyticsManager.logEvent("AddExpenseReminder-$shouldRemindToAddExpense")
                     }

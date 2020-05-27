@@ -121,9 +121,11 @@ class SalaryFragment : DialogFragment() {
                 val accountId = (mView.salaryAccountSpnr.selectedItem as AccountModel).id
                 sharedPreferenceUtils.putInt(Constants.KEY_SALARY_AUTOMATIC_ACCOUNT_ID, accountId)
                 SalaryWorkerHelper.setAutomaticSalary(requireContext(), nextSalaryDateLong)
+                AnalyticsManager.logEvent(AnalyticsManager.AUTOMATIC_SALARY_ENABLED)
             } else {
                 sharedPreferenceUtils.putBoolean(Constants.KEY_SALARY_AUTOMATIC, false)
                 SalaryWorkerHelper.cancelAutomaticSalary(requireContext())
+                AnalyticsManager.logEvent(AnalyticsManager.AUTOMATIC_SALARY_DISABLED)
             }
             dismiss()
         }
