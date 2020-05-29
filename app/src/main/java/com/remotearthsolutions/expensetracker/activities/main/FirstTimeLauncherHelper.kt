@@ -14,7 +14,7 @@ class FirstTimeLauncherHelper {
     fun execute(activity: MainActivity) {
         showForVersionCode43(activity)
     }
-
+    
     private fun showForVersionCode43(activity: MainActivity) {
         //this will show option to select language to existing users who have updated the app from a older version.
         //new user will not see the dialog as they already select select at first run in InitialPreferenceActivity screen.
@@ -24,7 +24,7 @@ class FirstTimeLauncherHelper {
                 AlertDialogUtils.show(
                     activity,
                     "",
-                    "In this new version of the app user can select the language of the app.",
+                    activity.getString(R.string.can_change_language),
                     activity.getString(R.string.ok),
                     null,
                     object : BaseView.Callback {

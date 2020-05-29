@@ -289,6 +289,7 @@
     <string name="periodic_ask_to_add_expense">You did not add your expenses in last few days. If you want a daily reminder, you can set in settings page.</string>
     <string name="periodic_remind_notification">It seems you are not adding your expense regularly. Do you want me to remind you everyday?</string>
     <string name="change_language">Change Language</string>
+    <string name="can_change_language">Just to let you know, now you can change language of the app from settings page.</string>
 
     <string-array name="daily_reminder_messages">
         <item>You ask me to remind you about adding daily expenses. Add your expenses for today.</item>
