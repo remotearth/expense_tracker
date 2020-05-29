@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".activities.CurrencySelectionActivity"
+            android:name=".activities.InitialPreferenceActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity

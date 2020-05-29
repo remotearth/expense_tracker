@@ -18,7 +18,7 @@ import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.activities.BaseActivity
-import com.remotearthsolutions.expensetracker.activities.CurrencySelectionActivity
+import com.remotearthsolutions.expensetracker.activities.InitialPreferenceActivity
 import com.remotearthsolutions.expensetracker.activities.LoginActivity
 import com.remotearthsolutions.expensetracker.activities.helpers.FragmentLoader
 import com.remotearthsolutions.expensetracker.contracts.MainContract
@@ -167,6 +167,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
     override fun startLoadingApp() {
+        FirstTimeLauncherHelper().execute(this)
         viewModel.init(this)
         checkoutUtils.start()
         checkoutUtils.load(inAppPurchaseCallback, (application as ApplicationObject).adProductId)
@@ -183,7 +184,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
     override fun stayOnCurrencyScreen() {
-        val intent = Intent(this, CurrencySelectionActivity::class.java)
+        val intent = Intent(this, InitialPreferenceActivity::class.java)
         startActivity(intent)
         finish()
     }

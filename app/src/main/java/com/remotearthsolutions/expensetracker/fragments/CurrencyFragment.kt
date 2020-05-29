@@ -22,11 +22,21 @@ class CurrencyFragment : PreferenceFragmentCompat() {
         addPreferencesFromResource(R.xml.currencypreference)
         val preferenceCurrency =
             findPreference<Preference>(Constants.PREF_CURRENCY)
-        preferenceCurrency!!.summary = SharedPreferenceUtils.getInstance(context!!)!!.getString(
-            Constants.PREF_CURRENCY,
-            context!!.resources.getString(R.string.default_currency)
-        )
-        preferenceCurrency.setIcon(Utils.getFlagDrawable(context!!))
+        preferenceCurrency!!.summary =
+            SharedPreferenceUtils.getInstance(requireContext())!!.getString(
+                Constants.PREF_CURRENCY,
+                requireContext().resources.getString(R.string.default_currency)
+            )
+        preferenceCurrency.setIcon(Utils.getFlagDrawable(requireContext()))
+
+        val preferenceLanguage =
+            findPreference<Preference>(Constants.PREF_CURRENCY)
+        preferenceLanguage!!.summary =
+            SharedPreferenceUtils.getInstance(requireContext())!!.getString(
+                Constants.PREF_LANGUAGE,
+                requireContext().resources.getString(R.string.default_language)
+            )
+
         preferenceChangeListener =
             OnSharedPreferenceChangeListener { sharedPreferences: SharedPreferences, key: String ->
                 if (key == Constants.PREF_CURRENCY) {
@@ -34,10 +44,18 @@ class CurrencyFragment : PreferenceFragmentCompat() {
                         findPreference<Preference>(key)
                     val currency = sharedPreferences.getString(
                         key,
-                        context!!.resources.getString(R.string.default_currency)
+                        requireContext().resources.getString(R.string.default_currency)
                     )
                     currencyPreference!!.summary = sharedPreferences.getString(key, currency)
-                    currencyPreference.setIcon(Utils.getFlagDrawable(context!!))
+                    currencyPreference.setIcon(Utils.getFlagDrawable(requireContext()))
+                } else if (key == Constants.PREF_LANGUAGE) {
+                    val languagePreference =
+                        findPreference<Preference>(key)
+                    val language = sharedPreferences.getString(
+                        key,
+                        requireContext().resources.getString(R.string.default_language)
+                    )
+                    languagePreference!!.summary = sharedPreferences.getString(key, language)
                 }
             }
         preferenceScreen.sharedPreferences
@@ -51,7 +69,7 @@ class CurrencyFragment : PreferenceFragmentCompat() {
         savedInstanceState: Bundle?
     ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
-        view!!.setBackgroundColor(ContextCompat.getColor(context!!, R.color.lightAccent))
+        view?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.lightAccent))
         return view
     }
 

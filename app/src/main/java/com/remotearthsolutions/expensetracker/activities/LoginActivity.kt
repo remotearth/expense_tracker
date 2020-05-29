@@ -84,7 +84,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener,
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         } else {
-            val intent = Intent(this, CurrencySelectionActivity::class.java)
+            val intent = Intent(this, InitialPreferenceActivity::class.java)
             startActivity(intent)
             finish()
         }
