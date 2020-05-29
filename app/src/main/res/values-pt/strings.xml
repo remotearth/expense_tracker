@@ -238,4 +238,5 @@
     <string name="sure_to_cancel_change">Tem certeza de que deseja cancelar a alteração?</string>
     <string name="periodic_ask_to_add_expense">Você não adicionou suas despesas nos últimos dias. Se você deseja um lembrete diário, pode definir na página de configurações.</string>
     <string name="periodic_remind_notification">Parece que você não está adicionando suas despesas regularmente. Você quer que eu lembre você todos os dias?</string>
+    <string name="change_language">Mudar idioma</string>
 </resources>

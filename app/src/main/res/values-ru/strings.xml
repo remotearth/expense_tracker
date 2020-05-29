@@ -249,4 +249,5 @@
     <string name="sure_to_cancel_change">Вы уверены, что отмените изменение?</string>
     <string name="periodic_ask_to_add_expense">Вы не добавили свои расходы в последние несколько дней. Если вы хотите ежедневное напоминание, вы можете установить на странице настроек.</string>
     <string name="periodic_remind_notification">Кажется, вы не добавляете свои расходы регулярно. Вы хотите, чтобы я напоминал вам каждый день?</string>
+    <string name="change_language">изменение языка</string>
 </resources>

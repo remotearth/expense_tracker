@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments.settings
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Bundle
@@ -29,22 +30,25 @@ class SettingsFragment : PreferenceFragmentCompat() {
             findPreference<Preference>(Constants.PREF_PERIOD)
         preferencePeriod!!.summary =
             SharedPreferenceUtils.getInstance(requireContext())!!.getString(
-                Constants.PREF_PERIOD,
-                resources.getString(R.string.daily)
+                Constants.PREF_PERIOD, resources.getString(R.string.daily)
+            )
+
+        val preferenceLanguage = findPreference<Preference>(Constants.PREF_LANGUAGE)
+        preferenceLanguage!!.summary =
+            SharedPreferenceUtils.getInstance(requireContext())!!.getString(
+                Constants.PREF_LANGUAGE, resources.getString(R.string.default_language)
             )
 
         val preferenceTimeFormat = findPreference<Preference>(Constants.PREF_TIME_FORMAT)
         preferenceTimeFormat!!.summary =
             SharedPreferenceUtils.getInstance(requireContext())!!.getString(
-                Constants.PREF_TIME_FORMAT,
-                resources.getString(R.string.default_time_format)
+                Constants.PREF_TIME_FORMAT, resources.getString(R.string.default_time_format)
             )
 
         val preferenceCurrency =
             findPreference<Preference>(Constants.PREF_CURRENCY)
         val currencyName = SharedPreferenceUtils.getInstance(requireContext())?.getString(
-            Constants.PREF_CURRENCY,
-            resources.getString(R.string.default_currency)
+            Constants.PREF_CURRENCY, resources.getString(R.string.default_currency)
         )
         preferenceCurrency!!.summary = currencyName
         preferenceCurrency.setIcon(
@@ -62,7 +66,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         )
                         currencyPreference!!.summary = currency
                         currencyPreference.setIcon(getFlagDrawable(requireContext()))
-                        AnalyticsManager.logEvent(currency)
+                        AnalyticsManager.logEvent(currency!!)
                     }
                     Constants.PREF_PERIOD -> {
                         val periodPreference =
@@ -71,6 +75,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             key, resources.getString(R.string.daily)
                         )
                         AnalyticsManager.logEvent(key)
+                    }
+                    Constants.PREF_LANGUAGE -> {
+                        val languagePreference =
+                            findPreference<Preference>(key)
+                        val selectedLang = sharedPreferences.getString(
+                            key, resources.getString(R.string.default_language)
+                        )
+                        languagePreference!!.summary = selectedLang
+                        (requireActivity() as MainActivity).finish()
+                        val intent = Intent(requireActivity(), MainActivity::class.java)
+                        startActivity(intent)
                     }
                     Constants.PREF_TIME_FORMAT -> {
                         val timeFormatPreference =

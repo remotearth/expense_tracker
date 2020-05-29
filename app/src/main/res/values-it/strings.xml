@@ -248,4 +248,5 @@
     <string name="sure_to_cancel_change">Annullare la modifica?</string>
     <string name="periodic_ask_to_add_expense">Non hai aggiunto le tue spese negli ultimi giorni. Se si desidera un promemoria giornaliero, è possibile impostare nella pagina delle impostazioni.</string>
     <string name="periodic_remind_notification">Sembra che tu non stia aggiungendo le tue spese regolarmente. Vuoi che te lo ricordi tutti i giorni?</string>
+    <string name="change_language">Cambia lingua</string>
 </resources>

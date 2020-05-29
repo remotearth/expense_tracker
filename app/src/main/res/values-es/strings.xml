@@ -237,4 +237,5 @@
     <string name="sure_to_cancel_change">¿Estás segura de cancelar el cambio?</string>
     <string name="periodic_ask_to_add_expense">No agregó sus gastos en los últimos días. Si desea un recordatorio diario, puede configurarlo en la página de configuración.</string>
     <string name="periodic_remind_notification">Parece que no agrega sus gastos regularmente. ¿Quieres que te lo recuerde todos los días?</string>
+    <string name="change_language">Cambiar idioma</string>
 </resources>

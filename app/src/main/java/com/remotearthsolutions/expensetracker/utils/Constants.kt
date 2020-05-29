@@ -24,6 +24,7 @@ interface Constants {
 
         const val PREF_CURRENCY = "pref_currency_list"
         const val PREF_PERIOD = "pref_period_list"
+        const val PREF_LANGUAGE = "pref_language"
         const val PREF_TIME_FORMAT = "pref_time_format_list"
         const val PREF_REMIND_TO_ADDEXPENSE = "pref_remind_add_expense"
         const val PREF_REMIND_TO_EXPORT = "pref_remind_to_export"

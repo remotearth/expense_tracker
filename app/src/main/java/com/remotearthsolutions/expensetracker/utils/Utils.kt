@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.utils
 
 import android.app.Activity
 import android.content.Context
+import android.os.Build
 import android.util.DisplayMetrics
 import android.widget.Toast
 import com.remotearthsolutions.expensetracker.R
@@ -75,6 +76,28 @@ object Utils {
 
     fun showToast(context: Context, message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    @SuppressWarnings("deprecation")
+    private fun setLocale(context: Context, localeStr: String) {
+        //SharedPrefUtils.saveLocale(locale) // optional - Helper method to save the selected language to SharedPreferences in case you might need to attach to activity context (you will need to code this)
+        val configuration = context.resources.configuration
+        val displayMetrics: DisplayMetrics = context.resources.displayMetrics
+        configuration.setLocale(Locale(localeStr))
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
+            context.applicationContext.createConfigurationContext(configuration)
+        } else {
+            context.resources.updateConfiguration(context.resources.configuration, displayMetrics)
+        }
+    }
+
+    fun setAppLanguage(context: Context) {
+        val lang = SharedPreferenceUtils.getInstance(context)
+            ?.getString(Constants.PREF_LANGUAGE, context.getString(R.string.default_language))!!
+        val languages = context.resources.getStringArray(R.array.lanugages)
+        val langCodes = context.resources.getStringArray(R.array.lanugageCode)
+        val code = langCodes[languages.indexOf(lang)]
+        setLocale(context, code)
     }
 
     class ScreenSize(var width: Int, var height: Int)
