@@ -52,6 +52,5 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && Build.VERSION.SDK_INT <= Build.VERSION_CODES.N_MR1) {
             Utils.setAppLanguage(this)
         }
-        super.applyOverrideConfiguration(overrideConfiguration)
     }
 }

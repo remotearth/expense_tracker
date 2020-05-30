@@ -252,4 +252,6 @@
     <string name="change_language">изменение языка</string>
     <string name="can_change_language">Просто чтобы вы знали, теперь вы можете изменить язык приложения со страницы настроек.</string>
     <string name="choose_your_preferences">Выберите ваши предпочтения</string>
+    <string name="create_account">Создать учетную запись</string>
+    <string name="transfer_amount">Сумма перевода</string>
 </resources>

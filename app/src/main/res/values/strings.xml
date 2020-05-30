@@ -291,6 +291,8 @@
     <string name="change_language">Change Language</string>
     <string name="can_change_language">Just to let you know, now you can change language of the app from settings page.</string>
     <string name="choose_your_preferences">Choose your preferences</string>
+    <string name="create_account">Create Account</string>
+    <string name="transfer_amount">Transfer Amount</string>
 
     <string-array name="daily_reminder_messages">
         <item>You ask me to remind you about adding daily expenses. Add your expenses for today.</item>

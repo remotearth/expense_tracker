@@ -245,4 +245,6 @@
     <string name="change_language">Sprache ändern</string>
     <string name="can_change_language">Um Sie wissen zu lassen, können Sie jetzt die Sprache der App auf der Einstellungsseite ändern.</string>
     <string name="choose_your_preferences">Wählen Sie Ihre Einstellungen</string>
+    <string name="create_account">Konto erstellen</string>
+    <string name="transfer_amount">Überweisungsbetrag</string>
 </resources>

@@ -248,4 +248,6 @@
     <string name="change_language">Changer de langue</string>
     <string name="can_change_language">Juste pour vous faire savoir, vous pouvez maintenant changer la langue de l\'application à partir de la page des paramètres.</string>
     <string name="choose_your_preferences">Choisissez vos préférences</string>
+    <string name="create_account">Créer un compte</string>
+    <string name="transfer_amount">Montant du transfert</string>
 </resources>

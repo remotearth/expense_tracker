@@ -241,4 +241,6 @@
     <string name="change_language">Mudar idioma</string>
     <string name="can_change_language">Só para informar, agora você pode alterar o idioma do aplicativo na página de configurações.</string>
     <string name="choose_your_preferences">Escolha suas preferências</string>
+    <string name="create_account">Criar Conta</string>
+    <string name="transfer_amount">Valor da transferência</string>
 </resources>

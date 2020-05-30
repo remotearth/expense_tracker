@@ -7,7 +7,6 @@ import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.FirstTimeLauncherHelper
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.fragments.InitialSettingsFragment
-import com.remotearthsolutions.expensetracker.fragments.settings.SettingsFragment
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import kotlinx.android.synthetic.main.activity_initial_settings.*
@@ -25,7 +24,7 @@ class InitialPreferenceActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(
                 R.id.fragmentContainer,
-                initialSettingsFragment, SettingsFragment::class.java.name
+                initialSettingsFragment, InitialSettingsFragment::class.java.name
             ).commit()
     }
 

@@ -37,7 +37,7 @@
             app:fab_colorNormal="@color/colorPrimary"
             app:fab_colorPressed="@color/colorAccent"
             app:fab_elevationCompat="2dp"
-            app:fab_label="Create Account"
+            app:fab_label="@string/create_account"
             app:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -48,7 +48,7 @@
             app:fab_colorNormal="@color/colorPrimary"
             app:fab_colorPressed="@color/colorAccent"
             app:fab_elevationCompat="2dp"
-            app:fab_label="Transfer Amount"
+            app:fab_label="@string/transfer_amount"
             app:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton

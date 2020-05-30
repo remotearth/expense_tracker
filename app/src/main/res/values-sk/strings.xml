@@ -243,4 +243,6 @@
     <string name="change_language">Zmeniť jazyk</string>
     <string name="can_change_language">Len aby sme vás informovali, teraz môžete zmeniť jazyk aplikácie zo stránky nastavení.</string>
     <string name="choose_your_preferences">Vyberte si svoje preferencie</string>
+    <string name="create_account">Vytvoriť účet</string>
+    <string name="transfer_amount">Suma prevodu</string>
 </resources>
