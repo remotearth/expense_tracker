@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:entries="@array/currency"
+        android:entryValues="@array/currency"
+        android:icon="@drawable/settings_currency"
+        android:key="@string/preferencekey"
+        android:summary="@string/summarypreftext"
+        android:title="@string/preferencetitle" />
+
+    <ListPreference
+        android:defaultValue="@string/default_language"
+        android:entries="@array/lanugages"
+        android:entryValues="@array/lanugages"
+        android:icon="@drawable/ic_language"
+        android:key="@string/preflanguage"
+        android:summary="@string/default_language"
+        android:title="@string/change_language" />
+
+</PreferenceScreen>

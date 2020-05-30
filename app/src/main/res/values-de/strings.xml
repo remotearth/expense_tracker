@@ -243,5 +243,6 @@
     <string name="periodic_ask_to_add_expense">Sie haben Ihre Ausgaben in den letzten Tagen nicht hinzugefügt. Wenn Sie eine tägliche Erinnerung wünschen, können Sie diese auf der Einstellungsseite festlegen.</string>
     <string name="periodic_remind_notification">Es scheint, dass Sie Ihre Ausgaben nicht regelmäßig hinzufügen. Soll ich dich jeden Tag daran erinnern?</string>
     <string name="change_language">Sprache ändern</string>
-    <string name="can_change_language">Just to let you know, now you can change language of the app from settings page.</string>
+    <string name="can_change_language">Um Sie wissen zu lassen, können Sie jetzt die Sprache der App auf der Einstellungsseite ändern.</string>
+    <string name="choose_your_preferences">Wählen Sie Ihre Einstellungen</string>
 </resources>

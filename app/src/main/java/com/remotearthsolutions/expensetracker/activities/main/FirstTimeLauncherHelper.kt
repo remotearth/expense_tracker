@@ -14,10 +14,10 @@ class FirstTimeLauncherHelper {
     fun execute(activity: MainActivity) {
         showForVersionCode43(activity)
     }
-    
+
     private fun showForVersionCode43(activity: MainActivity) {
         //this will show option to select language to existing users who have updated the app from a older version.
-        //new user will not see the dialog as they already select select at first run in InitialPreferenceActivity screen.
+        //new user will not see the dialog as they already select language at first run in InitialPreferenceActivity screen.
         val sharedPreferenceUtils = SharedPreferenceUtils.getInstance(activity)
         if (sharedPreferenceUtils?.getBoolean(KEY_FIRST_TIME_V43, true)!!) {
             Handler().postDelayed(Runnable {

@@ -9,17 +9,20 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils
 
-class CurrencyFragment : PreferenceFragmentCompat() {
+
+class InitialSettingsFragment : PreferenceFragmentCompat() {
 
     private var preferenceChangeListener: OnSharedPreferenceChangeListener? = null
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        addPreferencesFromResource(R.xml.currencypreference)
+        addPreferencesFromResource(R.xml.initial_preferences)
         val preferenceCurrency =
             findPreference<Preference>(Constants.PREF_CURRENCY)
         preferenceCurrency!!.summary =
@@ -70,6 +73,10 @@ class CurrencyFragment : PreferenceFragmentCompat() {
     ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         view?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.lightAccent))
+
+        val itemDecoration =
+            DividerItemDecoration(context, RecyclerView.VERTICAL)
+        listView.addItemDecoration(itemDecoration)
         return view
     }
 

@@ -23,7 +23,7 @@
         android:defaultValue="@string/default_language"
         android:entries="@array/lanugages"
         android:entryValues="@array/lanugages"
-        android:icon="@drawable/ic_change_date_formate"
+        android:icon="@drawable/ic_language"
         android:key="@string/preflanguage"
         android:summary="@string/default_language"
         android:title="@string/change_language" />

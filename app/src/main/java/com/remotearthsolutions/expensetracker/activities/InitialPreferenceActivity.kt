@@ -6,26 +6,26 @@ import androidx.appcompat.app.AppCompatActivity
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.FirstTimeLauncherHelper
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
-import com.remotearthsolutions.expensetracker.fragments.CurrencyFragment
+import com.remotearthsolutions.expensetracker.fragments.InitialSettingsFragment
 import com.remotearthsolutions.expensetracker.fragments.settings.SettingsFragment
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
-import kotlinx.android.synthetic.main.activity_currency_selection.*
+import kotlinx.android.synthetic.main.activity_initial_settings.*
 
 class InitialPreferenceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState ?: Bundle())
-        setContentView(R.layout.activity_currency_selection)
-        loadCurrencyFragment()
+        setContentView(R.layout.activity_initial_settings)
+        loadInitialSettingsFragment()
         gotomainactivity.setOnClickListener { gohome() }
     }
 
-    private fun loadCurrencyFragment() {
-        val currencyFragment = CurrencyFragment()
+    private fun loadInitialSettingsFragment() {
+        val initialSettingsFragment = InitialSettingsFragment()
         supportFragmentManager.beginTransaction()
             .replace(
-                R.id.currencyfragment,
-                currencyFragment, SettingsFragment::class.java.name
+                R.id.fragmentContainer,
+                initialSettingsFragment, SettingsFragment::class.java.name
             ).commit()
     }
 
