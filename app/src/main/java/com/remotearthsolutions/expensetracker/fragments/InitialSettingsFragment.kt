@@ -33,7 +33,7 @@ class InitialSettingsFragment : PreferenceFragmentCompat() {
         preferenceCurrency.setIcon(Utils.getFlagDrawable(requireContext()))
 
         val preferenceLanguage =
-            findPreference<Preference>(Constants.PREF_CURRENCY)
+            findPreference<Preference>(Constants.PREF_LANGUAGE)
         preferenceLanguage!!.summary =
             SharedPreferenceUtils.getInstance(requireContext())!!.getString(
                 Constants.PREF_LANGUAGE,
