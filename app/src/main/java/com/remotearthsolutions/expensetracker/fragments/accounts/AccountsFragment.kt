@@ -18,8 +18,10 @@ import com.remotearthsolutions.expensetracker.contracts.AccountContract
 import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
-import com.remotearthsolutions.expensetracker.fragments.*
+import com.remotearthsolutions.expensetracker.fragments.BaseFragment
+import com.remotearthsolutions.expensetracker.fragments.OptionBottomSheetFragment
 import com.remotearthsolutions.expensetracker.fragments.OptionBottomSheetFragment.OptionsFor
+import com.remotearthsolutions.expensetracker.fragments.TransferBalanceDialogFragment
 import com.remotearthsolutions.expensetracker.fragments.salary.SalaryFragment
 import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils.show
 import com.remotearthsolutions.expensetracker.utils.Constants
@@ -84,9 +86,9 @@ class AccountsFragment : BaseFragment(),
                 onClickEditBtn()
             } else {
                 showAlert(
-                    getString(R.string.attention),
-                    getString(R.string.you_need_to_be_premium_user_to_add_more_categories),
-                    getString(R.string.ok),
+                    requireContext().getString(R.string.attention),
+                    requireContext().getString(R.string.you_need_to_be_premium_user_to_add_more_categories),
+                    requireContext().getString(R.string.ok),
                     null,
                     null
                 )
@@ -194,16 +196,16 @@ class AccountsFragment : BaseFragment(),
         if (selectAccountModel!!.notremovable == 1) {
             Toast.makeText(
                 activity,
-                getString(R.string.you_cannot_delete_this_account),
+                requireContext().getString(R.string.you_cannot_delete_this_account),
                 Toast.LENGTH_SHORT
             ).show()
             return
         }
         show(activity,
-            getString(R.string.warning),
-            getString(R.string.deleting_this_account_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete),
-            getString(R.string.yes),
-            getString(R.string.not_now),
+            requireContext().getString(R.string.warning),
+            requireContext().getString(R.string.deleting_this_account_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete),
+            requireContext().getString(R.string.yes),
+            requireContext().getString(R.string.not_now),
             object : BaseView.Callback {
                 override fun onOkBtnPressed() {
                     viewModel!!.deleteAccount(selectAccountModel)

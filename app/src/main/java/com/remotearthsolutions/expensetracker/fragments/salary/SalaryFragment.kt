@@ -43,7 +43,7 @@ class SalaryFragment : DialogFragment() {
         sharedPreferenceUtils = SharedPreferenceUtils.getInstance(requireContext())!!
         dateFormat = sharedPreferenceUtils.getString(
             Constants.PREF_TIME_FORMAT,
-            resources.getString(R.string.default_time_format)
+            requireContext().resources.getString(R.string.default_time_format)
         )
 
         initialize()
@@ -56,9 +56,9 @@ class SalaryFragment : DialogFragment() {
             if (mView.salaryToggleBtn.isChecked != prevState) {
                 AlertDialogUtils.show(requireContext(),
                     "",
-                    getString(R.string.sure_to_cancel_change),
-                    getString(R.string.yes),
-                    getString(R.string.no),
+                    requireContext().getString(R.string.sure_to_cancel_change),
+                    requireContext().getString(R.string.yes),
+                    requireContext().getString(R.string.no),
                     object : BaseView.Callback {
                         override fun onOkBtnPressed() {
                             dismiss()
@@ -163,7 +163,7 @@ class SalaryFragment : DialogFragment() {
             sharedPreferenceUtils.getLong(Constants.KEY_SALARY_AUTOMATIC_DATE, cal.timeInMillis),
             sharedPreferenceUtils.getString(
                 Constants.PREF_TIME_FORMAT,
-                resources.getString(R.string.default_time_format)
+                requireContext().getString(R.string.default_time_format)
             )
         )
     }

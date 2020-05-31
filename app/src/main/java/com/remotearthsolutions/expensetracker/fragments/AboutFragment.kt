@@ -20,7 +20,7 @@ class AboutFragment : BaseFragment() {
         val view = inflater.inflate(R.layout.fragment_about, container, false)
         val getVersion =
             BuildConfig.VERSION_NAME
-        view.versionno.text = "${getString(R.string.version)} $getVersion"
+        view.versionno.text = "${requireContext().getString(R.string.version)} $getVersion"
         return view
     }
 

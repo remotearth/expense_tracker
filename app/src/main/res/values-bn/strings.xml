@@ -39,7 +39,7 @@
     <string name="menu_settings">সেটিংস</string>
     <string name="menu_about">অ্যাপ সম্পর্কে তথ্য</string>
     <string name="menu_licenses">লাইসেন্স</string>
-    <string name="menu_logout">বের হয়ে জান</string>
+    <string name="menu_logout">বের হয়ে যান</string>
     <string name="add_expense">খরচের হিসাব রাখুন</string>
     <string name="update_expense">খরচের হিসাব পরিবর্তন করুন</string>
 
@@ -60,7 +60,7 @@
 
 
     <string name="warning">দাঁড়ান !</string>
-    <string name="buy_message">এই ফিচার ব্যবহার করার জন্য আপনার অ্যাপটি কিনতে হবে</string>
+    <string name="buy_message">এই ফিচারটি ব্যবহার করার জন্য আপনাকে অ্যাপটি কিনতে হবে</string>
     <string name="ok">ঠিক আছে</string>
     <string name="no_data_available">এই তারিখ ব্যাবধান-এ কোন ব্যয় নেই</string>
 
@@ -109,8 +109,8 @@
     <string name="cancel">বাতিল করুন</string>
     <string name="date_category_amount_from_note">Date,Category,Amount,From,Note</string>
 
-    <string name="expense_data_not_available_to_export">কোন খরচের হিসাব নাই ব্যাকআপ করার মত</string>
-    <string name="expense_data_not_available_to_upload">No expense data is available to backup.</string>
+    <string name="expense_data_not_available_to_export">কোন খরচের হিসাব নাই ব্যাকআপ করার জন্য</string>
+    <string name="expense_data_not_available_to_upload">কোন খরচের হিসাব নাই ইন্টারনেট-এ ব্যাকআপ করার জন্য</string>
 
 
     <string name="select_your_currency">মুদ্রা নির্বাচন করুন</string>
@@ -132,7 +132,7 @@
     <string name="choose_icon">একটি ছবি নির্বাচন করুন</string>
     <string name="add_btntext">সংযোজন</string>
     <string name="account_name">অ্যাকাউন্ট-এর নাম</string>
-    <string name="enter_amount">খরচের পরিমাণ লিখুন…</string>
+    <string name="enter_amount">পরিমাণ লিখুন…</string>
     <string name="add_amount">খরচের পরিমাণ লিখুন</string>
     <string name="edit">পরিবর্তন করুন</string>
     <string name="delete">মুছে দিন</string>
@@ -154,7 +154,7 @@
     <string name="whatsinpremium">কি কি সুবিধা পাবেন যদি অ্যাপটি ক্রয় করেন?</string>
     <string name="premium_features">\n\n1. User can backup all expense data in the cloud.\n\n2. There is no limit adding new categories and accounts.\n\n3. No ads</string>
 
-    <string name="from">হিসাব এর নাম</string>
+    <string name="from">উৎস</string>
     <string name="transfer_balance">টাকা হস্তান্তর করুন</string>
     <string name="enter_amount_to_transfer">হস্তান্তর করার জন্য একটি পরিমান লিখুন</string>
     <string name="enter_amount_greater_than_zero">শূন্যের চেয়ে বড় একটু সংখ্যা লিখুন</string>
@@ -162,7 +162,7 @@
     <string name="source_acc_not_have_amount">উৎস অ্যাকাউন্ট-এ পর্যাপ্ত টাকা নেই অন্য অ্যাকাউন্ট-এ পাঠানোর জন্য</string>
     <string name="others">অন্যান্য</string>
     <string name="entry_count">গণনা</string>
-    <string name="daily_avg">প্রতিদিনে(গড়ে.)</string>
+    <string name="daily_avg">প্রতিদিনে(গড়ে)</string>
     <string name="contact_us">আমাদের সাথে যোগাযোগ করুন</string>
     <string name="rate_us">অ্যাপ সম্পর্কে মতামত দিন</string>
     <string name="review">আপনার মতামত</string>
@@ -189,14 +189,14 @@
 
     <string name="menu_scheduled_expense">পূর্ব-নির্ধারিত ব্যয়</string>
     <string name="time_to_export_data">এখন আপনি আপানার খরচের হিসাব এক্সপোর্ট করে রাখতে পারেন</string>
-    <string name="remind_to_export">খরচের হিসাবে এক্সপোর্ট করার জন্য স্মরণ করা</string>
+    <string name="remind_to_export">স্মরণ করুন,খরচের হিসাব এক্সপোর্ট করার জন্য</string>
     <string name="first_day_of_month">প্রতি মাসের প্রথম দিনে</string>
     <string name="schedule_expense">পূর্ব-নির্ধারিত ব্যয়</string>
     <string name="expense_scheduled">খরচ যোগ হওয়ার জন্য তালিকাভুক্ত হয়েছে</string>
     <string name="occurrence_left">পুনরাবৃত্তি হউয়া বাকি</string>
     <string name="safe_to_export">পর্যায়ক্রমে মাঝে মাঝে আপনার খরচের হিসাব এক্সপোর্ট করা নিরাপদ। আপনি যদি অ্যাপটি কিনে থাকেন, তাহলে ইন্টারনেট-এ তথ্য ব্যাকআপ করে রাখতে পারেন।</string>
 
-    <string name="remind_to_addexpense">খরচের হিসাব যোগ করার জন্য স্মরণ করা</string>
+    <string name="remind_to_addexpense">স্মরণ করুন,খরচের হিসাব যোগ করার জন্য</string>
     <string name="daily_at_endofday">প্রতিদিন, দিনের শেষে</string>
     <string name="set_your_salary">আপনার মাসিক বেতন</string>
     <string name="add_salary_every_month">স্বয়ংক্রিয় ভাবে আপনার মাসিক বেতন যোগ করুন</string>
@@ -214,6 +214,6 @@
     <string name="create_account">অ্যাকাউন্ট খুলুন</string>
     <string name="transfer_amount">টাকা অন্য অ্যাকাউন্ট-এ নিন</string>
     <string name="select_account">অ্যাকাউন্ট নির্বাচন করুন</string>
-    <string name="to">খরচের নাম</string>
+    <string name="to">লক্ষ্য</string>
 
 </resources>

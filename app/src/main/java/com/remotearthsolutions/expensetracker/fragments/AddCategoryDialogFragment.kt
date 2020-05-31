@@ -55,8 +55,8 @@ class AddCategoryDialogFragment : DialogFragment() {
         if (categoryModel != null) {
             mView.nameEdtxt.setText(categoryModel!!.name)
             mView.nameEdtxt.setSelection(mView.nameEdtxt.text.length)
-            mView.header.text = getString(R.string.update_category)
-            mView.okBtn.text = getString(R.string.update)
+            mView.header.text = requireContext().getString(R.string.update_category)
+            mView.okBtn.text = requireContext().getString(R.string.update)
         }
         mView.okBtn.setOnClickListener { saveCategory() }
         val params = LinearLayout.LayoutParams(
@@ -84,17 +84,22 @@ class AddCategoryDialogFragment : DialogFragment() {
     private fun saveCategory() {
         val categoryName = mView.nameEdtxt.text.toString().trim { it <= ' ' }
         if (categoryName.isEmpty()) {
-            mView.nameEdtxt.error = getString(R.string.enter_a_name)
+            mView.nameEdtxt.error = requireContext().getString(R.string.enter_a_name)
             mView.nameEdtxt.requestFocus()
             return
         }
-        if(categoryName.length>20){
-            mView.nameEdtxt.error = getString(R.string.name_should_be_less_than_20_char)
+        if (categoryName.length > 20) {
+            mView.nameEdtxt.error =
+                requireContext().getString(R.string.name_should_be_less_than_20_char)
             mView.nameEdtxt.requestFocus()
             return
         }
         if (selectedIcon == null || selectedIcon!!.isEmpty()) {
-            Toast.makeText(activity, getString(R.string.select_an_icon), Toast.LENGTH_SHORT)
+            Toast.makeText(
+                activity,
+                requireContext().getString(R.string.select_an_icon),
+                Toast.LENGTH_SHORT
+            )
                 .show()
             return
         }

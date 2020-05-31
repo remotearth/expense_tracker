@@ -30,25 +30,25 @@ class SettingsFragment : PreferenceFragmentCompat() {
             findPreference<Preference>(Constants.PREF_PERIOD)
         preferencePeriod!!.summary =
             SharedPreferenceUtils.getInstance(requireContext())!!.getString(
-                Constants.PREF_PERIOD, resources.getString(R.string.daily)
+                Constants.PREF_PERIOD, requireContext().getString(R.string.daily)
             )
 
         val preferenceLanguage = findPreference<Preference>(Constants.PREF_LANGUAGE)
         preferenceLanguage!!.summary =
             SharedPreferenceUtils.getInstance(requireContext())!!.getString(
-                Constants.PREF_LANGUAGE, resources.getString(R.string.default_language)
+                Constants.PREF_LANGUAGE, requireContext().getString(R.string.default_language)
             )
 
         val preferenceTimeFormat = findPreference<Preference>(Constants.PREF_TIME_FORMAT)
         preferenceTimeFormat!!.summary =
             SharedPreferenceUtils.getInstance(requireContext())!!.getString(
-                Constants.PREF_TIME_FORMAT, resources.getString(R.string.default_time_format)
+                Constants.PREF_TIME_FORMAT, requireContext().getString(R.string.default_time_format)
             )
 
         val preferenceCurrency =
             findPreference<Preference>(Constants.PREF_CURRENCY)
         val currencyName = SharedPreferenceUtils.getInstance(requireContext())?.getString(
-            Constants.PREF_CURRENCY, resources.getString(R.string.default_currency)
+            Constants.PREF_CURRENCY, requireContext().getString(R.string.default_currency)
         )
         preferenceCurrency!!.summary = currencyName
         preferenceCurrency.setIcon(

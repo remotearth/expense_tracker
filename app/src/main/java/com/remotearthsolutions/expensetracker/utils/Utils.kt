@@ -58,7 +58,7 @@ object Utils {
     fun getFlagDrawable(context: Context): Int {
         val resources = context.resources
         val currencies =
-            Arrays.asList(*resources.getStringArray(R.array.currency))
+            listOf(*resources.getStringArray(R.array.currency))
         val selectedCurrency = SharedPreferenceUtils.getInstance(context)!!.getString(
             Constants.PREF_CURRENCY,
             resources.getString(R.string.default_currency)
@@ -80,7 +80,6 @@ object Utils {
 
     @SuppressWarnings("deprecation")
     private fun setLocale(context: Context, localeStr: String) {
-        //SharedPrefUtils.saveLocale(locale) // optional - Helper method to save the selected language to SharedPreferences in case you might need to attach to activity context (you will need to code this)
         val configuration = context.resources.configuration
         val displayMetrics: DisplayMetrics = context.resources.displayMetrics
         configuration.setLocale(Locale(localeStr))
