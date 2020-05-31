@@ -115,14 +115,9 @@
 
     <string name="add_category">Add Category</string>
     <string name="attention">Attention</string>
-    <string name="you_need_to_be_premium_user_to_add_more_categories">You need to be a premium user to add more
-        categories
-    </string>
+    <string name="you_need_to_be_premium_user_to_add_more_categories">You need to be a premium user to add more categories</string>
 
     <string name="you_cannot_delete_this_account">You cannot delete this account</string>
-    <string name="deleting_this_account_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete">
-        Deleting this account will remove expenses related to this also. Are you sure, You want to Delete?
-    </string>
     <string name="not_now">Not now</string>
     <string name="update_category">Update Category</string>
     <string name="update">Update</string>
@@ -134,15 +129,11 @@
     <string name="enter_a_name_for_account">Enter a name for account</string>
     <string name="select_an_icon_for_the_account">Select an icon for the account</string>
     <string name="you_cannot_delete_this_category">You cannot delete this category</string>
-    <string name="deleting_this_category_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete">
-        Deleting this account will remove expenses related to this also. Are you sure, You want to Delete?
-    </string>
+    <string name="deleting_this_category_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete">"Deleting this category will remove expenses related to this also. Are you sure, You want to Delete?     "</string>
     <string name="category_deleted_successfully">Category Deleted Successfully</string>
     <string name="select_account">Select Account</string>
     <string name="select_category">Select Category</string>
-    <string name="are_you_sure_you_want_to_delete_this_expense_entry">Are you sure, you want to delete this expense
-        entry
-    </string>
+    <string name="are_you_sure_you_want_to_delete_this_expense_entry">Are you sure, you want to delete this expense entry</string>
     <string name="successfully_added">Successfully added.</string>
     <string name="successfully_deleted_expense_entry">Successfully deleted expense entry.</string>
 
@@ -152,8 +143,7 @@
     <string name="authentication_with_firebase_is_failed">Authentication with Firebase is failed</string>
     <string name="google_signin_failed">Google signin failed</string>
 
-    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">To use this feature app needs permission for that, You can enable it in app settings.
-    </string>
+    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">To use this feature app needs permission for that, You can enable it in app settings.</string>
     <string name="go_to_settings">Go To Setting</string>
     <string name="cancel">Cancel</string>
     <string name="date_category_amount_from_note">Date,Category,Amount,From,Note</string>
@@ -164,47 +154,37 @@
 
     <string name="select_your_currency">Select Your Currency</string>
     <string name="go">Go</string>
-    <string name="will_replace_your_current_entries">This will replace your current entries. Are you sure you want to
-        import data?
-    </string>
+    <string name="will_replace_your_current_entries">This will replace your current entries. Are you sure you want to import data?</string>
     <string name="no_supported_file">No expense tracker supported file is found</string>
     <string name="select_csv">Select a .csv file</string>
 
-    <string name="read_write_permission_is_needed">Read/write permission on external storage is needed to export/import
-        data.
-    </string>
-    <string name="read_write_permission_is_needed_enable_from_settings">Read/write permission on external storage is
-        needed to export/import data. Please enable it from device settings.
-    </string>
+    <string name="read_write_permission_is_needed">Read/write permission on external storage is needed to export/import data.</string>
+    <string name="read_write_permission_is_needed_enable_from_settings">Read/write permission on external storage is needed to export/import data. Please enable it from device settings.</string>
     <string name="internet_connection_needed">Internet connection is needed to perform this action.</string>
 
     <string name="without_this_app_cannot_export">Without this permission, the app cannot export data.</string>
-    <string name="storage_permission_is_needed_to_export_data">Writing to external storage permission is needed to
-        export data. Do you want to continue by giving the permission?
-    </string>
-    <string name="storage_permission_needed_still_can_enable_from_settings">Writing to external storage permission is
-        needed to export data. You can still enable this permission from app settings.
-    </string>
+    <string name="storage_permission_is_needed_to_export_data">"Writing to external storage permission is needed to export data. Do you want to continue by giving the permission?     "</string>
+    <string name="storage_permission_needed_still_can_enable_from_settings">Writing to external storage permission is needed to export data. You can still enable this permission from app settings.</string>
 
-    <string name="bills">Bills</string>
-    <string name="car">Car</string>
-    <string name="clothes">Clothes</string>
-    <string name="communication">Communication</string>
-    <string name="eating_out">Eating out</string>
-    <string name="entertainment">Entertainment</string>
-    <string name="food">Food</string>
-    <string name="gift">Gift</string>
-    <string name="health">Health</string>
-    <string name="pets">Pets</string>
-    <string name="sports">Sports</string>
-    <string name="taxi">Taxi</string>
-    <string name="toiletry">Toiletry</string>
-    <string name="transport">Transport</string>
-    <string name="family">Family</string>
+    <string name="bills" translatable="false">Bills</string>
+    <string name="car" translatable="false">Car</string>
+    <string name="clothes" translatable="false">Clothes</string>
+    <string name="communication" translatable="false">Communication</string>
+    <string name="eating_out" translatable="false">Eating out</string>
+    <string name="entertainment" translatable="false">Entertainment</string>
+    <string name="food" translatable="false">Food</string>
+    <string name="gift" translatable="false">Gift</string>
+    <string name="health" translatable="false">Health</string>
+    <string name="pets" translatable="false">Pets</string>
+    <string name="sports" translatable="false">Sports</string>
+    <string name="taxi" translatable="false">Taxi</string>
+    <string name="toiletry" translatable="false">Toiletry</string>
+    <string name="transport" translatable="false">Transport</string>
+    <string name="family" translatable="false">Family</string>
 
-    <string name="cash">Cash</string>
-    <string name="bank">Bank</string>
-    <string name="loan">Loan</string>
+    <string name="cash" translatable="false">Cash</string>
+    <string name="bank" translatable="false">Bank</string>
+    <string name="loan" translatable="false">Loan</string>
 
     <string name="select_day">Select Day</string>
     <string name="category">Category</string>
@@ -305,4 +285,5 @@
         <item>Did you forget something? Yes.... Add your today\'s expenses now!!</item>
         <item>Cut your coat according to your cloth. Never forget to add your daily expenses.</item>
     </string-array>
+    <string name="deleting_this_account_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete">Deleting this account will remove expenses related to this also. Are you sure, You want to Delete?</string>
 </resources>

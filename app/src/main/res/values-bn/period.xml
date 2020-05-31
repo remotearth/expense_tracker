@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="TimePeriod">
+        <item>দৈনিক</item>
+        <item>সাপ্তাহিক</item>
+        <item>মাসিক</item>
+        <item>বার্ষিক</item>
+    </string-array>
+</resources>

@@ -133,26 +133,6 @@
         aplicación.
     </string>
 
-    <string name="bills">Cuentas</string>
-    <string name="car">Coche</string>
-    <string name="clothes">Ropa</string>
-    <string name="communication">Comunicación</string>
-    <string name="eating_out">Comiendo fuera</string>
-    <string name="entertainment">Entretenimiento</string>
-    <string name="food">Comida</string>
-    <string name="gift">Regalo</string>
-    <string name="health">Salud</string>
-    <string name="pets">Mascotas</string>
-    <string name="sports">Deportes</string>
-    <string name="taxi">Taxi</string>
-    <string name="toiletry">Artículos de aseo</string>
-    <string name="transport">Transporte</string>
-    <string name="family">Familia</string>
-
-    <string name="cash">Efectivo</string>
-    <string name="bank">Banco</string>
-    <string name="loan">Préstamo</string>
-
     <string name="select_day">Seleccione el día</string>
     <string name="category">Categoría</string>
     <string name="choose_icon">Elige un icono</string>

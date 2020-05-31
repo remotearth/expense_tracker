@@ -145,26 +145,6 @@
         настройках приложения.
     </string>
 
-    <string name="bills">банкноты</string>
-    <string name="car">Автомобиль</string>
-    <string name="clothes">одежда</string>
-    <string name="communication">связь</string>
-    <string name="eating_out">Еда вне</string>
-    <string name="entertainment">Развлекательная программа</string>
-    <string name="food">питание</string>
-    <string name="gift">Подарок</string>
-    <string name="health">Здоровье</string>
-    <string name="pets">Домашние питомцы</string>
-    <string name="sports">Спортивный</string>
-    <string name="taxi">Такси</string>
-    <string name="toiletry">туалетные принадлежности</string>
-    <string name="transport">Транспорт</string>
-    <string name="family">семья</string>
-
-    <string name="cash">Денежные средства</string>
-    <string name="bank">Банка</string>
-    <string name="loan">ссуда</string>
-
     <string name="select_day">Выберите день</string>
     <string name="category">категория</string>
     <string name="choose_icon">Выберите иконку</string>

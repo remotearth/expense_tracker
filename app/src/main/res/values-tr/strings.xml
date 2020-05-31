@@ -141,26 +141,6 @@
         iznine yazma gerekir. Bu izni uygulama ayarlarından yine de etkinleştirebilirsiniz.
     </string>
 
-    <string name="bills">Fatura</string>
-    <string name="car">Araba</string>
-    <string name="clothes">Çamaşırlar</string>
-    <string name="communication">İletişim</string>
-    <string name="eating_out">Dışarıda yemek</string>
-    <string name="entertainment">Eğlence</string>
-    <string name="food">Gıda</string>
-    <string name="gift">Hediye</string>
-    <string name="health">Sağlık</string>
-    <string name="pets">Evcil Hayvanlar</string>
-    <string name="sports">Spor Dalları</string>
-    <string name="taxi">Taksi</string>
-    <string name="toiletry">Banyo malzemesi</string>
-    <string name="transport">Taşıma</string>
-    <string name="family">Aile</string>
-
-    <string name="cash">Nakit</string>
-    <string name="bank">Banka</string>
-    <string name="loan">Borç</string>
-
     <string name="select_day">Gün Seç</string>
     <string name="category">Kategori</string>
     <string name="choose_icon">Bir simge seçin</string>

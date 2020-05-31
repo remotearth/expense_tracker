@@ -1,0 +1,219 @@
+<resources>
+
+    <string name="prefTimeFormatTitle">" তারিখ ফর্ম্যাট পরিবর্তন করুন"</string>
+    <string name="app_name">Expense Tracker</string>
+    <string name="welcometitle">এক্সপেন্স ট্র্যাকার অ্যাপ-এ আপনাকে স্বাগতম</string>
+    <string name="fb_signin_text">ফেইসবুক দিয়ে প্রবেশ করুন</string>
+    <string name="gmail_signin_text">গুগল দিয়ে প্রবেশ করুন</string>
+    <string name="noaccounttext">এখনই অ্যাকাউন্ট তৈরি করতে চান না?</string>
+    <string name="signin_without_login">অ্যাকাউন্ট ছাড়াই ব্যবহার করুন</string>
+
+
+    <!--Drawer Navigation Strings-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">এক্সপেন্স ট্র্যাকার</string>
+    <string name="action_settings">সেটিংস</string>
+
+    <!--BottoM Navigation Strings-->
+    <string name="title_home">মূল তালিকা</string>
+    <string name="title_overview">বিস্তারিত</string>
+    <string name="title_transaction">লেনদেন</string>
+    <string name="title_accounts">অ্যাকাউন্ট</string>
+
+    <!--BottoM sheet Strings-->
+    <string name="from_account_card">CASH</string>
+    <string name="from_catagory_card">GIFT</string>
+    <string name="from_account">অ্যাকাউন্ট</string>
+    <string name="to_account">খরচের প্রকার</string>
+    <string name="expense">খরচ</string>
+    <string name="balance">জমা</string>
+
+    <string name="notes">নোট</string>
+
+    <string name="currentdate">আজকে</string>
+    <string name="previousdate">গতকাল</string>
+
+    <string name="menu_home">মূল তালিকা</string>
+    <string name="menu_categories">খরচের প্রকার</string>
+    <string name="menu_settings">সেটিংস</string>
+    <string name="menu_about">অ্যাপ সম্পর্কে তথ্য</string>
+    <string name="menu_licenses">লাইসেন্স</string>
+    <string name="menu_logout">বের হয়ে জান</string>
+    <string name="add_expense">খরচের হিসাব রাখুন</string>
+    <string name="update_expense">খরচের হিসাব পরিবর্তন করুন</string>
+
+    <string name="preferencetitle">মুদ্রা নির্বাচন করুন</string>
+
+    <string name="summarypreftext">মুদ্রা নির্বাচন করার জন্য এখানে চাপুন</string>
+    <string name="privacy_policy">তথ্যের গোপনীয়তা</string>
+    <string name="daily">প্রতিদিন</string>
+    <string name="weekly">প্রতি সপ্তাহে</string>
+    <string name="monthly">প্রতি মাসে</string>
+    <string name="yearly">প্রতি বছরে</string>
+    <string name="expense_category">খরচের প্রকার</string>
+
+    <string name="timeperiod">"অ্যাপ এর শুরুতে সময়ের ব্যাবধান "</string>
+    <string name="day">দিন</string>
+    <string name="selectperiodfromhere">সময়কাল নির্বাচন করুন</string>
+    <string name="select_time_format_from_here">তারিখ ফর্ম্যাট নির্বাচন করুন</string>
+
+
+    <string name="warning">দাঁড়ান !</string>
+    <string name="buy_message">এই ফিচার ব্যবহার করার জন্য আপনার অ্যাপটি কিনতে হবে</string>
+    <string name="ok">ঠিক আছে</string>
+    <string name="no_data_available">এই তারিখ ব্যাবধান-এ কোন ব্যয় নেই</string>
+
+    <string name="icons_made_by">Category and Account - Icons made by Freepik from Flaticon</string>
+    <string name="Authentication_with_Firebase_is_failed">ফায়ারবাসের সাথে প্রমাণীকরণ ব্যর্থ হয়েছে</string>
+
+    <string name="login_failed">প্রবেশ ব্যর্থ হয়েছে</string>
+
+    <string name="press_once_again_to_close_app">অ্যাপ থেকে বের হওয়ার জন্য আরেকবার চাপুন</string>
+    <string name="are_you_sure_you_want_to_logout">আপনি কি আসলেই অ্যাকাউন্ট থেকে বের হতে চাইছেন?</string>
+    <string name="yes">হ্যাঁ</string>
+    <string name="no">না</string>
+
+    <string name="add_category">নতুন প্রকার সংযোজন করুন</string>
+    <string name="attention">একটু মনোযোগ দিন</string>
+    <string name="you_need_to_be_premium_user_to_add_more_categories">নতুন খরচের প্রকার সংযোজন করার জন্য অ্যাপটি কিনতে হবে</string>
+
+    <string name="you_cannot_delete_this_account">এই অ্যাকাউন্টটি মুছতে পারবেন না</string>
+    <string name="deleting_this_account_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete">এই অ্যাকাউন্টটি মুছলে, তা সম্পর্কিত খরচের হিসাবগুলো মুছে যাবে। আপনি কি নিশ্চিত এটা করতে চাইছেন?</string>
+    <string name="not_now">এখন না</string>
+    <string name="update_category">খরচের প্রকার পরিবর্তন করুন</string>
+    <string name="update">পরিবর্তন</string>
+    <string name="enter_a_name">একটি নাম দিন…</string>
+    <string name="select_an_icon">একটি ছবি নির্বাচন করুন</string>
+    <string name="update_account">অ্যাকাউন্ট-এ পরিবর্তন করুন</string>
+    <string name="add_account">নতুন অ্যাকাউন্ট যোগ করুন</string>
+    <string name="add">সংযোজন</string>
+    <string name="enter_a_name_for_account">অ্যাকাউন্ট-এর জন্য একটি নাম দিন</string>
+    <string name="select_an_icon_for_the_account">অ্যাকাউন্ট-এর জন্য একটি ছবি নির্বাচন করুন</string>
+    <string name="you_cannot_delete_this_category">এই খরচের প্রকারটি মুছতে পারবেন না</string>
+    <string name="deleting_this_category_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete">এই খরচের প্রকারটি মুছলে, তা সম্পর্কিত খরচের হিসাবগুলো মুছে যাবে। আপনি কি নিশ্চিত এটা করতে চাইছেন?</string>
+    <string name="category_deleted_successfully">"সফলভাবে অপসারণ করা হয়েছে "</string>
+    <string name="select_category">খরচের প্রকার নির্বাচন করুন</string>
+    <string name="are_you_sure_you_want_to_delete_this_expense_entry">আপনি কি নিশ্চিত ভাবে এই খরচের হিসাবটি মুছতে চাইছেন?</string>
+    <string name="successfully_added">"সফলভাবে সংযোজন করা হয়েছে "</string>
+    <string name="successfully_deleted_expense_entry">"সফলভাবে অপসারণ করা হয়েছে "</string>
+
+    <string name="report_from_expense_tracker">এক্সপেন্স ট্র্যাকার অ্যাপ-এর প্রতিবেদন</string>
+    <string name="choose_email_client_to_send_report">ইমেইল অ্যাপ নির্বাচন করুন পাঠানোর জন্য</string>
+    <string name="report_sending_failed_please_try_again_later">কোন সমস্যা হয়েছে। একটু পরে আবার চেষ্টা করুন</string>
+    <string name="authentication_with_firebase_is_failed">কোন সমস্যা হয়েছে। একটু পরে আবার চেষ্টা করুন</string>
+    <string name="google_signin_failed">কোন সমস্যা হয়েছে। একটু পরে আবার চেষ্টা করুন</string>
+
+    <string name="to_use_this_features_your_need_permission_for_that_you_can_access_it_in_app_settings">এটি ব্যবহার করার জন্য অ্যাপটিকে অনুমতি দিতে হবে। আপনি আপনার মোবাইল-এর সেটিংস-এ যেয়ে অনুমতি দিতে পারবেন।</string>
+    <string name="go_to_settings">সেটিংস-এ যান</string>
+    <string name="cancel">বাতিল করুন</string>
+    <string name="date_category_amount_from_note">Date,Category,Amount,From,Note</string>
+
+    <string name="expense_data_not_available_to_export">কোন খরচের হিসাব নাই ব্যাকআপ করার মত</string>
+    <string name="expense_data_not_available_to_upload">No expense data is available to backup.</string>
+
+
+    <string name="select_your_currency">মুদ্রা নির্বাচন করুন</string>
+    <string name="go">যান</string>
+    <string name="will_replace_your_current_entries">এটি অ্যাপ-এর বর্তমান খরচের হিসাবগুলো পরিবর্তন করে ফেলবে। আপনি কি নিশ্চিত?</string>
+    <string name="no_supported_file">এক্সপেন্স ট্র্যাকার অ্যাপ-এ কাজ করবে এমন কোন ফাইল খুঁজে পাওয়া যায়নি।</string>
+    <string name="select_csv">একটি .csv ফাইল নির্বাচন করুন</string>
+
+    <string name="read_write_permission_is_needed">তথ্য এক্সপোর্ট/ইমপোরট করার জন্য External Storage থেকে পড়া ও লিখার অনুমতি লাগবে।</string>
+    <string name="read_write_permission_is_needed_enable_from_settings">তথ্য এক্সপোর্ট/ইমপোরট করার জন্য External Storage থেকে পড়া ও লিখার অনুমতি লাগবে। আপনার মোবাইল-এর সেটিংস থেকে এই অনুমতি দিতে পারেন।</string>
+    <string name="internet_connection_needed">এই কাজটি করার জন্য ইন্টারনেট সংযোগ লাগবে</string>
+
+    <string name="without_this_app_cannot_export">এই অনুমতি ছাড়া অ্যাপ তথ্য এক্সপোর্ট করতে পারবে না</string>
+    <string name="storage_permission_is_needed_to_export_data">তথ্য এক্সপোর্ট/ইমপোরট করার জন্য External Storage থেকে পড়া ও লিখার অনুমতি লাগবে। আপনি কি এই অনুমতি দিয়ে আগাতে চান?</string>
+    <string name="storage_permission_needed_still_can_enable_from_settings">তথ্য এক্সপোর্ট/ইমপোরট করার জন্য External Storage থেকে পড়া ও লিখার অনুমতি লাগবে। আপনার মোবাইল-এর সেটিংস থেকে এই অনুমতি দিতে পারেন।</string>
+
+    <string name="select_day">দিন নির্বাচন করুন</string>
+    <string name="category">খরচের প্রকার</string>
+    <string name="choose_icon">একটি ছবি নির্বাচন করুন</string>
+    <string name="add_btntext">সংযোজন</string>
+    <string name="account_name">অ্যাকাউন্ট-এর নাম</string>
+    <string name="enter_amount">খরচের পরিমাণ লিখুন…</string>
+    <string name="add_amount">খরচের পরিমাণ লিখুন</string>
+    <string name="edit">পরিবর্তন করুন</string>
+    <string name="delete">মুছে দিন</string>
+    <string name="expense_note">খরচ বিষয়ক নোট</string>
+    <string name="write_a_note_here">খরচ সম্পর্কিত যেকোনো নোট লিখুন…</string>
+
+    <string name="export_data">তথ্য এক্সপোর্ট করুন</string>
+    <string name="buy_product">অ্যাপটি ক্রয় করুন</string>
+    <string name="import_data">তথ্য ইমপোরট করুন</string>
+
+    <string name="already_purchased">আপনি অ্যাপটি আগেই ক্রয় করেছেন</string>
+    <string name="no_net_connection">ইন্টারনেট কানেকশন পাওয়া যায়নি</string>
+    <string name="please_wait">একটু অপেক্ষা করুন…</string>
+    <string name="operation_successful">কাজটি সফল হয়েছে</string>
+    <string name="please_enter_an_amount">দয়া করে খরচের পরিমাণ লিখুন…</string>
+    <string name="make_sure_enter_valid_number">দয়া করে বৈধ সংখ্যা লিখুন</string>
+
+
+    <string name="whatsinpremium">কি কি সুবিধা পাবেন যদি অ্যাপটি ক্রয় করেন?</string>
+    <string name="premium_features">\n\n1. User can backup all expense data in the cloud.\n\n2. There is no limit adding new categories and accounts.\n\n3. No ads</string>
+
+    <string name="from">হিসাব এর নাম</string>
+    <string name="transfer_balance">টাকা হস্তান্তর করুন</string>
+    <string name="enter_amount_to_transfer">হস্তান্তর করার জন্য একটি পরিমান লিখুন</string>
+    <string name="enter_amount_greater_than_zero">শূন্যের চেয়ে বড় একটু সংখ্যা লিখুন</string>
+    <string name="select_different_accounts">দুইটি আলাদা অ্যাকাউন্ট নির্বাচন করুন</string>
+    <string name="source_acc_not_have_amount">উৎস অ্যাকাউন্ট-এ পর্যাপ্ত টাকা নেই অন্য অ্যাকাউন্ট-এ পাঠানোর জন্য</string>
+    <string name="others">অন্যান্য</string>
+    <string name="entry_count">গণনা</string>
+    <string name="daily_avg">প্রতিদিনে(গড়ে.)</string>
+    <string name="contact_us">আমাদের সাথে যোগাযোগ করুন</string>
+    <string name="rate_us">অ্যাপ সম্পর্কে মতামত দিন</string>
+    <string name="review">আপনার মতামত</string>
+    <string name="share_experience">মনে হচ্ছে অ্যাপটি আপনার পক্ষে কার্যকর। আপনি কি নিজের অভিজ্ঞতা অন্যদের সাথে ভাগ করতে চান?</string>
+    <string name="total_expense">সর্বমোট খরচ</string>
+    <string name="name_should_be_less_than_20_char">নাম ২০ অক্ষরের মধ্যে হতে হবে</string>
+    <string name="backup_sync">ইন্টারনেট-এ ব্যাকআপ</string>
+    <string name="you_can_backup">আপনি অ্যাপ-এর খরচের তথ্য ইন্টারনেট-এ ব্যাকআপ করতে পারেন অথবা ইন্টারনেট থেকে নামাতে পারেন</string>
+    <string name="what_you_want_to_do">আপনি কি করতে চান?</string>
+    <string name="download">ইন্টারনেট থেকে নামান</string>
+    <string name="login_to_sync">ইন্টারনেট-এ খরচের তথ্য আপলোড করার জন্য ফেইসবুক অথবা গুগল দিয়ে লগিন করুন অ্যাপ-এ</string>
+    <string name="will_overwrite_in_cloud">এটা করলে ইন্টারনেট-এ আপনার যেসকল খরচের তথ্য বিদ্যমান তা পুনরায় লিখা হবে। আপনি কি নিশ্চিত ভাবে আগাতে চান?</string>
+    <string name="successfully_uploaded">সফলভাবে আপলোড হয়েছে</string>
+    <string name="something_went_wrong">কোন সমস্যা হয়েছে। একটু পরে আবার চেষ্টা করুন</string>
+    <string name="overwrite_device_data">এটা করলে অ্যাপ-এ এখন যে খরচের হিসাবগুলো আছে তা পুনরায় লিখা হবে। আপনি কি নিশ্চিত এটা করতে চাইছেন?</string>
+    <string name="data_not_available_to_download">এই অ্যাকাউন্ট-এর জন্য ইন্টারনেট থেকে নামানোর জন্য খরচের তথ্য নেই।</string>
+
+    <string name="repeat">পুনরাবৃত্তিঃ</string>
+    <string name="every">প্রতি</string>
+    <string name="times">বার</string>
+    <string name="scheduled_on">পরবর্তী খরচ যোগ হবে</string>
+    <string name="no_scheduled_expenses"> এই মুহূর্তে, কোন পূর্ব-নির্ধারিত ব্যয় নেই</string>
+    <string name="confirm_delete_scheduled_entry">আপনি কি নিশ্চিত ভাবে এটি মুছতে চাইছেন?</string>
+
+    <string name="menu_scheduled_expense">পূর্ব-নির্ধারিত ব্যয়</string>
+    <string name="time_to_export_data">এখন আপনি আপানার খরচের হিসাব এক্সপোর্ট করে রাখতে পারেন</string>
+    <string name="remind_to_export">খরচের হিসাবে এক্সপোর্ট করার জন্য স্মরণ করা</string>
+    <string name="first_day_of_month">প্রতি মাসের প্রথম দিনে</string>
+    <string name="schedule_expense">পূর্ব-নির্ধারিত ব্যয়</string>
+    <string name="expense_scheduled">খরচ যোগ হওয়ার জন্য তালিকাভুক্ত হয়েছে</string>
+    <string name="occurrence_left">পুনরাবৃত্তি হউয়া বাকি</string>
+    <string name="safe_to_export">পর্যায়ক্রমে মাঝে মাঝে আপনার খরচের হিসাব এক্সপোর্ট করা নিরাপদ। আপনি যদি অ্যাপটি কিনে থাকেন, তাহলে ইন্টারনেট-এ তথ্য ব্যাকআপ করে রাখতে পারেন।</string>
+
+    <string name="remind_to_addexpense">খরচের হিসাব যোগ করার জন্য স্মরণ করা</string>
+    <string name="daily_at_endofday">প্রতিদিন, দিনের শেষে</string>
+    <string name="set_your_salary">আপনার মাসিক বেতন</string>
+    <string name="add_salary_every_month">স্বয়ংক্রিয় ভাবে আপনার মাসিক বেতন যোগ করুন</string>
+    <string name="what_is_your_monthly_salary">আপনার মাসিক বেতন লিখুন এখানে</string>
+    <string name="amount">পরিমান</string>
+    <string name="next_salary_date">পরবর্তী বেতন পাবেন কবে?</string>
+    <string name="select_account_to_receive_salary">বেতন পাবার জন্য অ্যাকাউন্ট নির্বাচন করুন</string>
+    <string name="salary_is_added">এই মাত্র আপনার বেতন আপনার পছন্দের অ্যাকাউন্টে ঢুকেছে!</string>
+    <string name="sure_to_cancel_change">আপনি কি নিশ্চিত ভাবে এই পরিবর্তনটি বাতিল করতে চাইছেন?</string>
+    <string name="periodic_ask_to_add_expense">আপনি গত কয়েকদিন আপনার খরচের হিসাব যোগ করেননি। আপনি যদি এ ব্যাপারে প্রতিদিন মনে করতে চান তাহলে সেটিংস পেইজ-এ এটা নির্ধারণ করতে পারেন।</string>
+    <string name="periodic_remind_notification">মনে হচ্ছে আপনি সবসময় আপনার খরচের হিসাব যোগ করেন না। আপনি কি চান অ্যাপ আপনাকে প্রতিদিন মনে করিয়ে দিবে?</string>
+    <string name="change_language">ভাষা পরিবর্তন করুন</string>
+    <string name="can_change_language">Just to let you know, now you can change language of the app from settings page.</string>
+    <string name="choose_your_preferences">আপনার পছন্দগুলো নির্ধারণ করুন</string>
+    <string name="create_account">অ্যাকাউন্ট খুলুন</string>
+    <string name="transfer_amount">টাকা অন্য অ্যাকাউন্ট-এ নিন</string>
+    <string name="select_account">অ্যাকাউন্ট নির্বাচন করুন</string>
+    <string name="to">খরচের নাম</string>
+
+</resources>

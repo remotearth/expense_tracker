@@ -136,26 +136,6 @@
     <string name="storage_permission_needed_still_can_enable_from_settings">Na exportovanie údajov je potrebné zapisovať do externého úložiska. Toto povolenie môžete stále povoliť z nastavení aplikácií.
     </string>
 
-    <string name="bills">Bankovky</string>
-    <string name="car">Auto</string>
-    <string name="clothes">Oblečenie</string>
-    <string name="communication">Komunikácia</string>
-    <string name="eating_out">Jesť vonku</string>
-    <string name="entertainment">Zábava</string>
-    <string name="food">Jedlo</string>
-    <string name="gift">Darček</string>
-    <string name="health">Zdravie</string>
-    <string name="pets">Domáce zvieratá</string>
-    <string name="sports">športové</string>
-    <string name="taxi">Taxi</string>
-    <string name="toiletry">Hygienická potreba</string>
-    <string name="transport">Doprava</string>
-    <string name="family">Rodina</string>
-
-    <string name="cash">Peňažný</string>
-    <string name="bank">Breh</string>
-    <string name="loan">Pôžička</string>
-
     <string name="select_day">Vyberte položku Deň</string>
     <string name="category">Kategórie</string>
     <string name="choose_icon">Vyberte ikonu</string>

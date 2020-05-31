@@ -139,26 +139,6 @@
     <string name="storage_permission_needed_still_can_enable_from_settings">Zum Exportieren von Daten sind Schreibrechte für externe Speicher erforderlich. Sie können diese Berechtigung weiterhin über die App-Einstellungen aktivieren.
     </string>
 
-    <string name="bills">Rechnungen</string>
-    <string name="car">Auto</string>
-    <string name="clothes">Kleider</string>
-    <string name="communication">Kommunikation</string>
-    <string name="eating_out">Essen gehen</string>
-    <string name="entertainment">Unterhaltung</string>
-    <string name="food">Essen</string>
-    <string name="gift">Geschenk</string>
-    <string name="health">Gesundheit</string>
-    <string name="pets">Haustiere</string>
-    <string name="sports">Sport</string>
-    <string name="taxi">Taxi</string>
-    <string name="toiletry">Toilettenartikel</string>
-    <string name="transport">Transport</string>
-    <string name="family">Familie</string>
-
-    <string name="cash">Kasse</string>
-    <string name="bank">Bank</string>
-    <string name="loan">Darlehen</string>
-
     <string name="select_day">Tag auswählen</string>
     <string name="category">Kategorie</string>
     <string name="choose_icon">Wählen Sie ein Symbol aus</string>

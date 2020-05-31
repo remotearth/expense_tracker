@@ -144,26 +144,6 @@
     <string name="storage_permission_needed_still_can_enable_from_settings">Per l\'esportazione dei dati è necessaria l\'autorizzazione per l\'archiviazione esterna. Puoi comunque abilitare questa autorizzazione dalle impostazioni dell\'app.
     </string>
 
-    <string name="bills">Fatture</string>
-    <string name="car">Auto</string>
-    <string name="clothes">Abiti</string>
-    <string name="communication">Comunicazione</string>
-    <string name="eating_out">Mangiare fuori</string>
-    <string name="entertainment">Divertimento</string>
-    <string name="food">Cibo</string>
-    <string name="gift">Regalo</string>
-    <string name="health">Salute</string>
-    <string name="pets">Animali</string>
-    <string name="sports">Gli sport</string>
-    <string name="taxi">Taxi</string>
-    <string name="toiletry">Articoli da toilette</string>
-    <string name="transport">Trasporto</string>
-    <string name="family">Famiglia</string>
-
-    <string name="cash">Contanti</string>
-    <string name="bank">Banca</string>
-    <string name="loan">Prestito</string>
-
     <string name="select_day">Seleziona giorno</string>
     <string name="category">Categoria</string>
     <string name="choose_icon">Scegli un\'icona</string>
