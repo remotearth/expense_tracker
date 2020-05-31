@@ -14,7 +14,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
-import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.activities.BaseActivity
@@ -87,18 +86,18 @@ class MainActivity : BaseActivity(), MainContract.View {
 
         setPeriodicReminderToAskAddingExpense()
 
-        if (BuildConfig.DEBUG) {
-            FirebaseInstanceId.getInstance().instanceId
-                .addOnCompleteListener(OnCompleteListener { task ->
-                    if (!task.isSuccessful) {
-                        Log.w(MainActivity::class.java.name, "getInstanceId failed", task.exception)
-                        return@OnCompleteListener
-                    }
-                    // Get new Instance ID token
-                    // val token = task.result?.token
-                    // println("Firebase Token: $token")
-                })
-        }
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w(MainActivity::class.java.name, "getInstanceId failed", task.exception)
+                    return@OnCompleteListener
+                }
+                // Get new Instance ID token
+                val token = task.result?.token
+                AnalyticsManager.logEvent("FirebaseToken: $token")
+                println("FirebaseToken: $token")
+            })
+
     }
 
     override fun onStart() {

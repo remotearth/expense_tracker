@@ -12,6 +12,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.remotearthsolutions.expensetracker.R
+import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils
@@ -58,7 +59,8 @@ class InitialSettingsFragment : PreferenceFragmentCompat() {
                         key,
                         requireContext().resources.getString(R.string.default_language)
                     )
-                    languagePreference!!.summary = sharedPreferences.getString(key, language)
+                    languagePreference!!.summary = language
+                    AnalyticsManager.logEvent("Choosen Language - $language")
                 }
             }
         preferenceScreen.sharedPreferences

@@ -7,6 +7,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
+import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
 import kotlin.random.Random
 
@@ -28,6 +29,7 @@ class AddExpenseReminderWorker(
 
         val count = ReminderWorkerHelper.getCountOfExpenseAddedInLastFourHoursSync(appContext)
         if (count == 0) {
+            AnalyticsManager.logEvent(AnalyticsManager.REMINDED_TO_ADD_EXPENSE)
             LocalNotificationManager.showNotification(
                 appContext,
                 appContext.getString(R.string.app_name),

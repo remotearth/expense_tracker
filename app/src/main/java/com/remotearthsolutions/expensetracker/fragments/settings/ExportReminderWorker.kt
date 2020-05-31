@@ -7,6 +7,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
+import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
 
 class ExportReminderWorker(
@@ -22,6 +23,7 @@ class ExportReminderWorker(
         val pendingIntent =
             PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
+        AnalyticsManager.logEvent(AnalyticsManager.REMINDED_TO_EXPORT)
         LocalNotificationManager.showNotification(
             appContext,
             appContext.getString(R.string.app_name),

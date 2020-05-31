@@ -83,6 +83,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             key, resources.getString(R.string.default_language)
                         )
                         languagePreference!!.summary = selectedLang
+                        AnalyticsManager.logEvent("Choosen Language - $selectedLang")
                         (requireActivity() as MainActivity).finish()
                         val intent = Intent(requireActivity(), MainActivity::class.java)
                         startActivity(intent)
@@ -101,13 +102,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         val shouldRemindToExport = sharedPreferences.getBoolean(key, false)
                         if (shouldRemindToExport) {
                             ReminderWorkerHelper.setExportReminder(requireContext())
+                            AnalyticsManager.logEvent(AnalyticsManager.EXPORT_REMINDER_ENABLED)
                         } else {
                             ReminderWorkerHelper.cancelReminder(
                                 requireContext(),
                                 Constants.KEY_EXPORT_REMINDER_WORKREQUEST_ID
                             )
+                            AnalyticsManager.logEvent(AnalyticsManager.EXPORT_REMINDER_DISABLED)
                         }
-                        AnalyticsManager.logEvent("ExportReminder-$shouldRemindToExport")
                     }
                     Constants.PREF_REMIND_TO_ADDEXPENSE -> {
                         val shouldRemindToAddExpense = sharedPreferences.getBoolean(key, false)
@@ -121,7 +123,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             )
                             AnalyticsManager.logEvent(AnalyticsManager.ADD_EXPENSE_DAILY_REMINDER_DISABLED)
                         }
-                        AnalyticsManager.logEvent("AddExpenseReminder-$shouldRemindToAddExpense")
                     }
                 }
             }

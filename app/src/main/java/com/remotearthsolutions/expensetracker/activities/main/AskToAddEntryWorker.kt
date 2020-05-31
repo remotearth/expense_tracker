@@ -7,6 +7,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
+import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
@@ -41,6 +42,7 @@ class AskToAddEntryWorker(private val appContext: Context, workerParameters: Wor
             val pendingIntent =
                 PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
+            AnalyticsManager.logEvent(AnalyticsManager.AFTER_FIVE_DAYS_REMINDED_TO_ADD_EXPENSE)
             LocalNotificationManager.showNotification(
                 appContext,
                 appContext.getString(R.string.app_name),

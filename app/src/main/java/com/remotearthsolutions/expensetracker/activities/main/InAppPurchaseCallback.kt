@@ -3,6 +3,7 @@ package com.remotearthsolutions.expensetracker.activities.main
 import android.content.Context
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.callbacks.InAppBillingCallback
+import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.Utils
 import org.solovyev.android.checkout.Inventory
 import org.solovyev.android.checkout.ProductTypes
@@ -16,6 +17,7 @@ class InAppPurchaseCallback(val context: Context) : InAppBillingCallback, Invent
     override fun onPurchaseSuccessListener(purchase: Purchase?) {
         appContext.isPremium = true
         if (purchase?.sku == productId) {
+            AnalyticsManager.logEvent(AnalyticsManager.APP_PURCHASED)
             appContext.appShouldShowAds(false)
         }
     }
