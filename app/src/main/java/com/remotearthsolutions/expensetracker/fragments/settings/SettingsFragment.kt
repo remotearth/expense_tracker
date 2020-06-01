@@ -11,6 +11,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
@@ -144,6 +146,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 )
             )
         }
+        
+        val itemDecoration =
+            DividerItemDecoration(context, RecyclerView.VERTICAL)
+        listView.addItemDecoration(itemDecoration)
+
         registerBackButton()
         return view
     }
@@ -152,10 +159,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         super.onStop()
         preferenceScreen.sharedPreferences
             .unregisterOnSharedPreferenceChangeListener(preferenceChangeListener)
-    }
-
-    fun openPreference(prefName: String) {
-        preferenceManager.showDialog(findPreference(prefName))
     }
 
     private fun registerBackButton(callBack: OnBackPressedCallback? = null) {
