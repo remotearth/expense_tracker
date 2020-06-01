@@ -2,7 +2,8 @@ package com.remotearthsolutions.expensetracker.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
+
 
 class SharedPreferenceUtils private constructor(context: Context) {
 
@@ -29,7 +30,7 @@ class SharedPreferenceUtils private constructor(context: Context) {
     }
 
     fun getString(key: String, defaultVal: String): String {
-        return sp.getString(key, defaultVal)
+        return sp.getString(key, defaultVal)!!
     }
 
     fun putBoolean(key: String?, value: Boolean) {
