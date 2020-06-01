@@ -19,20 +19,14 @@
             android:orientation="horizontal"
             android:padding="5dp">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="0.3"
-                android:padding="5dp">
-
-                <ImageView
-                    android:id="@+id/categoryIconIv"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:contentDescription="@string/category"
-                    android:src="@mipmap/ic_logo" />
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/categoryIconIv"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:contentDescription="@string/category"
+                android:src="@mipmap/ic_logo" />
 
             <RelativeLayout
                 android:id="@+id/container"

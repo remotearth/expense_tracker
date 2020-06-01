@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.preference.PreferenceManager
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -142,7 +141,6 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
     private fun setupActionBar() {
-        setSupportActionBar(toolbar)
         toggle = ActionBarDrawerToggle(
             this,
             drawer_layout,
@@ -150,8 +148,8 @@ class MainActivity : BaseActivity(), MainContract.View {
             R.string.navigation_drawer_open,
             R.string.navigation_drawer_close
         )
-        toggle?.syncState()
-        drawer_layout.addDrawerListener(toggle!!)
+        setSupportActionBar(mToolbar)
+        setupDrawer()
     }
 
     override fun goBackToLoginScreen() {
@@ -193,17 +191,13 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
     fun onBackButtonPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START)
         } else {
             val t = System.currentTimeMillis()
             if (t - backPressedTime > 2000) {
                 backPressedTime = t
-                Toast.makeText(
-                    this,
-                    getString(R.string.press_once_again_to_close_app),
-                    Toast.LENGTH_SHORT
-                ).show()
+                Utils.showToast(this, getString(R.string.press_once_again_to_close_app))
             } else {
                 CheckoutUtils.clearInstance()
                 finish()
@@ -216,20 +210,23 @@ class MainActivity : BaseActivity(), MainContract.View {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         toggle?.syncState()
-        toolbar.setNavigationOnClickListener {
+        mToolbar.setNavigationOnClickListener {
             onBackPressed()
         }
     }
 
-    fun hideBackButton() {
+    private fun setupDrawer() {
         toggle?.isDrawerIndicatorEnabled = true
-        supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
         toggle?.syncState()
-        toolbar.setNavigationOnClickListener {
+        mToolbar.setNavigationOnClickListener {
             mDrawerLayout.openDrawer(GravityCompat.START)
         }
+    }
 
+    fun hideBackButton() {
+        setupDrawer()
         //hide background blur
         val fragment = supportFragmentManager.findFragmentByTag(ViewShadeFragment::class.java.name)
         if (fragment != null) {
