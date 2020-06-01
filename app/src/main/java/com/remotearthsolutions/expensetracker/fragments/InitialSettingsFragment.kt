@@ -60,6 +60,7 @@ class InitialSettingsFragment : PreferenceFragmentCompat() {
                         requireContext().resources.getString(R.string.default_language)
                     )
                     languagePreference!!.summary = language
+                    Utils.setAppLanguage(requireContext())
                     AnalyticsManager.logEvent("Choosen Language - $language")
                 }
             }

@@ -6,6 +6,7 @@ import android.os.Build
 import android.util.DisplayMetrics
 import android.widget.Toast
 import com.remotearthsolutions.expensetracker.R
+import com.yariksoffice.lingver.Lingver
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.*
@@ -98,7 +99,7 @@ object Utils {
         val languages = context.resources.getStringArray(R.array.lanugages)
         val langCodes = context.resources.getStringArray(R.array.lanugageCode)
         val code = langCodes[languages.indexOf(lang)]
-        setLocale(context, code)
+        Lingver.getInstance().setLocale(context, code)
     }
 
     class ScreenSize(var width: Int, var height: Int)

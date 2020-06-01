@@ -18,6 +18,7 @@ import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
+import com.remotearthsolutions.expensetracker.utils.Utils
 import com.remotearthsolutions.expensetracker.utils.Utils.getFlagDrawable
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -86,6 +87,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         )
                         languagePreference!!.summary = selectedLang
                         AnalyticsManager.logEvent("Choosen Language - $selectedLang")
+                        Utils.setAppLanguage(requireContext())
                         (requireActivity() as MainActivity).finish()
                         val intent = Intent(requireActivity(), MainActivity::class.java)
                         startActivity(intent)

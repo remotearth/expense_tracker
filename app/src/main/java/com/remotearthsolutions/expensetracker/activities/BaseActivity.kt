@@ -1,7 +1,5 @@
 package com.remotearthsolutions.expensetracker.activities
 
-import android.content.res.Configuration
-import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,14 +9,12 @@ import com.remotearthsolutions.expensetracker.services.InternetCheckerServiceImp
 import com.remotearthsolutions.expensetracker.services.ProgressService
 import com.remotearthsolutions.expensetracker.services.ProgressServiceImp
 import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils
-import com.remotearthsolutions.expensetracker.utils.Utils
 
 abstract class BaseActivity : AppCompatActivity(), BaseView {
     private lateinit var internetCheckerService: InternetCheckerService
     private lateinit var progressService: ProgressService
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState ?: Bundle())
-        Utils.setAppLanguage(this)
         internetCheckerService = InternetCheckerServiceImpl(this)
         progressService = ProgressServiceImp(this)
     }
@@ -46,11 +42,5 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     override fun hideProgress() {
         progressService.hideProgressBar()
-    }
-
-    override fun applyOverrideConfiguration(overrideConfiguration: Configuration?) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && Build.VERSION.SDK_INT <= Build.VERSION_CODES.N_MR1) {
-            Utils.setAppLanguage(this)
-        }
     }
 }
