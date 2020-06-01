@@ -78,11 +78,13 @@ object Utils {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
+    @Suppress("DEPRECATION")
     @SuppressWarnings("deprecation")
     private fun setLocale(context: Context, localeStr: String) {
         val configuration = context.resources.configuration
         val displayMetrics: DisplayMetrics = context.resources.displayMetrics
         configuration.setLocale(Locale(localeStr))
+        Locale.setDefault(Locale(localeStr))
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
             context.applicationContext.createConfigurationContext(configuration)
         } else {

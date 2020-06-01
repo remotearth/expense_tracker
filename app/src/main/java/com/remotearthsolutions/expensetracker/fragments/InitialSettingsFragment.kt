@@ -29,7 +29,7 @@ class InitialSettingsFragment : PreferenceFragmentCompat() {
         preferenceCurrency!!.summary =
             SharedPreferenceUtils.getInstance(requireContext())!!.getString(
                 Constants.PREF_CURRENCY,
-                requireContext().resources.getString(R.string.default_currency)
+                requireContext().getString(R.string.default_currency)
             )
         preferenceCurrency.setIcon(Utils.getFlagDrawable(requireContext()))
 
@@ -48,7 +48,7 @@ class InitialSettingsFragment : PreferenceFragmentCompat() {
                         findPreference<Preference>(key)
                     val currency = sharedPreferences.getString(
                         key,
-                        requireContext().resources.getString(R.string.default_currency)
+                        requireContext().getString(R.string.default_currency)
                     )
                     currencyPreference!!.summary = sharedPreferences.getString(key, currency)
                     currencyPreference.setIcon(Utils.getFlagDrawable(requireContext()))

@@ -146,7 +146,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 )
             )
         }
-        
+
         val itemDecoration =
             DividerItemDecoration(context, RecyclerView.VERTICAL)
         listView.addItemDecoration(itemDecoration)
