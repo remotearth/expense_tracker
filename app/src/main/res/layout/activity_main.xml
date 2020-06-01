@@ -23,7 +23,12 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 android:theme="@style/AppTheme.AppBarOverlay"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+                app:contentInsetLeft="@dimen/dp_0"
+                app:contentInsetStart="@dimen/dp_0"
+                app:contentInsetStartWithNavigation="@dimen/dp_0"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:titleTextAppearance="?android:attr/textAppearanceMedium"
+                app:titleTextColor="@color/white" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -63,8 +68,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
         app:elevation="10dp"
+        app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer">
 
     </com.google.android.material.navigation.NavigationView>

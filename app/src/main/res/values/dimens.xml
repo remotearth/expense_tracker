@@ -10,4 +10,5 @@
     <dimen name="preview_offset_distance">150dp</dimen>
     <dimen name="offset_distance">48dp</dimen>
     <dimen name="dp_50">50dp</dimen>
+    <dimen name="dp_0">0dp</dimen>
 </resources>
