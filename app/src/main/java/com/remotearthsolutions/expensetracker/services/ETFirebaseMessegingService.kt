@@ -8,6 +8,7 @@ import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils
+import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
 
@@ -15,7 +16,7 @@ class ETFirebaseMessegingService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        println("Firebase token: $token")
+        AnalyticsManager.logEvent("UpdatedFirebaseToken: $token")
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -26,7 +27,7 @@ class ETFirebaseMessegingService : FirebaseMessagingService() {
                     activity,
                     null,
                     remoteMessage.notification!!.body,
-                    getString(R.string.ok),
+                    activity.getString(R.string.ok),
                     null,
                     null
                 )
@@ -39,7 +40,7 @@ class ETFirebaseMessegingService : FirebaseMessagingService() {
     private fun showNotification(remoteMessage: RemoteMessage) {
         val intent = Intent(this, MainActivity::class.java)
         if (remoteMessage.data.isNotEmpty()) {
-            val message = remoteMessage.data[getString(R.string.message)]
+            val message = remoteMessage.data[Constants.KEY_MESSAGE]
             intent.putExtra(Constants.KEY_MESSAGE, message)
         }
         val pendingIntent = PendingIntent.getActivity(

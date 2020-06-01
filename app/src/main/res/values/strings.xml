@@ -34,7 +34,6 @@
     <string name="equalto" translatable="false">=</string>
     <string name="united_states_dollar_usd" translatable="false">United States Dollar - USD</string>
     <string name="remotearth_notification" translatable="false">Remotearth Notification</string>
-    <string name="message" translatable="false">message</string>
     <string name="dont_edit_this_meta_data" translatable="false">(Don\'t edit this meta data)</string>
 
     <string name="prefTimeFormatTitle">Change Date Format</string>

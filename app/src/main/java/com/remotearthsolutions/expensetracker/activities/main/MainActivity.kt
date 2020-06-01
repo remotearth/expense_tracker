@@ -309,7 +309,7 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        val message = intent?.getStringExtra("message")
+        val message = intent?.getStringExtra(Constants.KEY_MESSAGE)
         if (!message.isNullOrEmpty()) {
             AlertDialogUtils.show(this, null, message, getString(R.string.ok), null, null)
         }
