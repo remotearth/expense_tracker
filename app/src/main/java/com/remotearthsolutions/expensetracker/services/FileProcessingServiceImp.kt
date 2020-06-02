@@ -225,7 +225,7 @@ class FileProcessingServiceImp : FileProcessingService {
                     activity.getString(R.string.choose_email_client_to_send_report)
                 )
             )
-            AnalyticsManager.logEvent(AnalyticsManager.DATA_EXPORTED)
+            with(AnalyticsManager) { logEvent(DATA_EXPORTED) }
         } catch (t: Throwable) {
             t.printStackTrace()
             Toast.makeText(

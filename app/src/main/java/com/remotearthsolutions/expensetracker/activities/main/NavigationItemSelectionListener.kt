@@ -106,7 +106,7 @@ class NavigationItemSelectionListener(
                                                     selectedText
                                                 ).absolutePath
                                                 viewModel.importDataFromFile(filePath)
-                                                AnalyticsManager.logEvent(AnalyticsManager.DATA_IMPORTED)
+                                                with(AnalyticsManager) { logEvent(DATA_IMPORTED) }
                                                 showProgress(resources.getString(R.string.please_wait))
                                                 Handler()
                                                     .postDelayed({

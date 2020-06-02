@@ -29,7 +29,7 @@ class AddExpenseReminderWorker(
 
         val count = ReminderWorkerHelper.getCountOfExpenseAddedInLastFourHoursSync(appContext)
         if (count == 0) {
-            AnalyticsManager.logEvent(AnalyticsManager.REMINDED_TO_ADD_EXPENSE)
+            with(AnalyticsManager) { logEvent(REMINDED_TO_ADD_EXPENSE) }
             LocalNotificationManager.showNotification(
                 appContext,
                 appContext.getString(R.string.app_name),

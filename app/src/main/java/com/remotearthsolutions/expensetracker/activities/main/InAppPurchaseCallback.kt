@@ -17,7 +17,7 @@ class InAppPurchaseCallback(val context: Context) : InAppBillingCallback, Invent
     override fun onPurchaseSuccessListener(purchase: Purchase?) {
         appContext.isPremium = true
         if (purchase?.sku == productId) {
-            AnalyticsManager.logEvent(AnalyticsManager.APP_PURCHASED)
+            with(AnalyticsManager) { logEvent(APP_PURCHASED) }
             appContext.appShouldShowAds(false)
         }
     }

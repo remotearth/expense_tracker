@@ -61,7 +61,7 @@ class InitialSettingsFragment : PreferenceFragmentCompat() {
                     )
                     languagePreference!!.summary = language
                     Utils.setAppLanguage(requireContext())
-                    AnalyticsManager.logEvent("Choosen Language - $language")
+                    with(AnalyticsManager) { logEvent("Choosen Language - $language") }
                 }
             }
         preferenceScreen.sharedPreferences

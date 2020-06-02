@@ -16,7 +16,7 @@ class PurchaseListener(
     override fun onSuccess(purchase: Purchase) {
         Log.d("Success", "onSuccess: ")
         billingCallback.onPurchaseSuccessListener(purchase)
-        AnalyticsManager.logEvent("App purchase")
+        with(AnalyticsManager) { logEvent(APP_PURCHASED) }
     }
 
     override fun onError(response: Int, e: Exception) {

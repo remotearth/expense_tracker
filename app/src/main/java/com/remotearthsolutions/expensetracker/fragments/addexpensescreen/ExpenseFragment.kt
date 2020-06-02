@@ -225,9 +225,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                     Calendar.getInstance().timeInMillis, period, repeatType
                 )
                 viewModel!!.scheduleExpense(expenseModel, period, repeatType, repeatCount, nextDate)
-                AnalyticsManager.logEvent(AnalyticsManager.EXPENSE_TYPE_SCHEDULED)
-                AnalyticsManager.logEvent("CAT-${categoryExpense?.categoryName?.toUpperCase()}")
-                AnalyticsManager.logEvent("ACC-${categoryExpense?.accountName?.toUpperCase()}")
+                with(AnalyticsManager) { logEvent(EXPENSE_TYPE_SCHEDULED) }
             }
         }
 
@@ -306,9 +304,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             Helpers.requestToReviewApp(mainActivity, viewModel!!)
         }
         MainActivity.addedExpenseCount++
-        AnalyticsManager.logEvent(AnalyticsManager.EXPENSE_TYPE_DEFAULT)
-        AnalyticsManager.logEvent("CAT-${categoryExpense?.categoryName!!.toUpperCase()}")
-        AnalyticsManager.logEvent("ACC-${categoryExpense?.accountName!!.toUpperCase()}")
+        with(AnalyticsManager) { logEvent(EXPENSE_TYPE_DEFAULT) }
     }
 
     override fun onExpenseDeleted(categoryExpense: CategoryExpense?) {

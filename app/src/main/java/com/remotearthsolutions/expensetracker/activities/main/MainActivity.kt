@@ -93,10 +93,11 @@ class MainActivity : BaseActivity(), MainContract.View {
                 }
                 // Get new Instance ID token
                 val token = task.result?.token
-                AnalyticsManager.logEvent("FirebaseToken: $token")
-                println("FirebaseToken: $token")
+                token?.let {
+                    with(AnalyticsManager) { logEvent(token) }
+                    println("FirebaseToken: $token")
+                }
             })
-
     }
 
     override fun onStart() {

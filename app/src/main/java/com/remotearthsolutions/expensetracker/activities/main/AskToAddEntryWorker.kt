@@ -42,7 +42,9 @@ class AskToAddEntryWorker(private val appContext: Context, workerParameters: Wor
             val pendingIntent =
                 PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
-            AnalyticsManager.logEvent(AnalyticsManager.AFTER_FIVE_DAYS_REMINDED_TO_ADD_EXPENSE)
+            with(AnalyticsManager) {
+                logEvent(AFTER_FIVE_DAYS_REMINDED_TO_ADD_EXPENSE)
+            }
             LocalNotificationManager.showNotification(
                 appContext,
                 appContext.getString(R.string.app_name),

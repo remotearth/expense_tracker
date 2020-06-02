@@ -23,7 +23,7 @@ class ExportReminderWorker(
         val pendingIntent =
             PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
-        AnalyticsManager.logEvent(AnalyticsManager.REMINDED_TO_EXPORT)
+        with(AnalyticsManager) { logEvent(REMINDED_TO_EXPORT) }
         LocalNotificationManager.showNotification(
             appContext,
             appContext.getString(R.string.app_name),

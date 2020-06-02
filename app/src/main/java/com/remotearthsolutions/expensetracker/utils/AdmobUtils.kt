@@ -27,7 +27,7 @@ class AdmobUtils private constructor(private val activity: Activity) {
                 val app = activity.application as ApplicationObject
                 if (app.isActivityVisible && app.isAppShouldShowAds) {
                     it.show()
-                    AnalyticsManager.logEvent(AnalyticsManager.AD_SHOWN)
+                    with(AnalyticsManager) { logEvent(AD_SHOWN) }
                 }
             }
         }

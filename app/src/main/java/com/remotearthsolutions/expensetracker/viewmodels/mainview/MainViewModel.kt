@@ -354,7 +354,7 @@ class MainViewModel(
                                 "", context.getString(R.string.successfully_uploaded),
                                 context.getString(R.string.ok), null, null
                             )
-                            AnalyticsManager.logEvent(AnalyticsManager.CLOUD_BACKUP)
+                            with(AnalyticsManager) { logEvent(CLOUD_BACKUP) }
                         }, {
                             view.hideProgress()
                             view.showAlert(
@@ -397,7 +397,7 @@ class MainViewModel(
                             Array<AccountModel>::class.java
                         )
                         saveAllData(categories, expenseModels, accountModels)
-                        AnalyticsManager.logEvent(AnalyticsManager.CLOUD_DOWNLOAD)
+                        with(AnalyticsManager) { logEvent(CLOUD_DOWNLOAD) }
                     }, {
                         view.hideProgress()
                         view.showAlert("", it, context.getString(R.string.ok), null, null)

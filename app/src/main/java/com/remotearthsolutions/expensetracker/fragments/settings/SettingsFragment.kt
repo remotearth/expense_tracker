@@ -106,26 +106,26 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         val shouldRemindToExport = sharedPreferences.getBoolean(key, false)
                         if (shouldRemindToExport) {
                             ReminderWorkerHelper.setExportReminder(requireContext())
-                            AnalyticsManager.logEvent(AnalyticsManager.EXPORT_REMINDER_ENABLED)
+                            with(AnalyticsManager) { logEvent(EXPORT_REMINDER_ENABLED) }
                         } else {
                             ReminderWorkerHelper.cancelReminder(
                                 requireContext(),
                                 Constants.KEY_EXPORT_REMINDER_WORKREQUEST_ID
                             )
-                            AnalyticsManager.logEvent(AnalyticsManager.EXPORT_REMINDER_DISABLED)
+                            with(AnalyticsManager) { logEvent(EXPORT_REMINDER_DISABLED) }
                         }
                     }
                     Constants.PREF_REMIND_TO_ADDEXPENSE -> {
                         val shouldRemindToAddExpense = sharedPreferences.getBoolean(key, false)
                         if (shouldRemindToAddExpense) {
                             ReminderWorkerHelper.setAddExpenseReminder(requireContext())
-                            AnalyticsManager.logEvent(AnalyticsManager.ADD_EXPENSE_DAILY_REMINDER_ENABLED)
+                            with(AnalyticsManager) { logEvent(ADD_EXPENSE_DAILY_REMINDER_ENABLED) }
                         } else {
                             ReminderWorkerHelper.cancelReminder(
                                 requireContext(),
                                 Constants.KEY_ADDEXPENSE_REMINDER_WORKREQUEST_ID
                             )
-                            AnalyticsManager.logEvent(AnalyticsManager.ADD_EXPENSE_DAILY_REMINDER_DISABLED)
+                            with(AnalyticsManager) { logEvent(ADD_EXPENSE_DAILY_REMINDER_DISABLED) }
                         }
                     }
                 }
