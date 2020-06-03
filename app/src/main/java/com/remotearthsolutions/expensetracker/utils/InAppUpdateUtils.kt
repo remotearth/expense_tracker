@@ -2,7 +2,6 @@ package com.remotearthsolutions.expensetracker.utils
 
 import android.app.Activity
 import android.content.Context
-import android.os.Build
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
@@ -10,12 +9,7 @@ import com.google.android.play.core.install.model.UpdateAvailability
 
 class InAppUpdateUtils {
 
-    val MY_REQUEST_CODE = 0
-
     fun requestUpdateApp(context: Context) {
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            return
 
         // Creates instance of the manager.
         val appUpdateManager = AppUpdateManagerFactory.create(context)
@@ -37,5 +31,9 @@ class InAppUpdateUtils {
                 )
             }
         }
+    }
+
+    companion object {
+        private const val MY_REQUEST_CODE = 0
     }
 }
