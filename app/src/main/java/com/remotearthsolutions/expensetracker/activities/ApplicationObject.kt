@@ -35,7 +35,7 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
     override fun onCreate() {
         super.onCreate()
         Amplitude.getInstance().initialize(this, getString(R.string.amplitude_id))
-            .enableForegroundTracking(this)
+            .enableForegroundTracking(this).enableCoppaControl()
         FlurryAgent.Builder()
             .withCaptureUncaughtExceptions(true)
             .withLogEnabled(true)
