@@ -10,6 +10,7 @@ import com.remotearthsolutions.expensetracker.contracts.BaseView
 
 object RequestReviewUtils {
     fun request(activity: Activity) {
+        with(AnalyticsManager) { logEvent(ASKED_TO_REVIEW_APP) }
         AlertDialogUtils.show(activity, activity.getString(R.string.review),
             activity.getString(R.string.share_experience),
             activity.getString(R.string.yes), activity.getString(R.string.no), object :
@@ -26,6 +27,7 @@ object RequestReviewUtils {
     }
 
     fun openApplinkForReview(activity: Activity) {
+        with(AnalyticsManager) { logEvent(OPENED_GOOGLE_PLAY_FOR_REVIEW) }
         val uri = Uri.parse("market://details?id=${activity.packageName}")
         val goToMarket = Intent(Intent.ACTION_VIEW, uri)
         goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)

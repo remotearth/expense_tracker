@@ -312,6 +312,7 @@ class MainActivity : BaseActivity(), MainContract.View {
         super.onNewIntent(intent)
         val message = intent?.getStringExtra(Constants.KEY_MESSAGE)
         if (!message.isNullOrEmpty()) {
+            with(AnalyticsManager) { logEvent("${PN_VIEWED}: $message") }
             AlertDialogUtils.show(this, null, message, getString(R.string.ok), null, null)
         }
     }

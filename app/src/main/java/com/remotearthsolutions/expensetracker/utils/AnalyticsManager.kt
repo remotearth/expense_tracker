@@ -23,6 +23,9 @@ object AnalyticsManager {
     const val AFTER_FIVE_DAYS_REMINDED_TO_ADD_EXPENSE = "AFTER_FIVE_DAYS_REMINDED_TO_ADD_EXPENSE"
     const val REMINDED_TO_EXPORT = "REMINDED_TO_EXPORT"
     const val APP_PURCHASED = "APP_PURCHASED"
+    const val ASKED_TO_REVIEW_APP = "ASKED_TO_REVIEW_APP"
+    const val OPENED_GOOGLE_PLAY_FOR_REVIEW = "OPENED_GOOGLE_PLAY_FOR_REVIEW"
+    const val PN_VIEWED = "PN_VIEWED"
 
 
     fun logEvent(eventName: String) {

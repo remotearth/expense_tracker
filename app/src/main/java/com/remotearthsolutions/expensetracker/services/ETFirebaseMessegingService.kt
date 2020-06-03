@@ -13,6 +13,11 @@ import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
 
 class ETFirebaseMessegingService : FirebaseMessagingService() {
 
+    override fun onNewToken(token: String) {
+        super.onNewToken(token)
+        println(token)
+    }
+
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         if ((applicationContext as ApplicationObject).isActivityVisible) {
             val activity = (applicationContext as ApplicationObject).currentActivity
