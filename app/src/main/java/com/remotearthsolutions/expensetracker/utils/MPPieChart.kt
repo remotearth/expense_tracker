@@ -37,7 +37,7 @@ class MPPieChart : OnChartValueSelectedListener {
         chart.dragDecelerationFrictionCoef = 0.95f
 
         chart.isDrawHoleEnabled = true
-        chart.setHoleColor(Color.WHITE)
+        chart.setHoleColor(Color.)
 
         chart.setTransparentCircleColor(Color.WHITE)
         chart.setTransparentCircleAlpha(110)
@@ -127,6 +127,9 @@ class MPPieChart : OnChartValueSelectedListener {
         val totalExpenseStr = context.getString(R.string.total_expense)
         val s =
             SpannableString("$totalExpenseStr\n${Utils.formatDecimalValues(sum)} $currencySymbol")
+        s.setSpan(
+            ForegroundColorSpan(Color.parseColor("#5849B8")), 0, totalExpenseStr.length, 0
+        )
         s.setSpan(ForegroundColorSpan(Color.RED), totalExpenseStr.length, s.length, 0)
         s.setSpan(RelativeSizeSpan(1.2f), totalExpenseStr.length, s.length, 0)
         return s

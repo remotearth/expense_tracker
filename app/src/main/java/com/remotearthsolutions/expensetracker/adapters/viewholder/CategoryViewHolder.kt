@@ -29,7 +29,8 @@ class CategoryViewHolder(
         if (isSelected) {
             container.setBackgroundColor(Color.parseColor("#C0C0C0"))
         } else {
-            container.setBackgroundColor(Color.parseColor("#FFFFFF"))
+            //container.setBackgroundColor(Color.parseColor("#FFFFFF"))
+            container.setBackgroundResource(R.color.catAccItem)
         }
         if (screenSize != null) {
             categoryImageIv.layoutParams.height = screenSize.width / 7

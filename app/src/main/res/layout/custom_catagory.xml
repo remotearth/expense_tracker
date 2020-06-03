@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="@color/white"
+        app:cardBackgroundColor="@color/catAccItem"
         app:cardCornerRadius="2dp"
         app:cardUseCompatPadding="true">
 
@@ -44,7 +44,7 @@
                 android:paddingBottom="3dp"
                 android:singleLine="true"
                 android:text="@string/category"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/catAccItemTextColor"
                 android:textSize="13sp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

@@ -14,10 +14,11 @@
     <color name="yellow">#FFFA00</color>
     <color name="light_ash">#C0C0C0</color>
     <color name="period_selection_indicator">#C0C0C0</color>
-    <color name="background">#FFFFFF</color>
-    <color name="periodBtnTextColor">#FFFFFF</color>
-    <color name="catAccItem">#FFFFFF</color>
-    <color name="catAccItemTextColor">#000000</color>
-<!--    <color name="transaction_title_textcolor">#5849B8</color>-->
-<!--    <color name="transaction_subtitle_textcolor">#848484</color>-->
+    <color name="background">#282B2C</color>
+    <color name="periodBtnTextColor">#000000</color>
+    <color name="catAccItem">#242424</color>
+    <color name="catAccItemTextColor">#FFFFFF</color>
+    <!--    <color name="transaction_title_textcolor">#FFFFFF</color>-->
+    <!--    <color name="transaction_subtitle_textcolor">#FFFFFF</color>-->
+
 </resources>
