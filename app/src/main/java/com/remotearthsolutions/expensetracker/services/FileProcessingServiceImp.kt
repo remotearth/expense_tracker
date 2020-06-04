@@ -1,8 +1,8 @@
 package com.remotearthsolutions.expensetracker.services
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import android.os.Environment
 import android.util.Base64
 import android.util.Log
 import android.widget.Toast
@@ -29,7 +29,7 @@ import java.io.*
 import java.nio.charset.Charset
 import java.util.*
 
-class FileProcessingServiceImp : FileProcessingService {
+class FileProcessingServiceImp(val context: Context) : FileProcessingService {
     private val writePermission: PermissionUtils = PermissionUtils()
     override fun writeOnCsvFile(
         activity: Activity,
@@ -39,7 +39,7 @@ class FileProcessingServiceImp : FileProcessingService {
     ) {
         writePermission.writeExternalStoragePermission(activity, object : PermissionListener {
             override fun onPermissionGranted(response: PermissionGrantedResponse) {
-                if (writeExternalFile(content)) {
+                if (writeExternalFile(activity, content)) {
                     onSuccessRunnable?.run()
                 } else {
                     onFailureRunnable?.run()
@@ -82,10 +82,7 @@ class FileProcessingServiceImp : FileProcessingService {
     }
 
     override fun readFromCsvFile(activity: Activity): List<CategoryExpense>? {
-        val file = File(
-            Environment.getExternalStorageDirectory().absolutePath,
-            createFileNameAccordingToDate()
-        )
+        val file = File(activity.getExternalFilesDir(null), createFileNameAccordingToDate())
         val categoryExpenseList: MutableList<CategoryExpense> = ArrayList()
         try {
             var line: String
@@ -186,7 +183,7 @@ class FileProcessingServiceImp : FileProcessingService {
             val fileList: MutableList<String> =
                 ArrayList()
             val dataDirectory =
-                File(Environment.getExternalStorageDirectory().absolutePath)
+                File(context.getExternalFilesDir(null)?.toURI())
             val listOfAllItems = dataDirectory.list()
             if (listOfAllItems != null && listOfAllItems.isNotEmpty()) {
                 for (item in listOfAllItems) {
@@ -202,10 +199,8 @@ class FileProcessingServiceImp : FileProcessingService {
         val emailAddress = ""
         val emailSubject = activity.getString(R.string.report_from_expense_tracker)
         try {
-            val fileLocation = File(
-                Environment.getExternalStorageDirectory().absolutePath,
-                createFileNameAccordingToDate()
-            )
+            val fileLocation =
+                File(activity.getExternalFilesDir(null), createFileNameAccordingToDate())
             val uri = FileProvider.getUriForFile(
                 activity,
                 Constants.KEY_PROVIDER,
@@ -236,12 +231,9 @@ class FileProcessingServiceImp : FileProcessingService {
         }
     }
 
-    private fun writeExternalFile(content: String?): Boolean {
+    private fun writeExternalFile(activity: Activity, content: String?): Boolean {
         var isSuccess = true
-        val file = File(
-            Environment.getExternalStorageDirectory().absolutePath,
-            createFileNameAccordingToDate()
-        )
+        val file = File(activity.getExternalFilesDir(null), createFileNameAccordingToDate())
         var fw: FileWriter? = null
         var printWriter: PrintWriter? = null
         try {

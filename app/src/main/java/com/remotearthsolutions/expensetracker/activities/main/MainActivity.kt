@@ -72,7 +72,7 @@ class MainActivity : BaseActivity(), MainContract.View {
                     db.expenseDao(),
                     db.categoryDao(),
                     db.categoryExpenseDao(),
-                    FileProcessingServiceImp()
+                    FileProcessingServiceImp(this@MainActivity)
                 )
             }).get(MainViewModel::class.java)
 

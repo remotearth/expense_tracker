@@ -2,7 +2,6 @@ package com.remotearthsolutions.expensetracker.activities.main
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
 import android.view.MenuItem
 import android.widget.Toast
@@ -102,7 +101,7 @@ class NavigationItemSelectionListener(
                                             dialogBuilder.setItems(csvList) { _: DialogInterface?, item: Int ->
                                                 val selectedText = csvList[item]
                                                 val filePath = File(
-                                                    Environment.getExternalStorageDirectory().absolutePath,
+                                                    getExternalFilesDir(null),
                                                     selectedText
                                                 ).absolutePath
                                                 viewModel.importDataFromFile(filePath)
