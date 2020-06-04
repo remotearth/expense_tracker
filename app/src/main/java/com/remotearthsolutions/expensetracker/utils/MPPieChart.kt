@@ -148,7 +148,7 @@ class MPPieChart(val context: Context) : OnChartValueSelectedListener {
             "",
             s,
             context.getString(R.string.ok),
-            null,
+            null, null,
             object : BaseView.Callback {
                 override fun onOkBtnPressed() {
                     chartView?.highlightValues(null)

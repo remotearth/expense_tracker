@@ -178,7 +178,7 @@ class MainViewModel(
                         activity.getString(R.string.something_went_wrong),
                         activity.getString(R.string.ok),
                         null,
-                        null
+                        null, null
                     )
                 } else {
                     if (data.stringBuilder == null) {
@@ -187,7 +187,7 @@ class MainViewModel(
                             activity.getString(R.string.expense_data_not_available_to_export),
                             activity.getString(R.string.ok),
                             null,
-                            null
+                            null, null
                         )
                     } else {
                         saveToFile(
@@ -240,7 +240,7 @@ class MainViewModel(
                         context.getString(R.string.something_went_wrong),
                         context.getString(R.string.ok),
                         null,
-                        null
+                        null, null
                     )
                 } else {
                     callback(result)
@@ -304,7 +304,7 @@ class MainViewModel(
         if (!isPremium) {
             view.showAlert(
                 "", context.getString(R.string.buy_message),
-                context.getString(R.string.ok), null, null
+                context.getString(R.string.ok), null, null, null
             )
             return
         }
@@ -313,7 +313,7 @@ class MainViewModel(
             view.showAlert(
                 "",
                 context.getString(R.string.login_to_sync),
-                context.getString(R.string.ok), null, null
+                context.getString(R.string.ok), null, null, null
             )
             return
         }
@@ -324,7 +324,7 @@ class MainViewModel(
             view.showAlert(
                 "",
                 context.getString(R.string.internet_connection_needed),
-                context.getString(R.string.ok), null, null
+                context.getString(R.string.ok), null, null, null
             )
         }
     }
@@ -337,14 +337,14 @@ class MainViewModel(
                     context.getString(R.string.expense_data_not_available_to_upload),
                     context.getString(R.string.ok),
                     null,
-                    null
+                    null, null
                 )
                 return@getDataMapToUpload
             }
 
             view.showAlert(context.getString(R.string.warning),
                 context.getString(R.string.will_overwrite_in_cloud),
-                context.getString(R.string.yes), context.getString(R.string.no),
+                context.getString(R.string.yes), context.getString(R.string.no), null,
                 object : BaseView.Callback {
                     override fun onOkBtnPressed() {
                         view.showProgress(context.getString(R.string.please_wait))
@@ -352,14 +352,14 @@ class MainViewModel(
                             view.hideProgress()
                             view.showAlert(
                                 "", context.getString(R.string.successfully_uploaded),
-                                context.getString(R.string.ok), null, null
+                                context.getString(R.string.ok), null, null, null
                             )
                             with(AnalyticsManager) { logEvent(CLOUD_BACKUP) }
                         }, {
                             view.hideProgress()
                             view.showAlert(
                                 "", context.getString(R.string.something_went_wrong),
-                                context.getString(R.string.ok), null, null
+                                context.getString(R.string.ok), null, null, null
                             )
                         })
                     }
@@ -370,7 +370,7 @@ class MainViewModel(
     fun downloadFromCloud(context: Context, user: String) {
         view.showAlert(context.getString(R.string.warning),
             context.getString(R.string.overwrite_device_data),
-            context.getString(R.string.yes), context.getString(R.string.no),
+            context.getString(R.string.yes), context.getString(R.string.no), null,
             object : BaseView.Callback {
                 override fun onOkBtnPressed() {
                     view.showProgress(context.getString(R.string.please_wait))
@@ -379,7 +379,7 @@ class MainViewModel(
                         if (it.isEmpty()) {
                             view.showAlert(
                                 "", context.getString(R.string.data_not_available_to_download),
-                                context.getString(R.string.ok), null, null
+                                context.getString(R.string.ok), null, null, null
                             )
                             return@downloadFromCloud
                         }
@@ -400,7 +400,7 @@ class MainViewModel(
                         with(AnalyticsManager) { logEvent(CLOUD_DOWNLOAD) }
                     }, {
                         view.hideProgress()
-                        view.showAlert("", it, context.getString(R.string.ok), null, null)
+                        view.showAlert("", it, context.getString(R.string.ok), null, null, null)
                     })
                 }
             })

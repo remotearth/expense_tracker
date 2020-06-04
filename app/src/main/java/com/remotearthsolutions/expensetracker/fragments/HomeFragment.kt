@@ -151,7 +151,7 @@ class HomeFragment : BaseFragment(),
                     getString(R.string.you_need_to_be_premium_user_to_add_more_categories),
                     getString(R.string.ok),
                     null,
-                    null
+                    null, null
                 )
             }
         } else if (v.id == R.id.fab) {

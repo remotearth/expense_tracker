@@ -58,7 +58,7 @@ class SalaryFragment : DialogFragment() {
                     "",
                     requireContext().getString(R.string.sure_to_cancel_change),
                     requireContext().getString(R.string.yes),
-                    requireContext().getString(R.string.no),
+                    requireContext().getString(R.string.no), null,
                     object : BaseView.Callback {
                         override fun onOkBtnPressed() {
                             dismiss()

@@ -28,7 +28,7 @@ class ETFirebaseMessegingService : FirebaseMessagingService() {
                     remoteMessage.notification!!.body,
                     activity.getString(R.string.ok),
                     null,
-                    null
+                    null, null
                 )
             }
         } else {

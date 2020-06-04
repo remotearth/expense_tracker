@@ -237,7 +237,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 showAlert(getResourceString(R.string.attention),
                     getResourceString(R.string.are_you_sure_you_want_to_delete_this_expense_entry),
                     getResourceString(R.string.yes),
-                    getResourceString(R.string.not_now),
+                    getResourceString(R.string.not_now), null,
                     object : BaseView.Callback {
                         override fun onOkBtnPressed() {
                             viewModel!!.deleteExpense(categoryExpense)

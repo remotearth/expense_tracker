@@ -24,9 +24,10 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         message: String?,
         btnOk: String?,
         btnCancel: String?,
+        btnNeutral: String?,
         callback: BaseView.Callback?
     ) {
-        AlertDialogUtils.show(this, title, message, btnOk, btnCancel, callback)
+        AlertDialogUtils.show(this, title, message, btnOk, btnCancel, btnNeutral, callback)
     }
 
     override fun showToast(message: String?) {

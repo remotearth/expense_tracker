@@ -90,7 +90,7 @@ class AccountsFragment : BaseFragment(),
                     requireContext().getString(R.string.you_need_to_be_premium_user_to_add_more_categories),
                     requireContext().getString(R.string.ok),
                     null,
-                    null
+                    null, null
                 )
             }
         }
@@ -205,7 +205,7 @@ class AccountsFragment : BaseFragment(),
             requireContext().getString(R.string.warning),
             requireContext().getString(R.string.deleting_this_account_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete),
             requireContext().getString(R.string.yes),
-            requireContext().getString(R.string.not_now),
+            requireContext().getString(R.string.not_now), null,
             object : BaseView.Callback {
                 override fun onOkBtnPressed() {
                     viewModel!!.deleteAccount(selectAccountModel)

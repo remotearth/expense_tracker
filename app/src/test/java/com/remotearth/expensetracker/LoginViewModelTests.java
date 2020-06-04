@@ -2,6 +2,7 @@ package com.remotearth.expensetracker;
 
 import android.content.Context;
 import android.content.Intent;
+
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseUser;
 import com.remotearthsolutions.expensetracker.R;
@@ -10,6 +11,7 @@ import com.remotearthsolutions.expensetracker.services.FacebookService;
 import com.remotearthsolutions.expensetracker.services.FirebaseService;
 import com.remotearthsolutions.expensetracker.services.GoogleService;
 import com.remotearthsolutions.expensetracker.viewmodels.LoginViewModel;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -18,7 +20,11 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.only;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LoginViewModelTests {
@@ -73,7 +79,7 @@ public class LoginViewModelTests {
         when(context.getString(R.string.ok)).thenReturn("OK");
         loginViewModel.startFacebookLogin();
 
-        verify(view, times(1)).showAlert("Warning", "No Internet Connection", "OK", null, null);
+        verify(view, times(1)).showAlert("Warning", "No Internet Connection", "OK", null, null, null);
     }
 
     @Test
@@ -92,7 +98,7 @@ public class LoginViewModelTests {
         when(context.getString(R.string.ok)).thenReturn("OK");
         loginViewModel.startGoogleLogin();
 
-        verify(view, times(1)).showAlert("Warning", "No Internet Connection", "OK", null, null);
+        verify(view, times(1)).showAlert("Warning", "No Internet Connection", "OK", null, null, null);
     }
 
     @Test
@@ -126,7 +132,7 @@ public class LoginViewModelTests {
 
         verify(view, times(1)).hideProgress();
         verify(view, times(1)).onLoginFailure();
-        verify(view, times(1)).showAlert(null, "Failed", "Ok", null, null);
+        verify(view, times(1)).showAlert(null, "Failed", "Ok", null, null, null);
     }
 
     @Test
@@ -144,7 +150,7 @@ public class LoginViewModelTests {
         when(context.getString(R.string.ok)).thenReturn("Ok");
         loginViewModel.onSocialLoginFailure("Failed");
 
-        verify(view, only()).showAlert(null, "Failed", "Ok", null, null);
+        verify(view, only()).showAlert(null, "Failed", "Ok", null, null, null);
     }
 
     @Test

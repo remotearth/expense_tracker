@@ -80,7 +80,7 @@ class NavigationItemSelectionListener(
                         resources.getString(R.string.attention),
                         resources.getString(R.string.will_replace_your_current_entries),
                         resources.getString(R.string.yes),
-                        resources.getString(R.string.cancel),
+                        resources.getString(R.string.cancel), null,
                         object : BaseView.Callback {
                             override fun onOkBtnPressed() {
                                 PermissionUtils().writeExternalStoragePermission(this@with,
@@ -122,7 +122,7 @@ class NavigationItemSelectionListener(
                                             showAlert(
                                                 "",
                                                 resources.getString(R.string.read_write_permission_is_needed),
-                                                resources.getString(R.string.ok), null, null
+                                                resources.getString(R.string.ok), null, null, null
                                             )
                                         }
 
@@ -163,7 +163,7 @@ class NavigationItemSelectionListener(
                             getString(R.string.you_can_backup) + "\n\n" +
                                     getString(R.string.what_you_want_to_do),
                             getString(R.string.backup_sync),
-                            getString(R.string.download),
+                            getString(R.string.download), null,
                             object : BaseView.Callback {
                                 override fun onOkBtnPressed() {
                                     viewModel.backupToCloud(this@with, user)
@@ -195,7 +195,7 @@ class NavigationItemSelectionListener(
                         "",
                         getString(R.string.are_you_sure_you_want_to_logout),
                         getString(R.string.yes),
-                        getString(R.string.no),
+                        getString(R.string.no), null,
                         object : BaseView.Callback {
                             override fun onOkBtnPressed() {
                                 viewModel.performLogout()
@@ -209,7 +209,7 @@ class NavigationItemSelectionListener(
                 R.id.nav_purchase -> {
                     showAlert(resources.getString(R.string.whatsinpremium),
                         resources.getString(R.string.premium_features),
-                        resources.getString(R.string.ok), null,
+                        resources.getString(R.string.ok), null, null,
                         object : BaseView.Callback {
                             override fun onOkBtnPressed() {
 
@@ -219,7 +219,7 @@ class NavigationItemSelectionListener(
                                         resources.getString(R.string.internet_connection_needed),
                                         resources.getString(R.string.ok),
                                         null,
-                                        null
+                                        null, null
                                     )
                                     return
                                 }
@@ -273,7 +273,7 @@ class NavigationItemSelectionListener(
                             getString(R.string.internet_connection_needed),
                             getString(R.string.ok),
                             null,
-                            null
+                            null, null
                         )
                         return false
                     }
@@ -298,7 +298,7 @@ class NavigationItemSelectionListener(
                         showAlert(
                             getString(R.string.warning),
                             getString(R.string.internet_connection_needed),
-                            getString(R.string.ok), null, null
+                            getString(R.string.ok), null, null, null
                         )
                         return false
                     }

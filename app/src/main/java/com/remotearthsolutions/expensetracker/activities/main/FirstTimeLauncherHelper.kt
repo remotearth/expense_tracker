@@ -26,7 +26,7 @@ class FirstTimeLauncherHelper {
                     "",
                     activity.getString(R.string.can_change_language),
                     activity.getString(R.string.ok),
-                    null,
+                    null, null,
                     object : BaseView.Callback {
                         override fun onOkBtnPressed() {
                             activity.finish()

@@ -91,7 +91,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener,
     }
 
     override fun onLoginFailure() {
-        showAlert(null, getString(R.string.login_failed), getString(R.string.ok), null, null)
+        showAlert(null, getString(R.string.login_failed), getString(R.string.ok), null, null, null)
     }
 
     override fun loadUserEmails() {

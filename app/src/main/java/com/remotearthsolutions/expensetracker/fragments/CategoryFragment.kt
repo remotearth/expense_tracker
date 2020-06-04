@@ -75,7 +75,7 @@ class CategoryFragment : BaseFragment(),
                     getResourceString(R.string.you_need_to_be_premium_user_to_add_more_categories),
                     getResourceString(R.string.ok),
                     null,
-                    null
+                    null, null
                 )
             }
         }
@@ -125,6 +125,7 @@ class CategoryFragment : BaseFragment(),
             getResourceString(R.string.deleting_this_category_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete),
             getResourceString(R.string.yes),
             getResourceString(R.string.not_now),
+            null,
             object : BaseView.Callback {
                 override fun onOkBtnPressed() {
                     viewModel!!.deleteCategory(selectedCategory!!)

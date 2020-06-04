@@ -35,7 +35,7 @@ class LoginViewModel(
             view.showAlert(
                 context.getString(R.string.warning),
                 context.getString(R.string.no_net_connection),
-                context.getString(R.string.ok), null, null
+                context.getString(R.string.ok), null, null, null
             )
         }
     }
@@ -50,7 +50,7 @@ class LoginViewModel(
             view.showAlert(
                 context.getString(R.string.warning),
                 context.getString(R.string.no_net_connection),
-                context.getString(R.string.ok), null, null
+                context.getString(R.string.ok), null, null, null
             )
         }
     }
@@ -70,7 +70,7 @@ class LoginViewModel(
     override fun onFirebaseSigninFailure(message: String?) {
         view.hideProgress()
         view.onLoginFailure()
-        view.showAlert(null, message, context.getString(R.string.ok), null, null)
+        view.showAlert(null, message, context.getString(R.string.ok), null, null, null)
     }
 
     override fun onSocialLoginSuccess(credential: AuthCredential?) {
@@ -79,7 +79,7 @@ class LoginViewModel(
     }
 
     override fun onSocialLoginFailure(message: String?) {
-        view.showAlert(null, message, context.getString(R.string.ok), null, null)
+        view.showAlert(null, message, context.getString(R.string.ok), null, null, null)
     }
 
     override fun onFacebookLoginCancel() {

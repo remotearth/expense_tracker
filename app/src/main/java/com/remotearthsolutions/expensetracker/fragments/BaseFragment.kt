@@ -35,9 +35,10 @@ abstract class BaseFragment : Fragment(), BaseView, Observer {
         message: String?,
         btnOk: String?,
         btnCancel: String?,
+        btnNeutral: String?,
         callback: BaseView.Callback?
     ) {
-        show(requireActivity(), title, message, btnOk, btnCancel, callback)
+        show(requireActivity(), title, message, btnOk, btnCancel, btnNeutral, callback)
     }
 
     override fun showToast(message: String?) {

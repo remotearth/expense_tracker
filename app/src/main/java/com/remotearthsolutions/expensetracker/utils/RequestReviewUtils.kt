@@ -13,7 +13,7 @@ object RequestReviewUtils {
         with(AnalyticsManager) { logEvent(ASKED_TO_REVIEW_APP) }
         AlertDialogUtils.show(activity, activity.getString(R.string.review),
             activity.getString(R.string.share_experience),
-            activity.getString(R.string.yes), activity.getString(R.string.no), object :
+            activity.getString(R.string.yes), activity.getString(R.string.no), null, object :
                 BaseView.Callback {
                 override fun onOkBtnPressed() {
                     openApplinkForReview(activity)

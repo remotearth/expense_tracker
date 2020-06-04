@@ -54,7 +54,7 @@ class FileProcessingServiceImp(val context: Context) : FileProcessingService {
                     show(
                         activity, "",
                         activity.getString(R.string.without_this_app_cannot_export),
-                        activity.getString(R.string.ok), null, null
+                        activity.getString(R.string.ok), null, null, null
                     )
                 }
             }
@@ -68,6 +68,7 @@ class FileProcessingServiceImp(val context: Context) : FileProcessingService {
                     activity.getString(R.string.storage_permission_is_needed_to_export_data),
                     activity.getString(R.string.yes),
                     activity.getString(R.string.no),
+                    null,
                     object : BaseView.Callback {
                         override fun onOkBtnPressed() {
                             token.continuePermissionRequest()

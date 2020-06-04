@@ -93,7 +93,7 @@ class ScheduledExpenseFragment : BaseFragment() {
                 getResourceString(R.string.confirm_delete_scheduled_entry),
                 getResourceString(R.string.ok)
                 ,
-                getResourceString(R.string.cancel),
+                getResourceString(R.string.cancel), null,
                 object : BaseView.Callback {
                     override fun onOkBtnPressed() {
                         val scheduleExpenseModel = ScheduledExpenseModel().fromDto(scheduledExpense)
