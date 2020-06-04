@@ -22,9 +22,8 @@ import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.entities.ExpenseChartData
 
 
-class MPPieChart : OnChartValueSelectedListener {
+class MPPieChart(val context: Context) : OnChartValueSelectedListener {
     private lateinit var data: List<ExpenseChartData>
-    private lateinit var context: Context
     private lateinit var currencySymbol: String
     private var chartView: PieChart? = null
 
@@ -37,9 +36,8 @@ class MPPieChart : OnChartValueSelectedListener {
         chart.dragDecelerationFrictionCoef = 0.95f
 
         chart.isDrawHoleEnabled = true
-        chart.setHoleColor(Color.)
-
-        chart.setTransparentCircleColor(Color.WHITE)
+        chart.setHoleColor(Color.parseColor(context.getString(R.string.background)))
+        chart.setTransparentCircleColor(Color.parseColor(context.getString(R.string.background)))
         chart.setTransparentCircleAlpha(110)
 
         chart.holeRadius = 58f
@@ -65,13 +63,11 @@ class MPPieChart : OnChartValueSelectedListener {
     }
 
     fun loadExpensePieChart(
-        context: Context,
         chartView: PieChart,
         data: List<ExpenseChartData>?,
         currencySymbol: String
     ) {
         this.data = data!!
-        this.context = context
         this.currencySymbol = currencySymbol
         this.chartView = chartView
         val entries = ArrayList<PieEntry>()

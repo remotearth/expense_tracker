@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="#FFFFFF"
+        app:cardBackgroundColor="@color/catAccItem"
         app:cardCornerRadius="2dp">
 
         <LinearLayout
@@ -47,7 +47,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="20sp"
                         tools:text="$10500" />
 

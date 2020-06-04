@@ -1,52 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:padding="20dp"
-        android:layout_height="wrap_content">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:padding="20dp">
+
     <TextView
-            android:id="@+id/header"
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:text="@string/add_category"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/ln"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/nameEdtxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_category"
-            android:textColor="@color/colorPrimary"
-            android:padding="7dp"
-            android:textStyle="bold"
-            android:textSize="18sp"/>
-    <LinearLayout
-            android:id="@+id/ln"
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
-        <EditText
-                android:id="@+id/nameEdtxt"
-                android:hint="@string/enter_a_name"
-                android:textSize="18sp"
-                android:inputType="textPersonName"
-                android:imeOptions="actionDone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            android:hint="@string/enter_a_name"
+            android:imeOptions="actionDone"
+            android:inputType="textPersonName"
+            android:textSize="18sp" />
+
         <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/choose_icon"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginTop="5dp"
-                android:padding="5dp"
-                android:textStyle="bold"
-                android:textSize="18sp"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:text="@string/choose_icon"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/accountrecyclearView"
-                android:layout_margin="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/accountrecyclearView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp" />
+
         <Button
-                android:id="@+id/okBtn"
-                android:text="@string/add_btntext"
-                android:textColor="@color/textcolorwhite"
-                android:background="@drawable/btn_selector"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/okBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_selector"
+            android:text="@string/add_btntext"
+            android:textColor="@color/textcolorwhite" />
     </LinearLayout>
 </LinearLayout>

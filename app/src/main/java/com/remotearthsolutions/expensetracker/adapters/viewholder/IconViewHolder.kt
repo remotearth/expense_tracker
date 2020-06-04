@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.IconListAdapter
@@ -23,7 +22,7 @@ class IconViewHolder(
         if (isSelected) {
             container.setBackgroundColor(Color.parseColor("#C0C0C0"))
         } else {
-            container.setBackgroundColor(Color.parseColor("#FFFFFF"))
+            container.setBackgroundResource(R.color.background)
         }
     }
 

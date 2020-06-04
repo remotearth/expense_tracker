@@ -17,8 +17,8 @@ import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter
 import com.remotearthsolutions.expensetracker.contracts.HomeFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
-import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.databinding.FragmentHomeBinding
 import com.remotearthsolutions.expensetracker.entities.ExpenseChartData
 import com.remotearthsolutions.expensetracker.utils.MPPieChart
@@ -70,7 +70,7 @@ class HomeFragment : BaseFragment(),
         binding.recyclerView.layoutManager = llm
         val db = DatabaseClient.getInstance(mContext).appDatabase
 
-        chartManager = MPPieChart()
+        chartManager = MPPieChart(mContext)
         chartManager.initPierChart(binding.chartView, getDeviceScreenSize(mContext))
 
         viewModel =
@@ -103,7 +103,7 @@ class HomeFragment : BaseFragment(),
         init()
     }
 
-    fun init(){
+    fun init() {
         viewModel!!.init()
         viewModel!!.loadExpenseChart(startTime, endTime)
     }
@@ -121,7 +121,7 @@ class HomeFragment : BaseFragment(),
             binding.chartView.visibility = View.VISIBLE
             binding.nodatacontainer.visibility = View.GONE
             chartManager.loadExpensePieChart(
-                mContext, binding.chartView, listOfCategoryWithAmount,
+                binding.chartView, listOfCategoryWithAmount,
                 Utils.getCurrency(mContext)
             )
         }

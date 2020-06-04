@@ -144,7 +144,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             view?.setBackgroundColor(
                 ContextCompat.getColor(
                     requireContext(),
-                    android.R.color.white
+                    R.color.background
                 )
             )
         }
