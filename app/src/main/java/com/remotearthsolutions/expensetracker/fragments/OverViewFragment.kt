@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -243,18 +244,21 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         xAxis.granularity = 1f // only intervals of 1 day
         xAxis.labelCount = 7
 
-        barChart.axisLeft.setDrawGridLines(false)
+        val axisTextColor = ContextCompat.getColor(requireContext(), R.color.catAccItemTextColor)
+        xAxis.textColor = axisTextColor
+        barChart.axisLeft.textColor = axisTextColor
+        barChart.axisRight.textColor = axisTextColor
 
+        barChart.axisLeft.setDrawGridLines(false)
         barChart.animateY(500)
         barChart.legend.isEnabled = false
         barChart.setFitBars(true)
-
     }
 
     override fun onNothingSelected() {
     }
 
-    fun onUpdateCategory(){
+    fun onUpdateCategory() {
         viewModel.getAllCategory()
     }
 

@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
+import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
@@ -56,6 +57,7 @@ class MPPieChart(val context: Context) : OnChartValueSelectedListener {
         l.verticalAlignment = Legend.LegendVerticalAlignment.TOP
         l.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
         l.orientation = Legend.LegendOrientation.VERTICAL
+        l.textColor = ContextCompat.getColor(context, R.color.catAccItemTextColor)
         l.setDrawInside(false)
 
         chart.setEntryLabelColor(Color.GRAY)
