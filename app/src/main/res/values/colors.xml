@@ -18,6 +18,8 @@
     <color name="periodBtnTextColor">#FFFFFF</color>
     <color name="catAccItem">#FFFFFF</color>
     <color name="catAccItemTextColor">#000000</color>
-<!--    <color name="transaction_title_textcolor">#5849B8</color>-->
-<!--    <color name="transaction_subtitle_textcolor">#848484</color>-->
+    <color name="add_expense_screen_bg">#bdc3c7</color>
+    <color name="initialsettings_pref_bg">#d1ccf9</color>
+    <!--    <color name="transaction_title_textcolor">#5849B8</color>-->
+    <!--    <color name="transaction_subtitle_textcolor">#848484</color>-->
 </resources>

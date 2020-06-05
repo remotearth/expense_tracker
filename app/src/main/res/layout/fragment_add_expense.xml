@@ -16,7 +16,7 @@
             android:id="@+id/contentLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#bdc3c7"
+            android:background="@color/add_expense_screen_bg"
             android:orientation="vertical">
 
             <LinearLayout
@@ -73,13 +73,13 @@
 
                     <EditText
                         android:id="@+id/inputdigit"
-                        android:inputType="none"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:enabled="false"
                         android:gravity="center"
                         android:hint="@string/takahints"
+                        android:inputType="none"
                         android:maxLines="1"
                         android:textAlignment="center"
                         android:textColor="@color/colorPrimary"
@@ -88,12 +88,12 @@
 
                     <EditText
                         android:id="@+id/expenseNoteEdtxt"
-                        android:inputType="text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
                         android:gravity="center"
                         android:hint="@string/notes"
+                        android:inputType="text"
                         android:textAlignment="center"
                         android:textColor="@color/colorPrimary"
                         android:textSize="15sp" />
@@ -143,9 +143,9 @@
                                 android:id="@+id/repeatTitleTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
                                 android:padding="10dp"
                                 android:text="@string/repeat"
-                                android:layout_marginBottom="10dp"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
@@ -196,8 +196,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/repeatTitleTv"
-                                android:padding="10dp"
                                 android:minEms="4"
+                                android:padding="10dp"
                                 android:text="@string/one"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorPrimaryDark"
@@ -217,10 +217,10 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/repeatTitleTv"
+                                android:layout_marginEnd="2dp"
                                 android:layout_toEndOf="@+id/timesTv"
                                 android:padding="10dp"
                                 android:text="@string/times"
-                                android:layout_marginEnd="2dp"
                                 android:textAlignment="center"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />

@@ -165,7 +165,6 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
     override fun startLoadingApp() {
-        FirstTimeLauncherHelper().execute(this)
         viewModel.init(this)
         checkoutUtils.start()
         checkoutUtils.load(inAppPurchaseCallback, (application as ApplicationObject).adProductId)
