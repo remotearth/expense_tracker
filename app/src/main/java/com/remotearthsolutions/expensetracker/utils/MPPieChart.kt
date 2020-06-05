@@ -37,8 +37,8 @@ class MPPieChart(val context: Context) : OnChartValueSelectedListener {
         chart.dragDecelerationFrictionCoef = 0.95f
 
         chart.isDrawHoleEnabled = true
-        chart.setHoleColor(Color.parseColor(context.getString(R.string.background)))
-        chart.setTransparentCircleColor(Color.parseColor(context.getString(R.string.background)))
+        chart.setHoleColor(ContextCompat.getColor(context, R.color.background))
+        chart.setTransparentCircleColor(ContextCompat.getColor(context, R.color.background))
         chart.setTransparentCircleAlpha(110)
 
         chart.holeRadius = 58f
