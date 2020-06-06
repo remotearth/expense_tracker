@@ -225,4 +225,5 @@
     <string name="choose_your_preferences">Vyberte si svoje preferencie</string>
     <string name="create_account">Vytvoriť účet</string>
     <string name="transfer_amount">Suma prevodu</string>
+    <string name="share">Share</string>
 </resources>

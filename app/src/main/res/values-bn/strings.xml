@@ -215,5 +215,6 @@
     <string name="transfer_amount">টাকা অন্য অ্যাকাউন্ট-এ নিন</string>
     <string name="select_account">অ্যাকাউন্ট নির্বাচন করুন</string>
     <string name="to">লক্ষ্য</string>
+    <string name="share">Share</string>
 
 </resources>

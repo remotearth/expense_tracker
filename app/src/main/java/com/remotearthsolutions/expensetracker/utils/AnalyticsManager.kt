@@ -26,6 +26,7 @@ object AnalyticsManager {
     const val ASKED_TO_REVIEW_APP = "asked_to_review_app"
     const val OPENED_GOOGLE_PLAY_FOR_REVIEW = "opened_google_play_for_review"
     const val PN_VIEWED = "pn_viewed"
+    const val APP_SHARE_INTENT = "app_share_intent"
 
 
     fun logEvent(eventName: String) {

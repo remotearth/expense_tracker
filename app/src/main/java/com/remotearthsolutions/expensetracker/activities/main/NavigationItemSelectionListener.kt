@@ -32,6 +32,7 @@ import org.solovyev.android.checkout.ProductTypes
 import java.io.File
 import javax.annotation.Nonnull
 
+
 class NavigationItemSelectionListener(
     private val mainActivity: MainActivity,
     val productId: String
@@ -249,6 +250,16 @@ class NavigationItemSelectionListener(
                         //.setChooserTitle()
                         .startChooser()
                     drawer_layout.closeDrawer(GravityCompat.START)
+                    return false
+                }
+                R.id.nav_share -> {
+                    ShareCompat.IntentBuilder.from(this)
+                        .setType("text/plain")
+                        .setText(getString(R.string.share_app_text) + "\n\nhttps://bit.ly/2SOTaQj")
+                        .setChooserTitle("Share with...")
+                        .startChooser()
+                    drawer_layout.closeDrawer(GravityCompat.START)
+                    with(AnalyticsManager) { logEvent(APP_SHARE_INTENT) }
                     return false
                 }
                 R.id.nav_rate_us -> {

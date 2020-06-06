@@ -227,4 +227,5 @@
     <string name="choose_your_preferences">Wählen Sie Ihre Einstellungen</string>
     <string name="create_account">Konto erstellen</string>
     <string name="transfer_amount">Überweisungsbetrag</string>
+    <string name="share">Share</string>
 </resources>

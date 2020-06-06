@@ -60,6 +60,11 @@
                     android:title="@string/contact_us" />
 
                 <item
+                    android:id="@+id/nav_share"
+                    android:icon="@drawable/ic_share"
+                    android:title="@string/share" />
+
+                <item
                     android:id="@+id/nav_rate_us"
                     android:icon="@drawable/ic_rate_us"
                     android:title="@string/rate_us" />

@@ -8,6 +8,7 @@ import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils
+import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
 
@@ -31,6 +32,7 @@ class ETFirebaseMessegingService : FirebaseMessagingService() {
                     null, null
                 )
             }
+            with(AnalyticsManager) { logEvent("$PN_VIEWED: ${remoteMessage.notification!!.body}") }
         } else {
             showNotification(remoteMessage)
         }
