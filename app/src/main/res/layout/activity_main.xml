@@ -28,30 +28,33 @@
                 app:contentInsetStartWithNavigation="@dimen/dp_0"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:titleTextAppearance="?android:attr/textAppearanceMedium"
-                app:titleTextColor="@color/white" />
+                app:titleTextColor="@color/white">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerInParent="true"
-                android:layout_marginEnd="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/totalExpenseAmountTv"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/expense"
-                    android:textColor="@color/yellow" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/totalAccountAmountTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/balance"
-                    android:textColor="@android:color/holo_green_light" />
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/totalExpenseAmountTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/expense"
+                        android:textColor="@color/yellow" />
+
+                    <TextView
+                        android:id="@+id/totalAccountAmountTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/balance"
+                        android:textColor="@android:color/holo_green_light" />
+                </LinearLayout>
+
+            </androidx.appcompat.widget.Toolbar>
         </RelativeLayout>
 
         <FrameLayout
