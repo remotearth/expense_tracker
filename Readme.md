@@ -15,3 +15,15 @@ server key:   AAAA8NMHzts:APA91bFjZ397mj_ElThfxrs59IMEngwEST0jTxJbxf01_iANrCrH79
         "message": "Hello world 2"
       }
     }
+
+
+    {  
+          "to": "fKWitFkMRDaS3jhgAXF47D:APA91bEM_DoQPuDhxzLQMCs_KYjm8buMXBA82MKmrxY2T7iL1-rS31mQLkx9kSFF9J-qFcZiEv2BVQWlzyk0mXQ2zn8zDeP69wgEGb2YZWM8qrUdGjjj5DZXO6mPxUdNi1Xp_1MHxQPc",
+          "notification": {
+            "title": "New Version!",
+            "body": "Hi, there is a new version of the app. You can download it from Google play"
+          },
+          "data": {
+            "message": "Hi, there is a new version of the app. You can download it from Google play"
+          }
+        }

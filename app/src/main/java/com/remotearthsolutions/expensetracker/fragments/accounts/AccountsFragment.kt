@@ -168,7 +168,30 @@ class AccountsFragment : BaseFragment(),
     override fun onClickAddAmountBtn() {
         val addAccountAmountDialogFragment =
             AddAccountAmountDialogFragment()
-        addAccountAmountDialogFragment.setAccountIncome(selectAccountModel)
+        addAccountAmountDialogFragment.setAccountIncome(
+            selectAccountModel,
+            AddAccountAmountDialogFragment.Purpose.AddAmount
+        )
+        addAccountAmountDialogFragment.setCallback(object :
+            AddAccountAmountDialogFragment.Callback {
+            override fun onAmountAdded(accountIncome: AccountModel?) {
+                viewModel!!.addOrUpdateAccount(accountIncome)
+                addAccountAmountDialogFragment.dismiss()
+            }
+        })
+        addAccountAmountDialogFragment.show(
+            childFragmentManager,
+            AddAccountAmountDialogFragment::class.java.name
+        )
+    }
+
+    override fun onClickUpdateAmountBtn() {
+        val addAccountAmountDialogFragment =
+            AddAccountAmountDialogFragment()
+        addAccountAmountDialogFragment.setAccountIncome(
+            selectAccountModel,
+            AddAccountAmountDialogFragment.Purpose.UpdateAmount
+        )
         addAccountAmountDialogFragment.setCallback(object :
             AddAccountAmountDialogFragment.Callback {
             override fun onAmountAdded(accountIncome: AccountModel?) {

@@ -28,16 +28,21 @@ class OptionBottomSheetFragment : BottomSheetDialogFragment(),
         val view =
             inflater.inflate(R.layout.fragment_optionbottomsheet, container, false)
         view.addAmountBtn.setOnClickListener(this)
+        view.updateAmountBtn.setOnClickListener(this)
         view.editBtn.setOnClickListener(this)
         view.deleteBtn.setOnClickListener(this)
         when (optionsFor) {
             OptionsFor.CATEGORY -> {
                 view.addAmountBtn.visibility = View.GONE
                 view.underLine.visibility = View.GONE
+                view.updateAmountBtn.visibility = View.GONE
+                view.underLine1.visibility = View.GONE
             }
             OptionsFor.ACCOUNT -> {
                 view.addAmountBtn.visibility = View.VISIBLE
                 view.underLine.visibility = View.VISIBLE
+                view.updateAmountBtn.visibility = View.VISIBLE
+                view.underLine1.visibility = View.VISIBLE
             }
         }
         return view
@@ -49,6 +54,7 @@ class OptionBottomSheetFragment : BottomSheetDialogFragment(),
         }
         when (v.id) {
             R.id.addAmountBtn -> callback!!.onClickAddAmountBtn()
+            R.id.updateAmountBtn -> callback!!.onClickUpdateAmountBtn()
             R.id.editBtn -> callback!!.onClickEditBtn()
             R.id.deleteBtn -> callback!!.onClickDeleteBtn()
         }
@@ -56,8 +62,8 @@ class OptionBottomSheetFragment : BottomSheetDialogFragment(),
     }
 
     interface Callback {
-        fun onClickAddAmountBtn(){
-        }
+        fun onClickAddAmountBtn() {}
+        fun onClickUpdateAmountBtn() {}
         fun onClickEditBtn()
         fun onClickDeleteBtn()
     }

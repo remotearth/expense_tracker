@@ -191,7 +191,7 @@
     <string name="add_btntext">Add</string>
     <string name="account_name">Account Name</string>
     <string name="enter_amount">Enter an amount…</string>
-    <string name="add_amount">Add amount</string>
+    <string name="add_amount">Add Amount</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="expense_note">EXPENSE NOTE</string>
@@ -287,4 +287,5 @@
     <string name="deleting_this_account_will_remove_expenses_related_to_this_also_are_you_sure_you_want_to_delete">Deleting this account will remove expenses related to this also. Are you sure, You want to Delete?</string>
     <string name="share">Share</string>
     <string name="share_app_text" translatable="false">If you want to keep your expenses in check, you need to manage it efficiently. Here is a good tool to do that. Download it for your Android device.</string>
+    <string name="update_amount">Update Amount</string>
 </resources>

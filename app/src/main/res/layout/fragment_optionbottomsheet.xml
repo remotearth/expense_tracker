@@ -38,6 +38,37 @@
         android:background="@color/catAccItemTextColor" />
 
     <LinearLayout
+        android:id="@+id/updateAmountBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="20dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            app:srcCompat="@drawable/ic_update_amount" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/update_amount"
+            android:textColor="@color/catAccItemTextColor"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/underLine1"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:alpha="0.8"
+        android:background="@color/catAccItemTextColor" />
+
+    <LinearLayout
         android:id="@+id/editBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

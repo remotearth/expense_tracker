@@ -133,7 +133,7 @@
     <string name="add_btntext">সংযোজন</string>
     <string name="account_name">অ্যাকাউন্ট-এর নাম</string>
     <string name="enter_amount">পরিমাণ লিখুন…</string>
-    <string name="add_amount">খরচের পরিমাণ লিখুন</string>
+    <string name="add_amount">টাকা যোগ করুন</string>
     <string name="edit">পরিবর্তন করুন</string>
     <string name="delete">মুছে দিন</string>
     <string name="expense_note">খরচ বিষয়ক নোট</string>
@@ -215,6 +215,7 @@
     <string name="transfer_amount">টাকা অন্য অ্যাকাউন্ট-এ নিন</string>
     <string name="select_account">অ্যাকাউন্ট নির্বাচন করুন</string>
     <string name="to">লক্ষ্য</string>
-    <string name="share">Share</string>
+    <string name="share">অ্যাপ সম্পর্কে জানান</string>
+    <string name="update_amount">টাকার পরিমান পরিবর্তন করুন</string>
 
 </resources>

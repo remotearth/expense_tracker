@@ -234,5 +234,6 @@
     <string name="choose_your_preferences">Выберите ваши предпочтения</string>
     <string name="create_account">Создать учетную запись</string>
     <string name="transfer_amount">Сумма перевода</string>
-    <string name="share">Share</string>
+    <string name="share">Поделиться</string>
+    <string name="update_amount">Обновить сумму</string>
 </resources>

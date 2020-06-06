@@ -16,6 +16,7 @@ class AddAccountAmountDialogFragment : DialogFragment() {
     private lateinit var mView: View
     private lateinit var callback: Callback
     private var accountIncome: AccountModel? = null
+    private lateinit var purpose: Purpose
     private lateinit var mContext: Context
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -26,8 +27,9 @@ class AddAccountAmountDialogFragment : DialogFragment() {
         this.callback = callback
     }
 
-    fun setAccountIncome(accountIncome: AccountModel?) {
+    fun setAccountIncome(accountIncome: AccountModel?, purpose: Purpose) {
         this.accountIncome = accountIncome
+        this.purpose = purpose
     }
 
     override fun onCreateView(
@@ -39,10 +41,17 @@ class AddAccountAmountDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (accountIncome != null) {
-            mView.accountNameTv.text = accountIncome!!.name
-            mView.accountImageIv.setImageResource(getIconId(accountIncome!!.icon!!))
+        accountIncome?.let {
+            mView.accountNameTv.text = it.name
+            mView.accountImageIv.setImageResource(getIconId(it.icon!!))
+
+            if (purpose == Purpose.UpdateAmount) {
+                val amountStr = it.amount.toString()
+                mView.amountEdtxt.setText(amountStr)
+                mView.amountEdtxt.setSelection(amountStr.length)
+            }
         }
+
         mView.okBtn.setOnClickListener {
             val amount = mView.amountEdtxt.text.toString()
             if (amount.isEmpty()) {
@@ -54,12 +63,20 @@ class AddAccountAmountDialogFragment : DialogFragment() {
                 return@setOnClickListener
             }
             val accountAmount = amount.toDouble()
-            accountIncome!!.amount += accountAmount
+            if (purpose == Purpose.AddAmount) {
+                accountIncome!!.amount += accountAmount
+            } else {
+                accountIncome!!.amount = accountAmount
+            }
             callback.onAmountAdded(accountIncome)
         }
     }
 
     interface Callback {
         fun onAmountAdded(accountIncome: AccountModel?)
+    }
+
+    enum class Purpose {
+        AddAmount, UpdateAmount
     }
 }

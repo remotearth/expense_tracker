@@ -233,5 +233,6 @@
     <string name="choose_your_preferences">Scegli le tue preferenze</string>
     <string name="create_account">Creare un profilo</string>
     <string name="transfer_amount">Importo del trasferimento</string>
-    <string name="share">Share</string>
+    <string name="share">Condividere</string>
+    <string name="update_amount">Importo aggiornamento</string>
 </resources>

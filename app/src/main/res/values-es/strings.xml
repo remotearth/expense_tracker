@@ -222,5 +222,6 @@
     <string name="choose_your_preferences">Elige tus preferencias</string>
     <string name="create_account">Crear una cuenta</string>
     <string name="transfer_amount">Monto de la transferencia</string>
-    <string name="share">Share</string>
+    <string name="share">Compartir</string>
+    <string name="update_amount">Actualizar cantidad</string>
 </resources>
