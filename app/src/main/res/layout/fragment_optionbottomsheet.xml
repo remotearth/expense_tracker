@@ -18,7 +18,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginStart="10dp"
-            app:srcCompat="@drawable/ic_amount" />
+            app:srcCompat="@drawable/ic_add_amount" />
 
         <TextView
             android:layout_width="wrap_content"
