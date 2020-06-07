@@ -2,4 +2,5 @@
 <resources>
     <string name="share">Share</string>
     <string name="update_amount">Update Amount</string>
+    <string name="search">Search...</string>
 </resources>

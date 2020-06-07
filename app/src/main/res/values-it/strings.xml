@@ -235,4 +235,5 @@
     <string name="transfer_amount">Importo del trasferimento</string>
     <string name="share">Condividere</string>
     <string name="update_amount">Importo aggiornamento</string>
+    <string name="search">Ricerca…</string>
 </resources>

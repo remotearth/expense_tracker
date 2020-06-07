@@ -236,4 +236,5 @@
     <string name="transfer_amount">Сумма перевода</string>
     <string name="share">Поделиться</string>
     <string name="update_amount">Обновить сумму</string>
+    <string name="search">Поиск…</string>
 </resources>

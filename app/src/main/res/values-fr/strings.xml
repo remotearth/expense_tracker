@@ -232,4 +232,5 @@
     <string name="transfer_amount">Montant du transfert</string>
     <string name="share">Partager</string>
     <string name="update_amount">Mettre à jour le montant</string>
+    <string name="search">Chercher…</string>
 </resources>
