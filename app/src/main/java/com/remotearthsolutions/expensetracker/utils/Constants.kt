@@ -67,8 +67,9 @@ interface Constants {
         const val KEY_PERIODIC_ADD_EXPENSE_REMINDER_WORKER_ID =
             "KEY_PERIODIC_ADD_EXPENSE_REMINDER_WORKER_ID"
 
-        const val ASKED_TO_REVIEW = "asked_to_review"
-        const val NUMBER_OF_ENTRY_NEEDED_BEFORE_ASKING_TO_REVIEW = 50
+        const val USER_TOLD_NEVER_ASK_TO_REVIEW = "USER_TOLD_NEVER_ASK_TO_REVIEW"
+        const val ENTRY_NEEDED = "ENTRY_NEEDED"
+        const val DEFAULT_NUMBER_OF_ENTRY_NEEDED = 50
 
         const val DONOT_EDIT_META_DATA =
             "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +

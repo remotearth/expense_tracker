@@ -232,4 +232,6 @@
     <string name="share">Paylaş</string>
     <string name="update_amount">Tutarı Güncelle</string>
     <string name="search">Arama…</string>
+    <string name="later">Sonra</string>
+    <string name="never">Asla</string>
 </resources>

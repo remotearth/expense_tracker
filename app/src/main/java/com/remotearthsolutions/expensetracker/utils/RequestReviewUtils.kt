@@ -10,17 +10,41 @@ import com.remotearthsolutions.expensetracker.contracts.BaseView
 
 object RequestReviewUtils {
     fun request(activity: Activity) {
+        val sharedPreferenceUtils = SharedPreferenceUtils.getInstance(activity)!!
         with(AnalyticsManager) { logEvent(ASKED_TO_REVIEW_APP) }
-        AlertDialogUtils.show(activity, activity.getString(R.string.review),
+        AlertDialogUtils.show(activity,
+            activity.getString(R.string.review),
             activity.getString(R.string.share_experience),
-            activity.getString(R.string.yes), activity.getString(R.string.no), null, object :
+            activity.getString(R.string.ok),
+            activity.getString(R.string.later),
+            activity.getString(R.string.never),
+            object :
                 BaseView.Callback {
                 override fun onOkBtnPressed() {
                     openApplinkForReview(activity)
+                    val countNeeded = sharedPreferenceUtils.getInt(
+                        Constants.ENTRY_NEEDED,
+                        Constants.DEFAULT_NUMBER_OF_ENTRY_NEEDED
+                    )
+                    sharedPreferenceUtils.putInt(
+                        Constants.ENTRY_NEEDED,
+                        countNeeded + 200
+                    )
                 }
 
                 override fun onCancelBtnPressed() {
+                    val countNeeded = sharedPreferenceUtils.getInt(
+                        Constants.ENTRY_NEEDED,
+                        Constants.DEFAULT_NUMBER_OF_ENTRY_NEEDED
+                    )
+                    sharedPreferenceUtils.putInt(
+                        Constants.ENTRY_NEEDED,
+                        countNeeded + Constants.DEFAULT_NUMBER_OF_ENTRY_NEEDED
+                    )
+                }
 
+                override fun onNeutralBtnPressed() {
+                    sharedPreferenceUtils.putBoolean(Constants.USER_TOLD_NEVER_ASK_TO_REVIEW, true)
                 }
 
             })

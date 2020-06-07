@@ -233,4 +233,6 @@
     <string name="share">Partager</string>
     <string name="update_amount">Mettre à jour le montant</string>
     <string name="search">Chercher…</string>
+    <string name="later">Plus tard</string>
+    <string name="never">Jamais</string>
 </resources>

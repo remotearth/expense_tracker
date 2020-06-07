@@ -236,4 +236,6 @@
     <string name="share">Condividere</string>
     <string name="update_amount">Importo aggiornamento</string>
     <string name="search">Ricerca…</string>
+    <string name="later">Dopo</string>
+    <string name="never">Mai</string>
 </resources>

@@ -228,4 +228,6 @@
     <string name="share">zdieľam</string>
     <string name="update_amount">Aktualizovať sumu</string>
     <string name="search">Vyhľadávanie…</string>
+    <string name="later">neskôr</string>
+    <string name="never">nikdy</string>
 </resources>

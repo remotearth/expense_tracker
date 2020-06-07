@@ -237,4 +237,6 @@
     <string name="share">Поделиться</string>
     <string name="update_amount">Обновить сумму</string>
     <string name="search">Поиск…</string>
+    <string name="later">Потом</string>
+    <string name="never">Никогда</string>
 </resources>

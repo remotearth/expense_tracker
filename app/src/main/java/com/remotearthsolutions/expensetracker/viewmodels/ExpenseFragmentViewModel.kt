@@ -6,7 +6,6 @@ import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.daos.*
 import com.remotearthsolutions.expensetracker.databaseutils.models.*
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
-import com.remotearthsolutions.expensetracker.utils.Constants
 import io.reactivex.Completable
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -103,13 +102,14 @@ class ExpenseFragmentViewModel(
     }
 
     @SuppressLint("CheckResult")
-    fun requestToReviewApp(callback: () -> Unit) {
+    fun requestToReviewApp(numberOfEntryNeeded: Int, callback: () -> Unit) {
         expenseDao.getNumberOfExpenseEntry()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : SingleObserver<Int> {
                 override fun onSuccess(count: Int) {
-                    if (count > Constants.NUMBER_OF_ENTRY_NEEDED_BEFORE_ASKING_TO_REVIEW) {
+
+                    if (count > numberOfEntryNeeded) {
                         callback.invoke()
                     }
                 }

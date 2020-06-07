@@ -230,4 +230,6 @@
     <string name="share">Teilen</string>
     <string name="update_amount">Betrag aktualisieren</string>
     <string name="search">Suche…</string>
+    <string name="later">Später</string>
+    <string name="never">noch nie</string>
 </resources>

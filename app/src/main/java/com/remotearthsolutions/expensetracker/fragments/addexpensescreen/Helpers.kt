@@ -31,15 +31,14 @@ object Helpers {
     }
 
     fun requestToReviewApp(activity: Activity, viewModel: ExpenseFragmentViewModel) {
-        if (!SharedPreferenceUtils.getInstance(activity)?.getBoolean(
-                Constants.ASKED_TO_REVIEW,
-                false
-            )!!
-        ) {
-            viewModel.requestToReviewApp {
+        val sharedPreferenceUtils = SharedPreferenceUtils.getInstance(activity)!!
+        if (!sharedPreferenceUtils.getBoolean(Constants.USER_TOLD_NEVER_ASK_TO_REVIEW, false)) {
+            val countNeeded = sharedPreferenceUtils.getInt(
+                Constants.ENTRY_NEEDED,
+                Constants.DEFAULT_NUMBER_OF_ENTRY_NEEDED
+            )
+            viewModel.requestToReviewApp(countNeeded) {
                 activity.onBackPressed()
-                SharedPreferenceUtils.getInstance(activity)
-                    ?.putBoolean(Constants.ASKED_TO_REVIEW, true)
                 RequestReviewUtils.request(activity)
             }
         }

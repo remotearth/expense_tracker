@@ -289,4 +289,7 @@
     <string name="share_app_text" translatable="false">If you want to keep your expenses in check, you need to manage it efficiently. Here is a good tool to do that. Download it for your Android device.</string>
     <string name="update_amount">Update Amount</string>
     <string name="search">Search…</string>
+    <string name="later">Later</string>
+    <string name="never">Never</string>
+
 </resources>
