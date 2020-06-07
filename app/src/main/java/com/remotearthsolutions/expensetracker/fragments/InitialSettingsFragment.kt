@@ -12,6 +12,8 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.remotearthsolutions.expensetracker.R
+import com.remotearthsolutions.expensetracker.fragments.currenypicker.CurrencyPickerDialogFragmentCompat
+import com.remotearthsolutions.expensetracker.fragments.currenypicker.CurrencyPickerPreference
 import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
@@ -92,5 +94,18 @@ class InitialSettingsFragment : PreferenceFragmentCompat() {
         super.onStop()
         preferenceScreen.sharedPreferences
             .unregisterOnSharedPreferenceChangeListener(preferenceChangeListener)
+    }
+
+    override fun onDisplayPreferenceDialog(preference: Preference?) {
+        if (preference is CurrencyPickerPreference) {
+            val dialogFragment = CurrencyPickerDialogFragmentCompat.newInstance(preference.key)
+            dialogFragment.setTargetFragment(this, 0)
+            dialogFragment.show(
+                requireActivity().supportFragmentManager,
+                CurrencyPickerDialogFragmentCompat::class.java.name
+            )
+        } else {
+            super.onDisplayPreferenceDialog(preference)
+        }
     }
 }

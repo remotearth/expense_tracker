@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ListPreference
+    <com.remotearthsolutions.expensetracker.fragments.currenypicker.CurrencyPickerPreference
         android:defaultValue="@string/default_currency"
-        android:entries="@array/currency"
-        android:entryValues="@array/currency"
         android:icon="@drawable/settings_currency"
         android:key="@string/preferencekey"
         android:summary="@string/summarypreftext"
         android:title="@string/preferencetitle" />
 
-    <ListPreference
+    <androidx.preference.ListPreference
         android:defaultValue="@string/daily"
         android:entries="@array/TimePeriod"
         android:entryValues="@array/TimePeriod"
@@ -19,7 +17,7 @@
         android:summary="@string/selectperiodfromhere"
         android:title="@string/timeperiod" />
 
-    <ListPreference
+    <androidx.preference.ListPreference
         android:defaultValue="@string/default_language"
         android:entries="@array/lanugages"
         android:entryValues="@array/lanugages"
@@ -28,7 +26,7 @@
         android:summary="@string/default_language"
         android:title="@string/change_language" />
 
-    <ListPreference
+    <androidx.preference.ListPreference
         android:defaultValue="@string/default_time_format"
         android:entries="@array/TimeFormat"
         android:entryValues="@array/TimeFormat"
@@ -37,14 +35,14 @@
         android:summary="@string/select_time_format_from_here"
         android:title="@string/prefTimeFormatTitle" />
 
-    <SwitchPreferenceCompat
+    <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="false"
         android:icon="@drawable/ic_daily_reminder"
         android:key="@string/prefremindaddexpense"
         android:summary="@string/daily_at_endofday"
         android:title="@string/remind_to_addexpense" />
 
-    <SwitchPreferenceCompat
+    <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="false"
         android:icon="@drawable/ic_reminder"
         android:key="@string/prefremindtoexport"
