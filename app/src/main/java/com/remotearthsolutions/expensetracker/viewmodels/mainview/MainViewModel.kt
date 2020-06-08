@@ -39,9 +39,6 @@ class MainViewModel(
     private val categoryExpenseDao: CategoryExpenseDao,
     private val fileProcessingService: FileProcessingService
 ) : ViewModel() {
-    private val KEY_EXPENSES = "expenses"
-    private val KEY_CATEGORIES = "categories"
-    private val KEY_ACCOUNTS = "accounts"
     private var disposable = CompositeDisposable()
     var startTime: Long = 0
         private set
@@ -219,9 +216,9 @@ class MainViewModel(
             Function4<List<CategoryExpense>?, List<ExpenseModel>?, List<CategoryModel>?, List<AccountModel>?, HashMap<String, String>>
             { listOfFilterExpense, allExpenses, allCategories, allAccounts ->
                 if (listOfFilterExpense.isNotEmpty()) {
-                    map[KEY_EXPENSES] = getMetaString(allExpenses)
-                    map[KEY_CATEGORIES] = getMetaString(allCategories)
-                    map[KEY_ACCOUNTS] = getMetaString(allAccounts)
+                    map[FirebaseService.KEY_EXPENSES] = getMetaString(allExpenses)
+                    map[FirebaseService.KEY_CATEGORIES] = getMetaString(allCategories)
+                    map[FirebaseService.KEY_ACCOUNTS] = getMetaString(allAccounts)
                 }
                 map
             }
@@ -348,7 +345,7 @@ class MainViewModel(
                 object : BaseView.Callback {
                     override fun onOkBtnPressed() {
                         view.showProgress(context.getString(R.string.please_wait))
-                        firebaseService.uploadToFireStore(user, it, {
+                        firebaseService.uploadToFirebaseStorage(user, it, {
                             view.hideProgress()
                             view.showAlert(
                                 "", context.getString(R.string.successfully_uploaded),
@@ -374,26 +371,26 @@ class MainViewModel(
             object : BaseView.Callback {
                 override fun onOkBtnPressed() {
                     view.showProgress(context.getString(R.string.please_wait))
-                    firebaseService.downloadFromCloud(user, {
+                    firebaseService.downloadFromFirebaseStorage(user, {
                         view.hideProgress()
                         if (it.isEmpty()) {
                             view.showAlert(
                                 "", context.getString(R.string.data_not_available_to_download),
                                 context.getString(R.string.ok), null, null, null
                             )
-                            return@downloadFromCloud
+                            return@downloadFromFirebaseStorage
                         }
 
                         val categories = getContentFromMetaString(
-                            it.getValue(KEY_CATEGORIES),
+                            it.getValue(FirebaseService.KEY_CATEGORIES),
                             Array<CategoryModel>::class.java
                         )
                         val expenseModels = getContentFromMetaString(
-                            it.getValue(KEY_EXPENSES),
+                            it.getValue(FirebaseService.KEY_EXPENSES),
                             Array<ExpenseModel>::class.java
                         )
                         val accountModels = getContentFromMetaString(
-                            it.getValue(KEY_ACCOUNTS),
+                            it.getValue(FirebaseService.KEY_ACCOUNTS),
                             Array<AccountModel>::class.java
                         )
                         saveAllData(categories, expenseModels, accountModels)
