@@ -291,5 +291,8 @@
     <string name="search">Search…</string>
     <string name="later">Later</string>
     <string name="never">Never</string>
+    <string name="wait">Wait!</string>
+    <string name="you_sure_to_delete_expenses">Are you sure you want to delete these expenses?</string>
+    <string name="did_not_select">You did not select anything</string>
 
 </resources>

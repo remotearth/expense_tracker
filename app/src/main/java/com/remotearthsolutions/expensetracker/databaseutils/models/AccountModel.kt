@@ -9,12 +9,16 @@ import androidx.room.PrimaryKey
 class AccountModel {
     @PrimaryKey(autoGenerate = true)
     var id = 0
+
     @ColumnInfo(name = "name")
     var name: String? = null
+
     @ColumnInfo(name = "icon")
     var icon: String? = null
+
     @ColumnInfo(name = "amount")
     var amount = 0.0
+
     @ColumnInfo(name = "notremovable")
     var notremovable = 0
 
@@ -33,4 +37,13 @@ class AccountModel {
         this.notremovable = notremovable
     }
 
+    fun copy(): AccountModel {
+        val accountModel = AccountModel()
+        accountModel.id = this.id
+        accountModel.name = this.name
+        accountModel.icon = this.icon
+        accountModel.amount = this.amount
+        accountModel.notremovable = this.notremovable
+        return accountModel
+    }
 }

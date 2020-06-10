@@ -11,28 +11,42 @@ import org.parceler.Parcel
 class CategoryExpense {
     @ColumnInfo(name = "expense_id")
     var expenseId = 0
+
     @ColumnInfo(name = "category_id")
     var categoryId = 0
+
     @ColumnInfo(name = "category_name")
     var categoryName: String? = null
+
     @ColumnInfo(name = "category_icon")
     var categoryIcon: String? = null
+
     @ColumnInfo(name = "total_amount")
     var totalAmount = 0.0
+
     @ColumnInfo(name = "datetime")
     var datetime: Long = 0
+
     @ColumnInfo(name = "account_id")
     var accountId = 0
+
     @ColumnInfo(name = "account_name")
     var accountName: String? = null
+
     @ColumnInfo(name = "account_icon")
     var accountIcon: String? = null
+
     @ColumnInfo(name = "note")
     var note: String? = null
+
     @Ignore
     var isHeader = false
+
     @Ignore
     var isDateSection = false
+
+    @Ignore
+    var isCheckedForDelete = false
 
     constructor(
         category_id: Int,
@@ -75,7 +89,8 @@ class CategoryExpense {
     constructor() {}
 
     override fun toString(): String {
-        return DateTimeUtils.getDate(datetime, DateTimeUtils.dd_MM_yyyy_h_mm) + ", " +
+        return expenseId.toString() + ", " +
+                DateTimeUtils.getDate(datetime, DateTimeUtils.dd_MM_yyyy_h_mm) + ", " +
                 categoryName + ", " +
                 totalAmount + ", " +
                 accountName + ", " +
@@ -94,7 +109,11 @@ class CategoryExpense {
         accountIcon = account.icon
     }
 
-    fun copy() : CategoryExpense {
+    fun setCheckedToDelete(state: Boolean) {
+        isCheckedForDelete = state
+    }
+
+    fun copy(): CategoryExpense {
         val categoryExpense =
             CategoryExpense()
         categoryExpense.expenseId = this.expenseId

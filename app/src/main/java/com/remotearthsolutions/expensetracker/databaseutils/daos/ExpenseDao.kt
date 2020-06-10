@@ -28,6 +28,9 @@ interface ExpenseDao {
     @Query("DELETE FROM expense WHERE id = :expenseId")
     fun delete(expenseId: Int)
 
+    @Query("DELETE FROM expense where id in (:idList)")
+    fun delete(idList: List<Int>)
+
     @Query("DELETE FROM expense")
     fun deleteAll()
 

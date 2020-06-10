@@ -10,6 +10,9 @@ interface AccountDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addAccount(accountModel: AccountModel)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun addAccount(accountModels: List<AccountModel>)
+
     @Insert
     fun addAllAccounts(vararg accountModels: AccountModel)
 
@@ -30,6 +33,9 @@ interface AccountDao {
 
     @Update
     fun updateAccount(accountModel: AccountModel)
+
+    @Update
+    fun updateAccount(accountModel: List<AccountModel>)
 
     @Query("SELECT COUNT(name) FROM account")
     fun countAccount(): LiveData<Int>

@@ -73,7 +73,9 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
             ViewModelProviders.of(requireActivity(), BaseViewModelFactory {
                 AllTransactionsViewModel(
                     db.categoryExpenseDao(),
+                    db.expenseDao(),
                     db.categoryDao(),
+                    db.accountDao(),
                     SharedPreferenceUtils.getInstance(requireActivity())!!
                         .getString(
                             Constants.PREF_TIME_FORMAT,

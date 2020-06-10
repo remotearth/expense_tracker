@@ -13,6 +13,7 @@ class ExpenseListAdapter(
     private val categoryExpenseList: List<CategoryExpense>?,
     private val currencySymbol: String
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var isDeleteModeOn = false
     private var listener: OnItemClickListener? =
         null
 
@@ -46,10 +47,10 @@ class ExpenseListAdapter(
     ) {
         val item = categoryExpenseList!![position]
         if (holder is DateSectionedViewHolder) {
-            holder.bind(DateModel(item.categoryName!!,item.isDateSection))
+            holder.bind(DateModel(item.categoryName!!, item.isDateSection))
         } else {
             val viewHolder = holder as ExpenseListViewHolder
-            viewHolder.bind(item, currencySymbol)
+            viewHolder.bind(item, currencySymbol, isDeleteModeOn)
         }
     }
 
@@ -61,8 +62,15 @@ class ExpenseListAdapter(
         this.listener = listener
     }
 
+    fun setDeleteMode(isDeleteModeOn: Boolean) {
+        this.isDeleteModeOn = isDeleteModeOn
+        notifyDataSetChanged()
+    }
+
     interface OnItemClickListener {
         fun onItemClick(categoryExpense: CategoryExpense?)
+        fun onSelectToDelete(categoryExpense: CategoryExpense?)
+        fun onCancelItemDelete(categoryExpense: CategoryExpense?)
     }
 
     companion object {
