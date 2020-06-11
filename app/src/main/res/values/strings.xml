@@ -37,7 +37,6 @@
     <string name="dont_edit_this_meta_data" translatable="false">(Don\'t edit this meta data)</string>
 
     <string name="prefTimeFormatTitle">Change Date Format</string>
-    <string name="app_name">Expense Tracker</string>
     <string name="welcometitle">Welcome To Expense Tracker</string>
     <string name="fb_signin_text">SIGN IN WITH FACEBOOK</string>
     <string name="gmail_signin_text">SIGN IN WITH GOOGLE</string>
