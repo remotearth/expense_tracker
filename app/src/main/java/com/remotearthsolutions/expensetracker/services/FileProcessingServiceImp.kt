@@ -7,6 +7,7 @@ import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.gson.Gson
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
@@ -169,11 +170,13 @@ class FileProcessingServiceImp(val context: Context) : FileProcessingService {
             callback!!.onComplete(categoryModels, expenseModels, accountModels)
         } catch (e: Exception) {
             Log.d("Exception", "" + e.message)
+            FirebaseCrashlytics.getInstance().recordException(e)
             e.printStackTrace()
         } finally {
             try {
                 fileReader!!.close()
             } catch (e: IOException) {
+                FirebaseCrashlytics.getInstance().recordException(e)
                 Log.d("Exception", "" + e.message)
             }
         }
@@ -224,6 +227,7 @@ class FileProcessingServiceImp(val context: Context) : FileProcessingService {
             with(AnalyticsManager) { logEvent(DATA_EXPORTED) }
         } catch (t: Throwable) {
             t.printStackTrace()
+            FirebaseCrashlytics.getInstance().recordException(t)
             Toast.makeText(
                 activity,
                 activity.getString(R.string.report_sending_failed_please_try_again_later),

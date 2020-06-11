@@ -7,6 +7,7 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageException
 import com.google.firebase.storage.ktx.storage
@@ -34,6 +35,7 @@ class FirebaseServiceImpl(private val context: Context) : FirebaseService {
             }
             .addOnFailureListener(context) {
                 it.printStackTrace()
+                FirebaseCrashlytics.getInstance().recordException(it)
                 callback!!.onFirebaseSigninFailure(context.getString(R.string.Authentication_with_Firebase_is_failed))
             }
     }
@@ -52,6 +54,7 @@ class FirebaseServiceImpl(private val context: Context) : FirebaseService {
                 context
             ) {
                 it.printStackTrace()
+                FirebaseCrashlytics.getInstance().recordException(it)
                 callback!!.onFirebaseSigninFailure(
                     context.getString(R.string.Authentication_with_Firebase_is_failed)
                 )
@@ -122,6 +125,7 @@ class FirebaseServiceImpl(private val context: Context) : FirebaseService {
             .addOnSuccessListener { onSuccess.invoke() }
             .addOnFailureListener { exception ->
                 exception.printStackTrace()
+                FirebaseCrashlytics.getInstance().recordException(exception)
                 onFailure.invoke()
             }
     }

@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.contracts.MainContract
@@ -79,6 +80,7 @@ class MainViewModel(
                         view.showTotalExpense(formatDecimalValues(amount!!))
                     } else {
                         throwable.printStackTrace()
+                        FirebaseCrashlytics.getInstance().recordException(throwable)
                         view.showTotalExpense(
                             formatDecimalValues(
                                 0.0
@@ -164,12 +166,14 @@ class MainViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError { throwable ->
                 throwable.printStackTrace()
+                FirebaseCrashlytics.getInstance().recordException(throwable)
                 view.hideProgress()
             }
             .subscribe { data, throwable: Throwable? ->
                 view.hideProgress()
                 if (throwable != null) {
                     throwable.printStackTrace()
+                    FirebaseCrashlytics.getInstance().recordException(throwable)
                     view.showAlert(
                         "",
                         activity.getString(R.string.something_went_wrong),
@@ -226,12 +230,14 @@ class MainViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError { throwable ->
                 throwable.printStackTrace()
+                FirebaseCrashlytics.getInstance().recordException(throwable)
                 view.hideProgress()
             }
             .subscribe { result: HashMap<String, String>, throwable: Throwable? ->
                 view.hideProgress()
                 if (throwable != null) {
                     throwable.printStackTrace()
+                    FirebaseCrashlytics.getInstance().recordException(throwable)
                     view.showAlert(
                         "",
                         context.getString(R.string.something_went_wrong),

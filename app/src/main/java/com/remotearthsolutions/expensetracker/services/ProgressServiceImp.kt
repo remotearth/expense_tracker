@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.remotearthsolutions.expensetracker.R
 import com.wang.avi.AVLoadingIndicatorView
 
@@ -30,6 +31,7 @@ class ProgressServiceImp(private val mContext: Context) : ProgressService {
             mProgressDialog?.show()
         } catch (e: Exception) {
             e.printStackTrace()
+            FirebaseCrashlytics.getInstance().recordException(e)
         }
     }
 
@@ -41,6 +43,7 @@ class ProgressServiceImp(private val mContext: Context) : ProgressService {
             }
         } catch (e: Exception) {
             e.printStackTrace()
+            FirebaseCrashlytics.getInstance().recordException(e)
         }
 
         if (mProgressDialog != null && mProgressDialog!!.isShowing) {
