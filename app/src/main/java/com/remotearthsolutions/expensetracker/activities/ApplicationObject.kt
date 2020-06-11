@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
 import com.amplitude.api.Amplitude
-import com.flurry.android.FlurryAgent
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.R
@@ -36,10 +35,6 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
         super.onCreate()
         Amplitude.getInstance().initialize(this, getString(R.string.amplitude_id))
             .enableForegroundTracking(this).enableCoppaControl()
-        FlurryAgent.Builder()
-            .withCaptureUncaughtExceptions(true)
-            .withLogEnabled(true)
-            .build(this, getString(R.string.flurry_id))
 
         Lingver.init(this, "en")
 

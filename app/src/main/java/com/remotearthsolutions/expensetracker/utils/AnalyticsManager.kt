@@ -1,7 +1,6 @@
 package com.remotearthsolutions.expensetracker.utils
 
 import com.amplitude.api.Amplitude
-import com.flurry.android.FlurryAgent
 import com.remotearthsolutions.expensetracker.BuildConfig
 
 
@@ -33,7 +32,6 @@ object AnalyticsManager {
     fun logEvent(eventName: String) {
         if (!BuildConfig.DEBUG) {
             Amplitude.getInstance().logEvent(eventName)
-            FlurryAgent.logEvent(eventName)
         }
     }
 }

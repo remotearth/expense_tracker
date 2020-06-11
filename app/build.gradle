@@ -119,7 +119,6 @@ dependencies {
     //analytics
     implementation 'com.amplitude:android-sdk:2.25.2'
     implementation 'com.squareup.okhttp3:okhttp:4.4.0'
-    implementation 'com.flurry.android:analytics:12.3.0@aar'
 
     implementation 'com.wang.avi:library:2.1.3'
 
