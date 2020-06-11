@@ -141,12 +141,12 @@ class AllTransactionsViewModel(
                     acc.amount += amount
                     accountDao.updateAccount(acc)
                 }
-
             }.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ // onComplete
                     callback.invoke()
                 }, {
+                    it.printStackTrace()
                     onError.invoke()
                 })
         )

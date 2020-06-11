@@ -225,7 +225,6 @@
     <string name="periodic_ask_to_add_expense">Son birkaç gün içinde harcamalarınızı eklemediniz. Günlük bir hatırlatıcı istiyorsanız, ayarlar sayfasında ayarlayabilirsiniz.</string>
     <string name="periodic_remind_notification">Giderlerinizi düzenli olarak eklemediğiniz anlaşılıyor. Sana her gün hatırlatmamı ister misin?</string>
     <string name="change_language">Dili değiştir</string>
-    <string name="can_change_language">Sadece size bildirmek için, artık uygulamanın dilini ayarlar sayfasından değiştirebilirsiniz.</string>
     <string name="choose_your_preferences">Tercihlerinizi seçin</string>
     <string name="create_account">Hesap oluştur</string>
     <string name="transfer_amount">Transfer miktarı</string>
@@ -234,4 +233,7 @@
     <string name="search">Arama…</string>
     <string name="later">Sonra</string>
     <string name="never">Asla</string>
+    <string name="wait">Bekle!</string>
+    <string name="you_sure_to_delete_expenses">Bu öğeleri silmek istediğinizden emin misiniz?</string>
+    <string name="did_not_select">Hiçbir şey seçmedin</string>
 </resources>

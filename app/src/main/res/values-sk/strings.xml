@@ -221,7 +221,6 @@
     <string name="periodic_ask_to_add_expense">Za posledných pár dní ste nepridali svoje výdavky. Ak chcete denné pripomenutie, môžete ho nastaviť na stránke nastavení.</string>
     <string name="periodic_remind_notification">Zdá sa, že svoje výdavky nepridávate pravidelne. Chcete, aby som vám každý deň pripomenul?</string>
     <string name="change_language">Zmeniť jazyk</string>
-    <string name="can_change_language">Len aby sme vás informovali, teraz môžete zmeniť jazyk aplikácie zo stránky nastavení.</string>
     <string name="choose_your_preferences">Vyberte si svoje preferencie</string>
     <string name="create_account">Vytvoriť účet</string>
     <string name="transfer_amount">Suma prevodu</string>
@@ -230,4 +229,7 @@
     <string name="search">Vyhľadávanie…</string>
     <string name="later">neskôr</string>
     <string name="never">nikdy</string>
+    <string name="wait">Počkať!</string>
+    <string name="you_sure_to_delete_expenses">Naozaj chcete odstrániť tieto položky?</string>
+    <string name="did_not_select">Nevybrali ste nič</string>
 </resources>

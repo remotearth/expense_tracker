@@ -223,7 +223,6 @@
     <string name="periodic_ask_to_add_expense">Sie haben Ihre Ausgaben in den letzten Tagen nicht hinzugefügt. Wenn Sie eine tägliche Erinnerung wünschen, können Sie diese auf der Einstellungsseite festlegen.</string>
     <string name="periodic_remind_notification">Es scheint, dass Sie Ihre Ausgaben nicht regelmäßig hinzufügen. Soll ich dich jeden Tag daran erinnern?</string>
     <string name="change_language">Sprache ändern</string>
-    <string name="can_change_language">Um Sie wissen zu lassen, können Sie jetzt die Sprache der App auf der Einstellungsseite ändern.</string>
     <string name="choose_your_preferences">Wählen Sie Ihre Einstellungen</string>
     <string name="create_account">Konto erstellen</string>
     <string name="transfer_amount">Überweisungsbetrag</string>
@@ -232,4 +231,7 @@
     <string name="search">Suche…</string>
     <string name="later">Später</string>
     <string name="never">noch nie</string>
+    <string name="wait">Warten!</string>
+    <string name="you_sure_to_delete_expenses">Möchten Sie diese Elemente wirklich löschen?</string>
+    <string name="did_not_select">Sie haben nichts ausgewählt</string>
 </resources>

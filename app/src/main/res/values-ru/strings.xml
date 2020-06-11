@@ -230,7 +230,6 @@
     <string name="periodic_ask_to_add_expense">Вы не добавили свои расходы в последние несколько дней. Если вы хотите ежедневное напоминание, вы можете установить на странице настроек.</string>
     <string name="periodic_remind_notification">Кажется, вы не добавляете свои расходы регулярно. Вы хотите, чтобы я напоминал вам каждый день?</string>
     <string name="change_language">изменение языка</string>
-    <string name="can_change_language">Просто чтобы вы знали, теперь вы можете изменить язык приложения со страницы настроек.</string>
     <string name="choose_your_preferences">Выберите ваши предпочтения</string>
     <string name="create_account">Создать учетную запись</string>
     <string name="transfer_amount">Сумма перевода</string>
@@ -239,4 +238,7 @@
     <string name="search">Поиск…</string>
     <string name="later">Потом</string>
     <string name="never">Никогда</string>
+    <string name="wait">Подождите!</string>
+    <string name="you_sure_to_delete_expenses">Вы уверены, что хотите удалить эти элементы?</string>
+    <string name="did_not_select">Вы ничего не выбрали</string>
 </resources>

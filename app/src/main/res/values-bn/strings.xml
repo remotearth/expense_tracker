@@ -209,7 +209,6 @@
     <string name="periodic_ask_to_add_expense">আপনি গত কয়েকদিন আপনার খরচের হিসাব যোগ করেননি। আপনি যদি এ ব্যাপারে প্রতিদিন মনে করতে চান তাহলে সেটিংস পেইজ-এ এটা নির্ধারণ করতে পারেন।</string>
     <string name="periodic_remind_notification">মনে হচ্ছে আপনি সবসময় আপনার খরচের হিসাব যোগ করেন না। আপনি কি চান অ্যাপ আপনাকে প্রতিদিন মনে করিয়ে দিবে?</string>
     <string name="change_language">ভাষা পরিবর্তন করুন</string>
-    <string name="can_change_language">Just to let you know, now you can change language of the app from settings page.</string>
     <string name="choose_your_preferences">আপনার পছন্দগুলো নির্ধারণ করুন</string>
     <string name="create_account">অ্যাকাউন্ট খুলুন</string>
     <string name="transfer_amount">টাকা অন্য অ্যাকাউন্ট-এ নিন</string>
@@ -220,5 +219,8 @@
     <string name="search">এখানে খুঁজুন…</string>
     <string name="later">পরে জানাবো</string>
     <string name="never">কখনই না</string>
+    <string name="wait">দাঁড়ান!</string>
+    <string name="you_sure_to_delete_expenses">আপনি কি নিশ্চিত ভাবে এই খরচের হিসাবগুলো মুছতে চাচ্ছেন?</string>
+    <string name="did_not_select">আপনি কোন খরচের হিসাব নির্বাচন করেন নি</string>
 
 </resources>

@@ -218,7 +218,6 @@
     <string name="periodic_ask_to_add_expense">No agregó sus gastos en los últimos días. Si desea un recordatorio diario, puede configurarlo en la página de configuración.</string>
     <string name="periodic_remind_notification">Parece que no agrega sus gastos regularmente. ¿Quieres que te lo recuerde todos los días?</string>
     <string name="change_language">Cambiar idioma</string>
-    <string name="can_change_language">Solo para hacerle saber, ahora puede cambiar el idioma de la aplicación desde la página de configuración.</string>
     <string name="choose_your_preferences">Elige tus preferencias</string>
     <string name="create_account">Crear una cuenta</string>
     <string name="transfer_amount">Monto de la transferencia</string>
@@ -227,4 +226,7 @@
     <string name="search">Buscar…</string>
     <string name="later">Más tarde</string>
     <string name="never">Nunca</string>
+    <string name="wait">¡Espere!</string>
+    <string name="you_sure_to_delete_expenses">¿Seguro que quieres eliminar estos elementos?</string>
+    <string name="did_not_select">No seleccionaste nada</string>
 </resources>

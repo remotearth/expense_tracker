@@ -229,7 +229,6 @@
     <string name="periodic_ask_to_add_expense">Non hai aggiunto le tue spese negli ultimi giorni. Se si desidera un promemoria giornaliero, è possibile impostare nella pagina delle impostazioni.</string>
     <string name="periodic_remind_notification">Sembra che tu non stia aggiungendo le tue spese regolarmente. Vuoi che te lo ricordi tutti i giorni?</string>
     <string name="change_language">Cambia lingua</string>
-    <string name="can_change_language">Solo per farti sapere, ora puoi cambiare la lingua dell\'app dalla pagina delle impostazioni.</string>
     <string name="choose_your_preferences">Scegli le tue preferenze</string>
     <string name="create_account">Creare un profilo</string>
     <string name="transfer_amount">Importo del trasferimento</string>
@@ -238,4 +237,7 @@
     <string name="search">Ricerca…</string>
     <string name="later">Dopo</string>
     <string name="never">Mai</string>
+    <string name="wait">Aspettare!</string>
+    <string name="you_sure_to_delete_expenses">Sei sicuro di voler eliminare questi elementi?</string>
+    <string name="did_not_select">Non hai selezionato nulla</string>
 </resources>
