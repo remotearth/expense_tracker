@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="repeatType">
+        <item>journée</item>
+        <item>La semaine</item>
+        <item>Mois</item>
+        <item>An</item>
+    </string-array>
+</resources>
