@@ -274,6 +274,20 @@ class MainActivity : BaseActivity(), MainContract.View {
     val mDrawerLayout: DrawerLayout
         get() = drawer_layout
 
+    fun updateTitle() {
+        when (selectedTabPosition) {
+            0 -> mToolbar.title = getString(R.string.title_home)
+            1 -> mToolbar.title = getString(R.string.title_transaction)
+            2 -> mToolbar.title = getString(R.string.title_overview)
+            3 -> mToolbar.title = getString(R.string.title_accounts)
+        }
+    }
+
+    var selectedTabPosition = 0
+    override fun setTitle(titleId: Int) {
+        mToolbar.title = getString(titleId)
+    }
+
     fun updateSummary(startTime: Long, endTime: Long) {
         viewModel.updateSummary(startTime, endTime)
     }

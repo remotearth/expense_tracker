@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.helpers.FragmentLoader
@@ -57,16 +56,17 @@ abstract class BaseFragment : Fragment(), BaseView, Observer {
     }
 
     fun registerBackButton(callBack: OnBackPressedCallback? = null, animationType: Int = 0) {
-        val activity = requireActivity()
+        val activity = activity as MainActivity
         val defaultCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 FragmentLoader.remove(
-                    activity as AppCompatActivity,
+                    activity,
                     this@BaseFragment,
                     getString(R.string.title_home),
                     animationType
                 )
-                (activity as MainActivity).hideBackButton()
+                activity.hideBackButton()
+                activity.updateTitle()
             }
         }
         activity.onBackPressedDispatcher.addCallback(this, callBack ?: defaultCallback)

@@ -15,14 +15,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
-import com.remotearthsolutions.expensetracker.fragments.currenypicker.CurrencyPickerPreference
 import com.remotearthsolutions.expensetracker.fragments.currenypicker.CurrencyPickerDialogFragmentCompat
+import com.remotearthsolutions.expensetracker.fragments.currenypicker.CurrencyPickerPreference
 import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils
 import com.remotearthsolutions.expensetracker.utils.Utils.getFlagDrawable
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -166,7 +165,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun registerBackButton(callBack: OnBackPressedCallback? = null) {
-        val activity = requireActivity()
+        val activity = activity as MainActivity
         val defaultCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val fragmentManager = activity.supportFragmentManager
@@ -175,8 +174,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 ft.remove(this@SettingsFragment)
                 fragmentManager.popBackStack()
                 ft.commit()
-                activity.toolbar!!.title = getString(R.string.title_home)
-                (activity as MainActivity).hideBackButton()
+                activity.hideBackButton()
+                activity.updateTitle()
             }
         }
         activity.onBackPressedDispatcher.addCallback(

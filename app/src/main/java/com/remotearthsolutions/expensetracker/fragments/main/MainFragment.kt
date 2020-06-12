@@ -21,7 +21,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.databinding.FragmentMainBinding
-import com.remotearthsolutions.expensetracker.fragments.*
+import com.remotearthsolutions.expensetracker.fragments.AllExpenseFragment
+import com.remotearthsolutions.expensetracker.fragments.BaseFragment
+import com.remotearthsolutions.expensetracker.fragments.HomeFragment
+import com.remotearthsolutions.expensetracker.fragments.OverViewFragment
 import com.remotearthsolutions.expensetracker.fragments.accounts.AccountsFragment
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
@@ -94,10 +97,7 @@ class MainFragment : BaseFragment(),
                 Constants.PREF_PERIOD,
                 mResources.getString(R.string.daily)
             )
-            val pos =
-                listOf(*mResources.getStringArray(R.array.TimePeriod))
-                    .indexOf(period)
-            when (pos) {
+            when (listOf(*mResources.getStringArray(R.array.TimePeriod)).indexOf(period)) {
                 0 -> {
                     selectedPeriodBtn = binding!!.dailyRangeBtn
                 }
@@ -171,6 +171,9 @@ class MainFragment : BaseFragment(),
             if (dateContainerHeight == -1) {
                 dateContainerHeight = binding!!.dateRangeContainer.measuredHeight
             }
+            val activity = requireActivity() as MainActivity
+            activity.selectedTabPosition = position
+            activity.updateTitle()
             when (position) {
                 0 -> {
                     if (binding!!.dateRangeContainer.measuredHeight == 0) {
