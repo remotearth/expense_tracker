@@ -13,18 +13,14 @@ interface FirebaseService {
     val user: FirebaseUser?
     fun logout()
     fun sync()
-//    fun uploadToFireStore(
-//        user: String,
-//        dataMap: Map<String, String>,
-//        onSuccess: () -> Unit,
-//        onFailure: () -> Unit
-//    )
-//
-//    fun downloadFromCloud(
-//        user: String,
-//        onSuccess: (Map<String, String>) -> Unit,
-//        onFailure: (String) -> Unit
-//    )
+
+    fun uploadToFirebaseStorage(
+        user: String,
+        dataBase64Encrypted: String,
+        path: String,
+        onSuccess: (() -> Unit)?,
+        onFailure: (() -> Unit)?
+    )
 
     fun uploadToFirebaseStorage(
         user: String,

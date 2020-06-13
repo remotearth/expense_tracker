@@ -3,12 +3,14 @@ package com.remotearthsolutions.expensetracker.activities
 import android.app.Activity
 import android.app.Application.ActivityLifecycleCallbacks
 import android.os.Bundle
+import android.os.Handler
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
 import com.amplitude.api.Amplitude
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.R
+import com.remotearthsolutions.expensetracker.utils.CloudBackupManager
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
@@ -43,6 +45,10 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
         SharedPreferenceUtils.getInstance(this)
         registerActivityLifecycleCallbacks(this)
         LocalNotificationManager.createNotificationChannel(this)
+
+        Handler().postDelayed({
+            CloudBackupManager.startBackupWithPrecondtion(this)
+        }, 5000)
     }
 
     fun appShouldShowAds(state: Boolean) {

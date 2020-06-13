@@ -83,6 +83,7 @@ class MainActivity : BaseActivity(), MainContract.View {
             InAppUpdateUtils().requestUpdateApp(this@MainActivity)
         }, 2000)
 
+        RemoteConfigManager.update(this)
         setPeriodicReminderToAskAddingExpense()
 
         FirebaseInstanceId.getInstance().instanceId

@@ -28,6 +28,7 @@ interface Constants {
         const val PREF_TIME_FORMAT = "pref_time_format_list"
         const val PREF_REMIND_TO_ADDEXPENSE = "pref_remind_add_expense"
         const val PREF_REMIND_TO_EXPORT = "pref_remind_to_export"
+        const val PREF_AUTO_DATABACKUP = "pref_auto_databackup"
         const val PREF_ISFIRSTTIMEVISITED = "PREF_ISFIRSTTIMEVISITED"
 
         const val KEY_SALARY_AUTOMATIC = "KEY_SALARY_AUTOMATIC"
@@ -35,6 +36,8 @@ interface Constants {
         const val KEY_SALARY_AUTOMATIC_DATE = "KEY_SALARY_AUTOMATIC_DATE"
         const val KEY_SALARY_AUTOMATIC_ACCOUNT_ID = "KEY_SALARY_AUTOMATIC_ACCOUNT_ID"
         const val KEY_SALARY_AUTOMATIC_WORKER_ID = "KEY_SALARY_AUTOMATIC_WORKER_ID"
+        const val KEY_EXPENSE_COUNT_AUTO_BACKUP = "KEY_EXPENSE_COUNT_AUTO_BACKUP"
+        const val KEY_EXPENSE_COUNT_AUTO_BACKUP_DELAY = "KEY_EXPENSE_COUNT_AUTO_BACKUP_DELAY"
 
         const val KEY_TITLE = "title"
         const val KEY_SCREEN = "screen"

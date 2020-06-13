@@ -72,46 +72,22 @@ class FirebaseServiceImpl(private val context: Context) : FirebaseService {
 
     }
 
-//    override fun uploadToFireStore(
-//        user: String,
-//        dataMap: Map<String, String>,
-//        onSuccess: () -> Unit,
-//        onFailure: () -> Unit
-//    ) {
-//        FirebaseFirestore.getInstance().collection(COLLECTION_NAME)
-//            .document(user)
-//            .set(dataMap)
-//            .addOnSuccessListener { onSuccess.invoke() }
-//            .addOnFailureListener { exception ->
-//                exception.printStackTrace()
-//                onFailure.invoke()
-//            }
-//    }
-//
-//    override fun downloadFromCloud(
-//        user: String,
-//        onSuccess: (Map<String, String>) -> Unit,
-//        onFailure: (String) -> Unit
-//    ) {
-//        val docRef = FirebaseFirestore.getInstance().collection(COLLECTION_NAME)
-//            .document(user)
-//        docRef.get()
-//            .addOnSuccessListener { document ->
-//                if (document != null) {
-//                    val map = HashMap<String, String>()
-//                    document.data?.forEach {
-//                        map[it.key] = it.value.toString()
-//                    }
-//                    onSuccess(map)
-//                } else {
-//                    onFailure(context.getString(R.string.no_data_available_to_download))
-//                }
-//            }
-//            .addOnFailureListener {
-//                it.printStackTrace()
-//                onFailure(context.getString(R.string.something_went_wrong))
-//            }
-//    }
+    override fun uploadToFirebaseStorage(
+        user: String,
+        dataBase64Encrypted: String,
+        path: String,
+        onSuccess: (() -> Unit)?,
+        onFailure: (() -> Unit)?
+    ) {
+        val storage = Firebase.storage.reference.child("$path$user.txt")
+        storage.putBytes(dataBase64Encrypted.toByteArray(charset(Constants.KEY_UTF_VERSION)))
+            .addOnSuccessListener { onSuccess?.invoke() }
+            .addOnFailureListener { exception ->
+                exception.printStackTrace()
+                FirebaseCrashlytics.getInstance().recordException(exception)
+                onFailure?.invoke()
+            }
+    }
 
     override fun uploadToFirebaseStorage(
         user: String, dataMap: Map<String, String>, onSuccess: () -> Unit,
