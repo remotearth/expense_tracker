@@ -1,4 +1,4 @@
-package com.remotearthsolutions.expensetracker.utils
+package com.remotearthsolutions.expensetracker.utils.cloudbackup
 
 import android.content.Context
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -9,16 +9,18 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl
 import com.remotearthsolutions.expensetracker.services.InternetCheckerServiceImpl
+import com.remotearthsolutions.expensetracker.utils.Constants
+import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function4
 import io.reactivex.schedulers.Schedulers
 
-
 object CloudBackupManager {
-
-    fun startBackupWithPrecondtion(context: Context) {
-        val sharedPref = SharedPreferenceUtils.getInstance(context)!!
+    fun startBackupWithPrecondition(context: Context) {
+        val sharedPref = SharedPreferenceUtils.getInstance(
+            context
+        )!!
         val user = sharedPref.getString(Constants.KEY_USER, "")
 
         val isLoggedIn = user != "guest" && user.isNotEmpty()
@@ -32,14 +34,15 @@ object CloudBackupManager {
         val expenseDao = DatabaseClient.getInstance(context).appDatabase.expenseDao()
         disposable.add(expenseDao.getNumberOfExpenseEntry().subscribeOn(Schedulers.io()).subscribe({
             if (it > neededExpenseCount) {
-                getDataToUpload(context) { data ->
+                getDataToUpload(
+                    context
+                ) { data ->
                     FirebaseServiceImpl(context).uploadToFirebaseStorage(
                         user, data, "silentautobackup/", { // onSuccess
                             sharedPref.putInt(
                                 Constants.KEY_EXPENSE_COUNT_AUTO_BACKUP,
-                                neededExpenseCount + delay
+                                it + delay
                             )
-                            println("Silent backup successful")
                         }, null
                     )
                 }
@@ -48,10 +51,9 @@ object CloudBackupManager {
             it.printStackTrace()
             FirebaseCrashlytics.getInstance().recordException(it)
         }))
-
     }
 
-    fun getDataToUpload(context: Context, callback: (String) -> Unit) {
+    private fun getDataToUpload(context: Context, callback: (String) -> Unit) {
         val db = DatabaseClient.getInstance(context).appDatabase
         val disposable = CompositeDisposable()
 
@@ -64,16 +66,22 @@ object CloudBackupManager {
             { listOfFilterExpense, allExpenses, allCategories, allAccounts ->
                 var str = ""
                 if (listOfFilterExpense.isNotEmpty()) {
-                    str = "${allExpenses}|${allCategories}|${allAccounts}"
+                    str =
+                        "${CloudBackupHelper.getMetaString(allExpenses)}|${CloudBackupHelper.getMetaString(
+                            allCategories
+                        )}|${CloudBackupHelper.getMetaString(allAccounts)}"
                 }
                 str
             }
-        ).subscribe({
-            callback(it)
-        }, {
-            it.printStackTrace()
-            FirebaseCrashlytics.getInstance().recordException(it)
-        })
+        ).subscribeOn(Schedulers.io())
+            .subscribe({
+                callback(it)
+                disposable.clear()
+            }, {
+                it.printStackTrace()
+                FirebaseCrashlytics.getInstance().recordException(it)
+                disposable.clear()
+            })
         )
     }
 }

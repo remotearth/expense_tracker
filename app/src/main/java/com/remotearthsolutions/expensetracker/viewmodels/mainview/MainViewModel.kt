@@ -22,8 +22,8 @@ import com.remotearthsolutions.expensetracker.services.FirebaseService
 import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.Utils.formatDecimalValues
-import com.remotearthsolutions.expensetracker.viewmodels.mainview.MainViewModelHelper.getContentFromMetaString
-import com.remotearthsolutions.expensetracker.viewmodels.mainview.MainViewModelHelper.getMetaString
+import com.remotearthsolutions.expensetracker.utils.cloudbackup.CloudBackupHelper.getContentFromMetaString
+import com.remotearthsolutions.expensetracker.utils.cloudbackup.CloudBackupHelper.getMetaString
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

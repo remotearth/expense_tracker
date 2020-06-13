@@ -9,8 +9,7 @@ import com.remotearthsolutions.expensetracker.services.InternetCheckerServiceImp
 
 
 object RemoteConfigManager {
-
-    const val EXPENSE_COUNT_NEEDED_FOR_AUTO_BACKUP = "EXPENSE_COUNT_NEEDED_FOR_AUTO_BACKUP"
+    private const val EXPENSE_COUNT_NEEDED_FOR_AUTO_BACKUP = "EXPENSE_COUNT_NEEDED_FOR_AUTO_BACKUP"
 
     private val remoteConfig = Firebase.remoteConfig
     private val configSettings = remoteConfigSettings {
@@ -21,16 +20,13 @@ object RemoteConfigManager {
         remoteConfig.setConfigSettingsAsync(configSettings)
     }
 
-
     fun update(context: Context) {
         if (!InternetCheckerServiceImpl(context).isConnected) {
             return
         }
-
         remoteConfig.fetchAndActivate()
             .addOnCompleteListener(context as Activity) { task ->
                 if (task.isSuccessful) {
-
                     val expenseCount =
                         remoteConfig.getString(EXPENSE_COUNT_NEEDED_FOR_AUTO_BACKUP).toInt()
                     SharedPreferenceUtils.getInstance(context)

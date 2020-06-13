@@ -10,7 +10,7 @@ import com.amplitude.api.Amplitude
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.R
-import com.remotearthsolutions.expensetracker.utils.CloudBackupManager
+import com.remotearthsolutions.expensetracker.utils.cloudbackup.CloudBackupManager
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
@@ -47,7 +47,7 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
         LocalNotificationManager.createNotificationChannel(this)
 
         Handler().postDelayed({
-            CloudBackupManager.startBackupWithPrecondtion(this)
+            CloudBackupManager.startBackupWithPrecondition(this)
         }, 5000)
     }
 

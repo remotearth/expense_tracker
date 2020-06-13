@@ -1,4 +1,4 @@
-package com.remotearthsolutions.expensetracker.viewmodels.mainview
+package com.remotearthsolutions.expensetracker.utils.cloudbackup
 
 import android.util.Base64
 import com.google.gson.Gson
@@ -6,7 +6,7 @@ import com.remotearthsolutions.expensetracker.utils.Constants
 import java.nio.charset.Charset
 
 
-object MainViewModelHelper {
+object CloudBackupHelper {
     fun getMetaString(listObject: List<Any>): String {
         val expenseJson = Gson().toJson(listObject)
         return Base64.encodeToString(
