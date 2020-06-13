@@ -24,6 +24,7 @@ import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.Utils.formatDecimalValues
 import com.remotearthsolutions.expensetracker.utils.cloudbackup.CloudBackupHelper.getContentFromMetaString
 import com.remotearthsolutions.expensetracker.utils.cloudbackup.CloudBackupHelper.getMetaString
+import com.remotearthsolutions.expensetracker.utils.cloudbackup.CloudBackupManager
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -333,8 +334,8 @@ class MainViewModel(
     }
 
     fun backupToCloud(context: Context, user: String) {
-        getDataMapToUpload(context) {
-            if (it.isEmpty()) {
+        CloudBackupManager.getDataToUpload(context) {
+            if (it.isNullOrEmpty()) {
                 view.showAlert(
                     "",
                     context.getString(R.string.expense_data_not_available_to_upload),
@@ -342,7 +343,7 @@ class MainViewModel(
                     null,
                     null, null
                 )
-                return@getDataMapToUpload
+                return@getDataToUpload
             }
 
             view.showAlert(context.getString(R.string.warning),
@@ -351,7 +352,7 @@ class MainViewModel(
                 object : BaseView.Callback {
                     override fun onOkBtnPressed() {
                         view.showProgress(context.getString(R.string.please_wait))
-                        firebaseService.uploadToFirebaseStorage(user, it, {
+                        firebaseService.uploadToFirebaseStorage(user, it, "exporteddata/", {
                             view.hideProgress()
                             view.showAlert(
                                 "", context.getString(R.string.successfully_uploaded),

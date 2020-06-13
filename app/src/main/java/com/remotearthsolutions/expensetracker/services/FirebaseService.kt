@@ -22,13 +22,6 @@ interface FirebaseService {
         onFailure: (() -> Unit)?
     )
 
-    fun uploadToFirebaseStorage(
-        user: String,
-        dataMap: Map<String, String>,
-        onSuccess: () -> Unit,
-        onFailure: () -> Unit
-    )
-
     fun downloadFromFirebaseStorage(
         user: String,
         onSuccess: (Map<String, String>) -> Unit,

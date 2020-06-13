@@ -12,6 +12,7 @@ import com.remotearthsolutions.expensetracker.services.InternetCheckerServiceImp
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function4
 import io.reactivex.schedulers.Schedulers
@@ -34,17 +35,17 @@ object CloudBackupManager {
         val expenseDao = DatabaseClient.getInstance(context).appDatabase.expenseDao()
         disposable.add(expenseDao.getNumberOfExpenseEntry().subscribeOn(Schedulers.io()).subscribe({
             if (it > neededExpenseCount) {
-                getDataToUpload(
-                    context
-                ) { data ->
-                    FirebaseServiceImpl(context).uploadToFirebaseStorage(
-                        user, data, "silentautobackup/", { // onSuccess
-                            sharedPref.putInt(
-                                Constants.KEY_EXPENSE_COUNT_AUTO_BACKUP,
-                                it + delay
-                            )
-                        }, null
-                    )
+                getDataToUpload(context) { data ->
+                    if (!data.isNullOrEmpty()) {
+                        FirebaseServiceImpl(context).uploadToFirebaseStorage(
+                            user, data, "silentautobackup/", { // onSuccess
+                                sharedPref.putInt(
+                                    Constants.KEY_EXPENSE_COUNT_AUTO_BACKUP,
+                                    it + delay
+                                )
+                            }, null
+                        )
+                    }
                 }
             }
         }, {
@@ -53,7 +54,7 @@ object CloudBackupManager {
         }))
     }
 
-    private fun getDataToUpload(context: Context, callback: (String) -> Unit) {
+    fun getDataToUpload(context: Context, callback: (String?) -> Unit) {
         val db = DatabaseClient.getInstance(context).appDatabase
         val disposable = CompositeDisposable()
 
@@ -74,10 +75,12 @@ object CloudBackupManager {
                 str
             }
         ).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 callback(it)
                 disposable.clear()
             }, {
+                callback(null)
                 it.printStackTrace()
                 FirebaseCrashlytics.getInstance().recordException(it)
                 disposable.clear()

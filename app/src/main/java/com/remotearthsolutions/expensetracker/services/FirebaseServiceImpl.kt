@@ -89,23 +89,6 @@ class FirebaseServiceImpl(private val context: Context) : FirebaseService {
             }
     }
 
-    override fun uploadToFirebaseStorage(
-        user: String, dataMap: Map<String, String>, onSuccess: () -> Unit,
-        onFailure: () -> Unit
-    ) {
-        val str =
-            "${dataMap[FirebaseService.KEY_EXPENSES]}|${dataMap[FirebaseService.KEY_CATEGORIES]}|${dataMap[FirebaseService.KEY_ACCOUNTS]}"
-
-        val storage = Firebase.storage.reference.child("exporteddata/$user.txt")
-        storage.putBytes(str.toByteArray(charset(Constants.KEY_UTF_VERSION)))
-            .addOnSuccessListener { onSuccess.invoke() }
-            .addOnFailureListener { exception ->
-                exception.printStackTrace()
-                FirebaseCrashlytics.getInstance().recordException(exception)
-                onFailure.invoke()
-            }
-    }
-
     override fun downloadFromFirebaseStorage(
         user: String,
         onSuccess: (Map<String, String>) -> Unit,
