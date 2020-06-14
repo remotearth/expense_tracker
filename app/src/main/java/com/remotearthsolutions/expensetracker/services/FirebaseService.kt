@@ -12,7 +12,6 @@ interface FirebaseService {
     fun signinAnonymously(callback: Callback?)
     val user: FirebaseUser?
     fun logout()
-    fun sync()
 
     fun uploadToFirebaseStorage(
         user: String,
@@ -34,8 +33,8 @@ interface FirebaseService {
     }
 
     companion object {
-        val KEY_EXPENSES = "expenses"
-        val KEY_CATEGORIES = "categories"
-        val KEY_ACCOUNTS = "accounts"
+        const val KEY_EXPENSES = "expenses"
+        const val KEY_CATEGORIES = "categories"
+        const val KEY_ACCOUNTS = "accounts"
     }
 }

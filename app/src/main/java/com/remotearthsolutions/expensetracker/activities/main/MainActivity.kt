@@ -32,6 +32,7 @@ import com.remotearthsolutions.expensetracker.services.FileProcessingServiceImp
 import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl
 import com.remotearthsolutions.expensetracker.services.PurchaseListener
 import com.remotearthsolutions.expensetracker.utils.*
+import com.remotearthsolutions.expensetracker.utils.cloudbackup.CloudBackupManager
 import com.remotearthsolutions.expensetracker.utils.workmanager.WorkManagerEnqueuer
 import com.remotearthsolutions.expensetracker.utils.workmanager.WorkRequestType
 import com.remotearthsolutions.expensetracker.viewmodels.mainview.MainViewModel
@@ -85,6 +86,10 @@ class MainActivity : BaseActivity(), MainContract.View {
 
         RemoteConfigManager.update(this)
         setPeriodicReminderToAskAddingExpense()
+
+        Handler().postDelayed({
+            CloudBackupManager.startBackupWithPrecondition(this)
+        }, 5000)
 
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(OnCompleteListener { task ->

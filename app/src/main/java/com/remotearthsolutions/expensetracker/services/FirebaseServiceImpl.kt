@@ -68,10 +68,6 @@ class FirebaseServiceImpl(private val context: Context) : FirebaseService {
         mAuth?.signOut()
     }
 
-    override fun sync() {
-
-    }
-
     override fun uploadToFirebaseStorage(
         user: String,
         dataBase64Encrypted: String,
@@ -110,6 +106,7 @@ class FirebaseServiceImpl(private val context: Context) : FirebaseService {
                 }
             }
             .addOnFailureListener { exception ->
+                exception.printStackTrace()
                 if (exception is StorageException) {
                     onFailure.invoke(context.getString(R.string.data_not_available_to_download))
                 } else {

@@ -45,10 +45,6 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
         SharedPreferenceUtils.getInstance(this)
         registerActivityLifecycleCallbacks(this)
         LocalNotificationManager.createNotificationChannel(this)
-
-        Handler().postDelayed({
-            CloudBackupManager.startBackupWithPrecondition(this)
-        }, 5000)
     }
 
     fun appShouldShowAds(state: Boolean) {
