@@ -25,12 +25,12 @@ import com.remotearthsolutions.expensetracker.utils.Utils.formatDecimalValues
 import com.remotearthsolutions.expensetracker.utils.cloudbackup.CloudBackupHelper.getContentFromMetaString
 import com.remotearthsolutions.expensetracker.utils.cloudbackup.CloudBackupHelper.getMetaString
 import com.remotearthsolutions.expensetracker.utils.cloudbackup.CloudBackupManager
+import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function4
 import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.Executors
 
 class MainViewModel(
     private val view: MainContract.View,
@@ -206,54 +206,6 @@ class MainViewModel(
         )
     }
 
-    private fun getDataMapToUpload(context: Context, callback: (Map<String, String>) -> Unit) {
-        val map = HashMap<String, String>()
-        if (disposable.isDisposed) {
-            disposable = CompositeDisposable()
-        }
-
-        view.showProgress(context.getString(R.string.please_wait))
-        disposable.add(Single.zip(
-            categoryExpenseDao.allFilterExpense,
-            expenseDao.allExpenseEntry,
-            categoryDao.allCategories,
-            accountDao.allAccounts,
-            Function4<List<CategoryExpense>?, List<ExpenseModel>?, List<CategoryModel>?, List<AccountModel>?, HashMap<String, String>>
-            { listOfFilterExpense, allExpenses, allCategories, allAccounts ->
-                if (listOfFilterExpense.isNotEmpty()) {
-                    map[FirebaseService.KEY_EXPENSES] = getMetaString(allExpenses)
-                    map[FirebaseService.KEY_CATEGORIES] = getMetaString(allCategories)
-                    map[FirebaseService.KEY_ACCOUNTS] = getMetaString(allAccounts)
-                }
-                map
-            }
-        ).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnError { throwable ->
-                throwable.printStackTrace()
-                FirebaseCrashlytics.getInstance().recordException(throwable)
-                view.hideProgress()
-            }
-            .subscribe { result: HashMap<String, String>, throwable: Throwable? ->
-                view.hideProgress()
-                if (throwable != null) {
-                    throwable.printStackTrace()
-                    FirebaseCrashlytics.getInstance().recordException(throwable)
-                    view.showAlert(
-                        "",
-                        context.getString(R.string.something_went_wrong),
-                        context.getString(R.string.ok),
-                        null,
-                        null, null
-                    )
-                } else {
-                    callback(result)
-                }
-                disposable.clear()
-            }
-        )
-    }
-
     val allCsvFile: List<String>?
         get() = fileProcessingService.nameOfAllCsvFile
 
@@ -281,21 +233,32 @@ class MainViewModel(
         expenseModels: List<ExpenseModel>?,
         accountModels: List<AccountModel>?
     ) {
-        Executors.newSingleThreadExecutor().execute {
-            categoryDao.deleteAll()
-            accountDao.deleteAll()
-            expenseDao.deleteAll()
+        disposable.add(
+            Completable.fromAction {
+                categoryDao.deleteAll()
+                accountDao.deleteAll()
+                expenseDao.deleteAll()
 
-            for (categoryModel in categories!!) {
-                categoryDao.addCategory(categoryModel)
-            }
-            for (accountModel in accountModels!!) {
-                accountDao.addAccount(accountModel)
-            }
-            for (expenseModel in expenseModels!!) {
-                expenseDao.add(expenseModel)
-            }
-        }
+                for (categoryModel in categories!!) {
+                    categoryDao.addCategory(categoryModel)
+                }
+                for (accountModel in accountModels!!) {
+                    accountDao.addAccount(accountModel)
+                }
+                for (expenseModel in expenseModels!!) {
+                    expenseDao.add(expenseModel)
+                }
+            }.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ //onSuccess
+                    view.hideProgress()
+                    view.onDataUpdated()
+                }, {
+                    view.hideProgress()
+                    it.printStackTrace()
+                    FirebaseCrashlytics.getInstance().recordException(it)
+                })
+        )
     }
 
     fun backupOrSync(
@@ -379,8 +342,8 @@ class MainViewModel(
                 override fun onOkBtnPressed() {
                     view.showProgress(context.getString(R.string.please_wait))
                     firebaseService.downloadFromFirebaseStorage(user, {
-                        view.hideProgress()
                         if (it.isEmpty()) {
+                            view.hideProgress()
                             view.showAlert(
                                 "", context.getString(R.string.data_not_available_to_download),
                                 context.getString(R.string.ok), null, null, null

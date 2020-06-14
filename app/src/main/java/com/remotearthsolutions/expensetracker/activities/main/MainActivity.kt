@@ -196,6 +196,11 @@ class MainActivity : BaseActivity(), MainContract.View {
         totalAccountAmountTv.setTextColor(ContextCompat.getColor(this, colorId))
     }
 
+    override fun onDataUpdated() {
+        updateSummary()
+        refreshChart()
+    }
+
     fun onBackButtonPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START)
