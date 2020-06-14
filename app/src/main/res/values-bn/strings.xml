@@ -222,5 +222,6 @@
     <string name="wait">দাঁড়ান!</string>
     <string name="you_sure_to_delete_expenses">আপনি কি নিশ্চিত ভাবে এই খরচের হিসাবগুলো মুছতে চাচ্ছেন?</string>
     <string name="did_not_select">আপনি কোন খরচের হিসাব নির্বাচন করেন নি</string>
+    <string name="menu_how_to">কিভাবে ব্যবহার করবেন</string>
 
 </resources>

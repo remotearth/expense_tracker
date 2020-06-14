@@ -29,7 +29,7 @@ object CloudBackupManager {
             return
         }
 
-        val delay = sharedPref.getInt(Constants.KEY_EXPENSE_COUNT_AUTO_BACKUP_DELAY, 60)
+        val delay = sharedPref.getInt(Constants.KEY_EXPENSE_COUNT_NEEDED_FOR_AUTO_BACKUP, 50)
         val neededExpenseCount = sharedPref.getInt(Constants.KEY_EXPENSE_COUNT_AUTO_BACKUP, delay)
         val disposable = CompositeDisposable()
         val expenseDao = DatabaseClient.getInstance(context).appDatabase.expenseDao()

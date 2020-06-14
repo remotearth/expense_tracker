@@ -70,6 +70,11 @@
                     android:title="@string/rate_us" />
 
                 <item
+                    android:id="@+id/nav_how"
+                    android:icon="@drawable/ic_about"
+                    android:title="@string/menu_how_to" />
+
+                <item
                     android:id="@+id/nav_about"
                     android:icon="@drawable/ic_about"
                     android:title="@string/menu_about" />

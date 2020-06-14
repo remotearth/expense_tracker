@@ -230,4 +230,5 @@
     <string name="wait">Esperar!</string>
     <string name="you_sure_to_delete_expenses">Tem certeza de que deseja excluir esses itens?</string>
     <string name="did_not_select">Você não selecionou nada</string>
+    <string name="menu_how_to">Como usar</string>
 </resources>

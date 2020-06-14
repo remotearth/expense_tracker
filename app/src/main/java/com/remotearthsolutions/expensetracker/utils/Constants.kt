@@ -5,6 +5,9 @@ interface Constants {
         const val KEY_SELECTED_ACCOUNT_ID = "KEY_SELECTED_ACCOUNT_ID"
         const val KEY_USER = "KEY_USER"
         const val KEY_URL = "KEY"
+
+        const val URL_HOW_TO_USE =
+            "https://sites.google.com/view/expense-spending-tracker/how-to-use"
         const val URL_PRIVACY_POLICY =
             "https://sites.google.com/view/expense-spending-tracker/privacy"
         const val URL_THIRD_PARTY_LICENSES =
@@ -37,7 +40,8 @@ interface Constants {
         const val KEY_SALARY_AUTOMATIC_ACCOUNT_ID = "KEY_SALARY_AUTOMATIC_ACCOUNT_ID"
         const val KEY_SALARY_AUTOMATIC_WORKER_ID = "KEY_SALARY_AUTOMATIC_WORKER_ID"
         const val KEY_EXPENSE_COUNT_AUTO_BACKUP = "KEY_EXPENSE_COUNT_AUTO_BACKUP"
-        const val KEY_EXPENSE_COUNT_AUTO_BACKUP_DELAY = "KEY_EXPENSE_COUNT_AUTO_BACKUP_DELAY"
+        const val KEY_EXPENSE_COUNT_NEEDED_FOR_AUTO_BACKUP = "expense_count_needed_for_auto_backup"
+        const val KEY_SHOW_HOW_TO_USE_NAV_MENU = "show_how_to_use_nav_menu"
 
         const val KEY_TITLE = "title"
         const val KEY_SCREEN = "screen"

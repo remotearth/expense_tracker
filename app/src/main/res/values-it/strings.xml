@@ -240,4 +240,5 @@
     <string name="wait">Aspettare!</string>
     <string name="you_sure_to_delete_expenses">Sei sicuro di voler eliminare questi elementi?</string>
     <string name="did_not_select">Non hai selezionato nulla</string>
+    <string name="menu_how_to">Come usare</string>
 </resources>

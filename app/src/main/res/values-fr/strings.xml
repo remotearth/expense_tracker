@@ -237,4 +237,5 @@
     <string name="wait">Attendre!</string>
     <string name="you_sure_to_delete_expenses">Voulez-vous vraiment supprimer ces éléments?</string>
     <string name="did_not_select">Vous n\'avez rien sélectionné</string>
+    <string name="menu_how_to">Comment utiliser</string>
 </resources>

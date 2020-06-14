@@ -84,7 +84,6 @@ class MainActivity : BaseActivity(), MainContract.View {
             InAppUpdateUtils().requestUpdateApp(this@MainActivity)
         }, 2000)
 
-        RemoteConfigManager.update(this)
         setPeriodicReminderToAskAddingExpense()
 
         Handler().postDelayed({
@@ -142,9 +141,14 @@ class MainActivity : BaseActivity(), MainContract.View {
             (application as ApplicationObject).adProductId
         )
         nav_view.setNavigationItemSelectedListener(navigationItemSelectionListener)
-        val homeNavItem = nav_view.menu.getItem(0)
+        val homeNavItem = nav_view.menu.findItem(R.id.nav_home)
+        val howToUseNavItem = nav_view.menu.findItem(R.id.nav_how)
         navigationItemSelectionListener.onNavigationItemSelected(homeNavItem)
         homeNavItem.isChecked = true
+
+        val shouldShow = SharedPreferenceUtils.getInstance(this)!!
+            .getInt(Constants.KEY_SHOW_HOW_TO_USE_NAV_MENU, 0)
+        howToUseNavItem.isVisible = shouldShow > 0
     }
 
     private fun setupActionBar() {

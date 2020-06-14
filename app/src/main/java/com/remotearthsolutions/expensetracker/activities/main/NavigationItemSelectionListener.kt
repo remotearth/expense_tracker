@@ -239,6 +239,16 @@ class NavigationItemSelectionListener(
                     drawer_layout.closeDrawer(GravityCompat.START)
                     return false
                 }
+                R.id.nav_how -> {
+                    drawer_layout.closeDrawer(GravityCompat.START)
+                    val status = showWebUrl(
+                        Constants.URL_HOW_TO_USE,
+                        getString(R.string.menu_how_to)
+                    )
+                    showBackButton()
+                    drawer_layout.closeDrawer(GravityCompat.START)
+                    return status
+                }
                 R.id.nav_contact_us -> {
 
                     ShareCompat.IntentBuilder.from(this)
@@ -278,59 +288,47 @@ class NavigationItemSelectionListener(
                 }
                 R.id.nav_privacypolicy -> {
                     drawer_layout.closeDrawer(GravityCompat.START)
-                    if (!isDeviceOnline) {
-                        showAlert(
-                            getString(R.string.warning),
-                            getString(R.string.internet_connection_needed),
-                            getString(R.string.ok),
-                            null,
-                            null, null
-                        )
-                        return false
-                    }
-
-                    val webViewFragment = WebViewFragment()
-                    val bundle = Bundle().apply {
-                        putString(Constants.KEY_URL, Constants.URL_PRIVACY_POLICY)
-                    }
-                    webViewFragment.arguments = bundle
-
-                    FragmentLoader.load(
-                        this, webViewFragment, getString(R.string.privacy_policy),
-                        WebViewFragment::class.java.name
+                    val status = showWebUrl(
+                        Constants.URL_PRIVACY_POLICY,
+                        getString(R.string.privacy_policy)
                     )
                     showBackButton()
                     drawer_layout.closeDrawer(GravityCompat.START)
-                    return false
+                    return status
                 }
                 R.id.nav_licenses -> {
                     drawer_layout.closeDrawer(GravityCompat.START)
-                    if (!isDeviceOnline) {
-                        showAlert(
-                            getString(R.string.warning),
-                            getString(R.string.internet_connection_needed),
-                            getString(R.string.ok), null, null, null
-                        )
-                        return false
-                    }
-
-                    val webViewFragment = WebViewFragment()
-                    val bundle = Bundle().apply {
-                        putString(Constants.KEY_URL, Constants.URL_THIRD_PARTY_LICENSES)
-                    }
-                    webViewFragment.arguments = bundle
-
-                    FragmentLoader.load(
-                        this, webViewFragment, getString(R.string.menu_licenses),
-                        WebViewFragment::class.java.name
+                    val status = showWebUrl(
+                        Constants.URL_THIRD_PARTY_LICENSES,
+                        getString(R.string.menu_licenses)
                     )
                     showBackButton()
                     drawer_layout.closeDrawer(GravityCompat.START)
-                    return false
+                    return status
                 }
             }
             drawer_layout.closeDrawer(GravityCompat.START)
         }
         return true
+    }
+
+    private fun showWebUrl(url: String, title: String): Boolean {
+        with(mainActivity) {
+            if (!isDeviceOnline) {
+                showAlert(
+                    getString(R.string.warning),
+                    getString(R.string.internet_connection_needed),
+                    getString(R.string.ok), null, null, null
+                )
+                return false
+            }
+            val webViewFragment = WebViewFragment()
+            val bundle = Bundle().apply {
+                putString(Constants.KEY_URL, url)
+            }
+            webViewFragment.arguments = bundle
+            FragmentLoader.load(this, webViewFragment, title, WebViewFragment::class.java.name)
+            return false
+        }
     }
 }
