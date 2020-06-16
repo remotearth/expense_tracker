@@ -50,7 +50,6 @@ interface Constants {
         const val KEY_META2_REPLACE = "meta2:"
         const val KEY_META3_REPLACE = "meta3:"
         const val KEY_EXPENSE_TRACKER = "expense_tracker_"
-        const val KEY_PROVIDER = "com.remotearthsolutions.expensetracker.provider"
         const val KEY_CSV_FILE_EXTENSION = ".csv"
         const val KEY_GOOGLE_CLIENT_ID =
             "1034332655323-lv5t5fja6ef5co4vsaf9bv476c9rga9r.apps.googleusercontent.com"

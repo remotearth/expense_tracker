@@ -207,10 +207,7 @@ class MainViewModel(
             }
         )
     }
-
-    val allCsvFile: List<String>?
-        get() = fileProcessingService.nameOfAllCsvFile
-
+    
     private fun shareCSVFileToMail(activity: Activity) {
         fileProcessingService.shareFile(activity)
     }

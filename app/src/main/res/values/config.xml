@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Expense Tracker</string>
+    <string name="file_provider_path" translatable="false">com.remotearthsolutions.expensetracker.provider</string>
     <string name="facebook_app_id" translatable="false">379539602796909</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb379539602796909</string>
 

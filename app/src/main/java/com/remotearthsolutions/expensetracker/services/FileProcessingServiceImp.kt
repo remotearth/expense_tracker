@@ -213,7 +213,7 @@ class FileProcessingServiceImp(val context: Context) : FileProcessingService {
                 File(activity.getExternalFilesDir(null), createFileNameAccordingToDate())
             val uri = FileProvider.getUriForFile(
                 activity,
-                Constants.KEY_PROVIDER,
+                activity.getString(R.string.file_provider_path),
                 fileLocation
             )
             val emailIntent = Intent(Intent.ACTION_SEND)
