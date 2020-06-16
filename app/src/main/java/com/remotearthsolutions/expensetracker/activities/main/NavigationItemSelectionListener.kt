@@ -85,7 +85,7 @@ class NavigationItemSelectionListener(
                                     object : PermissionListener {
                                         override fun onPermissionGranted(response: PermissionGrantedResponse) {
                                             val intent = Intent(Intent.ACTION_GET_CONTENT)
-                                            intent.type = "text/*"
+                                            intent.type = "*/*"
                                             startActivityForResult(
                                                 Intent.createChooser(
                                                     intent,
