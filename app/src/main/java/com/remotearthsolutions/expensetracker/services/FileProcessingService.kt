@@ -1,10 +1,12 @@
 package com.remotearthsolutions.expensetracker.services
 
 import android.app.Activity
+import android.net.Uri
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
+import java.net.URI
 
 interface FileProcessingService {
     fun writeOnCsvFile(
@@ -16,7 +18,7 @@ interface FileProcessingService {
 
     fun readFromCsvFile(activity: Activity): List<CategoryExpense>?
     fun loadTableData(
-        filepath: String?,
+        fileURI: Uri?,
         callback: Callback?
     )
 
@@ -28,5 +30,7 @@ interface FileProcessingService {
             expenseModels: List<ExpenseModel>?,
             accountModels: List<AccountModel>?
         )
+
+        fun onFailure()
     }
 }

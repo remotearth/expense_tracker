@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.viewmodels.mainview
 
 import android.app.Activity
 import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -41,6 +42,7 @@ class MainViewModel(
     private val categoryExpenseDao: CategoryExpenseDao,
     private val fileProcessingService: FileProcessingService
 ) : ViewModel() {
+    private val context = view as Context
     private var disposable = CompositeDisposable()
     var startTime: Long = 0
         private set
@@ -213,9 +215,10 @@ class MainViewModel(
         fileProcessingService.shareFile(activity)
     }
 
-    fun importDataFromFile(filepath: String?) {
+    fun importDataFromFile(fileUri: Uri) {
+        view.showProgress(context.getString(R.string.please_wait))
         fileProcessingService.loadTableData(
-            filepath,
+            fileUri,
             object : FileProcessingService.Callback {
                 override fun onComplete(
                     categories: List<CategoryModel>?,
@@ -223,6 +226,18 @@ class MainViewModel(
                     accountModels: List<AccountModel>?
                 ) {
                     saveAllData(categories, expenseModels, accountModels)
+                }
+
+                override fun onFailure() {
+                    view.hideProgress()
+                    view.showAlert(
+                        null,
+                        "The selected file is corrupted or not supported in Expense Tracker",
+                        context.getString(R.string.ok),
+                        null,
+                        null,
+                        null
+                    )
                 }
             }
         )

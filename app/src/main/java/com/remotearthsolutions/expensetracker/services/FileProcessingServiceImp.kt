@@ -3,6 +3,7 @@ package com.remotearthsolutions.expensetracker.services
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.util.Base64
 import android.util.Log
 import android.widget.Toast
@@ -113,19 +114,19 @@ class FileProcessingServiceImp(val context: Context) : FileProcessingService {
     }
 
     override fun loadTableData(
-        filepath: String?,
+        fileURI: Uri?,
         callback: FileProcessingService.Callback?
     ) {
         var expenseModels: List<ExpenseModel>? = null
         var categoryModels: List<CategoryModel>? = null
         var accountModels: List<AccountModel>? = null
-        val file = File(filepath)
+        val inputStream = context.contentResolver.openInputStream(fileURI!!)
+
         var fileReader: BufferedReader? = null
         try {
             var line: String?
-            fileReader = BufferedReader(FileReader(file))
-            //fileReader.readLine()
 
+            fileReader = BufferedReader(InputStreamReader(inputStream!!))
             while (fileReader.readLine().also { line = it } != null) {
                 when {
                     line!!.contains(Constants.KEY_META1_REPLACE) -> {
@@ -167,11 +168,16 @@ class FileProcessingServiceImp(val context: Context) : FileProcessingService {
                     }
                 }
             }
-            callback!!.onComplete(categoryModels, expenseModels, accountModels)
+            if (categoryModels == null || expenseModels == null || accountModels == null) {
+                callback!!.onFailure()
+            } else {
+                callback!!.onComplete(categoryModels, expenseModels, accountModels)
+            }
         } catch (e: Exception) {
             Log.d("Exception", "" + e.message)
             FirebaseCrashlytics.getInstance().recordException(e)
             e.printStackTrace()
+            callback!!.onFailure()
         } finally {
             try {
                 fileReader!!.close()

@@ -1,11 +1,9 @@
 package com.remotearthsolutions.expensetracker.activities.main
 
-import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ShareCompat
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
@@ -29,7 +27,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.solovyev.android.checkout.BillingRequests
 import org.solovyev.android.checkout.Checkout
 import org.solovyev.android.checkout.ProductTypes
-import java.io.File
 import javax.annotation.Nonnull
 
 
@@ -87,36 +84,14 @@ class NavigationItemSelectionListener(
                                 PermissionUtils().writeExternalStoragePermission(this@with,
                                     object : PermissionListener {
                                         override fun onPermissionGranted(response: PermissionGrantedResponse) {
-                                            val allCsvFile = viewModel.allCsvFile
-                                            if (allCsvFile == null || allCsvFile.isEmpty()) {
-                                                Toast.makeText(
-                                                    this@with,
-                                                    resources.getString(R.string.no_supported_file),
-                                                    Toast.LENGTH_SHORT
-                                                ).show()
-                                                return
-                                            }
-                                            val csvList: Array<String> = allCsvFile.toTypedArray()
-                                            val dialogBuilder = AlertDialog.Builder(this@with)
-                                            dialogBuilder.setTitle(resources.getString(R.string.select_csv))
-                                            dialogBuilder.setItems(csvList) { _: DialogInterface?, item: Int ->
-                                                val selectedText = csvList[item]
-                                                val filePath = File(
-                                                    getExternalFilesDir(null),
-                                                    selectedText
-                                                ).absolutePath
-                                                viewModel.importDataFromFile(filePath)
-                                                with(AnalyticsManager) { logEvent(DATA_IMPORTED) }
-                                                showProgress(resources.getString(R.string.please_wait))
-                                                Handler()
-                                                    .postDelayed({
-                                                        updateSummary()
-                                                        refreshChart()
-                                                        hideProgress()
-                                                    }, 3000)
-                                            }
-                                            val alertDialogObject = dialogBuilder.create()
-                                            alertDialogObject.show()
+                                            val intent = Intent(Intent.ACTION_GET_CONTENT)
+                                            intent.type = "text/*"
+                                            startActivityForResult(
+                                                Intent.createChooser(
+                                                    intent,
+                                                    "Choose a .csv file"
+                                                ), 101
+                                            )
                                         }
 
                                         override fun onPermissionDenied(response: PermissionDeniedResponse) {

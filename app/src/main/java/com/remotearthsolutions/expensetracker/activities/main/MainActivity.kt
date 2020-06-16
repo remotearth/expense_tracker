@@ -1,5 +1,6 @@
 package com.remotearthsolutions.expensetracker.activities.main
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -280,7 +281,26 @@ class MainActivity : BaseActivity(), MainContract.View {
         data: Intent?
     ) {
         super.onActivityResult(requestCode, resultCode, data)
-        CheckoutUtils.getInstance(this)?.checkout?.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 101 && resultCode == Activity.RESULT_OK) {
+            if (data != null && data.data != null) {
+                viewModel.importDataFromFile(data.data!!)
+            } else {
+                showAlert(
+                    null,
+                    getString(R.string.something_went_wrong),
+                    getString(R.string.ok),
+                    null,
+                    null,
+                    null
+                )
+            }
+        } else {
+            CheckoutUtils.getInstance(this)?.checkout?.onActivityResult(
+                requestCode,
+                resultCode,
+                data
+            )
+        }
     }
 
     val mToolbar: Toolbar
