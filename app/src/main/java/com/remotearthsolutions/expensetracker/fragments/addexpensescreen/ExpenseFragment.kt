@@ -295,14 +295,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         val mainActivity = mContext as MainActivity?
         mainActivity!!.updateSummary()
         mainActivity.refreshChart()
-        if (MainActivity.addedExpenseCount % 2 == 0) {
-            val delay = Random().nextInt(3000 - 1000) + 1000
-            Handler().postDelayed({
-                AdmobUtils.getInstance((mContext as Activity)).showInterstitialAds()
-            }, delay.toLong())
-        } else {
-            Helpers.requestToReviewApp(mainActivity, viewModel!!)
-        }
+        Helpers.requestToReviewApp(mainActivity, viewModel!!)
         MainActivity.addedExpenseCount++
         with(AnalyticsManager) { logEvent(EXPENSE_TYPE_DEFAULT) }
     }

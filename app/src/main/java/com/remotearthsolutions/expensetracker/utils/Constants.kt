@@ -82,7 +82,7 @@ interface Constants {
                     "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +
                     "(Don\'t edit this meta data)\n\n"
 
-        const val DELAY_PERIODIC_REMINDER_TO_ADD_EXPENSE: Long = 5 * 24 * 3600 * 1000  // 5 days
+        const val DELAY_PERIODIC_REMINDER_TO_ADD_EXPENSE: Long = 3 * 24 * 3600 * 1000  // 3 days
 
     }
 }
