@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,11 +20,14 @@ import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.*
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.fragments.*
-import com.remotearthsolutions.expensetracker.utils.*
+import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
+import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.currentTime
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getCalendarFromDateString
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getCurrentDate
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getTimeInMillisFromDateStr
+import com.remotearthsolutions.expensetracker.utils.NumpadManager
+import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
 import com.remotearthsolutions.expensetracker.utils.workmanager.WorkManagerEnqueuer
 import com.remotearthsolutions.expensetracker.utils.workmanager.WorkRequestType
@@ -70,12 +72,12 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
 
         val currencySymbol = getCurrency(mContext)
         mView.inputdigit.hint = "$currencySymbol 0"
-        val numpadFragment =
+        val numPadFragment =
             childFragmentManager.findFragmentById(R.id.numpadContainer) as NumpadFragment?
         val numpadManager = NumpadManager()
         numpadManager.attachDisplay(mView.inputdigit)
         numpadManager.attachDeleteButton(mView.deleteBtn)
-        numpadFragment!!.setListener(numpadManager)
+        numPadFragment!!.setListener(numpadManager)
         val db = DatabaseClient.getInstance(mContext).appDatabase
 
         viewModel =
@@ -295,7 +297,8 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         val mainActivity = mContext as MainActivity?
         mainActivity!!.updateSummary()
         mainActivity.refreshChart()
-        Helpers.requestToReviewApp(mainActivity, viewModel!!)
+        // Temporary disabled. Logic has a problem. revisit the implementation
+        //Helpers.requestToReviewApp(mainActivity, viewModel!!)
         MainActivity.addedExpenseCount++
         with(AnalyticsManager) { logEvent(EXPENSE_TYPE_DEFAULT) }
     }
