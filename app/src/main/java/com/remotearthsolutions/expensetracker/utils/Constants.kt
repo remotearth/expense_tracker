@@ -54,6 +54,7 @@ interface Constants {
         const val KEY_GOOGLE_CLIENT_ID =
             "1034332655323-lv5t5fja6ef5co4vsaf9bv476c9rga9r.apps.googleusercontent.com"
         const val KEY_MESSAGE = "message"
+        const val KEY_VERSION_CODE = "version_code"
         const val KEY_DATE_MONTH_YEAR_DEFAULT = "dd-MM-yyyy"
         const val KEY_DATE_MONTH_YEAR_BACKSLASH = "dd/MM/yyyy"
         const val KEY_MONTH_DATE_YEAR_BACKSLASH = "MM/dd/yyyy"

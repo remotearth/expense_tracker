@@ -4,6 +4,7 @@ import android.app.PendingIntent
 import android.content.Intent
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
@@ -22,17 +23,40 @@ class ETFirebaseMessegingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         if ((applicationContext as ApplicationObject).isActivityVisible) {
             val activity = (applicationContext as ApplicationObject).currentActivity
-            activity!!.runOnUiThread {
-                AlertDialogUtils.show(
-                    activity,
-                    null,
-                    remoteMessage.notification!!.body,
-                    activity.getString(R.string.ok),
-                    null,
-                    null, null
-                )
+            if (remoteMessage.notification != null) {
+                activity!!.runOnUiThread {
+                    AlertDialogUtils.show(
+                        activity,
+                        null,
+                        remoteMessage.notification!!.body,
+                        activity.getString(R.string.ok),
+                        null,
+                        null, null
+                    )
+                }
+                with(AnalyticsManager) { logEvent("$PN_VIEWED: ${remoteMessage.notification!!.body}") }
+            } else if (remoteMessage.data.isNotEmpty()) {
+                val message = remoteMessage.data[Constants.KEY_MESSAGE]
+                val versionCode = remoteMessage.data[Constants.KEY_VERSION_CODE]?.toInt()
+
+                if (message == null || versionCode == null) {
+                    return
+                }
+
+                if (versionCode == BuildConfig.VERSION_CODE || versionCode == 0) {
+                    activity!!.runOnUiThread {
+                        AlertDialogUtils.show(
+                            activity,
+                            null,
+                            message,
+                            activity.getString(R.string.ok),
+                            null,
+                            null, null
+                        )
+                    }
+                    with(AnalyticsManager) { logEvent("$PN_VIEWED: $message") }
+                }
             }
-            with(AnalyticsManager) { logEvent("$PN_VIEWED: ${remoteMessage.notification!!.body}") }
         } else {
             showNotification(remoteMessage)
         }
@@ -42,19 +66,26 @@ class ETFirebaseMessegingService : FirebaseMessagingService() {
         val intent = Intent(this, MainActivity::class.java)
         if (remoteMessage.data.isNotEmpty()) {
             val message = remoteMessage.data[Constants.KEY_MESSAGE]
+            val versionCode = remoteMessage.data[Constants.KEY_VERSION_CODE]?.toInt()
+            if (message == null || versionCode == null) {
+                return
+            }
+
             intent.putExtra(Constants.KEY_MESSAGE, message)
+            if (versionCode == BuildConfig.VERSION_CODE || versionCode == 0) {
+                val pendingIntent = PendingIntent.getActivity(
+                    this,
+                    0,
+                    intent,
+                    PendingIntent.FLAG_ONE_SHOT
+                )
+                LocalNotificationManager.showNotification(
+                    this,
+                    getString(R.string.app_name),
+                    message,
+                    pendingIntent
+                )
+            }
         }
-        val pendingIntent = PendingIntent.getActivity(
-            this,
-            0,
-            intent,
-            PendingIntent.FLAG_ONE_SHOT
-        )
-        LocalNotificationManager.showNotification(
-            this,
-            getString(R.string.app_name),
-            remoteMessage.notification!!.body!!,
-            pendingIntent
-        )
     }
 }

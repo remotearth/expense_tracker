@@ -4,7 +4,9 @@ then when user clicks on that notification, app will be opened and user will see
 when app is on foreground and this notification payload is received, this "body" message will be shown in a dialog view
 
 server key:   AAAA8NMHzts:APA91bFjZ397mj_ElThfxrs59IMEngwEST0jTxJbxf01_iANrCrH79lWlU2cgn3ri20_hsyLo7bYknJ0t7scicWA5618J2JbRecmxaeZCW6CEwe-GDgi-IePcePml1wCJR8h4_Hm5wXx
-
+    
+    when need to send all users
+    
     {  
       "to": "FIREBASE_TOKEN",
       "notification": {
@@ -12,18 +14,69 @@ server key:   AAAA8NMHzts:APA91bFjZ397mj_ElThfxrs59IMEngwEST0jTxJbxf01_iANrCrH79
         "body": "Hello world"
       },
       "data": {
-        "message": "Hello world 2"
+        "message": "Hello world 2",
+        "version": "0"
       }
     }
+    
+or     
+        {                   
+          "data": {
+            "message": "Hi, there is a new version of the app. You can download it from Google play",
+            "version": "0"           
+          }
+        }
 
+all user of a specific vesion:
+        {                   
+          "data": {
+            "message": "Hi, there is a new version of the app. You can download it from Google play",
+            "version": "48"           
+          }
+        }
+
+
+to single user
 
     {  
-          "to": "fKWitFkMRDaS3jhgAXF47D:APA91bEM_DoQPuDhxzLQMCs_KYjm8buMXBA82MKmrxY2T7iL1-rS31mQLkx9kSFF9J-qFcZiEv2BVQWlzyk0mXQ2zn8zDeP69wgEGb2YZWM8qrUdGjjj5DZXO6mPxUdNi1Xp_1MHxQPc",
+          "to": "token",
           "notification": {
             "title": "New Version!",
             "body": "Hi, there is a new version of the app. You can download it from Google play"
           },
           "data": {
-            "message": "Hi, there is a new version of the app. You can download it from Google play"
+            "message": "Hi, there is a new version of the app. You can download it from Google play",
+            "version": "0"
+          }
+        }
+        
+Or
+        {  
+          "to": "token",        
+          "data": {
+            "message": "Hi, there is a new version of the app. You can download it from Google play",
+            "version": "0"           
+          }
+        }
+        
+to specific version of the app. 48 is a version code. if set 0
+        {  
+          "to": "token",        
+          "data": {
+            "message": "Hi, there is a new version of the app. You can download it from Google play",
+            "version": "48"           
+          }
+        }
+
+        
+        
+        
+    to multiple device id 
+    
+    {  
+     "registration_ids": ["token1","token2"]     
+     "data": {
+            "message": "Hello world 2",
+            "version_code": "0"
           }
         }
