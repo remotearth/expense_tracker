@@ -42,6 +42,18 @@ android {
         }
     }
 
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res',
+                    'src/main/res/layouts/activity',
+                    'src/main/res/layouts/custom',
+                    'src/main/res/layouts/fragment',
+                    'src/main/res/layouts/list_item',
+            ]
+        }
+    }
+
     lintOptions {
         abortOnError false
         disable 'ContentDescription', 'UnusedResources', 'VectorPath', 'ButtonStyle', 'ButtonCase', 'Autofill'
