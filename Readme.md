@@ -40,7 +40,7 @@ all user of a specific vesion:
 
 to single user
 
-    {  
+        {  
           "to": "token",
           "notification": {
             "title": "New Version!",
@@ -51,6 +51,18 @@ to single user
             "version": "0"
           }
         }
+        
+        {  
+                  "to": "edODnfU5QVy6EONWQqKlfn:APA91bFsYFNSf9BwQuu6W86qJRhiT-2KtHui--K5ierdtHH_6DW0HksMYBb9_2MAcj3etMzJrSfakReWbSQaCFGIpocol_OHNC4NiD66J2s4w79zVdnM0K6moNgThLV5L6COg1hMTN_2",
+                  "notification": {
+                    "title": "Welcome to Expense Tracker!",
+                    "body": "Welcome to Expense Tracker. Never forget to track your expenses from now on. Always keep your budget under control. Share this app with your friends and family."
+                  },
+                  "data": {
+                    "message": "Welcome to Expense Tracker. Never forget to track your expenses from now on. Always keep your budget under control. Share this app with your friends and family.",
+                    "version": "0"
+                  }
+                }
         
 Or
         {  
