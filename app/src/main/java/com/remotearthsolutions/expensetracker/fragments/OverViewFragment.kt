@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.components.YAxis.AxisDependency
@@ -70,7 +70,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
 
 
         viewModel =
-            ViewModelProviders.of(requireActivity(), BaseViewModelFactory {
+            ViewModelProvider(requireActivity(), BaseViewModelFactory {
                 AllTransactionsViewModel(
                     db.categoryExpenseDao(),
                     db.expenseDao(),
@@ -184,11 +184,13 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         var i = 0
 
         //add previous date of the starting day to show in the graph
-        cal.add(calendarValueType, -1)
-        val date = DateTimeUtils.getDate(cal.timeInMillis, dateFormat)
-        xVals.add(date)
-        barEntry.add(BarEntry(i.toFloat(), 0f))
-        i++
+        if(calendarValueType!=Calendar.MONTH){
+            cal.add(calendarValueType, -1)
+            val date = DateTimeUtils.getDate(cal.timeInMillis, dateFormat)
+            xVals.add(date)
+            barEntry.add(BarEntry(i.toFloat(), 0f))
+            i++
+        }
         //.......
 
         cal.timeInMillis = it.startTime
@@ -215,7 +217,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
             sum += exp.totalAmount
             val date1 = DateTimeUtils.getDate(exp.datetime, dateFormat)
             val pos = xVals.indexOf(date1)
-            if (pos > 0) {
+            if (pos >= 0) {
                 val entry = barEntry[pos]
                 entry.y += exp.totalAmount.toFloat()
             }
