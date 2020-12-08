@@ -10,6 +10,7 @@ import androidx.fragment.app.DialogFragment
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
 import com.remotearthsolutions.expensetracker.utils.CategoryIcons.getIconId
+import com.remotearthsolutions.expensetracker.utils.Utils
 import kotlinx.android.synthetic.main.fragment_addaccountamount.view.*
 
 class AddAccountAmountDialogFragment : DialogFragment() {
@@ -46,7 +47,7 @@ class AddAccountAmountDialogFragment : DialogFragment() {
             mView.accountImageIv.setImageResource(getIconId(it.icon!!))
 
             if (purpose == Purpose.UpdateAmount) {
-                val amountStr = it.amount.toString()
+                val amountStr = Utils.formatDecimalValues(it.amount)
                 mView.amountEdtxt.setText(amountStr)
                 mView.amountEdtxt.setSelection(amountStr.length)
             }

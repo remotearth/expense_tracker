@@ -25,7 +25,7 @@ class OverviewItemViewHolder(view: View, val currencySymbol: String) : RecyclerV
     fun bind(item: CategoryOverviewItemDto, totalExpense: Double, maxWidthOfBar: Int) {
         categoryIconIv.setImageResource(CategoryIcons.getIconId(item.categoryIcon!!))
         categoryNameTv.text = item.categoryName
-        totalExpenseTv.text = "${item.totalExpenseOfCateogry} $currencySymbol"
+        totalExpenseTv.text = "${Utils.formatDecimalValues(item.totalExpenseOfCateogry)} $currencySymbol"
 
         val percentage = if (totalExpense == 0.0) {
             0.0

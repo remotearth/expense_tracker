@@ -15,7 +15,7 @@ import kotlin.random.Random
 object Utils {
     private const val HIGHEST_VALUE_OF_RGB = 255
     private const val DEFAULT_DPI = 360
-    private val df = DecimalFormat("#.#", DecimalFormatSymbols.getInstance(Locale.US))
+    private val df = DecimalFormat("#.##", DecimalFormatSymbols.getInstance(Locale.US))
     val randomColorHexValue: String
         get() {
             val r = Random.nextInt(HIGHEST_VALUE_OF_RGB)
@@ -71,8 +71,12 @@ object Utils {
         )
     }
 
-    fun formatDecimalValues(`val`: Double): String {
-        return df.format(`val`)
+    fun formatDecimalValues(amount: Double, pattern: String = ""): String {
+        if (pattern.isEmpty()) {
+            return df.format(amount)
+        }
+        val customDf = DecimalFormat(pattern, DecimalFormatSymbols.getInstance(Locale.US))
+        return customDf.format(amount)
     }
 
     fun showToast(context: Context, message: String) {
