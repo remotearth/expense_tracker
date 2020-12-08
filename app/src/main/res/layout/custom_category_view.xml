@@ -38,6 +38,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="1.6"
                 android:ellipsize="end"
+                android:textAlignment="viewStart"
                 android:gravity="start|center"
                 android:maxLines="1"
                 android:textColor="@color/catAccItemTextColor"
