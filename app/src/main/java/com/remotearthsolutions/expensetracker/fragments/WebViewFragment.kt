@@ -25,6 +25,7 @@ class WebViewFragment : BaseFragment() {
     private lateinit var mView: View
     private var url: String? = null
     private var screen: String? = null
+
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,8 +34,8 @@ class WebViewFragment : BaseFragment() {
     ): View? {
         mView = inflater.inflate(R.layout.fragment_webview, container, false)
         if (arguments != null) {
-            url = arguments!!.getString(Constants.KEY_URL)
-            screen = arguments!!.getString(Constants.KEY_SCREEN)
+            url = requireArguments().getString(Constants.KEY_URL)
+            screen = requireArguments().getString(Constants.KEY_SCREEN)
         }
         if (screen == getString(R.string.license_details)) {
             val toolbar = (context as MainActivity).mToolbar
@@ -45,7 +46,7 @@ class WebViewFragment : BaseFragment() {
         mView.webview.settings.javaScriptEnabled = true
         mView.webview.settings.builtInZoomControls = true
         mView.webview.webViewClient = WebViewClient()
-        mView.webview.loadUrl(url)
+        url?.let { mView.webview.loadUrl(url!!) }
 
         registerBackButton()
         return mView
@@ -66,7 +67,7 @@ class WebViewFragment : BaseFragment() {
             view: WebView?,
             url: String?
         ): Boolean {
-            view?.loadUrl(url)
+            url?.let { view?.loadUrl(url) }
             return true
         }
 
