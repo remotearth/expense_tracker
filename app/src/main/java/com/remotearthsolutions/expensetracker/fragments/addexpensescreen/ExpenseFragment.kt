@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.work.Data
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
@@ -81,7 +81,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         val db = DatabaseClient.getInstance(mContext).appDatabase
 
         viewModel =
-            ViewModelProviders.of(this, BaseViewModelFactory {
+            ViewModelProvider(this, BaseViewModelFactory {
                 ExpenseFragmentViewModel(
                     this,
                     db.expenseDao(),

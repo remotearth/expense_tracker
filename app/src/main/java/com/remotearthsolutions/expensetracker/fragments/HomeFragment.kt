@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
@@ -74,7 +74,7 @@ class HomeFragment : BaseFragment(),
         chartManager.initPierChart(binding.chartView, getDeviceScreenSize(mContext))
 
         viewModel =
-            ViewModelProviders.of(this, BaseViewModelFactory {
+            ViewModelProvider(this, BaseViewModelFactory {
                 HomeFragmentViewModel(
                     this,
                     db.categoryExpenseDao(),

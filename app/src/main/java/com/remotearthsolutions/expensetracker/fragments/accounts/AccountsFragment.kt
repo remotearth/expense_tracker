@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
@@ -65,7 +65,7 @@ class AccountsFragment : BaseFragment(),
         }
 
         viewModel =
-            ViewModelProviders.of(this, BaseViewModelFactory {
+            ViewModelProvider(this, BaseViewModelFactory {
                 AccountViewModel(
                     mContext!!, this,
                     DatabaseClient.getInstance(mContext!!).appDatabase.accountDao(),

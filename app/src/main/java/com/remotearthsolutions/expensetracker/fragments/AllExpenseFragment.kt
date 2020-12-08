@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
@@ -55,7 +55,7 @@ class AllExpenseFragment : BaseFragment() {
         val db = DatabaseClient.getInstance(mContext!!).appDatabase
 
         viewModel =
-            ViewModelProviders.of(requireActivity(), BaseViewModelFactory {
+            ViewModelProvider(requireActivity(), BaseViewModelFactory {
                 AllTransactionsViewModel(
                     db.categoryExpenseDao(), db.expenseDao(), db.categoryDao(), db.accountDao(),
                     SharedPreferenceUtils.getInstance(mContext!!)!!

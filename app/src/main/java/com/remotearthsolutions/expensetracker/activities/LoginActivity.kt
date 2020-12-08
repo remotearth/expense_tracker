@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseUser
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
@@ -27,7 +27,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener,
         setContentView(R.layout.activity_login)
 
         viewModel =
-            ViewModelProviders.of(this, BaseViewModelFactory {
+            ViewModelProvider(this, BaseViewModelFactory {
                 LoginViewModel(
                     this,
                     this,

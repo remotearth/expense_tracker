@@ -10,7 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
@@ -66,7 +66,7 @@ class MainActivity : BaseActivity(), MainContract.View {
         val db = DatabaseClient.getInstance(this).appDatabase
 
         viewModel =
-            ViewModelProviders.of(this, BaseViewModelFactory {
+            ViewModelProvider(this, BaseViewModelFactory {
                 MainViewModel(
                     this,
                     FirebaseServiceImpl(this),

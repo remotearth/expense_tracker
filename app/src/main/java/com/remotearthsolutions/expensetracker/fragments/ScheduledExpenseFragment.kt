@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.ScheduledExpenseListAdapter
@@ -58,7 +58,7 @@ class ScheduledExpenseFragment : BaseFragment() {
 
         val db = DatabaseClient.getInstance(mContext!!).appDatabase
 
-        viewModel = ViewModelProviders.of(requireActivity(), BaseViewModelFactory {
+        viewModel = ViewModelProvider(requireActivity(), BaseViewModelFactory {
             ScheduledExpenseViewModel(
                 requireActivity(),
                 db.scheduleExpenseDao(),
@@ -91,8 +91,7 @@ class ScheduledExpenseFragment : BaseFragment() {
             AlertDialogUtils.show(mContext,
                 null,
                 getResourceString(R.string.confirm_delete_scheduled_entry),
-                getResourceString(R.string.ok)
-                ,
+                getResourceString(R.string.ok),
                 getResourceString(R.string.cancel), null,
                 object : BaseView.Callback {
                     override fun onOkBtnPressed() {

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.AccountListAdapter
@@ -53,7 +53,7 @@ class AccountDialogFragment : DialogFragment(),
             DatabaseClient.getInstance(mContext).appDatabase.accountDao()
 
         viewModel =
-            ViewModelProviders.of(this, BaseViewModelFactory {
+            ViewModelProvider(this, BaseViewModelFactory {
                 AccountDialogViewModel(this, accountDao)
             }).get(AccountDialogViewModel::class.java).apply {
                 this.init()

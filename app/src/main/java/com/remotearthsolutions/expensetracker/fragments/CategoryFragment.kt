@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
@@ -53,7 +53,7 @@ class CategoryFragment : BaseFragment(),
             DatabaseClient.getInstance(mContext!!).appDatabase.accountDao()
 
         viewModel =
-            ViewModelProviders.of(this, BaseViewModelFactory {
+            ViewModelProvider(this, BaseViewModelFactory {
                 CategoryViewModel(this, categoryDao, expenseDao, accountDao)
             }).get(CategoryViewModel::class.java)
 
