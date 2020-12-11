@@ -68,4 +68,5 @@ fastlane/readme.md
 .circleci/run-built-locally.sh
 
 app/release/
+app/release/output.json
 idesensor.json

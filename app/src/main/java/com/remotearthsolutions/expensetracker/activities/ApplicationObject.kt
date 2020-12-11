@@ -3,14 +3,13 @@ package com.remotearthsolutions.expensetracker.activities
 import android.app.Activity
 import android.app.Application.ActivityLifecycleCallbacks
 import android.os.Bundle
-import android.os.Handler
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
 import com.amplitude.api.Amplitude
+import com.amplitude.api.TrackingOptions
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.R
-import com.remotearthsolutions.expensetracker.utils.cloudbackup.CloudBackupManager
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
@@ -35,11 +34,18 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
 
     override fun onCreate() {
         super.onCreate()
+        val options = TrackingOptions()
+            .disableCity()
+            .disableIpAddress()
+            .disableLatLng()
+            .disableCarrier()
+            .disableRegion()
+        Amplitude.getInstance().setTrackingOptions(options)
+
         Amplitude.getInstance().initialize(this, getString(R.string.amplitude_id))
             .enableForegroundTracking(this).enableCoppaControl()
 
         Lingver.init(this, "en")
-
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(!BuildConfig.DEBUG)
         SharedPreferenceUtils.getInstance(this)
