@@ -27,7 +27,7 @@ class AllTransactionsViewModel(
     private val disposable = CompositeDisposable()
     private var dateRangeBtnId = 0
     var chartDataRequirementLiveData = MutableLiveData<ChartDataRequirement>()
-    var listOfCateogoryLiveData = MutableLiveData<List<CategoryModel>>()
+    var listOfCategoryLiveData = MutableLiveData<List<CategoryModel>>()
     val expenseListLiveData = MutableLiveData<List<CategoryExpense>>()
 
     fun loadFilterExpense(startTime: Long, endTime: Long, btnId: Int) {
@@ -107,7 +107,7 @@ class AllTransactionsViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { result, error ->
                     if (error == null) {
-                        listOfCateogoryLiveData.value = result
+                        listOfCategoryLiveData.value = result
                     }
                 }
         )

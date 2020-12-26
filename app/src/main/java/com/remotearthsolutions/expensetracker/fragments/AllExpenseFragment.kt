@@ -17,11 +17,11 @@ import com.remotearthsolutions.expensetracker.utils.Utils
 import com.remotearthsolutions.expensetracker.viewmodels.AllTransactionsViewModel
 import kotlinx.android.synthetic.main.fragment_all_expense.*
 import kotlinx.android.synthetic.main.fragment_all_expense.view.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.inject
 
 class AllExpenseFragment : BaseFragment() {
     private lateinit var mView: View
-    private val viewModel: AllTransactionsViewModel by viewModel()
+    private val viewModel: AllTransactionsViewModel by inject()
     private var adapter: ExpenseListAdapter? = null
     private var mContext: Context? = null
 

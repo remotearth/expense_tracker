@@ -43,7 +43,7 @@ val viewModels = module {
         )
     }
 
-    viewModel {
+    single {
         AllTransactionsViewModel(
             provideDb(get()).categoryExpenseDao(),
             provideDb(get()).expenseDao(),

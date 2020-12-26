@@ -29,7 +29,7 @@ import com.remotearthsolutions.expensetracker.utils.Utils
 import com.remotearthsolutions.expensetracker.viewmodels.AllTransactionsViewModel
 import com.remotearthsolutions.expensetracker.views.XYMarkerView
 import kotlinx.android.synthetic.main.fragment_overview.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.inject
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -37,7 +37,7 @@ import kotlin.collections.HashMap
 
 class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
     private lateinit var mView: View
-    private val viewModel: AllTransactionsViewModel by viewModel()
+    private val viewModel: AllTransactionsViewModel by inject()
     private lateinit var listOfCategoryWithExpense: ArrayList<CategoryOverviewItemDto>
     private var map: MutableMap<Int, Int> = HashMap()
 
@@ -70,7 +70,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         recyclerView.layoutManager = llm
 
         viewModel.getAllCategory()
-        viewModel.listOfCateogoryLiveData.observe(viewLifecycleOwner, {
+        viewModel.listOfCategoryLiveData.observe(viewLifecycleOwner, {
             listOfCategoryWithExpense = ArrayList()
             it.forEachIndexed { index, ctg ->
                 val item = CategoryOverviewItemDto()
@@ -165,7 +165,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         var i = 0
 
         //add previous date of the starting day to show in the graph
-        if(calendarValueType!=Calendar.MONTH){
+        if (calendarValueType != Calendar.MONTH) {
             cal.add(calendarValueType, -1)
             val date = DateTimeUtils.getDate(cal.timeInMillis, dateFormat)
             xVals.add(date)
@@ -241,11 +241,6 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
     }
 
     override fun onNothingSelected() {
-    }
-
-    override fun refreshPage() {
-        super.refreshPage()
-        viewModel.getAllCategory()
     }
 
     private val onValueSelectedRectF = RectF()

@@ -244,13 +244,6 @@ class MainFragment : BaseFragment(),
                                 .duration = 200
                         }, 100)
                     }
-
-                    val overViewFragment =
-                        childFragmentManager.findViewPagerFragmentByTag<OverViewFragment>(
-                            R.id.viewpager,
-                            2
-                        )
-                    overViewFragment?.refreshPage()
                     binding!!.navigation.selectedItemId = R.id.navigation_overview
                 }
                 3 -> {
