@@ -48,7 +48,7 @@ class AccountViewModel(
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                view.onUpdateAccount()
+                view.onUpdateAccount(accountIncome.id <= 0)
             }
         )
     }

@@ -152,7 +152,7 @@ class MainFragment : BaseFragment(),
                             R.id.viewpager,
                             3
                         )
-                    accountsFragment?.onUpdateAccount()
+                    accountsFragment?.onUpdateAccount(null)
                 }
             }
             true

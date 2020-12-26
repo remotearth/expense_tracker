@@ -13,6 +13,7 @@ import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.IconListAdapter
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
+import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.CategoryIcons.allIcons
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.Utils.getDeviceScreenSize
@@ -42,7 +43,7 @@ class AddCategoryDialogFragment : DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mView = inflater.inflate(R.layout.fragment_add_update_category_account, container)
         return mView
     }
@@ -114,8 +115,14 @@ class AddCategoryDialogFragment : DialogFragment() {
         compositeDisposable.add(Completable.fromAction {
             if (categoryModel!!.id > 0) {
                 categoryDao.updateCategory(categoryModel)
+                with(AnalyticsManager){
+                    logEvent(EXPENSE_CATEGORY_UPDATED)
+                }
             } else {
                 categoryDao.addCategory(categoryModel!!)
+                with(AnalyticsManager){
+                    logEvent(EXPENSE_CATEGORY_CREATED)
+                }
             }
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

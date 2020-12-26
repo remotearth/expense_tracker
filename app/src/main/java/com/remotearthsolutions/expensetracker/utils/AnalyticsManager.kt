@@ -7,10 +7,17 @@ import com.remotearthsolutions.expensetracker.BuildConfig
 object AnalyticsManager {
     const val EXPENSE_TYPE_DEFAULT = "expense_added"
     const val EXPENSE_TYPE_SCHEDULED = "expense_scheduled"
+    const val EXPENSE_DELETED = "expense_deleted"
+    const val EXPENSE_ACCOUNT_CREATED = "expense_account_created"
+    const val EXPENSE_ACCOUNT_UPDATED = "expense_account_updated"
+    const val EXPENSE_ACCOUNT_DELETED = "expense_account_deleted"
+    const val EXPENSE_CATEGORY_CREATED = "expense_category_created"
+    const val EXPENSE_CATEGORY_UPDATED = "expense_category_updated"
+    const val EXPENSE_CATEGORY_DELETED = "expense_category_deleted"
+    const val ACCOUNT_AMOUNT_TRANSFERRED = "account_amount_transferred"
     const val AD_SHOWN = "ad_shown"
     const val CLOUD_BACKUP = "cloud_backup"
     const val CLOUD_DOWNLOAD = "cloud_download"
-    const val DATA_IMPORTED = "data_imported"
     const val DATA_EXPORTED = "data_exported"
     const val EXPORT_REMINDER_ENABLED = "export_reminder_enabled"
     const val EXPORT_REMINDER_DISABLED = "export_reminder_disabled"
@@ -27,11 +34,15 @@ object AnalyticsManager {
     const val PN_VIEWED = "pn_viewed"
     const val APP_SHARE_INTENT = "app_share_intent"
     const val NEW_USER = "new_user"
-
+    const val ABOUT_PAGE_VIEWED = "about_page_viewed"
+    const val PRIVACY_PAGE_VIEWED = "privacy_page_viewed"
+    const val LICENSE_PAGE_VIEWED = "license_page_viewed"
+    const val SETTINGS_PAGE_VIEWED = "settings_page_viewed"
+    const val ADD_EXPENSE_FROM_LIST_AT_HOMEPAGE = "add_expense_from_list_at_homepage"
 
     fun logEvent(eventName: String) {
-        if (!BuildConfig.DEBUG) {
+//        if (!BuildConfig.DEBUG) {
             Amplitude.getInstance().logEvent(eventName)
-        }
+//        }
     }
 }

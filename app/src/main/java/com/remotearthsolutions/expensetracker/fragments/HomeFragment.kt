@@ -18,6 +18,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.databinding.FragmentHomeBinding
 import com.remotearthsolutions.expensetracker.entities.ExpenseChartData
+import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.MPPieChart
 import com.remotearthsolutions.expensetracker.utils.Utils
 import com.remotearthsolutions.expensetracker.utils.Utils.getDeviceScreenSize
@@ -28,7 +29,7 @@ import org.koin.core.parameter.parametersOf
 class HomeFragment : BaseFragment(),
     HomeFragmentContract.View, View.OnClickListener {
     private lateinit var adapter: CategoryListAdapter
-    private val viewModel: HomeFragmentViewModel by viewModel{ parametersOf(this)}
+    private val viewModel: HomeFragmentViewModel by viewModel { parametersOf(this) }
     private lateinit var binding: FragmentHomeBinding
     private var limitOfCategory: Int? = null
     private var startTime: Long = 0
@@ -79,6 +80,9 @@ class HomeFragment : BaseFragment(),
                         CategoryExpense()
                     categoryExpense.setCategory(category!!)
                     (mContext as MainActivity).openAddExpenseScreen(categoryExpense)
+                    with(AnalyticsManager) {
+                        logEvent(ADD_EXPENSE_FROM_LIST_AT_HOMEPAGE)
+                    }
                 }
             })
             binding.recyclerView.adapter = adapter

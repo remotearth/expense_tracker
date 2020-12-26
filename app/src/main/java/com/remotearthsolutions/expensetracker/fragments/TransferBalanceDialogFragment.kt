@@ -10,6 +10,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.AccountsAdapter
+import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.Response
 import com.remotearthsolutions.expensetracker.utils.Utils
 import com.remotearthsolutions.expensetracker.viewmodels.AccountViewModel
@@ -55,6 +56,9 @@ class TransferBalanceDialogFragment : DialogFragment() {
                     Toast.makeText(mContext, response.message, Toast.LENGTH_SHORT).show()
                 } else {
                     dismiss()
+                    with(AnalyticsManager){
+                        logEvent(ACCOUNT_AMOUNT_TRANSFERRED)
+                    }
                 }
             } else {
                 Toast.makeText(

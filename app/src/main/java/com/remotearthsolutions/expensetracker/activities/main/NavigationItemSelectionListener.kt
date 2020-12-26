@@ -164,6 +164,9 @@ class NavigationItemSelectionListener(
                     )
                     showBackButton()
                     drawer_layout.closeDrawer(GravityCompat.START)
+                    with(AnalyticsManager){
+                        logEvent(SETTINGS_PAGE_VIEWED)
+                    }
                     return false
                 }
                 R.id.nav_logout -> {
@@ -259,6 +262,9 @@ class NavigationItemSelectionListener(
                     )
                     showBackButton()
                     drawer_layout.closeDrawer(GravityCompat.START)
+                    with(AnalyticsManager){
+                        logEvent(ABOUT_PAGE_VIEWED)
+                    }
                     return false
                 }
                 R.id.nav_privacypolicy -> {
@@ -269,6 +275,9 @@ class NavigationItemSelectionListener(
                     )
                     showBackButton()
                     drawer_layout.closeDrawer(GravityCompat.START)
+                    with(AnalyticsManager){
+                        logEvent(PRIVACY_PAGE_VIEWED)
+                    }
                     return status
                 }
                 R.id.nav_licenses -> {
@@ -279,6 +288,9 @@ class NavigationItemSelectionListener(
                     )
                     showBackButton()
                     drawer_layout.closeDrawer(GravityCompat.START)
+                    with(AnalyticsManager){
+                        logEvent(LICENSE_PAGE_VIEWED)
+                    }
                     return status
                 }
             }

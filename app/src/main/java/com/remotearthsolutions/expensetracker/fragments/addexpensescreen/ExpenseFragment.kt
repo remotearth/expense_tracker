@@ -31,6 +31,8 @@ import com.remotearthsolutions.expensetracker.utils.workmanager.WorkManagerEnque
 import com.remotearthsolutions.expensetracker.utils.workmanager.WorkRequestType
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_add_expense.view.*
+import kotlinx.android.synthetic.main.fragment_add_expense.view.okBtn
+import kotlinx.android.synthetic.main.view_add_note.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import org.parceler.Parcels
@@ -264,6 +266,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
 
     override fun onExpenseAdded(amount: Double) {
         mView.inputdigit.setText("")
+        mView.expenseNoteEdtxt.setText("")
         Toast.makeText(activity, getResourceString(R.string.successfully_added), Toast.LENGTH_SHORT)
             .show()
         var mutableAmount = amount
@@ -284,7 +287,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         val mainActivity = mContext as MainActivity?
         mainActivity!!.updateSummary()
         mainActivity.refreshChart()
-        // Temporary disabled. Logic has a problem. revisit the implementation
+        //TODO: Temporary disabled. Logic has a problem. revisit the implementation
         //Helpers.requestToReviewApp(mainActivity, viewModel)
         MainActivity.addedExpenseCount++
         with(AnalyticsManager) { logEvent(EXPENSE_TYPE_DEFAULT) }
@@ -301,6 +304,9 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             this.categoryExpense?.accountId!!,
             categoryExpense?.totalAmount!! * -1
         )
+        with(AnalyticsManager) {
+            logEvent(EXPENSE_DELETED)
+        }
         val mainActivity = mContext as MainActivity?
         mainActivity!!.updateSummary()
     }

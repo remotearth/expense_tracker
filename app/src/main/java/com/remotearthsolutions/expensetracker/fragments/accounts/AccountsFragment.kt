@@ -21,6 +21,7 @@ import com.remotearthsolutions.expensetracker.fragments.OptionBottomSheetFragmen
 import com.remotearthsolutions.expensetracker.fragments.TransferBalanceDialogFragment
 import com.remotearthsolutions.expensetracker.fragments.salary.SalaryFragment
 import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils.show
+import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
@@ -141,8 +142,19 @@ class AccountsFragment : BaseFragment(),
         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onUpdateAccount() {
+    override fun onUpdateAccount(isNewAccount:Boolean?) {
         viewModel.loadAccounts()
+
+        isNewAccount?.let{
+            with(AnalyticsManager){
+                if(it){
+                    logEvent(EXPENSE_ACCOUNT_CREATED)
+                }
+                else {
+                    logEvent(EXPENSE_ACCOUNT_UPDATED)
+                }
+            }
+        }
     }
 
     override fun onDeleteAccount() {
@@ -151,6 +163,9 @@ class AccountsFragment : BaseFragment(),
         if (selectAccountModel?.id!! > 3) {
             SharedPreferenceUtils.getInstance(requireActivity())
                 ?.putInt(Constants.KEY_SELECTED_ACCOUNT_ID, 1)
+        }
+        with(AnalyticsManager){
+            logEvent(EXPENSE_ACCOUNT_DELETED)
         }
     }
 

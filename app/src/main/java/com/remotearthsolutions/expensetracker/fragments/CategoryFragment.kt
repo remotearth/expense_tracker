@@ -16,6 +16,7 @@ import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.contracts.CategoryFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.fragments.OptionBottomSheetFragment.OptionsFor
+import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.viewmodels.CategoryViewModel
 import kotlinx.android.synthetic.main.fragment_category.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -122,6 +123,9 @@ class CategoryFragment : BaseFragment(),
                         Toast.LENGTH_LONG
                     ).show()
                     (activity as MainActivity).onUpdateCategory()
+                    with(AnalyticsManager){
+                        logEvent(EXPENSE_CATEGORY_DELETED)
+                    }
                 }
 
                 override fun onCancelBtnPressed() {}
