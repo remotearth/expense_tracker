@@ -9,7 +9,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
@@ -18,7 +17,6 @@ import com.remotearthsolutions.expensetracker.activities.InitialPreferenceActivi
 import com.remotearthsolutions.expensetracker.activities.LoginActivity
 import com.remotearthsolutions.expensetracker.activities.helpers.FragmentLoader
 import com.remotearthsolutions.expensetracker.contracts.MainContract
-import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.fragments.HomeFragment
 import com.remotearthsolutions.expensetracker.fragments.OverViewFragment
@@ -26,17 +24,17 @@ import com.remotearthsolutions.expensetracker.fragments.ViewShadeFragment
 import com.remotearthsolutions.expensetracker.fragments.addexpensescreen.ExpenseFragment
 import com.remotearthsolutions.expensetracker.fragments.addexpensescreen.Purpose
 import com.remotearthsolutions.expensetracker.fragments.main.MainFragment
-import com.remotearthsolutions.expensetracker.services.FileProcessingServiceImp
-import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl
 import com.remotearthsolutions.expensetracker.services.PurchaseListener
 import com.remotearthsolutions.expensetracker.utils.*
 import com.remotearthsolutions.expensetracker.utils.cloudbackup.CloudBackupManager
 import com.remotearthsolutions.expensetracker.utils.workmanager.WorkManagerEnqueuer
 import com.remotearthsolutions.expensetracker.utils.workmanager.WorkRequestType
 import com.remotearthsolutions.expensetracker.viewmodels.mainview.MainViewModel
-import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import org.parceler.Parcels
+import java.util.concurrent.Executor
 
 class MainActivity : BaseActivity(), MainContract.View {
 
@@ -45,9 +43,8 @@ class MainActivity : BaseActivity(), MainContract.View {
     private var purchaseListener: PurchaseListener? = null
     private var preferencesChangeListener: PreferencesChangeListener? = null
     private lateinit var inAppPurchaseCallback: InAppPurchaseCallback
-
-    lateinit var viewModel: MainViewModel
     lateinit var checkoutUtils: CheckoutUtils
+    val viewModel: MainViewModel by viewModel { parametersOf(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,21 +56,6 @@ class MainActivity : BaseActivity(), MainContract.View {
         inAppPurchaseCallback = InAppPurchaseCallback(this)
         purchaseListener = PurchaseListener(this, inAppPurchaseCallback)
         preferencesChangeListener = PreferencesChangeListener(this)
-
-        val db = DatabaseClient.getInstance(this).appDatabase
-
-        viewModel =
-            ViewModelProvider(this, BaseViewModelFactory {
-                MainViewModel(
-                    this,
-                    FirebaseServiceImpl(this),
-                    db.accountDao(),
-                    db.expenseDao(),
-                    db.categoryDao(),
-                    db.categoryExpenseDao(),
-                    FileProcessingServiceImp(this@MainActivity)
-                )
-            }).get(MainViewModel::class.java)
 
         val userStr = SharedPreferenceUtils.getInstance(this)?.getString(Constants.KEY_USER, "")
         viewModel.checkAuthectication(userStr!!)

@@ -10,10 +10,13 @@ import com.amplitude.api.TrackingOptions
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.R
+import com.remotearthsolutions.expensetracker.di.viewModels
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.yariksoffice.lingver.Lingver
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 import org.solovyev.android.checkout.Billing
 import org.solovyev.android.checkout.Billing.DefaultConfiguration
 
@@ -34,6 +37,11 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
 
     override fun onCreate() {
         super.onCreate()
+        startKoin {
+            androidContext(this@ApplicationObject)
+            modules(listOf(viewModels))
+        }
+
         val options = TrackingOptions()
             .disableCity()
             .disableIpAddress()
