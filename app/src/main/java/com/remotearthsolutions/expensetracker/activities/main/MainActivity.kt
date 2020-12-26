@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -12,8 +11,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.iid.FirebaseInstanceId
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.activities.BaseActivity
@@ -91,19 +88,8 @@ class MainActivity : BaseActivity(), MainContract.View {
             CloudBackupManager.startBackupWithPrecondition(this)
         }, 5000)
 
-        FirebaseInstanceId.getInstance().instanceId
-            .addOnCompleteListener(OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    Log.w(MainActivity::class.java.name, "getInstanceId failed", task.exception)
-                    return@OnCompleteListener
-                }
-                // Get new Instance ID token
-                val token = task.result?.token
-                token?.let {
-                    with(AnalyticsManager) { logEvent(token) }
-                    println("FirebaseToken: $token")
-                }
-            })
+        FirebaseUtils.logFirebaseInstallationToken()
+        FirebaseUtils.logFirebaseUserId()
     }
 
     override fun onStart() {
