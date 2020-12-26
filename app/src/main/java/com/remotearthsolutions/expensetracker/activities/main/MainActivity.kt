@@ -69,7 +69,7 @@ class MainActivity : BaseActivity(), MainContract.View {
             CloudBackupManager.startBackupWithPrecondition(this)
         }, 5000)
 
-        FirebaseUtils.logFirebaseInstallationToken()
+        FirebaseUtils.logFirebaseMessagingToken()
         FirebaseUtils.logFirebaseUserId()
     }
 

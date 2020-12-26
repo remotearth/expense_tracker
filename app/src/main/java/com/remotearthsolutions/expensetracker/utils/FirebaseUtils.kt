@@ -1,23 +1,26 @@
 package com.remotearthsolutions.expensetracker.utils
 
 import android.util.Log
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.installations.FirebaseInstallations
+import com.google.firebase.messaging.FirebaseMessaging
 
 class FirebaseUtils {
 
     companion object {
-        fun logFirebaseInstallationToken() {
-            FirebaseInstallations.getInstance().id.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    task.result?.let {
-                        with(AnalyticsManager) { logEvent(it) }
-                        println("FirebaseToken: $it")
-                    }
-                } else {
-                    Log.e("Installations", "Unable to get firebase Installation ID")
+        fun logFirebaseMessagingToken() {
+            FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    return@OnCompleteListener
                 }
-            }
+
+                val token = task.result
+                token?.let{
+                    with(AnalyticsManager) { logEvent(it) }
+                    println("FirebaseToken: $it")
+                }
+            })
         }
 
         fun logFirebaseUserId() {
@@ -26,5 +29,7 @@ class FirebaseUtils {
                 println("Firebase UserId: ${it.uid}")
             }
         }
+
+
     }
 }
