@@ -10,7 +10,7 @@ import com.amplitude.api.TrackingOptions
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.R
-import com.remotearthsolutions.expensetracker.di.viewModels
+import com.remotearthsolutions.expensetracker.di.modules.viewModels
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils

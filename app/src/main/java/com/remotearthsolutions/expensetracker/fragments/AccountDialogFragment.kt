@@ -6,21 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.AccountListAdapter
 import com.remotearthsolutions.expensetracker.contracts.AccountDialogContract
-import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.viewmodels.AccountDialogViewModel
-import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
 import kotlinx.android.synthetic.main.fragment_add_account.view.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class AccountDialogFragment : DialogFragment(),
     AccountDialogContract.View {
-    private lateinit var viewModel: AccountDialogViewModel
+    private val viewModel: AccountDialogViewModel by viewModel { parametersOf(this) }
     private lateinit var accountListAdapter: AccountListAdapter
     private lateinit var mView: View
     private var callback: Callback? =
@@ -39,7 +38,7 @@ class AccountDialogFragment : DialogFragment(),
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mView = inflater.inflate(R.layout.fragment_add_account, container, false)
         return mView
     }
@@ -49,15 +48,8 @@ class AccountDialogFragment : DialogFragment(),
         mView.accountrecyclearView.setHasFixedSize(true)
         val llm = LinearLayoutManager(mContext)
         mView.accountrecyclearView.layoutManager = llm
-        val accountDao =
-            DatabaseClient.getInstance(mContext).appDatabase.accountDao()
 
-        viewModel =
-            ViewModelProvider(this, BaseViewModelFactory {
-                AccountDialogViewModel(this, accountDao)
-            }).get(AccountDialogViewModel::class.java).apply {
-                this.init()
-            }
+        viewModel.init()
         viewModel.loadAccounts()
     }
 

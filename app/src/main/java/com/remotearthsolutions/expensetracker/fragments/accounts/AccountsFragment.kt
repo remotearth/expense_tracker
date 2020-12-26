@@ -8,15 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.adapters.AccountsAdapter
 import com.remotearthsolutions.expensetracker.contracts.AccountContract
 import com.remotearthsolutions.expensetracker.contracts.BaseView
-import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
 import com.remotearthsolutions.expensetracker.fragments.BaseFragment
 import com.remotearthsolutions.expensetracker.fragments.OptionBottomSheetFragment
@@ -28,13 +25,14 @@ import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
 import com.remotearthsolutions.expensetracker.viewmodels.AccountViewModel
-import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
 import kotlinx.android.synthetic.main.fragment_accounts.view.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class AccountsFragment : BaseFragment(),
     AccountContract.View,
     OptionBottomSheetFragment.Callback {
-    private var viewModel: AccountViewModel? = null
+    private val viewModel: AccountViewModel by viewModel{ parametersOf(requireContext(),this)}
     private lateinit var mView: View
     private var adapter: AccountsAdapter? = null
     private var selectAccountModel: AccountModel? = null
@@ -50,7 +48,7 @@ class AccountsFragment : BaseFragment(),
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mView = inflater.inflate(R.layout.fragment_accounts, container, false)
         return mView
     }
@@ -64,18 +62,9 @@ class AccountsFragment : BaseFragment(),
             currencySymbol = getCurrency(mContext!!)
         }
 
-        viewModel =
-            ViewModelProvider(this, BaseViewModelFactory {
-                AccountViewModel(
-                    mContext!!, this,
-                    DatabaseClient.getInstance(mContext!!).appDatabase.accountDao(),
-                    DatabaseClient.getInstance(mContext!!).appDatabase.expenseDao()
-                )
-            }).get(AccountViewModel::class.java)
-
-        viewModel!!.loadAccounts()
-        viewModel!!.numberOfItem.observe(viewLifecycleOwner,
-            Observer { count: Int -> limitOfAccount = count }
+        viewModel.loadAccounts()
+        viewModel.numberOfItem.observe(viewLifecycleOwner,
+            { count: Int -> limitOfAccount = count }
         )
         view.addAccountBtn.setOnClickListener {
             view.fabMenu.close(true)
@@ -99,7 +88,7 @@ class AccountsFragment : BaseFragment(),
             view.fabMenu.close(true)
             val transferBalanceDialogFragment =
                 TransferBalanceDialogFragment()
-            transferBalanceDialogFragment.setViewModel(viewModel!!)
+            transferBalanceDialogFragment.setViewModel(viewModel)
             transferBalanceDialogFragment.show(
                 childFragmentManager,
                 TransferBalanceDialogFragment::class.java.name
@@ -109,7 +98,7 @@ class AccountsFragment : BaseFragment(),
         view.setSalaryBtn.setOnClickListener {
             view.fabMenu.close(true)
             val salaryFragment = SalaryFragment()
-            salaryFragment.setViewModel(viewModel!!)
+            salaryFragment.setViewModel(viewModel)
             salaryFragment.show(
                 childFragmentManager,
                 SalaryFragment::class.java.name
@@ -125,7 +114,7 @@ class AccountsFragment : BaseFragment(),
 
     override fun observe() {
 
-        viewModel!!.listOfAccountLiveData.observe(viewLifecycleOwner, Observer {
+        viewModel.listOfAccountLiveData.observe(viewLifecycleOwner, {
             if (isAdded) {
                 adapter = AccountsAdapter(mContext!!, it, currencySymbol!!)
                 mView.accountList.adapter = adapter
@@ -153,11 +142,11 @@ class AccountsFragment : BaseFragment(),
     }
 
     override fun onUpdateAccount() {
-        viewModel!!.loadAccounts()
+        viewModel.loadAccounts()
     }
 
     override fun onDeleteAccount() {
-        viewModel?.loadAccounts()
+        viewModel.loadAccounts()
         (activity as MainActivity).updateSummary()
         if (selectAccountModel?.id!! > 3) {
             SharedPreferenceUtils.getInstance(requireActivity())
@@ -175,7 +164,7 @@ class AccountsFragment : BaseFragment(),
         addAccountAmountDialogFragment.setCallback(object :
             AddAccountAmountDialogFragment.Callback {
             override fun onAmountAdded(accountIncome: AccountModel?) {
-                viewModel!!.addOrUpdateAccount(accountIncome)
+                viewModel.addOrUpdateAccount(accountIncome)
                 addAccountAmountDialogFragment.dismiss()
             }
         })
@@ -195,7 +184,7 @@ class AccountsFragment : BaseFragment(),
         addAccountAmountDialogFragment.setCallback(object :
             AddAccountAmountDialogFragment.Callback {
             override fun onAmountAdded(accountIncome: AccountModel?) {
-                viewModel!!.addOrUpdateAccount(accountIncome)
+                viewModel.addOrUpdateAccount(accountIncome)
                 addAccountAmountDialogFragment.dismiss()
             }
         })
@@ -231,7 +220,7 @@ class AccountsFragment : BaseFragment(),
             requireContext().getString(R.string.not_now), null,
             object : BaseView.Callback {
                 override fun onOkBtnPressed() {
-                    viewModel!!.deleteAccount(selectAccountModel)
+                    viewModel.deleteAccount(selectAccountModel)
                 }
 
                 override fun onCancelBtnPressed() {}
