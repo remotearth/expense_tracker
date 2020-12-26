@@ -4,11 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.remotearthsolutions.expensetracker.contracts.HomeFragmentContract
-import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryDao
 import com.remotearthsolutions.expensetracker.databaseutils.daos.CategoryExpenseDao
-import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.entities.ExpenseChartData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -19,7 +18,6 @@ class HomeFragmentViewModel(
     private val view: HomeFragmentContract.View,
     private val categoryExpenseDao: CategoryExpenseDao,
     private val categoryDao: CategoryDao,
-    private val accountDao: AccountDao
 ) : ViewModel() {
     private val disposable = CompositeDisposable()
     val categoryListLiveData = MutableLiveData<List<CategoryModel>>()

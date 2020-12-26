@@ -6,13 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.ScheduledExpenseListAdapter
 import com.remotearthsolutions.expensetracker.contracts.BaseView
-import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.ScheduledExpenseModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.ScheduledExpenseDto
 import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils
@@ -20,13 +17,14 @@ import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils
 import com.remotearthsolutions.expensetracker.viewmodels.ScheduledExpenseViewModel
-import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
 import kotlinx.android.synthetic.main.fragment_recyclerview.view.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class ScheduledExpenseFragment : BaseFragment() {
 
     private lateinit var mView: View
-    private lateinit var viewModel: ScheduledExpenseViewModel
+    private val viewModel: ScheduledExpenseViewModel by viewModel { parametersOf(requireContext()) }
     private lateinit var currencySymbol: String
     private lateinit var format: String
     private lateinit var adapter: ScheduledExpenseListAdapter
@@ -41,7 +39,7 @@ class ScheduledExpenseFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         registerBackButton()
         mView = inflater.inflate(R.layout.fragment_recyclerview, container, false)
         return mView
@@ -56,21 +54,11 @@ class ScheduledExpenseFragment : BaseFragment() {
             Constants.KEY_DATE_MONTH_YEAR_DEFAULT
         )
 
-        val db = DatabaseClient.getInstance(mContext!!).appDatabase
-
-        viewModel = ViewModelProvider(requireActivity(), BaseViewModelFactory {
-            ScheduledExpenseViewModel(
-                requireActivity(),
-                db.scheduleExpenseDao(),
-                db.workerIdDao()
-            )
-        }).get(ScheduledExpenseViewModel::class.java)
-
         mView.recyclerView.setHasFixedSize(true)
         val llm = LinearLayoutManager(mContext)
         mView.recyclerView.layoutManager = llm
 
-        viewModel.scheduledExpensesLiveData.observe(viewLifecycleOwner, Observer {
+        viewModel.scheduledExpensesLiveData.observe(viewLifecycleOwner, {
             if (it == null || it.isEmpty()) {
                 mView.nodatacontainer.visibility = View.VISIBLE
                 mView.recyclerView.visibility = View.INVISIBLE

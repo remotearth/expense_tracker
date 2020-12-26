@@ -8,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.components.YAxis.AxisDependency
@@ -24,13 +22,14 @@ import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.utils.MPPointF
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.OverviewListAdapter
-import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryOverviewItemDto
-import com.remotearthsolutions.expensetracker.utils.*
+import com.remotearthsolutions.expensetracker.utils.DateTimeUtils
+import com.remotearthsolutions.expensetracker.utils.DayAxisValueFormatter
+import com.remotearthsolutions.expensetracker.utils.Utils
 import com.remotearthsolutions.expensetracker.viewmodels.AllTransactionsViewModel
-import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
 import com.remotearthsolutions.expensetracker.views.XYMarkerView
 import kotlinx.android.synthetic.main.fragment_overview.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -38,7 +37,7 @@ import kotlin.collections.HashMap
 
 class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
     private lateinit var mView: View
-    private lateinit var viewModel: AllTransactionsViewModel
+    private val viewModel: AllTransactionsViewModel by viewModel()
     private lateinit var listOfCategoryWithExpense: ArrayList<CategoryOverviewItemDto>
     private var map: MutableMap<Int, Int> = HashMap()
 
@@ -52,7 +51,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mView = inflater.inflate(R.layout.fragment_overview, container, false)
         return mView
     }
@@ -66,30 +65,12 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         val param = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height!!)
         barChart.layoutParams = param
 
-        val db = DatabaseClient.getInstance(requireContext()).appDatabase
-
-
-        viewModel =
-            ViewModelProvider(requireActivity(), BaseViewModelFactory {
-                AllTransactionsViewModel(
-                    db.categoryExpenseDao(),
-                    db.expenseDao(),
-                    db.categoryDao(),
-                    db.accountDao(),
-                    SharedPreferenceUtils.getInstance(requireActivity())!!
-                        .getString(
-                            Constants.PREF_TIME_FORMAT,
-                            resources.getString(R.string.default_time_format)
-                        )
-                )
-            }).get(AllTransactionsViewModel::class.java)
-
         recyclerView.setHasFixedSize(true)
         val llm = LinearLayoutManager(mContext)
         recyclerView.layoutManager = llm
 
         viewModel.getAllCategory()
-        viewModel.listOfCateogoryLiveData.observe(viewLifecycleOwner, Observer {
+        viewModel.listOfCateogoryLiveData.observe(viewLifecycleOwner, {
             listOfCategoryWithExpense = ArrayList()
             it.forEachIndexed { index, ctg ->
                 val item = CategoryOverviewItemDto()
@@ -102,7 +83,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
 
         setupChart()
 
-        viewModel.chartDataRequirementLiveData.observe(viewLifecycleOwner, Observer {
+        viewModel.chartDataRequirementLiveData.observe(viewLifecycleOwner, {
             val currencySymbol = Utils.getCurrency(requireContext())
             barChart.clear()
 
@@ -262,7 +243,8 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
     override fun onNothingSelected() {
     }
 
-    fun onUpdateCategory() {
+    override fun refreshPage() {
+        super.refreshPage()
         viewModel.getAllCategory()
     }
 

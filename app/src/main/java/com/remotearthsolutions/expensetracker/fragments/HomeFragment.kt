@@ -8,15 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter
 import com.remotearthsolutions.expensetracker.contracts.HomeFragmentContract
-import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.databinding.FragmentHomeBinding
@@ -25,12 +22,13 @@ import com.remotearthsolutions.expensetracker.utils.MPPieChart
 import com.remotearthsolutions.expensetracker.utils.Utils
 import com.remotearthsolutions.expensetracker.utils.Utils.getDeviceScreenSize
 import com.remotearthsolutions.expensetracker.viewmodels.HomeFragmentViewModel
-import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class HomeFragment : BaseFragment(),
     HomeFragmentContract.View, View.OnClickListener {
     private lateinit var adapter: CategoryListAdapter
-    private var viewModel: HomeFragmentViewModel? = null
+    private val viewModel: HomeFragmentViewModel by viewModel{ parametersOf(this)}
     private lateinit var binding: FragmentHomeBinding
     private var limitOfCategory: Int? = null
     private var startTime: Long = 0
@@ -47,7 +45,7 @@ class HomeFragment : BaseFragment(),
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_home,
@@ -68,22 +66,11 @@ class HomeFragment : BaseFragment(),
         val llm =
             LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerView.layoutManager = llm
-        val db = DatabaseClient.getInstance(mContext).appDatabase
 
         chartManager = MPPieChart(mContext)
         chartManager.initPierChart(binding.chartView, getDeviceScreenSize(mContext))
 
-        viewModel =
-            ViewModelProvider(this, BaseViewModelFactory {
-                HomeFragmentViewModel(
-                    this,
-                    db.categoryExpenseDao(),
-                    db.categoryDao(),
-                    db.accountDao()
-                )
-            }).get(HomeFragmentViewModel::class.java)
-
-        viewModel?.categoryListLiveData?.observe(viewLifecycleOwner, Observer {
+        viewModel.categoryListLiveData.observe(viewLifecycleOwner, {
             adapter = CategoryListAdapter(it)
             adapter.setScreenSize(getDeviceScreenSize(mContext))
             adapter.setOnItemClickListener(object : CategoryListAdapter.OnItemClickListener {
@@ -96,16 +83,16 @@ class HomeFragment : BaseFragment(),
             })
             binding.recyclerView.adapter = adapter
         })
-        viewModel!!.numberOfItem.observe(
+        viewModel.numberOfItem.observe(
             viewLifecycleOwner,
-            Observer { integer: Int? -> limitOfCategory = integer }
+            { integer: Int? -> limitOfCategory = integer }
         )
         init()
     }
 
     fun init() {
-        viewModel!!.init()
-        viewModel!!.loadExpenseChart(startTime, endTime)
+        viewModel.init()
+        viewModel.loadExpenseChart(startTime, endTime)
     }
 
     override fun showCategories(categories: List<CategoryModel>?) {
@@ -138,9 +125,9 @@ class HomeFragment : BaseFragment(),
                     AddCategoryDialogFragment.newInstance(getString(R.string.add_category))
                 categoryDialogFragment.setCallback(object : AddCategoryDialogFragment.Callback {
                     override fun onCategoryAdded(categoryModel: CategoryModel?) {
-                        val listOfCategory = viewModel?.categoryListLiveData?.value?.toMutableList()
+                        val listOfCategory = viewModel.categoryListLiveData.value?.toMutableList()
                         listOfCategory?.add(categoryModel!!)
-                        viewModel?.categoryListLiveData?.postValue(listOfCategory)
+                        viewModel.categoryListLiveData.postValue(listOfCategory)
                         categoryDialogFragment.dismiss()
                     }
                 })
@@ -164,10 +151,12 @@ class HomeFragment : BaseFragment(),
     fun updateChartView(startTime: Long, endTime: Long) {
         this.startTime = startTime
         this.endTime = endTime
-        viewModel!!.loadExpenseChart(startTime, endTime)
+        viewModel.loadExpenseChart(startTime, endTime)
     }
 
-    fun refresh() {
+    override fun refreshPage() {
+        super.refreshPage()
         loadExpenseChart(listOfCategoryWithAmount)
     }
+
 }

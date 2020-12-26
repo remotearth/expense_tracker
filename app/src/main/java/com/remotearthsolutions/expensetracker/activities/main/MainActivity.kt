@@ -34,7 +34,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import org.parceler.Parcels
-import java.util.concurrent.Executor
 
 class MainActivity : BaseActivity(), MainContract.View {
 
@@ -320,7 +319,7 @@ class MainActivity : BaseActivity(), MainContract.View {
                 R.id.viewpager,
                 2
             )
-        overViewFragment?.onUpdateCategory()
+        overViewFragment?.refreshPage()
         mainFragment?.refreshChart()
     }
 

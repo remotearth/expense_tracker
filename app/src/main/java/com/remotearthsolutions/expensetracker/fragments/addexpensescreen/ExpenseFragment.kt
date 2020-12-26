@@ -10,13 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.work.Data
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract
-import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.*
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.fragments.*
@@ -32,8 +30,9 @@ import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
 import com.remotearthsolutions.expensetracker.utils.workmanager.WorkManagerEnqueuer
 import com.remotearthsolutions.expensetracker.utils.workmanager.WorkRequestType
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseFragmentViewModel
-import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
 import kotlinx.android.synthetic.main.fragment_add_expense.view.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import org.parceler.Parcels
 import java.util.*
 import kotlin.math.abs
@@ -42,7 +41,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
 
     var purpose: Purpose? = null
     private lateinit var mView: View
-    private var viewModel: ExpenseFragmentViewModel? = null
+    private val viewModel: ExpenseFragmentViewModel by viewModel { parametersOf(this) }
     private var categoryExpense: CategoryExpense? = null
     private var prevExpense: CategoryExpense? = null
     private lateinit var mContext: Context
@@ -59,7 +58,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         format = SharedPreferenceUtils.getInstance(requireActivity())!!.getString(
             Constants.PREF_TIME_FORMAT,
             Constants.KEY_DATE_MONTH_YEAR_DEFAULT
@@ -78,20 +77,8 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         numpadManager.attachDisplay(mView.inputdigit)
         numpadManager.attachDeleteButton(mView.deleteBtn)
         numPadFragment!!.setListener(numpadManager)
-        val db = DatabaseClient.getInstance(mContext).appDatabase
 
-        viewModel =
-            ViewModelProvider(this, BaseViewModelFactory {
-                ExpenseFragmentViewModel(
-                    this,
-                    db.expenseDao(),
-                    db.accountDao(),
-                    db.categoryDao(),
-                    db.scheduleExpenseDao(),
-                    db.workerIdDao()
-                )
-            }).get(ExpenseFragmentViewModel::class.java)
-        viewModel!!.init()
+        viewModel.init()
 
         val args = arguments
         if (args != null) {
@@ -101,7 +88,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 prevExpense = categoryExpense!!.copy()
                 Helpers.updateUI(mView, categoryExpense, format)
             } else {
-                viewModel!!.setDefaultCategory()
+                viewModel.setDefaultCategory()
             }
 
             if (categoryExpense != null && categoryExpense!!.accountIcon != null) {
@@ -111,7 +98,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                     Constants.KEY_SELECTED_ACCOUNT_ID,
                     1
                 )
-                viewModel!!.setDefaultSourceAccount(accountId)
+                viewModel.setDefaultSourceAccount(accountId)
             }
         }
 
@@ -218,7 +205,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             expenseModel.note = mView.expenseNoteEdtxt.text.toString()
 
             if (mView.repeatEntryView.visibility != View.VISIBLE) {
-                viewModel!!.addExpense(expenseModel)
+                viewModel.addExpense(expenseModel)
             } else {
                 val period = mView.numberTv.text.toString().toInt()
                 val repeatType = mView.repeatTypeSpnr.selectedItemPosition
@@ -226,7 +213,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 val nextDate = ExpenseScheduler.nextOcurrenceDate(
                     Calendar.getInstance().timeInMillis, period, repeatType
                 )
-                viewModel!!.scheduleExpense(expenseModel, period, repeatType, repeatCount, nextDate)
+                viewModel.scheduleExpense(expenseModel, period, repeatType, repeatCount, nextDate)
                 with(AnalyticsManager) { logEvent(EXPENSE_TYPE_SCHEDULED) }
             }
         }
@@ -242,7 +229,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                     getResourceString(R.string.not_now), null,
                     object : BaseView.Callback {
                         override fun onOkBtnPressed() {
-                            viewModel!!.deleteExpense(categoryExpense)
+                            viewModel.deleteExpense(categoryExpense)
                         }
 
                         override fun onCancelBtnPressed() {}
@@ -286,19 +273,19 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 if (categoryExpense?.accountId == prevExpense!!.accountId) {
                     mutableAmount += (prevExpense!!.totalAmount * -1)
                 } else {
-                    viewModel!!.updateAccountAmount(
+                    viewModel.updateAccountAmount(
                         prevExpense!!.accountId,
                         prevExpense!!.totalAmount * -1
                     )
                 }
             }
         }
-        viewModel!!.updateAccountAmount(categoryExpense?.accountId!!, mutableAmount)
+        viewModel.updateAccountAmount(categoryExpense?.accountId!!, mutableAmount)
         val mainActivity = mContext as MainActivity?
         mainActivity!!.updateSummary()
         mainActivity.refreshChart()
         // Temporary disabled. Logic has a problem. revisit the implementation
-        //Helpers.requestToReviewApp(mainActivity, viewModel!!)
+        //Helpers.requestToReviewApp(mainActivity, viewModel)
         MainActivity.addedExpenseCount++
         with(AnalyticsManager) { logEvent(EXPENSE_TYPE_DEFAULT) }
     }
@@ -310,7 +297,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             Toast.LENGTH_SHORT
         ).show()
         (mContext as Activity?)!!.onBackPressed()
-        viewModel!!.updateAccountAmount(
+        viewModel.updateAccountAmount(
             this.categoryExpense?.accountId!!,
             categoryExpense?.totalAmount!! * -1
         )
@@ -360,6 +347,6 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 delay,
                 data.build()
             )
-        viewModel?.saveWorkerId(WorkerIdModel(scheduledExpenseModel.id, workRequestId))
+        viewModel.saveWorkerId(WorkerIdModel(scheduledExpenseModel.id, workRequestId))
     }
 }

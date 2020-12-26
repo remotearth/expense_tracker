@@ -80,6 +80,9 @@ abstract class BaseFragment : Fragment(), BaseView, Observer {
         return requireActivity().resources.getStringArray(id)
     }
 
+    open fun refreshPage() {
+
+    }
 }
 
 interface Observer {

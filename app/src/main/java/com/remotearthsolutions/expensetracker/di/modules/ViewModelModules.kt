@@ -2,10 +2,7 @@ package com.remotearthsolutions.expensetracker.di.modules
 
 import android.content.Context
 import com.remotearthsolutions.expensetracker.R
-import com.remotearthsolutions.expensetracker.contracts.AccountContract
-import com.remotearthsolutions.expensetracker.contracts.AccountDialogContract
-import com.remotearthsolutions.expensetracker.contracts.LoginContract
-import com.remotearthsolutions.expensetracker.contracts.MainContract
+import com.remotearthsolutions.expensetracker.contracts.*
 import com.remotearthsolutions.expensetracker.databaseutils.AppDatabase
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.services.FacebookServiceImpl
@@ -14,10 +11,7 @@ import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl
 import com.remotearthsolutions.expensetracker.services.GoogleServiceImpl
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
-import com.remotearthsolutions.expensetracker.viewmodels.AccountDialogViewModel
-import com.remotearthsolutions.expensetracker.viewmodels.AccountViewModel
-import com.remotearthsolutions.expensetracker.viewmodels.AllTransactionsViewModel
-import com.remotearthsolutions.expensetracker.viewmodels.LoginViewModel
+import com.remotearthsolutions.expensetracker.viewmodels.*
 import com.remotearthsolutions.expensetracker.viewmodels.mainview.MainViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -59,6 +53,34 @@ val viewModels = module {
         )
     }
 
+    viewModel { (view: CategoryFragmentContract.View) ->
+        CategoryViewModel(
+            view,
+            provideDb(get()).categoryDao(),
+            provideDb(get()).expenseDao(),
+            provideDb(get()).accountDao()
+        )
+    }
+
+    viewModel { (view: ExpenseFragmentContract.View) ->
+        ExpenseFragmentViewModel(
+            view,
+            provideDb(get()).expenseDao(),
+            provideDb(get()).accountDao(),
+            provideDb(get()).categoryDao(),
+            provideDb(get()).scheduleExpenseDao(),
+            provideDb(get()).workerIdDao(),
+        )
+    }
+
+    viewModel { (view: HomeFragmentContract.View) ->
+        HomeFragmentViewModel(
+            view,
+            provideDb(get()).categoryExpenseDao(),
+            provideDb(get()).categoryDao()
+        )
+    }
+
     viewModel { (context: Context, view: LoginContract.View) ->
         LoginViewModel(
             context,
@@ -66,6 +88,14 @@ val viewModels = module {
             GoogleServiceImpl(context),
             FacebookServiceImpl(context),
             FirebaseServiceImpl(context)
+        )
+    }
+
+    viewModel { (context: Context) ->
+        ScheduledExpenseViewModel(
+            context,
+            provideDb(context).scheduleExpenseDao(),
+            provideDb(context).workerIdDao()
         )
     }
 }
