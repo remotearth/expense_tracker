@@ -4,40 +4,25 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseUser
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.contracts.LoginContract
-import com.remotearthsolutions.expensetracker.services.FacebookServiceImpl
-import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl
-import com.remotearthsolutions.expensetracker.services.GoogleServiceImpl
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.viewmodels.LoginViewModel
-import com.remotearthsolutions.expensetracker.viewmodels.viewmodel_factory.BaseViewModelFactory
 import kotlinx.android.synthetic.main.activity_login.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class LoginActivity : BaseActivity(), View.OnClickListener,
     LoginContract.View {
-    private lateinit var viewModel: LoginViewModel
+    private val viewModel: LoginViewModel by viewModel{ parametersOf(this,this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        viewModel =
-            ViewModelProvider(this, BaseViewModelFactory {
-                LoginViewModel(
-                    this,
-                    this,
-                    GoogleServiceImpl(this),
-                    FacebookServiceImpl(this),
-                    FirebaseServiceImpl(this)
-                )
-            }).get(LoginViewModel::class.java).apply {
-                this.init()
-            }
+        viewModel.init()
     }
 
     override fun onActivityResult(

@@ -44,7 +44,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     private var preferencesChangeListener: PreferencesChangeListener? = null
     private lateinit var inAppPurchaseCallback: InAppPurchaseCallback
     lateinit var checkoutUtils: CheckoutUtils
-    val viewModel: MainViewModel by viewModel { parametersOf(this) }
+    val viewModel: MainViewModel by viewModel { parametersOf(this,this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
