@@ -41,8 +41,8 @@ object AnalyticsManager {
     const val ADD_EXPENSE_FROM_LIST_AT_HOMEPAGE = "add_expense_from_list_at_homepage"
 
     fun logEvent(eventName: String) {
-//        if (!BuildConfig.DEBUG) {
+        if (!BuildConfig.DEBUG) {
             Amplitude.getInstance().logEvent(eventName)
-//        }
+        }
     }
 }
