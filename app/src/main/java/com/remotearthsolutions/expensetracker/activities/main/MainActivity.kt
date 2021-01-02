@@ -70,7 +70,7 @@ class MainActivity : BaseActivity(), MainContract.View {
         }, 5000)
 
         FirebaseUtils.logFirebaseMessagingToken()
-        FirebaseUtils.logFirebaseUserId()
+        FirebaseUtils.setFirebaseUidAsAmplitudeUid()
     }
 
     override fun onStart() {

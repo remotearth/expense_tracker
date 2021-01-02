@@ -1,6 +1,7 @@
 package com.remotearthsolutions.expensetracker.utils
 
 import android.util.Log
+import com.amplitude.api.Amplitude
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.installations.FirebaseInstallations
@@ -16,17 +17,17 @@ class FirebaseUtils {
                 }
 
                 val token = task.result
-                token?.let{
+                token?.let {
                     with(AnalyticsManager) { logEvent(it) }
                     println("FirebaseToken: $it")
                 }
             })
         }
 
-        fun logFirebaseUserId() {
+        fun setFirebaseUidAsAmplitudeUid() {
             FirebaseAuth.getInstance().currentUser?.let {
-                with(AnalyticsManager) { logEvent(it.uid) }
-                println("Firebase UserId: ${it.uid}")
+                print("Firebase UserId: ${it.uid}")
+                Amplitude.getInstance().setUserId(it.uid)
             }
         }
 
