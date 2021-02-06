@@ -69,4 +69,5 @@ fastlane/readme.md
 
 app/release/
 app/release/output.json
+app/debug
 idesensor.json
