@@ -15,7 +15,7 @@
         android:layout_marginTop="30dp"
         android:ems="6"
         android:hint="@string/enter_amount"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
