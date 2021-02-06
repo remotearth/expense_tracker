@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.activities
 
 import android.app.Activity
 import android.app.Application.ActivityLifecycleCallbacks
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
@@ -41,6 +42,8 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
             androidContext(this@ApplicationObject)
             modules(listOf(viewModels))
         }
+
+        appInstance = this
 
         val options = TrackingOptions()
             .disableCity()
@@ -103,4 +106,9 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
         } else {
             Constants.PRODUCT_ID
         }
+
+
+    companion object  {
+        var appInstance: ApplicationObject? = null
+    }
 }

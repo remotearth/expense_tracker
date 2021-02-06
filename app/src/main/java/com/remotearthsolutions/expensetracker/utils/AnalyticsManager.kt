@@ -1,7 +1,9 @@
 package com.remotearthsolutions.expensetracker.utils
 
+import android.content.Context
 import com.amplitude.api.Amplitude
 import com.remotearthsolutions.expensetracker.BuildConfig
+import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 
 
 object AnalyticsManager {
@@ -40,9 +42,11 @@ object AnalyticsManager {
     const val SETTINGS_PAGE_VIEWED = "settings_page_viewed"
     const val ADD_EXPENSE_FROM_LIST_AT_HOMEPAGE = "add_expense_from_list_at_homepage"
 
+
     fun logEvent(eventName: String) {
         if (!BuildConfig.DEBUG) {
             Amplitude.getInstance().logEvent(eventName)
+            FirebaseUtils.logEvent(ApplicationObject.appInstance?.applicationContext, eventName)
         }
     }
 }

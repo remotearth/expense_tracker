@@ -43,7 +43,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     private var preferencesChangeListener: PreferencesChangeListener? = null
     private lateinit var inAppPurchaseCallback: InAppPurchaseCallback
     lateinit var checkoutUtils: CheckoutUtils
-    val viewModel: MainViewModel by viewModel { parametersOf(this,this) }
+    val viewModel: MainViewModel by viewModel { parametersOf(this, this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,8 +69,11 @@ class MainActivity : BaseActivity(), MainContract.View {
             CloudBackupManager.startBackupWithPrecondition(this)
         }, 5000)
 
-        FirebaseUtils.logFirebaseMessagingToken()
-        FirebaseUtils.setFirebaseUidAsAmplitudeUid()
+        with(FirebaseUtils) {
+            logFirebaseMessagingToken()
+            setFirebaseUidAsAmplitudeUid()
+            subscribeToTopic(TOPIC_GENERAL_USER)
+        }
     }
 
     override fun onStart() {
