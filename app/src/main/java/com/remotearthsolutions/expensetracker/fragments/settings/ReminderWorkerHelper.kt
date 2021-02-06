@@ -39,8 +39,10 @@ object ReminderWorkerHelper {
         val db = DatabaseClient.getInstance(context).appDatabase
         val cal = Calendar.getInstance()
         cal.set(Calendar.HOUR_OF_DAY, 22)
+        cal.set(Calendar.MINUTE, 0)
         val endTime = cal.timeInMillis
-        cal.add(Calendar.HOUR, -4)
+        cal.set(Calendar.HOUR_OF_DAY, 19)
+        cal.set(Calendar.MINUTE, 0)
         val startTime = cal.timeInMillis
         return db.expenseDao().getNumberOfExpenseEntryWithinRange(startTime, endTime).blockingGet()
     }
@@ -62,6 +64,7 @@ object ReminderWorkerHelper {
         val currentTimeMillis = cal.timeInMillis
         cal.add(Calendar.DAY_OF_MONTH, 1)
         cal.set(Calendar.HOUR_OF_DAY, 22)
+        cal.set(Calendar.MINUTE, 0)
         return cal.timeInMillis - currentTimeMillis
     }
 
