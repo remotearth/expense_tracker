@@ -31,6 +31,7 @@ class AllTransactionsViewModel(
     val expenseListLiveData = MutableLiveData<List<CategoryExpense>>()
 
     fun loadFilterExpense(startTime: Long, endTime: Long, btnId: Int) {
+        var monthHeaderIndex = ArrayList<Int>()
         disposable.add(
             categoryExpenseDao.getExpenseWithinRange(startTime, endTime)
                 .subscribeOn(Schedulers.io())
@@ -49,6 +50,7 @@ class AllTransactionsViewModel(
                             monthHeader.isHeader = true
                             monthHeader.categoryName = previousMonth
                             expenseList.add(monthHeader)
+                            monthHeaderIndex.add(0)
                         }
                         if (dateRangeBtnId != R.id.dailyRangeBtn) {
                             val header =
@@ -58,18 +60,27 @@ class AllTransactionsViewModel(
                             header.categoryName = getDate(previousDate, dateFormat)
                             expenseList.add(header)
                         }
+                        var sum = 0.0
                         for (i in listOfFilterExpense.indices) {
                             val expense = listOfFilterExpense[i]
                             if (dateRangeBtnId == R.id.yearlyRangeBtn) {
                                 val monthName = getDate(expense.datetime, DateTimeUtils.mmmm)
+
                                 if (monthName != previousMonth) {
+                                    val index = monthHeaderIndex[monthHeaderIndex.size - 1]
+                                    val header = expenseList[index]
+                                    header.totalAmount = sum
+                                    sum = 0.0
+
                                     val monthHeader =
                                         CategoryExpense()
                                     monthHeader.isHeader = true
                                     monthHeader.categoryName = monthName
                                     expenseList.add(monthHeader)
+                                    monthHeaderIndex.add(expenseList.size - 1)
                                     previousMonth = monthName
                                 }
+                                sum += expense.totalAmount
                             }
                             if (dateRangeBtnId != R.id.dailyRangeBtn) {
                                 if (getDate(expense.datetime, dateFormat) !=
@@ -85,6 +96,11 @@ class AllTransactionsViewModel(
                                 }
                             }
                             expenseList.add(expense)
+                        }
+                        if (sum > 0) {
+                            val index = monthHeaderIndex[monthHeaderIndex.size - 1]
+                            val header = expenseList[index]
+                            header.totalAmount = sum
                         }
                     }
                     expenseListLiveData.postValue(expenseList)

@@ -13,7 +13,7 @@
         android:gravity="center"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         tools:text="Section Title" />
 
