@@ -181,7 +181,6 @@ class HomeFragment : BaseFragment(),
         super.refreshPage()
         loadExpenseChart(listOfCategoryWithAmount)
     }
-
 }
 
 
