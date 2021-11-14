@@ -3,16 +3,20 @@ package com.remotearthsolutions.expensetracker.fragments
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter
+import com.remotearthsolutions.expensetracker.compose.FabButton
 import com.remotearthsolutions.expensetracker.contracts.HomeFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
@@ -62,8 +66,27 @@ class HomeFragment : BaseFragment(),
     ) {
         super.onViewCreated(view, savedInstanceState)
         binding.addCategoryBtn.setOnClickListener(this)
-        binding.fab.setOnClickListener(this)
         binding.recyclerView.setHasFixedSize(true)
+
+        binding.composeView.setContent {
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(10.dp),
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column {
+                }
+                FabButton(
+                    onClick = {
+                        (mContext as MainActivity?)!!.openAddExpenseScreen(null)
+                    }, modifier = Modifier
+                        .size(60.dp, 60.dp)
+                        .align(alignment = Alignment.End)
+                )
+            }
+        }
+
         val llm =
             LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerView.layoutManager = llm
@@ -145,10 +168,6 @@ class HomeFragment : BaseFragment(),
                     null, null
                 )
             }
-        } else if (v.id == R.id.fab) {
-            binding.fab.isClickable = false
-            (mContext as MainActivity?)!!.openAddExpenseScreen(null)
-            Handler().postDelayed({ binding.fab.isClickable = true }, 500)
         }
     }
 
@@ -164,3 +183,5 @@ class HomeFragment : BaseFragment(),
     }
 
 }
+
+
