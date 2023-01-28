@@ -132,14 +132,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
             }
         preferenceScreen.sharedPreferences
-            .registerOnSharedPreferenceChangeListener(preferenceChangeListener)
+            ?.registerOnSharedPreferenceChangeListener(preferenceChangeListener)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         context?.let {
             view?.setBackgroundColor(
@@ -161,7 +161,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onStop() {
         super.onStop()
         preferenceScreen.sharedPreferences
-            .unregisterOnSharedPreferenceChangeListener(preferenceChangeListener)
+            ?.unregisterOnSharedPreferenceChangeListener(preferenceChangeListener)
     }
 
     private fun registerBackButton(callBack: OnBackPressedCallback? = null) {
@@ -184,7 +184,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         )
     }
 
-    override fun onDisplayPreferenceDialog(preference: Preference?) {
+    override fun onDisplayPreferenceDialog(preference: Preference) {
         if (preference is CurrencyPickerPreference) {
             val dialogFragment = CurrencyPickerDialogFragmentCompat.newInstance(preference.key)
             dialogFragment.setTargetFragment(this, 0)

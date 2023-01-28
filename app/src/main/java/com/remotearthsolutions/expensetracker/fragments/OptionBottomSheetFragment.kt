@@ -44,6 +44,7 @@ class OptionBottomSheetFragment : BottomSheetDialogFragment(),
                 view.updateAmountBtn.visibility = View.VISIBLE
                 view.underLine1.visibility = View.VISIBLE
             }
+            null -> TODO()
         }
         return view
     }

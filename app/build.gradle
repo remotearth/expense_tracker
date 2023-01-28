@@ -6,7 +6,7 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
     signingConfigs {
         release {
             storeFile file("../keystores/remotearth_solutions.keystore")
@@ -19,7 +19,7 @@ android {
     defaultConfig {
         applicationId "com.remotearthsolutions.expensetracker"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 33
         multiDexEnabled true
         versionCode 52
         versionName "1.3.52"
@@ -42,10 +42,6 @@ android {
         }
     }
 
-    lintOptions {
-        abortOnError false
-        disable 'ContentDescription', 'UnusedResources', 'VectorPath', 'ButtonStyle', 'ButtonCase', 'Autofill'
-    }
 
     productFlavors {
     }
@@ -64,9 +60,14 @@ android {
         compose true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion '1.0.5'
+//    composeOptions {
+//        kotlinCompilerExtensionVersion '1.0.5'
+//    }
+    lint {
+        abortOnError false
+        disable 'ContentDescription', 'UnusedResources', 'VectorPath', 'ButtonStyle', 'ButtonCase', 'Autofill'
     }
+    namespace 'com.remotearthsolutions.expensetracker'
 }
 
 dependencies {
@@ -74,22 +75,22 @@ dependencies {
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.facebook.android:facebook-login:8.1.0'
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.android.gms:play-services-auth:20.4.1'
     implementation 'com.google.android.material:material:1.3.0-alpha04'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
-    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'org.parceler:parceler-api:1.1.12'
     kapt 'org.parceler:parceler:1.1.12'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    implementation 'com.google.android.play:core:1.9.0'
+    implementation 'com.google.android.play:core:1.10.3'
 
-    def room_version = '2.4.0-beta01'
+    def room_version = '2.5.0'
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
@@ -97,12 +98,12 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
     implementation 'com.android.support:multidex:1.0.3'
-    implementation 'androidx.preference:preference:1.1.1'
+    implementation 'androidx.preference:preference:1.2.0'
     implementation 'com.karumi:dexter:6.0.1'
     implementation 'org.solovyev.android:checkout:1.2.2'
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:2.28.2'
-    androidTestImplementation 'androidx.test:runner:1.3.0'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     //firebase
@@ -119,12 +120,12 @@ dependencies {
     implementation 'com.github.clans:fab:1.6.4'
 
     //WorkManager
-    def work_version = "2.4.0"
+    def work_version = "2.7.1"
     implementation "androidx.work:work-runtime-ktx:$work_version"
 
     //analytics
     implementation 'com.amplitude:android-sdk:2.25.2'
-    implementation 'com.squareup.okhttp3:okhttp:4.4.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.2'
 
     implementation 'com.wang.avi:library:2.1.3'
 
@@ -137,7 +138,7 @@ dependencies {
     // Integration with activities
     implementation 'androidx.activity:activity-compose:1.4.0'
     // Compose Material Design
-    implementation 'androidx.compose.material:material:1.0.5'
+    implementation 'androidx.compose.material:material:1.3.1'
     // Animations
     implementation 'androidx.compose.animation:animation:1.0.5'
     // Tooling support (Previews, etc.)

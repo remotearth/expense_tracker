@@ -17,7 +17,7 @@ import com.remotearthsolutions.expensetracker.utils.Utils
 
 class CurrencyPickerDialogFragmentCompat : PreferenceDialogFragmentCompat() {
 
-    override fun onBindDialogView(view: View?) {
+    override fun onBindDialogView(view: View) {
         super.onBindDialogView(view)
 
         val recyclerView = view?.findViewById<RecyclerView>(R.id.currencyList)!!
