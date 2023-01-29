@@ -23,20 +23,18 @@ import com.github.mikephil.charting.utils.MPPointF
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.OverviewListAdapter
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryOverviewItemDto
+import com.remotearthsolutions.expensetracker.databinding.FragmentOverviewBinding
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils
 import com.remotearthsolutions.expensetracker.utils.DayAxisValueFormatter
 import com.remotearthsolutions.expensetracker.utils.Utils
 import com.remotearthsolutions.expensetracker.viewmodels.AllTransactionsViewModel
 import com.remotearthsolutions.expensetracker.views.XYMarkerView
-import kotlinx.android.synthetic.main.fragment_overview.*
 import org.koin.android.ext.android.inject
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 
 class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
-    private lateinit var mView: View
+    private lateinit var binding: FragmentOverviewBinding
     private val viewModel: AllTransactionsViewModel by inject()
     private lateinit var listOfCategoryWithExpense: ArrayList<CategoryOverviewItemDto>
     private var map: MutableMap<Int, Int> = HashMap()
@@ -52,8 +50,8 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mView = inflater.inflate(R.layout.fragment_overview, container, false)
-        return mView
+        binding = FragmentOverviewBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,14 +61,14 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
             ?.width?.minus(requireContext().resources.getDimension(R.dimen.dp_50))
         val height = Utils.getDeviceScreenSize(requireContext())?.height?.div(4)
         val param = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height!!)
-        barChart.layoutParams = param
+        binding.barChart.layoutParams = param
 
-        recyclerView.setHasFixedSize(true)
+        binding.recyclerView.setHasFixedSize(true)
         val llm = LinearLayoutManager(mContext)
-        recyclerView.layoutManager = llm
+        binding.recyclerView.layoutManager = llm
 
         viewModel.getAllCategory()
-        viewModel.listOfCategoryLiveData.observe(viewLifecycleOwner, {
+        viewModel.listOfCategoryLiveData.observe(viewLifecycleOwner) {
             listOfCategoryWithExpense = ArrayList()
             it.forEachIndexed { index, ctg ->
                 val item = CategoryOverviewItemDto()
@@ -79,26 +77,26 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
                 listOfCategoryWithExpense.add(item)
                 map[ctg.id] = index
             }
-        })
+        }
 
         setupChart()
 
         viewModel.chartDataRequirementLiveData.observe(viewLifecycleOwner, {
             val currencySymbol = Utils.getCurrency(requireContext())
-            barChart.clear()
+            binding.barChart.clear()
 
             when (it.selectedFilterBtnId) {
                 R.id.dailyRangeBtn -> {
                     val totalExpense = generateGraph(it, "MMM dd", Calendar.DAY_OF_MONTH)
                     val avg = Utils.formatDecimalValues(totalExpense)
-                    totalCountView.setInfo(it.filteredList.size.toString())
-                    dailyAvgView.setInfo("$avg $currencySymbol")
+                    binding.totalCountView.setInfo(it.filteredList.size.toString())
+                    binding.dailyAvgView.setInfo("$avg $currencySymbol")
                 }
                 R.id.weeklyRangeBtn -> {
                     val totalExpense = generateGraph(it, "MMM dd", Calendar.DAY_OF_MONTH)
                     val avg = Utils.formatDecimalValues(totalExpense / 7.0)
-                    totalCountView.setInfo(it.filteredList.size.toString())
-                    dailyAvgView.setInfo("$avg $currencySymbol")
+                    binding.totalCountView.setInfo(it.filteredList.size.toString())
+                    binding.dailyAvgView.setInfo("$avg $currencySymbol")
                 }
                 R.id.monthlyRangeBtn -> {
                     val totalExpense = generateGraph(it, "MMM dd", Calendar.DAY_OF_MONTH)
@@ -110,8 +108,8 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
                     }
 
                     val avg = Utils.formatDecimalValues(totalExpense / (noOfDays + 1))
-                    totalCountView.setInfo(it.filteredList.size.toString())
-                    dailyAvgView.setInfo("$avg $currencySymbol")
+                    binding.totalCountView.setInfo(it.filteredList.size.toString())
+                    binding.dailyAvgView.setInfo("$avg $currencySymbol")
                 }
                 R.id.yearlyRangeBtn -> {
                     val totalExpense = generateGraph(it, "MMM", Calendar.MONTH)
@@ -123,8 +121,8 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
                     }
 
                     val avg = Utils.formatDecimalValues(totalExpense / (noOfDays + 1))
-                    totalCountView.setInfo(it.filteredList.size.toString())
-                    dailyAvgView.setInfo("$avg $currencySymbol")
+                    binding.totalCountView.setInfo(it.filteredList.size.toString())
+                    binding.dailyAvgView.setInfo("$avg $currencySymbol")
                 }
             }
 
@@ -145,7 +143,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
                 listOfCategoryWithExpense.sortedWith(compareByDescending { item -> item.totalExpenseOfCateogry })
             val adapter =
                 OverviewListAdapter(sortedList, sum, maxWidthOfBar!!.toInt(), currencySymbol)
-            recyclerView.adapter = adapter
+            binding.recyclerView.adapter = adapter
         })
 
     }
@@ -187,11 +185,11 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         }
 
         val xAxisFormatter: ValueFormatter = DayAxisValueFormatter(xVals)
-        barChart.xAxis.valueFormatter = xAxisFormatter
+        binding.barChart.xAxis.valueFormatter = xAxisFormatter
 
         val mv = XYMarkerView(requireContext(), xAxisFormatter)
-        mv.chartView = barChart // For bounds control
-        barChart.marker = mv // Set the marker to the chart
+        mv.chartView = binding.barChart // For bounds control
+        binding.barChart.marker = mv // Set the marker to the chart
 
         var sum = 0.0
         it.filteredList.forEach { exp ->
@@ -209,21 +207,21 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
 
         val data = BarData(barDataset)
         barDataset.setColors(*ColorTemplate.COLORFUL_COLORS)
-        barChart.data = data
+        binding.barChart.data = data
 
         return sum
     }
 
     private fun setupChart() {
-        barChart.description.isEnabled = false
-        barChart.setPinchZoom(true)
-        barChart.setDrawBarShadow(false)
-        barChart.setDrawGridBackground(false)
-        barChart.setOnChartValueSelectedListener(this)
+        binding.barChart.description.isEnabled = false
+        binding.barChart.setPinchZoom(true)
+        binding.barChart.setDrawBarShadow(false)
+        binding.barChart.setDrawGridBackground(false)
+        binding.barChart.setOnChartValueSelectedListener(this)
 
-        barChart.setDrawValueAboveBar(true)
+        binding.barChart.setDrawValueAboveBar(true)
 
-        val xAxis = barChart.xAxis
+        val xAxis = binding.barChart.xAxis
         xAxis.position = XAxisPosition.BOTTOM
         xAxis.setDrawGridLines(false)
         xAxis.granularity = 1f // only intervals of 1 day
@@ -231,13 +229,13 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
 
         val axisTextColor = ContextCompat.getColor(requireContext(), R.color.catAccItemTextColor)
         xAxis.textColor = axisTextColor
-        barChart.axisLeft.textColor = axisTextColor
-        barChart.axisRight.textColor = axisTextColor
+        binding.barChart.axisLeft.textColor = axisTextColor
+        binding.barChart.axisRight.textColor = axisTextColor
 
-        barChart.axisLeft.setDrawGridLines(false)
-        barChart.animateY(500)
-        barChart.legend.isEnabled = false
-        barChart.setFitBars(true)
+        binding.barChart.axisLeft.setDrawGridLines(false)
+        binding.barChart.animateY(500)
+        binding.barChart.legend.isEnabled = false
+        binding.barChart.setFitBars(true)
     }
 
     override fun onNothingSelected() {
@@ -248,8 +246,8 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         if (e == null) return
 
         val bounds = onValueSelectedRectF
-        barChart.getBarBounds(e as BarEntry?, bounds)
-        val position: MPPointF = barChart.getPosition(e, AxisDependency.LEFT)
+        binding.barChart.getBarBounds(e as BarEntry?, bounds)
+        val position: MPPointF = binding.barChart.getPosition(e, AxisDependency.LEFT)
         MPPointF.recycleInstance(position)
     }
 }

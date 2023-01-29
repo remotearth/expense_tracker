@@ -6,14 +6,16 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import com.remotearthsolutions.expensetracker.R
-import kotlinx.android.synthetic.main.view_customviewwithtwotextview.view.*
+import com.remotearthsolutions.expensetracker.databinding.ViewCustomviewwithtwotextviewBinding
 
 
 class CustomViewWithTwoTextView(context: Context?, attrs: AttributeSet?) :
     LinearLayout(context, attrs) {
 
+    private var binding: ViewCustomviewwithtwotextviewBinding
+
     init {
-        LayoutInflater.from(context).inflate(R.layout.view_customviewwithtwotextview, this, true)
+        binding = ViewCustomviewwithtwotextviewBinding.inflate(LayoutInflater.from(context),this,true)
         val a = context?.theme?.obtainStyledAttributes(
             attrs,
             R.styleable.CustomViewWithTwoTextView,
@@ -29,11 +31,11 @@ class CustomViewWithTwoTextView(context: Context?, attrs: AttributeSet?) :
             val info = a?.getString(R.styleable.CustomViewWithTwoTextView_info)
             val infoColor =
                 a?.getColor(R.styleable.CustomViewWithTwoTextView_infoColor, defaultColor)
-            titleColor?.let { titleTv.setTextColor(it) }
-            infoColor?.let { infoTv.setTextColor(it) }
+            titleColor?.let { binding.titleTv.setTextColor(it) }
+            infoColor?.let { binding.infoTv.setTextColor(it) }
 
-            title?.let { titleTv.text = it }
-            info?.let { infoTv.text = it }
+            title?.let { binding.titleTv.text = it }
+            info?.let { binding.infoTv.text = it }
 
 
         } finally {
@@ -42,10 +44,10 @@ class CustomViewWithTwoTextView(context: Context?, attrs: AttributeSet?) :
     }
 
     fun setTitle(text: String) {
-        titleTv.text = text
+        binding.titleTv.text = text
     }
 
     fun setInfo(text: String) {
-        infoTv.text = text
+        binding.infoTv.text = text
     }
 }

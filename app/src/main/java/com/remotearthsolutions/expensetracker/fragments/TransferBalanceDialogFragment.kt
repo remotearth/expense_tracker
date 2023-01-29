@@ -10,15 +10,14 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.AccountsAdapter
+import com.remotearthsolutions.expensetracker.databinding.FragmentTransferBalanceBinding
 import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.Response
 import com.remotearthsolutions.expensetracker.utils.Utils
 import com.remotearthsolutions.expensetracker.viewmodels.AccountViewModel
-import kotlinx.android.synthetic.main.fragment_transfer_balance.view.*
-
 
 class TransferBalanceDialogFragment : DialogFragment() {
-    private lateinit var mView: View
+    private lateinit var binding: FragmentTransferBalanceBinding
     private var viewModel: AccountViewModel? = null
     private var mContext: Context? = null
 
@@ -35,28 +34,28 @@ class TransferBalanceDialogFragment : DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        mView = inflater.inflate(R.layout.fragment_transfer_balance, container, false)
-        mView.amountEdtxt.width = Utils.getDeviceScreenSize(mContext)?.width!!
-        return mView
+    ): View {
+        binding = FragmentTransferBalanceBinding.inflate(layoutInflater, container, false)
+        binding.amountEdtxt.width = Utils.getDeviceScreenSize(mContext)?.width!!
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialize()
 
-        mView.okBtn.setOnClickListener {
-            if (!mView.amountEdtxt.text.isEmpty()) {
-                var amount = mView.amountEdtxt.text.toString().toDouble()
-                val pos1 = mView.fromAccountSpnr.selectedItemPosition
-                val pos2 = mView.toAccountSpnr.selectedItemPosition
+        binding.okBtn.setOnClickListener {
+            if (binding.amountEdtxt.text.isNotEmpty()) {
+                val amount = binding.amountEdtxt.text.toString().toDouble()
+                val pos1 = binding.fromAccountSpnr.selectedItemPosition
+                val pos2 = binding.toAccountSpnr.selectedItemPosition
                 val response = viewModel?.transferAmount(amount, pos1, pos2)
 
                 if (response?.code == Response.FAILURE) {
                     Toast.makeText(mContext, response.message, Toast.LENGTH_SHORT).show()
                 } else {
                     dismiss()
-                    with(AnalyticsManager){
+                    with(AnalyticsManager) {
                         logEvent(ACCOUNT_AMOUNT_TRANSFERRED)
                     }
                 }
@@ -80,21 +79,19 @@ class TransferBalanceDialogFragment : DialogFragment() {
         val sprnAdapter =
             AccountsAdapter(mContext!!, viewModel?.listOfAccountLiveData?.value!!, currencySymbol)
 
-        with(mView) {
-            fromAccountSpnr.adapter = sprnAdapter
-            toAccountSpnr.adapter = sprnAdapter
-            fromAccountSpnr.setSelection(0)
-            toAccountSpnr.setSelection(1)
+        binding.fromAccountSpnr.adapter = sprnAdapter
+        binding.toAccountSpnr.adapter = sprnAdapter
+        binding.fromAccountSpnr.setSelection(0)
+        binding.toAccountSpnr.setSelection(1)
 
-            cancelBtn.setOnClickListener {
-                dismiss()
-            }
-            switchAccountBtn.setOnClickListener {
-                val p1 = mView.fromAccountSpnr.selectedItemPosition
-                val p2 = mView.toAccountSpnr.selectedItemPosition
-                mView.fromAccountSpnr.setSelection(p2, true)
-                mView.toAccountSpnr.setSelection(p1, true)
-            }
+        binding.cancelBtn.setOnClickListener {
+            dismiss()
+        }
+        binding.switchAccountBtn.setOnClickListener {
+            val p1 = binding.fromAccountSpnr.selectedItemPosition
+            val p2 = binding.toAccountSpnr.selectedItemPosition
+            binding.fromAccountSpnr.setSelection(p2, true)
+            binding.toAccountSpnr.setSelection(p1, true)
         }
     }
 }

@@ -17,6 +17,7 @@ import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.models.*
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
+import com.remotearthsolutions.expensetracker.databinding.FragmentAddExpenseBinding
 import com.remotearthsolutions.expensetracker.fragments.*
 import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.Constants
@@ -30,9 +31,6 @@ import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
 import com.remotearthsolutions.expensetracker.utils.workmanager.WorkManagerEnqueuer
 import com.remotearthsolutions.expensetracker.utils.workmanager.WorkRequestType
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseFragmentViewModel
-import kotlinx.android.synthetic.main.fragment_add_expense.view.*
-import kotlinx.android.synthetic.main.fragment_add_expense.view.okBtn
-import kotlinx.android.synthetic.main.view_add_note.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import org.parceler.Parcels
@@ -41,8 +39,8 @@ import kotlin.math.abs
 
 class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
 
+    private lateinit var binding: FragmentAddExpenseBinding
     var purpose: Purpose? = null
-    private lateinit var mView: View
     private val viewModel: ExpenseFragmentViewModel by viewModel { parametersOf(this) }
     private var categoryExpense: CategoryExpense? = null
     private var prevExpense: CategoryExpense? = null
@@ -65,19 +63,18 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             Constants.PREF_TIME_FORMAT,
             Constants.KEY_DATE_MONTH_YEAR_DEFAULT
         )
-
-        mView = inflater.inflate(R.layout.fragment_add_expense, container, false)
+        binding = FragmentAddExpenseBinding.inflate(layoutInflater,container,false)
         val repeatTypes = getResourceStringArray(R.array.repeatType)
-        mView.repeatTypeSpnr.adapter =
+        binding.repeatTypeSpnr.adapter =
             ArrayAdapter(requireContext(), R.layout.repeat_type_spinner_item, repeatTypes)
 
         val currencySymbol = getCurrency(mContext)
-        mView.inputdigit.hint = "$currencySymbol 0"
+        binding.inputdigit.hint = "$currencySymbol 0"
         val numPadFragment =
             childFragmentManager.findFragmentById(R.id.numpadContainer) as NumpadFragment?
         val numpadManager = NumpadManager()
-        numpadManager.attachDisplay(mView.inputdigit)
-        numpadManager.attachDeleteButton(mView.deleteBtn)
+        numpadManager.attachDisplay(binding.inputdigit)
+        numpadManager.attachDeleteButton(binding.deleteBtn)
         numPadFragment!!.setListener(numpadManager)
 
         viewModel.init()
@@ -88,13 +85,13 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 Parcels.unwrap<CategoryExpense>(args.getParcelable(Constants.CATEGORYEXPENSE_PARCEL))
             if (categoryExpense != null) {
                 prevExpense = categoryExpense!!.copy()
-                Helpers.updateUI(mView, categoryExpense, format)
+                Helpers.updateUI(binding, categoryExpense, format)
             } else {
                 viewModel.setDefaultCategory()
             }
 
             if (categoryExpense != null && categoryExpense!!.accountIcon != null) {
-                Helpers.updateAccountBtn(mView, categoryExpense)
+                Helpers.updateAccountBtn(binding, categoryExpense)
             } else {
                 val accountId = SharedPreferenceUtils.getInstance(mContext)!!.getInt(
                     Constants.KEY_SELECTED_ACCOUNT_ID,
@@ -105,23 +102,23 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         }
 
         if (purpose?.equals(Purpose.UPDATE)!!) {
-            mView.enableRepeatBtn.visibility = View.GONE
+            binding.enableRepeatBtn.visibility = View.GONE
         }
 
         registerBackButton()
-        return mView
+        return binding.root
     }
 
     @SuppressLint("InflateParams")
     override fun defineClickListener() {
-        mView.fromAccountBtn.setOnClickListener {
+        binding.fromAccountBtn.setOnClickListener {
             val fm = childFragmentManager
             val accountDialogFragment: AccountDialogFragment =
                 AccountDialogFragment.newInstance(getResourceString(R.string.select_account))
             accountDialogFragment.setCallback(object : AccountDialogFragment.Callback {
                 override fun onSelectAccount(accountIncome: AccountModel) {
                     categoryExpense!!.setAccount(accountIncome)
-                    mView.fromAccountBtn.update(
+                    binding.fromAccountBtn.update(
                         accountIncome.name!!,
                         accountIncome.icon!!
                     )
@@ -134,7 +131,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             })
             accountDialogFragment.show(fm, AccountDialogFragment::class.java.name)
         }
-        mView.toCategoryBtn.setOnClickListener {
+        binding.toCategoryBtn.setOnClickListener {
             val fm = childFragmentManager
             val categoryDialogFragment: CategoryDialogFragment =
                 CategoryDialogFragment.newInstance(getResourceString(R.string.select_category))
@@ -142,7 +139,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             categoryDialogFragment.setCallback(object :
                 CategoryDialogFragment.Callback {
                 override fun onSelectCategory(category: CategoryModel?) {
-                    mView.toCategoryBtn.update(
+                    binding.toCategoryBtn.update(
                         category?.name!!,
                         category.icon!!
                     )
@@ -152,11 +149,11 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             })
             categoryDialogFragment.show(fm, CategoryDialogFragment::class.java.name)
         }
-        mView.dateTv.text = getCurrentDate(format)
-        mView.singleEntryView.setOnClickListener {
+        binding.dateTv.text = getCurrentDate(format)
+        binding.singleEntryView.setOnClickListener {
             val datePickerDialogFragment: DatePickerDialogFragment =
                 DatePickerDialogFragment.newInstance("")
-            val cal = getCalendarFromDateString(format, mView.dateTv.text.toString())
+            val cal = getCalendarFromDateString(format, binding.dateTv.text.toString())
             datePickerDialogFragment.setInitialDate(
                 cal[Calendar.DAY_OF_MONTH],
                 cal[Calendar.MONTH],
@@ -165,7 +162,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             datePickerDialogFragment.setCallback(object :
                 DatePickerDialogFragment.Callback {
                 override fun onSelectDate(date: String?) {
-                    mView.dateTv.text = date
+                    binding.dateTv.text = date
                     datePickerDialogFragment.dismiss()
                 }
             })
@@ -174,8 +171,8 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 DatePickerDialogFragment::class.java.name
             )
         }
-        mView.okBtn.setOnClickListener {
-            var expenseStr = mView.inputdigit.text.toString()
+        binding.okBtn.setOnClickListener {
+            var expenseStr = binding.inputdigit.text.toString()
             if (expenseStr == getResourceString(R.string.point)) {
                 expenseStr = ""
             }
@@ -199,19 +196,19 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             expenseModel.id = categoryExpense?.expenseId!!
             expenseModel.amount = amount
             expenseModel.datetime = getTimeInMillisFromDateStr(
-                mView.dateTv.text.toString()
+                binding.dateTv.text.toString()
                         + " " + currentTime, format + " " + Constants.KEY_HOUR_MIN_SEC
             )
             expenseModel.categoryId = categoryExpense!!.categoryId
             expenseModel.source = categoryExpense!!.accountId
-            expenseModel.note = mView.expenseNoteEdtxt.text.toString()
+            expenseModel.note = binding.expenseNoteEdtxt.text.toString()
 
-            if (mView.repeatEntryView.visibility != View.VISIBLE) {
+            if (binding.repeatEntryView.visibility != View.VISIBLE) {
                 viewModel.addExpense(expenseModel)
             } else {
-                val period = mView.numberTv.text.toString().toInt()
-                val repeatType = mView.repeatTypeSpnr.selectedItemPosition
-                val repeatCount = mView.timesTv.text.toString().toInt()
+                val period = binding.numberTv.text.toString().toInt()
+                val repeatType = binding.repeatTypeSpnr.selectedItemPosition
+                val repeatCount = binding.timesTv.text.toString().toInt()
                 val nextDate = ExpenseScheduler.nextOcurrenceDate(
                     Calendar.getInstance().timeInMillis, period, repeatType
                 )
@@ -220,10 +217,10 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             }
         }
 
-        mView.expenseNoteEdtxt.setOnClickListener {
-            DialogHelper.showExpenseNoteInput(mContext, layoutInflater, mView, categoryExpense)
+        binding.expenseNoteEdtxt.setOnClickListener {
+            DialogHelper.showExpenseNoteInput(mContext, layoutInflater, binding, categoryExpense)
         }
-        mView.expenseDeleteBtn.setOnClickListener {
+        binding.expenseDeleteBtn.setOnClickListener {
             if (categoryExpense!!.expenseId > 0) {
                 showAlert(getResourceString(R.string.attention),
                     getResourceString(R.string.are_you_sure_you_want_to_delete_this_expense_entry),
@@ -240,33 +237,33 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 (mContext as Activity?)!!.onBackPressed()
             }
         }
-        mView.enableRepeatBtn.setOnClickListener {
+        binding.enableRepeatBtn.setOnClickListener {
             isRepeatEnabled = !isRepeatEnabled
             if (isRepeatEnabled) {
-                mView.enableRepeatBtn.setImageResource(R.drawable.ic_repeat)
-                mView.singleEntryView.visibility = View.GONE
-                mView.repeatEntryView.visibility = View.VISIBLE
+                binding.enableRepeatBtn.setImageResource(R.drawable.ic_repeat)
+                binding.singleEntryView.visibility = View.GONE
+                binding.repeatEntryView.visibility = View.VISIBLE
                 (mContext as MainActivity?)?.supportActionBar?.title =
                     getResourceString(R.string.schedule_expense)
             } else {
-                mView.enableRepeatBtn.setImageResource(R.drawable.ic_single)
-                mView.singleEntryView.visibility = View.VISIBLE
-                mView.repeatEntryView.visibility = View.GONE
+                binding.enableRepeatBtn.setImageResource(R.drawable.ic_single)
+                binding.singleEntryView.visibility = View.VISIBLE
+                binding.repeatEntryView.visibility = View.GONE
                 (mContext as MainActivity?)?.supportActionBar?.title =
                     getResourceString(R.string.add_expense)
             }
         }
-        mView.numberTv.setOnClickListener {
-            DialogHelper.getInputFor(mView.numberTv, mContext, layoutInflater)
+        binding.numberTv.setOnClickListener {
+            DialogHelper.getInputFor(binding.numberTv, mContext, layoutInflater)
         }
-        mView.timesTv.setOnClickListener {
-            DialogHelper.getInputFor(mView.timesTv, mContext, layoutInflater)
+        binding.timesTv.setOnClickListener {
+            DialogHelper.getInputFor(binding.timesTv, mContext, layoutInflater)
         }
     }
 
     override fun onExpenseAdded(amount: Double) {
-        mView.inputdigit.setText("")
-        mView.expenseNoteEdtxt.setText("")
+        binding.inputdigit.setText("")
+        binding.expenseNoteEdtxt.setText("")
         Toast.makeText(activity, getResourceString(R.string.successfully_added), Toast.LENGTH_SHORT)
             .show()
         var mutableAmount = amount
@@ -317,7 +314,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 CategoryExpense()
         }
         categoryExpense!!.setAccount(account!!)
-        mView.fromAccountBtn.update(
+        binding.fromAccountBtn.update(
             account.name!!,
             account.icon!!
         )
@@ -333,14 +330,14 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 CategoryExpense()
         }
         categoryExpense!!.setCategory(categoryModel!!)
-        mView.toCategoryBtn.update(
+        binding.toCategoryBtn.update(
             categoryModel.name!!,
             categoryModel.icon!!
         )
     }
 
     override fun onScheduleExpense(scheduledExpenseModel: ScheduledExpenseModel) {
-        mView.inputdigit.setText("")
+        binding.inputdigit.setText("")
         showToast(getResourceString(R.string.expense_scheduled))
 
         val delay = scheduledExpenseModel.nextoccurrencedate - Calendar.getInstance().timeInMillis

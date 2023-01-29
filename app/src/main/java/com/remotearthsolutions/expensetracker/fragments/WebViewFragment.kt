@@ -12,17 +12,17 @@ import android.webkit.WebView
 import androidx.drawerlayout.widget.DrawerLayout
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
+import com.remotearthsolutions.expensetracker.databinding.FragmentWebviewBinding
 import com.remotearthsolutions.expensetracker.utils.Constants
-import kotlinx.android.synthetic.main.fragment_webview.view.*
 
 class WebViewFragment : BaseFragment() {
+    private lateinit var binding: FragmentWebviewBinding
     private lateinit var mContext: Context
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
     }
 
-    private lateinit var mView: View
     private var url: String? = null
     private var screen: String? = null
 
@@ -31,8 +31,8 @@ class WebViewFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        mView = inflater.inflate(R.layout.fragment_webview, container, false)
+    ): View {
+        binding = FragmentWebviewBinding.inflate(layoutInflater, container, false)
         if (arguments != null) {
             url = requireArguments().getString(Constants.KEY_URL)
             screen = requireArguments().getString(Constants.KEY_SCREEN)
@@ -42,14 +42,14 @@ class WebViewFragment : BaseFragment() {
             toolbar.setNavigationOnClickListener { (context as Activity?)!!.onBackPressed() }
             (context as MainActivity?)!!.mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         }
-        mView.progressBar.visibility = View.GONE
-        mView.webview.settings.javaScriptEnabled = true
-        mView.webview.settings.builtInZoomControls = true
-        mView.webview.webViewClient = WebViewClient()
-        url?.let { mView.webview.loadUrl(url!!) }
+        binding.progressBar.visibility = View.GONE
+        binding.webview.settings.javaScriptEnabled = true
+        binding.webview.settings.builtInZoomControls = true
+        binding.webview.webViewClient = WebViewClient()
+        url?.let { binding.webview.loadUrl(url!!) }
 
         registerBackButton()
-        return mView
+        return binding.root
     }
 
 
@@ -60,7 +60,7 @@ class WebViewFragment : BaseFragment() {
             favicon: Bitmap?
         ) {
             super.onPageStarted(view, url, favicon)
-            mView.progressBar.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.VISIBLE
         }
 
         override fun shouldOverrideUrlLoading(
@@ -73,7 +73,7 @@ class WebViewFragment : BaseFragment() {
 
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
-            mView.progressBar.visibility = View.GONE
+            binding.progressBar.visibility = View.GONE
         }
     }
 }

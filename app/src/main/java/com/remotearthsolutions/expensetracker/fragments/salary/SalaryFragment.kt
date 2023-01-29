@@ -11,17 +11,16 @@ import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.AccountsAdapter
 import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
+import com.remotearthsolutions.expensetracker.databinding.FragmentSalaryBinding
 import com.remotearthsolutions.expensetracker.utils.*
 import com.remotearthsolutions.expensetracker.viewmodels.AccountViewModel
-import kotlinx.android.synthetic.main.fragment_salary.*
-import kotlinx.android.synthetic.main.fragment_salary.view.*
 import java.util.*
 
 
 class SalaryFragment : DialogFragment() {
 
+    private lateinit var binding: FragmentSalaryBinding
     private var viewModel: AccountViewModel? = null
-    private lateinit var mView: View
     private lateinit var dateFormat: String
     private lateinit var sharedPreferenceUtils: SharedPreferenceUtils
 
@@ -33,9 +32,9 @@ class SalaryFragment : DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        mView = inflater.inflate(R.layout.fragment_salary, container, false)
-        return mView
+    ): View {
+        binding = FragmentSalaryBinding.inflate(layoutInflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,13 +46,13 @@ class SalaryFragment : DialogFragment() {
         )
 
         initialize()
-        mView.salaryToggleBtn.setOnCheckedChangeListener { buttonView, isChecked ->
-            mView.salaryContainer.visibility = if (isChecked) View.VISIBLE else View.INVISIBLE
+        binding.salaryToggleBtn.setOnCheckedChangeListener { _, isChecked ->
+            binding.salaryContainer.visibility = if (isChecked) View.VISIBLE else View.INVISIBLE
         }
 
-        mView.cancelBtn.setOnClickListener {
+        binding.cancelBtn.setOnClickListener {
             val prevState = sharedPreferenceUtils.getBoolean(Constants.KEY_SALARY_AUTOMATIC, false)
-            if (mView.salaryToggleBtn.isChecked != prevState) {
+            if (binding.salaryToggleBtn.isChecked != prevState) {
                 AlertDialogUtils.show(requireContext(),
                     "",
                     requireContext().getString(R.string.sure_to_cancel_change),
@@ -69,20 +68,20 @@ class SalaryFragment : DialogFragment() {
             }
         }
 
-        mView.dateTv.setOnClickListener {
+        binding.dateTv.setOnClickListener {
             val dateTimeLong =
-                DateTimeUtils.getTimeInMillisFromDateStr(mView.dateTv.text.toString(), dateFormat)
+                DateTimeUtils.getTimeInMillisFromDateStr(binding.dateTv.text.toString(), dateFormat)
             val previousCal = Calendar.getInstance()
             previousCal.timeInMillis = dateTimeLong
 
             val datePickerDialog = DatePickerDialog(
                 requireContext(),
-                DatePickerDialog.OnDateSetListener { _: DatePicker?, year: Int, month: Int, dayOfMonth: Int ->
+                { _: DatePicker?, year: Int, month: Int, dayOfMonth: Int ->
                     val calendar = Calendar.getInstance()
                     calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                     calendar.set(Calendar.MONTH, month)
                     calendar.set(Calendar.YEAR, year)
-                    mView.dateTv.text = DateTimeUtils.getDate(calendar.timeInMillis, dateFormat)
+                    binding.dateTv.text = DateTimeUtils.getDate(calendar.timeInMillis, dateFormat)
                 },
                 previousCal.get(Calendar.YEAR),
                 previousCal.get(Calendar.MONTH),
@@ -94,9 +93,9 @@ class SalaryFragment : DialogFragment() {
             datePickerDialog.show()
         }
 
-        mView.okBtn.setOnClickListener {
-            if (mView.salaryToggleBtn.isChecked) {
-                val amount = salaryAmountEdtxt.text.toString()
+        binding.okBtn.setOnClickListener {
+            if (binding.salaryToggleBtn.isChecked) {
+                val amount = binding.salaryAmountEdtxt.text.toString()
                 if (amount.isEmpty()) {
                     Utils.showToast(requireContext(), "Enter a valid amount")
                     return@setOnClickListener
@@ -107,7 +106,7 @@ class SalaryFragment : DialogFragment() {
                 }
                 val nextSalaryDateLong =
                     DateTimeUtils.getTimeInMillisFromDateStr(
-                        mView.dateTv.text.toString(),
+                        binding.dateTv.text.toString(),
                         dateFormat
                     )
 
@@ -118,7 +117,7 @@ class SalaryFragment : DialogFragment() {
                     nextSalaryDateLong
                 )
 
-                val accountId = (mView.salaryAccountSpnr.selectedItem as AccountModel).id
+                val accountId = (binding.salaryAccountSpnr.selectedItem as AccountModel).id
                 sharedPreferenceUtils.putInt(Constants.KEY_SALARY_AUTOMATIC_ACCOUNT_ID, accountId)
                 SalaryWorkerHelper.setAutomaticSalary(requireContext(), nextSalaryDateLong)
                 with(AnalyticsManager) { logEvent(AUTOMATIC_SALARY_ENABLED) }
@@ -141,16 +140,16 @@ class SalaryFragment : DialogFragment() {
     private fun updateVisibilityOfSalaryContainer() {
         val isAutomaticSalaryEnabled =
             sharedPreferenceUtils.getBoolean(Constants.KEY_SALARY_AUTOMATIC, false)
-        mView.salaryToggleBtn.isChecked = isAutomaticSalaryEnabled
-        mView.salaryContainer.visibility =
+        binding.salaryToggleBtn.isChecked = isAutomaticSalaryEnabled
+        binding.salaryContainer.visibility =
             if (isAutomaticSalaryEnabled) View.VISIBLE else View.INVISIBLE
     }
 
     private fun updateSalaryAmount() {
         val amount =
             sharedPreferenceUtils.getString(Constants.KEY_SALARY_AUTOMATIC_AMOUNT, "")
-        mView.salaryAmountEdtxt.setText(amount)
-        mView.salaryAmountEdtxt.setSelection(amount.length)
+        binding.salaryAmountEdtxt.setText(amount)
+        binding.salaryAmountEdtxt.setSelection(amount.length)
     }
 
     private fun updateNextSalaryDate() {
@@ -159,7 +158,7 @@ class SalaryFragment : DialogFragment() {
         cal.set(Calendar.DAY_OF_MONTH, 1)
         cal.set(Calendar.HOUR_OF_DAY, 1)
         cal.set(Calendar.MINUTE, 0)
-        mView.dateTv.text = DateTimeUtils.getDate(
+        binding.dateTv.text = DateTimeUtils.getDate(
             sharedPreferenceUtils.getLong(Constants.KEY_SALARY_AUTOMATIC_DATE, cal.timeInMillis),
             sharedPreferenceUtils.getString(
                 Constants.PREF_TIME_FORMAT,
@@ -172,13 +171,13 @@ class SalaryFragment : DialogFragment() {
         val accountList = viewModel?.listOfAccountLiveData?.value!!
         val currencySymbol = Utils.getCurrency(requireContext())
         val adapter = AccountsAdapter(requireContext(), accountList, currencySymbol)
-        mView.salaryAccountSpnr.adapter = adapter
+        binding.salaryAccountSpnr.adapter = adapter
         val accountId = sharedPreferenceUtils.getInt(
             Constants.KEY_SALARY_AUTOMATIC_ACCOUNT_ID,
             2
         )
         val accountModel = accountList.find { accountModel -> accountModel.id == accountId }
         val index = accountList.indexOf(accountModel);
-        mView.salaryAccountSpnr.setSelection(if (index < 0) 1 else index)
+        binding.salaryAccountSpnr.setSelection(if (index < 0) 1 else index)
     }
 }

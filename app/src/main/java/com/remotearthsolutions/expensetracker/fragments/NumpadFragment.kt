@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.remotearthsolutions.expensetracker.R
-import kotlinx.android.synthetic.main.fragment_numpad.view.*
+import com.remotearthsolutions.expensetracker.databinding.FragmentNumpadBinding
 
 class NumpadFragment : Fragment(),
     View.OnClickListener {
+    private lateinit var binding: FragmentNumpadBinding
     private var listener: Listener? = null
 
     fun setListener(listener: Listener?) {
@@ -21,26 +22,26 @@ class NumpadFragment : Fragment(),
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_numpad, container, false)
+    ): View {
+        binding = FragmentNumpadBinding.inflate(layoutInflater,container,false)
 
-        view.addition.setOnClickListener(this)
-        view.subtraction.setOnClickListener(this)
-        view.multiplication.setOnClickListener(this)
-        view.division.setOnClickListener(this)
-        view.digitOne.setOnClickListener(this)
-        view.digitTwo.setOnClickListener(this)
-        view.digitThree.setOnClickListener(this)
-        view.digitFour.setOnClickListener(this)
-        view.digitFive.setOnClickListener(this)
-        view.digitSix.setOnClickListener(this)
-        view.digitSeven.setOnClickListener(this)
-        view.digitEight.setOnClickListener(this)
-        view.digitNine.setOnClickListener(this)
-        view.digitZero.setOnClickListener(this)
-        view.dot.setOnClickListener(this)
-        view.equalto.setOnClickListener(this)
-        return view
+        binding.addition.setOnClickListener(this)
+        binding.subtraction.setOnClickListener(this)
+        binding.multiplication.setOnClickListener(this)
+        binding.division.setOnClickListener(this)
+        binding.digitOne.setOnClickListener(this)
+        binding.digitTwo.setOnClickListener(this)
+        binding.digitThree.setOnClickListener(this)
+        binding.digitFour.setOnClickListener(this)
+        binding.digitFive.setOnClickListener(this)
+        binding.digitSix.setOnClickListener(this)
+        binding.digitSeven.setOnClickListener(this)
+        binding.digitEight.setOnClickListener(this)
+        binding.digitNine.setOnClickListener(this)
+        binding.digitZero.setOnClickListener(this)
+        binding.dot.setOnClickListener(this)
+        binding.equalto.setOnClickListener(this)
+        return binding.root
     }
 
     override fun onClick(v: View) {

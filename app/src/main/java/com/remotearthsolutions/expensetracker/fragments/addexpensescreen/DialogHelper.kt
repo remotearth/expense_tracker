@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
-import kotlinx.android.synthetic.main.fragment_add_expense.view.*
+import com.remotearthsolutions.expensetracker.databinding.FragmentAddExpenseBinding
 
 
 object DialogHelper {
@@ -48,7 +48,7 @@ object DialogHelper {
     fun showExpenseNoteInput(
         mContext: Context,
         layoutInflater: LayoutInflater,
-        mView: View,
+        binding: FragmentAddExpenseBinding,
         categoryExpense: CategoryExpense?
     ) {
         val builder =
@@ -70,7 +70,7 @@ object DialogHelper {
             .setOnClickListener {
                 val str = noteEdtxt.text.toString()
                 categoryExpense.note = str
-                mView.expenseNoteEdtxt.setText(str)
+                binding.expenseNoteEdtxt.setText(str)
                 builder.dismiss()
             }
         builder.setView(dialogView)

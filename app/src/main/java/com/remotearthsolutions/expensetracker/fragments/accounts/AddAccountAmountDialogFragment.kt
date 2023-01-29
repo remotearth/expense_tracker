@@ -9,12 +9,12 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
+import com.remotearthsolutions.expensetracker.databinding.FragmentAddaccountamountBinding
 import com.remotearthsolutions.expensetracker.utils.CategoryIcons.getIconId
 import com.remotearthsolutions.expensetracker.utils.Utils
-import kotlinx.android.synthetic.main.fragment_addaccountamount.view.*
 
 class AddAccountAmountDialogFragment : DialogFragment() {
-    private lateinit var mView: View
+    private lateinit var binding: FragmentAddaccountamountBinding
     private lateinit var callback: Callback
     private var accountIncome: AccountModel? = null
     private lateinit var purpose: Purpose
@@ -35,26 +35,26 @@ class AddAccountAmountDialogFragment : DialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        mView = inflater.inflate(R.layout.fragment_addaccountamount, container, false)
-        return mView
+    ): View {
+        binding = FragmentAddaccountamountBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         accountIncome?.let {
-            mView.accountNameTv.text = it.name
-            mView.accountImageIv.setImageResource(getIconId(it.icon!!))
+            binding.accountNameTv.text = it.name
+            binding.accountImageIv.setImageResource(getIconId(it.icon!!))
 
             if (purpose == Purpose.UpdateAmount) {
                 val amountStr = Utils.formatDecimalValues(it.amount)
-                mView.amountEdtxt.setText(amountStr)
-                mView.amountEdtxt.setSelection(amountStr.length)
+                binding.amountEdtxt.setText(amountStr)
+                binding.amountEdtxt.setSelection(amountStr.length)
             }
         }
 
-        mView.okBtn.setOnClickListener {
-            val amount = mView.amountEdtxt.text.toString()
+        binding.okBtn.setOnClickListener {
+            val amount = binding.amountEdtxt.text.toString()
             if (amount.isEmpty()) {
                 Toast.makeText(
                     activity,

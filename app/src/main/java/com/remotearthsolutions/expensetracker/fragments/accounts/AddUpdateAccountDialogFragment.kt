@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.IconListAdapter
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
+import com.remotearthsolutions.expensetracker.databinding.FragmentAddUpdateCategoryAccountBinding
 import com.remotearthsolutions.expensetracker.utils.CategoryIcons.allIcons
 import com.remotearthsolutions.expensetracker.utils.Utils.getDeviceScreenSize
 import com.remotearthsolutions.expensetracker.viewmodels.AccountViewModel
-import kotlinx.android.synthetic.main.fragment_add_update_category_account.view.*
 
 class AddUpdateAccountDialogFragment : DialogFragment() {
-    private lateinit var mView: View
+    private lateinit var binding: FragmentAddUpdateCategoryAccountBinding
     private var viewModel: AccountViewModel? = null
     private var accountModel: AccountModel? = null
     private var selectedIcon: String? = null
@@ -41,8 +41,9 @@ class AddUpdateAccountDialogFragment : DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_add_update_category_account, container, false)
+    ): View {
+        binding = FragmentAddUpdateCategoryAccountBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(
@@ -50,26 +51,25 @@ class AddUpdateAccountDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-        mView = view
         if (accountModel != null) {
-            mView.header.text = getString(R.string.update_account)
-            mView.okBtn.text = getString(R.string.update)
-            mView.nameEdtxt.setText(accountModel!!.name)
-            mView.nameEdtxt.setSelection(mView.nameEdtxt.text.length)
+            binding.header.text = getString(R.string.update_account)
+            binding.okBtn.text = getString(R.string.update)
+            binding.nameEdtxt.setText(accountModel!!.name)
+            binding.nameEdtxt.setSelection(binding.nameEdtxt.text.length)
         } else {
-            mView.header.text = getString(R.string.add_account)
-            mView.okBtn.text = getString(R.string.add)
+            binding.header.text = getString(R.string.add_account)
+            binding.okBtn.text = getString(R.string.add)
         }
         val params = LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             getDeviceScreenSize(mContext)!!.height / 2
         )
-        mView.accountrecyclearView.layoutParams = params
-        mView.accountrecyclearView.setHasFixedSize(true)
+        binding.accountrecyclearView.layoutParams = params
+        binding.accountrecyclearView.setHasFixedSize(true)
         val gridLayoutManager = GridLayoutManager(mContext, 4)
-        mView.accountrecyclearView.layoutManager = gridLayoutManager
-        val alliconList = allIcons
-        iconListAdapter = IconListAdapter(alliconList, gridLayoutManager)
+        binding.accountrecyclearView.layoutManager = gridLayoutManager
+        val allIconList = allIcons
+        iconListAdapter = IconListAdapter(allIconList, gridLayoutManager)
         iconListAdapter.setSelectedIcon(if (selectedIcon != null) selectedIcon else "")
         iconListAdapter.setOnItemClickListener(object : IconListAdapter.OnItemClickListener {
             override fun onItemClick(icon: String?) {
@@ -78,20 +78,20 @@ class AddUpdateAccountDialogFragment : DialogFragment() {
                 iconListAdapter.notifyDataSetChanged()
             }
         })
-        mView.accountrecyclearView.adapter = iconListAdapter
-        mView.okBtn.setOnClickListener { saveAccount() }
+        binding.accountrecyclearView.adapter = iconListAdapter
+        binding.okBtn.setOnClickListener { saveAccount() }
     }
 
     private fun saveAccount() {
-        val accountName = mView.nameEdtxt.text.toString().trim { it <= ' ' }
+        val accountName = binding.nameEdtxt.text.toString().trim { it <= ' ' }
         if (accountName.isEmpty()) {
-            mView.nameEdtxt.error = getString(R.string.enter_a_name_for_account)
-            mView.nameEdtxt.requestFocus()
+            binding.nameEdtxt.error = getString(R.string.enter_a_name_for_account)
+            binding.nameEdtxt.requestFocus()
             return
         }
         if (accountName.length > 20) {
-            mView.nameEdtxt.error = getString(R.string.name_should_be_less_than_20_char)
-            mView.nameEdtxt.requestFocus()
+            binding.nameEdtxt.error = getString(R.string.name_should_be_less_than_20_char)
+            binding.nameEdtxt.requestFocus()
             return
         }
         if (selectedIcon == null || selectedIcon!!.isEmpty()) {

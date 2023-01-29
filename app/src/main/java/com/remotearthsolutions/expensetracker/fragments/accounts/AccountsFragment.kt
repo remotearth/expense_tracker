@@ -15,6 +15,7 @@ import com.remotearthsolutions.expensetracker.adapters.AccountsAdapter
 import com.remotearthsolutions.expensetracker.contracts.AccountContract
 import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
+import com.remotearthsolutions.expensetracker.databinding.FragmentAccountsBinding
 import com.remotearthsolutions.expensetracker.fragments.BaseFragment
 import com.remotearthsolutions.expensetracker.fragments.OptionBottomSheetFragment
 import com.remotearthsolutions.expensetracker.fragments.OptionBottomSheetFragment.OptionsFor
@@ -26,15 +27,14 @@ import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
 import com.remotearthsolutions.expensetracker.viewmodels.AccountViewModel
-import kotlinx.android.synthetic.main.fragment_accounts.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class AccountsFragment : BaseFragment(),
     AccountContract.View,
     OptionBottomSheetFragment.Callback {
-    private val viewModel: AccountViewModel by viewModel{ parametersOf(requireContext(),this)}
-    private lateinit var mView: View
+    private lateinit var binding: FragmentAccountsBinding
+    private val viewModel: AccountViewModel by viewModel { parametersOf(requireContext(), this) }
     private var adapter: AccountsAdapter? = null
     private var selectAccountModel: AccountModel? = null
     private var limitOfAccount = 0
@@ -50,8 +50,8 @@ class AccountsFragment : BaseFragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mView = inflater.inflate(R.layout.fragment_accounts, container, false)
-        return mView
+        binding = FragmentAccountsBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(
@@ -64,11 +64,11 @@ class AccountsFragment : BaseFragment(),
         }
 
         viewModel.loadAccounts()
-        viewModel.numberOfItem.observe(viewLifecycleOwner,
-            { count: Int -> limitOfAccount = count }
-        )
-        view.addAccountBtn.setOnClickListener {
-            view.fabMenu.close(true)
+        viewModel.numberOfItem.observe(viewLifecycleOwner
+        ) { count: Int -> limitOfAccount = count }
+
+        binding.addAccountBtn.setOnClickListener {
+            binding.fabMenu.close(true)
             if (limitOfAccount < 5 ||
                 ((mContext as Activity?)!!.application as ApplicationObject).isPremium
             ) {
@@ -85,8 +85,8 @@ class AccountsFragment : BaseFragment(),
             }
         }
 
-        view.transferAmountBtn.setOnClickListener {
-            view.fabMenu.close(true)
+        binding.transferAmountBtn.setOnClickListener {
+            binding.fabMenu.close(true)
             val transferBalanceDialogFragment =
                 TransferBalanceDialogFragment()
             transferBalanceDialogFragment.setViewModel(viewModel)
@@ -96,8 +96,8 @@ class AccountsFragment : BaseFragment(),
             )
         }
 
-        view.setSalaryBtn.setOnClickListener {
-            view.fabMenu.close(true)
+        binding.setSalaryBtn.setOnClickListener {
+            binding.fabMenu.close(true)
             val salaryFragment = SalaryFragment()
             salaryFragment.setViewModel(viewModel)
             salaryFragment.show(
@@ -106,8 +106,8 @@ class AccountsFragment : BaseFragment(),
             )
         }
 
-        view.container.setOnClickListener {
-            view.fabMenu.close(true)
+        binding.container.setOnClickListener {
+            binding.fabMenu.close(true)
         }
 
         super.onViewCreated(view, savedInstanceState)
@@ -115,13 +115,13 @@ class AccountsFragment : BaseFragment(),
 
     override fun observe() {
 
-        viewModel.listOfAccountLiveData.observe(viewLifecycleOwner, {
+        viewModel.listOfAccountLiveData.observe(viewLifecycleOwner) {
             if (isAdded) {
                 adapter = AccountsAdapter(mContext!!, it, currencySymbol!!)
-                mView.accountList.adapter = adapter
-                mView.accountList.onItemClickListener =
+                binding.accountList.adapter = adapter
+                binding.accountList.onItemClickListener =
                     AdapterView.OnItemClickListener { _: AdapterView<*>?, _: View?, position: Int, _: Long ->
-                        mView.fabMenu.close(true)
+                        binding.fabMenu.close(true)
                         selectAccountModel = it[position]
                         val optionBottomSheetFragment =
                             OptionBottomSheetFragment()
@@ -135,22 +135,21 @@ class AccountsFragment : BaseFragment(),
                         )
                     }
             }
-        })
+        }
     }
 
     override fun onSuccess(message: String?) {
         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onUpdateAccount(isNewAccount:Boolean?) {
+    override fun onUpdateAccount(isNewAccount: Boolean?) {
         viewModel.loadAccounts()
 
-        isNewAccount?.let{
-            with(AnalyticsManager){
-                if(it){
+        isNewAccount?.let {
+            with(AnalyticsManager) {
+                if (it) {
                     logEvent(EXPENSE_ACCOUNT_CREATED)
-                }
-                else {
+                } else {
                     logEvent(EXPENSE_ACCOUNT_UPDATED)
                 }
             }
@@ -164,7 +163,7 @@ class AccountsFragment : BaseFragment(),
             SharedPreferenceUtils.getInstance(requireActivity())
                 ?.putInt(Constants.KEY_SELECTED_ACCOUNT_ID, 1)
         }
-        with(AnalyticsManager){
+        with(AnalyticsManager) {
             logEvent(EXPENSE_ACCOUNT_DELETED)
         }
     }
