@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
@@ -58,11 +57,17 @@ android {
     buildFeatures {
         // Enables Jetpack Compose for this module
         compose true
+        viewBinding true
     }
 
-//    composeOptions {
-//        kotlinCompilerExtensionVersion '1.0.5'
-//    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.4.0'
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     lint {
         abortOnError false
         disable 'ContentDescription', 'UnusedResources', 'VectorPath', 'ButtonStyle', 'ButtonCase', 'Autofill'

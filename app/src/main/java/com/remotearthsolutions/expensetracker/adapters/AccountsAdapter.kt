@@ -9,35 +9,40 @@ import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
+import com.remotearthsolutions.expensetracker.databinding.CustomAccountBinding
 import com.remotearthsolutions.expensetracker.utils.CategoryIcons.getIconId
 import com.remotearthsolutions.expensetracker.utils.Utils.formatDecimalValues
-import kotlinx.android.synthetic.main.custom_account.view.*
 
 class AccountsAdapter(
     mContext: Context,
     private val accountList: List<AccountModel>,
     private val currencySymbol: String
 ) : ArrayAdapter<AccountModel?>(mContext, R.layout.custom_account, accountList) {
+
+    private lateinit var binding: CustomAccountBinding
+
     @SuppressLint("SetTextI18n")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var view = convertView
+
         if (view == null) {
-            view =
-                LayoutInflater.from(parent.context).inflate(R.layout.custom_account, parent, false)
+            binding = CustomAccountBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            view = binding.root
         }
+
         val model = accountList[position]
 
-        view!!.acimage.setImageResource(getIconId(model.icon!!))
-        view.actitle.text = model.name
-        view.acammount.text = "$currencySymbol ${formatDecimalValues(model.amount)}"
+        binding.acimage.setImageResource(getIconId(model.icon!!))
+        binding.actitle.text = model.name
+        binding.acammount.text = "$currencySymbol ${formatDecimalValues(model.amount)}"
         if (model.amount < 0) {
-            view.acammount.setTextColor(
+            binding.acammount.setTextColor(
                 ContextCompat.getColor(
                     context, android.R.color.holo_red_dark
                 )
             )
         } else {
-            view.acammount.setTextColor(
+            binding.acammount.setTextColor(
                 ContextCompat.getColor(
                     context, android.R.color.holo_green_light
                 )

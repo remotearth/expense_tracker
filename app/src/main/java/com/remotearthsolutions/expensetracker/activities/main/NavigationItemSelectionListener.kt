@@ -16,6 +16,7 @@ import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.activities.helpers.FragmentLoader
 import com.remotearthsolutions.expensetracker.contracts.BaseView
+import com.remotearthsolutions.expensetracker.databinding.ActivityMainBinding
 import com.remotearthsolutions.expensetracker.fragments.AboutFragment
 import com.remotearthsolutions.expensetracker.fragments.CategoryFragment
 import com.remotearthsolutions.expensetracker.fragments.ScheduledExpenseFragment
@@ -23,7 +24,6 @@ import com.remotearthsolutions.expensetracker.fragments.WebViewFragment
 import com.remotearthsolutions.expensetracker.fragments.main.MainFragment
 import com.remotearthsolutions.expensetracker.fragments.settings.SettingsFragment
 import com.remotearthsolutions.expensetracker.utils.*
-import kotlinx.android.synthetic.main.activity_main.*
 import org.solovyev.android.checkout.BillingRequests
 import org.solovyev.android.checkout.Checkout
 import org.solovyev.android.checkout.ProductTypes
@@ -32,6 +32,7 @@ import javax.annotation.Nonnull
 
 class NavigationItemSelectionListener(
     private val mainActivity: MainActivity,
+    private val binding: ActivityMainBinding,
     val productId: String
 ) :
     NavigationView.OnNavigationItemSelectedListener {
@@ -58,7 +59,7 @@ class NavigationItemSelectionListener(
                         CategoryFragment::class.java.name
                     )
                     showBackButton()
-                    drawer_layout.closeDrawer(GravityCompat.START)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     return false
                 }
                 R.id.nav_scheduled_expense -> {
@@ -69,7 +70,7 @@ class NavigationItemSelectionListener(
                         ScheduledExpenseFragment::class.java.name
                     )
                     showBackButton()
-                    drawer_layout.closeDrawer(GravityCompat.START)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     return false
                 }
                 R.id.nav_import_data -> {
@@ -116,12 +117,12 @@ class NavigationItemSelectionListener(
 
                             override fun onCancelBtnPressed() {}
                         })
-                    drawer_layout.closeDrawer(GravityCompat.START)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     return false
                 }
                 R.id.nav_export_data -> {
                     viewModel.saveExpenseToCSV(this)
-                    drawer_layout.closeDrawer(GravityCompat.START)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     return false
                 }
                 R.id.nav_backup_sync -> {
@@ -153,7 +154,7 @@ class NavigationItemSelectionListener(
                         )
                     }
 
-                    drawer_layout.closeDrawer(GravityCompat.START)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     return false
                 }
                 R.id.nav_settings -> {
@@ -163,7 +164,7 @@ class NavigationItemSelectionListener(
                         SettingsFragment::class.java.name
                     )
                     showBackButton()
-                    drawer_layout.closeDrawer(GravityCompat.START)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     with(AnalyticsManager){
                         logEvent(SETTINGS_PAGE_VIEWED)
                     }
@@ -182,7 +183,7 @@ class NavigationItemSelectionListener(
 
                             override fun onCancelBtnPressed() {}
                         })
-                    drawer_layout.closeDrawer(GravityCompat.START)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     return false
                 }
                 R.id.nav_purchase -> {
@@ -214,17 +215,17 @@ class NavigationItemSelectionListener(
                                 })
                             }
                         })
-                    drawer_layout.closeDrawer(GravityCompat.START)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     return false
                 }
                 R.id.nav_how -> {
-                    drawer_layout.closeDrawer(GravityCompat.START)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     val status = showWebUrl(
                         Constants.URL_HOW_TO_USE,
                         getString(R.string.menu_how_to)
                     )
                     showBackButton()
-                    drawer_layout.closeDrawer(GravityCompat.START)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     return status
                 }
                 R.id.nav_contact_us -> {
@@ -237,7 +238,7 @@ class NavigationItemSelectionListener(
                         //.setHtmlText(body) //If you are using HTML in your body text
                         //.setChooserTitle()
                         .startChooser()
-                    drawer_layout.closeDrawer(GravityCompat.START)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     return false
                 }
                 R.id.nav_share -> {
@@ -246,13 +247,13 @@ class NavigationItemSelectionListener(
                         .setText(getString(R.string.share_app_text) + "\n\nhttps://bit.ly/2SOTaQj")
                         .setChooserTitle("Share with...")
                         .startChooser()
-                    drawer_layout.closeDrawer(GravityCompat.START)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     with(AnalyticsManager) { logEvent(APP_SHARE_INTENT) }
                     return false
                 }
                 R.id.nav_rate_us -> {
                     RequestReviewUtils.openApplinkForReview(this)
-                    drawer_layout.closeDrawer(GravityCompat.START)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     return false
                 }
                 R.id.nav_about -> {
@@ -261,40 +262,40 @@ class NavigationItemSelectionListener(
                         AboutFragment::class.java.name
                     )
                     showBackButton()
-                    drawer_layout.closeDrawer(GravityCompat.START)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     with(AnalyticsManager){
                         logEvent(ABOUT_PAGE_VIEWED)
                     }
                     return false
                 }
                 R.id.nav_privacypolicy -> {
-                    drawer_layout.closeDrawer(GravityCompat.START)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     val status = showWebUrl(
                         Constants.URL_PRIVACY_POLICY,
                         getString(R.string.privacy_policy)
                     )
                     showBackButton()
-                    drawer_layout.closeDrawer(GravityCompat.START)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     with(AnalyticsManager){
                         logEvent(PRIVACY_PAGE_VIEWED)
                     }
                     return status
                 }
                 R.id.nav_licenses -> {
-                    drawer_layout.closeDrawer(GravityCompat.START)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     val status = showWebUrl(
                         Constants.URL_THIRD_PARTY_LICENSES,
                         getString(R.string.menu_licenses)
                     )
                     showBackButton()
-                    drawer_layout.closeDrawer(GravityCompat.START)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     with(AnalyticsManager){
                         logEvent(LICENSE_PAGE_VIEWED)
                     }
                     return status
                 }
             }
-            drawer_layout.closeDrawer(GravityCompat.START)
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
         }
         return true
     }

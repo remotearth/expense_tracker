@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.viewholder.ScheduledExpenseViewHolder
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.ScheduledExpenseDto
+import com.remotearthsolutions.expensetracker.databinding.ListitemScheduledexpenseBinding
 
 class ScheduledExpenseListAdapter(
     private val scheduledExpenseList: List<ScheduledExpenseDto>?,
@@ -14,10 +15,10 @@ class ScheduledExpenseListAdapter(
     private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<ScheduledExpenseViewHolder>() {
 
+    private lateinit var binding: ListitemScheduledexpenseBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduledExpenseViewHolder {
-        val v = LayoutInflater.from(parent.context)
-            .inflate(R.layout.listitem_scheduledexpense, parent, false)
-        return ScheduledExpenseViewHolder(parent.context, v, currencySymbol, format, listener)
+        binding = ListitemScheduledexpenseBinding.inflate(LayoutInflater.from(parent.context),parent, false)
+        return ScheduledExpenseViewHolder(parent.context, binding, currencySymbol, format, listener)
     }
 
     override fun getItemCount(): Int {

@@ -18,6 +18,7 @@ import com.remotearthsolutions.expensetracker.activities.LoginActivity
 import com.remotearthsolutions.expensetracker.activities.helpers.FragmentLoader
 import com.remotearthsolutions.expensetracker.contracts.MainContract
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
+import com.remotearthsolutions.expensetracker.databinding.ActivityMainBinding
 import com.remotearthsolutions.expensetracker.fragments.HomeFragment
 import com.remotearthsolutions.expensetracker.fragments.OverViewFragment
 import com.remotearthsolutions.expensetracker.fragments.ViewShadeFragment
@@ -30,7 +31,6 @@ import com.remotearthsolutions.expensetracker.utils.cloudbackup.CloudBackupManag
 import com.remotearthsolutions.expensetracker.utils.workmanager.WorkManagerEnqueuer
 import com.remotearthsolutions.expensetracker.utils.workmanager.WorkRequestType
 import com.remotearthsolutions.expensetracker.viewmodels.mainview.MainViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import org.parceler.Parcels
@@ -44,10 +44,12 @@ class MainActivity : BaseActivity(), MainContract.View {
     private lateinit var inAppPurchaseCallback: InAppPurchaseCallback
     lateinit var checkoutUtils: CheckoutUtils
     val viewModel: MainViewModel by viewModel { parametersOf(this, this) }
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         onNewIntent(intent)
 
         checkoutUtils = CheckoutUtils.getInstance(this)!!
@@ -109,11 +111,12 @@ class MainActivity : BaseActivity(), MainContract.View {
         setupActionBar()
         val navigationItemSelectionListener = NavigationItemSelectionListener(
             this,
+            binding,
             (application as ApplicationObject).adProductId
         )
-        nav_view.setNavigationItemSelectedListener(navigationItemSelectionListener)
-        val homeNavItem = nav_view.menu.findItem(R.id.nav_home)
-        val howToUseNavItem = nav_view.menu.findItem(R.id.nav_how)
+        binding.navView.setNavigationItemSelectedListener(navigationItemSelectionListener)
+        val homeNavItem = binding.navView.menu.findItem(R.id.nav_home)
+        val howToUseNavItem = binding.navView.menu.findItem(R.id.nav_how)
         navigationItemSelectionListener.onNavigationItemSelected(homeNavItem)
         homeNavItem.isChecked = true
 
@@ -125,8 +128,8 @@ class MainActivity : BaseActivity(), MainContract.View {
     private fun setupActionBar() {
         toggle = ActionBarDrawerToggle(
             this,
-            drawer_layout,
-            toolbar,
+            binding.drawerLayout,
+            binding.toolbar,
             R.string.navigation_drawer_open,
             R.string.navigation_drawer_close
         )
@@ -153,12 +156,12 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun showTotalExpense(amount: String?) {
         val str = "${getString(R.string.expense)}: $amount"
-        totalExpenseAmountTv.text = str
+        binding.totalExpenseAmountTv.text = str
     }
 
     override fun showTotalBalance(amount: String?) {
         val str = "${getString(R.string.balance)}: $amount"
-        totalAccountAmountTv.text = str
+        binding.totalAccountAmountTv.text = str
     }
 
     override fun stayOnCurrencyScreen() {
@@ -168,7 +171,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
     override fun setBalanceTextColor(colorId: Int) {
-        totalAccountAmountTv.setTextColor(ContextCompat.getColor(this, colorId))
+        binding.totalAccountAmountTv.setTextColor(ContextCompat.getColor(this, colorId))
     }
 
     override fun onDataUpdated() {
@@ -274,10 +277,10 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
     val mToolbar: Toolbar
-        get() = toolbar
+        get() = binding.toolbar
 
     val mDrawerLayout: DrawerLayout
-        get() = drawer_layout
+        get() = binding.drawerLayout
 
     fun updateTitle() {
         when (selectedTabPosition) {

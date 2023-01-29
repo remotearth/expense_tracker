@@ -14,7 +14,6 @@ import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
-import kotlinx.android.synthetic.main.fragment_about.view.*
 
 class AboutFragment : BaseFragment() {
     @SuppressLint("SetTextI18n")

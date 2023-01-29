@@ -5,18 +5,22 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
+import com.remotearthsolutions.expensetracker.databinding.ActivityInitialSettingsBinding
 import com.remotearthsolutions.expensetracker.fragments.InitialSettingsFragment
 import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
-import kotlinx.android.synthetic.main.activity_initial_settings.*
 
 class InitialPreferenceActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityInitialSettingsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState ?: Bundle())
-        setContentView(R.layout.activity_initial_settings)
+        binding = ActivityInitialSettingsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         loadInitialSettingsFragment()
-        gotomainactivity.setOnClickListener { gohome() }
+        binding.gotomainactivity.setOnClickListener { gohome() }
     }
 
     private fun loadInitialSettingsFragment() {

@@ -8,20 +8,22 @@ import com.google.firebase.auth.FirebaseUser
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.contracts.LoginContract
+import com.remotearthsolutions.expensetracker.databinding.ActivityLoginBinding
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.viewmodels.LoginViewModel
-import kotlinx.android.synthetic.main.activity_login.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class LoginActivity : BaseActivity(), View.OnClickListener,
     LoginContract.View {
     private val viewModel: LoginViewModel by viewModel{ parametersOf(this,this) }
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         viewModel.init()
     }
 
@@ -46,9 +48,9 @@ class LoginActivity : BaseActivity(), View.OnClickListener,
     }
 
     override fun initializeView() {
-        googlebutton.setOnClickListener(this)
-        facebook_login_button.setOnClickListener(this)
-        withoutloginbutton.setOnClickListener(this)
+        binding.googlebutton.setOnClickListener(this)
+        binding.facebookLoginButton.setOnClickListener(this)
+        binding.withoutloginbutton.setOnClickListener(this)
     }
 
     override fun onLoginSuccess(user: FirebaseUser?) {
