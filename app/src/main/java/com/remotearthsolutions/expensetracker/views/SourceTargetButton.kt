@@ -5,17 +5,18 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import com.remotearthsolutions.expensetracker.R
+import com.remotearthsolutions.expensetracker.databinding.CustomExpenseSourceTargetBtnBinding
 import com.remotearthsolutions.expensetracker.utils.CategoryIcons
-import kotlinx.android.synthetic.main.custom_expense_source_target_btn.view.*
 
 
 class SourceTargetButton(context: Context?, attrs: AttributeSet?) : RelativeLayout(context, attrs) {
     private var btnHeader: String? = null
     private var btnTitle: String? = null
     private var btnIcon: String? = null
+    private var binding: CustomExpenseSourceTargetBtnBinding
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.custom_expense_source_target_btn, this, true)
+        binding = CustomExpenseSourceTargetBtnBinding.inflate(LayoutInflater.from(context), this)
         val a = context?.theme?.obtainStyledAttributes(attrs, R.styleable.SourceTargetButton, 0, 0)
 
         try {
@@ -30,14 +31,14 @@ class SourceTargetButton(context: Context?, attrs: AttributeSet?) : RelativeLayo
     }
 
     fun update(btnHeader: String, btnTitle: String, btnIcon: String) {
-        accountTitleTv.text = btnHeader
-        accountNameTv.text = btnTitle
-        accountImageIv.setImageResource(CategoryIcons.getIconId(btnIcon))
+        binding.accountTitleTv.text = btnHeader
+        binding.accountNameTv.text = btnTitle
+        binding.accountImageIv.setImageResource(CategoryIcons.getIconId(btnIcon))
 
     }
 
     fun update(btnTitle: String, btnIcon: String) {
-        accountNameTv.text = btnTitle
-        accountImageIv.setImageResource(CategoryIcons.getIconId(btnIcon))
+        binding.accountNameTv.text = btnTitle
+        binding.accountImageIv.setImageResource(CategoryIcons.getIconId(btnIcon))
     }
 }

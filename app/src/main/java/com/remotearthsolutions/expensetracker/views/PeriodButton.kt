@@ -6,15 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import com.remotearthsolutions.expensetracker.R
-import kotlinx.android.synthetic.main.view_periodbutton.view.*
+import com.remotearthsolutions.expensetracker.databinding.ViewPeriodbuttonBinding
 
 
 class PeriodButton(context: Context?, attrs: AttributeSet?) : LinearLayout(context, attrs) {
 
     var btnTitle: String? = null
+    private val binding: ViewPeriodbuttonBinding
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.view_periodbutton, this, true)
+        binding = ViewPeriodbuttonBinding.inflate(LayoutInflater.from(context),this,true)
         val a = context?.theme?.obtainStyledAttributes(attrs, R.styleable.PeriodButton, 0, 0)
 
         try {
@@ -23,13 +24,13 @@ class PeriodButton(context: Context?, attrs: AttributeSet?) : LinearLayout(conte
             a?.recycle()
         }
         btnTitle?.let {
-            buttonTitleTv.text = it
+            binding.buttonTitleTv.text = it
         }
 
     }
 
     fun setIsSelected(isSelected: Boolean) {
-        selectionIndicatorView?.visibility = if (isSelected) View.VISIBLE else View.INVISIBLE
+        binding.selectionIndicatorView.visibility = if (isSelected) View.VISIBLE else View.INVISIBLE
     }
 
 }
