@@ -13,6 +13,7 @@ import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.IconListAdapter
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
+import com.remotearthsolutions.expensetracker.databinding.FragmentAddUpdateCategoryAccountBinding
 import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.CategoryIcons.allIcons
 import com.remotearthsolutions.expensetracker.utils.Constants
@@ -21,10 +22,9 @@ import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_add_update_category_account.view.*
 
 class AddCategoryDialogFragment : DialogFragment() {
-    private lateinit var mView: View
+    private lateinit var binding: FragmentAddUpdateCategoryAccountBinding
     private lateinit var iconListAdapter: IconListAdapter
     private var callback: Callback? = null
     private var categoryModel: CategoryModel? = null
@@ -44,8 +44,8 @@ class AddCategoryDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mView = inflater.inflate(R.layout.fragment_add_update_category_account, container)
-        return mView
+        binding = FragmentAddUpdateCategoryAccountBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(
@@ -54,20 +54,20 @@ class AddCategoryDialogFragment : DialogFragment() {
     ) {
         super.onViewCreated(view, savedInstanceState)
         if (categoryModel != null) {
-            mView.nameEdtxt.setText(categoryModel!!.name)
-            mView.nameEdtxt.setSelection(mView.nameEdtxt.text.length)
-            mView.header.text = requireContext().getString(R.string.update_category)
-            mView.okBtn.text = requireContext().getString(R.string.update)
+            binding.nameEdtxt.setText(categoryModel!!.name)
+            binding.nameEdtxt.setSelection(binding.nameEdtxt.text.length)
+            binding.header.text = requireContext().getString(R.string.update_category)
+            binding.okBtn.text = requireContext().getString(R.string.update)
         }
-        mView.okBtn.setOnClickListener { saveCategory() }
+        binding.okBtn.setOnClickListener { saveCategory() }
         val params = LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             getDeviceScreenSize(mContext)!!.height / 2
         )
-        mView.accountrecyclearView.layoutParams = params
-        mView.accountrecyclearView.setHasFixedSize(true)
+        binding.accountrecyclearView.layoutParams = params
+        binding.accountrecyclearView.setHasFixedSize(true)
         val gridLayoutManager = GridLayoutManager(mContext, 4)
-        mView.accountrecyclearView.layoutManager = gridLayoutManager
+        binding.accountrecyclearView.layoutManager = gridLayoutManager
         val allIconList = allIcons
         iconListAdapter = IconListAdapter(allIconList, gridLayoutManager)
         iconListAdapter.setSelectedIcon(if (selectedIcon != null) selectedIcon else "")
@@ -79,20 +79,20 @@ class AddCategoryDialogFragment : DialogFragment() {
             }
 
         })
-        mView.accountrecyclearView.adapter = iconListAdapter
+        binding.accountrecyclearView.adapter = iconListAdapter
     }
 
     private fun saveCategory() {
-        val categoryName = mView.nameEdtxt.text.toString().trim { it <= ' ' }
+        val categoryName = binding.nameEdtxt.text.toString().trim { it <= ' ' }
         if (categoryName.isEmpty()) {
-            mView.nameEdtxt.error = requireContext().getString(R.string.enter_a_name)
-            mView.nameEdtxt.requestFocus()
+            binding.nameEdtxt.error = requireContext().getString(R.string.enter_a_name)
+            binding.nameEdtxt.requestFocus()
             return
         }
         if (categoryName.length > 20) {
-            mView.nameEdtxt.error =
+            binding.nameEdtxt.error =
                 requireContext().getString(R.string.name_should_be_less_than_20_char)
-            mView.nameEdtxt.requestFocus()
+            binding.nameEdtxt.requestFocus()
             return
         }
         if (selectedIcon == null || selectedIcon!!.isEmpty()) {
@@ -115,12 +115,12 @@ class AddCategoryDialogFragment : DialogFragment() {
         compositeDisposable.add(Completable.fromAction {
             if (categoryModel!!.id > 0) {
                 categoryDao.updateCategory(categoryModel)
-                with(AnalyticsManager){
+                with(AnalyticsManager) {
                     logEvent(EXPENSE_CATEGORY_UPDATED)
                 }
             } else {
                 categoryDao.addCategory(categoryModel!!)
-                with(AnalyticsManager){
+                with(AnalyticsManager) {
                     logEvent(EXPENSE_CATEGORY_CREATED)
                 }
             }

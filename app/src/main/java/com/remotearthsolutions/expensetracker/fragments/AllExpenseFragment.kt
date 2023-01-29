@@ -11,16 +11,15 @@ import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.adapters.ExpenseListAdapter
 import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
+import com.remotearthsolutions.expensetracker.databinding.FragmentAllExpenseBinding
 import com.remotearthsolutions.expensetracker.fragments.addexpensescreen.Purpose
 import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils
 import com.remotearthsolutions.expensetracker.utils.Utils
 import com.remotearthsolutions.expensetracker.viewmodels.AllTransactionsViewModel
-import kotlinx.android.synthetic.main.fragment_all_expense.*
-import kotlinx.android.synthetic.main.fragment_all_expense.view.*
 import org.koin.android.ext.android.inject
 
 class AllExpenseFragment : BaseFragment() {
-    private lateinit var mView: View
+    private lateinit var binding: FragmentAllExpenseBinding
     private val viewModel: AllTransactionsViewModel by inject()
     private var adapter: ExpenseListAdapter? = null
     private var mContext: Context? = null
@@ -38,22 +37,22 @@ class AllExpenseFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mView = inflater.inflate(R.layout.fragment_all_expense, container, false)
-        return mView
+        binding = FragmentAllExpenseBinding.inflate(layoutInflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mView.expenserecyclearView.setHasFixedSize(true)
+        binding.expenserecyclearView.setHasFixedSize(true)
         val llm = LinearLayoutManager(mContext)
-        mView.expenserecyclearView.layoutManager = llm
+        binding.expenserecyclearView.layoutManager = llm
 
-        viewModel.expenseListLiveData.observe(viewLifecycleOwner, {
+        viewModel.expenseListLiveData.observe(viewLifecycleOwner) {
             endDeleteModeIfOn()
             val listOfFilteredExpense = it
             if (listOfFilteredExpense == null || listOfFilteredExpense.isEmpty()) {
-                mView.expenserecyclearView.visibility = View.GONE
-                mView.nodata.visibility = View.VISIBLE
+                binding.expenserecyclearView.visibility = View.GONE
+                binding.nodata.visibility = View.VISIBLE
             } else {
 
                 val currencySymbol = Utils.getCurrency(mContext!!)
@@ -77,21 +76,21 @@ class AllExpenseFragment : BaseFragment() {
                     }
                 })
 
-                mView.nodata.visibility = View.GONE
-                mView.expenserecyclearView.visibility = View.VISIBLE
-                mView.expenserecyclearView.adapter = adapter
+                binding.nodata.visibility = View.GONE
+                binding.expenserecyclearView.visibility = View.VISIBLE
+                binding.expenserecyclearView.adapter = adapter
             }
-        })
+        }
 
-        deleteBtn.setOnClickListener {
+        binding.deleteBtn.setOnClickListener {
             isDeleteModeOn = !isDeleteModeOn
             adapter?.setDeleteMode(isDeleteModeOn)
             if (isDeleteModeOn) {
-                deleteConfirmBtn.visibility = View.VISIBLE
-                deleteBtn.setImageResource(R.drawable.ic_cancel_delete)
+                binding.deleteConfirmBtn.visibility = View.VISIBLE
+                binding.deleteBtn.setImageResource(R.drawable.ic_cancel_delete)
             } else {
-                deleteBtn.setImageResource(R.drawable.ic_bulk_delete)
-                deleteConfirmBtn.visibility = View.GONE
+                binding.deleteBtn.setImageResource(R.drawable.ic_bulk_delete)
+                binding.deleteConfirmBtn.visibility = View.GONE
                 expenseToDelete.forEach {
                     it.isCheckedForDelete = false
                 }
@@ -99,7 +98,7 @@ class AllExpenseFragment : BaseFragment() {
             }
         }
 
-        deleteConfirmBtn.setOnClickListener {
+        binding.deleteConfirmBtn.setOnClickListener {
             if (expenseToDelete.size > 0) {
                 AlertDialogUtils.show(requireContext(),
                     getResourceString(R.string.wait),
@@ -141,8 +140,8 @@ class AllExpenseFragment : BaseFragment() {
             it.isCheckedForDelete = false
         }
         expenseToDelete.clear()
-        deleteBtn.setImageResource(R.drawable.ic_bulk_delete)
-        deleteConfirmBtn.visibility = View.GONE
+        binding.deleteBtn.setImageResource(R.drawable.ic_bulk_delete)
+        binding.deleteConfirmBtn.visibility = View.GONE
     }
 
     fun updateFilterListWithDate(

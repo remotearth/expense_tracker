@@ -15,17 +15,17 @@ import com.remotearthsolutions.expensetracker.adapters.CategoryListViewAdapter
 import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.contracts.CategoryFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
+import com.remotearthsolutions.expensetracker.databinding.FragmentCategoryBinding
 import com.remotearthsolutions.expensetracker.fragments.OptionBottomSheetFragment.OptionsFor
 import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.viewmodels.CategoryViewModel
-import kotlinx.android.synthetic.main.fragment_category.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class CategoryFragment : BaseFragment(),
     CategoryFragmentContract.View,
     OptionBottomSheetFragment.Callback {
-    private lateinit var mView: View
+    private lateinit var binding: FragmentCategoryBinding
     private lateinit var adapter: CategoryListViewAdapter
     private val viewModel: CategoryViewModel by viewModel { parametersOf(this) }
     private var selectedCategory: CategoryModel? = null
@@ -41,17 +41,16 @@ class CategoryFragment : BaseFragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mView = inflater.inflate(R.layout.fragment_category, container, false)
-        mView.cat_recycler.setHasFixedSize(true)
-        mView.cat_recycler.layoutManager = LinearLayoutManager(mContext)
+        binding = FragmentCategoryBinding.inflate(layoutInflater, container, false)
+        binding.catRecycler.setHasFixedSize(true)
+        binding.catRecycler.layoutManager = LinearLayoutManager(mContext)
 
         viewModel.showCategories()
         viewModel.numberOfItem.observe(
-            viewLifecycleOwner,
-            { count: Int -> limitOfCategory = count }
-        )
+            viewLifecycleOwner
+        ) { count: Int -> limitOfCategory = count }
 
-        mView.addcategory.setOnClickListener {
+        binding.addcategory.setOnClickListener {
             if (limitOfCategory < 20 ||
                 ((mContext as Activity?)!!.application as ApplicationObject).isPremium
             ) {
@@ -68,7 +67,7 @@ class CategoryFragment : BaseFragment(),
             }
         }
         registerBackButton()
-        return mView
+        return binding.root
     }
 
     override fun showCategories(categories: List<CategoryModel>?) {
@@ -85,7 +84,7 @@ class CategoryFragment : BaseFragment(),
                 )
             }
         })
-        mView.cat_recycler.adapter = adapter
+        binding.catRecycler.adapter = adapter
     }
 
     override fun onClickEditBtn() {
@@ -123,7 +122,7 @@ class CategoryFragment : BaseFragment(),
                         Toast.LENGTH_LONG
                     ).show()
                     (activity as MainActivity).onUpdateCategory()
-                    with(AnalyticsManager){
+                    with(AnalyticsManager) {
                         logEvent(EXPENSE_CATEGORY_DELETED)
                     }
                 }

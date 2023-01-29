@@ -7,21 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.CategoryListAdapter
 import com.remotearthsolutions.expensetracker.contracts.CategoryFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
+import com.remotearthsolutions.expensetracker.databinding.FragmentAddCategoryBinding
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.Utils.getDeviceScreenSize
 import com.remotearthsolutions.expensetracker.viewmodels.CategoryViewModel
-import kotlinx.android.synthetic.main.fragment_add_category.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import java.util.*
 
 class CategoryDialogFragment : DialogFragment(),
     CategoryFragmentContract.View {
-    private lateinit var mView: View
+    private lateinit var binding: FragmentAddCategoryBinding
     private val viewModel: CategoryViewModel by viewModel { parametersOf(this) }
     private lateinit var layoutManager: GridLayoutManager
     private lateinit var categoryListAdapter: CategoryListAdapter
@@ -45,8 +44,9 @@ class CategoryDialogFragment : DialogFragment(),
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_add_category, container)
+    ): View {
+        binding = FragmentAddCategoryBinding.inflate(layoutInflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(
@@ -54,12 +54,11 @@ class CategoryDialogFragment : DialogFragment(),
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
-        mView = view
-        mView.categoryrecyclearView.setHasFixedSize(true)
+        binding.categoryrecyclearView.setHasFixedSize(true)
         layoutManager = GridLayoutManager(mContext, NUMBER_OF_ELEMENT_IN_ROW)
-        mView.categoryrecyclearView.layoutManager = layoutManager
+        binding.categoryrecyclearView.layoutManager = layoutManager
         categoryListAdapter = CategoryListAdapter(ArrayList())
-        mView.categoryrecyclearView.adapter = categoryListAdapter
+        binding.categoryrecyclearView.adapter = categoryListAdapter
         viewModel.showCategories()
     }
 
@@ -73,7 +72,7 @@ class CategoryDialogFragment : DialogFragment(),
             }
         })
 
-        mView.categoryrecyclearView.adapter = categoryListAdapter
+        binding.categoryrecyclearView.adapter = categoryListAdapter
         layoutManager.scrollToPosition(getPositionOfSelectedItem(categories, selectedCategoryId))
     }
 

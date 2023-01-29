@@ -11,29 +11,34 @@ import android.view.ViewGroup
 import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
+import com.remotearthsolutions.expensetracker.databinding.FragmentAboutBinding
 import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 
 class AboutFragment : BaseFragment() {
+
+    private lateinit var binding: FragmentAboutBinding
+
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_about, container, false)
+    ): View {
+        binding = FragmentAboutBinding.inflate(layoutInflater, container, false)
+
         val getVersion =
             BuildConfig.VERSION_NAME
-        view.versionno.text = "${requireContext().getString(R.string.version)} $getVersion"
-        return view
+        binding.versionno.text = "${requireContext().getString(R.string.version)} $getVersion"
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         registerBackButton()
         var clickOnVersionNumberCount = 0
-        view.versionno.setOnClickListener {
+        binding.versionno.setOnClickListener {
             clickOnVersionNumberCount++
             if (clickOnVersionNumberCount == 10) {
                 clickOnVersionNumberCount = 0
@@ -42,7 +47,7 @@ class AboutFragment : BaseFragment() {
         }
 
         var clickOnLogoCount = 0
-        view.logo.setOnClickListener {
+        binding.logo.setOnClickListener {
             clickOnLogoCount++
             if (clickOnLogoCount == 5) {
                 clickOnLogoCount = 0

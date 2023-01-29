@@ -7,21 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.AccountListAdapter
 import com.remotearthsolutions.expensetracker.contracts.AccountDialogContract
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
+import com.remotearthsolutions.expensetracker.databinding.FragmentAddAccountBinding
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.viewmodels.AccountDialogViewModel
-import kotlinx.android.synthetic.main.fragment_add_account.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class AccountDialogFragment : DialogFragment(),
     AccountDialogContract.View {
+    private lateinit var binding: FragmentAddAccountBinding
     private val viewModel: AccountDialogViewModel by viewModel { parametersOf(this) }
     private lateinit var accountListAdapter: AccountListAdapter
-    private lateinit var mView: View
     private var callback: Callback? =
         null
     private lateinit var mContext: Context
@@ -39,15 +38,15 @@ class AccountDialogFragment : DialogFragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mView = inflater.inflate(R.layout.fragment_add_account, container, false)
-        return mView
+        binding = FragmentAddAccountBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mView.accountrecyclearView.setHasFixedSize(true)
+        binding.accountrecyclearView.setHasFixedSize(true)
         val llm = LinearLayoutManager(mContext)
-        mView.accountrecyclearView.layoutManager = llm
+        binding.accountrecyclearView.layoutManager = llm
 
         viewModel.init()
         viewModel.loadAccounts()
@@ -61,7 +60,7 @@ class AccountDialogFragment : DialogFragment(),
             }
 
         })
-        mView.accountrecyclearView.adapter = accountListAdapter
+        binding.accountrecyclearView.adapter = accountListAdapter
     }
 
     override fun onAccountFetchFailure() {}
