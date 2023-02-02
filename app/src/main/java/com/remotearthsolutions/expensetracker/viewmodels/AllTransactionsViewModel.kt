@@ -59,6 +59,7 @@ class AllTransactionsViewModel(
                             header.isDateSection = true
                             header.categoryName = getDate(previousDate, dateFormat)
                             expenseList.add(header)
+                            monthHeaderIndex.add(0)
                         }
                         var sum = 0.0
                         for (i in listOfFilterExpense.indices) {
