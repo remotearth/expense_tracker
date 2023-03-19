@@ -72,7 +72,6 @@ class MainActivity : BaseActivity(), MainContract.View {
         }, 5000)
 
         with(FirebaseUtils) {
-            logFirebaseMessagingToken()
             subscribeToTopic(TOPIC_GENERAL_USER)
         }
     }

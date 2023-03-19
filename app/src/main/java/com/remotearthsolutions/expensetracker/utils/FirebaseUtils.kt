@@ -13,20 +13,6 @@ class FirebaseUtils {
         const val TOPIC_GENERAL_USER = "general_user"
         const val TOPIC_PAID_USER = "paid_user"
 
-        fun logFirebaseMessagingToken() {
-            FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    return@OnCompleteListener
-                }
-
-                val token = task.result
-                token?.let {
-                    with(AnalyticsManager) { logEvent(it) }
-                    println("FirebaseToken: $it")
-                }
-            })
-        }
-
         fun subscribeToTopic(topicName: String) {
             FirebaseMessaging.getInstance().subscribeToTopic(topicName)
         }
