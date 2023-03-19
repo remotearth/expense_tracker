@@ -10,4 +10,6 @@
     <string name="admob_test_ad_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
 
     <string name="amplitude_id" translatable="false">16fe1813be6bb5b257217ea9d1c16039</string>
+    <string name="appcenter_app_secret" translatable="false">db6317d7-c817-4870-a552-86d82c32140a</string>
+    <string name="appcenter_app_secret_dev" translatable="false">415f07d9-cec1-4401-9de9-634d3d5d328a</string>
 </resources>

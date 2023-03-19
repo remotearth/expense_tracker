@@ -2,14 +2,17 @@ package com.remotearthsolutions.expensetracker.activities
 
 import android.app.Activity
 import android.app.Application.ActivityLifecycleCallbacks
-import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
 import com.amplitude.api.Amplitude
 import com.amplitude.api.TrackingOptions
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.crashes.Crashes
 import com.remotearthsolutions.expensetracker.BuildConfig
+import com.remotearthsolutions.expensetracker.Config
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.di.modules.viewModels
 import com.remotearthsolutions.expensetracker.utils.Constants
@@ -44,6 +47,11 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
         }
 
         appInstance = this
+
+        AppCenter.start(
+            this, Config.getAppCenterAppSecret(this),
+            Analytics::class.java, Crashes::class.java
+        )
 
         val options = TrackingOptions()
             .disableCity()
@@ -108,7 +116,7 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
         }
 
 
-    companion object  {
+    companion object {
         var appInstance: ApplicationObject? = null
     }
 }
