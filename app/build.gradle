@@ -128,8 +128,6 @@ dependencies {
     def work_version = "2.8.0"
     implementation "androidx.work:work-runtime-ktx:$work_version"
 
-    //analytics
-    implementation 'com.amplitude:android-sdk:2.25.2'
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.9'
 
     implementation 'com.wang.avi:library:2.1.3'

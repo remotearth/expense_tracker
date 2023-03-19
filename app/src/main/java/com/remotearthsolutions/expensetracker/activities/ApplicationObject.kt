@@ -5,15 +5,12 @@ import android.app.Application.ActivityLifecycleCallbacks
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
-import com.amplitude.api.Amplitude
-import com.amplitude.api.TrackingOptions
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
 import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.Configs
-import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.di.modules.viewModels
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
@@ -52,17 +49,6 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
             this, Configs.getAppCenterAppSecret(this),
             Analytics::class.java, Crashes::class.java
         )
-
-        val options = TrackingOptions()
-            .disableCity()
-            .disableIpAddress()
-            .disableLatLng()
-            .disableCarrier()
-            .disableRegion()
-        Amplitude.getInstance().setTrackingOptions(options)
-
-        Amplitude.getInstance().initialize(this, getString(R.string.amplitude_id))
-            .enableForegroundTracking(this).enableCoppaControl()
 
         Lingver.init(this, "en")
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)

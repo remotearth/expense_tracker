@@ -2,10 +2,8 @@ package com.remotearthsolutions.expensetracker.utils
 
 import android.content.Context
 import android.os.Bundle
-import com.amplitude.api.Amplitude
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 
 class FirebaseUtils {
@@ -27,13 +25,6 @@ class FirebaseUtils {
                     println("FirebaseToken: $it")
                 }
             })
-        }
-
-        fun setFirebaseUidAsAmplitudeUid() {
-            FirebaseAuth.getInstance().currentUser?.let {
-                print("Firebase UserId: ${it.uid}")
-                Amplitude.getInstance().setUserId(it.uid)
-            }
         }
 
         fun subscribeToTopic(topicName: String) {

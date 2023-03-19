@@ -73,7 +73,6 @@ class MainActivity : BaseActivity(), MainContract.View {
 
         with(FirebaseUtils) {
             logFirebaseMessagingToken()
-            setFirebaseUidAsAmplitudeUid()
             subscribeToTopic(TOPIC_GENERAL_USER)
         }
     }
