@@ -2,7 +2,7 @@ package com.remotearthsolutions.expensetracker
 
 import android.content.Context
 
-class Config {
+class Configs {
 
     companion object {
         fun getAppCenterAppSecret(context: Context): String {

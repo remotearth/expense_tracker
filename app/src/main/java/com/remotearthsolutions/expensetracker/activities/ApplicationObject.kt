@@ -12,7 +12,7 @@ import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
 import com.remotearthsolutions.expensetracker.BuildConfig
-import com.remotearthsolutions.expensetracker.Config
+import com.remotearthsolutions.expensetracker.Configs
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.di.modules.viewModels
 import com.remotearthsolutions.expensetracker.utils.Constants
@@ -49,7 +49,7 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
         appInstance = this
 
         AppCenter.start(
-            this, Config.getAppCenterAppSecret(this),
+            this, Configs.getAppCenterAppSecret(this),
             Analytics::class.java, Crashes::class.java
         )
 
