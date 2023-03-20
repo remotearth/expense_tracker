@@ -182,6 +182,7 @@ class NavigationItemSelectionListener(
                     return false
                 }
                 R.id.nav_purchase -> {
+                    AnalyticsManager.logEvent(AnalyticsManager.CLICKED_ON_PURCHASE_NAV_ITEM)
                     showAlert(resources.getString(R.string.whatsinpremium),
                         resources.getString(R.string.premium_features),
                         resources.getString(R.string.ok), null, null,
@@ -201,8 +202,10 @@ class NavigationItemSelectionListener(
 
                                 val appContext = applicationContext as ApplicationObject
                                 if (!appContext.isPremium) {
+                                    AnalyticsManager.logEvent(AnalyticsManager.INITIATE_PURCHASE)
                                     mainActivity.getPlayBillingUtils().showAvailableProducts()
                                 } else {
+                                    AnalyticsManager.logEvent(AnalyticsManager.ALREADY_PURCHASED)
                                     showAlert(
                                         null,
                                         resources.getString(R.string.already_purchased),

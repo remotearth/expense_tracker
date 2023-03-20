@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.android.billingclient.api.*
 import com.android.billingclient.api.BillingFlowParams.ProductDetailsParams
 import com.remotearthsolutions.expensetracker.Configs
+import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 
 class PlayBillingUtils(
@@ -24,9 +25,10 @@ class PlayBillingUtils(
             } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
                 appContext.isPremium = false
                 appContext.appShouldShowAds(true)
+                AnalyticsManager.logEvent(AnalyticsManager.USER_CANCELLED_APP_PURCHASE)
             } else {
-                // Handle any other error codes.
-                // Log something went wrong. Could not complete the purchase.
+                AnalyticsManager.logEvent(AnalyticsManager.ERROR_OCCURRED_ON_PURCHASE)
+                Utils.showToast(context, context.getString(R.string.something_went_wrong))
             }
         }
 
@@ -128,6 +130,7 @@ class PlayBillingUtils(
                     ) {
                         appContext.isPremium = true
                         appContext.appShouldShowAds(false)
+                        AnalyticsManager.logEvent(AnalyticsManager.APP_PURCHASED)
                     }
                 }
             }

@@ -99,8 +99,8 @@ class MainActivity : BaseActivity(), MainContract.View {
         } else {
             showAlert(
                 null,
-                "Could not retrieve purchase information. Premium features may not be available for now",
-                "Ok",
+                getString(R.string.could_not_retrieve_purchase),
+                getString(R.string.ok),
                 null,
                 null,
                 null
@@ -258,8 +258,7 @@ class MainActivity : BaseActivity(), MainContract.View {
         FragmentLoader.load(this, ViewShadeFragment(), null, ViewShadeFragment::class.java.name, 1)
 
         supportActionBar!!.title = title
-        val expenseFragment =
-            ExpenseFragment()
+        val expenseFragment = ExpenseFragment()
         expenseFragment.purpose = purpose
         val wrappedCategoryExpense = Parcels.wrap(categoryExpense)
         val bundle = Bundle()
@@ -270,9 +269,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
     override fun onActivityResult(
-        requestCode: Int,
-        resultCode: Int,
-        data: Intent?
+        requestCode: Int, resultCode: Int, data: Intent?
     ) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 101 && resultCode == Activity.RESULT_OK) {
@@ -331,14 +328,12 @@ class MainActivity : BaseActivity(), MainContract.View {
             supportFragmentManager.findFragmentByTag(MainFragment::class.java.name) as MainFragment?
         val homeFragment =
             mainFragment?.childFragmentManager?.findViewPagerFragmentByTag<HomeFragment>(
-                R.id.viewpager,
-                0
+                R.id.viewpager, 0
             )
         homeFragment?.init()
         val overViewFragment =
             mainFragment?.childFragmentManager?.findViewPagerFragmentByTag<OverViewFragment>(
-                R.id.viewpager,
-                2
+                R.id.viewpager, 2
             )
         overViewFragment?.refreshPage()
         mainFragment?.refreshChart()
@@ -356,8 +351,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     private fun setPeriodicReminderToAskAddingExpense() {
         val sharedPreferenceUtils = SharedPreferenceUtils.getInstance(this)
         if (sharedPreferenceUtils?.getString(
-                Constants.KEY_PERIODIC_ADD_EXPENSE_REMINDER_WORKER_ID,
-                ""
+                Constants.KEY_PERIODIC_ADD_EXPENSE_REMINDER_WORKER_ID, ""
             )!!.isEmpty()
         ) {
             val requestId = WorkManagerEnqueuer().enqueue<AskToAddEntryWorker>(
@@ -367,8 +361,7 @@ class MainActivity : BaseActivity(), MainContract.View {
                 null
             )
             sharedPreferenceUtils.putString(
-                Constants.KEY_PERIODIC_ADD_EXPENSE_REMINDER_WORKER_ID,
-                requestId
+                Constants.KEY_PERIODIC_ADD_EXPENSE_REMINDER_WORKER_ID, requestId
             )
         }
     }
