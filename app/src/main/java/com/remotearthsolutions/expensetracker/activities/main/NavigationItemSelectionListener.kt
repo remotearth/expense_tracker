@@ -24,7 +24,6 @@ import com.remotearthsolutions.expensetracker.fragments.WebViewFragment
 import com.remotearthsolutions.expensetracker.fragments.main.MainFragment
 import com.remotearthsolutions.expensetracker.fragments.settings.SettingsFragment
 import com.remotearthsolutions.expensetracker.utils.*
-import com.remotearthsolutions.expensetracker.utils.billing.BillingClientWrapper
 
 
 class NavigationItemSelectionListener(
@@ -161,7 +160,7 @@ class NavigationItemSelectionListener(
                     )
                     showBackButton()
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
-                    with(AnalyticsManager){
+                    with(AnalyticsManager) {
                         logEvent(SETTINGS_PAGE_VIEWED)
                     }
                     return false
@@ -200,20 +199,19 @@ class NavigationItemSelectionListener(
                                     return
                                 }
 
-                                mainActivity.getPlayBillingUtils().showAvailableProducts()
-
-//                                BillingClientWrapper(mainActivity).startBillingConnection()
-
-//                                checkoutUtils.checkout.whenReady(object : Checkout.EmptyListener() {
-//                                    override fun onReady(@Nonnull requests: BillingRequests) {
-//                                        requests.purchase(
-//                                            ProductTypes.IN_APP,
-//                                            productId,
-//                                            null,
-//                                            checkoutUtils.purchaseFlow
-//                                        )
-//                                    }
-//                                })
+                                val appContext = applicationContext as ApplicationObject
+                                if (!appContext.isPremium) {
+                                    mainActivity.getPlayBillingUtils().showAvailableProducts()
+                                } else {
+                                    showAlert(
+                                        null,
+                                        resources.getString(R.string.already_purchased),
+                                        resources.getString(R.string.ok),
+                                        null,
+                                        null,
+                                        null
+                                    )
+                                }
                             }
                         })
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
@@ -235,9 +233,6 @@ class NavigationItemSelectionListener(
                         .setType("message/rfc822")
                         .addEmailTo("remotearth.solutions@gmail.com")
                         .setSubject("About Expense Tracker")
-                        //.setText(body)
-                        //.setHtmlText(body) //If you are using HTML in your body text
-                        //.setChooserTitle()
                         .startChooser()
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     return false
@@ -264,7 +259,7 @@ class NavigationItemSelectionListener(
                     )
                     showBackButton()
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
-                    with(AnalyticsManager){
+                    with(AnalyticsManager) {
                         logEvent(ABOUT_PAGE_VIEWED)
                     }
                     return false
@@ -277,7 +272,7 @@ class NavigationItemSelectionListener(
                     )
                     showBackButton()
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
-                    with(AnalyticsManager){
+                    with(AnalyticsManager) {
                         logEvent(PRIVACY_PAGE_VIEWED)
                     }
                     return status
@@ -290,7 +285,7 @@ class NavigationItemSelectionListener(
                     )
                     showBackButton()
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
-                    with(AnalyticsManager){
+                    with(AnalyticsManager) {
                         logEvent(LICENSE_PAGE_VIEWED)
                     }
                     return status

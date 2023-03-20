@@ -7,25 +7,26 @@ import com.android.billingclient.api.*
 import com.android.billingclient.api.BillingFlowParams.ProductDetailsParams
 import com.remotearthsolutions.expensetracker.Configs
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 
 class PlayBillingUtils(
     // context must be from a activity of fragment
     val context: Context
 ) {
+    private val appContext = context.applicationContext as ApplicationObject
+
     private val purchasesUpdatedListener =
         PurchasesUpdatedListener { billingResult, purchases ->
 
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
                 for (purchase in purchases) {
-//                    handlePurchase(purchase)
+                    acknowledgePurchases(purchase)
                 }
             } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
-                // Handle an error caused by a user cancelling the purchase flow.
+                appContext.isPremium = false
+                appContext.appShouldShowAds(true)
             } else {
                 // Handle any other error codes.
+                // Log something went wrong. Could not complete the purchase.
             }
         }
 
@@ -33,23 +34,6 @@ class PlayBillingUtils(
         .setListener(purchasesUpdatedListener)
         .enablePendingPurchases()
         .build()
-
-
-    fun init() {
-        billingClient.startConnection(object : BillingClientStateListener {
-            override fun onBillingSetupFinished(billingResult: BillingResult) {
-                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                    runBlocking {
-                        showAvailableProducts()
-                    }
-                }
-            }
-
-            override fun onBillingServiceDisconnected() {
-                TODO("Not yet implemented")
-            }
-        })
-    }
 
     fun showAvailableProducts() {
 
@@ -89,28 +73,6 @@ class PlayBillingUtils(
 
     }
 
-    private val purchasesResponseListener =
-        PurchasesResponseListener { billingResult, purchases ->
-            val appContext = context.applicationContext as ApplicationObject
-
-            when (billingResult.responseCode) {
-                BillingClient.BillingResponseCode.OK -> {
-
-                    if (purchases.isNullOrEmpty()) {
-                        appContext.isPremium = false
-                        appContext.appShouldShowAds(true)
-                    } else {
-                        appContext.isPremium = true
-                        appContext.appShouldShowAds(false)
-                    }
-
-                }
-                else -> {
-                    throw Exception(RequestError)
-                }
-            }
-        }
-
     fun checkIfAdFreeVersionPurchased(purchaseStatusChecked: MutableLiveData<Boolean>) {
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
@@ -119,12 +81,10 @@ class PlayBillingUtils(
                         .setProductType(BillingClient.ProductType.INAPP)
                     billingClient.queryPurchasesAsync(params.build()) { queryResult, purchases ->
 
-                        val appContext = context.applicationContext as ApplicationObject
-
                         when (queryResult.responseCode) {
                             BillingClient.BillingResponseCode.OK -> {
 
-                                if (purchases.isNullOrEmpty()) {
+                                if (purchases.isEmpty()) {
                                     appContext.isPremium = false
                                     appContext.appShouldShowAds(true)
                                 } else {
@@ -153,8 +113,24 @@ class PlayBillingUtils(
         billingClient.endConnection()
     }
 
-    companion object {
-        const val RequestError = "billing request not successful"
-    }
+    private fun acknowledgePurchases(purchase: Purchase?) {
+        purchase?.let {
+            if (!it.isAcknowledged) {
+                val params = AcknowledgePurchaseParams.newBuilder()
+                    .setPurchaseToken(it.purchaseToken)
+                    .build()
 
+                billingClient.acknowledgePurchase(
+                    params
+                ) { billingResult ->
+                    if (billingResult.responseCode == BillingClient.BillingResponseCode.OK &&
+                        it.purchaseState == Purchase.PurchaseState.PURCHASED
+                    ) {
+                        appContext.isPremium = true
+                        appContext.appShouldShowAds(false)
+                    }
+                }
+            }
+        }
+    }
 }
