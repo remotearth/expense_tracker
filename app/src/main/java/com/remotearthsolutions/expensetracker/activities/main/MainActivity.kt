@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
@@ -25,7 +26,7 @@ import com.remotearthsolutions.expensetracker.fragments.ViewShadeFragment
 import com.remotearthsolutions.expensetracker.fragments.addexpensescreen.ExpenseFragment
 import com.remotearthsolutions.expensetracker.fragments.addexpensescreen.Purpose
 import com.remotearthsolutions.expensetracker.fragments.main.MainFragment
-import com.remotearthsolutions.expensetracker.services.PurchaseListener
+import com.remotearthsolutions.expensetracker.services.InternetCheckerServiceImpl
 import com.remotearthsolutions.expensetracker.utils.*
 import com.remotearthsolutions.expensetracker.utils.cloudbackup.CloudBackupManager
 import com.remotearthsolutions.expensetracker.utils.workmanager.WorkManagerEnqueuer
@@ -39,12 +40,12 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     private var toggle: ActionBarDrawerToggle? = null
     private var backPressedTime: Long = 0
-    private var purchaseListener: PurchaseListener? = null
     private var preferencesChangeListener: PreferencesChangeListener? = null
-    private lateinit var inAppPurchaseCallback: InAppPurchaseCallback
-    lateinit var checkoutUtils: CheckoutUtils
     val viewModel: MainViewModel by viewModel { parametersOf(this, this) }
     private lateinit var binding: ActivityMainBinding
+    private lateinit var playBillingUtils: PlayBillingUtils
+
+    private var purchaseStatusChecked = MutableLiveData<Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,10 +53,8 @@ class MainActivity : BaseActivity(), MainContract.View {
         setContentView(binding.root)
         onNewIntent(intent)
 
-        checkoutUtils = CheckoutUtils.getInstance(this)!!
-        checkoutUtils.start()
-        inAppPurchaseCallback = InAppPurchaseCallback(this)
-        purchaseListener = PurchaseListener(this, inAppPurchaseCallback)
+        observeState()
+        playBillingUtils = PlayBillingUtils(this)
         preferencesChangeListener = PreferencesChangeListener(this)
 
         val userStr = SharedPreferenceUtils.getInstance(this)?.getString(Constants.KEY_USER, "")
@@ -76,10 +75,38 @@ class MainActivity : BaseActivity(), MainContract.View {
         }
     }
 
+    private fun observeState() {
+
+        purchaseStatusChecked.observe(this) {
+            if (!it) {
+                showAlert(
+                    null,
+                    "Could not retrieve purchase information. Premium features may not be available for now",
+                    "Ok",
+                    null,
+                    null,
+                    null
+                )
+            }
+        }
+    }
+
     override fun onStart() {
         super.onStart()
-        checkoutUtils.start()
-        checkoutUtils.createPurchaseFlow(purchaseListener)
+
+        if (InternetCheckerServiceImpl(this).isConnected) {
+            playBillingUtils.checkIfAdFreeVersionPurchased(purchaseStatusChecked)
+        } else {
+            showAlert(
+                null,
+                "Could not retrieve purchase information. Premium features may not be available for now",
+                "Ok",
+                null,
+                null,
+                null
+            )
+        }
+
 
         if (preferencesChangeListener == null) {
             preferencesChangeListener = PreferencesChangeListener(this)
@@ -90,7 +117,7 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun onStop() {
         super.onStop()
-        checkoutUtils.stop()
+        playBillingUtils.stopBillingClientConnection()
         PreferenceManager.getDefaultSharedPreferences(this)
             .unregisterOnSharedPreferenceChangeListener(preferencesChangeListener)
     }
@@ -110,7 +137,6 @@ class MainActivity : BaseActivity(), MainContract.View {
         val navigationItemSelectionListener = NavigationItemSelectionListener(
             this,
             binding,
-            (application as ApplicationObject).adProductId
         )
         binding.navView.setNavigationItemSelectedListener(navigationItemSelectionListener)
         val homeNavItem = binding.navView.menu.findItem(R.id.nav_home)
@@ -148,8 +174,6 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun startLoadingApp() {
         viewModel.init(this)
-        checkoutUtils.start()
-        checkoutUtils.load(inAppPurchaseCallback, (application as ApplicationObject).adProductId)
     }
 
     override fun showTotalExpense(amount: String?) {
@@ -186,7 +210,6 @@ class MainActivity : BaseActivity(), MainContract.View {
                 backPressedTime = t
                 Utils.showToast(this, getString(R.string.press_once_again_to_close_app))
             } else {
-                CheckoutUtils.clearInstance()
                 finish()
             }
         }
@@ -265,12 +288,6 @@ class MainActivity : BaseActivity(), MainContract.View {
                     null
                 )
             }
-        } else {
-            CheckoutUtils.getInstance(this)?.checkout?.onActivityResult(
-                requestCode,
-                resultCode,
-                data
-            )
         }
     }
 
@@ -355,6 +372,8 @@ class MainActivity : BaseActivity(), MainContract.View {
             )
         }
     }
+
+    fun getPlayBillingUtils() = playBillingUtils
 
     companion object {
         @JvmField

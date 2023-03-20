@@ -24,16 +24,12 @@ import com.remotearthsolutions.expensetracker.fragments.WebViewFragment
 import com.remotearthsolutions.expensetracker.fragments.main.MainFragment
 import com.remotearthsolutions.expensetracker.fragments.settings.SettingsFragment
 import com.remotearthsolutions.expensetracker.utils.*
-import org.solovyev.android.checkout.BillingRequests
-import org.solovyev.android.checkout.Checkout
-import org.solovyev.android.checkout.ProductTypes
-import javax.annotation.Nonnull
+import com.remotearthsolutions.expensetracker.utils.billing.BillingClientWrapper
 
 
 class NavigationItemSelectionListener(
     private val mainActivity: MainActivity,
-    private val binding: ActivityMainBinding,
-    val productId: String
+    private val binding: ActivityMainBinding
 ) :
     NavigationView.OnNavigationItemSelectedListener {
 
@@ -203,16 +199,21 @@ class NavigationItemSelectionListener(
                                     )
                                     return
                                 }
-                                checkoutUtils.checkout.whenReady(object : Checkout.EmptyListener() {
-                                    override fun onReady(@Nonnull requests: BillingRequests) {
-                                        requests.purchase(
-                                            ProductTypes.IN_APP,
-                                            productId,
-                                            null,
-                                            checkoutUtils.purchaseFlow
-                                        )
-                                    }
-                                })
+
+                                mainActivity.getPlayBillingUtils().showAvailableProducts()
+
+//                                BillingClientWrapper(mainActivity).startBillingConnection()
+
+//                                checkoutUtils.checkout.whenReady(object : Checkout.EmptyListener() {
+//                                    override fun onReady(@Nonnull requests: BillingRequests) {
+//                                        requests.purchase(
+//                                            ProductTypes.IN_APP,
+//                                            productId,
+//                                            null,
+//                                            checkoutUtils.purchaseFlow
+//                                        )
+//                                    }
+//                                })
                             }
                         })
                     binding.drawerLayout.closeDrawer(GravityCompat.START)

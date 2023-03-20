@@ -18,8 +18,7 @@ import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.yariksoffice.lingver.Lingver
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
-import org.solovyev.android.checkout.Billing
-import org.solovyev.android.checkout.Billing.DefaultConfiguration
+
 
 
 class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
@@ -30,11 +29,6 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
         private set
     var currentActivity: Activity? = null
         private set
-    val billing = Billing(this, object : DefaultConfiguration() {
-        override fun getPublicKey(): String {
-            return Constants.LICENSE_KEY
-        }
-    })
 
     override fun onCreate() {
         super.onCreate()
@@ -93,14 +87,6 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
     }
 
     override fun onActivityDestroyed(activity: Activity) {}
-
-    val adProductId: String
-        get() = if (BuildConfig.DEBUG) {
-            Constants.TEST_PURCHASED_ITEM
-        } else {
-            Constants.PRODUCT_ID
-        }
-
 
     companion object {
         var appInstance: ApplicationObject? = null
