@@ -63,7 +63,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             Constants.PREF_TIME_FORMAT,
             Constants.KEY_DATE_MONTH_YEAR_DEFAULT
         )
-        binding = FragmentAddExpenseBinding.inflate(layoutInflater,container,false)
+        binding = FragmentAddExpenseBinding.inflate(layoutInflater, container, false)
         val repeatTypes = getResourceStringArray(R.array.repeatType)
         binding.repeatTypeSpnr.adapter =
             ArrayAdapter(requireContext(), R.layout.repeat_type_spinner_item, repeatTypes)
@@ -287,7 +287,15 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         //TODO: Temporary disabled. Logic has a problem. revisit the implementation
         //Helpers.requestToReviewApp(mainActivity, viewModel)
         MainActivity.addedExpenseCount++
-        with(AnalyticsManager) { logEvent(EXPENSE_TYPE_DEFAULT) }
+        with(AnalyticsManager) {
+            logEvent(
+                EXPENSE_TYPE_DEFAULT, mapOf(
+                    "expense_category" to categoryExpense?.categoryName!!,
+                    "account" to categoryExpense?.accountName!!,
+                    "icon" to categoryExpense?.categoryIcon!!
+                )
+            )
+        }
     }
 
     override fun onExpenseDeleted(categoryExpense: CategoryExpense?) {

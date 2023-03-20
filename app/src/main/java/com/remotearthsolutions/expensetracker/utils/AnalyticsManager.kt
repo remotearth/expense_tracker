@@ -45,7 +45,7 @@ object AnalyticsManager {
     fun logEvent(eventName: String, properties: Map<String, String> = emptyMap()) {
         Analytics.trackEvent(eventName, properties)
         if (!BuildConfig.DEBUG) {
-            FirebaseUtils.logEvent(ApplicationObject.appInstance?.applicationContext, eventName)
+            FirebaseUtils.logEvent(ApplicationObject.appInstance?.applicationContext, eventName, properties)
         }
     }
 }

@@ -2,7 +2,6 @@ package com.remotearthsolutions.expensetracker.utils
 
 import android.content.Context
 import android.os.Bundle
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.messaging.FirebaseMessaging
 
@@ -17,14 +16,14 @@ class FirebaseUtils {
             FirebaseMessaging.getInstance().subscribeToTopic(topicName)
         }
 
-        fun logEvent(context: Context?, eventName: String) {
-            val bundle = Bundle();
-            bundle.putString("testKey", "anyvalue")
-            bundle.putInt("testIntKey", 100)
+        fun logEvent(context: Context?, eventName: String, properties: Map<String, String>) {
+            val bundle = Bundle()
+            for ((key, value) in properties.entries.iterator()) {
+                bundle.putString(key, value)
+            }
             context?.let {
                 FirebaseAnalytics.getInstance(context).logEvent(eventName, bundle)
             }
         }
-
     }
 }
