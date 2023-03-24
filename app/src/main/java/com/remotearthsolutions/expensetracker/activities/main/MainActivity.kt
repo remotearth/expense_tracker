@@ -217,7 +217,7 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     fun showBackButton() {
         toggle?.isDrawerIndicatorEnabled = false
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         toggle?.syncState()
         mToolbar.setNavigationOnClickListener {
@@ -257,7 +257,7 @@ class MainActivity : BaseActivity(), MainContract.View {
         //blur back screen
         FragmentLoader.load(this, ViewShadeFragment(), null, ViewShadeFragment::class.java.name, 1)
 
-        supportActionBar!!.title = title
+        supportActionBar?.title = title
         val expenseFragment = ExpenseFragment()
         expenseFragment.purpose = purpose
         val wrappedCategoryExpense = Parcels.wrap(categoryExpense)
