@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -92,7 +93,7 @@ class MainFragment : BaseFragment(),
         binding!!.weeklyRangeBtn.setOnClickListener(dateFilterButtonClickListener)
         binding!!.monthlyRangeBtn.setOnClickListener(dateFilterButtonClickListener)
         binding!!.yearlyRangeBtn.setOnClickListener(dateFilterButtonClickListener)
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             val period = SharedPreferenceUtils.getInstance(mContext)!!.getString(
                 Constants.PREF_PERIOD,
                 mResources.getString(R.string.daily)
@@ -201,7 +202,7 @@ class MainFragment : BaseFragment(),
                             override fun onAnimationCancel(animation: Animator) {}
                             override fun onAnimationRepeat(animation: Animator) {}
                         })
-                        Handler().postDelayed({
+                        Handler(Looper.getMainLooper()).postDelayed({
                             binding!!.dateRangeContainer.animate().alpha(1.0f).translationY(0f)
                                 .duration = 200
                         }, 100)
@@ -220,7 +221,7 @@ class MainFragment : BaseFragment(),
                         }
                         anim.duration = 200
                         anim.start()
-                        Handler().postDelayed({
+                        Handler(Looper.getMainLooper()).postDelayed({
                             binding!!.dateRangeContainer.animate().alpha(1.0f).translationY(0f)
                                 .duration = 200
                         }, 100)
@@ -239,7 +240,7 @@ class MainFragment : BaseFragment(),
                         }
                         anim.duration = 200
                         anim.start()
-                        Handler().postDelayed({
+                        Handler(Looper.getMainLooper()).postDelayed({
                             binding!!.dateRangeContainer.animate().alpha(1.0f).translationY(0f)
                                 .duration = 200
                         }, 100)
@@ -251,7 +252,7 @@ class MainFragment : BaseFragment(),
                         binding!!.dateRangeContainer.animate().alpha(0f)
                             .translationY(-binding!!.dateRangeContainer.height.toFloat()).duration =
                             200
-                        Handler().postDelayed({
+                        Handler(Looper.getMainLooper()).postDelayed({
                             val anim = ValueAnimator.ofInt(dateContainerHeight, 0)
                             anim.addUpdateListener { valueAnimator: ValueAnimator ->
                                 val `val` = valueAnimator.animatedValue as Int
