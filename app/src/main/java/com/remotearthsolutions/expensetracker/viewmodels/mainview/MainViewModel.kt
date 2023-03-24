@@ -124,11 +124,11 @@ class MainViewModel(
         fileProcessingService.writeOnCsvFile(
             activity,
             stringBuilder.toString(),
-            Runnable {
+            {
                 shareCSVFileToMail(activity)
                 disposable.clear()
             },
-            Runnable { disposable.clear() }
+            { disposable.clear() }
         )
     }
 
