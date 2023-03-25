@@ -12,7 +12,6 @@ import com.microsoft.appcenter.crashes.Crashes
 import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.Configs
 import com.remotearthsolutions.expensetracker.di.modules.viewModels
-import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.yariksoffice.lingver.Lingver

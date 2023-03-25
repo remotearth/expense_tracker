@@ -311,7 +311,7 @@ class MainFragment : BaseFragment(),
                 btnId
             )
         }
-        (mContext as MainActivity).updateSummary(startTime, endTime)
+        (mContext as MainActivity).updateSummary()
     }
 
     fun refreshChart() {

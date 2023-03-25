@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.remotearthsolutions.expensetracker.R
@@ -17,7 +16,6 @@ import com.remotearthsolutions.expensetracker.databaseutils.daos.ExpenseDao
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel
-import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.services.FileProcessingService
 import com.remotearthsolutions.expensetracker.services.FirebaseService
 import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
@@ -30,7 +28,6 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.Function4
 import io.reactivex.schedulers.Schedulers
 
 class MainViewModel(
@@ -42,7 +39,6 @@ class MainViewModel(
     private val categoryExpenseDao: CategoryExpenseDao,
     private val fileProcessingService: FileProcessingService
 ) : ViewModel() {
-    private val context = view as Context
     private var disposable = CompositeDisposable()
     var startTime: Long = 0
         private set
@@ -52,39 +48,33 @@ class MainViewModel(
     fun init(lifecycleOwner: LifecycleOwner?) {
         view.initializeView()
         accountDao.totalAmount.observe(
-            lifecycleOwner!!,
-            Observer { amount: Double? ->
-                if (amount != null) {
-                    view.showTotalBalance(formatDecimalValues(amount))
-                } else {
-                    view.showTotalBalance(formatDecimalValues(0.0))
-                }
-                if (amount != null && amount < 0) {
-                    view.setBalanceTextColor(android.R.color.holo_red_dark)
-                } else {
-                    view.setBalanceTextColor(android.R.color.holo_green_light)
-                }
+            lifecycleOwner!!
+        ) { amount: Double? ->
+            if (amount != null) {
+                view.showTotalBalance(formatDecimalValues(amount))
+            } else {
+                view.showTotalBalance(formatDecimalValues(0.0))
             }
-        )
+            if (amount != null && amount < 0) {
+                view.setBalanceTextColor(android.R.color.holo_red_dark)
+            } else {
+                view.setBalanceTextColor(android.R.color.holo_green_light)
+            }
+        }
     }
 
-    @JvmOverloads
-    fun updateSummary(
-        startTime: Long = this.startTime, endTime: Long = this.endTime
-    ) {
-        this.startTime = startTime
-        this.endTime = endTime
+    fun updateAllTimeExpense() {
         disposable.add(
-            expenseDao.getTotalAmountInDateRange(startTime, endTime)
+            expenseDao.getAllTimeTotalAmount()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { amount: Double?, throwable: Throwable? ->
                     if (throwable == null) {
-                        view.showTotalExpense(formatDecimalValues(amount!!))
+                        view.showAllTimeTotalExpense(formatDecimalValues(amount!!))
                     } else {
                         throwable.printStackTrace()
                         FirebaseCrashlytics.getInstance().recordException(throwable)
-                        view.showTotalExpense(
+                        view.showAllTimeTotalExpense(
                             formatDecimalValues(
                                 0.0
                             )
@@ -145,27 +135,25 @@ class MainViewModel(
             categoryExpenseDao.allFilterExpense,
             expenseDao.allExpenseEntry,
             categoryDao.allCategories,
-            accountDao.allAccounts,
-            Function4<List<CategoryExpense>?, List<ExpenseModel>?, List<CategoryModel>?, List<AccountModel>?, SaveExpenseToFileData>
-            { listOfFilterExpense, allExpenses, allCategories, allAccounts ->
-                if (listOfFilterExpense.isNotEmpty()) {
-                    for (i in listOfFilterExpense.indices) {
-                        if (listOfFilterExpense[i].totalAmount > 0) {
-                            stringBuilder.append(listOfFilterExpense[i])
-                        }
+            accountDao.allAccounts
+        ) { listOfFilterExpense, allExpenses, allCategories, allAccounts ->
+            if (listOfFilterExpense.isNotEmpty()) {
+                for (i in listOfFilterExpense.indices) {
+                    if (listOfFilterExpense[i].totalAmount > 0) {
+                        stringBuilder.append(listOfFilterExpense[i])
                     }
-                    stringBuilder.append(Constants.DONOT_EDIT_META_DATA)
-                    SaveExpenseToFileData(
-                        allExpenses,
-                        allCategories,
-                        allAccounts,
-                        stringBuilder
-                    )
-                } else {
-                    SaveExpenseToFileData(allExpenses, allCategories, allAccounts, null)
                 }
+                stringBuilder.append(Constants.DONOT_EDIT_META_DATA)
+                SaveExpenseToFileData(
+                    allExpenses,
+                    allCategories,
+                    allAccounts,
+                    stringBuilder
+                )
+            } else {
+                SaveExpenseToFileData(allExpenses, allCategories, allAccounts, null)
             }
-        ).subscribeOn(Schedulers.io())
+        }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError { throwable ->
                 throwable.printStackTrace()
@@ -213,7 +201,7 @@ class MainViewModel(
     }
 
     fun importDataFromFile(fileUri: Uri) {
-        view.showProgress(context.getString(R.string.please_wait))
+        view.showProgress((view as Context).getString(R.string.please_wait))
         fileProcessingService.loadTableData(
             fileUri,
             object : FileProcessingService.Callback {
@@ -230,7 +218,7 @@ class MainViewModel(
                     view.showAlert(
                         null,
                         "The selected file is corrupted or not supported in Expense Tracker",
-                        context.getString(R.string.ok),
+                        (view as Context).getString(R.string.ok),
                         null,
                         null,
                         null

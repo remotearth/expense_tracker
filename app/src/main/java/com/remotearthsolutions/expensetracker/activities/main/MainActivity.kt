@@ -177,7 +177,7 @@ class MainActivity : BaseActivity(), MainContract.View {
         viewModel.init(this)
     }
 
-    override fun showTotalExpense(amount: String?) {
+    override fun showAllTimeTotalExpense(amount: String?) {
         val str = "${getString(R.string.expense)}: $amount"
         binding.totalExpenseAmountTv.text = str
     }
@@ -309,12 +309,8 @@ class MainActivity : BaseActivity(), MainContract.View {
         mToolbar.title = getString(titleId)
     }
 
-    fun updateSummary(startTime: Long, endTime: Long) {
-        viewModel.updateSummary(startTime, endTime)
-    }
-
     fun updateSummary() {
-        viewModel.updateSummary()
+        viewModel.updateAllTimeExpense()
     }
 
     fun refreshChart() {

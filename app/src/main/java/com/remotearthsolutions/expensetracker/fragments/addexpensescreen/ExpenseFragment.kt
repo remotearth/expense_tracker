@@ -55,13 +55,10 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         format = SharedPreferenceUtils.getInstance(requireActivity())!!.getString(
-            Constants.PREF_TIME_FORMAT,
-            Constants.KEY_DATE_MONTH_YEAR_DEFAULT
+            Constants.PREF_TIME_FORMAT, Constants.KEY_DATE_MONTH_YEAR_DEFAULT
         )
         binding = FragmentAddExpenseBinding.inflate(layoutInflater, container, false)
         val repeatTypes = getResourceStringArray(R.array.repeatType)
@@ -94,8 +91,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 Helpers.updateAccountBtn(binding, categoryExpense)
             } else {
                 val accountId = SharedPreferenceUtils.getInstance(mContext)!!.getInt(
-                    Constants.KEY_SELECTED_ACCOUNT_ID,
-                    1
+                    Constants.KEY_SELECTED_ACCOUNT_ID, 1
                 )
                 viewModel.setDefaultSourceAccount(accountId)
             }
@@ -119,13 +115,11 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 override fun onSelectAccount(accountIncome: AccountModel) {
                     categoryExpense!!.setAccount(accountIncome)
                     binding.fromAccountBtn.update(
-                        accountIncome.name!!,
-                        accountIncome.icon!!
+                        accountIncome.name!!, accountIncome.icon!!
                     )
                     accountDialogFragment.dismiss()
                     SharedPreferenceUtils.getInstance(mContext)!!.putInt(
-                        Constants.KEY_SELECTED_ACCOUNT_ID,
-                        accountIncome.id
+                        Constants.KEY_SELECTED_ACCOUNT_ID, accountIncome.id
                     )
                 }
             })
@@ -136,12 +130,10 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             val categoryDialogFragment: CategoryDialogFragment =
                 CategoryDialogFragment.newInstance(getResourceString(R.string.select_category))
             categoryDialogFragment.setCategory(categoryExpense?.categoryId!!)
-            categoryDialogFragment.setCallback(object :
-                CategoryDialogFragment.Callback {
+            categoryDialogFragment.setCallback(object : CategoryDialogFragment.Callback {
                 override fun onSelectCategory(category: CategoryModel?) {
                     binding.toCategoryBtn.update(
-                        category?.name!!,
-                        category.icon!!
+                        category?.name!!, category.icon!!
                     )
                     categoryDialogFragment.dismiss()
                     categoryExpense!!.setCategory(category)
@@ -155,20 +147,16 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 DatePickerDialogFragment.newInstance("")
             val cal = getCalendarFromDateString(format, binding.dateTv.text.toString())
             datePickerDialogFragment.setInitialDate(
-                cal[Calendar.DAY_OF_MONTH],
-                cal[Calendar.MONTH],
-                cal[Calendar.YEAR]
+                cal[Calendar.DAY_OF_MONTH], cal[Calendar.MONTH], cal[Calendar.YEAR]
             )
-            datePickerDialogFragment.setCallback(object :
-                DatePickerDialogFragment.Callback {
+            datePickerDialogFragment.setCallback(object : DatePickerDialogFragment.Callback {
                 override fun onSelectDate(date: String?) {
                     binding.dateTv.text = date
                     datePickerDialogFragment.dismiss()
                 }
             })
             datePickerDialogFragment.show(
-                childFragmentManager,
-                DatePickerDialogFragment::class.java.name
+                childFragmentManager, DatePickerDialogFragment::class.java.name
             )
         }
         binding.okBtn.setOnClickListener {
@@ -196,8 +184,8 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             expenseModel.id = categoryExpense?.expenseId!!
             expenseModel.amount = amount
             expenseModel.datetime = getTimeInMillisFromDateStr(
-                binding.dateTv.text.toString()
-                        + " " + currentTime, format + " " + Constants.KEY_HOUR_MIN_SEC
+                binding.dateTv.text.toString() + " " + currentTime,
+                format + " " + Constants.KEY_HOUR_MIN_SEC
             )
             expenseModel.categoryId = categoryExpense!!.categoryId
             expenseModel.source = categoryExpense!!.accountId
@@ -225,7 +213,8 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 showAlert(getResourceString(R.string.attention),
                     getResourceString(R.string.are_you_sure_you_want_to_delete_this_expense_entry),
                     getResourceString(R.string.yes),
-                    getResourceString(R.string.not_now), null,
+                    getResourceString(R.string.not_now),
+                    null,
                     object : BaseView.Callback {
                         override fun onOkBtnPressed() {
                             viewModel.deleteExpense(categoryExpense)
@@ -274,8 +263,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                     mutableAmount += (prevExpense!!.totalAmount * -1)
                 } else {
                     viewModel.updateAccountAmount(
-                        prevExpense!!.accountId,
-                        prevExpense!!.totalAmount * -1
+                        prevExpense!!.accountId, prevExpense!!.totalAmount * -1
                     )
                 }
             }
@@ -309,8 +297,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         ).show()
         (mContext as Activity?)!!.onBackPressed()
         viewModel.updateAccountAmount(
-            this.categoryExpense?.accountId!!,
-            categoryExpense?.totalAmount!! * -1
+            this.categoryExpense?.accountId!!, categoryExpense?.totalAmount!! * -1
         )
         with(AnalyticsManager) {
             logEvent(EXPENSE_DELETED)
@@ -321,29 +308,24 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
 
     override fun setSourceAccount(account: AccountModel?) {
         if (categoryExpense == null) {
-            categoryExpense =
-                CategoryExpense()
+            categoryExpense = CategoryExpense()
         }
         categoryExpense!!.setAccount(account!!)
         binding.fromAccountBtn.update(
-            account.name!!,
-            account.icon!!
+            account.name!!, account.icon!!
         )
         SharedPreferenceUtils.getInstance(mContext)!!.putInt(
-            Constants.KEY_SELECTED_ACCOUNT_ID,
-            account.id
+            Constants.KEY_SELECTED_ACCOUNT_ID, account.id
         )
     }
 
     override fun showDefaultCategory(categoryModel: CategoryModel?) {
         if (categoryExpense == null) {
-            categoryExpense =
-                CategoryExpense()
+            categoryExpense = CategoryExpense()
         }
         categoryExpense!!.setCategory(categoryModel!!)
         binding.toCategoryBtn.update(
-            categoryModel.name!!,
-            categoryModel.icon!!
+            categoryModel.name!!, categoryModel.icon!!
         )
     }
 
@@ -355,12 +337,8 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         val delay = scheduledExpenseModel.nextoccurrencedate - Calendar.getInstance().timeInMillis
         val data = Data.Builder()
         data.putLong(ExpenseScheduler.SCHEDULED_EXPENSE_ID, scheduledExpenseModel.id)
-        val workRequestId = WorkManagerEnqueuer()
-            .enqueue<AddScheduledExpenseWorker>(
-                requireContext(),
-                WorkRequestType.ONETIME,
-                delay,
-                data.build()
+        val workRequestId = WorkManagerEnqueuer().enqueue<AddScheduledExpenseWorker>(
+                requireContext(), WorkRequestType.ONETIME, delay, data.build()
             )
         viewModel.saveWorkerId(WorkerIdModel(scheduledExpenseModel.id, workRequestId))
 

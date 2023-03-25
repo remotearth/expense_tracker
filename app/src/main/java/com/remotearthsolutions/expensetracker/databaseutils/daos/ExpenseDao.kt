@@ -16,6 +16,9 @@ interface ExpenseDao {
     @Query("Select sum(amount) from expense where category_id = :id")
     fun getTotalAmountByCategoryId(id: Int): Int
 
+    @Query("Select sum(amount) from expense")
+    fun getAllTimeTotalAmount() : Single<Double>
+
     @Query("Select sum(amount) from expense where datetime>=:startDate AND datetime<=:endDate")
     fun getTotalAmountInDateRange(
         startDate: Long,

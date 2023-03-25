@@ -61,8 +61,8 @@
     <string name="from_catagory_card">GIFT</string>
     <string name="from_account">From Account</string>
     <string name="to_account">To Category</string>
-    <string name="expense">Expense</string>
-    <string name="balance">Balance</string>
+    <string name="expense">Total Expense</string>
+    <string name="balance">Total Balance</string>
 
     <string name="notes">Notes</string>
 
