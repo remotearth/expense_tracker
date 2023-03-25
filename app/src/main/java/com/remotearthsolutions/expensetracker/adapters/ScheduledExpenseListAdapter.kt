@@ -3,7 +3,6 @@ package com.remotearthsolutions.expensetracker.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.viewholder.ScheduledExpenseViewHolder
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.ScheduledExpenseDto
 import com.remotearthsolutions.expensetracker.databinding.ListitemScheduledexpenseBinding
@@ -17,7 +16,11 @@ class ScheduledExpenseListAdapter(
 
     private lateinit var binding: ListitemScheduledexpenseBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduledExpenseViewHolder {
-        binding = ListitemScheduledexpenseBinding.inflate(LayoutInflater.from(parent.context),parent, false)
+        binding = ListitemScheduledexpenseBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return ScheduledExpenseViewHolder(parent.context, binding, currencySymbol, format, listener)
     }
 

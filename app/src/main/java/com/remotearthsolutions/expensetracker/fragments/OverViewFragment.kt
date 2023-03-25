@@ -81,7 +81,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
 
         setupChart()
 
-        viewModel.chartDataRequirementLiveData.observe(viewLifecycleOwner, {
+        viewModel.chartDataRequirementLiveData.observe(viewLifecycleOwner) {
             val currencySymbol = Utils.getCurrency(requireContext())
             binding.barChart.clear()
 
@@ -144,7 +144,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
             val adapter =
                 OverviewListAdapter(sortedList, sum, maxWidthOfBar!!.toInt(), currencySymbol)
             binding.recyclerView.adapter = adapter
-        })
+        }
 
     }
 
