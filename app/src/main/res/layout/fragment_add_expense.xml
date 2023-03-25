@@ -94,6 +94,9 @@
                         android:gravity="center"
                         android:hint="@string/notes"
                         android:inputType="text"
+                        android:maxLines="1"
+                        android:maxLength="25"
+                        android:ellipsize="end"
                         android:textAlignment="center"
                         android:textColor="@color/colorPrimary"
                         android:textSize="15sp" />

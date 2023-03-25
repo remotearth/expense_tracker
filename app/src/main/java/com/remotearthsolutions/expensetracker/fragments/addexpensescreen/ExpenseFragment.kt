@@ -201,7 +201,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             )
             expenseModel.categoryId = categoryExpense!!.categoryId
             expenseModel.source = categoryExpense!!.accountId
-            expenseModel.note = binding.expenseNoteEdtxt.text.toString()
+            expenseModel.note = categoryExpense!!.note
 
             if (binding.repeatEntryView.visibility != View.VISIBLE) {
                 viewModel.addExpense(expenseModel)

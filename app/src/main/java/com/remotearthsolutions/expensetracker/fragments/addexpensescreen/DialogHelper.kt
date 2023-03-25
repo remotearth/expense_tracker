@@ -71,7 +71,7 @@ object DialogHelper {
             .setOnClickListener {
                 val str = noteEdtxt.text.toString()
                 categoryExpense.note = str
-                binding.expenseNoteEdtxt.setText(str)
+                binding.expenseNoteEdtxt.setText(Helpers.getTruncatedNote(str))
                 builder.dismiss()
             }
         dialogView.findViewById<ImageView>(R.id.clearBtn)

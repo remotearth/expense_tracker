@@ -20,7 +20,7 @@ object Helpers {
         if (categoryExpense.totalAmount > 0) {
             binding.inputdigit.setText(Utils.formatDecimalValues(categoryExpense.totalAmount))
         }
-        binding.expenseNoteEdtxt.setText(categoryExpense.note)
+        binding.expenseNoteEdtxt.setText(getTruncatedNote(categoryExpense.note.toString()))
         if (categoryExpense.datetime > 0) {
             binding.dateTv.text = DateTimeUtils.getDate(
                 categoryExpense.datetime,
@@ -31,6 +31,14 @@ object Helpers {
 
     fun updateAccountBtn(binding: FragmentAddExpenseBinding, categoryExpense: CategoryExpense?) {
         binding.fromAccountBtn.update(categoryExpense?.accountName!!, categoryExpense.accountIcon!!)
+    }
+
+    fun getTruncatedNote(note: String): String {
+        if (note.length > 22) {
+            return "${note.subSequence(0, 22)}..."
+        }
+
+        return note
     }
 
     fun requestToReviewApp(activity: Activity, viewModel: ExpenseFragmentViewModel) {
