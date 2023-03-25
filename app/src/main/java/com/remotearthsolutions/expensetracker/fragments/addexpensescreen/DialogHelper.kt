@@ -5,6 +5,7 @@ import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -72,6 +73,10 @@ object DialogHelper {
                 categoryExpense.note = str
                 binding.expenseNoteEdtxt.setText(str)
                 builder.dismiss()
+            }
+        dialogView.findViewById<ImageView>(R.id.clearBtn)
+            .setOnClickListener {
+                noteEdtxt.setText("")
             }
         builder.setView(dialogView)
         builder.show()

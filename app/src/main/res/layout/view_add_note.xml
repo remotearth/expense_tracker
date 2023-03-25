@@ -1,33 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:padding="20dp"
-        android:layout_height="wrap_content">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
     <TextView
-            android:id="@+id/header"
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:padding="7dp"
+        android:text="@string/expense_note"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
+
+        <EditText
+            android:id="@+id/noteEdtxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/expense_note"
-            android:textColor="@color/colorPrimary"
-            android:padding="7dp"
-            android:textStyle="bold"
-            android:layout_marginBottom="10dp"
-            android:textSize="18sp"/>
-        <EditText
-                android:id="@+id/noteEdtxt"
-                android:hint="@string/write_a_note_here"
-                android:layout_width="match_parent"
-                android:textSize="18sp"
-                android:layout_marginBottom="20dp"
-                android:layout_height="wrap_content"/>
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"
+            android:layout_toStartOf="@+id/clearBtn"
+            android:hint="@string/write_a_note_here"
+            android:inputType="text"
+            android:maxLines="1"
+            android:text="asdasd asdasddas asdasdas asdas asdasd asd asdasdas  asdasd asdasd asd"
+            android:textSize="18sp" />
 
-        <Button
-                android:id="@+id/okBtn"
-                android:text="@string/ok"
-                android:textColor="@color/textcolorwhite"
-                android:background="@drawable/btn_selector"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/clearBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:contentDescription="@string/delete"
+            android:focusable="true"
+            android:padding="10dp"
+            app:srcCompat="@drawable/ic_delete" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/okBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_selector"
+        android:text="@string/ok"
+        android:textColor="@color/textcolorwhite" />
 </LinearLayout>
