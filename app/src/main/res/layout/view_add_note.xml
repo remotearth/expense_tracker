@@ -32,7 +32,6 @@
             android:hint="@string/write_a_note_here"
             android:inputType="text"
             android:maxLines="1"
-            android:text="asdasd asdasddas asdasdas asdas asdasd asd asdasdas  asdasd asdasd asd"
             android:textSize="18sp" />
 
         <ImageView
