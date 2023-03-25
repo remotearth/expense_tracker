@@ -296,6 +296,9 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 )
             )
         }
+
+        // reset note
+        categoryExpense?.note = ""
     }
 
     override fun onExpenseDeleted(categoryExpense: CategoryExpense?) {
@@ -346,6 +349,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
 
     override fun onScheduleExpense(scheduledExpenseModel: ScheduledExpenseModel) {
         binding.inputdigit.setText("")
+        binding.expenseNoteEdtxt.setText("")
         showToast(getResourceString(R.string.expense_scheduled))
 
         val delay = scheduledExpenseModel.nextoccurrencedate - Calendar.getInstance().timeInMillis
@@ -359,5 +363,8 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 data.build()
             )
         viewModel.saveWorkerId(WorkerIdModel(scheduledExpenseModel.id, workRequestId))
+
+        // reset note
+        categoryExpense?.note = ""
     }
 }
