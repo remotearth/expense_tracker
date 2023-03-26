@@ -26,8 +26,8 @@
     <string name="from_catagory_card">GIFT</string>
     <string name="from_account">অ্যাকাউন্ট</string>
     <string name="to_account">খরচের প্রকার</string>
-    <string name="expense">খরচ</string>
-    <string name="balance">জমা</string>
+    <string name="expense">সর্বমোট খরচ</string>
+    <string name="balance">সর্বমোট জমা</string>
 
     <string name="notes">নোট</string>
 
@@ -167,7 +167,7 @@
     <string name="rate_us">অ্যাপ সম্পর্কে মতামত দিন</string>
     <string name="review">আপনার মতামত</string>
     <string name="share_experience">মনে হচ্ছে অ্যাপটি আপনার পক্ষে কার্যকর। আপনি কি নিজের অভিজ্ঞতা অন্যদের সাথে ভাগ করতে চান?</string>
-    <string name="total_expense">সর্বমোট খরচ</string>
+    <string name="total_expense">খরচ</string>
     <string name="name_should_be_less_than_20_char">নাম ২০ অক্ষরের মধ্যে হতে হবে</string>
     <string name="backup_sync">ইন্টারনেট-এ ব্যাকআপ</string>
     <string name="you_can_backup">আপনি অ্যাপ-এর খরচের তথ্য ইন্টারনেট-এ ব্যাকআপ করতে পারেন অথবা ইন্টারনেট থেকে নামাতে পারেন</string>
