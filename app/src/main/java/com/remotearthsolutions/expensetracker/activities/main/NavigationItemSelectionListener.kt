@@ -3,15 +3,9 @@ package com.remotearthsolutions.expensetracker.activities.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.PermissionListener
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.activities.helpers.FragmentLoader
@@ -27,10 +21,8 @@ import com.remotearthsolutions.expensetracker.utils.*
 
 
 class NavigationItemSelectionListener(
-    private val mainActivity: MainActivity,
-    private val binding: ActivityMainBinding
-) :
-    NavigationView.OnNavigationItemSelectedListener {
+    private val mainActivity: MainActivity, private val binding: ActivityMainBinding
+) : NavigationView.OnNavigationItemSelectedListener {
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         with(mainActivity) {
@@ -41,8 +33,11 @@ class NavigationItemSelectionListener(
                     if (fragment == null) {
                         val mainFragment = MainFragment()
                         FragmentLoader.load(
-                            this, mainFragment, getString(R.string.menu_home),
-                            MainFragment::class.java.name, 1
+                            this,
+                            mainFragment,
+                            getString(R.string.menu_home),
+                            MainFragment::class.java.name,
+                            1
                         )
                     } else {
                         refreshChart()
@@ -50,7 +45,9 @@ class NavigationItemSelectionListener(
                 }
                 R.id.nav_categories -> {
                     FragmentLoader.load(
-                        this, CategoryFragment(), getString(R.string.menu_categories),
+                        this,
+                        CategoryFragment(),
+                        getString(R.string.menu_categories),
                         CategoryFragment::class.java.name
                     )
                     showBackButton()
@@ -69,49 +66,7 @@ class NavigationItemSelectionListener(
                     return false
                 }
                 R.id.nav_import_data -> {
-
-                    showAlert(
-                        resources.getString(R.string.attention),
-                        resources.getString(R.string.will_replace_your_current_entries),
-                        resources.getString(R.string.yes),
-                        resources.getString(R.string.cancel), null,
-                        object : BaseView.Callback {
-                            override fun onOkBtnPressed() {
-                                PermissionUtils().writeExternalStoragePermission(this@with,
-                                    object : PermissionListener {
-                                        override fun onPermissionGranted(response: PermissionGrantedResponse) {
-                                            val intent = Intent(Intent.ACTION_GET_CONTENT)
-                                            intent.type = "*/*"
-                                            startActivityForResult(
-                                                Intent.createChooser(
-                                                    intent,
-                                                    "Choose a .csv file"
-                                                ), 101
-                                            )
-                                        }
-
-                                        override fun onPermissionDenied(response: PermissionDeniedResponse) {
-                                            showAlert(
-                                                "",
-                                                resources.getString(R.string.read_write_permission_is_needed),
-                                                resources.getString(R.string.ok), null, null, null
-                                            )
-                                        }
-
-                                        override fun onPermissionRationaleShouldBeShown(
-                                            permission: PermissionRequest, token: PermissionToken
-                                        ) {
-                                            Toast.makeText(
-                                                this@with,
-                                                resources.getString(R.string.read_write_permission_is_needed_enable_from_settings),
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                        }
-                                    })
-                            }
-
-                            override fun onCancelBtnPressed() {}
-                        })
+                    FilePickerUtils().checkPermissionAndPickFile(this)
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     return false
                 }
@@ -126,16 +81,18 @@ class NavigationItemSelectionListener(
                     val isLoggedIn = user != "guest" && user.isNotEmpty()
 
                     viewModel.backupOrSync(
-                        this, (application as ApplicationObject).isPremium,
-                        isDeviceOnline, isLoggedIn
+                        this,
+                        (application as ApplicationObject).isPremium,
+                        isDeviceOnline,
+                        isLoggedIn
                     ) {
                         AlertDialogUtils.show(
                             this,
                             "",
-                            getString(R.string.you_can_backup) + "\n\n" +
-                                    getString(R.string.what_you_want_to_do),
+                            getString(R.string.you_can_backup) + "\n\n" + getString(R.string.what_you_want_to_do),
                             getString(R.string.backup_sync),
-                            getString(R.string.download), null,
+                            getString(R.string.download),
+                            null,
                             object : BaseView.Callback {
                                 override fun onOkBtnPressed() {
                                     viewModel.backupToCloud(this@with, user)
@@ -155,7 +112,8 @@ class NavigationItemSelectionListener(
                 R.id.nav_settings -> {
                     FragmentLoader.load(
                         this,
-                        SettingsFragment(), getString(R.string.menu_settings),
+                        SettingsFragment(),
+                        getString(R.string.menu_settings),
                         SettingsFragment::class.java.name
                     )
                     showBackButton()
@@ -166,11 +124,11 @@ class NavigationItemSelectionListener(
                     return false
                 }
                 R.id.nav_logout -> {
-                    showAlert(
-                        "",
+                    showAlert("",
                         getString(R.string.are_you_sure_you_want_to_logout),
                         getString(R.string.yes),
-                        getString(R.string.no), null,
+                        getString(R.string.no),
+                        null,
                         object : BaseView.Callback {
                             override fun onOkBtnPressed() {
                                 viewModel.performLogout()
@@ -185,7 +143,9 @@ class NavigationItemSelectionListener(
                     AnalyticsManager.logEvent(AnalyticsManager.CLICKED_ON_PURCHASE_NAV_ITEM)
                     showAlert(resources.getString(R.string.whatsinpremium),
                         resources.getString(R.string.premium_features),
-                        resources.getString(R.string.ok), null, null,
+                        resources.getString(R.string.ok),
+                        null,
+                        null,
                         object : BaseView.Callback {
                             override fun onOkBtnPressed() {
 
@@ -195,7 +155,8 @@ class NavigationItemSelectionListener(
                                         resources.getString(R.string.internet_connection_needed),
                                         resources.getString(R.string.ok),
                                         null,
-                                        null, null
+                                        null,
+                                        null
                                     )
                                     return
                                 }
@@ -223,8 +184,7 @@ class NavigationItemSelectionListener(
                 R.id.nav_how -> {
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     val status = showWebUrl(
-                        Constants.URL_HOW_TO_USE,
-                        getString(R.string.menu_how_to)
+                        Constants.URL_HOW_TO_USE, getString(R.string.menu_how_to)
                     )
                     showBackButton()
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
@@ -232,20 +192,16 @@ class NavigationItemSelectionListener(
                 }
                 R.id.nav_contact_us -> {
 
-                    ShareCompat.IntentBuilder.from(this)
-                        .setType("message/rfc822")
+                    ShareCompat.IntentBuilder.from(this).setType("message/rfc822")
                         .addEmailTo("remotearth.solutions@gmail.com")
-                        .setSubject("About Expense Tracker")
-                        .startChooser()
+                        .setSubject("About Expense Tracker").startChooser()
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     return false
                 }
                 R.id.nav_share -> {
-                    ShareCompat.IntentBuilder.from(this)
-                        .setType("text/plain")
+                    ShareCompat.IntentBuilder.from(this).setType("text/plain")
                         .setText(getString(R.string.share_app_text) + "\n\nhttps://bit.ly/2SOTaQj")
-                        .setChooserTitle("Share with...")
-                        .startChooser()
+                        .setChooserTitle("Share with...").startChooser()
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     with(AnalyticsManager) { logEvent(APP_SHARE_INTENT) }
                     return false
@@ -257,7 +213,9 @@ class NavigationItemSelectionListener(
                 }
                 R.id.nav_about -> {
                     FragmentLoader.load(
-                        this, AboutFragment(), getString(R.string.menu_about),
+                        this,
+                        AboutFragment(),
+                        getString(R.string.menu_about),
                         AboutFragment::class.java.name
                     )
                     showBackButton()
@@ -270,8 +228,7 @@ class NavigationItemSelectionListener(
                 R.id.nav_privacypolicy -> {
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     val status = showWebUrl(
-                        Constants.URL_PRIVACY_POLICY,
-                        getString(R.string.privacy_policy)
+                        Constants.URL_PRIVACY_POLICY, getString(R.string.privacy_policy)
                     )
                     showBackButton()
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
@@ -283,8 +240,7 @@ class NavigationItemSelectionListener(
                 R.id.nav_licenses -> {
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     val status = showWebUrl(
-                        Constants.URL_THIRD_PARTY_LICENSES,
-                        getString(R.string.menu_licenses)
+                        Constants.URL_THIRD_PARTY_LICENSES, getString(R.string.menu_licenses)
                     )
                     showBackButton()
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
@@ -305,7 +261,10 @@ class NavigationItemSelectionListener(
                 showAlert(
                     getString(R.string.warning),
                     getString(R.string.internet_connection_needed),
-                    getString(R.string.ok), null, null, null
+                    getString(R.string.ok),
+                    null,
+                    null,
+                    null
                 )
                 return false
             }

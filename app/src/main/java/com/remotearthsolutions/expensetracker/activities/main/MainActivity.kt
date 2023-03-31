@@ -2,9 +2,12 @@ package com.remotearthsolutions.expensetracker.activities.main
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -45,6 +48,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     val viewModel: MainViewModel by viewModel { parametersOf(this, this) }
     private lateinit var binding: ActivityMainBinding
     private lateinit var playBillingUtils: PlayBillingUtils
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
     private var purchaseStatusChecked = MutableLiveData<Boolean>()
 
@@ -74,6 +78,25 @@ class MainActivity : BaseActivity(), MainContract.View {
         with(FirebaseUtils) {
             subscribeToTopic(TOPIC_GENERAL_USER)
         }
+
+        resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                if (it.resultCode == Activity.RESULT_OK) {
+                    val intent = it.data
+                    if (intent != null && intent.data != null) {
+                        viewModel.importDataFromFile(intent.data!!)
+                    } else {
+                        showAlert(
+                            null,
+                            getString(R.string.something_went_wrong),
+                            getString(R.string.ok),
+                            null,
+                            null,
+                            null
+                        )
+                    }
+                }
+            }
     }
 
     private fun observeState() {
@@ -269,26 +292,6 @@ class MainActivity : BaseActivity(), MainContract.View {
         showBackButton()
     }
 
-    override fun onActivityResult(
-        requestCode: Int, resultCode: Int, data: Intent?
-    ) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 101 && resultCode == Activity.RESULT_OK) {
-            if (data != null && data.data != null) {
-                viewModel.importDataFromFile(data.data!!)
-            } else {
-                showAlert(
-                    null,
-                    getString(R.string.something_went_wrong),
-                    getString(R.string.ok),
-                    null,
-                    null,
-                    null
-                )
-            }
-        }
-    }
-
     val mToolbar: Toolbar
         get() = binding.toolbar
 
@@ -345,6 +348,20 @@ class MainActivity : BaseActivity(), MainContract.View {
         }
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == FilePickerUtils.REQ_CODE_READ_EXTERNAL_STORAGE_PERMISSION && grantResults.isNotEmpty()
+            && grantResults[0]
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            FilePickerUtils().openFilePicker(this)
+        }
+    }
+
     private fun setPeriodicReminderToAskAddingExpense() {
         val sharedPreferenceUtils = SharedPreferenceUtils.getInstance(this)
         if (sharedPreferenceUtils?.getString(
@@ -364,6 +381,8 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
     fun getPlayBillingUtils() = playBillingUtils
+
+    fun getResultListener() = resultLauncher
 
     companion object {
         @JvmField

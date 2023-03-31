@@ -7,30 +7,9 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.listener.single.PermissionListener
 import com.remotearthsolutions.expensetracker.R
 
 class PermissionUtils {
-    fun writeExternalStoragePermission(
-        activity: Activity?,
-        permissionListener: PermissionListener?
-    ) {
-        Dexter.withActivity(activity)
-            .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            .withListener(permissionListener)
-            .check()
-    }
-
-    fun readExternalStoragePermission(
-        activity: Activity?,
-        permissionListener: PermissionListener?
-    ) {
-        Dexter.withActivity(activity)
-            .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-            .withListener(permissionListener)
-            .check()
-    }
 
     fun showSettingsDialog(activity: Activity) {
         val builder = AlertDialog.Builder(activity)

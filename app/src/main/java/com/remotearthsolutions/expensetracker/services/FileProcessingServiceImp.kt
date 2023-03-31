@@ -10,18 +10,11 @@ import android.widget.Toast
 import androidx.core.content.FileProvider
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.gson.Gson
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.PermissionListener
 import com.remotearthsolutions.expensetracker.R
-import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.ExpenseModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
-import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils.show
 import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.Constants.Companion.KEY_UTF_VERSION
@@ -39,49 +32,11 @@ class FileProcessingServiceImp(val context: Context) : FileProcessingService {
         onSuccessRunnable: Runnable?,
         onFailureRunnable: Runnable?
     ) {
-        writePermission.writeExternalStoragePermission(activity, object : PermissionListener {
-            override fun onPermissionGranted(response: PermissionGrantedResponse) {
-                if (writeExternalFile(activity, content)) {
-                    onSuccessRunnable?.run()
-                } else {
-                    onFailureRunnable?.run()
-                }
-            }
-
-            override fun onPermissionDenied(response: PermissionDeniedResponse) {
-                onFailureRunnable!!.run()
-                if (response.isPermanentlyDenied) {
-                    forceUserToGrantPermission(activity)
-                } else {
-                    show(
-                        activity, "",
-                        activity.getString(R.string.without_this_app_cannot_export),
-                        activity.getString(R.string.ok), null, null, null
-                    )
-                }
-            }
-
-            override fun onPermissionRationaleShouldBeShown(
-                permission: PermissionRequest,
-                token: PermissionToken
-            ) {
-                onFailureRunnable!!.run()
-                show(activity, activity.getString(R.string.attention),
-                    activity.getString(R.string.storage_permission_is_needed_to_export_data),
-                    activity.getString(R.string.yes),
-                    activity.getString(R.string.no),
-                    null,
-                    object : BaseView.Callback {
-                        override fun onOkBtnPressed() {
-                            token.continuePermissionRequest()
-                        }
-
-                        override fun onCancelBtnPressed() {
-                            token.cancelPermissionRequest()
-                        }
-                    })
-            }
-        })
+        if (writeExternalFile(activity, content)) {
+            onSuccessRunnable?.run()
+        } else {
+            onFailureRunnable?.run()
+        }
     }
 
     override fun readFromCsvFile(activity: Activity): List<CategoryExpense>? {
