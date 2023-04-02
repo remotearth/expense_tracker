@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.viewmodels
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
+import com.google.firebase.crashlytics.BuildConfig
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.remotearthsolutions.expensetracker.contracts.ExpenseFragmentContract
 import com.remotearthsolutions.expensetracker.databaseutils.daos.*
@@ -120,7 +121,9 @@ class ExpenseFragmentViewModel(
                 }
 
                 override fun onError(e: Throwable) {
-                    e.printStackTrace()
+                    if (BuildConfig.DEBUG) {
+                        e.printStackTrace()
+                    }
                     FirebaseCrashlytics.getInstance().recordException(e)
                 }
 

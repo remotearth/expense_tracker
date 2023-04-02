@@ -7,6 +7,7 @@ import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.crashlytics.BuildConfig
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageException
@@ -34,7 +35,9 @@ class FirebaseServiceImpl(private val context: Context) : FirebaseService {
                 }
             }
             .addOnFailureListener(context) {
-                it.printStackTrace()
+                if (BuildConfig.DEBUG) {
+                    it.printStackTrace()
+                }
                 FirebaseCrashlytics.getInstance().recordException(it)
                 callback!!.onFirebaseSigninFailure(context.getString(R.string.Authentication_with_Firebase_is_failed))
             }
@@ -53,7 +56,9 @@ class FirebaseServiceImpl(private val context: Context) : FirebaseService {
             }.addOnFailureListener(
                 context
             ) {
-                it.printStackTrace()
+                if (BuildConfig.DEBUG) {
+                    it.printStackTrace()
+                }
                 FirebaseCrashlytics.getInstance().recordException(it)
                 callback!!.onFirebaseSigninFailure(
                     context.getString(R.string.Authentication_with_Firebase_is_failed)
@@ -79,7 +84,9 @@ class FirebaseServiceImpl(private val context: Context) : FirebaseService {
         storage.putBytes(dataBase64Encrypted.toByteArray(charset(Constants.KEY_UTF_VERSION)))
             .addOnSuccessListener { onSuccess?.invoke() }
             .addOnFailureListener { exception ->
-                exception.printStackTrace()
+                if (BuildConfig.DEBUG) {
+                    exception.printStackTrace()
+                }
                 FirebaseCrashlytics.getInstance().recordException(exception)
                 onFailure?.invoke()
             }
@@ -106,7 +113,9 @@ class FirebaseServiceImpl(private val context: Context) : FirebaseService {
                 }
             }
             .addOnFailureListener { exception ->
-                exception.printStackTrace()
+                if (BuildConfig.DEBUG) {
+                    exception.printStackTrace()
+                }
                 if (exception is StorageException) {
                     onFailure.invoke(context.getString(R.string.data_not_available_to_download))
                 } else {

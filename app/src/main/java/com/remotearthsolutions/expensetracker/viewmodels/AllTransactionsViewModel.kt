@@ -2,6 +2,7 @@ package com.remotearthsolutions.expensetracker.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.crashlytics.BuildConfig
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.databaseutils.daos.AccountDao
@@ -164,7 +165,9 @@ class AllTransactionsViewModel(
                 .subscribe({ // onComplete
                     callback.invoke()
                 }, {
-                    it.printStackTrace()
+                    if (BuildConfig.DEBUG) {
+                        it.printStackTrace()
+                    }
                     FirebaseCrashlytics.getInstance().recordException(it)
                     onError.invoke()
                 })

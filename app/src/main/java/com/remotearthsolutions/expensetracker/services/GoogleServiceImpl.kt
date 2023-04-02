@@ -7,6 +7,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.crashlytics.BuildConfig
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.utils.Constants
@@ -35,7 +36,9 @@ class GoogleServiceImpl(private val context: Context) : GoogleService {
             val credential = GoogleAuthProvider.getCredential(token, null)
             callback!!.onSocialLoginSuccess(credential)
         } catch (e: ApiException) {
-            e.printStackTrace()
+            if (BuildConfig.DEBUG) {
+                e.printStackTrace()
+            }
             FirebaseCrashlytics.getInstance().recordException(e)
             callback!!.onSocialLoginFailure(context.getString(R.string.google_signin_failed))
         }

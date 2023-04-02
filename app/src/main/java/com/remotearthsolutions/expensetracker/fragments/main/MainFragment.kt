@@ -29,8 +29,11 @@ import com.remotearthsolutions.expensetracker.fragments.OverViewFragment
 import com.remotearthsolutions.expensetracker.fragments.accounts.AccountsFragment
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
+import com.remotearthsolutions.expensetracker.utils.Utils
 import com.remotearthsolutions.expensetracker.utils.findViewPagerFragmentByTag
+import com.remotearthsolutions.expensetracker.viewmodels.MainFragmentViewModel
 import com.remotearthsolutions.expensetracker.views.PeriodButton
+import org.koin.android.ext.android.inject
 
 class MainFragment : BaseFragment(),
     DateFilterButtonClickListener.Callback {
@@ -42,6 +45,7 @@ class MainFragment : BaseFragment(),
     private var selectedPeriodBtn: PeriodButton? = null
     private lateinit var mContext: Context
     private lateinit var mResources: Resources
+    val viewModel: MainFragmentViewModel by inject()
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
@@ -93,6 +97,14 @@ class MainFragment : BaseFragment(),
         binding!!.weeklyRangeBtn.setOnClickListener(dateFilterButtonClickListener)
         binding!!.monthlyRangeBtn.setOnClickListener(dateFilterButtonClickListener)
         binding!!.yearlyRangeBtn.setOnClickListener(dateFilterButtonClickListener)
+
+        val text = getString(R.string.current_expense)
+        binding!!.currentExpenseAmountTv.text = "$text: ${Utils.formatDecimalValues(0.0)}"
+        viewModel.currentExpense.observe(viewLifecycleOwner) {
+            binding!!.currentExpenseAmountTv.text = "$text: ${Utils.formatDecimalValues(it)}"
+        }
+
+
         Handler(Looper.getMainLooper()).postDelayed({
             val period = SharedPreferenceUtils.getInstance(mContext)!!.getString(
                 Constants.PREF_PERIOD,
@@ -312,6 +324,7 @@ class MainFragment : BaseFragment(),
             )
         }
         (mContext as MainActivity).updateSummary()
+        viewModel.gerCurrentExpense(startTime, endTime)
     }
 
     fun refreshChart() {

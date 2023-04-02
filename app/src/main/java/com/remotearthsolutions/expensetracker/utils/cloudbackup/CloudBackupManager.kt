@@ -1,6 +1,7 @@
 package com.remotearthsolutions.expensetracker.utils.cloudbackup
 
 import android.content.Context
+import com.google.firebase.crashlytics.BuildConfig
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.databaseutils.models.AccountModel
@@ -49,7 +50,9 @@ object CloudBackupManager {
                 }
             }
         }, {
-            it.printStackTrace()
+            if(BuildConfig.DEBUG){
+                it.printStackTrace()
+            }
             FirebaseCrashlytics.getInstance().recordException(it)
         }))
     }
@@ -81,7 +84,9 @@ object CloudBackupManager {
                 disposable.clear()
             }, {
                 callback(null)
-                it.printStackTrace()
+                if (BuildConfig.DEBUG) {
+                    it.printStackTrace()
+                }
                 FirebaseCrashlytics.getInstance().recordException(it)
                 disposable.clear()
             })

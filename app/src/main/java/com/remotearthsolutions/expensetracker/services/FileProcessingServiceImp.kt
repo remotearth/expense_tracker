@@ -8,6 +8,7 @@ import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import com.google.firebase.crashlytics.BuildConfig
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.gson.Gson
 import com.remotearthsolutions.expensetracker.R
@@ -131,7 +132,9 @@ class FileProcessingServiceImp(val context: Context) : FileProcessingService {
         } catch (e: Exception) {
             Log.d("Exception", "" + e.message)
             FirebaseCrashlytics.getInstance().recordException(e)
-            e.printStackTrace()
+            if (BuildConfig.DEBUG) {
+                e.printStackTrace()
+            }
             callback!!.onFailure()
         } finally {
             try {
@@ -187,7 +190,9 @@ class FileProcessingServiceImp(val context: Context) : FileProcessingService {
             )
             with(AnalyticsManager) { logEvent(DATA_EXPORTED) }
         } catch (t: Throwable) {
-            t.printStackTrace()
+            if (BuildConfig.DEBUG) {
+                t.printStackTrace()
+            }
             FirebaseCrashlytics.getInstance().recordException(t)
             Toast.makeText(
                 activity,

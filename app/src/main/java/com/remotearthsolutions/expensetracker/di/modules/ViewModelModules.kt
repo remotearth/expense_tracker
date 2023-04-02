@@ -30,6 +30,12 @@ val viewModels = module {
         )
     }
 
+    viewModel {
+        MainFragmentViewModel(
+            provideDb(get()).expenseDao(),
+        )
+    }
+
     viewModel { (view: AccountDialogContract.View) ->
         AccountDialogViewModel(view, provideDb(get()).accountDao())
     }

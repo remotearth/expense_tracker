@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
+import com.google.firebase.crashlytics.BuildConfig
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.contracts.BaseView
@@ -72,7 +73,9 @@ class MainViewModel(
                     if (throwable == null) {
                         view.showAllTimeTotalExpense(formatDecimalValues(amount!!))
                     } else {
-                        throwable.printStackTrace()
+                        if (BuildConfig.DEBUG) {
+                            throwable.printStackTrace()
+                        }
                         FirebaseCrashlytics.getInstance().recordException(throwable)
                         view.showAllTimeTotalExpense(
                             formatDecimalValues(
@@ -156,14 +159,18 @@ class MainViewModel(
         }.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError { throwable ->
-                throwable.printStackTrace()
+                if (BuildConfig.DEBUG) {
+                    throwable.printStackTrace()
+                }
                 FirebaseCrashlytics.getInstance().recordException(throwable)
                 view.hideProgress()
             }
             .subscribe { data, throwable: Throwable? ->
                 view.hideProgress()
                 if (throwable != null) {
-                    throwable.printStackTrace()
+                    if (BuildConfig.DEBUG) {
+                        throwable.printStackTrace()
+                    }
                     FirebaseCrashlytics.getInstance().recordException(throwable)
                     view.showAlert(
                         "",
@@ -255,7 +262,9 @@ class MainViewModel(
                     view.onDataUpdated()
                 }, {
                     view.hideProgress()
-                    it.printStackTrace()
+                    if (BuildConfig.DEBUG) {
+                        it.printStackTrace()
+                    }
                     FirebaseCrashlytics.getInstance().recordException(it)
                 })
         )

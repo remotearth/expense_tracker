@@ -8,10 +8,23 @@
         android:layout_height="match_parent"
         android:background="@color/background">
 
+        <TextView
+            android:id="@+id/currentExpenseAmountTv"
+            android:background="@color/colorPrimary"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingBottom="3dp"
+            android:text="@string/current_expense"
+            android:textColor="@color/white" />
+
         <LinearLayout
             android:id="@+id/dateRangeContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/currentExpenseAmountTv"
             android:orientation="vertical">
 
             <LinearLayout

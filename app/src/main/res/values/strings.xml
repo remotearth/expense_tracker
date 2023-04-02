@@ -228,6 +228,7 @@
     <string name="review">Review</string>
     <string name="share_experience">It seems the app is useful for you. Do you want to share your experience with others?</string>
     <string name="total_expense">Expense</string>
+    <string name="current_expense" translatable="false">Current Expense</string>
     <string name="name_should_be_less_than_20_char">Name should be at most twenty characters long</string>
     <string name="backup_sync">Cloud Backup</string>
     <string name="you_can_backup">You can backup your data in the cloud or download data from cloud for this account.</string>
