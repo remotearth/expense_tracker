@@ -42,9 +42,7 @@ class MainViewModel(
 ) : ViewModel() {
     private var disposable = CompositeDisposable()
     var startTime: Long = 0
-        private set
     var endTime: Long = 0
-        private set
 
     fun init(lifecycleOwner: LifecycleOwner?) {
         view.initializeView()
@@ -202,7 +200,7 @@ class MainViewModel(
             }
         )
     }
-    
+
     private fun shareCSVFileToMail(activity: Activity) {
         fileProcessingService.shareFile(activity)
     }

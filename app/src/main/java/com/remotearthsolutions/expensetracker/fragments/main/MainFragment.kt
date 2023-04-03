@@ -323,8 +323,12 @@ class MainFragment : BaseFragment(),
                 btnId
             )
         }
-        (mContext as MainActivity).updateSummary()
-        viewModel.gerCurrentExpense(startTime, endTime)
+        val mainActivity = mContext as MainActivity
+
+        mainActivity.viewModel.startTime = startTime
+        mainActivity.viewModel.endTime = endTime
+        mainActivity.updateSummary()
+
     }
 
     fun refreshChart() {
