@@ -314,6 +314,9 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     fun updateSummary() {
         viewModel.updateAllTimeExpense()
+        val mainFragment =
+            supportFragmentManager.findFragmentByTag(MainFragment::class.java.name) as MainFragment?
+        mainFragment?.viewModel?.gerCurrentExpense(viewModel.startTime, viewModel.endTime)
     }
 
     fun refreshChart() {

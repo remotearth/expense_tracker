@@ -37,7 +37,7 @@ class AllExpenseFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAllExpenseBinding.inflate(layoutInflater,container,false)
+        binding = FragmentAllExpenseBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -110,8 +110,7 @@ class AllExpenseFragment : BaseFragment() {
                             viewModel.deleteSelectedExpense(expenseToDelete, callback = {
                                 hideProgress()
                                 showToast(getResourceString(R.string.operation_successful))
-                                val mainActivity = mContext as MainActivity?
-                                mainActivity!!.updateSummary()
+                                (mContext as MainActivity?)?.updateSummary()
                             }, onError = {
                                 hideProgress()
                                 showAlert(
