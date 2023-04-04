@@ -23,7 +23,7 @@ class Migrations {
         val migrationFrom2to3 = object : Migration(2, 3) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL(
-                    "CREATE TABLE IF NOT EXISTS `notes` (`id` INTEGER NOT NULL, `note` TEXT NOT NULL, PRIMARY KEY(`id`))"
+                    "CREATE TABLE IF NOT EXISTS `notes` (`id` INTEGER NOT NULL, `note` TEXT, PRIMARY KEY(`id`))"
                 )
             }
         }
