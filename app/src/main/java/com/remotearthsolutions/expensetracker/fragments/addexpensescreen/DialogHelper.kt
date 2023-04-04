@@ -4,14 +4,13 @@ import android.content.Context
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.remotearthsolutions.expensetracker.R
+import com.remotearthsolutions.expensetracker.databaseutils.models.NoteModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.databinding.FragmentAddExpenseBinding
+import com.remotearthsolutions.expensetracker.viewmodels.NotesViewModel
 
 
 object DialogHelper {
@@ -48,6 +47,7 @@ object DialogHelper {
 
     fun showExpenseNoteInput(
         mContext: Context,
+        notes: List<String>,
         layoutInflater: LayoutInflater,
         binding: FragmentAddExpenseBinding,
         categoryExpense: CategoryExpense?
@@ -59,8 +59,10 @@ object DialogHelper {
         val headerTitle = dialogView.findViewById<TextView>(R.id.header)
         headerTitle.setText(R.string.expense_note)
 
-        val noteEdtxt = dialogView.findViewById<EditText>(R.id.noteEdtxt)
-        noteEdtxt.setHint(R.string.write_a_note_here)
+        val noteEdtxt = dialogView.findViewById<AutoCompleteTextView>(R.id.noteEdtxt)
+        val adapter = ArrayAdapter(mContext, android.R.layout.simple_list_item_1, notes)
+        noteEdtxt.setAdapter(adapter)
+        noteEdtxt.threshold = 3
 
         val note = categoryExpense!!.note
         if (note != null) {

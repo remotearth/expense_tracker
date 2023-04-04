@@ -104,6 +104,12 @@ val viewModels = module {
             provideDb(context).workerIdDao()
         )
     }
+
+    viewModel {
+        NotesViewModel(
+            provideDb(get()).notesDao()
+        )
+    }
 }
 
 private fun provideDb(context: Context): AppDatabase {

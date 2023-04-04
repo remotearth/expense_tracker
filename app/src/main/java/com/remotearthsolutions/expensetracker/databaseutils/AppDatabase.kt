@@ -7,8 +7,8 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.*
 
 @Database(
     entities = [CategoryModel::class, AccountModel::class,
-        ExpenseModel::class, ScheduledExpenseModel::class, WorkerIdModel::class],
-    version = 2,
+        ExpenseModel::class, ScheduledExpenseModel::class, WorkerIdModel::class, NoteModel::class],
+    version = 3,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -18,4 +18,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun categoryExpenseDao(): CategoryExpenseDao
     abstract fun scheduleExpenseDao(): ScheduledExpenseDao
     abstract fun workerIdDao(): WorkerIdsDao
+    abstract fun notesDao(): NotesDao
 }

@@ -31,6 +31,8 @@ import com.remotearthsolutions.expensetracker.utils.Utils.getCurrency
 import com.remotearthsolutions.expensetracker.utils.workmanager.WorkManagerEnqueuer
 import com.remotearthsolutions.expensetracker.utils.workmanager.WorkRequestType
 import com.remotearthsolutions.expensetracker.viewmodels.ExpenseFragmentViewModel
+import com.remotearthsolutions.expensetracker.viewmodels.NotesViewModel
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import org.parceler.Parcels
@@ -42,12 +44,14 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
     private lateinit var binding: FragmentAddExpenseBinding
     var purpose: Purpose? = null
     private val viewModel: ExpenseFragmentViewModel by viewModel { parametersOf(this) }
+    private val notesViewModel: NotesViewModel by inject()
     private var categoryExpense: CategoryExpense? = null
     private var prevExpense: CategoryExpense? = null
     private lateinit var mContext: Context
     private lateinit var mResources: Resources
     private lateinit var format: String
     private var isRepeatEnabled = false
+    private var notes = ArrayList<String>()
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
@@ -75,6 +79,10 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         numPadFragment!!.setListener(numpadManager)
 
         viewModel.init()
+        notesViewModel.notesLiveData.observe(viewLifecycleOwner) {
+            notes = it
+        }
+        notesViewModel.getAllNotes()
 
         val args = arguments
         if (args != null) {
@@ -206,7 +214,13 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         }
 
         binding.expenseNoteEdtxt.setOnClickListener {
-            DialogHelper.showExpenseNoteInput(mContext, layoutInflater, binding, categoryExpense)
+            DialogHelper.showExpenseNoteInput(
+                mContext,
+                notes,
+                layoutInflater,
+                binding,
+                categoryExpense
+            )
         }
         binding.expenseDeleteBtn.setOnClickListener {
             if (categoryExpense!!.expenseId > 0) {
@@ -285,7 +299,9 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             )
         }
 
-        // reset note
+        categoryExpense?.note?.let {
+            saveNote(it)
+        }
         categoryExpense?.note = ""
     }
 
@@ -338,11 +354,30 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         val data = Data.Builder()
         data.putLong(ExpenseScheduler.SCHEDULED_EXPENSE_ID, scheduledExpenseModel.id)
         val workRequestId = WorkManagerEnqueuer().enqueue<AddScheduledExpenseWorker>(
-                requireContext(), WorkRequestType.ONETIME, delay, data.build()
-            )
+            requireContext(), WorkRequestType.ONETIME, delay, data.build()
+        )
         viewModel.saveWorkerId(WorkerIdModel(scheduledExpenseModel.id, workRequestId))
 
-        // reset note
+        categoryExpense?.note?.let {
+            saveNote(it)
+        }
         categoryExpense?.note = ""
+    }
+
+    private fun saveNote(note: String) {
+        val str = note.trim()
+        var isUnique = true
+
+        for (nt in notes) {
+            if (str == nt) {
+                isUnique = false
+                break
+            }
+        }
+
+        if (isUnique) {
+            notesViewModel.addNote(NoteModel(str))
+            notes.add(str)
+        }
     }
 }
