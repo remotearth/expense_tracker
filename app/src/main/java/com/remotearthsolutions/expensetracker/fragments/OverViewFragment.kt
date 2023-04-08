@@ -88,40 +88,35 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
             when (it.selectedFilterBtnId) {
                 R.id.dailyRangeBtn -> {
                     val totalExpense = generateGraph(it, "MMM dd", Calendar.DAY_OF_MONTH)
-                    val avg = Utils.formatDecimalValues(totalExpense)
+                    val avg = Utils.formatDecimalValues(totalExpense / 24.0)
                     binding.totalCountView.setInfo(it.filteredList.size.toString())
+
+                    binding.dailyAvgView.setTitle("Hourly(avg.)")
                     binding.dailyAvgView.setInfo("$avg $currencySymbol")
                 }
                 R.id.weeklyRangeBtn -> {
                     val totalExpense = generateGraph(it, "MMM dd", Calendar.DAY_OF_MONTH)
                     val avg = Utils.formatDecimalValues(totalExpense / 7.0)
                     binding.totalCountView.setInfo(it.filteredList.size.toString())
+
+                    binding.dailyAvgView.setTitle("Daily(avg.)")
                     binding.dailyAvgView.setInfo("$avg $currencySymbol")
                 }
                 R.id.monthlyRangeBtn -> {
                     val totalExpense = generateGraph(it, "MMM dd", Calendar.DAY_OF_MONTH)
-                    val currentTime = DateTimeUtils.getCurrentTimeInMills()
-                    val noOfDays = if (currentTime < it.endTime) {
-                        DateTimeUtils.daysBetween(it.startTime, currentTime)
-                    } else {
-                        DateTimeUtils.daysBetween(it.startTime, it.endTime)
-                    }
+                    val noOfDays = DateTimeUtils.daysBetween(it.startTime, it.endTime)
 
                     val avg = Utils.formatDecimalValues(totalExpense / (noOfDays + 1))
                     binding.totalCountView.setInfo(it.filteredList.size.toString())
+
+                    binding.dailyAvgView.setTitle("Daily(avg.)")
                     binding.dailyAvgView.setInfo("$avg $currencySymbol")
                 }
                 R.id.yearlyRangeBtn -> {
                     val totalExpense = generateGraph(it, "MMM", Calendar.MONTH)
-                    val currentTime = DateTimeUtils.getCurrentTimeInMills()
-                    val noOfDays = if (currentTime < it.endTime) {
-                        DateTimeUtils.daysBetween(it.startTime, currentTime)
-                    } else {
-                        DateTimeUtils.daysBetween(it.startTime, it.endTime)
-                    }
-
-                    val avg = Utils.formatDecimalValues(totalExpense / (noOfDays + 1))
+                    val avg = Utils.formatDecimalValues(totalExpense / 12.0)
                     binding.totalCountView.setInfo(it.filteredList.size.toString())
+                    binding.dailyAvgView.setTitle("Monthly(avg.)")
                     binding.dailyAvgView.setInfo("$avg $currencySymbol")
                 }
             }
