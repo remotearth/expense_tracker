@@ -51,7 +51,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
     private lateinit var mResources: Resources
     private lateinit var format: String
     private var isRepeatEnabled = false
-    private var notes = ArrayList<String>()
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
@@ -80,7 +80,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
 
         viewModel.init()
         notesViewModel.notesLiveData.observe(viewLifecycleOwner) {
-            notes = it
+            notesViewModel.notes = it
         }
         notesViewModel.getAllNotes()
 
@@ -216,10 +216,10 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         binding.expenseNoteEdtxt.setOnClickListener {
             DialogHelper.showExpenseNoteInput(
                 mContext,
-                notes,
                 layoutInflater,
                 binding,
-                categoryExpense
+                categoryExpense,
+                notesViewModel
             )
         }
         binding.expenseDeleteBtn.setOnClickListener {
@@ -368,7 +368,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
         val str = note.trim()
         var isUnique = true
 
-        for (nt in notes) {
+        for (nt in notesViewModel.notes) {
             if (str == nt) {
                 isUnique = false
                 break
@@ -377,7 +377,7 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
 
         if (isUnique) {
             notesViewModel.addNote(NoteModel(str))
-            notes.add(str)
+            notesViewModel.notes.add(str)
         }
     }
 }

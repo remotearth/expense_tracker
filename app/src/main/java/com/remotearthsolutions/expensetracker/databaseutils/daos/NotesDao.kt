@@ -10,8 +10,8 @@ interface NotesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun add(noteModel: NoteModel)
 
-    @Delete
-    fun delete(noteModel: NoteModel)
+    @Query("DELETE FROM notes WHERE note=:noteStr")
+    fun delete(noteStr: String)
 
     @get:Query("Select * from notes")
     val allNotes: Single<List<NoteModel>>

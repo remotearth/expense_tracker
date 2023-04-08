@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.remotearthsolutions.expensetracker.R
-import com.remotearthsolutions.expensetracker.databaseutils.models.NoteModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.databinding.FragmentAddExpenseBinding
 import com.remotearthsolutions.expensetracker.viewmodels.NotesViewModel
@@ -47,10 +46,10 @@ object DialogHelper {
 
     fun showExpenseNoteInput(
         mContext: Context,
-        notes: List<String>,
         layoutInflater: LayoutInflater,
         binding: FragmentAddExpenseBinding,
-        categoryExpense: CategoryExpense?
+        categoryExpense: CategoryExpense?,
+        notesViewModel: NotesViewModel
     ) {
         val builder =
             AlertDialog.Builder(mContext).create()
@@ -60,7 +59,7 @@ object DialogHelper {
         headerTitle.setText(R.string.expense_note)
 
         val noteEdtxt = dialogView.findViewById<AutoCompleteTextView>(R.id.noteEdtxt)
-        val adapter = ArrayAdapter(mContext, android.R.layout.simple_list_item_1, notes)
+        val adapter = NoteSuggestionListAdapter(mContext,R.id.noteText, notesViewModel.notes, notesViewModel)
         noteEdtxt.setAdapter(adapter)
         noteEdtxt.threshold = 3
 

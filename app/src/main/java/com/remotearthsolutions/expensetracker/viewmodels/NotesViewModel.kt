@@ -13,6 +13,7 @@ class NotesViewModel(
     private val notesDao: NotesDao,
 ) : ViewModel() {
     val notesLiveData = MutableLiveData<ArrayList<String>>()
+    var notes = ArrayList<String>()
     private val compositeDisposable = CompositeDisposable()
 
     fun addNote(noteModel: NoteModel) {
@@ -26,16 +27,14 @@ class NotesViewModel(
         )
     }
 
-    fun deleteNote(noteModel: NoteModel) {
+    fun deleteNote(note: String) {
         compositeDisposable.add(Completable.fromAction {
-            notesDao.delete(noteModel)
+            notesDao.delete(note)
         }.subscribeOn(
             Schedulers.io()
         )
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-
-            }
+            .subscribe ()
         )
     }
 
