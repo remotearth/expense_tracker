@@ -3,6 +3,7 @@ package com.remotearthsolutions.expensetracker.fragments.settings
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -106,8 +107,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     Constants.PREF_REMIND_TO_EXPORT -> {
                         val shouldRemindToExport = sharedPreferences.getBoolean(key, false)
                         if (shouldRemindToExport) {
-                            ReminderWorkerHelper.setExportReminder(requireContext())
-                            with(AnalyticsManager) { logEvent(EXPORT_REMINDER_ENABLED) }
+                            val mainActivity = requireActivity() as MainActivity
+                            if (mainActivity.notificationPermissionUtils.hasNotificationPermissionGranted) {
+                                ReminderWorkerHelper.setExportReminder(requireContext())
+                                with(AnalyticsManager) { logEvent(EXPORT_REMINDER_ENABLED) }
+                            } else {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                                    mainActivity.notificationPermissionUtils.startNotificationPermissionLauncher {
+                                        ReminderWorkerHelper.setExportReminder(requireContext())
+                                        with(AnalyticsManager) { logEvent(EXPORT_REMINDER_ENABLED) }
+                                    }
+                                }
+                            }
                         } else {
                             ReminderWorkerHelper.cancelReminder(
                                 requireContext(),
@@ -119,8 +130,24 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     Constants.PREF_REMIND_TO_ADDEXPENSE -> {
                         val shouldRemindToAddExpense = sharedPreferences.getBoolean(key, false)
                         if (shouldRemindToAddExpense) {
-                            ReminderWorkerHelper.setAddExpenseReminder(requireContext())
-                            with(AnalyticsManager) { logEvent(ADD_EXPENSE_DAILY_REMINDER_ENABLED) }
+                            val mainActivity = requireActivity() as MainActivity
+                            if (mainActivity.notificationPermissionUtils.hasNotificationPermissionGranted) {
+                                ReminderWorkerHelper.setAddExpenseReminder(requireContext())
+                                with(AnalyticsManager) { logEvent(ADD_EXPENSE_DAILY_REMINDER_ENABLED) }
+                            } else {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                                    mainActivity.notificationPermissionUtils.startNotificationPermissionLauncher {
+                                        ReminderWorkerHelper.setAddExpenseReminder(
+                                            requireContext()
+                                        )
+                                        with(AnalyticsManager) {
+                                            logEvent(
+                                                ADD_EXPENSE_DAILY_REMINDER_ENABLED
+                                            )
+                                        }
+                                    }
+                                }
+                            }
                         } else {
                             ReminderWorkerHelper.cancelReminder(
                                 requireContext(),
@@ -142,7 +169,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     ): View {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         context?.let {
-            view?.setBackgroundColor(
+            view.setBackgroundColor(
                 ContextCompat.getColor(
                     requireContext(),
                     R.color.background

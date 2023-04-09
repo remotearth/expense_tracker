@@ -3,6 +3,7 @@ package com.remotearthsolutions.expensetracker.activities.main
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -49,8 +50,10 @@ class MainActivity : BaseActivity(), MainContract.View {
     private lateinit var binding: ActivityMainBinding
     private lateinit var playBillingUtils: PlayBillingUtils
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
+    lateinit var notificationPermissionUtils: NotificationPermissionUtils
 
     private var purchaseStatusChecked = MutableLiveData<Boolean>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +64,7 @@ class MainActivity : BaseActivity(), MainContract.View {
         observeState()
         playBillingUtils = PlayBillingUtils(this)
         preferencesChangeListener = PreferencesChangeListener(this)
+        notificationPermissionUtils = NotificationPermissionUtils(this)
 
         val userStr = SharedPreferenceUtils.getInstance(this)?.getString(Constants.KEY_USER, "")
         viewModel.checkAuthectication(userStr!!)
@@ -198,6 +202,12 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun startLoadingApp() {
         viewModel.init(this)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            notificationPermissionUtils.startNotificationPermissionLauncher()
+        } else {
+            notificationPermissionUtils.hasNotificationPermissionGranted = true
+        }
     }
 
     override fun showAllTimeTotalExpense(amount: String?) {
