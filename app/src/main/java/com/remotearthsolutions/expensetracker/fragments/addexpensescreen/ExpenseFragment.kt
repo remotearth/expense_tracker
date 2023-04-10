@@ -105,8 +105,10 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             }
         }
 
-        if (purpose?.equals(Purpose.UPDATE)!!) {
-            binding.enableRepeatBtn.visibility = View.GONE
+        purpose?.let {
+            if (it == Purpose.UPDATE) {
+                binding.enableRepeatBtn.visibility = View.GONE
+            }
         }
 
         registerBackButton()
