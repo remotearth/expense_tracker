@@ -105,7 +105,7 @@
                     android:layout_weight="1.4"
                     android:gravity="center"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/primaryTextColor"
                     android:textStyle="bold"
                     tools:text="MONTH NAME" />
 

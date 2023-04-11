@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.remotearthsolutions.expensetracker.compose.theme.colorPrimary
+import com.remotearthsolutions.expensetracker.compose.theme.colorAccent
 
 @Composable
 fun FabButton(onClick: () -> Unit, modifier: Modifier, contentDescription: String = "") {
@@ -18,7 +18,7 @@ fun FabButton(onClick: () -> Unit, modifier: Modifier, contentDescription: Strin
         modifier = modifier,
         elevation = elevation(defaultElevation = 0.dp, pressedElevation = 0.dp),
         contentColor = Color.White,
-        backgroundColor = colorPrimary,
+        backgroundColor = colorAccent,
     ) {
         Icon(imageVector = Icons.Default.Add, contentDescription = contentDescription)
     }

@@ -68,7 +68,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/expense"
                         android:textAlignment="center"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/primaryTextColor"
                         android:textSize="15sp" />
 
                     <EditText
@@ -82,8 +82,8 @@
                         android:inputType="none"
                         android:maxLines="1"
                         android:textAlignment="center"
-                        android:textColor="@color/colorPrimary"
-                        android:textColorHint="@color/colorPrimary"
+                        android:textColor="@color/primaryTextColor"
+                        android:textColorHint="@color/primaryTextColor"
                         android:textSize="25sp" />
 
                     <EditText
@@ -121,7 +121,7 @@
                                 android:padding="10dp"
                                 android:text="@string/today_14th_january_2019"
                                 android:textAlignment="center"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@color/primaryTextColor"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
@@ -159,7 +159,7 @@
                                 android:layout_toEndOf="@id/repeatTitleTv"
                                 android:padding="10dp"
                                 android:text="@string/every"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@color/primaryTextColor"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
@@ -172,7 +172,7 @@
                                 android:padding="10dp"
                                 android:text="@string/one"
                                 android:textAlignment="center"
-                                android:textColor="@color/colorPrimaryDark"
+                                android:textColor="@color/primaryTextColor"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
@@ -182,7 +182,7 @@
                                 android:layout_below="@id/numberTv"
                                 android:layout_alignStart="@id/numberTv"
                                 android:layout_alignEnd="@id/numberTv"
-                                android:background="@color/colorPrimaryDark" />
+                                android:background="@color/primaryTextColor" />
 
                             <Spinner
                                 android:id="@+id/repeatTypeSpnr"
@@ -203,7 +203,7 @@
                                 android:padding="10dp"
                                 android:text="@string/one"
                                 android:textAlignment="center"
-                                android:textColor="@color/colorPrimaryDark"
+                                android:textColor="@color/primaryTextColor"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 

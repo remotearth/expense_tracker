@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="viewStart"
                     android:ems="10"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/primaryTextColor"
                     android:textSize="20sp"
                     tools:text="CASH" />
 

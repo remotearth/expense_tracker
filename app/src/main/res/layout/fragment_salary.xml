@@ -13,7 +13,7 @@
         android:ems="30"
         android:text="@string/set_your_salary"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/primaryTextColor"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +25,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:text="@string/add_salary_every_month"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/primaryTextColor"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/salaryToggleBtn"
         app:layout_constraintStart_toStartOf="@+id/textView2"
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/what_is_your_monthly_salary"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/primaryTextColor"
             android:textStyle="bold" />
 
         <EditText
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/next_salary_date"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/primaryTextColor"
                 android:textStyle="bold" />
 
             <RelativeLayout
@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:text="@string/select_account_to_receive_salary"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/primaryTextColor"
             android:textStyle="bold" />
 
         <Spinner

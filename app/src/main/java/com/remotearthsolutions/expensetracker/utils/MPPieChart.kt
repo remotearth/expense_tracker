@@ -126,7 +126,7 @@ class MPPieChart(val context: Context) : OnChartValueSelectedListener {
         val s =
             SpannableString("$totalExpenseStr\n${Utils.formatDecimalValues(sum)} $currencySymbol")
         s.setSpan(
-            ForegroundColorSpan(Color.parseColor("#5849B8")), 0, totalExpenseStr.length, 0
+            ForegroundColorSpan(context.resources.getColor(R.color.primaryTextColor)), 0, totalExpenseStr.length, 0
         )
         s.setSpan(ForegroundColorSpan(Color.RED), totalExpenseStr.length, s.length, 0)
         s.setSpan(RelativeSizeSpan(1.2f), totalExpenseStr.length, s.length, 0)

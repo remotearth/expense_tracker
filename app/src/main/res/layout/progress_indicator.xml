@@ -32,7 +32,7 @@
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/primaryTextColor"
             tools:text="TextView" />
 
     </LinearLayout>

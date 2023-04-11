@@ -13,7 +13,7 @@
         android:layout_marginBottom="10dp"
         android:padding="7dp"
         android:text="@string/expense_note"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/primaryTextColor"
         android:textSize="18sp"
         android:textStyle="bold" />
 

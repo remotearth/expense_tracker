@@ -47,7 +47,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@color/primaryTextColor"
                         android:textSize="20sp"
                         tools:text="$10500" />
 
