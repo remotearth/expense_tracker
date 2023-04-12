@@ -66,7 +66,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/expense"
+                        android:text="@string/total_expense"
                         android:textAlignment="center"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="15sp" />
@@ -98,7 +98,7 @@
                         android:maxLength="25"
                         android:ellipsize="end"
                         android:textAlignment="center"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/primaryTextColor"
                         android:textSize="15sp" />
 
                     <RelativeLayout
