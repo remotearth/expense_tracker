@@ -1,9 +1,12 @@
 package com.remotearthsolutions.expensetracker.activities.main
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.core.app.ShareCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
 import com.remotearthsolutions.expensetracker.R
@@ -191,10 +194,23 @@ class NavigationItemSelectionListener(
                     return status
                 }
                 R.id.nav_contact_us -> {
-
-                    ShareCompat.IntentBuilder.from(this).setType("message/rfc822")
-                        .addEmailTo("remotearth.solutions@gmail.com")
-                        .setSubject("About Expense Tracker").startChooser()
+                    val mailto = "mailto:remotearth.solutions@gmail.com" +
+                            "&subject=" + Uri.encode("About Expense Tracker")
+                    val emailIntent = Intent(Intent.ACTION_SENDTO)
+                    emailIntent.data = Uri.parse(mailto)
+                    try {
+                        ContextCompat.startActivity(mainActivity, emailIntent, null)
+                    } catch (e: ActivityNotFoundException) {
+                        AlertDialogUtils.show(
+                            mainActivity,
+                            null,
+                            mainActivity.getString(R.string.cannot_open_email_client),
+                            mainActivity.getString(R.string.ok),
+                            null,
+                            null,
+                            null
+                        )
+                    }
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     return false
                 }

@@ -295,5 +295,6 @@
     <string name="wait">Wait!</string>
     <string name="you_sure_to_delete_expenses">Are you sure you want to delete these expenses?</string>
     <string name="did_not_select">You did not select anything</string>
+    <string name="cannot_open_email_client" translatable="false">Cannot start an email client in your device. Please send your query to \nremotearth.solutions@gmail.com</string>
 
 </resources>
