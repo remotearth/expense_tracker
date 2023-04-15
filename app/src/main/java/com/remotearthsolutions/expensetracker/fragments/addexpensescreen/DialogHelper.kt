@@ -11,7 +11,6 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.Category
 import com.remotearthsolutions.expensetracker.databinding.FragmentAddExpenseBinding
 import com.remotearthsolutions.expensetracker.viewmodels.NotesViewModel
 
-
 object DialogHelper {
 
     fun getInputFor(textView: TextView, mContext: Context, layoutInflater: LayoutInflater) {
@@ -59,9 +58,11 @@ object DialogHelper {
         headerTitle.setText(R.string.expense_note)
 
         val noteEdtxt = dialogView.findViewById<AutoCompleteTextView>(R.id.noteEdtxt)
-        val adapter = NoteSuggestionListAdapter(mContext,R.id.noteText, notesViewModel.notes, notesViewModel)
+        val adapter =
+            NoteSuggestionListAdapter(mContext, R.id.noteText, notesViewModel.notes, notesViewModel)
         noteEdtxt.setAdapter(adapter)
         noteEdtxt.threshold = 3
+        noteEdtxt.addTextChangedListener(NoteEditTexWatcher(adapter, notesViewModel.notes))
 
         val note = categoryExpense!!.note
         if (note != null) {

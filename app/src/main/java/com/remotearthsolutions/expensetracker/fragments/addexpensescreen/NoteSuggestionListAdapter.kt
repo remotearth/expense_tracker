@@ -13,7 +13,7 @@ import com.remotearthsolutions.expensetracker.viewmodels.NotesViewModel
 class NoteSuggestionListAdapter(
     context: Context,
     resource: Int,
-    private val items: ArrayList<String>,
+    var items: ArrayList<String>,
     private val notesViewModel: NotesViewModel) :
     ArrayAdapter<String>(context, resource, items) {
 
