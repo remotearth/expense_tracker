@@ -121,6 +121,7 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun onStart() {
         super.onStart()
+        AnalyticsManager.logEvent(AnalyticsManager.APP_RESUMED)
 
         if (InternetCheckerServiceImpl(this).isConnected) {
             playBillingUtils.checkIfAdFreeVersionPurchased(purchaseStatusChecked)

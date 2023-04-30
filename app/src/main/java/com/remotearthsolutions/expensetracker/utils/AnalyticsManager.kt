@@ -6,6 +6,7 @@ import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 
 
 object AnalyticsManager {
+    const val APP_RESUMED = "app_resumed"
     const val EXPENSE_TYPE_DEFAULT = "expense_added"
     const val EXPENSE_TYPE_SCHEDULED = "expense_scheduled"
     const val EXPENSE_DELETED = "expense_deleted"
