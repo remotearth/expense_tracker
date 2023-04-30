@@ -24,17 +24,22 @@ class ETFirebaseMessegingService : FirebaseMessagingService() {
         if ((applicationContext as ApplicationObject).isActivityVisible) {
             val activity = (applicationContext as ApplicationObject).currentActivity
             if (remoteMessage.notification != null) {
-                activity!!.runOnUiThread {
-                    AlertDialogUtils.show(
-                        activity,
-                        null,
-                        remoteMessage.notification!!.body,
-                        activity.getString(R.string.ok),
-                        null,
-                        null, null
-                    )
+                if (remoteMessage.data.isNotEmpty()) {
+                    val versionCode = remoteMessage.data[Constants.KEY_VERSION_CODE]?.toInt()
+                    if (versionCode == BuildConfig.VERSION_CODE || versionCode == 0) {
+                        activity!!.runOnUiThread {
+                            AlertDialogUtils.show(
+                                activity,
+                                null,
+                                remoteMessage.notification!!.body,
+                                activity.getString(R.string.ok),
+                                null,
+                                null, null
+                            )
+                        }
+                        with(AnalyticsManager) { logEvent("$PN_VIEWED: ${remoteMessage.notification!!.body}") }
+                    }
                 }
-                with(AnalyticsManager) { logEvent("$PN_VIEWED: ${remoteMessage.notification!!.body}") }
             } else if (remoteMessage.data.isNotEmpty()) {
                 val message = remoteMessage.data[Constants.KEY_MESSAGE]
                 val versionCode = remoteMessage.data[Constants.KEY_VERSION_CODE]?.toInt()
