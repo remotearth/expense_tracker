@@ -144,7 +144,7 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginBottom="10dp"
                             android:gravity="center_horizontal"
-                            android:visibility="gone">
+                            android:visibility="visible">
 
                             <RelativeLayout
                                 android:id="@+id/repeatNumberContainer"
@@ -257,7 +257,7 @@
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginEnd="2dp"
                                 android:padding="10dp"
-                                android:text="Staring from:"
+                                android:text="@string/starting_from"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
 
