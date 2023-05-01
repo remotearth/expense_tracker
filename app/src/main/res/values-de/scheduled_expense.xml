@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="repeatType">
-        <item>Tag</item>
-        <item>Woche</item>
-        <item>Monat</item>
-        <item>Jahr</item>
-    </string-array>
-</resources>

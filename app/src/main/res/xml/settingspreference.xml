@@ -18,15 +18,6 @@
         android:title="@string/timeperiod" />
 
     <androidx.preference.ListPreference
-        android:defaultValue="@string/default_language"
-        android:entries="@array/lanugages"
-        android:entryValues="@array/lanugages"
-        android:icon="@drawable/ic_language"
-        android:key="@string/preflanguage"
-        android:summary="@string/default_language"
-        android:title="@string/change_language" />
-
-    <androidx.preference.ListPreference
         android:defaultValue="@string/default_time_format"
         android:entries="@array/TimeFormat"
         android:entryValues="@array/TimeFormat"

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="repeatType">
-        <item>দিনে</item>
-        <item>সপ্তাহে</item>
-        <item>মাসে</item>
-        <item>বছরে</item>
-    </string-array>
-</resources>

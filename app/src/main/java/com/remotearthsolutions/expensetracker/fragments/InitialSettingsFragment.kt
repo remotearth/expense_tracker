@@ -35,14 +35,6 @@ class InitialSettingsFragment : PreferenceFragmentCompat() {
             )
         preferenceCurrency.setIcon(Utils.getFlagDrawable(requireContext()))
 
-        val preferenceLanguage =
-            findPreference<Preference>(Constants.PREF_LANGUAGE)
-        preferenceLanguage!!.summary =
-            SharedPreferenceUtils.getInstance(requireContext())!!.getString(
-                Constants.PREF_LANGUAGE,
-                requireContext().resources.getString(R.string.default_language)
-            )
-
         preferenceChangeListener =
             OnSharedPreferenceChangeListener { sharedPreferences: SharedPreferences, key: String ->
                 if (key == Constants.PREF_CURRENCY) {
@@ -54,16 +46,6 @@ class InitialSettingsFragment : PreferenceFragmentCompat() {
                     )
                     currencyPreference!!.summary = sharedPreferences.getString(key, currency)
                     currencyPreference.setIcon(Utils.getFlagDrawable(requireContext()))
-                } else if (key == Constants.PREF_LANGUAGE) {
-                    val languagePreference =
-                        findPreference<Preference>(key)
-                    val language = sharedPreferences.getString(
-                        key,
-                        requireContext().resources.getString(R.string.default_language)
-                    )
-                    languagePreference!!.summary = language
-                    Utils.setAppLanguage(requireContext())
-                    with(AnalyticsManager) { logEvent("Choosen Language - $language") }
                 }
             }
         preferenceScreen.sharedPreferences

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="repeatType">
-        <item>Giorno</item>
-        <item>Settimana</item>
-        <item>Mese</item>
-        <item>Anno</item>
-    </string-array>
-</resources>

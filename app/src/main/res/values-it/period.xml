@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="TimePeriod">
-        <item>Quotidiano</item>
-        <item>Settimanalmente</item>
-        <item>Mensile</item>
-        <item>Annuale</item>
-    </string-array>
-</resources>

@@ -4,7 +4,6 @@
     <string name="preferencekey" translatable="false">pref_currency_list</string>
     <string name="defaultvalue" translatable="false">Bangladeshi Taka - BDT</string>
     <string name="prefdate" translatable="false">pref_period_list</string>
-    <string name="preflanguage" translatable="false">pref_language</string>
     <string name="preftimeformat" translatable="false">pref_time_format_list</string>
     <string name="prefremindaddexpense" translatable="false">pref_remind_add_expense</string>
     <string name="prefremindtoexport" translatable="false">pref_remind_to_export</string>
@@ -94,7 +93,6 @@
     <string name="selectperiodfromhere">Select Period</string>
     <string name="select_time_format_from_here">Select Date Format</string>
     <string name="default_time_format" translatable="false">dd-MM-yyyy</string>
-    <string name="default_language" translatable="false">English</string>
 
 
     <string name="warning">Warning</string>
@@ -244,7 +242,7 @@
     <string name="repeat">Repeat:</string>
     <string name="every">Every</string>
     <string name="times">Times</string>
-    <string name="starting_from" translatable="false">Starting From:</string>
+    <string name="starting_from">Starting From:</string>
     <string name="scheduled_on">Next occurrence on</string>
     <string name="no_scheduled_expenses">Currently, there is no scheduled expense</string>
     <string name="confirm_delete_scheduled_entry">Are you sure to delete this scheduled expense entry?</string>
@@ -270,7 +268,6 @@
     <string name="sure_to_cancel_change">Are you sure to cancel the change?</string>
     <string name="periodic_ask_to_add_expense">You did not add your expenses in last few days. If you want a daily reminder, you can set in settings page.</string>
     <string name="periodic_remind_notification">It seems you are not adding your expense regularly. Do you want me to remind you everyday?</string>
-    <string name="change_language">Change Language</string>
     <string name="choose_your_preferences">Choose your preferences</string>
     <string name="create_account">Create Account</string>
     <string name="transfer_amount">Transfer Amount</string>

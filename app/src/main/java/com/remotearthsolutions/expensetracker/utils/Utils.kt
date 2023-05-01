@@ -97,14 +97,5 @@ object Utils {
         }
     }
 
-    fun setAppLanguage(context: Context) {
-        val lang = SharedPreferenceUtils.getInstance(context)
-            ?.getString(Constants.PREF_LANGUAGE, context.getString(R.string.default_language))!!
-        val languages = context.resources.getStringArray(R.array.lanugages)
-        val langCodes = context.resources.getStringArray(R.array.lanugageCode)
-        val code = langCodes[languages.indexOf(lang)]
-        Lingver.getInstance().setLocale(context, code)
-    }
-
     class ScreenSize(var width: Int, var height: Int)
 }

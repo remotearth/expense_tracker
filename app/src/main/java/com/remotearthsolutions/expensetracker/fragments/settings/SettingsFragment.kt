@@ -38,12 +38,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 Constants.PREF_PERIOD, requireContext().getString(R.string.daily)
             )
 
-        val preferenceLanguage = findPreference<Preference>(Constants.PREF_LANGUAGE)
-        preferenceLanguage!!.summary =
-            SharedPreferenceUtils.getInstance(requireContext())!!.getString(
-                Constants.PREF_LANGUAGE, requireContext().getString(R.string.default_language)
-            )
-
         val preferenceTimeFormat = findPreference<Preference>(Constants.PREF_TIME_FORMAT)
         preferenceTimeFormat!!.summary =
             SharedPreferenceUtils.getInstance(requireContext())!!.getString(
@@ -80,19 +74,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             key, resources.getString(R.string.daily)
                         )
                         AnalyticsManager.logEvent(key)
-                    }
-                    Constants.PREF_LANGUAGE -> {
-                        val languagePreference =
-                            findPreference<Preference>(key)
-                        val selectedLang = sharedPreferences.getString(
-                            key, resources.getString(R.string.default_language)
-                        )
-                        languagePreference!!.summary = selectedLang
-                        AnalyticsManager.logEvent("Choosen Language - $selectedLang")
-                        Utils.setAppLanguage(requireContext())
-                        (requireActivity() as MainActivity).finish()
-                        val intent = Intent(requireActivity(), MainActivity::class.java)
-                        startActivity(intent)
                     }
                     Constants.PREF_TIME_FORMAT -> {
                         val timeFormatPreference =
