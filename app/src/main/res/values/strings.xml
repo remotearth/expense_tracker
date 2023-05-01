@@ -181,7 +181,7 @@
 
     <string name="cash" translatable="false">Cash</string>
     <string name="bank" translatable="false">Bank</string>
-    <string name="loan" translatable="false">Loan</string>
+    <string name="credit_card" translatable="false">Credit Card</string>
 
     <string name="select_day">Select Day</string>
     <string name="category">Category</string>

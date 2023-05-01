@@ -32,7 +32,7 @@ object InitialDataGenerator {
         return arrayOf(
             AccountModel(resources.getString(R.string.cash), "ic_cash1", 0.0, 1),
             AccountModel(resources.getString(R.string.bank), "ic_bank", 0.0, 1),
-            AccountModel(resources.getString(R.string.loan), "ic_loan1", 0.0, 1)
+            AccountModel(resources.getString(R.string.credit_card), "ic_card1", 0.0, 1)
         )
     }
 }
