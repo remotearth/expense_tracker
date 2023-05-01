@@ -90,13 +90,13 @@
                         android:id="@+id/expenseNoteEdtxt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
                         android:focusable="false"
                         android:gravity="center"
                         android:hint="@string/notes"
                         android:inputType="text"
-                        android:maxLines="1"
                         android:maxLength="25"
-                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:textAlignment="center"
                         android:textColor="@color/primaryTextColor"
                         android:textSize="15sp" />
@@ -109,9 +109,9 @@
                             android:id="@+id/singleEntryView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_below="@id/repeatEntryView"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="10dp"
-                            android:visibility="visible">
+                            android:layout_marginBottom="10dp">
 
                             <TextView
                                 android:id="@+id/dateTv"
@@ -139,94 +139,128 @@
                             android:id="@+id/repeatEntryView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center_horizontal"
                             android:visibility="gone">
 
+                            <RelativeLayout
+                                android:id="@+id/repeatNumberContainer"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal">
+
+                                <TextView
+                                    android:id="@+id/repeatTitleTv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="10dp"
+                                    android:padding="10dp"
+                                    android:text="@string/repeat"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/everyTitleTv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toEndOf="@id/repeatTitleTv"
+                                    android:padding="10dp"
+                                    android:text="@string/every"
+                                    android:textColor="@color/primaryTextColor"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/numberTv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toEndOf="@+id/everyTitleTv"
+                                    android:minEms="4"
+                                    android:padding="10dp"
+                                    android:text="@string/one"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/primaryTextColor"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+
+                                <View
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="1dp"
+                                    android:layout_below="@id/numberTv"
+                                    android:layout_alignStart="@id/numberTv"
+                                    android:layout_alignEnd="@id/numberTv"
+                                    android:background="@color/primaryTextColor" />
+
+                                <Spinner
+                                    android:id="@+id/repeatTypeSpnr"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignTop="@+id/numberTv"
+                                    android:layout_alignBottom="@+id/numberTv"
+                                    android:layout_toEndOf="@+id/numberTv"
+                                    android:entries="@array/repeatType"
+                                    android:textAlignment="center" />
+
+                            </RelativeLayout>
+
+
+                            <RelativeLayout
+                                android:id="@+id/timesContainer"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/repeatNumberContainer"
+                                android:gravity="center_horizontal">
+
+                                <TextView
+                                    android:id="@+id/timesTv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:minEms="4"
+                                    android:padding="10dp"
+                                    android:text="@string/one"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/primaryTextColor"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+
+                                <View
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="1dp"
+                                    android:layout_below="@id/timesTv"
+                                    android:layout_alignStart="@id/timesTv"
+                                    android:layout_alignEnd="@id/timesTv"
+                                    android:background="@color/colorPrimaryDark" />
+
+                                <TextView
+                                    android:id="@+id/timesTitleTv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="2dp"
+                                    android:layout_toEndOf="@+id/timesTv"
+                                    android:padding="10dp"
+                                    android:text="@string/times"
+                                    android:textAlignment="center"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+
+                            </RelativeLayout>
+
+
                             <TextView
-                                android:id="@+id/repeatTitleTv"
+                                android:id="@+id/startingFromTv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:padding="10dp"
-                                android:text="@string/repeat"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/everyTitleTv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_toEndOf="@id/repeatTitleTv"
-                                android:padding="10dp"
-                                android:text="@string/every"
-                                android:textColor="@color/primaryTextColor"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/numberTv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_toEndOf="@+id/everyTitleTv"
-                                android:minEms="4"
-                                android:padding="10dp"
-                                android:text="@string/one"
-                                android:textAlignment="center"
-                                android:textColor="@color/primaryTextColor"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                            <View
-                                android:layout_width="wrap_content"
-                                android:layout_height="1dp"
-                                android:layout_below="@id/numberTv"
-                                android:layout_alignStart="@id/numberTv"
-                                android:layout_alignEnd="@id/numberTv"
-                                android:background="@color/primaryTextColor" />
-
-                            <Spinner
-                                android:id="@+id/repeatTypeSpnr"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignTop="@+id/numberTv"
-                                android:layout_alignBottom="@+id/numberTv"
-                                android:layout_toEndOf="@+id/numberTv"
-                                android:entries="@array/repeatType"
-                                android:textAlignment="center" />
-
-                            <TextView
-                                android:id="@+id/timesTv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/repeatTitleTv"
-                                android:minEms="4"
-                                android:padding="10dp"
-                                android:text="@string/one"
-                                android:textAlignment="center"
-                                android:textColor="@color/primaryTextColor"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-
-                            <View
-                                android:layout_width="wrap_content"
-                                android:layout_height="1dp"
-                                android:layout_below="@id/timesTv"
-                                android:layout_alignStart="@id/timesTv"
-                                android:layout_alignEnd="@id/timesTv"
-                                android:background="@color/colorPrimaryDark" />
-
-                            <TextView
-                                android:id="@+id/timesTitleTv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@+id/repeatTitleTv"
+                                android:layout_below="@+id/timesContainer"
+                                android:layout_centerHorizontal="true"
                                 android:layout_marginEnd="2dp"
-                                android:layout_toEndOf="@+id/timesTv"
                                 android:padding="10dp"
-                                android:text="@string/times"
-                                android:textAlignment="center"
+                                android:text="Staring from:"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
+
 
                         </RelativeLayout>
                     </RelativeLayout>

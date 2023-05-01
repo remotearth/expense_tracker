@@ -207,9 +207,10 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
                 val period = binding.numberTv.text.toString().toInt()
                 val repeatType = binding.repeatTypeSpnr.selectedItemPosition
                 val repeatCount = binding.timesTv.text.toString().toInt()
-                val nextDate = ExpenseScheduler.nextOcurrenceDate(
-                    Calendar.getInstance().timeInMillis, period, repeatType
-                )
+                val nextDate = getTimeInMillisFromDateStr(
+                    binding.dateTv.text.toString() + " " + currentTime,
+                    format + " " + Constants.KEY_HOUR_MIN_SEC
+                ) + (2 * 60 * 1000)
                 viewModel.scheduleExpense(expenseModel, period, repeatType, repeatCount, nextDate)
                 with(AnalyticsManager) { logEvent(EXPENSE_TYPE_SCHEDULED) }
             }
@@ -246,13 +247,11 @@ class ExpenseFragment : BaseFragment(), ExpenseFragmentContract.View {
             isRepeatEnabled = !isRepeatEnabled
             if (isRepeatEnabled) {
                 binding.enableRepeatBtn.setImageResource(R.drawable.ic_repeat)
-                binding.singleEntryView.visibility = View.GONE
                 binding.repeatEntryView.visibility = View.VISIBLE
                 (mContext as MainActivity?)?.supportActionBar?.title =
                     getResourceString(R.string.schedule_expense)
             } else {
                 binding.enableRepeatBtn.setImageResource(R.drawable.ic_single)
-                binding.singleEntryView.visibility = View.VISIBLE
                 binding.repeatEntryView.visibility = View.GONE
                 (mContext as MainActivity?)?.supportActionBar?.title =
                     getResourceString(R.string.add_expense)
