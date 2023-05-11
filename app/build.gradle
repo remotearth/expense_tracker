@@ -158,6 +158,10 @@ dependencies {
     implementation("com.android.billingclient:billing-ktx:$billingVersion")
 }
 
+configurations.all {
+    exclude group: 'com.google.android.gms', module: 'play-services-safetynet'
+}
+
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     kotlinOptions {
         jvmTarget = "1.8"
