@@ -1,16 +1,12 @@
 package com.remotearthsolutions.expensetracker.activities.main
 
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
-import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
-import com.remotearthsolutions.expensetracker.utils.Constants
-import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
-import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
+import com.remotearthsolutions.expensetracker.utils.*
 import java.util.*
 
 
@@ -39,8 +35,6 @@ class AskToAddEntryWorker(private val appContext: Context, workerParameters: Wor
                 "message",
                 appContext.getString(R.string.periodic_ask_to_add_expense)
             )
-            val pendingIntent =
-                PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_ONE_SHOT)
 
             with(AnalyticsManager) {
                 logEvent(AFTER_FIVE_DAYS_REMINDED_TO_ADD_EXPENSE)
@@ -49,7 +43,7 @@ class AskToAddEntryWorker(private val appContext: Context, workerParameters: Wor
                 appContext,
                 appContext.getString(R.string.app_name),
                 appContext.getString(R.string.periodic_remind_notification),
-                pendingIntent
+                Utils.getPendingIntent(appContext, intent, 0)
             )
         }
 

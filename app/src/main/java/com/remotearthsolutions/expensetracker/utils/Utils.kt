@@ -1,7 +1,9 @@
 package com.remotearthsolutions.expensetracker.utils
 
 import android.app.Activity
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.util.DisplayMetrics
 import android.widget.Toast
@@ -95,6 +97,18 @@ object Utils {
         } else {
             context.resources.updateConfiguration(context.resources.configuration, displayMetrics)
         }
+    }
+
+    fun getPendingIntent(context: Context, intent: Intent, requestCode: Int): PendingIntent {
+        val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.getActivity(context, requestCode, intent, PendingIntent.FLAG_IMMUTABLE)
+        } else {
+            PendingIntent.getActivity(
+                context, requestCode, intent, PendingIntent.FLAG_ONE_SHOT
+            )
+        }
+
+        return pendingIntent
     }
 
     class ScreenSize(var width: Int, var height: Int)

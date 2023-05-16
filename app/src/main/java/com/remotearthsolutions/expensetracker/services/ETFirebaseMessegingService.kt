@@ -1,6 +1,5 @@
 package com.remotearthsolutions.expensetracker.services
 
-import android.app.PendingIntent
 import android.content.Intent
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -8,10 +7,7 @@ import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
-import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils
-import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
-import com.remotearthsolutions.expensetracker.utils.Constants
-import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
+import com.remotearthsolutions.expensetracker.utils.*
 
 class ETFirebaseMessegingService : FirebaseMessagingService() {
 
@@ -78,17 +74,11 @@ class ETFirebaseMessegingService : FirebaseMessagingService() {
 
             intent.putExtra(Constants.KEY_MESSAGE, message)
             if (versionCode == BuildConfig.VERSION_CODE || versionCode == 0) {
-                val pendingIntent = PendingIntent.getActivity(
-                    this,
-                    0,
-                    intent,
-                    PendingIntent.FLAG_ONE_SHOT
-                )
                 LocalNotificationManager.showNotification(
                     this,
                     getString(R.string.app_name),
                     message,
-                    pendingIntent
+                    Utils.getPendingIntent(this, intent, 0)
                 )
             }
         }

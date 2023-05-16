@@ -42,7 +42,7 @@ object LocalNotificationManager {
     ) {
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.mipmap.ic_launcher_adaptive_small)
-            .setColor(Color.rgb(162,155,254))
+            .setColor(Color.rgb(162, 155, 254))
             .setLargeIcon(
                 BitmapFactory.decodeResource(
                     context.resources, R.mipmap.ic_logo_layer
@@ -54,12 +54,7 @@ object LocalNotificationManager {
             .setAutoCancel(true)
         if (pendingIntent == null) {
             val intent = Intent(context, MainActivity::class.java)
-            val defaultPendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-            } else {
-                PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT)
-            }
-            builder.setContentIntent(defaultPendingIntent)
+            builder.setContentIntent(Utils.getPendingIntent(context, intent, 0))
         } else {
             builder.setContentIntent(pendingIntent)
         }

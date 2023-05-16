@@ -1,6 +1,5 @@
 package com.remotearthsolutions.expensetracker.fragments.salary
 
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.work.Worker
@@ -11,6 +10,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.DatabaseClient
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
+import com.remotearthsolutions.expensetracker.utils.Utils
 import java.util.*
 
 
@@ -47,14 +47,11 @@ class AddSalaryWorker(
 
         val intent = Intent(appContext, MainActivity::class.java)
         intent.putExtra("message", appContext.getString(R.string.salary_is_added))
-        val pendingIntent =
-            PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_ONE_SHOT)
-
         LocalNotificationManager.showNotification(
             appContext,
             appContext.getString(R.string.app_name),
             appContext.getString(R.string.salary_is_added),
-            pendingIntent
+            Utils.getPendingIntent(appContext, intent, 0)
         )
 
         return Result.success()
