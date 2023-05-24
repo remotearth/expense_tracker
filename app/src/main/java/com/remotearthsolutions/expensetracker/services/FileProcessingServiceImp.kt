@@ -73,7 +73,7 @@ class FileProcessingServiceImp(val context: Context) : FileProcessingService {
         fileURI: Uri?,
         callback: FileProcessingService.Callback?
     ) {
-        var expenseModels: List<ExpenseModel>? = null
+        val expenseModels: MutableList<ExpenseModel> = mutableListOf()
         var categoryModels: List<CategoryModel>? = null
         var accountModels: List<AccountModel>? = null
         val inputStream = context.contentResolver.openInputStream(fileURI!!)
@@ -84,17 +84,19 @@ class FileProcessingServiceImp(val context: Context) : FileProcessingService {
 
             fileReader = BufferedReader(InputStreamReader(inputStream!!))
             while (fileReader.readLine().also { line = it } != null) {
+
                 when {
-                    line!!.contains(Constants.KEY_META1_REPLACE) -> {
+                    line!!.contains(Constants.KEY_EX_META_REPLACE) -> {
                         line = line!!.replace(
-                            Constants.KEY_META1_REPLACE,
+                            Constants.KEY_EX_META_REPLACE,
                             ""
                         )
                         val jsonContent = String(
                             Base64.decode(line, Base64.NO_WRAP), Charset.forName(KEY_UTF_VERSION)
                         )
-                        expenseModels =
+                        val expenseModelPart =
                             Gson().fromJson(jsonContent, Array<ExpenseModel>::class.java).toList()
+                        expenseModels.addAll(expenseModelPart)
                     }
                     line!!.contains(Constants.KEY_META2_REPLACE) -> {
                         line = line!!.replace(
@@ -124,7 +126,7 @@ class FileProcessingServiceImp(val context: Context) : FileProcessingService {
                     }
                 }
             }
-            if (categoryModels == null || expenseModels == null || accountModels == null) {
+            if (categoryModels == null || accountModels == null) {
                 callback!!.onFailure()
             } else {
                 callback!!.onComplete(categoryModels, expenseModels, accountModels)

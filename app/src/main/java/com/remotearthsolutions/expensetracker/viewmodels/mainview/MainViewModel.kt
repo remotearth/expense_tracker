@@ -105,8 +105,13 @@ class MainViewModel(
         accounts: List<AccountModel>,
         stringBuilder: java.lang.StringBuilder
     ) {
-        stringBuilder.append(Constants.KEY_META1_REPLACE).append(getMetaString(expenses))
-            .append("\n")
+        // more than this expense cannot be saved encrypted in the cell of csv file.
+        // that's why it needs to be split into multiple row
+        val sublist = expenses.chunked(400)
+        for( li in sublist ){
+            stringBuilder.append(Constants.KEY_EX_META_REPLACE).append(getMetaString(li)).append("\n")
+        }
+
         stringBuilder.append(Constants.KEY_META2_REPLACE).append(getMetaString(categories))
             .append("\n")
         stringBuilder.append(Constants.KEY_META3_REPLACE).append(getMetaString(accounts))

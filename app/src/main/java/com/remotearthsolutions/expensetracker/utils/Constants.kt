@@ -46,7 +46,7 @@ interface Constants {
         const val KEY_TITLE = "title"
         const val KEY_SCREEN = "screen"
         const val KEY_UTF_VERSION = "UTF-8"
-        const val KEY_META1_REPLACE = "meta1:"
+        const val KEY_EX_META_REPLACE = "exmeta:"
         const val KEY_META2_REPLACE = "meta2:"
         const val KEY_META3_REPLACE = "meta3:"
         const val KEY_EXPENSE_TRACKER = "expense_tracker_"
