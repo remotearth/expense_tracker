@@ -107,7 +107,7 @@ class MainViewModel(
     ) {
         // more than this expense cannot be saved encrypted in the cell of csv file.
         // that's why it needs to be split into multiple row
-        val sublist = expenses.chunked(300)
+        val sublist = expenses.chunked(100)
         for( li in sublist ){
             stringBuilder.append(Constants.KEY_EX_META_REPLACE).append(getMetaString(li)).append("\n")
         }
