@@ -31,8 +31,9 @@ class AccountsAdapter(
         }
 
         val model = accountList[position]
-
-        binding.acimage.setImageResource(getIconId(model.icon!!))
+        if (model.icon != null) {
+            binding.acimage.setImageResource(getIconId(model.icon!!))
+        }
         binding.actitle.text = model.name
         binding.acammount.text = "$currencySymbol ${formatDecimalValues(model.amount)}"
         if (model.amount < 0) {
