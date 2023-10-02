@@ -23,7 +23,6 @@ class LoginViewModel(
 ) : ViewModel(), CallBack, FirebaseService.Callback,
     GoogleService.Callback {
     fun init() {
-        view.initializeView()
         googleService.initializeGoogleSigninClient()
         facebookService.facebookCallbackInitialize()
     }
@@ -53,6 +52,10 @@ class LoginViewModel(
                 context.getString(R.string.ok), null, null, null
             )
         }
+    }
+
+    fun startGuestLogin() {
+        view.onLoginSuccess(null)
     }
 
     fun googleLoginWithIntent(data: Intent?) {

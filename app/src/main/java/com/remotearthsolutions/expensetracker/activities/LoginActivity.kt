@@ -4,11 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.compose.setContent
 import com.google.firebase.auth.FirebaseUser
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.contracts.LoginContract
 import com.remotearthsolutions.expensetracker.databinding.ActivityLoginBinding
+import com.remotearthsolutions.expensetracker.ui.LoginView
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.remotearthsolutions.expensetracker.viewmodels.LoginViewModel
@@ -17,13 +19,13 @@ import org.koin.core.parameter.parametersOf
 
 class LoginActivity : BaseActivity(), View.OnClickListener,
     LoginContract.View {
-    private val viewModel: LoginViewModel by viewModel{ parametersOf(this,this) }
+    private val viewModel: LoginViewModel by viewModel { parametersOf(this, this) }
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContent { LoginView(viewModel) }
         viewModel.init()
     }
 
@@ -45,12 +47,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener,
             R.id.facebook_login_button -> viewModel.startFacebookLogin()
             R.id.withoutloginbutton -> onLoginSuccess(null)
         }
-    }
-
-    override fun initializeView() {
-        binding.googlebutton.setOnClickListener(this)
-        binding.facebookLoginButton.setOnClickListener(this)
-        binding.withoutloginbutton.setOnClickListener(this)
     }
 
     override fun onLoginSuccess(user: FirebaseUser?) {
