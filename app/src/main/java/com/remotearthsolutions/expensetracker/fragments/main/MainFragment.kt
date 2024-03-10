@@ -41,7 +41,6 @@ class MainFragment : BaseFragment(),
     private var pagerAdapter: MainFragmentPagerAdapter? = null
     private var actionBar: ActionBar? = null
     private var tabTitles: Array<String>? = null
-    private var dateContainerHeight = -1
     private var selectedPeriodBtn: PeriodButton? = null
     private lateinit var mContext: Context
     private lateinit var mResources: Resources
@@ -135,13 +134,6 @@ class MainFragment : BaseFragment(),
         }, 500)
     }
 
-    private fun resetDateRangeBtns() {
-        binding!!.dailyRangeBtn.setIsSelected(false)
-        binding!!.weeklyRangeBtn.setIsSelected(false)
-        binding!!.monthlyRangeBtn.setIsSelected(false)
-        binding!!.yearlyRangeBtn.setIsSelected(false)
-    }
-
     private val mOnNavigationItemSelectedListener =
         NavigationBarView.OnItemSelectedListener { item: MenuItem ->
             when (item.itemId) {
@@ -181,95 +173,30 @@ class MainFragment : BaseFragment(),
 
         override fun onPageSelected(position: Int) {
             actionBar?.title = tabTitles?.get(position)
-            if (dateContainerHeight == -1) {
-                dateContainerHeight = binding!!.dateRangeContainer.measuredHeight
-            }
             val activity = requireActivity() as MainActivity
             activity.selectedTabPosition = position
             activity.updateTitle()
-            val startFrom = binding!!.dateRangeContainer.measuredHeight
             when (position) {
                 0 -> {
-                    val anim = ValueAnimator.ofInt(startFrom, dateContainerHeight)
-                    anim.addUpdateListener { valueAnimator: ValueAnimator ->
-                        val `val` = valueAnimator.animatedValue as Int
-                        val layoutParams =
-                            binding!!.dateRangeContainer.layoutParams
-                        layoutParams.height = `val`
-                        binding!!.dateRangeContainer.layoutParams = layoutParams
-                    }
-                    anim.duration = 200
-                    anim.start()
-                    anim.addListener(object : Animator.AnimatorListener {
-                        override fun onAnimationStart(animation: Animator) {}
-                        override fun onAnimationEnd(animation: Animator) {
-                            val homeFragment =
-                                childFragmentManager.findViewPagerFragmentByTag<HomeFragment>(
-                                    R.id.viewpager,
-                                    0
-                                )
-                            homeFragment?.refreshPage()
-                        }
-
-                        override fun onAnimationCancel(animation: Animator) {}
-                        override fun onAnimationRepeat(animation: Animator) {}
-                    })
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        binding!!.dateRangeContainer.animate().alpha(1.0f).translationY(0f)
-                            .duration = 200
-                    }, 100)
+                    binding!!.dateRangeContainer.visibility = View.VISIBLE
+                    val homeFragment =
+                        childFragmentManager.findViewPagerFragmentByTag<HomeFragment>(
+                            R.id.viewpager,
+                            0
+                        )
+                    homeFragment?.refreshPage()
                     binding!!.navigation.selectedItemId = R.id.navigation_home
                 }
                 1 -> {
-                    val anim = ValueAnimator.ofInt(startFrom, dateContainerHeight)
-                    anim.addUpdateListener { valueAnimator: ValueAnimator ->
-                        val `val` = valueAnimator.animatedValue as Int
-                        val layoutParams =
-                            binding!!.dateRangeContainer.layoutParams
-                        layoutParams.height = `val`
-                        binding!!.dateRangeContainer.layoutParams = layoutParams
-                    }
-                    anim.duration = 200
-                    anim.start()
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        binding!!.dateRangeContainer.animate().alpha(1.0f).translationY(0f)
-                            .duration = 200
-                    }, 100)
+                    binding!!.dateRangeContainer.visibility = View.VISIBLE
                     binding!!.navigation.selectedItemId = R.id.navigation_transaction
                 }
                 2 -> {
-                    val anim = ValueAnimator.ofInt(startFrom, dateContainerHeight)
-                    anim.addUpdateListener { valueAnimator: ValueAnimator ->
-                        val `val` = valueAnimator.animatedValue as Int
-                        val layoutParams =
-                            binding!!.dateRangeContainer.layoutParams
-                        layoutParams.height = `val`
-                        binding!!.dateRangeContainer.layoutParams = layoutParams
-                    }
-                    anim.duration = 200
-                    anim.start()
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        binding!!.dateRangeContainer.animate().alpha(1.0f).translationY(0f)
-                            .duration = 200
-                    }, 100)
+                    binding!!.dateRangeContainer.visibility = View.VISIBLE
                     binding!!.navigation.selectedItemId = R.id.navigation_overview
                 }
                 3 -> {
-                    binding!!.dateRangeContainer.animate().alpha(0f)
-                        .translationY(-binding!!.dateRangeContainer.height.toFloat()).duration =
-                        200
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        val anim = ValueAnimator.ofInt(dateContainerHeight, 0)
-                        anim.addUpdateListener { valueAnimator: ValueAnimator ->
-                            val `val` = valueAnimator.animatedValue as Int
-                            val layoutParams =
-                                binding!!.dateRangeContainer.layoutParams
-                            layoutParams.height = `val`
-                            binding!!.dateRangeContainer.layoutParams = layoutParams
-                        }
-                        anim.duration = 200
-                        anim.start()
-                    }, 300)
+                    binding!!.dateRangeContainer.visibility = View.GONE
                     binding!!.navigation.selectedItemId = R.id.navigation_accounts
                 }
             }
@@ -285,7 +212,7 @@ class MainFragment : BaseFragment(),
         endTime: Long
     ) {
         if (btnId != R.id.nextDateBtn && btnId != R.id.previousDateBtn) {
-            resetDateRangeBtns()
+            Helper.resetDateRangeBtns(binding)
         }
         when (btnId) {
             R.id.dailyRangeBtn -> {
