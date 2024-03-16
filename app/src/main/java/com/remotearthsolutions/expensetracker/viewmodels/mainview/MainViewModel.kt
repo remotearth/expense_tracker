@@ -55,7 +55,7 @@ class MainViewModel(
                 view.showTotalBalance(formatDecimalValues(0.0))
             }
             if (amount != null && amount < 0) {
-                view.setBalanceTextColor(android.R.color.holo_red_dark)
+                view.setBalanceTextColor(android.R.color.holo_red_light)
             } else {
                 view.setBalanceTextColor(android.R.color.holo_green_light)
             }
