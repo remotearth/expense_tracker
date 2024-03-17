@@ -20,7 +20,12 @@ object Helpers {
         if (categoryExpense.totalAmount > 0) {
             binding.inputdigit.setText(Utils.formatDecimalValues(categoryExpense.totalAmount))
         }
-        binding.expenseNoteEdtxt.setText(getTruncatedNote(categoryExpense.note.toString()))
+
+        val note =
+            if (categoryExpense.note == null || categoryExpense.note == "null") "" else getTruncatedNote(
+                categoryExpense.note.toString()
+            )
+        binding.expenseNoteEdtxt.setText(note)
         if (categoryExpense.datetime > 0) {
             binding.dateTv.text = DateTimeUtils.getDate(
                 categoryExpense.datetime,
