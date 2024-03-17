@@ -39,8 +39,4 @@ class InitialPreferenceActivity : AppCompatActivity() {
         startActivity(Intent(this@InitialPreferenceActivity, MainActivity::class.java))
         finish()
     }
-
-    override fun onBackPressed() {
-
-    }
 }
