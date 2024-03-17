@@ -5,10 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.adapters.ExpenseListAdapter
+import com.remotearthsolutions.expensetracker.compose.FabButton
 import com.remotearthsolutions.expensetracker.contracts.BaseView
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.databinding.FragmentAllExpenseBinding
@@ -20,6 +25,7 @@ import org.koin.android.ext.android.inject
 
 class AllExpenseFragment : BaseFragment() {
     private lateinit var binding: FragmentAllExpenseBinding
+    private var addExpenseButtonWidth = 0
     private val viewModel: AllTransactionsViewModel by inject()
     private var adapter: ExpenseListAdapter? = null
     private var mContext: Context? = null
@@ -46,6 +52,7 @@ class AllExpenseFragment : BaseFragment() {
         binding.expenserecyclearView.setHasFixedSize(true)
         val llm = LinearLayoutManager(mContext)
         binding.expenserecyclearView.layoutManager = llm
+        addExpenseButtonWidth =  binding.composeView.layoutParams.width
 
         viewModel.expenseListLiveData.observe(viewLifecycleOwner) {
             endDeleteModeIfOn()
@@ -82,15 +89,38 @@ class AllExpenseFragment : BaseFragment() {
             }
         }
 
+        binding.composeView.setContent {
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight()
+
+                    .padding(0.dp, 0.dp, 10.dp, 10.dp),
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column {
+                }
+                FabButton(
+                    onClick = {
+                        (mContext as MainActivity?)!!.openAddExpenseScreen(null)
+                    }, modifier = Modifier
+                        .size(55.dp, 55.dp)
+                        .align(alignment = Alignment.End)
+                )
+            }
+        }
+
         binding.deleteBtn.setOnClickListener {
             isDeleteModeOn = !isDeleteModeOn
             adapter?.setDeleteMode(isDeleteModeOn)
             if (isDeleteModeOn) {
                 binding.deleteConfirmBtn.visibility = View.VISIBLE
                 binding.deleteBtn.setImageResource(R.drawable.ic_cancel_delete)
+                binding.composeView.layoutParams.width = 0
             } else {
                 binding.deleteBtn.setImageResource(R.drawable.ic_bulk_delete)
                 binding.deleteConfirmBtn.visibility = View.GONE
+                binding.composeView.layoutParams.width = addExpenseButtonWidth
+
                 expenseToDelete.forEach {
                     it.isCheckedForDelete = false
                 }
@@ -122,6 +152,7 @@ class AllExpenseFragment : BaseFragment() {
                             })
                         }
                     })
+                binding.composeView.layoutParams.width = addExpenseButtonWidth
             } else {
                 AlertDialogUtils.show(
                     requireContext(), null,

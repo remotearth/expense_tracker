@@ -81,7 +81,7 @@ class HomeFragment : BaseFragment(),
                     onClick = {
                         (mContext as MainActivity?)!!.openAddExpenseScreen(null)
                     }, modifier = Modifier
-                        .size(60.dp, 60.dp)
+                        .size(55.dp, 55.dp)
                         .align(alignment = Alignment.End)
                 )
             }

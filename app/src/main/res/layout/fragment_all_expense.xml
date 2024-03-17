@@ -12,14 +12,20 @@
         android:clipToPadding="false"
         android:paddingBottom="70dp"/>
 
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/composeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/deleteBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_toStartOf="@id/composeView"
         android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
-        app:elevation="3dp"
         app:rippleColor="@color/colorPrimary"
         app:srcCompat="@drawable/ic_bulk_delete" />
 
@@ -28,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_toStartOf="@+id/deleteBtn"
         android:visibility="gone"
         app:elevation="3dp"
