@@ -6,18 +6,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.microsoft.appcenter.AppCenter
-import com.microsoft.appcenter.analytics.Analytics
-import com.microsoft.appcenter.crashes.Crashes
 import com.remotearthsolutions.expensetracker.BuildConfig
-import com.remotearthsolutions.expensetracker.Configs
 import com.remotearthsolutions.expensetracker.di.modules.viewModels
 import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.yariksoffice.lingver.Lingver
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
-
 
 
 class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
@@ -37,11 +32,6 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
         }
 
         appInstance = this
-
-        AppCenter.start(
-            this, Configs.getAppCenterAppSecret(this),
-            Analytics::class.java, Crashes::class.java
-        )
 
         Lingver.init(this, "en")
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)

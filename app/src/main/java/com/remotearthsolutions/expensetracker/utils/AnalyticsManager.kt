@@ -1,6 +1,5 @@
 package com.remotearthsolutions.expensetracker.utils
 
-import com.microsoft.appcenter.analytics.Analytics
 import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.activities.ApplicationObject
 
@@ -45,11 +44,12 @@ object AnalyticsManager {
     const val PRIVACY_PAGE_VIEWED = "privacy_page_viewed"
     const val LICENSE_PAGE_VIEWED = "license_page_viewed"
     const val SETTINGS_PAGE_VIEWED = "settings_page_viewed"
-    const val ADD_EXPENSE_FROM_LIST_AT_HOMEPAGE = "add_expense_from_list_at_homepage"
+    const val OPEN_ADD_EXPENSE_FROM_HOMEPAGE_FAB = "open_add_expense_from_homepage_fab"
+    const val OPEN_ADD_EXPENSE_FROM_LIST_AT_HOMEPAGE = "open_add_expense_from_list_at_homepage"
+    const val OPEN_ADD_EXPENSE_FROM_TRANSACTION_SCREEN = "open_add_expense_from_transaction_screen"
 
 
     fun logEvent(eventName: String, properties: Map<String, String> = emptyMap()) {
-        Analytics.trackEvent(eventName, properties)
         if (!BuildConfig.DEBUG) {
             FirebaseUtils.logEvent(ApplicationObject.appInstance?.applicationContext, eventName, properties)
         }

@@ -80,6 +80,9 @@ class HomeFragment : BaseFragment(),
                 FabButton(
                     onClick = {
                         (mContext as MainActivity?)!!.openAddExpenseScreen(null)
+                        with(AnalyticsManager){
+                            logEvent(OPEN_ADD_EXPENSE_FROM_HOMEPAGE_FAB)
+                        }
                     }, modifier = Modifier
                         .size(55.dp, 55.dp)
                         .align(alignment = Alignment.End)
@@ -104,7 +107,7 @@ class HomeFragment : BaseFragment(),
                     categoryExpense.setCategory(category!!)
                     (mContext as MainActivity).openAddExpenseScreen(categoryExpense)
                     with(AnalyticsManager) {
-                        logEvent(ADD_EXPENSE_FROM_LIST_AT_HOMEPAGE)
+                        logEvent(OPEN_ADD_EXPENSE_FROM_LIST_AT_HOMEPAGE)
                     }
                 }
             })

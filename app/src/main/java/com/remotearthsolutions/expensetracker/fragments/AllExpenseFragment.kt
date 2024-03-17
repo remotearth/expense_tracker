@@ -19,6 +19,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.Category
 import com.remotearthsolutions.expensetracker.databinding.FragmentAllExpenseBinding
 import com.remotearthsolutions.expensetracker.fragments.addexpensescreen.Purpose
 import com.remotearthsolutions.expensetracker.utils.AlertDialogUtils
+import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
 import com.remotearthsolutions.expensetracker.utils.Utils
 import com.remotearthsolutions.expensetracker.viewmodels.AllTransactionsViewModel
 import org.koin.android.ext.android.inject
@@ -102,6 +103,9 @@ class AllExpenseFragment : BaseFragment() {
                 FabButton(
                     onClick = {
                         (mContext as MainActivity?)!!.openAddExpenseScreen(null)
+                        with(AnalyticsManager){
+                            logEvent(OPEN_ADD_EXPENSE_FROM_TRANSACTION_SCREEN)
+                        }
                     }, modifier = Modifier
                         .size(55.dp, 55.dp)
                         .align(alignment = Alignment.End)
