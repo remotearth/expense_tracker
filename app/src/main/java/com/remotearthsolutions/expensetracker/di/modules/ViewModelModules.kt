@@ -11,6 +11,7 @@ import com.remotearthsolutions.expensetracker.services.FirebaseServiceImpl
 import com.remotearthsolutions.expensetracker.services.GoogleServiceImpl
 import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
+import com.remotearthsolutions.expensetracker.utils.Utils
 import com.remotearthsolutions.expensetracker.viewmodels.*
 import com.remotearthsolutions.expensetracker.viewmodels.mainview.MainViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -55,7 +56,8 @@ val viewModels = module {
             provideDb(get()).expenseDao(),
             provideDb(get()).categoryDao(),
             provideDb(get()).accountDao(),
-            getUserPreferredTimeFormat(get())
+            getUserPreferredTimeFormat(get()),
+            Utils.getCurrency(get())
         )
     }
 

@@ -13,6 +13,7 @@ import com.remotearthsolutions.expensetracker.databaseutils.models.CategoryModel
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils
 import com.remotearthsolutions.expensetracker.utils.DateTimeUtils.getDate
+import com.remotearthsolutions.expensetracker.utils.Utils
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -23,7 +24,8 @@ class AllTransactionsViewModel(
     private val expenseDao: ExpenseDao,
     private val categoryDao: CategoryDao,
     private val accountDao: AccountDao,
-    private var dateFormat: String
+    private var dateFormat: String,
+    private val currencyString: String
 ) : ViewModel() {
     private val disposable = CompositeDisposable()
     private var dateRangeBtnId = 0
@@ -37,6 +39,16 @@ class AllTransactionsViewModel(
             categoryExpenseDao.getExpenseWithinRange(startTime, endTime)
                 .subscribeOn(Schedulers.io())
                 .subscribe { listOfFilterExpense: List<CategoryExpense> ->
+
+                    val dailyTotal = HashMap<String, Double>()
+                    listOfFilterExpense.forEach {
+                        val dateStr = getDate(it.datetime, dateFormat)
+                        if (dailyTotal.containsKey(dateStr)) {
+                            dailyTotal[dateStr] = dailyTotal[dateStr]!! + it.totalAmount
+                        } else {
+                            dailyTotal[dateStr] = it.totalAmount
+                        }
+                    }
 
                     val expenseList: MutableList<CategoryExpense> = ArrayList()
                     if (listOfFilterExpense.isNotEmpty()) {
@@ -58,7 +70,13 @@ class AllTransactionsViewModel(
                                 CategoryExpense()
                             header.isHeader = true
                             header.isDateSection = true
-                            header.categoryName = getDate(previousDate, dateFormat)
+                            val dateStr = getDate(previousDate, dateFormat)
+                            header.categoryName =
+                                "$dateStr ($currencyString ${
+                                    Utils.formatDecimalValues(
+                                        dailyTotal[dateStr]!!
+                                    )
+                                } )"
                             expenseList.add(header)
                             monthHeaderIndex.add(0)
                         }
@@ -92,7 +110,13 @@ class AllTransactionsViewModel(
                                         CategoryExpense()
                                     dummy.isHeader = true
                                     dummy.isDateSection = true
-                                    dummy.categoryName = getDate(expense.datetime, dateFormat)
+                                    val dateStr = getDate(expense.datetime, dateFormat)
+                                    dummy.categoryName =
+                                        "$dateStr ($currencyString ${
+                                            Utils.formatDecimalValues(
+                                                dailyTotal[dateStr]!!
+                                            )
+                                        } )"
                                     previousDate = expense.datetime
                                     expenseList.add(dummy)
                                 }
