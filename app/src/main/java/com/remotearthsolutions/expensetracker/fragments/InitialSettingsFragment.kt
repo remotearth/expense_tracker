@@ -36,7 +36,7 @@ class InitialSettingsFragment : PreferenceFragmentCompat() {
         preferenceCurrency.setIcon(Utils.getFlagDrawable(requireContext()))
 
         preferenceChangeListener =
-            OnSharedPreferenceChangeListener { sharedPreferences: SharedPreferences, key: String ->
+            OnSharedPreferenceChangeListener { sharedPreferences: SharedPreferences, key: String? ->
                 if (key == Constants.PREF_CURRENCY) {
                     val currencyPreference =
                         findPreference<Preference>(key)

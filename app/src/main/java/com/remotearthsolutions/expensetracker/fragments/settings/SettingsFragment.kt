@@ -54,7 +54,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             getFlagDrawable(requireContext())
         )
         preferenceChangeListener =
-            OnSharedPreferenceChangeListener { sharedPreferences: SharedPreferences, key: String ->
+            OnSharedPreferenceChangeListener { sharedPreferences: SharedPreferences, key: String? ->
                 when (key) {
                     Constants.PREF_CURRENCY -> {
                         val currencyPreference =
