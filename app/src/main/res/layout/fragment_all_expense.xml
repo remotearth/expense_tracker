@@ -8,7 +8,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/expenserecyclearView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="70dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/deleteBtn"
