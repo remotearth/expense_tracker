@@ -9,7 +9,7 @@ import io.reactivex.Single
 @Dao
 interface CategoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addCategory(categoryModel: CategoryModel)
+    fun addCategory(categoryModel: CategoryModel): Long
 
     @Insert
     fun addAllCategories(vararg categoryModels: CategoryModel)

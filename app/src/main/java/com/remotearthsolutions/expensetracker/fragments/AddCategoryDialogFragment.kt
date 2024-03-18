@@ -119,7 +119,8 @@ class AddCategoryDialogFragment : DialogFragment() {
                     logEvent(EXPENSE_CATEGORY_UPDATED)
                 }
             } else {
-                categoryDao.addCategory(categoryModel!!)
+                val id = categoryDao.addCategory(categoryModel!!)
+                categoryModel!!.setID(id.toInt())
                 with(AnalyticsManager) {
                     logEvent(EXPENSE_CATEGORY_CREATED)
                 }

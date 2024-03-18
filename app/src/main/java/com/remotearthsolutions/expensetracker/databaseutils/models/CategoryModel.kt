@@ -11,10 +11,13 @@ import org.parceler.Parcel
 class CategoryModel {
     @PrimaryKey(autoGenerate = true)
     var id = 0
+
     @ColumnInfo(name = "category_name")
     var name: String? = null
+
     @ColumnInfo(name = "icon_name")
     var icon: String? = null
+
     @ColumnInfo(name = "notremovable")
     var notremovable = 0
 
@@ -27,4 +30,7 @@ class CategoryModel {
         this.notremovable = notremovable
     }
 
+    fun setID(id: Int) {
+        this.id = id
+    }
 }
