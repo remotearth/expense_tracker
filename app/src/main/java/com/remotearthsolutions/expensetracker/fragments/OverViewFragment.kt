@@ -1,6 +1,8 @@
 package com.remotearthsolutions.expensetracker.fragments
 
 import android.content.Context
+import android.content.SharedPreferences
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.graphics.RectF
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import androidx.preference.Preference
+import androidx.preference.Preference.OnPreferenceChangeListener
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.components.YAxis.AxisDependency
@@ -24,9 +29,7 @@ import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.OverviewListAdapter
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryOverviewItemDto
 import com.remotearthsolutions.expensetracker.databinding.FragmentOverviewBinding
-import com.remotearthsolutions.expensetracker.utils.DateTimeUtils
-import com.remotearthsolutions.expensetracker.utils.DayAxisValueFormatter
-import com.remotearthsolutions.expensetracker.utils.Utils
+import com.remotearthsolutions.expensetracker.utils.*
 import com.remotearthsolutions.expensetracker.viewmodels.AllTransactionsViewModel
 import com.remotearthsolutions.expensetracker.views.XYMarkerView
 import org.koin.android.ext.android.inject
@@ -38,8 +41,8 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
     private val viewModel: AllTransactionsViewModel by inject()
     private lateinit var listOfCategoryWithExpense: ArrayList<CategoryOverviewItemDto>
     private var map: MutableMap<Int, Int> = HashMap()
-
     private var mContext: Context? = null
+    private lateinit var adapter: OverviewListAdapter
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
@@ -71,6 +74,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         viewModel.listOfCategoryLiveData.observe(viewLifecycleOwner) {
             listOfCategoryWithExpense = ArrayList()
             it.forEachIndexed { index, ctg ->
+
                 val item = CategoryOverviewItemDto()
                 item.categoryIcon = ctg.icon
                 item.categoryName = ctg.name
@@ -82,7 +86,12 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
         setupChart()
 
         viewModel.chartDataRequirementLiveData.observe(viewLifecycleOwner) {
+
             val currencySymbol = Utils.getCurrency(requireContext())
+            val dateFormat = SharedPreferenceUtils.getInstance(view.context)
+                ?.getString(Constants.PREF_TIME_FORMAT, Constants.KEY_DATE_MONTH_YEAR_DEFAULT)
+                ?: Constants.KEY_DATE_MONTH_YEAR_DEFAULT
+
             binding.barChart.clear()
 
             when (it.selectedFilterBtnId) {
@@ -135,23 +144,24 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
             }
 
             val sortedList =
-                listOfCategoryWithExpense.sortedWith(compareByDescending { item -> item.totalExpenseOfCateogry })
-            val adapter =
+                listOfCategoryWithExpense.sortedWith(compareByDescending { item -> item.totalExpenseOfCateogry }).filter { item -> item.totalExpenseOfCateogry > 0 }
+            adapter =
                 OverviewListAdapter(
                     sortedList,
                     viewModel.expenseListLiveData.value,
                     sum,
                     maxWidthOfBar!!.toInt(),
-                    currencySymbol
+                    currencySymbol,
+                    dateFormat
                 )
             adapter.setOnItemClickListener(object : OverviewListAdapter.OnItemClickListener {
                 override fun onItemClick(position: Int, categoryName: String) {
-                    val lastSelectedItemPosition =  adapter.getLastSelectedItemPosition()
+                    val lastSelectedItemPosition = adapter.getLastSelectedItemPosition()
                     adapter.setSelectedItem(position, categoryName)
 
                     adapter.notifyItemChanged(lastSelectedItemPosition)
                     adapter.notifyItemChanged(position)
-
+                    binding.recyclerView.scrollToPosition(position)
                 }
             })
             binding.recyclerView.adapter = adapter

@@ -14,6 +14,7 @@ import com.remotearthsolutions.expensetracker.adapters.OverviewListAdapter
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryOverviewItemDto
 import com.remotearthsolutions.expensetracker.utils.CategoryIcons
+import com.remotearthsolutions.expensetracker.utils.DateTimeUtils
 import com.remotearthsolutions.expensetracker.utils.Utils
 
 
@@ -22,6 +23,7 @@ class OverviewItemViewHolder(
     val listener: OverviewListAdapter.OnItemClickListener,
     val currencySymbol: String,
     val inflater: LayoutInflater,
+    val dateFormat: String,
 ) : RecyclerView.ViewHolder(view) {
 
     private val overViewItem: RelativeLayout = view.findViewById(R.id.overViewItem)
@@ -72,8 +74,8 @@ class OverviewItemViewHolder(
                     val noteTv = view.findViewById<TextView>(R.id.noteTv)
                     val accountIconIv = view.findViewById<ImageView>(R.id.accountIconIv)
 
-                    dateTv.text = it.datetime.toString()
-                    amountTv.text = it.totalAmount.toString()
+                    dateTv.text = DateTimeUtils.getDate(it.datetime, dateFormat)
+                    amountTv.text = "${Utils.formatDecimalValues(it.totalAmount)} $currencySymbol"
                     noteTv.text = it.note
                     accountIconIv.setImageResource(CategoryIcons.getIconId(it.accountIcon!!))
                     expensesListLinearLayout.addView(view)

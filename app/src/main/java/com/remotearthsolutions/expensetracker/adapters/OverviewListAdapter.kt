@@ -14,7 +14,8 @@ class OverviewListAdapter(
     private val allExpenses: List<CategoryExpense>?,
     private val totalExpense: Double,
     private val maxWidthOfBar: Int,
-    private val currencySymbol: String
+    private val currencySymbol: String,
+    private var dateFormat: String
 ) :
     RecyclerView.Adapter<OverviewItemViewHolder>() {
 
@@ -26,7 +27,7 @@ class OverviewListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OverviewItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val v = inflater.inflate(R.layout.view_overview_expense_item, parent, false)
-        return OverviewItemViewHolder(v, listener!!, currencySymbol, inflater)
+        return OverviewItemViewHolder(v, listener!!, currencySymbol, inflater, dateFormat)
     }
 
     override fun getItemCount(): Int {
@@ -55,6 +56,9 @@ class OverviewListAdapter(
     }
 
     fun getLastSelectedItemPosition(): Int = selectedItemPosition
+    fun setDateFormat(dateFormat: String) {
+        this.dateFormat = dateFormat
+    }
 
     interface OnItemClickListener {
         fun onItemClick(position: Int, categoryName: String)
