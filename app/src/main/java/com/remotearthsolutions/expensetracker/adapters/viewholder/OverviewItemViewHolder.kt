@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.remotearthsolutions.expensetracker.R
@@ -20,11 +21,13 @@ class OverviewItemViewHolder(
     view: View,
     val listener: OverviewListAdapter.OnItemClickListener,
     val currencySymbol: String,
-    val inflater: LayoutInflater
+    val inflater: LayoutInflater,
 ) : RecyclerView.ViewHolder(view) {
 
     private val overViewItem: RelativeLayout = view.findViewById(R.id.overViewItem)
-    private val scrollView: LinearLayout = view.findViewById(R.id.scrollView)
+    private val expensesListScrollView: ScrollView = view.findViewById(R.id.expensesListScrollView)
+    private val expensesListLinearLayout: LinearLayout =
+        view.findViewById(R.id.expensesListLinearLayout)
     private val categoryIconIv: ImageView = view.findViewById(R.id.categoryIconIv)
     private val categoryNameTv: TextView = view.findViewById(R.id.categoryNameTv)
     private val totalExpenseTv: TextView = view.findViewById(R.id.totalExpenseTv)
@@ -37,7 +40,9 @@ class OverviewItemViewHolder(
         item: CategoryOverviewItemDto,
         totalExpense: Double,
         maxWidthOfBar: Int,
-        allExpenses: List<CategoryExpense>?
+        allExpenses: List<CategoryExpense>?,
+        position: Int,
+        selectedItemCategoryName: String
     ) {
         categoryIconIv.setImageResource(CategoryIcons.getIconId(item.categoryIcon!!))
         categoryNameTv.text = item.categoryName
@@ -54,26 +59,34 @@ class OverviewItemViewHolder(
         barView.layoutParams.width = newWidth
         guideBarView.layoutParams.width = newWidth + (if (newWidth < 50) 50 else 0)
 
-        scrollView.removeAllViews()
+        expensesListLinearLayout.removeAllViews()
 
-        allExpenses?.forEach {
-            if (it.categoryName == item.categoryName){
-                val view = inflater.inflate(R.layout.view_expenses_under_category, null)
-                val dateTv=  view.findViewById<TextView>(R.id.dateTv)
-                val amountTv=  view.findViewById<TextView>(R.id.amountTv)
-                val noteTv=  view.findViewById<TextView>(R.id.noteTv)
-                val accountIconIv=  view.findViewById<ImageView>(R.id.accountIconIv)
+        if (item.categoryName == selectedItemCategoryName) {
+            expensesListScrollView.visibility = View.VISIBLE
 
-                dateTv.text = it.datetime.toString()
-                amountTv.text = it.totalAmount.toString()
-                noteTv.text = it.note
-                accountIconIv.setImageResource(CategoryIcons.getIconId(it.accountIcon!!))
-                scrollView.addView(view)
+            allExpenses?.forEach {
+                if (it.categoryName == item.categoryName) {
+                    val view = inflater.inflate(R.layout.view_expenses_under_category, null)
+                    val dateTv = view.findViewById<TextView>(R.id.dateTv)
+                    val amountTv = view.findViewById<TextView>(R.id.amountTv)
+                    val noteTv = view.findViewById<TextView>(R.id.noteTv)
+                    val accountIconIv = view.findViewById<ImageView>(R.id.accountIconIv)
+
+                    dateTv.text = it.datetime.toString()
+                    amountTv.text = it.totalAmount.toString()
+                    noteTv.text = it.note
+                    accountIconIv.setImageResource(CategoryIcons.getIconId(it.accountIcon!!))
+                    expensesListLinearLayout.addView(view)
+                }
             }
+        } else {
+            expensesListScrollView.visibility = View.GONE
         }
 
+
+
         overViewItem.setOnClickListener {
-            listener.onItemClick(item.categoryName!!)
+            listener.onItemClick(position, item.categoryName!!)
         }
     }
 }

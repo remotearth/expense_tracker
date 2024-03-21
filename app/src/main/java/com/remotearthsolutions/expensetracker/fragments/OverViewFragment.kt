@@ -137,10 +137,21 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
             val sortedList =
                 listOfCategoryWithExpense.sortedWith(compareByDescending { item -> item.totalExpenseOfCateogry })
             val adapter =
-                OverviewListAdapter(sortedList, viewModel.expenseListLiveData.value, sum, maxWidthOfBar!!.toInt(), currencySymbol)
+                OverviewListAdapter(
+                    sortedList,
+                    viewModel.expenseListLiveData.value,
+                    sum,
+                    maxWidthOfBar!!.toInt(),
+                    currencySymbol
+                )
             adapter.setOnItemClickListener(object : OverviewListAdapter.OnItemClickListener {
-                override fun onItemClick(categoryName: String) {
-                   adapter.setSelectedItem(categoryName)
+                override fun onItemClick(position: Int, categoryName: String) {
+                    val lastSelectedItemPosition =  adapter.getLastSelectedItemPosition()
+                    adapter.setSelectedItem(position, categoryName)
+
+                    adapter.notifyItemChanged(lastSelectedItemPosition)
+                    adapter.notifyItemChanged(position)
+
                 }
             })
             binding.recyclerView.adapter = adapter

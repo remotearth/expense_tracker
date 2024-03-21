@@ -81,12 +81,13 @@
     </RelativeLayout>
 
     <ScrollView
-        android:id="@+id/expensesList"
+        android:id="@+id/expensesListScrollView"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/scrollView"
+            android:id="@+id/expensesListLinearLayout"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
