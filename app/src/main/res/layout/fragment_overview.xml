@@ -58,7 +58,6 @@
         android:layout_height="wrap_content"
         android:padding="5dp"
         tools:itemCount="2"
-        android:clickable="true"
         tools:listitem="@layout/view_overview_expense_item" />
 
 </LinearLayout>

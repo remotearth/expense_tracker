@@ -73,11 +73,13 @@ class OverviewItemViewHolder(
                     val amountTv = view.findViewById<TextView>(R.id.amountTv)
                     val noteTv = view.findViewById<TextView>(R.id.noteTv)
                     val accountIconIv = view.findViewById<ImageView>(R.id.accountIconIv)
+                    val accountNameTv = view.findViewById<TextView>(R.id.accountNameTv)
 
                     dateTv.text = DateTimeUtils.getDate(it.datetime, dateFormat)
                     amountTv.text = "${Utils.formatDecimalValues(it.totalAmount)} $currencySymbol"
                     noteTv.text = it.note
                     accountIconIv.setImageResource(CategoryIcons.getIconId(it.accountIcon!!))
+                    accountNameTv.text = it.accountName
                     expensesListLinearLayout.addView(view)
                 }
             }

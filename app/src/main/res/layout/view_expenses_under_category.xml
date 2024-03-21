@@ -51,10 +51,20 @@
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:src="@drawable/cat_bills"
+        android:layout_marginRight="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/noteTv"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toStartOf="@+id/accountNameTv">
 
     </ImageView>
+
+    <TextView
+        android:id="@+id/accountNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bills"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/accountIconIv"></TextView>
 
     <View
         android:layout_width="0dp"
