@@ -144,7 +144,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
             }
 
             val sortedList =
-                listOfCategoryWithExpense.sortedWith(compareByDescending { item -> item.totalExpenseOfCateogry }).filter { item -> item.totalExpenseOfCateogry > 0 }
+                listOfCategoryWithExpense.sortedWith(compareByDescending { item -> item.totalExpenseOfCateogry })
             adapter =
                 OverviewListAdapter(
                     sortedList,
