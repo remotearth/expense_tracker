@@ -163,7 +163,6 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
                 )
             adapter.setOnItemClickListener(object : OverviewListAdapter.OnItemClickListener {
                 override fun onItemClick(position: Int, categoryName: String) {
-                    println(categoryName);
                     val lastSelectedItemPosition = adapter.getLastSelectedItemPosition()
                     adapter.setSelectedItem(position, categoryName)
 
