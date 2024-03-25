@@ -7,11 +7,12 @@ import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.viewholder.OverviewItemViewHolder
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryOverviewItemDto
+import java.util.HashMap
 
 
 class OverviewListAdapter(
     private val listOfItems: List<CategoryOverviewItemDto>,
-    private val allExpenses: List<CategoryExpense>?,
+    private val allExpenses: HashMap<String, List<CategoryExpense>>,
     private val totalExpense: Double,
     private val maxWidthOfBar: Int,
     private val currencySymbol: String,
@@ -40,7 +41,7 @@ class OverviewListAdapter(
             item,
             totalExpense,
             maxWidthOfBar,
-            allExpenses,
+            allExpenses[item.categoryName],
             position,
             selectedItemCategoryName
         )
@@ -51,8 +52,14 @@ class OverviewListAdapter(
     }
 
     fun setSelectedItem(position: Int, categoryName: String) {
-        selectedItemPosition = position
-        selectedItemCategoryName = categoryName
+        if(selectedItemPosition == position){
+            selectedItemPosition = -1
+            selectedItemCategoryName = ""
+        }
+        else{
+            selectedItemPosition = position
+            selectedItemCategoryName = categoryName
+        }
     }
 
     fun getLastSelectedItemPosition(): Int = selectedItemPosition

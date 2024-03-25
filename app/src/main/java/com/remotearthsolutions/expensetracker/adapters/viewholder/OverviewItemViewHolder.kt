@@ -3,11 +3,7 @@ package com.remotearthsolutions.expensetracker.adapters.viewholder
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.ScrollView
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.OverviewListAdapter
@@ -19,11 +15,11 @@ import com.remotearthsolutions.expensetracker.utils.Utils
 
 
 class OverviewItemViewHolder(
-    view: View,
+    val view: View,
     val listener: OverviewListAdapter.OnItemClickListener,
     val currencySymbol: String,
     val inflater: LayoutInflater,
-    val dateFormat: String,
+    private val dateFormat: String,
 ) : RecyclerView.ViewHolder(view) {
 
     private val overViewItem: RelativeLayout = view.findViewById(R.id.overViewItem)
@@ -67,27 +63,25 @@ class OverviewItemViewHolder(
             expensesListScrollView.visibility = View.VISIBLE
 
             allExpenses?.forEach {
-                if (it.categoryName == item.categoryName) {
-                    val view = inflater.inflate(R.layout.view_expenses_under_category, null)
-                    val dateTv = view.findViewById<TextView>(R.id.dateTv)
-                    val amountTv = view.findViewById<TextView>(R.id.amountTv)
-                    val noteTv = view.findViewById<TextView>(R.id.noteTv)
-                    val accountIconIv = view.findViewById<ImageView>(R.id.accountIconIv)
-                    val accountNameTv = view.findViewById<TextView>(R.id.accountNameTv)
+                val view = inflater.inflate(R.layout.view_expenses_under_category, null)
+                val dateTv = view.findViewById<TextView>(R.id.dateTv)
+                val amountTv = view.findViewById<TextView>(R.id.amountTv)
+                val noteTv = view.findViewById<TextView>(R.id.noteTv)
+                val accountIconIv = view.findViewById<ImageView>(R.id.accountIconIv)
+                val accountNameTv = view.findViewById<TextView>(R.id.accountNameTv)
 
-                    dateTv.text = DateTimeUtils.getDate(it.datetime, dateFormat)
-                    amountTv.text = "${Utils.formatDecimalValues(it.totalAmount)} $currencySymbol"
-                    noteTv.text = it.note
-                    accountIconIv.setImageResource(CategoryIcons.getIconId(it.accountIcon!!))
-                    accountNameTv.text = it.accountName
-                    expensesListLinearLayout.addView(view)
-                }
+                dateTv.text = DateTimeUtils.getDate(it.datetime, dateFormat)
+                amountTv.text = "${Utils.formatDecimalValues(it.totalAmount)} $currencySymbol"
+                noteTv.text = it.note
+                accountIconIv.setImageResource(CategoryIcons.getIconId(it.accountIcon!!))
+                accountNameTv.text = it.accountName
+                expensesListLinearLayout.addView(view)
             }
         } else {
+
             expensesListScrollView.visibility = View.GONE
+
         }
-
-
 
         overViewItem.setOnClickListener {
             listener.onItemClick(position, item.categoryName!!)

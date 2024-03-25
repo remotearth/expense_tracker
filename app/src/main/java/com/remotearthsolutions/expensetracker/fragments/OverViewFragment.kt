@@ -1,8 +1,6 @@
 package com.remotearthsolutions.expensetracker.fragments
 
 import android.content.Context
-import android.content.SharedPreferences
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.graphics.RectF
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,9 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
-import androidx.preference.Preference
-import androidx.preference.Preference.OnPreferenceChangeListener
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.components.YAxis.AxisDependency
@@ -27,6 +22,7 @@ import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.utils.MPPointF
 import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.adapters.OverviewListAdapter
+import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryExpense
 import com.remotearthsolutions.expensetracker.databaseutils.models.dtos.CategoryOverviewItemDto
 import com.remotearthsolutions.expensetracker.databinding.FragmentOverviewBinding
 import com.remotearthsolutions.expensetracker.utils.*
@@ -145,10 +141,21 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
 
             val sortedList =
                 listOfCategoryWithExpense.sortedWith(compareByDescending { item -> item.totalExpenseOfCateogry })
+
+            val expensesByCategory = HashMap<String, List<CategoryExpense>>()
+
+            sortedList.forEach { catModel ->
+
+                val expensesOfCategory =
+                    viewModel.expenseListLiveData.value?.filter { categoryExpense -> categoryExpense.categoryName == catModel.categoryName }
+                expensesByCategory[catModel.categoryName!!] = expensesOfCategory!!
+            }
+
+
             adapter =
                 OverviewListAdapter(
                     sortedList,
-                    viewModel.expenseListLiveData.value,
+                    expensesByCategory,
                     sum,
                     maxWidthOfBar!!.toInt(),
                     currencySymbol,
@@ -156,6 +163,7 @@ class OverViewFragment : BaseFragment(), OnChartValueSelectedListener {
                 )
             adapter.setOnItemClickListener(object : OverviewListAdapter.OnItemClickListener {
                 override fun onItemClick(position: Int, categoryName: String) {
+                    println(categoryName);
                     val lastSelectedItemPosition = adapter.getLastSelectedItemPosition()
                     adapter.setSelectedItem(position, categoryName)
 
