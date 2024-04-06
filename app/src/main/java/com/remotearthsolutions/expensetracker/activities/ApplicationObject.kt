@@ -3,11 +3,15 @@ package com.remotearthsolutions.expensetracker.activities
 import android.app.Activity
 import android.app.Application.ActivityLifecycleCallbacks
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.remotearthsolutions.expensetracker.BuildConfig
 import com.remotearthsolutions.expensetracker.di.modules.viewModels
+import com.remotearthsolutions.expensetracker.utils.AppThemeUtils
+import com.remotearthsolutions.expensetracker.utils.Constants
 import com.remotearthsolutions.expensetracker.utils.LocalNotificationManager
 import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
 import com.yariksoffice.lingver.Lingver
@@ -39,6 +43,11 @@ class ApplicationObject : MultiDexApplication(), ActivityLifecycleCallbacks {
         SharedPreferenceUtils.getInstance(this)
         registerActivityLifecycleCallbacks(this)
         LocalNotificationManager.createNotificationChannel(this)
+
+        val isDarkModeEnabled =
+            SharedPreferenceUtils.getInstance(this)?.getBoolean(Constants.PREF_DARK_MODE, true)
+        AppThemeUtils.setAppTheme(this, isDarkModeEnabled!!)
+        println(isDarkModeEnabled)
     }
 
     fun appShouldShowAds(state: Boolean) {

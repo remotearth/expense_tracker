@@ -1,5 +1,7 @@
 package com.remotearthsolutions.expensetracker.fragments.settings
 
+import android.app.UiModeManager
+import android.content.Context.UI_MODE_SERVICE
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
@@ -9,6 +11,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.core.content.ContextCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -18,10 +23,7 @@ import com.remotearthsolutions.expensetracker.R
 import com.remotearthsolutions.expensetracker.activities.main.MainActivity
 import com.remotearthsolutions.expensetracker.fragments.currenypicker.CurrencyPickerDialogFragmentCompat
 import com.remotearthsolutions.expensetracker.fragments.currenypicker.CurrencyPickerPreference
-import com.remotearthsolutions.expensetracker.utils.AnalyticsManager
-import com.remotearthsolutions.expensetracker.utils.Constants
-import com.remotearthsolutions.expensetracker.utils.SharedPreferenceUtils
-import com.remotearthsolutions.expensetracker.utils.Utils
+import com.remotearthsolutions.expensetracker.utils.*
 import com.remotearthsolutions.expensetracker.utils.Utils.getFlagDrawable
 
 
@@ -136,6 +138,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             )
                             with(AnalyticsManager) { logEvent(ADD_EXPENSE_DAILY_REMINDER_DISABLED) }
                         }
+                    }
+                    "pref_dark_mode" -> {
+                        val isDarkModeEnabled = sharedPreferences.getBoolean(key, true)
+                        AppThemeUtils.setAppTheme(requireContext(), isDarkModeEnabled)
+                        requireActivity().finish()
+                        requireActivity().startActivity(
+                            Intent(
+                                requireActivity(),
+                                MainActivity::class.java
+                            )
+                        )
+
                     }
                 }
             }

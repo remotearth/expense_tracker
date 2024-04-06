@@ -31,6 +31,7 @@ interface Constants {
         const val PREF_TIME_FORMAT = "pref_time_format_list"
         const val PREF_REMIND_TO_ADDEXPENSE = "pref_remind_add_expense"
         const val PREF_REMIND_TO_EXPORT = "pref_remind_to_export"
+        const val PREF_DARK_MODE = "pref_dark_mode"
         const val PREF_AUTO_DATABACKUP = "pref_auto_databackup"
         const val PREF_ISFIRSTTIMEVISITED = "PREF_ISFIRSTTIMEVISITED"
 

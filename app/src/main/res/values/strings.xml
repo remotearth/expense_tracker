@@ -251,6 +251,8 @@
     <string name="time_to_export_data">It is time to export your expense data</string>
     <string name="remind_to_export">Remind To Export Data</string>
     <string name="first_day_of_month">On 1st day of every month</string>
+    <string name="dark_mode">Dark Mode</string>
+
     <string name="schedule_expense">Schedule Expense</string>
     <string name="expense_scheduled">Expense is scheduled</string>
     <string name="occurrence_left">Occurrence left</string>

@@ -40,4 +40,10 @@
         android:summary="@string/first_day_of_month"
         android:title="@string/remind_to_export" />
 
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:icon="@drawable/ic_reminder"
+        android:key="pref_dark_mode"
+        android:title="@string/dark_mode" />
+
 </PreferenceScreen>
